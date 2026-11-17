@@ -493,6 +493,11 @@ async function main() {
     .join('\n')}\n</urlset>\n`;
   writeFile('sitemap.xml', sitemap);
 
+  // File xác minh Google Search Console (thêm 18/11/2026, tài sản URL prefix
+  // https://tienichhub.io.vn/ — tài khoản ngotuanqb1997). Nội dung phải đúng
+  // 53 byte, KHÔNG có ký tự xuống dòng ở cuối.
+  writeFile('google81d07667a4750c6c.html', 'google-site-verification: google81d07667a4750c6c.html');
+
   console.log(`✅ Build xong trong ${Date.now() - started}ms:`);
   console.log(`   - ${tools.length} công cụ, ${urls.length} trang, sitemap ${urls.length} URL`);
   console.log(`   - dist/: index, cong-cu/, ung-ho/, dieu-khoan/, chinh-sach-bao-mat/, lien-he/, assets/, data/`);
