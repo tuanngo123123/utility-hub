@@ -124,12 +124,10 @@ ${body}
     <a href="/#diem-bao">Điểm báo</a>
     <a href="/ung-ho/" class="${navActive === 'ung-ho' ? 'bottom-nav-active' : ''}">Ủng hộ</a>
   </nav>
-  <!-- Cloudflare Web Analytics: CHƯA BẬT. Khi triển khai, vào Cloudflare Dashboard
-       → Web Analytics → thêm site tienichhub.io.vn → lấy mã token, rồi bỏ ghi chú
-       thẻ script dưới, thay YOUR_TOKEN bằng token thật và build lại.
+  <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).
        (Chính sách bảo mật mục 11 đã mô tả dịch vụ này: không cookie, không thu thập
        thông tin nhận dạng cá nhân.) -->
-  <!-- <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "YOUR_TOKEN"}'></script> -->
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd0aac1b776f42ec95763e59e4913fc9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 `;
