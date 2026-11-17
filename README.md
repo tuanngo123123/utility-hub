@@ -9,6 +9,23 @@ không CDN/font/thư viện ngoài — mọi thứ gói sẵn trong repo.
 > Không có bảng tin cộng đồng, không có khung “Pháp lý ở Việt Nam”,
 > không có mục “Trước khi gắn tên miền” (các tài liệu đó chỉ để chủ trang coi).
 
+## Bố cục trang chủ + giao diện (đổi 18/11/2026)
+
+Bố cục khôi phục bản trước đợt 1 (Tuấn thấy đẹp hơn bản wave 1):
+hero (tìm kiếm) + **bảng xếp hạng nằm trong vùng hero ở đầu trang** →
+dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) →
+**Điểm báo** (mục chính) → lưới đủ 91 công cụ → banner Ủng hộ.
+Không còn khối “Hôm nay” riêng, hàng “công cụ hay dùng”, thẻ hạng mục
+riêng trên trang chủ (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
+
+Phong cách tổng hợp từ web công cụ nước ngoài: sạch tối giản kiểu
+iLovePDF (nền trắng, thẻ trắng viền nhạt, bóng đổ rất nhẹ) + thẻ hạng
+mục đặc màu kiểu TinyWow (mỗi hạng mục 1 màu, icon trắng, pill số
+công cụ) + hàng xếp hạng kiểu Product Hunt (số thứ hạng lớn + tên +
+mô tả + meta, pill ★ số sao bên phải). Nhấn xanh dương #1e8fe0,
+CTA Ủng hộ cam #f59e0b. Không còn số thứ tự /01, /02… trên thẻ
+công cụ và trang công cụ.
+
 ## Cấu trúc
 
 ```
@@ -20,7 +37,7 @@ không CDN/font/thư viện ngoài — mọi thứ gói sẵn trong repo.
 │   ├── template.js         # shell() — khung HTML chung mọi trang
 │   ├── categories.js       # 11 hạng mục công cụ
 │   ├── tool-card.js        # helper build: escape HTML + thẻ công cụ
-│   ├── style.css           # design system (catalog: viền đậm, bóng cứng)
+│   ├── style.css           # design system (sạch kiểu iLovePDF + thẻ hạng mục đặc màu kiểu TinyWow + hàng xếp hạng kiểu Product Hunt)
 │   ├── app.js              # JS chạy mọi trang + window.UH (đã gộp mascot.js)
 │   ├── tool-state.js       # trạng thái công cụ qua URL + nút Đặt lại (chỉ trang công cụ)
 │   ├── search-synonyms.js  # bảng đồng nghĩa cho tìm kiếm (build sinh search-index.json)
@@ -157,7 +174,7 @@ Trang chủ hiện top 6 (theo thứ tự trong file); hạng 1–2–3 nổi b�
               "priceVnd": 1654000000, "change24h": -1.2 }] }
 ```
 
-5 coin: BTC, ETH, SOL, BNB, XRP. Thẻ Crypto ở khối "Hôm nay" hiện BTC
+5 coin: BTC, ETH, SOL, BNB, XRP. Dải Crypto hiện BTC
 (gần nhất); dữ liệu làm mới mỗi 30 phút.
 
 ### `fng.json` — Chỉ số Sợ hãi & Tham lam (alternative.me)
@@ -167,7 +184,7 @@ Trang chủ hiện top 6 (theo thứ tự trong file); hạng 1–2–3 nổi b�
 ```
 
 Giá trị 0–100; trang dịch nhãn sang tiếng Việt khi hiển thị
-(dòng nhỏ trong thẻ Crypto). Làm mới mỗi 30 phút.
+(dòng nhỏ trong dải Crypto). Làm mới mỗi 30 phút.
 
 ### Khi chưa có dữ liệu thật
 

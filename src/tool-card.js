@@ -19,11 +19,11 @@ export function keywordsText(meta) {
 
 // Thẻ công cụ trong catalog. Các thuộc tính data-* để app.js lọc/tìm kiếm lúc chạy
 // (app.js tự chuẩn hóa không dấu lúc chạy, nên ở đây giữ nguyên văn bản gốc).
+// (Đổi giao diện 18/11: bỏ số thứ tự /01, /02… kiểu catalog cũ; thẻ mới
+// kiểu iLovePDF: icon ô vuông bo góc + tên + mô tả + nhãn hạng mục.)
 export function toolCard(tool, index) {
-  const num = String(index + 1).padStart(2, '0');
   const icon = tool.icon ? `<span class="card-icon" aria-hidden="true">${esc(tool.icon)}</span>` : '';
   return `<a class="catalog-card" href="/cong-cu/${esc(tool.slug)}/" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc)}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
-  <span class="card-num">/${num}</span>
   ${icon}
   <h3 class="card-title">${esc(tool.name)}</h3>
   <p class="card-desc">${esc(tool.desc)}</p>

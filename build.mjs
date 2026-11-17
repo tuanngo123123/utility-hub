@@ -229,7 +229,6 @@ async function loadTools() {
 // Trang công cụ
 // ---------------------------------------------------------------------------
 function toolPageHtml(tool, index, noscriptLinks) {
-  const num = String(index + 1).padStart(2, '0');
   // init() tự chứa hoàn toàn (không import) nên nhúng được bằng toString().
   // Escape </script> để mã nguồn init không phá vỡ thẻ script.
   const initSrc = tool.initSource.replace(/<\/script/gi, '<\\/script');
@@ -248,7 +247,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const body = `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/cong-cu/">← Tất cả công cụ</a></nav>
   <header class="tool-page-head">
-    <h1><span class="tool-num">/${num}</span> ${esc(tool.name)}</h1>
+    <h1>${esc(tool.name)}</h1>
     <p class="muted">${esc(tool.desc)}</p>
     <span class="chip">${esc(tool.categoryLabel)}</span>
   </header>

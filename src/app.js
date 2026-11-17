@@ -9,7 +9,7 @@
    - Tìm kiếm hero + lọc lưới trang chủ (trang chủ)
    - Tabs chung (chỉ các .tab có data-tab-target — không can thiệp tab riêng
      bên trong công cụ)
-   - Trang chủ: khối "Hôm nay" (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi),
+   - Trang chủ: dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi),
      Điểm báo (tin nổi bật + tab chủ đề) + xếp hạng — SSR lúc build, JS chỉ
      render lại khi JSON mới hơn SSR, lỗi thì giữ SSR + nút thử lại
    - Trang Ủng hộ: mã VietQR + tải PNG + chép số tài khoản
@@ -688,7 +688,7 @@
     });
   }
 
-  /* ---------------- Khối "Hôm nay" (trang chủ) ---------------- */
+  /* ---------------- Dải dữ liệu hôm nay (trang chủ) ---------------- */
 
   // "17/11/2026 09:46" — định dạng giờ cập nhật tiếng Việt dùng chung.
   function fmtDateTime(d) {
@@ -707,7 +707,7 @@
       '" aria-label="Thử tải lại ' + escHtml(label) + '">Thử lại</button></p>';
   }
 
-  // Tiêu đề khối "Hôm nay": "Hôm nay, thứ ba 17/11/2026" (tính lúc tải trang).
+  // Dòng ngày trên khối dải dữ liệu: "Hôm nay, thứ ba 17/11/2026" (tính lúc tải trang).
   function initHomNayTitle() {
     var el = $('#hom-nay-title');
     if (!el) return;
@@ -1027,8 +1027,8 @@
   }
 
   /* ---------------- Trang chủ: chỉ số Fear & Greed ---------------- */
-  // Hiển thị trong thẻ Crypto của khối "Hôm nay" (dòng #fng-line, nằm
-  // NGOÀI #crypto-strip nên initCrypto thay innerHTML không xóa được).
+  // Hiển thị trong dải Crypto (dòng #fng-line, nằm NGOÀI #crypto-strip
+  // nên initCrypto thay innerHTML không xóa được).
   // Đọc /data/fng.json (snapshot cùng tên miền): giá trị + nhãn tiếng Việt
   // (FNG_LABELS) + giờ cập nhật. Lỗi/thiếu dữ liệu thì giữ dòng ẩn —
   // không làm hỏng thẻ Crypto.
@@ -1285,10 +1285,13 @@
         var rank = i + 1;
         var name = item.fullName || item.name || '';
         var desc = item.desc || item.description || '';
+        // Số sao CHỈ hiện trong pill ★ bên phải (kiểu Product Hunt),
+        // không lặp lại trong meta — đồng bộ với home.js trendingRowHtml.
         var meta = [];
         if (item.language) meta.push(item.language);
-        if (item.stars != null) meta.push('★ ' + Number(item.stars).toLocaleString('en-US'));
         if (item.forks != null) meta.push('Fork ' + Number(item.forks).toLocaleString('en-US'));
+        var starsPill = item.stars != null
+          ? '<span class="rank-pill">★ ' + Number(item.stars).toLocaleString('en-US') + '</span>' : '';
         return '<div class="rank-row rank-' + rank + '">' +
           '<div class="rank-num">' + rank + '</div>' +
           '<div class="rank-body"><h4><a href="' + escHtml(item.url || '#') +
@@ -1296,7 +1299,7 @@
           (rank === 1 ? '<span class="hot-chip">Hot</span>' : '') + '</h4>' +
           (desc ? '<p class="rank-desc">' + escHtml(desc) + '</p>' : '') +
           (meta.length ? '<p class="rank-meta">' + escHtml(meta.join(' · ')) + '</p>' : '') +
-          '</div></div>';
+          '</div>' + starsPill + '</div>';
       }).join('');
       // Ghi dấu nội dung mới để lần thử lại sau không render thừa.
       if (data.updatedAt) {
