@@ -15,6 +15,10 @@
    - Trang Ủng hộ: mã VietQR + tải PNG + chép số tài khoản
    - Linh vật (gộp từ mascot.js vào cuối file): window.UHMascot
    - window.UH: tiện ích dùng chung cho mọi công cụ (xem CONTRACT.md)
+     + trợ giúp trải nghiệm (worker C, 18/11): markFieldError /
+     clearFieldErrors / focusField (lỗi theo từng ô), copyResult /
+     bindCopyButtons (chép kết quả render động), setBusy / withBusy
+     (trạng thái bận), fillExample (nút "Điền ví dụ")
    File này cũng chạy được dưới Node (để kiểm tra UH): khi đó phần DOM
    được bỏ qua, UH được export qua module.exports.
    ========================================================================== */
@@ -256,6 +260,159 @@
     return Promise.resolve(fallbackCopy(str));
   }
 
+  /* ---------------- Trợ giúp trải nghiệm công cụ (worker C, 18/11) ---------------- */
+  // Chuẩn dùng chung cho mọi công cụ: lỗi nêu rõ từng ô, nút chép trong
+  // kết quả render động, trạng thái bận, nút "Điền ví dụ". Các hàm này
+  // chỉ chạy trong trình duyệt; dưới Node thì no-op an toàn.
+
+  // Đánh dấu một ô nhập sai: viền đỏ (.field-error) + dòng chữ đỏ
+  // (.field-msg, role=alert) ngay dưới ô. msg phải nêu rõ ô nào sai +
+  // cần nhập thế nào, VD: "Ô Số kWh chưa đúng — nhập số từ 0 trở lên,
+  // ví dụ 250." Trả về el (hoặc null nếu không có el).
+  function markFieldError(el, msg) {
+    if (!el || typeof document === 'undefined') return null;
+    el.classList.add('field-error');
+    el.setAttribute('aria-invalid', 'true');
+    var field = el.closest ? el.closest('.field') : null;
+    var scope = field || el.parentNode;
+    if (!scope) return el;
+    var existing = scope.querySelector('.field-msg');
+    if (existing) { existing.textContent = msg || ''; return el; }
+    var p = document.createElement('p');
+    p.className = 'field-msg';
+    p.setAttribute('role', 'alert');
+    p.textContent = msg || '';
+    // Ô nhập có đơn vị (.input-unit) thì đặt dòng lỗi sau cả cụm.
+    var anchor = (el.parentNode && el.parentNode.classList && el.parentNode.classList.contains('input-unit'))
+      ? el.parentNode : el;
+    if (anchor.nextSibling) scope.insertBefore(p, anchor.nextSibling);
+    else scope.appendChild(p);
+    return el;
+  }
+
+  // Xóa mọi đánh dấu lỗi trong root — gọi đầu mỗi lần tính.
+  function clearFieldErrors(root) {
+    if (!root || !root.querySelectorAll) return;
+    var els = root.querySelectorAll('.field-error');
+    for (var i = 0; i < els.length; i++) {
+      els[i].classList.remove('field-error');
+      els[i].removeAttribute('aria-invalid');
+    }
+    var msgs = root.querySelectorAll('.field-msg');
+    for (var j = 0; j < msgs.length; j++) {
+      if (msgs[j].parentNode) msgs[j].parentNode.removeChild(msgs[j]);
+    }
+  }
+
+  // Đưa con trỏ về ô đầu tiên sai (cuộn tới + focus).
+  function focusField(el) {
+    if (!el) return;
+    try {
+      if (el.scrollIntoView) el.scrollIntoView({ block: 'center' });
+      el.focus({ preventScroll: true });
+    } catch (e) {
+      try { el.focus(); } catch (e2) { /* bỏ qua */ }
+    }
+  }
+
+  // Chép văn bản rồi báo bằng toast. Trả về Promise<boolean>.
+  function copyResult(text, doneMsg) {
+    return copyText(text || '').then(function (ok) {
+      toast(ok ? (doneMsg || 'Đã chép kết quả') : 'Không chép được — hãy chép tay');
+      return ok;
+    });
+  }
+
+  // Gắn nút chép [data-copy] trong root — dùng cho nút chép nằm trong
+  // kết quả render ĐỘNG (setupCopyButtons chỉ gắn nút có sẵn lúc tải
+  // trang). Nút đã gắn rồi thì bỏ qua (data-uh-copy-bound).
+  function bindCopyButtons(root) {
+    if (!root || !root.querySelectorAll) return;
+    var btns = root.querySelectorAll('[data-copy]');
+    for (var i = 0; i < btns.length; i++) {
+      (function (btn) {
+        if (btn.getAttribute('data-uh-copy-bound') === '1') return;
+        btn.setAttribute('data-uh-copy-bound', '1');
+        btn.addEventListener('click', function () {
+          var value = btn.getAttribute('data-copy') || '';
+          var msg = btn.getAttribute('data-copy-msg') || 'Đã chép kết quả';
+          copyResult(value, msg);
+        });
+      })(btns[i]);
+    }
+  }
+
+  // Trạng thái bận cho nút tính: spinner (.is-busy) + chống bấm đúp.
+  // busyLabel (tùy chọn) thay tạm chữ trên nút lúc bận.
+  function setBusy(btn, busy, busyLabel) {
+    if (!btn) return;
+    if (busy) {
+      if (btn.getAttribute('data-uh-busy') === '1') return;
+      btn.setAttribute('data-uh-busy', '1');
+      btn.setAttribute('data-uh-label', btn.textContent);
+      btn.classList.add('is-busy');
+      btn.disabled = true;
+      if (busyLabel) btn.textContent = busyLabel;
+    } else {
+      if (btn.getAttribute('data-uh-busy') !== '1') return;
+      btn.removeAttribute('data-uh-busy');
+      btn.classList.remove('is-busy');
+      btn.disabled = false;
+      var label = btn.getAttribute('data-uh-label');
+      if (label != null) btn.textContent = label;
+      btn.removeAttribute('data-uh-label');
+    }
+  }
+
+  // Chạy fn sau một nhịp vẽ, giữ trạng thái bận ít nhất minMs (mặc định
+  // 150ms) để người dùng thấy nút đang xử lý — tính toán vốn tức thì,
+  // không spinner thì bấm nút không có phản hồi gì. fn chạy đồng bộ.
+  function withBusy(btn, fn, minMs) {
+    if (typeof fn !== 'function') return;
+    var min = minMs == null ? 150 : minMs;
+    setBusy(btn, true);
+    var start = Date.now();
+    function done() {
+      var wait = Math.max(0, min - (Date.now() - start));
+      setTimeout(function () { setBusy(btn, false); }, wait);
+    }
+    function run() {
+      try { fn(); } finally { done(); }
+    }
+    if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+      window.requestAnimationFrame(function () { setTimeout(run, 0); });
+    } else {
+      setTimeout(run, 0);
+    }
+  }
+
+  // Điền ví dụ: values = {id: giá trị} (checkbox: true/false), rồi bấm
+  // nút tính (nếu truyền calcBtn). Gửi sự kiện input/change để
+  // tool-state.js đồng bộ URL. Xóa đánh dấu lỗi cũ trước khi điền.
+  function fillExample(root, values, calcBtn) {
+    if (!root || !values) return;
+    clearFieldErrors(root);
+    Object.keys(values).forEach(function (id) {
+      var el = root.querySelector('#' + id);
+      if (!el) return;
+      var v = values[id];
+      if (el.type === 'checkbox') {
+        el.checked = !!v;
+      } else {
+        el.value = v == null ? '' : String(v);
+      }
+      try {
+        if (typeof Event === 'function') {
+          el.dispatchEvent(new Event('input', { bubbles: true }));
+          el.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } catch (e) { /* bỏ qua */ }
+    });
+    if (calcBtn) {
+      setTimeout(function () { try { calcBtn.click(); } catch (e) { /* bỏ qua */ } }, 30);
+    }
+  }
+
   /* ---------------- Đối tượng toàn cục window.UH ---------------- */
 
   var UH = {
@@ -267,6 +424,14 @@
     todayISO: todayISO,
     vietqrPayload: vietqrPayload,
     renderQR: renderQR,
+    markFieldError: markFieldError,
+    clearFieldErrors: clearFieldErrors,
+    focusField: focusField,
+    copyResult: copyResult,
+    bindCopyButtons: bindCopyButtons,
+    setBusy: setBusy,
+    withBusy: withBusy,
+    fillExample: fillExample,
     // Hàm nội bộ, chỉ để kiểm tra (không dùng trong công cụ):
     _crc16ccitt: crc16ccitt,
     _norm: norm
@@ -352,7 +517,7 @@
   }
 
   /* ---------------- Tìm kiếm thật: chỉ mục /data/search-index.json ---------------- */
-  // Chỉ mục do build.mjs sinh (meta 91 công cụ + bảng đồng nghĩa, đã chuẩn
+  // Chỉ mục do build.mjs sinh (meta các công cụ + bảng đồng nghĩa, đã chuẩn
   // hóa bỏ dấu). Nạp lười (lazy) ở lần gõ đầu tiên, cache trong 1 promise.
   // Nếu tải lỗi (mạng, file thiếu) thì trả null và các ô tìm kiếm dùng
   // dự phòng: lọc từ thẻ công cụ đã render sẵn trên trang (như trước).

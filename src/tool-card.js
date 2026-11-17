@@ -23,7 +23,7 @@ export function keywordsText(meta) {
 // kiểu iLovePDF: icon ô vuông bo góc + tên + mô tả + nhãn hạng mục.)
 export function toolCard(tool, index) {
   const icon = tool.icon ? `<span class="card-icon" aria-hidden="true">${esc(tool.icon)}</span>` : '';
-  return `<a class="catalog-card" href="/cong-cu/${esc(tool.slug)}/" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc)}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
+  return `<a class="catalog-card" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc)}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
   ${icon}
   <h3 class="card-title">${esc(tool.name)}</h3>
   <p class="card-desc">${esc(tool.desc)}</p>

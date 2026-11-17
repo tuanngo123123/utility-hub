@@ -73,6 +73,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   ${extraHead}
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Bỏ qua tới nội dung chính</a>
   <header class="site-header" id="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="/">Tiện Ích <span>Hub</span></a>
@@ -90,7 +91,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   </header>
 ${noscriptBlock}
 
-  <main class="wrap main">
+  <main class="wrap main" id="main-content">
 ${body}
   </main>
 

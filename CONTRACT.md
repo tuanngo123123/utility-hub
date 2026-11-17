@@ -66,6 +66,22 @@ Các class cho công cụ (không dùng class ngoài danh sách này):
 `.result-row` `.tbl` `.note` `.chip` (nút lọc: thêm `chip-active` khi bật)
 `.grid-2` `.grid-3` `.error` `.muted` `.small` `.copy-btn` `.tabs` `.tab`
 `.tab-active` `.stat` `.stat-num` `.stat-label`
+`.btn-row` (hàng nút Tính + Điền ví dụ + Đặt lại)
+`.result-hero` `.result-hero-label` `.result-hero-value`
+`.result-hero-sub` (kết quả chính nổi bật, đặt đầu khối `.result`)
+`.result-actions` (hàng nút dưới kết quả: Chép kết quả, Tải ảnh…)
+`.field-error` `.field-msg` (lỗi theo từng ô — do `UH.markFieldError`
+thêm, không tự viết tay trong `body()`)
+`.input-unit` (kèm `.unit`: đơn vị trong ô nhập, VD: `₫`, `kWh`, `%/năm`)
+`.is-busy` (trạng thái bận của nút — do `UH.setBusy`/`UH.withBusy` thêm)
+`.qr-wrap` (căn giữa canvas mã QR)
+
+- Chuẩn trải nghiệm dùng chung (worker C, 18/11): công cụ tính toán nên
+  có nút "Điền ví dụ" (dùng `UH.fillExample` điền số mẫu rồi tính luôn),
+  kết quả chính hiển thị bằng `.result-hero` + nút "Chép kết quả"
+  (`data-copy` + `UH.bindCopyButtons`), lỗi nhập liệu báo theo từng ô
+  bằng `UH.markFieldError` (nêu rõ ô nào sai + cần nhập thế nào) thay vì
+  chỉ hiện một dòng lỗi chung.
 
 - Tabs riêng trong công cụ: tự quản lý click + ẩn/hiện panel (xem
   `src/tools/tai-chinh/phan-tram.js`). **Đừng** đặt `data-tab-target` lên
@@ -84,6 +100,14 @@ Các class cho công cụ (không dùng class ngoài danh sách này):
 | `UH.todayISO()` | Ngày hôm nay dạng `"2026-11-17"` (giờ địa phương) |
 | `UH.vietqrPayload(opts)` | Chuỗi EMV VietQR chuẩn (xem dưới) |
 | `UH.renderQR(canvasEl, text)` | Vẽ mã QR lên `<canvas>` (thư viện qrcode-generator đã vendored). Cũng chấp nhận `renderQR(text, canvasEl)` |
+| `UH.markFieldError(el, msg)` | Đánh dấu ô nhập lỗi: viền đỏ + dòng lỗi `role="alert"` dưới ô |
+| `UH.clearFieldErrors(root)` | Xóa mọi lỗi theo ô trong khối `root` |
+| `UH.focusField(el)` | Focus + cuộn tới ô nhập (dùng khi báo lỗi) |
+| `UH.copyResult(text, doneMsg)` | Chép kết quả vào clipboard + toast xác nhận |
+| `UH.bindCopyButtons(root)` | Gắn nút `[data-copy]` trong kết quả render động |
+| `UH.setBusy(btn, busy, busyLabel)` | Bật/tắt trạng thái bận cho nút (spinner + chống bấm đúp) |
+| `UH.withBusy(btn, fn, minMs)` | Chạy `fn` trong trạng thái bận, giữ bận tối thiểu `minMs` (mặc định 150ms) |
+| `UH.fillExample(root, values, calcBtn)` | Điền giá trị ví dụ vào form + bấm nút tính + đồng bộ URL |
 
 ### `vietqrPayload`
 

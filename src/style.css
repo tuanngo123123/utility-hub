@@ -474,7 +474,14 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-dark); border-
   overflow-wrap: break-word;
 }
 .result-row + .result-row { border-top: 1px dashed var(--line-soft); }
-.result-row strong { text-align: right; }
+.result-row span { min-width: 0; }
+.result-row strong { text-align: right; min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 480px) {
+  /* Điện thoại: hàng kết quả xếp dọc (nhãn trên, giá trị dưới) để
+     con số không bị ép hẹp tới mức gãy dòng giữa chừng. */
+  .result-row { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .result-row strong { text-align: left; }
+}
 
 .tbl { width: 100%; border-collapse: collapse; margin: 12px 0; }
 .tbl th, .tbl td { border: 1px solid var(--line-soft); padding: 8px 10px; text-align: left; overflow-wrap: break-word; }
@@ -521,6 +528,98 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-dark); border-
 }
 .stat-num { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
 .stat-label { color: var(--muted); font-size: 0.875rem; }
+
+/* ---------- Khối công cụ — mở rộng (worker C, 18/11) ----------
+   Chuẩn trải nghiệm dùng chung, học theo web công cụ nước ngoài
+   (iLovePDF/TinyWow): kết quả chính nổi bật + nút chép, hàng nút gọn,
+   lỗi nêu rõ từng ô, đơn vị trong ô nhập, trạng thái bận rõ ràng. */
+
+/* Hàng nút của công cụ (Tính + Điền ví dụ + Đặt lại): xếp ngang, tự
+   xuống dòng; trên điện thoại mỗi nút chiếm trọn một hàng cho dễ bấm. */
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+@media (max-width: 480px) {
+  .btn-row .btn { flex: 1 1 100%; }
+}
+
+/* Kết quả nổi bật: con số chính to, rõ — đặt đầu khối .result. */
+.result-hero { text-align: center; padding: 16px 12px 8px; }
+.result-hero-label { font-weight: 700; color: var(--muted); margin: 0 0 4px; }
+.result-hero-value {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--accent-dark);
+  overflow-wrap: break-word;
+}
+.result-hero-sub { color: var(--muted); font-size: 0.9rem; margin: 4px 0 0; }
+@media (max-width: 480px) {
+  .result-hero-value { font-size: 1.6rem; }
+}
+
+/* Hàng nút dưới kết quả (Chép kết quả, Tải ảnh…): căn giữa, gọn. */
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+/* Lỗi theo từng ô nhập: viền đỏ + dòng chữ đỏ ngay dưới ô
+   (UH.markFieldError thêm, UH.clearFieldErrors gỡ). */
+.field input.field-error,
+.field select.field-error,
+.field textarea.field-error {
+  border-color: var(--bad);
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.12);
+}
+.field-msg { color: var(--bad); font-size: 0.875rem; font-weight: 600; margin: 4px 0 0; }
+
+/* Đơn vị trong ô nhập: "₫", "kWh", "%/năm" nằm gọn bên phải ô. */
+.input-unit { position: relative; display: block; }
+.input-unit input { padding-right: 56px; }
+.input-unit .unit {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-weight: 700;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Trạng thái bận của nút (UH.setBusy/UH.withBusy thêm): spinner xoay +
+   mờ nhẹ, chống bấm đúp. Tắt nhấp nháy khi prefers-reduced-motion
+   (luật chung cuối file đã tắt mọi animation). */
+.btn.is-busy { opacity: 0.75; pointer-events: none; }
+.btn.is-busy::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: uh-spin 0.7s linear infinite;
+}
+@keyframes uh-spin { to { transform: rotate(360deg); } }
+
+/* Link "bỏ qua tới nội dung" (template.js): ẩn cho tới khi focus. */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 300;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 16px;
+  border-radius: 0 0 12px 12px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus { top: 0; color: #fff; }
 
 /* ---------- Giá trị dữ liệu (app.js render vào dải hôm nay) ---------- */
 

@@ -3,7 +3,7 @@
 // (iLovePDF + TinyWow + Product Hunt).
 // Thứ tự: hero (tìm kiếm) + BẢNG XẾP HẠNG nằm trong vùng hero ở đầu trang
 // → dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) →
-// Điểm báo (mục chính) → lưới đủ 91 công cụ → banner Ủng hộ.
+// Điểm báo (mục chính) → lưới đủ 101 công cụ → banner Ủng hộ.
 // KHÔNG còn khối "Hôm nay" riêng, hàng "công cụ hay dùng" riêng, thẻ hạng
 // mục riêng như wave 1 (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
 // SSR (worker W11): Điểm báo (tin nổi bật + cụm tin theo chủ đề) và bảng
@@ -145,7 +145,7 @@ function trendingRowHtml(item, i) {
 export function body({ tools = [], categories = [], news = null, trending = null } = {}) {
   const cats = categories.length ? categories : CATEGORIES;
 
-  // Lưới đầy đủ 91 công cụ + chip lọc riêng cho trang chủ.
+  // Lưới đầy đủ 101 công cụ + chip lọc riêng cho trang chủ.
   const homeChips = [`<button type="button" class="chip chip-active" data-home-filter="all" aria-pressed="true">Tất cả</button>`]
     .concat(cats.map((c) => `<button type="button" class="chip" data-home-filter="${c.slug}" aria-pressed="false">${esc(c.label)}</button>`))
     .join('\n      ');
@@ -201,7 +201,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
   return `
   <section class="hero">
     <h1>Tiện Ích Hub</h1>
-    <p class="hero-sub">91 công cụ miễn phí, dùng ngay không cần đăng ký.</p>
+    <p class="hero-sub">${tools.length} công cụ miễn phí, dùng ngay không cần đăng ký.</p>
     <div class="hero-search-wrap">
       <label class="small muted" for="hero-search">Tìm công cụ</label>
       <input type="search" id="hero-search" class="hero-search" placeholder="Tìm công cụ… ví dụ: tính lương net" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="hero-search-results">

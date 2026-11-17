@@ -18,7 +18,7 @@ export function body() {
   return `
   <div class="tool-panel">
     <div class="tool-head"><h2>🌙 Lịch âm hôm nay &amp; lịch tháng</h2><p class="muted">Tính ngay trên máy của bạn theo quy ước lịch Việt Nam (múi giờ +7). Không cần mạng.</p></div>
-    <div id="la-today" class="result"></div>
+    <div id="la-today" class="result" data-uh-keep="1"></div>
     <h3>Chuyển đổi ngày bất kỳ</h3>
     <div class="tabs">
       <button id="la-tab-s2l" class="tab tab-active" type="button">Dương → Âm</button>
@@ -30,7 +30,11 @@ export function body() {
         <div class="field"><label for="la-sm">Tháng dương</label><input id="la-sm" type="number" min="1" max="12" value="11"></div>
         <div class="field"><label for="la-sy">Năm dương</label><input id="la-sy" type="number" min="1900" max="2100" value="2026"></div>
       </div>
-      <button id="la-go-s2l" class="btn btn-primary" type="button">Đổi sang âm lịch</button>
+      <p class="hint">Ví dụ: 17/02/2026 là mùng 1 Tết Bính Ngọ.</p>
+      <div class="btn-row">
+        <button id="la-go-s2l" class="btn btn-primary" type="button">Đổi sang âm lịch</button>
+        <button id="la-ex-s2l" class="btn btn-ghost" type="button">Điền ví dụ</button>
+      </div>
     </div>
     <div id="la-pane-l2s">
       <div class="grid-3">
@@ -39,14 +43,21 @@ export function body() {
         <div class="field"><label for="la-ly">Năm âm</label><input id="la-ly" type="number" min="1900" max="2100" value="2026"></div>
       </div>
       <div class="field"><label><input id="la-leap" type="checkbox"> Tháng nhuận</label></div>
-      <button id="la-go-l2s" class="btn btn-primary" type="button">Đổi sang dương lịch</button>
+      <div class="btn-row">
+        <button id="la-go-l2s" class="btn btn-primary" type="button">Đổi sang dương lịch</button>
+        <button id="la-ex-l2s" class="btn btn-ghost" type="button">Điền ví dụ</button>
+      </div>
     </div>
-    <div id="la-convert-out" class="result"></div>
+    <div id="la-convert-out" class="result" style="display:none"></div>
     <h3>Lịch tháng</h3>
     <div class="grid-3">
       <div class="field"><label for="la-cm">Tháng</label><input id="la-cm" type="number" min="1" max="12" value="11"></div>
       <div class="field"><label for="la-cy">Năm</label><input id="la-cy" type="number" min="1900" max="2100" value="2026"></div>
       <div class="field"><label>&nbsp;</label><button id="la-go-cal" class="btn btn-primary" type="button">Xem lịch tháng</button></div>
+    </div>
+    <div class="btn-row">
+      <button id="la-cal-prev" class="btn btn-ghost" type="button">◀ Tháng trước</button>
+      <button id="la-cal-next" class="btn btn-ghost" type="button">Tháng sau ▶</button>
     </div>
     <div id="la-cal"></div>
     <p class="note">Âm lịch tính theo giờ Việt Nam. Ngày âm bắt đầu từ 0h (quy ước phổ biến trên lịch vạn niên). Can chi tháng/năm tính theo lịch âm.</p>
@@ -55,6 +66,23 @@ export function body() {
 
 export function init(root) {
   const $ = (id) => root.querySelector('#' + id);
+  const U = (typeof window !== 'undefined' && window.UH) || {};
+  const toast = U.toast || function () {};
+  // Trợ giúp trải nghiệm (window.UH) + dự phòng khi UH thiếu.
+  const markErr = U.markFieldError || function (el, msg) {
+    if (!el || typeof document === 'undefined') return;
+    const p = document.createElement('p');
+    p.className = 'error';
+    p.textContent = msg;
+    const field = el.closest ? el.closest('.field') : null;
+    (field || el.parentNode).appendChild(p);
+  };
+  const clearErrs = U.clearFieldErrors || function () {};
+  const focusEl = U.focusField || function (el) { if (el) el.focus(); };
+  const withBusy = U.withBusy || function (btn, fn) { fn(); };
+  const fillEx = U.fillExample || function (rootEl, values, btn) { Object.keys(values).forEach(function (id) { const el = rootEl.querySelector('#' + id); if (el) { if (el.type === 'checkbox') el.checked = !!values[id]; else el.value = values[id]; } }); if (btn) btn.click(); };
+  const bindCopy = U.bindCopyButtons || function () {};
+  const escAttr = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
   const PI = Math.PI;
   const TZ = 7; // múi giờ Việt Nam
   const STEMS = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
@@ -173,14 +201,26 @@ export function init(root) {
     const dt = new Date(y, m - 1, d);
     return dt.getFullYear() === y && dt.getMonth() === m - 1 && dt.getDate() === d;
   }
-  function showSolar(dd, mm, yy, el) {
+  function showSolar(dd, mm, yy, el, copyLabel) {
     const l = solar2lunar(dd, mm, yy);
     const wd = WEEKDAYS[new Date(yy, mm - 1, dd).getDay()];
-    el.innerHTML = '<div class="result-row"><span>Dương lịch</span><strong>' + wd + ', ' + dd + '/' + mm + '/' + yy + '</strong></div>'
+    const lunarDay = 'Ngày ' + l.day + ' tháng ' + MONTH_NAMES[l.month] + (l.leap ? ' nhuận' : '');
+    const copyText = 'Dương lịch: ' + wd + ', ' + dd + '/' + mm + '/' + yy
+      + ' · Âm lịch: ' + lunarText(l) + ' (' + l.day + '/' + l.month + '/' + l.year + (l.leap ? ' nhuận' : '') + ')'
+      + ' · Can chi ngày: ' + canChiDay(dd, mm, yy)
+      + ' · Can chi tháng: ' + canChiMonth(l.month, l.year)
+      + ' · Can chi năm: ' + canChiYear(l.year);
+    el.style.display = '';
+    el.innerHTML = '<div class="result-hero"><p class="result-hero-label">Âm lịch</p>'
+      + '<div class="result-hero-value">' + lunarDay + '</div>'
+      + '<p class="result-hero-sub">Năm ' + canChiYear(l.year) + ' · ' + wd + ', ' + dd + '/' + mm + '/' + yy + ' dương lịch</p></div>'
+      + '<div class="result-row"><span>Dương lịch</span><strong>' + wd + ', ' + dd + '/' + mm + '/' + yy + '</strong></div>'
       + '<div class="result-row"><span>Âm lịch</span><strong>' + lunarText(l) + ' (' + l.day + '/' + l.month + '/' + l.year + (l.leap ? ' nhuận' : '') + ')</strong></div>'
       + '<div class="result-row"><span>Can chi ngày</span><strong>' + canChiDay(dd, mm, yy) + '</strong></div>'
       + '<div class="result-row"><span>Can chi tháng</span><strong>' + canChiMonth(l.month, l.year) + '</strong></div>'
-      + '<div class="result-row"><span>Can chi năm</span><strong>' + canChiYear(l.year) + '</strong></div>';
+      + '<div class="result-row"><span>Can chi năm</span><strong>' + canChiYear(l.year) + '</strong></div>'
+      + '<div class="result-actions"><button type="button" class="btn btn-ghost copy-btn" data-copy="' + escAttr(copyText) + '" data-copy-msg="Đã chép ngày âm">' + (copyLabel || 'Chép kết quả') + '</button></div>';
+    bindCopy(el);
   }
 
   // Hôm nay
@@ -190,10 +230,11 @@ export function init(root) {
   $('la-sy').value = now.getFullYear();
   $('la-cm').value = now.getMonth() + 1;
   $('la-cy').value = now.getFullYear();
-  showSolar(now.getDate(), now.getMonth() + 1, now.getFullYear(), $('la-today'));
+  showSolar(now.getDate(), now.getMonth() + 1, now.getFullYear(), $('la-today'), 'Chép ngày âm hôm nay');
 
   // Tabs chuyển đổi
   function setTab(which) {
+    clearErrs(root);
     $('la-tab-s2l').className = 'tab' + (which === 's2l' ? ' tab-active' : '');
     $('la-tab-l2s').className = 'tab' + (which === 'l2s' ? ' tab-active' : '');
     $('la-pane-s2l').toggleAttribute('hidden', which !== 's2l');
@@ -203,37 +244,72 @@ export function init(root) {
   $('la-tab-l2s').addEventListener('click', () => setTab('l2s'));
   setTab('s2l');
 
-  $('la-go-s2l').addEventListener('click', () => {
+  function convertS2L() {
+    clearErrs(root);
     const d = parseInt($('la-sd').value, 10), m = parseInt($('la-sm').value, 10), y = parseInt($('la-sy').value, 10);
     const out = $('la-convert-out');
-    if (!validSolar(d, m, y)) { out.innerHTML = '<p class="error">Ngày dương không hợp lệ. Nhập ngày có thật, năm 1900–2100.</p>'; return; }
-    showSolar(d, m, y, out);
-  });
+    if (!Number.isInteger(d) || d < 1 || d > 31) { markErr($('la-sd'), 'Ô Ngày dương chưa đúng — nhập số từ 1 đến 31.'); focusEl($('la-sd')); out.style.display = 'none'; return; }
+    if (!Number.isInteger(m) || m < 1 || m > 12) { markErr($('la-sm'), 'Ô Tháng dương chưa đúng — nhập số từ 1 đến 12.'); focusEl($('la-sm')); out.style.display = 'none'; return; }
+    if (!Number.isInteger(y) || y < 1900 || y > 2100) { markErr($('la-sy'), 'Ô Năm dương chưa đúng — nhập năm từ 1900 đến 2100.'); focusEl($('la-sy')); out.style.display = 'none'; return; }
+    if (!validSolar(d, m, y)) {
+      const dim = new Date(y, m, 0).getDate();
+      markErr($('la-sd'), 'Ngày này không có thật — tháng ' + m + ' năm ' + y + ' chỉ có ' + dim + ' ngày.');
+      focusEl($('la-sd')); out.style.display = 'none'; return;
+    }
+    showSolar(d, m, y, out, 'Chép kết quả đổi ngày');
+  }
 
-  $('la-go-l2s').addEventListener('click', () => {
+  function convertL2S() {
+    clearErrs(root);
     const d = parseInt($('la-ld').value, 10), m = parseInt($('la-lm').value, 10), y = parseInt($('la-ly').value, 10);
     const leap = $('la-leap').checked;
     const out = $('la-convert-out');
-    if (!Number.isInteger(d) || !Number.isInteger(m) || !Number.isInteger(y) || d < 1 || d > 30 || m < 1 || m > 12 || y < 1900 || y > 2100) {
-      out.innerHTML = '<p class="error">Ngày âm không hợp lệ. Ngày 1–30, tháng 1–12, năm 1900–2100.</p>'; return;
-    }
+    if (!Number.isInteger(d) || d < 1 || d > 30) { markErr($('la-ld'), 'Ô Ngày âm chưa đúng — nhập số từ 1 đến 30.'); focusEl($('la-ld')); out.style.display = 'none'; return; }
+    if (!Number.isInteger(m) || m < 1 || m > 12) { markErr($('la-lm'), 'Ô Tháng âm chưa đúng — nhập số từ 1 đến 12.'); focusEl($('la-lm')); out.style.display = 'none'; return; }
+    if (!Number.isInteger(y) || y < 1900 || y > 2100) { markErr($('la-ly'), 'Ô Năm âm chưa đúng — nhập năm từ 1900 đến 2100.'); focusEl($('la-ly')); out.style.display = 'none'; return; }
     const s = lunar2solar(d, m, y, leap);
     const check = solar2lunar(s.d, s.m, s.y);
     if (check.day !== d || check.month !== m || check.year !== y || check.leap !== leap) {
-      out.innerHTML = '<p class="error">Ngày âm này không tồn tại (tháng thiếu chỉ có 29 ngày, hoặc năm ' + y + ' không có tháng ' + m + ' nhuận).</p>';
+      markErr($('la-ld'), 'Ngày âm này không tồn tại (tháng thiếu chỉ có 29 ngày, hoặc năm ' + y + ' không có tháng ' + m + ' nhuận).');
+      focusEl($('la-ld')); out.style.display = 'none';
       return;
     }
     const wd = WEEKDAYS[new Date(s.y, s.m - 1, s.d).getDay()];
-    out.innerHTML = '<div class="result-row"><span>Âm lịch</span><strong>ngày ' + d + ' tháng ' + MONTH_NAMES[m] + (leap ? ' nhuận' : '') + ' năm ' + canChiYear(y) + '</strong></div>'
+    const copyText = 'Âm lịch: ngày ' + d + ' tháng ' + MONTH_NAMES[m] + (leap ? ' nhuận' : '') + ' năm ' + canChiYear(y)
+      + ' · Dương lịch: ' + wd + ', ' + s.d + '/' + s.m + '/' + s.y
+      + ' · Can chi ngày: ' + canChiDay(s.d, s.m, s.y);
+    out.style.display = '';
+    out.innerHTML = '<div class="result-hero"><p class="result-hero-label">Dương lịch</p>'
+      + '<div class="result-hero-value">' + wd + ', ' + s.d + '/' + s.m + '/' + s.y + '</div>'
+      + '<p class="result-hero-sub">Âm lịch: ngày ' + d + ' tháng ' + MONTH_NAMES[m] + (leap ? ' nhuận' : '') + ' năm ' + canChiYear(y) + '</p></div>'
+      + '<div class="result-row"><span>Âm lịch</span><strong>ngày ' + d + ' tháng ' + MONTH_NAMES[m] + (leap ? ' nhuận' : '') + ' năm ' + canChiYear(y) + '</strong></div>'
       + '<div class="result-row"><span>Dương lịch</span><strong>' + wd + ', ' + s.d + '/' + s.m + '/' + s.y + '</strong></div>'
-      + '<div class="result-row"><span>Can chi ngày</span><strong>' + canChiDay(s.d, s.m, s.y) + '</strong></div>';
+      + '<div class="result-row"><span>Can chi ngày</span><strong>' + canChiDay(s.d, s.m, s.y) + '</strong></div>'
+      + '<div class="result-actions"><button type="button" class="btn btn-ghost copy-btn" data-copy="' + escAttr(copyText) + '" data-copy-msg="Đã chép kết quả đổi ngày">Chép kết quả</button></div>';
+    bindCopy(out);
+  }
+
+  $('la-go-s2l').addEventListener('click', () => withBusy($('la-go-s2l'), convertS2L));
+  $('la-go-l2s').addEventListener('click', () => withBusy($('la-go-l2s'), convertL2S));
+  // Ví dụ: 17/02/2026 = mùng 1 Tết Bính Ngọ.
+  $('la-ex-s2l').addEventListener('click', () => {
+    fillEx(root, { 'la-sd': '17', 'la-sm': '2', 'la-sy': '2026' }, $('la-go-s2l'));
+  });
+  $('la-ex-l2s').addEventListener('click', () => {
+    fillEx(root, { 'la-ld': '1', 'la-lm': '1', 'la-ly': '2026', 'la-leap': false }, $('la-go-l2s'));
   });
 
   function renderCalendar() {
+    clearErrs(root);
     const m = parseInt($('la-cm').value, 10), y = parseInt($('la-cy').value, 10);
     const box = $('la-cal');
-    if (!Number.isInteger(m) || !Number.isInteger(y) || m < 1 || m > 12 || y < 1900 || y > 2100) {
-      box.innerHTML = '<p class="error">Tháng/năm không hợp lệ.</p>'; return;
+    if (!Number.isInteger(m) || m < 1 || m > 12) {
+      markErr($('la-cm'), 'Ô Tháng chưa đúng — nhập số từ 1 đến 12.');
+      focusEl($('la-cm')); box.innerHTML = ''; return;
+    }
+    if (!Number.isInteger(y) || y < 1900 || y > 2100) {
+      markErr($('la-cy'), 'Ô Năm chưa đúng — nhập năm từ 1900 đến 2100.');
+      focusEl($('la-cy')); box.innerHTML = ''; return;
     }
     const daysInMonth = new Date(y, m, 0).getDate();
     const firstDow = (new Date(y, m - 1, 1).getDay() + 6) % 7; // Thứ 2 = 0
@@ -251,6 +327,20 @@ export function init(root) {
     h += '</tr></table><p class="muted">Số lớn: ngày dương. Số nhỏ: ngày âm (mùng 1 ghi kèm tháng, "N" = tháng nhuận). Ngày in đậm là hôm nay.</p>';
     box.innerHTML = h;
   }
-  $('la-go-cal').addEventListener('click', renderCalendar);
+  $('la-go-cal').addEventListener('click', () => withBusy($('la-go-cal'), renderCalendar));
+  function shiftCalendar(delta) {
+    clearErrs(root);
+    let m = parseInt($('la-cm').value, 10), y = parseInt($('la-cy').value, 10);
+    if (!Number.isInteger(m) || !Number.isInteger(y) || m < 1 || m > 12) { m = now.getMonth() + 1; y = now.getFullYear(); }
+    m += delta;
+    if (m < 1) { m = 12; y -= 1; }
+    if (m > 12) { m = 1; y += 1; }
+    if (y < 1900 || y > 2100) { toast('Lịch chỉ xem được từ năm 1900 đến 2100.'); return; }
+    $('la-cm').value = m;
+    $('la-cy').value = y;
+    renderCalendar();
+  }
+  $('la-cal-prev').addEventListener('click', () => shiftCalendar(-1));
+  $('la-cal-next').addEventListener('click', () => shiftCalendar(1));
   renderCalendar();
 }

@@ -13,8 +13,14 @@
 //     history.replaceState (debounce 300ms), chỉ ghi tham số có giá trị
 //     (bỏ trống). KHÔNG reload trang.
 //  3. Thêm nút "Đặt lại" vào mỗi .tool-panel (sau hàng nút hiện có):
-//     xóa sạch input về mặc định + xóa query string + xóa vùng kết quả
-//     (.result) + cuộn lên đầu panel.
+//     đưa input về GIÁ TRỊ MẶC ĐỊNH trong HTML (defaultValue / option
+//     defaultSelected / defaultChecked — VD: lương 30.000.000, 250 kWh),
+//     xóa query string, xóa đánh dấu lỗi theo ô (.field-error/.field-msg)
+//     và trạng thái bận (.is-busy), xóa vùng kết quả (.result — trừ khối
+//     đánh dấu data-uh-keep="1", VD: "hôm nay" của Lịch âm), rồi cuộn
+//     lên đầu panel.
+//     (Trước 18/11 nút này xóa trắng input về rỗng, dù chú thích ghi
+//     "về mặc định"; nay sửa cho khớp chú thích — worker C.)
 // An toàn: không có .tool-panel thì không làm gì. Chỉ tác động lên
 // input/select/textarea/button có sẵn trong panel; không ép bấm nút khi
 // panel không có .btn-primary (Pomodoro/bấm giờ/quay số... không bị đụng).
@@ -118,23 +124,51 @@
       var el = fields[i];
       var tag = (el.tagName || '').toLowerCase();
       if (tag === 'select') {
-        el.selectedIndex = 0;
+        // Về option mặc định trong HTML (defaultSelected); không có thì
+        // về option đầu tiên (hành vi cũ).
+        var restored = false;
+        for (var k = 0; k < el.options.length; k++) {
+          if (el.options[k].defaultSelected) { el.selectedIndex = k; restored = true; break; }
+        }
+        if (!restored) el.selectedIndex = 0;
       } else if (isCheckable(el)) {
-        el.checked = false;
+        el.checked = !!el.defaultChecked;
       } else if (tag === 'input' || tag === 'textarea') {
         var t = (el.type || '').toLowerCase();
         if (['button', 'submit', 'reset', 'file', 'hidden', 'image'].indexOf(t) === -1) {
-          el.value = '';
+          // Về giá trị mặc định trong HTML (defaultValue) thay vì xóa
+          // trắng — VD: lương 30.000.000, 250 kWh.
+          el.value = el.defaultValue == null ? '' : el.defaultValue;
         }
       }
+      // Xóa đánh dấu lỗi theo ô (worker C: .field-error/.field-msg).
+      if (el.classList) el.classList.remove('field-error');
+      el.removeAttribute('aria-invalid');
+    }
+    // Xóa dòng chữ lỗi theo ô.
+    var msgs = panel.querySelectorAll('.field-msg');
+    for (var m = 0; m < msgs.length; m++) {
+      if (msgs[m].parentNode) msgs[m].parentNode.removeChild(msgs[m]);
+    }
+    // Gỡ trạng thái bận của nút (nếu nút tính đang bị kẹt ở .is-busy).
+    var busy = panel.querySelectorAll('.is-busy');
+    for (var b = 0; b < busy.length; b++) {
+      busy[b].classList.remove('is-busy');
+      busy[b].disabled = false;
+      busy[b].removeAttribute('data-uh-busy');
+      var label = busy[b].getAttribute('data-uh-label');
+      if (label != null) busy[b].textContent = label;
+      busy[b].removeAttribute('data-uh-label');
     }
     // Xóa query string.
     try {
       window.history.replaceState(null, '', window.location.pathname + (window.location.hash || ''));
     } catch (e) { /* bỏ qua */ }
-    // Xóa vùng kết quả.
+    // Xóa vùng kết quả — trừ khối đánh dấu data-uh-keep="1" (thông tin
+    // tĩnh như "hôm nay" của Lịch âm, không phải kết quả tính).
     var results = panel.querySelectorAll('.result');
     for (var j = 0; j < results.length; j++) {
+      if (results[j].getAttribute('data-uh-keep') === '1') continue;
       results[j].innerHTML = '';
       results[j].style.display = 'none';
     }
