@@ -1,0 +1,45 @@
+# Làm mới dữ liệu "daily" Utility Hub — chạy 2 lần/ngày (07:30 và 18:30 giờ VN).
+name: refresh-daily
+
+on:
+  schedule:
+    - cron: '30 0 * * *'   # 07:30 giờ VN
+    - cron: '30 11 * * *'  # 18:30 giờ VN
+  workflow_dispatch:       # cho phép chạy tay từ tab Actions
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Tải dữ liệu daily (xổ số, trending, tin RSS)
+        run: node scripts/fetch-data.mjs --only daily
+
+      - name: Tóm tắt tin bằng Gemini (bỏ qua tóm tắt nếu chưa có key)
+        run: node scripts/summarize-news.mjs
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Commit + push nếu có thay đổi
+        run: |
+          git config user.name "utility-hub-bot"
+          git config user.email "utility-hub-bot@users.noreply.github.com"
+          git add src/data/lottery.json src/data/trending.json src/data/news-raw.json src/data/news.json
+          if git diff --cached --quiet; then
+            echo "Không có thay đổi dữ liệu daily."
+          else
+            git commit -m "data(daily): làm mới xổ số/trending/tin $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            # Rebase trước khi push: tránh xung đột khi workflow live push cùng lúc (00:30, 11:30 UTC).
+            git pull --rebase || true
+            git push
+          fi
