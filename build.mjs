@@ -43,7 +43,7 @@ const SITE_NAME = 'Tiện Ích Hub';
 
 // Chỉ copy các file dữ liệu mà trang/công cụ thực sự đọc.
 // (news-raw.json là dữ liệu thô của worker dữ liệu, không đưa lên dist.)
-const DATA_FILES = ['news.json', 'trending.json', 'gold.json', 'fx.json', 'lottery.json', 'crypto.json', 'fng.json', 'dia-chi-cu-moi.json'];
+const DATA_FILES = ['news.json', 'trending.json', 'gold.json', 'fx.json', 'lottery.json', 'crypto.json', 'fng.json', 'dia-chi-cu-moi.json', 'xa-cu-moi.json'];
 
 function fail(msg) {
   console.error(`\n❌ BUILD LỖI: ${msg}\n`);
@@ -826,7 +826,7 @@ async function main() {
       desc: 'Repo GitHub học miễn phí, mô tả bằng tiếng Việt: học tiếng Anh (từ vựng, IELTS), lập trình (freeCodeCamp, sách miễn phí, lộ trình), thiết kế và bài báo khoa học — kèm số sao và link gốc.',
       keywords: 'học miễn phí, học tiếng anh miễn phí, repo github học lập trình, học lập trình miễn phí, tài liệu miễn phí',
       canonical: `${BASE_URL}/hoc-mien-phi/`,
-      navActive: '', // Không có trong nav chính (header tràn ở 1280px nếu thêm mục thứ 8 — đã đo thật).
+      navActive: 'hoc-mien-phi',
       body: hocMienPhiPage.body(),
       noscriptLinks,
     }),
