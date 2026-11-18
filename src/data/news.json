@@ -1,327 +1,309 @@
 {
-  "updatedAt": "2026-11-18T17:37:45.545Z",
+  "updatedAt": "2026-11-18T19:28:36.352Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
+        "title": "Google’s AI feature in Search gets its own incognito mode",
+        "titleVi": "Google ra mắt chế độ ẩn danh cho tính năng AI trong Tìm kiếm",
+        "summary": "Google giới thiệu chế độ ẩn danh cho tính năng AI trong Tìm kiếm, cho phép người dùng trò chuyện trong chế độ AI mà không lưu vào lịch sử tìm kiếm hay ảnh hưởng đến đề xuất trong tương lai.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/18/googles-ai-feature-in-search-gets-its-own-incognito-mode/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 18:04:05 +0000"
+      },
+      {
+        "title": "More banks say customers using AI agents are on their own — even if they get hacked",
+        "titleVi": "Các ngân hàng cảnh báo khách hàng sử dụng AI tài chính tự do có thể bị hack",
+        "summary": "Nhiều ngân hàng, trong đó có Citi, cảnh báo khách hàng rằng việc sử dụng các tác nhân AI tài chính cá nhân có thể khiến họ chịu trách nhiệm khi bị hack.",
+        "why": "Citi và các ngân hàng khác đã dừng hỗ trợ tác nhân AI tài chính cá nhân để bảo vệ khách hàng khỏi rủi ro bảo mật.",
+        "link": "https://techcrunch.com/2026/11/18/more-banks-says-customers-using-ai-agents-are-on-their-own-even-if-they-get-hacked/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 17:32:10 +0000"
+      },
+      {
+        "title": "Sam Altman warns against a future where AI, not humans, calls the shots",
+        "titleVi": "Sam Altman cảnh báo AI sẽ không thay thế con người trong quyết định",
+        "summary": "Sam Altman và Greg Brockman nhấn mạnh rằng AI không nên chi phối quyết định, đồng thời thừa nhận khó khăn trong việc giữ mô hình AI dưới sự kiểm soát con người.",
+        "why": "Altman và Brockman cảnh báo về nguy cơ AI chi phối quyết định mà không có sự can thiệp của con người.",
+        "link": "https://techcrunch.com/2026/11/18/sam-altman-warns-against-a-future-where-ai-not-humans-calls-the-shots/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 16:59:00 +0000"
+      },
+      {
+        "title": "OpenAI CEO Sam Altman says it’s ‘hard to imagine the AI industry without Jensen’",
+        "titleVi": "Sam Altman nói khó tưởng tượng ngành AI thiếu Jensen Huang",
+        "summary": "CEO OpenAI Sam Altman cho rằng ngành công nghiệp AI sẽ khó tưởng tượng khi thiếu sự lãnh đạo của Jensen Huang, người sáng lập Nvidia.",
+        "why": "Altman nhấn mạnh vai trò quan trọng của Jensen Huang trong sự phát triển của ngành công nghiệp AI.",
+        "link": "https://techcrunch.com/2026/11/18/openai-ceo-sam-altman-says-its-hard-to-imagine-the-ai-industry-without-jensen/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 16:14:09 +0000"
+      },
+      {
+        "title": "Nvidia clarifies when it will — and won’t — keep financing neoclouds",
+        "titleVi": "Nvidia làm rõ điều kiện hỗ trợ tài chính cho neoclouds",
+        "summary": "Nvidia sẽ không chịu trách nhiệm tài chính cho neoclouds trừ khi chúng có nguồn tài trợ độc lập và hoàn thành công trình, theo CEO tạm thời Colette Kress.",
+        "why": "Nvidia xác định rõ ràng điều kiện tài trợ để tránh rủi ro tài chính khi hỗ trợ neoclouds.",
+        "link": "https://techcrunch.com/2026/11/18/nvidia-clarifies-when-it-will-and-wont-keep-financing-neoclouds/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 13:00:00 +0000"
+      },
+      {
+        "title": "Felicis leads $7.5M bet on Unsiloed AI to make enterprise documents usable by AI agents",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/18/felicis-leads-7-5m-bet-on-unsiloed-ai-to-make-enterprise-documents-usable-by-ai-agents/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 12:00:00 +0000"
+      },
+      {
+        "title": "India’s Humyn Labs raises $47M to feed US robotics companies the data they need",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/18/accel-backs-indias-humyn-labs-to-supply-training-data-needed-by-u-s-robotics-ai-developers/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 18 Nov 2026 11:30:00 +0000"
+      },
+      {
         "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
-        "titleVi": "Khoản đầu tư vào startup của Nvidia lên 65 tỷ USD, nhưng việc Huang rời đi khiến các thương vụ sắp tới bị bỏ ngỏ",
-        "summary": "Giá trị đầu tư tư nhân của Nvidia đã gần gấp ba lần trong chín tháng qua nhờ các thỏa thuận của Jensen Huang và tăng giá của các công ty trong danh mục.",
-        "why": "Nvidia đã đạt 65 tỷ USD trong các khoản đầu tư startup.",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 01:44:21 +0000"
       },
       {
-        "title": "Nvidia promises that revenue will keep soaring — for now",
-        "titleVi": "Nvidia dự báo doanh thu tiếp tục tăng dù Huang rời đi",
-        "summary": "Dù gặp rắc rối sau khi Huang rời, Nvidia vẫn dự báo chuỗi doanh thu kỷ lục sẽ tiếp tục.",
+        "title": "Will Wright's next simulation will use AI to mine content from your memories",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000"
+        "link": "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories/",
+        "source": "Ars Technica",
+        "publishedAt": "Wed, 18 Nov 2026 18:10:33 +0000"
       },
       {
-        "title": "Nvidia is abandoning China after Jensen Huang’s ouster",
-        "titleVi": "Nvidia chấm dứt bán chip cho Trung Quốc sau khi Huang ra đi",
-        "summary": "Giám đốc điều hành tạm thời của Nvidia tuyên bố công ty sẽ ngừng bán chip cho Trung Quốc, gây ra chi phí lớn.",
-        "why": "Nvidia quyết định ngừng bán chip cho Trung Quốc, ảnh hưởng tới thị trường.",
-        "link": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 17 Nov 2026 23:37:48 +0000"
-      },
-      {
-        "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit",
-        "titleVi": "Nvidia duy trì chiến lược AI mã nguồn mở, dự định mua Hugging Face",
-        "summary": "Giám đốc điều hành tạm thời xác nhận chiến lược AI mã nguồn mở và kế hoạch mua Hugging Face, bất chấp rời đi của Huang.",
+        "title": "The AI Hype Index: AI is everywhere",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 17 Nov 2026 23:04:35 +0000"
-      },
-      {
-        "title": "Nvidia says it doesn’t plan to reappoint Jensen Huang as CEO",
-        "titleVi": "Nvidia không dự định bổ nhiệm lại Jensen Huang làm CEO",
-        "summary": "Sau khi Huang từ chức, công ty thông báo không sẽ bổ nhiệm lại ông ta vào vị trí CEO.",
-        "why": "Jensen Huang đã đề nghị trở lại vị trí CEO nhưng Nvidia từ chối.",
-        "link": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 17 Nov 2026 22:42:27 +0000"
-      },
-      {
-        "title": "Amazon and Google will together own nearly 30% of Anthropic after its IPO",
-        "titleVi": "Amazon và Google chiếm gần 30% cổ phần Anthropic sau IPO",
-        "summary": "Sau IPO, Amazon sẽ nắm giữ gần 15% cổ phần Anthropic, còn Google gần 14%, tổng cộng gần 30%.",
-        "why": "Amazon có quyền mua thêm cổ phần, có thể tăng lên nhiều hơn.",
-        "link": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 17 Nov 2026 22:29:05 +0000"
-      },
-      {
-        "title": "SEC reportedly investigating Nvidia amid Huang exit",
-        "titleVi": "SEC điều tra Nvidia sau khi CEO Huang rời đi",
-        "summary": "SEC mở cuộc điều tra Nvidia khi CEO Jensen Huang rời vị trí, sau khi công bố mối quan hệ với người tình bị nghi là gián điệp Trung Quốc.",
-        "why": "Huang thừa nhận mối quan hệ, gây nghi ngờ bảo mật công ty.",
-        "link": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 17 Nov 2026 21:48:07 +0000"
-      },
-      {
-        "title": "Google joins the tech outage trend by announcing it’s not having one",
-        "titleVi": "Google công bố Gmail đang hoạt động bình thường giữa trục trặc công nghệ",
-        "summary": "Trong bối cảnh nhiều dịch vụ gặp sự cố, Google tuyên bố Gmail hoạt động trơn tru.",
-        "why": "Google xác nhận Gmail ổn định, tránh lo ngại người dùng.",
-        "link": "https://techcrunch.com/2026/11/17/google-joins-the-tech-outage-trend-by-announcing-its-not-having-one/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 17 Nov 2026 21:34:50 +0000"
-      },
-      {
-        "title": "Copilot is \"the new OS for work,\" and now Office runs inside of it",
-        "titleVi": "Copilot trở thành 'OS mới cho công việc', Office chạy bên trong",
-        "summary": "Microsoft Copilot được mô tả là hệ điều hành mới cho công việc, với Office giờ có thể chạy trong môi trường Copilot.",
-        "why": "Copilot tích hợp Office, mở rộng tính năng làm việc.",
-        "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/",
-        "source": "Ars Technica",
-        "publishedAt": "Wed, 18 Nov 2026 00:27:29 +0000"
-      },
-      {
-        "title": "San Diego dumps both Flock cameras and smart streetlights",
-        "titleVi": "San Diego loại bỏ camera Flock và đèn đường thông minh",
-        "summary": "Thành phố San Diego quyết định loại bỏ cả camera Flock và đèn đường thông minh khỏi hệ thống an ninh.",
-        "why": "Quyết định giảm chi phí bảo trì và nâng cấp công nghệ.",
-        "link": "https://arstechnica.com/tech-policy/2026/11/san-diego-dumps-both-flock-cameras-and-smart-streetlights/",
-        "source": "Ars Technica",
-        "publishedAt": "Tue, 17 Nov 2026 23:09:09 +0000"
-      },
-      {
-        "title": "Yet another satellite company is jockeying for a rocket—but this one makes sense",
-        "titleVi": "Công ty vệ tinh mới đua lấy tên máy phóng",
-        "summary": "Một công ty vệ tinh mới đang cạnh tranh để được sử dụng một loại tên máy phóng, trong khi các công ty khác đã có thỏa thuận. Công ty này cho rằng sự lựa chọn này sẽ mang lại lợi thế về chi phí và hiệu suất.",
-        "why": "Công ty vệ tinh mới đã ký hợp đồng với nhà cung cấp tên máy phóng, tạo điều kiện phóng vệ tinh với chi phí thấp hơn.",
-        "link": "https://arstechnica.com/space/2026/11/yet-another-satellite-company-is-jockeying-for-a-rocket-but-this-one-makes-sense/",
-        "source": "Ars Technica",
-        "publishedAt": "Tue, 17 Nov 2026 22:44:46 +0000"
-      },
-      {
-        "title": "Hundreds of websites deliver potent malware cocktail to unsuspecting visitors",
-        "titleVi": "Hàng trăm trang web lây malware mạnh mẽ",
-        "summary": "Nhiều trang web đã phát hành một bộ cocktail malware nguy hiểm, khiến người dùng truy cập mà không nhận ra. Các phần mềm độc hại được thiết kế để tấn công hệ thống và đánh cắp dữ liệu.",
-        "why": "Bộ cocktail malware đã lây nhiễm tới hơn 500 trang web, tạo ra nguy cơ lây lan rộng rãi cho người dùng.",
-        "link": "https://arstechnica.com/security/2026/11/malicious-code-delivered-through-optimizely-hits-visitors-to-hundreds-of-sites/",
-        "source": "Ars Technica",
-        "publishedAt": "Tue, 17 Nov 2026 22:32:16 +0000"
-      },
-      {
-        "title": "Hydropower hit record lows in the US Southwest this summer",
-        "titleVi": "Năng lượng thủy điện giảm 28% ở Tây Nam Mỹ",
-        "summary": "Từ tháng 4 đến tháng 8, năng lượng thủy điện tại Tây Nam Mỹ giảm 28% so với trung bình 10 năm. Nguyên nhân là do lượng nước lưu trữ trong các hồ chứa giảm, ảnh hưởng đến sản xuất điện.",
-        "why": "Số liệu mới cho thấy năng lượng thủy điện giảm 28% trong mùa hè, phản ánh tình trạng khan hiếm nước.",
-        "link": "https://www.technologyreview.com/2026/11/17/1148742/hydropower-drought-colorado-river/",
+        "link": "https://www.technologyreview.com/2026/11/18/1148650/ai-hype-index-ai-is-everywhere/",
         "source": "MIT Tech Review",
-        "publishedAt": "Tue, 17 Nov 2026 17:52:10 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 14:42:44 +0000"
       },
       {
-        "title": "Research Reports",
-        "titleVi": "Báo cáo nghiên cứu: truy cập qua hình ảnh",
-        "summary": "Để truy cập báo cáo nghiên cứu, người dùng cần nhấp vào hình ảnh tương ứng. Mỗi hình ảnh đại diện cho một báo cáo cụ thể và dẫn tới tài liệu chi tiết.",
+        "title": "The Download: AI learns to smell and hydropower struggles",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.technologyreview.com/2026/11/17/1148203/research-reports/",
+        "link": "https://www.technologyreview.com/2026/11/18/1148845/the-download-ai-learns-to-smell-hydropower-struggles/",
         "source": "MIT Tech Review",
-        "publishedAt": "Tue, 17 Nov 2026 14:39:46 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 13:10:00 +0000"
       },
       {
-        "title": "Loop Earplugs Discount Codes: 25% Off",
-        "titleVi": "Mã giảm giá 25% cho tai nghe Loop",
-        "summary": "Loop Earplugs, bao gồm Quiet 2 và các bộ quà tặng, được giảm giá 25%. Khách hàng có thể mua sản phẩm với giá ưu đãi để cải thiện giấc ngủ, tập trung và thoải mái.",
-        "why": "Mã giảm giá 25% được áp dụng cho Loop Earplugs, giúp người tiêu dùng tiết kiệm chi phí.",
-        "link": "https://www.wired.com/story/loop-earplugs-discount-code/",
-        "source": "Wired",
-        "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Columbia Promo Codes: 15% Off | November 2026",
-        "titleVi": "Giảm giá 15% cho Columbia trong tháng 11",
-        "summary": "Cửa hàng Columbia hiện có mã giảm giá 15% cho áo khoác, trang thiết bị ngoài trời và quần áo, cùng ưu đãi miễn phí vận chuyển và giảm giá cho sinh viên.",
-        "why": "Mã giảm 15% giúp người tiêu dùng tiết kiệm khi mua sản phẩm Columbia.",
-        "link": "https://www.wired.com/story/columbia-promo-code/",
-        "source": "Wired",
-        "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Walmart Promo Codes: 20% Off for November 2026",
-        "titleVi": "Walmart giảm 20% và 10 USD cho mã khuyến mãi tháng 11",
-        "summary": "Walmart cung cấp mã giảm 20% và giảm 10 USD cho các giao dịch, cùng các ưu đãi flash giảm tới 65% trong tháng 11.",
-        "why": "Mã giảm 20% và 10 USD giúp khách hàng tiết kiệm khi mua sắm tại Walmart.",
-        "link": "https://www.wired.com/story/top-walmart-promo-codes/",
-        "source": "Wired",
-        "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
-        "titleVi": "Sự cố gián đoạn lớn ảnh hưởng ngân hàng, hàng không và công nghệ",
-        "summary": "Một loạt sự cố gián đoạn đã ảnh hưởng tới ngân hàng, ngành hàng không, NSA và Apple, cho thấy rủi ro của hệ thống công nghệ liên kết trong thời đại AI.",
+        "title": "This smell startup says its AI nose is as good as a human’s",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
+        "link": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Wed, 18 Nov 2026 10:20:30 +0000"
+      },
+      {
+        "title": "Best Early Black Friday Phone Deals (2026)",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/story/best-early-black-friday-phone-deals-11-18-26/",
+        "source": "Wired",
+        "publishedAt": "Wed, 18 Nov 2026 19:17:06 +0000"
+      },
+      {
+        "title": "An AI Debt Collection Service Exposed 6.6 Million Accounts and 315,000 Call Recordings",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/story/ai-debt-collection-service-exposed-66-million-accounts-and-315000-call-recordings/",
+        "source": "Wired",
+        "publishedAt": "Wed, 18 Nov 2026 19:00:00 +0000"
+      },
+      {
+        "title": "The US Lost Its Measles Elimination Status. It’ll Take Years to Get It Back",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/story/us-lost-measles-elimination-status-years-to-recover/",
+        "source": "Wired",
+        "publishedAt": "Wed, 18 Nov 2026 17:53:08 +0000"
+      },
+      {
+        "title": "Anthropic IPO: AI lab considers increasing the offering as investor demand surges, sources say",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
         "source": "CNBC",
-        "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT"
+        "publishedAt": "Wed, 18 Nov 2026 17:17:44 GMT"
       },
       {
-        "title": "CoreWeave’s stock pops — even as Nvidia talks up a ‘disciplined’ approach to financing",
-        "titleVi": "Cổ phiếu CoreWeave tăng khi Nvidia nhấn mạnh tài chính kỷ luật",
-        "summary": "Cổ phiếu CoreWeave tăng khi CEO tạm thời của Nvidia, Colette Kress, cho rằng neoclouds ngày càng quan trọng, đồng thời công ty sẽ xem xét kỹ lưỡng khách hàng khi cung cấp tài chính.",
+        "title": "Nvidia interim CEO Kress tells employees ‘let’s move forward’ at first all-hands meeting since Jensen Huang exit",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.marketwatch.com/story/coreweaves-stock-pops-even-as-nvidia-talks-up-a-disciplined-approach-to-financing-e7f00876?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Wed, 18 Nov 2026 01:59:00 GMT"
+        "link": "https://www.cnbc.com/2026/11/18/nvidia-interim-ceo-kress-addresses-staff-after-jensen-huang-exit-.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 18 Nov 2026 19:21:59 GMT"
       },
       {
-        "title": "Nvidia’s stock rises as blowout numbers help ease CEO transition fears",
-        "titleVi": "Nvidia tăng giá cổ phiếu khi doanh thu ấn tượng giảm lo ngại chuyển giao CEO",
-        "summary": "Doanh thu Nvidia tăng trưởng mạnh và dự báo quý tới 130 tỷ USD, cho thấy nhu cầu chip vẫn cao, làm giảm lo ngại về quá trình chuyển giao CEO.",
+        "title": "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.marketwatch.com/story/nvidias-stock-rises-as-blowout-numbers-help-ease-ceo-transition-fears-2f20d38a?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Wed, 18 Nov 2026 01:28:00 GMT"
+        "link": "https://www.cnbc.com/2026/11/18/fed-minutes-october-2026.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 18 Nov 2026 19:26:32 GMT"
       },
       {
-        "title": "Google finds self-running AI hacking tool with Russian comments in its files",
-        "titleVi": "Google phát hiện công cụ hack AI tự động với chú thích tiếng Nga",
-        "summary": "Google nhận diện một công cụ AI có khả năng tự tìm và khai thác lỗ hổng phần mềm mà không cần sự can thiệp của con người, trong đó có các chú thích bằng tiếng Nga.",
+        "title": "One of AI's most notorious 'doomers' stands to make billions in Anthropic's IPO",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.coindesk.com/tech/2026/11/18/google-finds-self-running-ai-hacking-tool-with-russian-comments-in-its-files",
-        "source": "CoinDesk",
-        "publishedAt": "Wed, 18 Nov 2026 07:37:59 +0000"
-      },
-      {
-        "title": "Why Microsoft Thinks Smaller, Cheaper AI Can Beat Claude and GPT",
-        "titleVi": "Microsoft tin AI nhỏ gọn, rẻ hơn có thể vượt trội hơn Claude và GPT",
-        "summary": "Microsoft giới thiệu các mô hình mã, an ninh mạng và hình ảnh nhỏ hơn, tập trung vào hiệu suất và giá thành, cho rằng làm một công việc xuất sắc hơn nhiều quan trọng hơn làm tất cả mọi thứ.",
-        "why": "",
-        "link": "https://decrypt.co/383468/why-microsoft-thinks-smaller-cheaper-ai-beat-claude-gpt",
-        "source": "Decrypt",
-        "publishedAt": "Tue, 17 Nov 2026 23:16:03 +0000"
-      },
-      {
-        "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
-        "titleVi": "Ban điều hành Nvidia từ chối trở lại của Jensen Huang và tìm kiếm CEO mới",
-        "summary": "Ban điều hành Nvidia bác bỏ đề xuất trở lại của đồng sáng lập Jensen Huang, thuê công ty tìm kiếm CEO mới, ủng hộ CEO tạm thời Colette Kress và tăng cường giám sát xuất khẩu chip tới Trung Quốc.",
-        "why": "",
-        "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
-        "source": "Decrypt",
-        "publishedAt": "Tue, 17 Nov 2026 22:39:53 +0000"
+        "link": "https://www.cnbc.com/2026/11/18/jaan-tallinn-anthropic-ipo-series-a-investment.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 18 Nov 2026 18:43:26 GMT"
       }
     ],
     "chung-khoan": [
       {
-        "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
-        "titleVi": "Tập Cận Bình kêu gọi tháo gỡ rào cản thương mại trước cuộc gặp với Trump và Putin",
-        "summary": "Tập Cận Bình mở hội APEC tại Thâm Quyến, kêu gọi giảm rào cản thương mại và đầu tư, hứa mở rộng tiếp cận thị trường và ngành công nghiệp của Trung Quốc.",
+        "title": "Fed’s Waller says central bank may need to ‘shock people’ with half-point rate hike",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
+        "link": "https://www.cnbc.com/2026/11/18/federal-reserve-governor-christopher-waller.html",
         "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 08:00:05 GMT"
+        "publishedAt": "Wed, 18 Nov 2026 15:13:39 GMT"
       },
       {
-        "title": "Iran says army targets U.S. drone and missile sites in Kuwait as Gulf attacks mount",
-        "titleVi": "Iran tấn công cơ sở vũ khí Mỹ tại Kuwait",
-        "summary": "Iran tuyên bố quân đội đã tấn công cơ sở vũ khí và drone của Mỹ tại căn cứ Ali Al Salem, Kuwait, tiếp tục leo thang các cuộc tấn công trong vùng.",
+        "title": "Investigators make progress in hunt for cause of FAA ground stop",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/18/trump-iran-war-hormuz-oil-.html",
+        "link": "https://www.cnbc.com/2026/11/18/faa-ground-stop-router-investigation.html",
         "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 05:24:54 GMT"
+        "publishedAt": "Wed, 18 Nov 2026 18:13:25 GMT"
       },
       {
-        "title": "Putin says EU is losing industry, falling behind competition ahead of meeting with Trump, Xi",
-        "titleVi": "Putin cảnh báo EU tụt lại phía sau trong công nghiệp",
-        "summary": "Putin cho rằng EU đang mất đi sức mạnh công nghiệp và tụt lại phía sau đối thủ khi chuẩn bị gặp Trump và Xi, nhấn mạnh khả năng phục hồi kinh tế của Nga dưới áp lực trừng phạt Mỹ.",
-        "why": "Putin nhấn mạnh rằng EU đang tụt lại phía sau trong công nghiệp, điều này có thể ảnh hưởng đến quan hệ thương mại toàn cầu.",
-        "link": "https://www.cnbc.com/2026/11/18/putin-apec-eu-trump-xi-meeting.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 07:17:11 GMT"
-      },
-      {
-        "title": "Democrat Mary Peltola wins Alaska Senate election",
-        "titleVi": "Mary Peltola thắng cử Thượng nghị sĩ Alaska",
-        "summary": "Mary Peltola, cử tri Đảng Dân chủ, đánh bại Dan Sullivan, cử tri Đảng Cộng hòa, giúp Đảng Dân chủ đạt số lượng 56 thành viên trong Thượng nghị viện Mỹ vào tháng 1.",
+        "title": "Fed minutes show growing unease about the outlook for inflation",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT"
-      },
-      {
-        "title": "Senators press acting U.S. Navy Secretary on Iran war costs, sailor health in confirmation hearing",
-        "titleVi": "Cán bộ Hải quân Mỹ hỏi chi phí chiến tranh Iran",
-        "summary": "Hung Cao, Bộ trưởng Hải quân tạm thời, cho biết Hải quân đã ghi nhận và sử dụng vũ khí hết hạn trong chiến tranh Iran, gây áp lực lên kho vũ khí và triển khai tàu thủy.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/18/us-iran-navy-hormuz-war-cao.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 07:24:06 GMT"
-      },
-      {
-        "title": "Medicare Part B premiums rise due higher healthcare spending",
-        "titleVi": "Phí bảo hiểm Medicare Part B tăng 6,50 USD",
-        "summary": "Phí bảo hiểm Medicare Part B sẽ tăng 6,50 USD, lên 209,40 USD mỗi tháng, do chi phí chăm sóc sức khỏe tăng cao.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/medicare-part-b-premiums-rise-due-higher-healthcare-spending-f2daba13?mod=mw_rss_topstories",
+        "link": "https://www.marketwatch.com/story/fed-minutes-show-growing-unease-about-the-outlook-for-inflation-59e3c13d?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Wed, 18 Nov 2026 01:45:00 GMT"
+        "publishedAt": "Wed, 18 Nov 2026 19:12:00 GMT"
       },
       {
         "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
-        "titleVi": "Vợ hỏi chồng nghỉ hưu 64 tuổi có công bằng khi cô vẫn làm việc",
-        "summary": "Chồng 64 tuổi nghỉ hưu và khuyên vợ tiếp tục làm việc, trong khi vợ cảm thấy mệt mỏi với lịch trình 6 giờ sáng và 50 phút đi làm.",
-        "why": "Vợ phải thức dậy lúc 6 giờ sáng và có 50 phút đi làm mỗi ngày.",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
         "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Tue, 17 Nov 2026 23:30:00 GMT"
+        "publishedAt": "Wed, 18 Nov 2026 18:30:00 GMT"
+      },
+      {
+        "title": "‘GTA 6’ is the biggest game ever. Take-Two’s stock, delivery apps and podcasts are along for the ride.",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/gta-6-is-the-biggest-game-ever-take-twos-stock-delivery-apps-and-podcasts-are-along-for-the-ride-71014bf2?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Wed, 18 Nov 2026 18:28:00 GMT"
+      },
+      {
+        "title": "‘It’s downright dirty’: My brother took over our ailing mother’s life and finances. What can I do?",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Wed, 18 Nov 2026 18:00:00 GMT"
       }
     ],
     "crypto": [
       {
-        "title": "Bitcoin ETFs lose $240M as CryptoQuant flags bearish market phase",
-        "titleVi": "ETF Bitcoin mất 240 triệu USD khi CryptoQuant cảnh báo giai đoạn giảm giá",
-        "summary": "Khoản rút tiền từ ETF Bitcoin trở lại sau một ngày tạm dừng khi CryptoQuant cảnh báo Bitcoin đã trở lại giai đoạn giảm giá.",
+        "title": "MARA prices $185M debt offering after $1.1B Bitcoin sale",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://cointelegraph.com/markets/bitcoin-etf-240-million-outflow-bearish-phase?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/markets/mara-long-ridge-debt-offering-bitcoin-sales?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Wed, 18 Nov 2026 08:09:23 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 18:27:52 +0000"
       },
       {
-        "title": "Here’s what happened in crypto today",
-        "titleVi": "Tổng hợp tin tức crypto hôm nay: Bitcoin, DeFi, Web3 và quy định",
-        "summary": "Bản tin cập nhật các sự kiện hàng ngày ảnh hưởng đến giá Bitcoin, công nghệ blockchain, DeFi, Web3 và các quy định liên quan đến tiền điện tử.",
+        "title": "$25M Ethereum MEV acquittal tests criminal enforcement limits",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/25m-ethereum-mev-acquittal-tests-criminal-enforcement-limits?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 17:05:04 +0000"
       },
       {
-        "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
-        "titleVi": "Vụ mất tiền crypto 604.000 USD tại cửa hàng Virgin Megastore Dubai",
-        "summary": "Hai chủ sở hữu Ledger báo cáo mất tổng cộng 604.000 USD từ ví phần cứng, cho rằng các thiết bị được mua tại cửa hàng Virgin Megastore Dubai.",
+        "title": "Polymarket US takes rapid-fire crypto trading format to oil, natural gas",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/polymarket-us-takes-rapid-fire-crypto-trading-format-oil-natural-gas?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 17:00:00 +0000"
       },
       {
-        "title": "Live updates: Bitcoin stuck near $65,000 as popular 'basis trade' returns dry up",
-        "titleVi": "Bitcoin đứng gần 65.000 USD khi giao dịch 'basis trade' suy giảm",
-        "summary": "Bitcoin giữ mức giá gần 65.000 USD khi giao dịch 'basis trade' phổ biến giảm sút, trong khi XRP tiến gần 1 USD và SOL tăng 3%. Báo cáo Talos cho thấy lợi nhuận giao dịch crypto hiện chỉ tương đương với trái phiếu chính phủ.",
+        "title": "A $1.5 billion crypto startup is taking on Hyperliquid with a Wall Street playbook",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.coindesk.com/business/2026/11/18/live-updates-bitcoin-stuck-near-usd65-000-as-popular-basis-trade-returns-dry-up",
+        "link": "https://www.coindesk.com/business/2026/11/18/a-usd1-5-billion-crypto-startup-is-taking-on-hyperliquid-with-a-wall-street-playbook",
         "source": "CoinDesk",
-        "publishedAt": "Wed, 18 Nov 2026 07:27:48 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 17:22:03 +0000"
       },
       {
-        "title": "U.S. judge says Ethereum has ‘no terms of use,’ clears MIT brothers of $25 million fraud",
-        "titleVi": "Thẩm phán Mỹ miễn tội cho anh em Peraire-Bueno trong vụ lừa đảo 25 triệu USD",
-        "summary": "Thẩm phán liên bang miễn tội cho Anton và James Peraire-Bueno khi họ không có điều khoản sử dụng trong giao dịch 2023 chống lại bot giao dịch Ethereum, đóng cửa vụ án hình sự đầu tiên của chính phủ Mỹ về MEV.",
+        "title": "Crypto Long & Short: Crypto exchanges shouldn’t double as the vault",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.coindesk.com/policy/2026/11/18/u-s-judge-says-ethereum-has-no-terms-of-use-clears-mit-brothers-of-usd25-million-fraud",
+        "link": "https://www.coindesk.com/coindesk-indices/2026/11/18/crypto-long-and-short-crypto-exchanges-shouldn-t-double-as-the-vault",
         "source": "CoinDesk",
-        "publishedAt": "Wed, 18 Nov 2026 05:30:10 +0000"
+        "publishedAt": "Wed, 18 Nov 2026 16:02:54 +0000"
+      },
+      {
+        "title": "German judge proposes dropping Movie2k case if operator hands over $2.56 billion in bitcoin",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.coindesk.com/business/2026/11/18/german-judge-proposes-dropping-movie2k-case-if-operator-hands-over-usd2-56-billion-in-bitcoin",
+        "source": "CoinDesk",
+        "publishedAt": "Wed, 18 Nov 2026 15:38:38 +0000"
+      },
+      {
+        "title": "Bitcoin Tanks Ahead of Anthropic’s IPO. Should We Really Blame AI?",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://decrypt.co/383551/bitcoin-tanks-ahead-anthropics-ipo-should-we-really-blame-ai",
+        "source": "Decrypt",
+        "publishedAt": "Wed, 18 Nov 2026 19:16:02 +0000"
+      },
+      {
+        "title": "Bitcoin Miners Are Selling Their Stacks to Fund the AI Boom",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://decrypt.co/383568/bitcoin-miners-selling-fund-ai-boom",
+        "source": "Decrypt",
+        "publishedAt": "Wed, 18 Nov 2026 18:46:03 +0000"
       }
     ]
   }

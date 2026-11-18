@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T08:21:38.421Z",
+  "updatedAt": "2026-11-18T19:27:55.336Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,6 +49,62 @@
   ],
   "items": [
     {
+      "title": "Google’s AI feature in Search gets its own incognito mode",
+      "link": "https://techcrunch.com/2026/11/18/googles-ai-feature-in-search-gets-its-own-incognito-mode/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 18:04:05 +0000",
+      "description": "Google's new temporary threads let users have conversations in AI Mode without adding them to their search history or influencing future recommendations."
+    },
+    {
+      "title": "More banks say customers using AI agents are on their own — even if they get hacked",
+      "link": "https://techcrunch.com/2026/11/18/more-banks-says-customers-using-ai-agents-are-on-their-own-even-if-they-get-hacked/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 17:32:10 +0000",
+      "description": "Citi is the latest major financial institution to put the breaks on personal finance AI agents."
+    },
+    {
+      "title": "Sam Altman warns against a future where AI, not humans, calls the shots",
+      "link": "https://techcrunch.com/2026/11/18/sam-altman-warns-against-a-future-where-ai-not-humans-calls-the-shots/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 16:59:00 +0000",
+      "description": "Sam Altman and Greg Brockman pushed back against Silicon Valley's growing debate over an AI takeover, while acknowledging the challenges of keeping advanced models under human control."
+    },
+    {
+      "title": "OpenAI CEO Sam Altman says it’s ‘hard to imagine the AI industry without Jensen’",
+      "link": "https://techcrunch.com/2026/11/18/openai-ceo-sam-altman-says-its-hard-to-imagine-the-ai-industry-without-jensen/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 16:14:09 +0000",
+      "description": "Nvidia founder and former CEO Jensen Huang stepped down last week amid several scandals, including an affair with an alleged Chinese spy."
+    },
+    {
+      "title": "Nvidia clarifies when it will — and won’t — keep financing neoclouds",
+      "link": "https://techcrunch.com/2026/11/18/nvidia-clarifies-when-it-will-and-wont-keep-financing-neoclouds/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 13:00:00 +0000",
+      "description": "If Nvidia is backstopping a data center loan, it won't be on the hook unless the neocould has independent financing and gets the facility built, with Nvidia gear installed, interim CEO Colette Kress explained."
+    },
+    {
+      "title": "Felicis leads $7.5M bet on Unsiloed AI to make enterprise documents usable by AI agents",
+      "link": "https://techcrunch.com/2026/11/18/felicis-leads-7-5m-bet-on-unsiloed-ai-to-make-enterprise-documents-usable-by-ai-agents/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 12:00:00 +0000",
+      "description": "With a team of just seven, Unsiloed AI plans to compete with tech giants and specialized startups in the crowded AI document-processing market."
+    },
+    {
+      "title": "India’s Humyn Labs raises $47M to feed US robotics companies the data they need",
+      "link": "https://techcrunch.com/2026/11/18/accel-backs-indias-humyn-labs-to-supply-training-data-needed-by-u-s-robotics-ai-developers/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 11:30:00 +0000",
+      "description": "Founded in February, Humyn Labs competes with startups such as Mecka AI and XDOF, with about 90% of its revenue coming from the U.S."
+    },
+    {
       "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
       "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
       "source": "TechCrunch",
@@ -57,276 +113,204 @@
       "description": "The value of Nvidia’s private investments has nearly tripled over the past nine months, fueled by Jensen Huang’s aggressive dealmaking and rising valuations of its existing portfolio companies."
     },
     {
-      "title": "Nvidia promises that revenue will keep soaring — for now",
-      "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000",
-      "description": "Despite the turmoil Nvidia is in after the departure of its disgraced founder and CEO Jensen Huang, the company projected that its streak of record-breaking revenue isn't about to stop."
-    },
-    {
-      "title": "Nvidia is abandoning China after Jensen Huang’s ouster",
-      "link": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 23:37:48 +0000",
-      "description": "Nvidia's interim CEO says the company is done selling chips to China. How much will that cost?"
-    },
-    {
-      "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit",
-      "link": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 23:04:35 +0000",
-      "description": "Nvidia's interim CEO reaffirmed its open source AI strategy and plans to acquire Hugging Face, despite Jensen Huang's sudden departure."
-    },
-    {
-      "title": "Nvidia says it doesn’t plan to reappoint Jensen Huang as CEO",
-      "link": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 22:42:27 +0000",
-      "description": "The former CEO offered to return to his top role at the company after his resignation last week."
-    },
-    {
-      "title": "Amazon and Google will together own nearly 30% of Anthropic after its IPO",
-      "link": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 22:29:05 +0000",
-      "description": "Amazon will own just under 15% of Anthropic after the IPO, with the option to go much higher. Google is a close second with holdings of nearly 14%."
-    },
-    {
-      "title": "SEC reportedly investigating Nvidia amid Huang exit",
-      "link": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 21:48:07 +0000",
-      "description": "The SEC is opening a probe into Nvidia following the departure of CEO Jensen Huang, who admitted to an affair with an alleged Chinese spy, reports The Wall Street Journal."
-    },
-    {
-      "title": "Google joins the tech outage trend by announcing it’s not having one",
-      "link": "https://techcrunch.com/2026/11/17/google-joins-the-tech-outage-trend-by-announcing-its-not-having-one/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 21:34:50 +0000",
-      "description": "With tech outages seemingly everywhere, Google took the unusual step of announcing that Gmail is working just fine, actually."
-    },
-    {
-      "title": "Copilot is \"the new OS for work,\" and now Office runs inside of it",
-      "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/",
+      "title": "Will Wright's next simulation will use AI to mine content from your memories",
+      "link": "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories/",
       "source": "Ars Technica",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 00:27:29 +0000",
-      "description": ""
+      "publishedAt": "Wed, 18 Nov 2026 18:10:33 +0000",
+      "description": "MyMems , Wright says he wants to \"turn the simulation inward.\"]]>"
     },
     {
-      "title": "San Diego dumps both Flock cameras and smart streetlights",
-      "link": "https://arstechnica.com/tech-policy/2026/11/san-diego-dumps-both-flock-cameras-and-smart-streetlights/",
-      "source": "Ars Technica",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 23:09:09 +0000",
-      "description": ""
-    },
-    {
-      "title": "Yet another satellite company is jockeying for a rocket—but this one makes sense",
-      "link": "https://arstechnica.com/space/2026/11/yet-another-satellite-company-is-jockeying-for-a-rocket-but-this-one-makes-sense/",
-      "source": "Ars Technica",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 22:44:46 +0000",
-      "description": ""
-    },
-    {
-      "title": "Hundreds of websites deliver potent malware cocktail to unsuspecting visitors",
-      "link": "https://arstechnica.com/security/2026/11/malicious-code-delivered-through-optimizely-hits-visitors-to-hundreds-of-sites/",
-      "source": "Ars Technica",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 22:32:16 +0000",
-      "description": ""
-    },
-    {
-      "title": "Hydropower hit record lows in the US Southwest this summer",
-      "link": "https://www.technologyreview.com/2026/11/17/1148742/hydropower-drought-colorado-river/",
+      "title": "The AI Hype Index: AI is everywhere",
+      "link": "https://www.technologyreview.com/2026/11/18/1148650/ai-hype-index-ai-is-everywhere/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 17:52:10 +0000",
-      "description": "The US Southwest generated 28% less electricity via hydropower between April and August than the 10-year average, according to new data from the US Energy Information Administration. Most hydropower plants in the US rely on dams to hold back water, creating reservoirs. The water can be released through turbines, generating electricity on demand. But an…"
+      "publishedAt": "Wed, 18 Nov 2026 14:42:44 +0000",
+      "description": "Like a nasty rash, AI seems to spread everywhere. Google crams AI Overviews down your throat even though it costs the company billions of dollars in lost ad revenue. Leave your apartment, and you might pass two people heaving an AI-powered humanoid robot up the stairs to clean someone’s rooms. Go to the supermarket, and…"
     },
     {
-      "title": "Research Reports",
-      "link": "https://www.technologyreview.com/2026/11/17/1148203/research-reports/",
+      "title": "The Download: AI learns to smell and hydropower struggles",
+      "link": "https://www.technologyreview.com/2026/11/18/1148845/the-download-ai-learns-to-smell-hydropower-struggles/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 14:39:46 +0000",
-      "description": "To access a report, click on the corresponding image below."
+      "publishedAt": "Wed, 18 Nov 2026 13:10:00 +0000",
+      "description": "This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. This smell startup says its AI nose is as good as a human’s In a New Jersey lab, researchers are trying to sniff every odor on Earth. Their careful notes—“nutty,” “peachy,”…"
     },
     {
-      "title": "Loop Earplugs Discount Codes: 25% Off",
-      "link": "https://www.wired.com/story/loop-earplugs-discount-code/",
+      "title": "This smell startup says its AI nose is as good as a human’s",
+      "link": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
+      "source": "MIT Tech Review",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 10:20:30 +0000",
+      "description": "In a lab near Newark Airport in New Jersey, a team of around 30 experienced human sniffers are slowly working their way through every odor on Earth. Their careful notes—“nutty,” “peachy,” “marine”—are cross-referenced with a chemical analysis to create a rich set of training data for what AI startup Osmo calls the world’s first foundation…"
+    },
+    {
+      "title": "Best Early Black Friday Phone Deals (2026)",
+      "link": "https://www.wired.com/story/best-early-black-friday-phone-deals-11-18-26/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
-      "description": "Save on Loop Earplugs, including Quiet 2 and popular gift sets for improved sleep, focus, and comfort."
+      "publishedAt": "Wed, 18 Nov 2026 19:17:06 +0000",
+      "description": "As the holidays creep closer, I’m already seeing some tempting early Black Friday phone deals."
     },
     {
-      "title": "Columbia Promo Codes: 15% Off | November 2026",
-      "link": "https://www.wired.com/story/columbia-promo-code/",
+      "title": "An AI Debt Collection Service Exposed 6.6 Million Accounts and 315,000 Call Recordings",
+      "link": "https://www.wired.com/story/ai-debt-collection-service-exposed-66-million-accounts-and-315000-call-recordings/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
-      "description": "Explore current Columbia deals on jackets, outdoor gear, and apparel. Find active Columbia promo codes, student discounts, and free shipping offers to save on your next adventure."
+      "publishedAt": "Wed, 18 Nov 2026 19:00:00 +0000",
+      "description": "A pair of serious vulnerabilities in the CreditNirvana platform would have allowed attackers to access troves of detailed sensitive information, including emails, texts, and credit reports."
     },
     {
-      "title": "Walmart Promo Codes: 20% Off for November 2026",
-      "link": "https://www.wired.com/story/top-walmart-promo-codes/",
+      "title": "The US Lost Its Measles Elimination Status. It’ll Take Years to Get It Back",
+      "link": "https://www.wired.com/story/us-lost-measles-elimination-status-years-to-recover/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
-      "description": "Score $10 off with our Walmart promo codes and coupon, and shop flash deals up to 65% off today."
+      "publishedAt": "Wed, 18 Nov 2026 17:53:08 +0000",
+      "description": "The highly contagious disease is spreading across the country, and “may even be gaining speed.”"
     },
     {
-      "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
-      "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 08:00:05 GMT",
-      "description": "Xi opened the APEC summit in Shenzhen by calling for lower trade and investment barriers, pledging broader access to China’s market and manufacturing sector."
-    },
-    {
-      "title": "Iran says army targets U.S. drone and missile sites in Kuwait as Gulf attacks mount",
-      "link": "https://www.cnbc.com/2026/11/18/trump-iran-war-hormuz-oil-.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 05:24:54 GMT",
-      "description": "Iran said its army targeted U.S. drone and missile installations at Kuwait's Ali Al Salem air base, extending a run of attacks on Gulf states."
-    },
-    {
-      "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
-      "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
+      "title": "Anthropic IPO: AI lab considers increasing the offering as investor demand surges, sources say",
+      "link": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
       "source": "CNBC",
       "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT",
-      "description": "Major outages showcase the risks of interconnected tech in the age of AI."
+      "publishedAt": "Wed, 18 Nov 2026 17:17:44 GMT",
+      "description": "Anthropic stock is set to begin trading on the Nasdaq under the ticker symbol ANT on Thursday."
     },
     {
-      "title": "Putin says EU is losing industry, falling behind competition ahead of meeting with Trump, Xi",
-      "link": "https://www.cnbc.com/2026/11/18/putin-apec-eu-trump-xi-meeting.html",
+      "title": "Fed’s Waller says central bank may need to ‘shock people’ with half-point rate hike",
+      "link": "https://www.cnbc.com/2026/11/18/federal-reserve-governor-christopher-waller.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 07:17:11 GMT",
-      "description": "Putin used the speech to emphasize Russia's economic resilience despite U.S. sanctions, and played up opportunities for APEC members in the country."
+      "publishedAt": "Wed, 18 Nov 2026 15:13:39 GMT",
+      "description": "Continued inflation above the Fed's 2% target is pushing central bank officials into a more aggressive stance."
     },
     {
-      "title": "Democrat Mary Peltola wins Alaska Senate election",
-      "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
+      "title": "Nvidia interim CEO Kress tells employees ‘let’s move forward’ at first all-hands meeting since Jensen Huang exit",
+      "link": "https://www.cnbc.com/2026/11/18/nvidia-interim-ceo-kress-addresses-staff-after-jensen-huang-exit-.html",
       "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT",
-      "description": "Peltola's defeat of incumbent Republican Dan Sullivan gives Democrats a solid majority of 56 seats in the Senate as of January."
-    },
-    {
-      "title": "Senators press acting U.S. Navy Secretary on Iran war costs, sailor health in confirmation hearing",
-      "link": "https://www.cnbc.com/2026/11/18/us-iran-navy-hormuz-war-cao.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 07:24:06 GMT",
-      "description": "Acting Navy Secretary Hung Cao told senators the Navy recoded and used munitions he called expired as the Iran war strains weapons stocks and naval deployments."
-    },
-    {
-      "title": "CoreWeave’s stock pops — even as Nvidia talks up a ‘disciplined’ approach to financing",
-      "link": "https://www.marketwatch.com/story/coreweaves-stock-pops-even-as-nvidia-talks-up-a-disciplined-approach-to-financing-e7f00876?mod=mw_rss_topstories",
-      "source": "MarketWatch",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 01:59:00 GMT",
-      "description": "Nvidia interim CEO Colette Kress said neoclouds are “increasingly important,” but added the company will take “a very strong look” at the customers it helps with financing."
+      "publishedAt": "Wed, 18 Nov 2026 19:21:59 GMT",
+      "description": "Nvidia's interim CEO Colette Kress urges staff forward and offers pay raises after Jensen Huang exit."
     },
     {
-      "title": "Medicare Part B premiums rise due higher healthcare spending",
-      "link": "https://www.marketwatch.com/story/medicare-part-b-premiums-rise-due-higher-healthcare-spending-f2daba13?mod=mw_rss_topstories",
+      "title": "Investigators make progress in hunt for cause of FAA ground stop",
+      "link": "https://www.cnbc.com/2026/11/18/faa-ground-stop-router-investigation.html",
+      "source": "CNBC",
+      "group": "chung-khoan",
+      "publishedAt": "Wed, 18 Nov 2026 18:13:25 GMT",
+      "description": "Engineers and analysts are still searching for the root cause of the issue, which led to a four-hour ground stop on Friday."
+    },
+    {
+      "title": "Fed officials expect more rate hikes, worry about AI impact on inflation, minutes show",
+      "link": "https://www.cnbc.com/2026/11/18/fed-minutes-october-2026.html",
+      "source": "CNBC",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 19:26:32 GMT",
+      "description": "The Federal Reserve on Wednesday released minutes from its October policy meeting at which it voted to hold its benchmark interest rate in a range between 3.75%-4%."
+    },
+    {
+      "title": "One of AI's most notorious 'doomers' stands to make billions in Anthropic's IPO",
+      "link": "https://www.cnbc.com/2026/11/18/jaan-tallinn-anthropic-ipo-series-a-investment.html",
+      "source": "CNBC",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 18:43:26 GMT",
+      "description": "An Estonian tech billionaire famous for his stance that AI could end humanity is expected to be one of the biggest winners in Anthropic's upcoming IPO."
+    },
+    {
+      "title": "Fed minutes show growing unease about the outlook for inflation",
+      "link": "https://www.marketwatch.com/story/fed-minutes-show-growing-unease-about-the-outlook-for-inflation-59e3c13d?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 01:45:00 GMT",
-      "description": "The premiums will increase by $6.50, to $209.40 a month."
-    },
-    {
-      "title": "Nvidia’s stock rises as blowout numbers help ease CEO transition fears",
-      "link": "https://www.marketwatch.com/story/nvidias-stock-rises-as-blowout-numbers-help-ease-ceo-transition-fears-2f20d38a?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 01:28:00 GMT",
-      "description": "Nvidia’s revenue growth and $130 billion quarterly forecast showed that demand for chips is still sky-high."
+      "publishedAt": "Wed, 18 Nov 2026 19:12:00 GMT",
+      "description": "At the October meeting, there was some discussion of an aggressive rate hike at the Federal Reserve’s December meeting."
     },
     {
       "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
       "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 17 Nov 2026 23:30:00 GMT",
+      "publishedAt": "Wed, 18 Nov 2026 18:30:00 GMT",
       "description": "“I’m exhausted. My alarm goes off at 6 a.m., and I have a 50-minute commute.”"
     },
     {
-      "title": "Bitcoin ETFs lose $240M as CryptoQuant flags bearish market phase",
-      "link": "https://cointelegraph.com/markets/bitcoin-etf-240-million-outflow-bearish-phase?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "‘GTA 6’ is the biggest game ever. Take-Two’s stock, delivery apps and podcasts are along for the ride.",
+      "link": "https://www.marketwatch.com/story/gta-6-is-the-biggest-game-ever-take-twos-stock-delivery-apps-and-podcasts-are-along-for-the-ride-71014bf2?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "publishedAt": "Wed, 18 Nov 2026 18:28:00 GMT",
+      "description": "“Grand Theft Auto VI” has racked up a Metacritic score of 99 and been nominated for Game of the Year already. “Clearly, the 13-year wait has not gone to waste,” one analyst said."
+    },
+    {
+      "title": "‘It’s downright dirty’: My brother took over our ailing mother’s life and finances. What can I do?",
+      "link": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "publishedAt": "Wed, 18 Nov 2026 18:00:00 GMT",
+      "description": "“It is devastating when the people you should be able to trust become the very people you have to protect yourself from.”"
+    },
+    {
+      "title": "MARA prices $185M debt offering after $1.1B Bitcoin sale",
+      "link": "https://cointelegraph.com/markets/mara-long-ridge-debt-offering-bitcoin-sales?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 08:09:23 +0000",
-      "description": "Bitcoin ETF outflows returned after a one-day pause as CryptoQuant warned that Bitcoin had returned to a bearish market phase."
+      "publishedAt": "Wed, 18 Nov 2026 18:27:52 +0000",
+      "description": "The Bitcoin miner is taking on new debt to finance its AI infrastructure expansion, with the Long Ridge acquisition adding nearly $69 million in annual interest costs."
     },
     {
-      "title": "Here’s what happened in crypto today",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "$25M Ethereum MEV acquittal tests criminal enforcement limits",
+      "link": "https://cointelegraph.com/news/25m-ethereum-mev-acquittal-tests-criminal-enforcement-limits?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
+      "publishedAt": "Wed, 18 Nov 2026 17:05:04 +0000",
+      "description": "BlackRock’s staked Ether ETF earns a cut of what traders pay for priority on Ethereum, the acquittal left the legal risk to that income unresolved."
     },
     {
-      "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
-      "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Polymarket US takes rapid-fire crypto trading format to oil, natural gas",
+      "link": "https://cointelegraph.com/news/polymarket-us-takes-rapid-fire-crypto-trading-format-oil-natural-gas?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000",
-      "description": "Two Ledger owners reported losing a combined $604,000 in crypto from hardware wallets they said were purchased at authorized retailer Virgin Megastore in Dubai."
+      "publishedAt": "Wed, 18 Nov 2026 17:00:00 +0000",
+      "description": "Polymarket US said it attracted more than 300,000 traders to its short-duration crypto markets in six weeks and is now expanding the format to energy commodities."
     },
     {
-      "title": "Google finds self-running AI hacking tool with Russian comments in its files",
-      "link": "https://www.coindesk.com/tech/2026/11/18/google-finds-self-running-ai-hacking-tool-with-russian-comments-in-its-files",
-      "source": "CoinDesk",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 07:37:59 +0000",
-      "description": "Google spots an AI that can find and exploit software flaws on its own, no human needed."
-    },
-    {
-      "title": "Live updates: Bitcoin stuck near $65,000 as popular 'basis trade' returns dry up",
-      "link": "https://www.coindesk.com/business/2026/11/18/live-updates-bitcoin-stuck-near-usd65-000-as-popular-basis-trade-returns-dry-up",
+      "title": "A $1.5 billion crypto startup is taking on Hyperliquid with a Wall Street playbook",
+      "link": "https://www.coindesk.com/business/2026/11/18/a-usd1-5-billion-crypto-startup-is-taking-on-hyperliquid-with-a-wall-street-playbook",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 07:27:48 +0000",
-      "description": "XRP edged toward $1 and SOL rose 3%, while a Talos report showed crypto’s favorite carry trade now pays about what Treasuries do."
+      "publishedAt": "Wed, 18 Nov 2026 17:22:03 +0000",
+      "description": "Variational and its investors are betting that the future of onchain trading will look more like a traditional brokerage than a crypto exchange."
     },
     {
-      "title": "U.S. judge says Ethereum has ‘no terms of use,’ clears MIT brothers of $25 million fraud",
-      "link": "https://www.coindesk.com/policy/2026/11/18/u-s-judge-says-ethereum-has-no-terms-of-use-clears-mit-brothers-of-usd25-million-fraud",
+      "title": "Crypto Long & Short: Crypto exchanges shouldn’t double as the vault",
+      "link": "https://www.coindesk.com/coindesk-indices/2026/11/18/crypto-long-and-short-crypto-exchanges-shouldn-t-double-as-the-vault",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 05:30:10 +0000",
-      "description": "A federal judge acquitted Anton and James Peraire-Bueno, ruling that their 2023 trade against Ethereum trading bots involved no lie that anyone relied on, and closing the U.S. government’s first criminal case over the practice known as MEV."
+      "publishedAt": "Wed, 18 Nov 2026 16:02:54 +0000",
+      "description": "A single breach moved billions out of Binance in minutes, exposing how much client money sits with the venue that trades it. Darren Jordan of Komainu argues institutions should keep trading and custody separate, as traditional markets have for decades, and sets out the questions to ask about where assets are held."
     },
     {
-      "title": "Why Microsoft Thinks Smaller, Cheaper AI Can Beat Claude and GPT",
-      "link": "https://decrypt.co/383468/why-microsoft-thinks-smaller-cheaper-ai-beat-claude-gpt",
+      "title": "German judge proposes dropping Movie2k case if operator hands over $2.56 billion in bitcoin",
+      "link": "https://www.coindesk.com/business/2026/11/18/german-judge-proposes-dropping-movie2k-case-if-operator-hands-over-usd2-56-billion-in-bitcoin",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Wed, 18 Nov 2026 15:38:38 +0000",
+      "description": "Prosecutors estimate the defendant still holds 56,000 BTC, meaning the proposed deal would leave him with roughly $1 billion."
+    },
+    {
+      "title": "Bitcoin Tanks Ahead of Anthropic’s IPO. Should We Really Blame AI?",
+      "link": "https://decrypt.co/383551/bitcoin-tanks-ahead-anthropics-ipo-should-we-really-blame-ai",
       "source": "Decrypt",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 23:16:03 +0000",
-      "description": "Microsoft's new coding, cybersecurity and image models challenge bigger rivals on performance and price. The company's bet is that doing one job exceptionally well matters more than doing absolutely everything."
+      "group": "crypto",
+      "publishedAt": "Wed, 18 Nov 2026 19:16:02 +0000",
+      "description": "Bitcoin slid toward $63,000 as Anthropic prepared its blockbuster debut. Analysts dispute whether the IPO is draining crypto liquidity, pointing instead to ETF outflows, forced selling and rising interest rates."
     },
     {
-      "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
-      "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
+      "title": "Bitcoin Miners Are Selling Their Stacks to Fund the AI Boom",
+      "link": "https://decrypt.co/383568/bitcoin-miners-selling-fund-ai-boom",
       "source": "Decrypt",
-      "group": "ai",
-      "publishedAt": "Tue, 17 Nov 2026 22:39:53 +0000",
-      "description": "Nvidia's board rejected a comeback for its ousted co-founder as it hired a search firm, backed interim CEO Colette Kress, and tightened oversight of chip exports to China."
+      "group": "crypto",
+      "publishedAt": "Wed, 18 Nov 2026 18:46:03 +0000",
+      "description": "MARA sold 13,597 BTC after September and Riot sold 20,264 BTC through September to fund debt repayment and AI data center buildouts, as Glassnode flagged the pair as the main sellers among Bitcoin treasury firms."
     }
   ]
 }
