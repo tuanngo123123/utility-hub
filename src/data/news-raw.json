@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T05:11:42.691Z",
+  "updatedAt": "2026-11-18T07:50:38.271Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -80,20 +80,12 @@
       "description": "Xi opened the APEC summit in Shenzhen by calling for lower trade and investment barriers, pledging broader access to China’s market and manufacturing sector."
     },
     {
-      "title": "Democrat Mary Peltola wins Alaska Senate election",
-      "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
+      "title": "Iran says army targets U.S. drone and missile sites in Kuwait as Gulf attacks mount",
+      "link": "https://www.cnbc.com/2026/11/18/trump-iran-war-hormuz-oil-.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT",
-      "description": "Peltola's defeat of incumbent Republican Dan Sullivan gives Democrats a solid majority of 56 seats in the Senate as of January."
-    },
-    {
-      "title": "Zelenskyy says Starshield speed curbs still in place over 'occupied territories' of Ukraine",
-      "link": "https://www.cnbc.com/2026/11/18/ukraine-starshield-starlink-musk-spacex.html",
-      "source": "CNBC",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 02:50:16 GMT",
-      "description": "Ukraine's charge d'affaires to the U.S., Denys Sienik, said that Starshield had been speed-limited for seven days already in Ukraine."
+      "publishedAt": "Wed, 18 Nov 2026 05:24:54 GMT",
+      "description": "Iran said its army targeted U.S. drone and missile installations at Kuwait's Ali Al Salem air base, extending a run of attacks on Gulf states."
     },
     {
       "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
@@ -108,16 +100,32 @@
       "link": "https://www.cnbc.com/2026/11/18/putin-apec-eu-trump-xi-meeting.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 04:27:45 GMT",
+      "publishedAt": "Wed, 18 Nov 2026 07:17:11 GMT",
       "description": "Putin used the speech to emphasize Russia's economic resilience despite U.S. sanctions, and played up opportunities for APEC members in the country."
     },
     {
-      "title": "Three things to watch as Trump, Xi and Putin meet in China",
-      "link": "https://www.cnbc.com/2026/11/18/apec-trump-xi-putin-shenzhen.html",
+      "title": "Democrat Mary Peltola wins Alaska Senate election",
+      "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 03:25:32 GMT",
-      "description": "U.S. President Donald Trump, Chinese President Xi Jinping and Russian President Vladimir Putin are set to meet in Shenzhen alongside an APEC leaders' meeting."
+      "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT",
+      "description": "Peltola's defeat of incumbent Republican Dan Sullivan gives Democrats a solid majority of 56 seats in the Senate as of January."
+    },
+    {
+      "title": "Senators press acting U.S. Navy Secretary on Iran war costs, sailor health in confirmation hearing",
+      "link": "https://www.cnbc.com/2026/11/18/us-iran-navy-hormuz-war-cao.html",
+      "source": "CNBC",
+      "group": "chung-khoan",
+      "publishedAt": "Wed, 18 Nov 2026 07:24:06 GMT",
+      "description": "Acting Navy Secretary Hung Cao told senators the Navy recoded and used munitions he called expired as the Iran war strains weapons stocks and naval deployments."
+    },
+    {
+      "title": "Here’s what happened in crypto today",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "crypto",
+      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
     },
     {
       "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
@@ -136,36 +144,28 @@
       "description": "Nvidia beat Wall Street’s revenue expectations by 5.6% and issued a stronger-than-expected sales forecast, while its board resisted growing calls for Jensen Huang’s reinstatement."
     },
     {
-      "title": "CFTC halts some Kalshi Trump mention markets over manipulation concerns",
-      "link": "https://cointelegraph.com/news/cftc-kalshi-trump-mention-markets-review?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 22:20:04 +0000",
-      "description": "The CFTC stayed Kalshi’s Trump-related mention markets after raising concerns about manipulation risks, giving the platform until Dec. 11 to defend its contracts."
+      "title": "Google finds self-running AI hacking tool with Russian comments in its files",
+      "link": "https://www.coindesk.com/tech/2026/11/18/google-finds-self-running-ai-hacking-tool-with-russian-comments-in-its-files",
+      "source": "CoinDesk",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 07:37:59 +0000",
+      "description": "Google spots an AI that can find and exploit software flaws on its own, no human needed."
     },
     {
-      "title": "Bitcoin's 12% slide through key support looks scary, but history says give it 3 months.",
-      "link": "https://www.coindesk.com/markets/2026/11/18/bitcoin-s-rare-12-crash-through-its-200-week-average-has-a-bullish-track-record",
+      "title": "Live updates: Bitcoin stuck near $65,000 as popular 'basis trade' returns dry up",
+      "link": "https://www.coindesk.com/business/2026/11/18/live-updates-bitcoin-stuck-near-usd65-000-as-popular-basis-trade-returns-dry-up",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 04:34:21 +0000",
-      "description": "Bitcoin broke below its 200-week average with a 12% drop. Only three similar crashes have occurred since 2013. Here’s what happened next."
+      "publishedAt": "Wed, 18 Nov 2026 07:27:48 +0000",
+      "description": "XRP edged toward $1 and SOL rose 3%, while a Talos report showed crypto’s favorite carry trade now pays about what Treasuries do."
     },
     {
-      "title": "XRP whales moved $270 million during the selloff. The coins didn’t go to exchanges",
-      "link": "https://www.coindesk.com/markets/2026/11/18/xrp-whales-moved-usd270-million-during-the-selloff-the-coins-didn-t-go-to-exchanges",
+      "title": "U.S. judge says Ethereum has ‘no terms of use,’ clears MIT brothers of $25 million fraud",
+      "link": "https://www.coindesk.com/policy/2026/11/18/u-s-judge-says-ethereum-has-no-terms-of-use-clears-mit-brothers-of-usd25-million-fraud",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 04:28:37 +0000",
-      "description": "A holder whose wallets trace back to a 2020 Bitstamp withdrawal has moved 281 million XRP into two vaults three weeks apart, a behavior indicative of custody rather than a large investor heading for the exit."
-    },
-    {
-      "title": "CFTC nominee questions public benefit of prediction markets as legal fight grows",
-      "link": "https://www.coindesk.com/policy/2026/11/17/nominee-says-u-s-cftc-must-think-hard-about-public-benefit-of-prediction-markets",
-      "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 00:46:25 +0000",
-      "description": "One of the two picks to join the regulatory commission, Democratic nominee Matthew Rowland, said he hopes to have a say in prediction markets rulemaking."
+      "publishedAt": "Wed, 18 Nov 2026 05:30:10 +0000",
+      "description": "A federal judge acquitted Anton and James Peraire-Bueno, ruling that their 2023 trade against Ethereum trading bots involved no lie that anyone relied on, and closing the U.S. government’s first criminal case over the practice known as MEV."
     }
   ]
 }
