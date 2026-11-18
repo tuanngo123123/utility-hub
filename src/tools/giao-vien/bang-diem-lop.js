@@ -1,5 +1,7 @@
 // Bảng điểm lớp: thêm đội/bạn, cộng/trừ điểm (+1/+5/−1), xếp hạng theo
 // điểm, lưu trên trình duyệt (localStorage), tải bảng điểm về (.csv).
+// Hạng 1–3 có huy hiệu vàng/bạc/đồng, số điểm rất to, thanh điểm tương
+// đối, số "+5" bay lên khi cộng điểm. Có chế độ Chiếu lớp và âm thanh.
 export const meta = {
   id: 'bang-diem-lop',
   name: 'Bảng điểm lớp',
@@ -26,6 +28,8 @@ export function body() {
   <div id="bd-list"></div>
   <div class="btn-row" style="margin-top:14px">
     <button type="button" class="btn gv-dl" id="bd-download" style="display:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải bảng điểm (.csv)</button>
+    <button type="button" class="btn" id="bd-stage">Chiếu lớp</button>
+    <button type="button" class="btn btn-ghost gv-sound-btn" id="bd-sound">Âm thanh: Bật</button>
     <button type="button" class="btn btn-ghost" id="bd-clear" data-uh-reset="1">Xóa bảng điểm</button>
   </div>
   <p class="note" id="bd-msg" style="display:none"></p>
@@ -38,12 +42,20 @@ export function init(root) {
   let entries = [];
   let clearArmed = false;
   let clearTimer = null;
+  let stageOpen = false;
+  let stageEl = null;
 
   function esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
+
+  function gvSound() {
+    return (typeof window !== 'undefined' && window.UhGvSound) ? window.UhGvSound : null;
+  }
+  function tick() { const s = gvSound(); if (s) s.tick(); }
+  function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
   function load() {
     try {
@@ -66,24 +78,38 @@ export function init(root) {
       .sort((a, b) => (b.e.score - a.e.score) || (a.i - b.i));
   }
 
+  function maxScore() {
+    return entries.reduce((m, e) => Math.max(m, e.score), 0);
+  }
+
+  function rankBadge(rank) {
+    if (rank <= 3) return '<span class="gv-rank gv-rank-' + rank + '">' + rank + '</span>';
+    return '<span class="gv-rank">' + rank + '</span>';
+  }
+
   function render() {
     const list = $('bd-list');
     $('bd-empty').style.display = entries.length ? 'none' : '';
     $('bd-download').style.display = entries.length ? '' : 'none';
     if (!entries.length) { list.innerHTML = ''; return; }
+    const max = maxScore();
     list.innerHTML = sorted().map((row, rank) => {
       const neg = row.e.score < 0 ? ' gv-score-num-neg' : '';
-      return '<div class="gv-score-row">'
-        + '<span class="gv-rank">' + (rank + 1) + '</span>'
+      const pct = max > 0 ? Math.max(0, Math.round(row.e.score / max * 100)) : 0;
+      return '<div class="gv-score-row" data-i="' + row.i + '">'
+        + rankBadge(rank + 1)
         + '<span class="gv-score-name">' + esc(row.e.name) + '</span>'
         + '<span class="gv-score-num' + neg + '">' + row.e.score + '</span>'
         + '<span class="gv-score-btns">'
-        + '<button type="button" class="btn gv-mini" data-act="add" data-i="' + row.i + '" data-v="1">+1</button>'
-        + '<button type="button" class="btn gv-mini" data-act="add" data-i="' + row.i + '" data-v="5">+5</button>'
-        + '<button type="button" class="btn gv-mini" data-act="add" data-i="' + row.i + '" data-v="-1">−1</button>'
+        + '<button type="button" class="btn gv-mini gv-btn-add" data-act="add" data-i="' + row.i + '" data-v="1">+1</button>'
+        + '<button type="button" class="btn gv-mini gv-btn-add5" data-act="add" data-i="' + row.i + '" data-v="5">+5</button>'
+        + '<button type="button" class="btn gv-mini gv-btn-sub" data-act="add" data-i="' + row.i + '" data-v="-1">−1</button>'
         + '<button type="button" class="btn btn-ghost gv-mini" data-act="del" data-i="' + row.i + '" aria-label="Xóa ' + esc(row.e.name) + '">✕</button>'
-        + '</span></div>';
+        + '</span>'
+        + '<span class="gv-score-bar"><span class="gv-score-bar-fill" style="width:' + pct + '%"></span></span>'
+        + '</div>';
     }).join('');
+    updateStage();
   }
 
   function download(filename, text) {
@@ -107,6 +133,15 @@ export function init(root) {
     const el = $('bd-msg');
     el.textContent = text;
     el.style.display = text ? '' : 'none';
+  }
+
+  function floatNum(rowEl, v) {
+    if (!rowEl) return;
+    const s = document.createElement('span');
+    s.className = 'gv-float' + (v < 0 ? ' gv-float-neg' : '');
+    s.textContent = (v > 0 ? '+' : '') + v;
+    rowEl.appendChild(s);
+    setTimeout(() => s.remove(), 950);
   }
 
   function addEntry() {
@@ -133,10 +168,25 @@ export function init(root) {
     const i = parseInt(btn.getAttribute('data-i'), 10);
     if (isNaN(i) || !entries[i]) return;
     if (btn.getAttribute('data-act') === 'add') {
-      entries[i].score += parseInt(btn.getAttribute('data-v'), 10) || 0;
-    } else {
-      entries.splice(i, 1);
+      const v = parseInt(btn.getAttribute('data-v'), 10) || 0;
+      entries[i].score += v;
+      if (v === 5) fanfare(); else tick();
+      save();
+      render();
+      // Hiệu ứng sau khi vẽ lại (vẽ lại thay toàn bộ HTML của hàng).
+      const fresh = $('bd-list').querySelector('.gv-score-row[data-i="' + i + '"]');
+      if (fresh) {
+        const num = fresh.querySelector('.gv-score-num');
+        if (num) {
+          num.classList.remove('gv-pop');
+          void num.offsetWidth;
+          num.classList.add('gv-pop');
+        }
+        floatNum(fresh, v);
+      }
+      return;
     }
+    entries.splice(i, 1);
     save();
     render();
   });
@@ -169,6 +219,67 @@ export function init(root) {
     });
     download('bang-diem-lop.csv', csv);
   });
+
+  // Chế độ Chiếu lớp: bảng xếp hạng phóng to.
+  function ensureStage() {
+    if (stageEl) return stageEl;
+    stageEl = document.createElement('div');
+    stageEl.className = 'gv-stage';
+    stageEl.style.display = 'none';
+    stageEl.innerHTML = '<button type="button" class="gv-stage-close" id="bd-stage-close">Đóng ✕</button>'
+      + '<div class="gv-stage-sub">Bảng điểm lớp</div>'
+      + '<div id="bd-stage-body" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:10px"></div>';
+    document.body.appendChild(stageEl);
+    stageEl.querySelector('#bd-stage-close').addEventListener('click', closeStage);
+    return stageEl;
+  }
+
+  function updateStage() {
+    if (!stageEl) return;
+    const body = stageEl.querySelector('#bd-stage-body');
+    if (!entries.length) {
+      body.innerHTML = '<div class="gv-stage-big" style="font-size:2rem">Chưa có đội nào.</div>';
+      return;
+    }
+    const max = maxScore();
+    body.innerHTML = sorted().slice(0, 5).map((row, rank) => {
+      const pct = max > 0 ? Math.max(0, Math.round(row.e.score / max * 100)) : 0;
+      return '<div class="gv-score-row">'
+        + rankBadge(rank + 1)
+        + '<span class="gv-score-name">' + esc(row.e.name) + '</span>'
+        + '<span class="gv-score-num">' + row.e.score + '</span>'
+        + '<span class="gv-score-bar"><span class="gv-score-bar-fill" style="width:' + pct + '%"></span></span>'
+        + '</div>';
+    }).join('');
+  }
+
+  function openStage() {
+    ensureStage();
+    updateStage();
+    stageEl.style.display = 'flex';
+    stageOpen = true;
+  }
+
+  function closeStage() {
+    if (!stageEl) return;
+    stageEl.style.display = 'none';
+    stageOpen = false;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && stageOpen) closeStage();
+  });
+
+  $('bd-stage').addEventListener('click', openStage);
+
+  (function initSoundBtn() {
+    const btn = $('bd-sound');
+    const s = gvSound();
+    if (!s) { btn.style.display = 'none'; return; }
+    const paint = () => { btn.textContent = 'Âm thanh: ' + (s.enabled() ? 'Bật' : 'Tắt'); };
+    btn.addEventListener('click', () => { s.toggle(); paint(); });
+    paint();
+  })();
 
   load();
   render();

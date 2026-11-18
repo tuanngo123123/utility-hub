@@ -1790,6 +1790,8 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   border: 1px solid var(--line-soft);
   border-radius: var(--radius);
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 .gv-hero-label { color: var(--muted); font-size: 0.9rem; }
 .gv-big {
@@ -1800,6 +1802,9 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   overflow-wrap: break-word;
 }
 .gv-big-sm { font-size: 1.6rem; }
+/* Số trúng khổng lồ (bốc thăm số): đỏ làm điểm nhấn riêng. */
+.gv-big-xl { font-size: clamp(4rem, 18vw, 6rem); line-height: 1.05; }
+.gv-big-red { color: #dc2626; }
 @keyframes gv-pop {
   0% { transform: scale(0.92); opacity: 0.4; }
   60% { transform: scale(1.06); opacity: 1; }
@@ -1820,23 +1825,23 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 .gv-chip-done { background: var(--bg-soft); color: var(--muted); }
 
-/* Xúc xắc vẽ bằng CSS (không dùng ký tự emoji). */
-.gv-dice-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+/* Xúc xắc vẽ bằng CSS (không dùng ký tự emoji) — to để chiếu bảng. */
+.gv-dice-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .gv-die {
-  width: 64px;
-  height: 64px;
+  width: 110px;
+  height: 110px;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 20px;
   box-shadow: var(--shadow-sm);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  padding: 10px;
+  padding: 16px;
 }
 .gv-pip {
-  width: 10px;
-  height: 10px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #1e293b;
   place-self: center;
@@ -1848,16 +1853,16 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 .gv-shake { animation: gv-shake 0.18s ease-in-out infinite; }
 
-/* Đồng xu: vòng tròn vàng, lật xoay khi tung. */
+/* Đồng xu: vòng tròn vàng, lật xoay khi tung — to để chiếu bảng. */
 .gv-coin {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.7rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #713f12;
   background: radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 70%);
@@ -1867,7 +1872,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 @keyframes gv-flip { from { transform: rotateY(0); } to { transform: rotateY(1800deg); } }
 .gv-flip { animation: gv-flip 0.9s ease-out; }
 
-/* Thẻ nhóm (chia nhóm ngẫu nhiên). */
+/* Thẻ nhóm (chia nhóm ngẫu nhiên) — mỗi nhóm một màu pastel riêng. */
 .gv-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
 .gv-group {
   background: var(--surface);
@@ -1878,6 +1883,24 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .gv-group h3 { margin: 0 0 8px; font-size: 1rem; color: var(--accent-dark); }
 .gv-group ul { margin: 0; padding-left: 18px; }
 .gv-group li { line-height: 1.7; }
+.gv-role { font-size: 0.8rem; color: var(--muted); }
+.gv-group-c0 { background: #dbeafe; border-color: #93c5fd; }
+.gv-group-c0 h3 { color: #1d4ed8; }
+.gv-group-c1 { background: #fef3c7; border-color: #fcd34d; }
+.gv-group-c1 h3 { color: #b45309; }
+.gv-group-c2 { background: #dcfce7; border-color: #86efac; }
+.gv-group-c2 h3 { color: #15803d; }
+.gv-group-c3 { background: #fce7f3; border-color: #f9a8d4; }
+.gv-group-c3 h3 { color: #be185d; }
+.gv-group-c4 { background: #ede9fe; border-color: #c4b5fd; }
+.gv-group-c4 h3 { color: #6d28d9; }
+.gv-group-c5 { background: #cffafe; border-color: #67e8f9; }
+.gv-group-c5 h3 { color: #0e7490; }
+@keyframes gv-group-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.gv-group-in { animation: gv-group-in 0.3s ease both; }
 
 /* Hàng điểm (bảng điểm lớp). */
 .gv-score-row {
@@ -1889,21 +1912,180 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   border: 1px solid var(--line-soft);
   border-radius: var(--radius-sm);
   background: var(--surface);
+  position: relative;
 }
 .gv-score-row + .gv-score-row { margin-top: 8px; }
 .gv-rank { font-weight: 800; color: var(--muted); min-width: 28px; text-align: center; }
+/* Huy hiệu hạng 1/2/3: vòng tròn vàng/bạc/đồng (CSS, không emoji). */
+.gv-rank-1, .gv-rank-2, .gv-rank-3 {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+}
+.gv-rank-1 { background: #fbbf24; color: #713f12; }
+.gv-rank-2 { background: #e2e8f0; color: #475569; }
+.gv-rank-3 { background: #fdba74; color: #7c2d12; }
 .gv-score-name { flex: 1; font-weight: 600; min-width: 0; overflow-wrap: break-word; }
-.gv-score-num { font-size: 1.4rem; font-weight: 800; color: var(--accent-dark); min-width: 44px; text-align: right; }
+.gv-score-num { font-size: 2.5rem; font-weight: 800; color: var(--accent-dark); min-width: 64px; text-align: right; line-height: 1.1; }
 .gv-score-num-neg { color: #dc2626; }
 .gv-score-btns { display: flex; gap: 6px; flex: none; margin-left: auto; }
+/* Thanh điểm tương đối: rộng theo điểm / điểm cao nhất. */
+.gv-score-bar { flex-basis: 100%; height: 8px; background: var(--bg-soft); border-radius: 999px; overflow: hidden; }
+.gv-score-bar-fill { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.3s ease; }
+@keyframes gv-float-up {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-28px); }
+}
+.gv-float {
+  position: absolute;
+  right: 120px;
+  top: 6px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #15803d;
+  pointer-events: none;
+  animation: gv-float-up 0.9s ease-out forwards;
+}
+.gv-float-neg { color: #dc2626; }
 @media (max-width: 560px) {
   /* Màn hình hẹp: nút cộng/trừ xuống hàng riêng để tên không bị ép dọc. */
   .gv-score-btns { flex-basis: 100%; justify-content: flex-end; }
+  .gv-float { right: 12px; }
 }
 .gv-mini { padding: 6px 10px; font-size: 0.9rem; }
+/* Nút điểm theo màu: +1 xanh, +5 vàng, −1 xám. */
+.gv-btn-add { background: #2563eb; color: #fff; border-color: #2563eb; }
+.gv-btn-add5 { background: #eab308; color: #422006; border-color: #eab308; }
+.gv-btn-sub { background: #e2e8f0; color: #334155; border-color: #e2e8f0; }
 
 /* Nút tải về: icon SVG thẳng hàng với chữ. */
 .gv-dl svg { vertical-align: -3px; margin-right: 6px; }
+
+/* Nút bật/tắt âm thanh trong công cụ giáo viên. */
+.gv-sound-btn { font-size: 0.85rem; padding: 6px 10px; }
+
+/* Thẻ người thắng: tên khổng lồ + nút cộng điểm. */
+.gv-winner { text-align: center; }
+.gv-winner-name {
+  font-size: clamp(2.6rem, 10vw, 5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--accent-dark);
+  overflow-wrap: break-word;
+}
+.gv-winner-name-sm { font-size: clamp(1.8rem, 7vw, 3rem); }
+
+/* Vòng quay tên (SVG, xoay bằng transform). */
+.gv-wheel-wrap { position: relative; margin: 8px auto 0; max-width: 340px; }
+.gv-wheel { transition: transform 3.6s cubic-bezier(0.12, 0.8, 0.08, 1); }
+.gv-wheel svg { width: 100%; height: auto; display: block; }
+.gv-wheel-pointer {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 26px solid #dc2626;
+  z-index: 2;
+}
+.gv-wheel-hub {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+}
+
+/* Pháo giấy CSS: 1 đợt ngắn khi có kết quả. */
+.gv-confetti {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  pointer-events: none;
+  animation: gv-confetti-fall 1.6s ease-in forwards;
+}
+@keyframes gv-confetti-fall {
+  to { transform: translateY(340px) rotate(720deg); opacity: 0; }
+}
+
+/* Chế độ "Chiếu lớp": lớp phủ toàn màn hình, chỉ hiện kết quả. */
+.gv-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: #0f172a;
+  color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px 16px;
+  text-align: center;
+  overflow-y: auto;
+}
+.gv-stage-big {
+  font-size: clamp(3rem, 14vw, 7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+.gv-stage-sub { color: #cbd5e1; font-size: 1.1rem; }
+.gv-stage-actions { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; justify-content: center; }
+.gv-stage-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.gv-stage-close:hover { background: rgba(255, 255, 255, 0.12); }
+.gv-stage .gv-groups { width: 100%; max-width: 900px; }
+.gv-stage .gv-group li { color: #1e293b; }
+.gv-stage .gv-score-row { width: 100%; max-width: 640px; text-align: left; }
+
+/* Lưới nút âm thanh lớp học. */
+.gv-sound-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; }
+.gv-snd {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 12px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  font: inherit;
+  color: var(--ink);
+}
+.gv-snd:hover { border-color: var(--accent); transform: translateY(-2px); }
+.gv-snd strong { font-size: 1.05rem; }
+.gv-snd span { font-size: 0.85rem; color: var(--muted); }
+.gv-snd-playing { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 
 .alert-success,
 .alert-error {

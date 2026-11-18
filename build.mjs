@@ -838,7 +838,7 @@ async function main() {
   );
   console.log(`   - Học miễn phí: ${hocMienPhiCount} repo, 1 trang`);
 
-  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 5 công cụ hạng mục
+  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 6 công cụ hạng mục
   // giao-vien (danh sách trong src/pages/giao-vien.js).
   addPage(
     'giao-vien/index.html',
@@ -853,7 +853,7 @@ async function main() {
     }),
     `${BASE_URL}/giao-vien/`
   );
-  console.log('   - Giáo viên: 5 công cụ, 1 trang');
+  console.log('   - Giáo viên: 6 công cụ, 1 trang');
 
   // Trang mục Điểm báo (/diem-bao/) + trang lưu trữ theo ngày (mới nhất
   // trước). Trang mục vào sitemap như mọi trang khác (qua addPage).

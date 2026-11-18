@@ -1,22 +1,54 @@
-// Gọi tên ngẫu nhiên trong lớp: dán danh sách, gọi 1–5 bạn mỗi lần,
-// không gọi lại người đã gọi cho tới khi hết danh sách. Tên chạy lướt
-// rồi dừng ở bạn được gọi; tải được danh sách đã gọi về (.txt).
+// Gọi tên ngẫu nhiên trong lớp: vòng quay SVG quay giảm tốc hoặc chế
+// độ chạy tên; không gọi lại người đã gọi cho tới khi hết danh sách.
+// Kết quả là "sân khấu" to trên cùng; thẻ người thắng có nút cộng
+// điểm sang Bảng điểm lớp; có chế độ Chiếu lớp toàn màn hình, âm
+// thanh Web Audio, phím R để gọi nhanh.
 export const meta = {
   id: 'goi-ten-ngau-nhien',
   name: 'Gọi tên ngẫu nhiên',
   category: 'Giáo viên',
   categorySlug: 'giao-vien',
-  desc: 'Gọi tên học sinh ngẫu nhiên trong lớp: không gọi lại người đã gọi, gọi 1–5 bạn mỗi lần, tải danh sách đã gọi về máy.',
-  keywords: 'gọi tên ngẫu nhiên, gọi tên học sinh, chọn tên ngẫu nhiên, gọi bài, điểm danh lớp',
+  desc: 'Gọi tên học sinh ngẫu nhiên bằng vòng quay hoặc chạy tên: không gọi lại người đã gọi, gọi 1–5 bạn mỗi lần, cộng điểm sang bảng điểm, tải danh sách đã gọi về máy.',
+  keywords: 'gọi tên ngẫu nhiên, gọi tên học sinh, chọn tên ngẫu nhiên, gọi bài, điểm danh lớp, vòng quay tên',
   icon: '🎯',
-  seoTitle: 'Gọi tên ngẫu nhiên trong lớp — không gọi lại người đã gọi',
-  seoDesc: 'Dán danh sách lớp, bấm gọi tên — chọn ngẫu nhiên 1–5 bạn, không gọi lại người đã gọi cho tới khi hết danh sách. Miễn phí, chạy ngay trên trình duyệt.',
+  seoTitle: 'Gọi tên ngẫu nhiên trong lớp — vòng quay, không gọi lại người đã gọi',
+  seoDesc: 'Dán danh sách lớp, bấm gọi tên — vòng quay giảm tốc rồi dừng ở bạn được gọi, không gọi lại người đã gọi cho tới khi hết danh sách. Miễn phí, chạy ngay trên trình duyệt.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
-  <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><h2>Gọi tên ngẫu nhiên</h2><p class="muted">Dán danh sách lớp, bấm gọi — tên chạy lướt rồi dừng ở bạn được gọi. Không gọi lại người đã gọi cho tới khi hết danh sách.</p></div></div>
+  <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><h2>Gọi tên ngẫu nhiên</h2><p class="muted">Vòng quay dừng ở bạn được gọi — không gọi lại người đã gọi cho tới khi hết danh sách. Bấm phím R để gọi nhanh.</p></div></div>
+  <div class="tabs">
+    <button type="button" class="tab tab-active" id="gt-tab-wheel">Vòng quay</button>
+    <button type="button" class="tab" id="gt-tab-text">Chạy tên</button>
+  </div>
+  <div id="gt-pane-wheel">
+    <div class="gv-wheel-wrap" id="gt-wheel-wrap">
+      <div class="gv-wheel-pointer" aria-hidden="true"></div>
+      <div class="gv-wheel" id="gt-wheel"></div>
+      <div class="gv-wheel-hub" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div id="gt-pane-text" style="display:none">
+    <div class="gv-hero" id="gt-hero">
+      <span class="gv-hero-label">Bạn được gọi</span>
+      <div id="gt-big"><div class="gv-big">—</div></div>
+      <span class="muted" id="gt-sub">Bấm "Gọi tên" để bắt đầu</span>
+    </div>
+  </div>
+  <div class="gv-winner" id="gt-winner" style="display:none"></div>
+  <p class="muted" id="gt-wheel-sub" style="text-align:center">Bấm "Gọi tên" để quay</p>
+  <div class="btn-row">
+    <button type="button" class="btn btn-primary" id="gt-call">Gọi tên</button>
+    <button type="button" class="btn" id="gt-stage">Chiếu lớp</button>
+    <button type="button" class="btn btn-ghost gv-sound-btn" id="gt-sound">Âm thanh: Bật</button>
+    <button type="button" class="btn btn-ghost" id="gt-reset" data-uh-reset="1">Gọi lại từ đầu</button>
+  </div>
+  <div id="gt-status"></div>
+  <div class="btn-row" id="gt-dl-row" style="display:none">
+    <button type="button" class="btn gv-dl" id="gt-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải danh sách đã gọi (.txt)</button>
+  </div>
   <div class="field"><label for="gt-names">Danh sách lớp (mỗi bạn một dòng)</label><textarea id="gt-names" rows="6" placeholder="Mai&#10;Nam&#10;Phương&#10;Tuấn">Mai
 Nam
 Phương
@@ -26,32 +58,34 @@ Hương
 Linh
 Khoa</textarea></div>
   <div class="field"><label for="gt-count">Số bạn gọi mỗi lần</label><select id="gt-count"><option value="1" selected>1 bạn</option><option value="2">2 bạn</option><option value="3">3 bạn</option><option value="4">4 bạn</option><option value="5">5 bạn</option></select></div>
-  <div class="btn-row">
-    <button type="button" class="btn btn-primary" id="gt-call">Gọi tên</button>
-    <button type="button" class="btn btn-ghost" id="gt-reset" data-uh-reset="1">Gọi lại từ đầu</button>
-  </div>
-  <div class="gv-hero" id="gt-hero">
-    <span class="gv-hero-label">Bạn được gọi</span>
-    <div id="gt-big"><div class="gv-big">—</div></div>
-    <span class="muted" id="gt-sub">Bấm "Gọi tên" để bắt đầu</span>
-  </div>
-  <div id="gt-status"></div>
-  <div class="btn-row" id="gt-dl-row" style="display:none">
-    <button type="button" class="btn gv-dl" id="gt-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải danh sách đã gọi (.txt)</button>
-  </div>
 </div>`;
 }
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
+  const REDUCED = typeof window !== 'undefined' && window.matchMedia
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const WHEEL_COLORS = ['#2563eb', '#0d9488', '#f97316', '#db2777', '#7c3aed', '#059669', '#eab308', '#dc2626'];
+  const CONFETTI_COLORS = ['#2563eb', '#f59e0b', '#dc2626', '#059669', '#7c3aed', '#ec4899'];
   let called = [];
+  let roundPicks = [];
   let busy = false;
+  let mode = 'wheel';
+  let wheelRotation = 0;
+  let stageOpen = false;
+  let stageEl = null;
 
   function esc(s) {
     return String(s == null ? '' : s)
       .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
+
+  function gvSound() {
+    return (typeof window !== 'undefined' && window.UhGvSound) ? window.UhGvSound : null;
+  }
+  function tick() { const s = gvSound(); if (s) s.tick(); }
+  function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
   function nameList() {
     const seen = {};
@@ -61,6 +95,10 @@ export function init(root) {
       if (t && !seen[t]) { seen[t] = true; out.push(t); }
     });
     return out;
+  }
+
+  function remainingNames() {
+    return nameList().filter(n => called.indexOf(n) === -1);
   }
 
   function download(filename, text) {
@@ -75,6 +113,19 @@ export function init(root) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
+  function confetti(container) {
+    if (REDUCED || !container) return;
+    for (let i = 0; i < 28; i++) {
+      const s = document.createElement('span');
+      s.className = 'gv-confetti';
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+      s.style.animationDelay = (Math.random() * 0.3) + 's';
+      container.appendChild(s);
+      setTimeout(() => s.remove(), 2200);
+    }
+  }
+
   function updateStatus() {
     const list = nameList();
     if (!called.length) { $('gt-status').innerHTML = ''; $('gt-dl-row').style.display = 'none'; return; }
@@ -83,23 +134,234 @@ export function init(root) {
     $('gt-dl-row').style.display = '';
   }
 
-  function resetAll() {
-    called = [];
-    $('gt-big').innerHTML = '<div class="gv-big">—</div>';
-    $('gt-sub').textContent = 'Bấm "Gọi tên" để bắt đầu';
-    updateStatus();
-  }
-
-  $('gt-call').addEventListener('click', () => {
-    if (busy) return;
-    const list = nameList();
-    if (!list.length) {
-      $('gt-sub').textContent = 'Danh sách đang trống — dán tên các bạn vào ô trên nhé.';
+  // Vẽ vòng quay SVG từ danh sách tên còn lại.
+  function drawWheel() {
+    const names = remainingNames();
+    const n = names.length;
+    const el = $('gt-wheel');
+    el.style.transition = 'none';
+    el.style.transform = 'rotate(0deg)';
+    wheelRotation = 0;
+    void el.offsetWidth;
+    el.style.transition = '';
+    if (!n) {
+      el.innerHTML = '<svg viewBox="0 0 300 300" role="img" aria-label="Vòng quay trống"><circle cx="150" cy="150" r="145" fill="#e2e8f0"/><text x="150" y="150" fill="#64748b" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="middle">Đã gọi hết</text></svg>';
       return;
     }
-    const remaining = list.filter(n => called.indexOf(n) === -1);
+    const fontSize = n <= 8 ? 14 : n <= 16 ? 11 : 9;
+    const parts = ['<svg viewBox="0 0 300 300" role="img" aria-label="Vòng quay tên">'];
+    if (n === 1) {
+      parts.push('<circle cx="150" cy="150" r="145" fill="' + WHEEL_COLORS[0] + '"/>');
+      parts.push('<text x="150" y="150" fill="#fff" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="middle">' + esc(names[0].slice(0, 14)) + '</text>');
+    } else {
+      for (let i = 0; i < n; i++) {
+        const a0 = (i * 360 / n) * Math.PI / 180;
+        const a1 = ((i + 1) * 360 / n) * Math.PI / 180;
+        const x0 = 150 + 145 * Math.cos(a0), y0 = 150 + 145 * Math.sin(a0);
+        const x1 = 150 + 145 * Math.cos(a1), y1 = 150 + 145 * Math.sin(a1);
+        const large = (360 / n) > 180 ? 1 : 0;
+        parts.push('<path d="M150,150 L' + x0.toFixed(1) + ',' + y0.toFixed(1) + ' A145,145 0 ' + large + ' 1 ' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' Z" fill="' + WHEEL_COLORS[i % WHEEL_COLORS.length] + '" stroke="#fff" stroke-width="1.5"/>');
+        const mid = (a0 + a1) / 2;
+        const tx = 150 + 98 * Math.cos(mid), ty = 150 + 98 * Math.sin(mid);
+        const deg = mid * 180 / Math.PI;
+        const rot = (deg > 90 && deg < 270) ? deg + 180 : deg;
+        parts.push('<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" fill="#fff" font-size="' + fontSize + '" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(' + rot.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ')">' + esc(names[i].slice(0, 12)) + '</text>');
+      }
+    }
+    parts.push('<circle cx="150" cy="150" r="145" fill="none" stroke="#e2e8f0" stroke-width="2"/>');
+    parts.push('</svg>');
+    el.innerHTML = parts.join('');
+  }
+
+  function renderWinner() {
+    const w = $('gt-winner');
+    if (!roundPicks.length) { w.style.display = 'none'; w.innerHTML = ''; return; }
+    const cls = roundPicks.length > 1 ? 'gv-winner-name gv-winner-name-sm' : 'gv-winner-name';
+    let html = '<p class="gv-hero-label">Bạn được gọi</p>';
+    roundPicks.forEach(p => {
+      html += '<div class="' + cls + '">' + esc(p) + '</div>';
+    });
+    html += '<div class="btn-row" style="justify-content:center;margin-top:10px">';
+    roundPicks.forEach(p => {
+      html += '<button type="button" class="btn" data-add-point="' + esc(p) + '">+1 điểm cho ' + esc(p) + '</button>';
+    });
+    html += '</div><p class="muted" id="gt-point-msg" style="margin-top:8px"></p>';
+    w.innerHTML = html;
+    w.style.display = '';
+    w.classList.remove('gv-pop');
+    void w.offsetWidth;
+    w.classList.add('gv-pop');
+  }
+
+  function addPoint(name, btn) {
+    let arr = [];
+    try {
+      arr = JSON.parse(localStorage.getItem('uh_bangdiemlop') || '[]');
+      if (!Array.isArray(arr)) arr = [];
+    } catch (e) { arr = []; }
+    const found = arr.find(e => e && e.name === name);
+    if (found) found.score = (found.score || 0) + 1;
+    else arr.push({ name: name, score: 1 });
+    try { localStorage.setItem('uh_bangdiemlop', JSON.stringify(arr)); } catch (e) { /* bỏ qua */ }
+    btn.textContent = 'Đã cộng ✓';
+    btn.disabled = true;
+    const msg = $('gt-point-msg');
+    if (msg) msg.innerHTML = 'Đã cộng 1 điểm cho ' + esc(name) + ' — xem ở <a href="/cong-cu/bang-diem-lop/">Bảng điểm lớp</a>.';
+    tick();
+  }
+
+  $('gt-winner').addEventListener('click', (ev) => {
+    const btn = ev.target.closest('button[data-add-point]');
+    if (!btn || btn.disabled) return;
+    addPoint(btn.getAttribute('data-add-point'), btn);
+  });
+
+  // Chế độ Chiếu lớp: lớp phủ toàn màn hình chỉ hiện kết quả.
+  function ensureStage() {
+    if (stageEl) return stageEl;
+    stageEl = document.createElement('div');
+    stageEl.className = 'gv-stage';
+    stageEl.style.display = 'none';
+    stageEl.innerHTML = '<button type="button" class="gv-stage-close" id="gt-stage-close">Đóng ✕</button>'
+      + '<div class="gv-stage-sub">Gọi tên ngẫu nhiên</div>'
+      + '<div class="gv-stage-big" id="gt-stage-big">—</div>'
+      + '<div class="gv-stage-sub" id="gt-stage-sub"></div>'
+      + '<div class="gv-stage-actions"><button type="button" class="btn btn-primary" id="gt-stage-call">Gọi tiếp</button></div>';
+    document.body.appendChild(stageEl);
+    stageEl.querySelector('#gt-stage-close').addEventListener('click', closeStage);
+    stageEl.querySelector('#gt-stage-call').addEventListener('click', () => call());
+    return stageEl;
+  }
+
+  function updateStage() {
+    if (!stageEl) return;
+    const big = stageEl.querySelector('#gt-stage-big');
+    const sub = stageEl.querySelector('#gt-stage-sub');
+    const list = nameList();
+    big.textContent = roundPicks.length ? roundPicks.join(' · ') : '—';
+    sub.textContent = 'Đã gọi ' + called.length + '/' + list.length + ' bạn';
+  }
+
+  function openStage() {
+    ensureStage();
+    updateStage();
+    stageEl.style.display = 'flex';
+    stageOpen = true;
+  }
+
+  function closeStage() {
+    if (!stageEl) return;
+    stageEl.style.display = 'none';
+    stageOpen = false;
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && stageOpen) closeStage();
+    const t = e.target;
+    const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
+    if ((e.key === 'r' || e.key === 'R') && !typing && !busy) { e.preventDefault(); call(); }
+  });
+
+  // Quay 1 lần, dừng ở tên đã chọn trước. done() chạy khi dừng hẳn.
+  function spinOnce(pick, done) {
+    const names = remainingNames();
+    const idx = names.indexOf(pick);
+    const n = names.length;
+    const el = $('gt-wheel');
+    if (idx < 0 || n === 0) { done(); return; }
+    const seg = 360 / n;
+    const center = (idx + 0.5) * seg;
+    let r = (270 - center + 360) % 360;
+    r += (Math.random() - 0.5) * seg * 0.5;
+    const total = wheelRotation + 360 * 5 + r;
+    wheelRotation = total;
+    $('gt-wheel-sub').textContent = 'Đang quay…';
+    if (REDUCED) {
+      el.style.transition = 'none';
+      el.style.transform = 'rotate(' + total + 'deg)';
+      setTimeout(done, 60);
+      return;
+    }
+    el.style.transition = '';
+    // Tiếng tick chậm dần theo vòng quay.
+    let delay = 70;
+    let ticking = true;
+    (function tickLoop() {
+      if (!ticking) return;
+      tick();
+      delay = Math.min(240, delay * 1.12);
+      setTimeout(tickLoop, delay);
+    })();
+    requestAnimationFrame(() => {
+      el.style.transform = 'rotate(' + total + 'deg)';
+    });
+    setTimeout(() => {
+      ticking = false;
+      done();
+    }, 3700);
+  }
+
+  function announcePick(pick) {
+    called.push(pick);
+    roundPicks.push(pick);
+    renderWinner();
+    updateStatus();
+    updateStage();
+    fanfare();
+    confetti($('gt-wheel-wrap'));
+    const left = remainingNames().length;
+    $('gt-wheel-sub').textContent = left > 0
+      ? 'Còn ' + left + ' bạn chưa được gọi'
+      : 'Đã gọi hết danh sách — bấm "Gọi lại từ đầu" để gọi vòng mới.';
+    $('gt-sub').textContent = $('gt-wheel-sub').textContent;
+  }
+
+  // Chế độ chạy tên cũ (lớp đông, tên dài).
+  function callTextMode(picks, onDone) {
+    const remaining = remainingNames();
+    busy = true;
+    $('gt-call').disabled = true;
+    $('gt-sub').textContent = 'Đang chọn…';
+    if (REDUCED) {
+      picks.forEach(p => announcePick(p));
+      busy = false;
+      $('gt-call').disabled = false;
+      onDone();
+      return;
+    }
+    const big = $('gt-big');
+    big.classList.add('gv-cycling');
+    let ticks = 0;
+    const timer = setInterval(() => {
+      ticks++;
+      tick();
+      const show = remaining[Math.floor(Math.random() * remaining.length)];
+      big.innerHTML = '<div class="gv-big">' + esc(show) + '</div>';
+      if (ticks >= 18) {
+        clearInterval(timer);
+        big.classList.remove('gv-cycling');
+        picks.forEach(p => announcePick(p));
+        big.innerHTML = picks.map(p => '<div class="' + (picks.length > 1 ? 'gv-big gv-big-sm' : 'gv-big') + '">' + esc(p) + '</div>').join('');
+        confetti($('gt-hero'));
+        busy = false;
+        $('gt-call').disabled = false;
+        onDone();
+      }
+    }, 70);
+  }
+
+  function call() {
+    if (busy) return;
+    const list = nameList();
+    const remaining = remainingNames();
+    if (!list.length) {
+      $('gt-wheel-sub').textContent = 'Danh sách đang trống — dán tên các bạn vào ô dưới nhé.';
+      $('gt-sub').textContent = $('gt-wheel-sub').textContent;
+      return;
+    }
     if (!remaining.length) {
-      $('gt-sub').textContent = 'Đã gọi hết danh sách — bấm "Gọi lại từ đầu" để gọi vòng mới.';
+      $('gt-wheel-sub').textContent = 'Đã gọi hết danh sách — bấm "Gọi lại từ đầu" để gọi vòng mới.';
+      $('gt-sub').textContent = $('gt-wheel-sub').textContent;
       return;
     }
     const count = Math.min(parseInt($('gt-count').value, 10) || 1, remaining.length);
@@ -109,36 +371,61 @@ export function init(root) {
       const t = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = t;
     }
     const picks = shuffled.slice(0, count);
+    roundPicks = [];
+    $('gt-winner').style.display = 'none';
+    if (mode === 'text') {
+      callTextMode(picks, () => {});
+      return;
+    }
+    // Chế độ vòng quay: quay lần lượt từng bạn.
     busy = true;
     $('gt-call').disabled = true;
-    $('gt-sub').textContent = 'Đang chọn…';
-    // Tên chạy lướt nhanh rồi dừng ở bạn được gọi.
-    const big = $('gt-big');
-    big.classList.add('gv-cycling');
-    let ticks = 0;
-    const timer = setInterval(() => {
-      ticks++;
-      const show = remaining[Math.floor(Math.random() * remaining.length)];
-      big.innerHTML = '<div class="gv-big">' + esc(show) + '</div>';
-      if (ticks >= 18) {
-        clearInterval(timer);
-        big.classList.remove('gv-cycling');
-        big.classList.remove('gv-pop');
-        void big.offsetWidth; // chạy lại hiệu ứng nảy
-        big.classList.add('gv-pop');
-        const cls = picks.length > 1 ? 'gv-big gv-big-sm' : 'gv-big';
-        big.innerHTML = picks.map(p => '<div class="' + cls + '">' + esc(p) + '</div>').join('');
-        picks.forEach(p => called.push(p));
-        $('gt-sub').textContent = remaining.length - picks.length > 0
-          ? 'Còn ' + (remaining.length - picks.length) + ' bạn chưa được gọi'
-          : 'Đã gọi hết danh sách — bấm "Gọi lại từ đầu" để gọi vòng mới.';
-        updateStatus();
+    let i = 0;
+    (function next() {
+      if (i >= picks.length) {
         busy = false;
         $('gt-call').disabled = false;
+        drawWheel();
+        return;
       }
-    }, 70);
-  });
+      const pick = picks[i++];
+      spinOnce(pick, () => {
+        announcePick(pick);
+        if (i < picks.length) {
+          setTimeout(() => { drawWheel(); next(); }, 800);
+        } else {
+          next();
+        }
+      });
+    })();
+  }
 
+  function resetAll() {
+    called = [];
+    roundPicks = [];
+    $('gt-big').innerHTML = '<div class="gv-big">—</div>';
+    $('gt-sub').textContent = 'Bấm "Gọi tên" để bắt đầu';
+    $('gt-wheel-sub').textContent = 'Bấm "Gọi tên" để quay';
+    $('gt-winner').style.display = 'none';
+    $('gt-winner').innerHTML = '';
+    updateStatus();
+    updateStage();
+    drawWheel();
+  }
+
+  function setMode(m) {
+    mode = m;
+    $('gt-tab-wheel').classList.toggle('tab-active', m === 'wheel');
+    $('gt-tab-text').classList.toggle('tab-active', m === 'text');
+    $('gt-pane-wheel').style.display = m === 'wheel' ? '' : 'none';
+    $('gt-pane-text').style.display = m === 'text' ? '' : 'none';
+    if (m === 'wheel') drawWheel();
+  }
+
+  $('gt-tab-wheel').addEventListener('click', () => setMode('wheel'));
+  $('gt-tab-text').addEventListener('click', () => setMode('text'));
+  $('gt-call').addEventListener('click', call);
+  $('gt-stage').addEventListener('click', openStage);
   $('gt-reset').addEventListener('click', resetAll);
   $('gt-names').addEventListener('input', resetAll);
 
@@ -149,4 +436,16 @@ export function init(root) {
     called.forEach((n, i) => { text += (i + 1) + '. ' + n + '\n'; });
     download('danh-sach-da-goi.txt', text);
   });
+
+  // Nút âm thanh dùng chung (helper trong app.js).
+  (function initSoundBtn() {
+    const btn = $('gt-sound');
+    const s = gvSound();
+    if (!s) { btn.style.display = 'none'; return; }
+    const paint = () => { btn.textContent = 'Âm thanh: ' + (s.enabled() ? 'Bật' : 'Tắt'); };
+    btn.addEventListener('click', () => { s.toggle(); paint(); });
+    paint();
+  })();
+
+  drawWheel();
 }

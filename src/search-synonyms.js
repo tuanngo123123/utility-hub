@@ -204,10 +204,16 @@ export const SYNONYMS = {
   'từ vựng': ['hoc-tu-vung-tieng-anh'],
 
   // Giáo viên / lớp học
-  'giáo viên': ['goi-ten-ngau-nhien', 'chia-nhom-ngau-nhien', 'bang-diem-lop', 'boc-tham-so', 'tung-xuc-xac-dong-xu'],
+  'giáo viên': ['goi-ten-ngau-nhien', 'chia-nhom-ngau-nhien', 'bang-diem-lop', 'boc-tham-so', 'tung-xuc-xac-dong-xu', 'am-thanh-lop-hoc'],
   'gọi tên': ['goi-ten-ngau-nhien'],
   'gọi tên học sinh': ['goi-ten-ngau-nhien'],
   'gọi bài': ['goi-ten-ngau-nhien'],
+  'vòng quay': ['goi-ten-ngau-nhien'],
+  'vòng quay tên': ['goi-ten-ngau-nhien'],
+  'âm thanh lớp học': ['am-thanh-lop-hoc'],
+  'chuông lớp học': ['am-thanh-lop-hoc'],
+  'chuông': ['am-thanh-lop-hoc'],
+  'kèn chiến thắng': ['am-thanh-lop-hoc'],
   'chia nhóm': ['chia-nhom-ngau-nhien'],
   'chia nhóm học sinh': ['chia-nhom-ngau-nhien'],
   'chia đội': ['chia-nhom-ngau-nhien'],

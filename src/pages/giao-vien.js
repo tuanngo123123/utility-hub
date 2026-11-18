@@ -9,7 +9,7 @@ const TOOLS = [
   {
     id: 'goi-ten-ngau-nhien',
     name: 'Gọi tên ngẫu nhiên',
-    desc: 'Dán danh sách lớp, bấm gọi — tên chạy lướt rồi dừng ở bạn được gọi. Không gọi lại người đã gọi cho tới khi hết danh sách, tải được danh sách đã gọi về.',
+    desc: 'Quay vòng quay hoặc chạy tên — dừng ở bạn được gọi. Không gọi lại người đã gọi cho tới khi hết danh sách, cộng điểm sang bảng điểm, tải được danh sách đã gọi về.',
   },
   {
     id: 'chia-nhom-ngau-nhien',
@@ -31,13 +31,18 @@ const TOOLS = [
     name: 'Bảng điểm lớp',
     desc: 'Thêm đội hoặc tên bạn, cộng/trừ điểm nhanh (+1/+5/−1), bảng tự xếp hạng theo điểm. Điểm lưu trên trình duyệt, tải về file mở bằng Excel.',
   },
+  {
+    id: 'am-thanh-lop-hoc',
+    name: 'Âm thanh lớp học',
+    desc: 'Chuông bắt đầu, kèn chiến thắng, tín hiệu chú ý, gõ nhịp suy nghĩ, chuông kết thúc, ting cộng điểm — phát ngay trên trình duyệt, không cần file.',
+  },
 ];
 
 export function body() {
   return `
   <header class="tool-page-head">
     <h1>Giáo viên</h1>
-    <p class="muted">Công cụ miễn phí cho giờ học: gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, ghi điểm thi đua — tất cả chạy ngay trên trình duyệt, không cần đăng ký, không cần cài đặt. Mở lên là dùng được ngay trước lớp.</p>
+    <p class="muted">Công cụ miễn phí cho giờ học: gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, ghi điểm thi đua, âm thanh lớp học — tất cả chạy ngay trên trình duyệt, không cần đăng ký, không cần cài đặt. Mở lên là dùng được ngay trước lớp.</p>
   </header>
 
   <section class="section" aria-label="Công cụ cho giáo viên">

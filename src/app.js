@@ -2554,6 +2554,76 @@
     });
   }
 
+  /* ---------------- Âm thanh lớp học (UhGvSound) ----------------
+     Helper dùng chung cho công cụ Giáo viên: âm thanh tổng hợp bằng
+     Web Audio API (0 file). Công cụ gọi window.UhGvSound.tick() khi
+     hiệu ứng đang chạy và .fanfare() khi có kết quả; bật/tắt lưu
+     localStorage 'uh_gv_sound' (mặc định BẬT). Chỉ phát sau thao tác
+     bấm của người dùng (đúng luật autoplay). An toàn khi chạy dưới
+     Node (kiểm tra typeof window / try-catch localStorage). */
+  var GV_SOUND_KEY = 'uh_gv_sound';
+  var gvAudioCtx = null;
+
+  function gvSoundEnabled() {
+    try { return localStorage.getItem(GV_SOUND_KEY) !== '0'; } catch (e) { return true; }
+  }
+
+  function gvSetSoundEnabled(v) {
+    try { localStorage.setItem(GV_SOUND_KEY, v ? '1' : '0'); } catch (e) { /* bỏ qua */ }
+  }
+
+  function gvCtx() {
+    if (typeof window === 'undefined') return null;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!gvAudioCtx) { try { gvAudioCtx = new AC(); } catch (e) { return null; } }
+    if (gvAudioCtx.state === 'suspended') gvAudioCtx.resume();
+    return gvAudioCtx;
+  }
+
+  function gvTone(freq, delay, dur, type, vol) {
+    var ctx = gvCtx();
+    if (!ctx) return;
+    var t0 = ctx.currentTime + (delay || 0);
+    var osc = ctx.createOscillator();
+    var gain = ctx.createGain();
+    osc.type = type || 'sine';
+    osc.frequency.setValueAtTime(freq, t0);
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.exponentialRampToValueAtTime(vol || 0.15, t0 + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t0 + (dur || 0.15));
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(t0);
+    osc.stop(t0 + (dur || 0.15) + 0.05);
+  }
+
+  function gvTick() {
+    if (!gvSoundEnabled()) return;
+    gvTone(1200, 0, 0.05, 'square', 0.05);
+  }
+
+  function gvFanfare() {
+    if (!gvSoundEnabled()) return;
+    gvTone(523.25, 0, 0.14, 'triangle', 0.15);
+    gvTone(659.25, 0.12, 0.14, 'triangle', 0.15);
+    gvTone(783.99, 0.24, 0.14, 'triangle', 0.15);
+    gvTone(1046.5, 0.36, 0.35, 'triangle', 0.18);
+  }
+
+  if (typeof window !== 'undefined') {
+    window.UhGvSound = {
+      tick: gvTick,
+      fanfare: gvFanfare,
+      enabled: gvSoundEnabled,
+      toggle: function () {
+        var v = !gvSoundEnabled();
+        gvSetSoundEnabled(v);
+        return v;
+      }
+    };
+  }
+
   /* ---------------- Tự chạy khi DOM sẵn sàng ---------------- */
 
   function initAll() {
