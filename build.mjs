@@ -43,7 +43,7 @@ const SITE_NAME = 'Tiện Ích Hub';
 
 // Chỉ copy các file dữ liệu mà trang/công cụ thực sự đọc.
 // (news-raw.json là dữ liệu thô của worker dữ liệu, không đưa lên dist.)
-const DATA_FILES = ['news.json', 'trending.json', 'gold.json', 'fx.json', 'lottery.json', 'crypto.json', 'fng.json', 'dia-chi-cu-moi.json', 'xa-cu-moi.json'];
+const DATA_FILES = ['news.json', 'trending.json', 'gold.json', 'fx.json', 'lottery.json', 'crypto.json', 'fng.json', 'dia-chi-cu-moi.json', 'xa-cu-moi.json', 'tu-vung-tieng-anh.json'];
 
 function fail(msg) {
   console.error(`\n❌ BUILD LỖI: ${msg}\n`);

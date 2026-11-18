@@ -28,6 +28,14 @@ export function body() {
 ${GROUPS.map((g) => `      <a class="chip" href="#${esc(g.id)}">${esc(g.title)}</a>`).join('\n')}
     </nav>
   </header>
+
+  <section class="section" aria-label="Học từ vựng tiếng Anh trên web này">
+    <div class="result">
+      <h2 style="margin-top:0">Học từ vựng tiếng Anh ngay trên web này</h2>
+      <p class="muted">400 từ tiếng Anh thông dụng nhất, nghĩa tiếng Việt, ví dụ kèm dịch — học bằng thẻ từ có phát âm, gõ từ theo nghĩa hoặc trắc nghiệm. Không cần cài đặt gì, tiến độ được lưu lại trên trình duyệt của bạn.</p>
+      <p><a class="btn btn-primary" href="/cong-cu/hoc-tu-vung-tieng-anh/">Học ngay trên web này →</a></p>
+    </div>
+  </section>
 ${GROUPS.map((g) => `
   <section class="section" id="${esc(g.id)}" aria-label="${esc(g.title)}">
     <h2>${esc(g.title)}</h2>

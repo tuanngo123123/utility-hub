@@ -196,6 +196,12 @@ export const SYNONYMS = {
   'quiz': ['quiz-tinh-cach', 'test-logic'],
   'tính cách': ['quiz-tinh-cach'],
   'trắc nghiệm': ['quiz-tinh-cach', 'test-logic'],
+  'học từ vựng': ['hoc-tu-vung-tieng-anh'],
+  'học tiếng anh': ['hoc-tu-vung-tieng-anh'],
+  'từ vựng tiếng anh': ['hoc-tu-vung-tieng-anh'],
+  'flashcard': ['hoc-tu-vung-tieng-anh'],
+  'học từ mới': ['hoc-tu-vung-tieng-anh'],
+  'từ vựng': ['hoc-tu-vung-tieng-anh'],
 
   // Đời sống / thời gian
   'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],

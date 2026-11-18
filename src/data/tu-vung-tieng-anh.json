@@ -1,0 +1,2802 @@
+[
+  {
+    "w": "the",
+    "pos": "mạo từ",
+    "vi": "cái, con, người (đã xác định)",
+    "ex": "the house",
+    "exvi": "cái nhà"
+  },
+  {
+    "w": "be",
+    "pos": "động từ",
+    "vi": "thì, là",
+    "ex": "the earth is round",
+    "exvi": "quả đất (thì) tròn"
+  },
+  {
+    "w": "and",
+    "pos": "liên từ",
+    "vi": "và, cùng, với",
+    "ex": "bread and butter",
+    "exvi": "bánh mì với bơ"
+  },
+  {
+    "w": "of",
+    "pos": "giới từ",
+    "vi": "của",
+    "ex": "a cup of tea",
+    "exvi": "một tách trà"
+  },
+  {
+    "w": "a",
+    "pos": "mạo từ",
+    "vi": "một",
+    "ex": "a very cold day",
+    "exvi": "một ngày rất lạnh"
+  },
+  {
+    "w": "in",
+    "pos": "giới từ",
+    "vi": "ở, tại, trong",
+    "ex": "in the room",
+    "exvi": "trong phòng"
+  },
+  {
+    "w": "to",
+    "pos": "giới từ",
+    "vi": "đến, tới, về",
+    "ex": "from earth to heaven",
+    "exvi": "từ đất đến trời"
+  },
+  {
+    "w": "have",
+    "pos": "động từ",
+    "vi": "có",
+    "ex": "to have nothing to do",
+    "exvi": "không có việc gì làm"
+  },
+  {
+    "w": "it",
+    "pos": "đại từ",
+    "vi": "nó; cái đó, điều đó",
+    "ex": "It is raining.",
+    "exvi": "Trời đang mưa."
+  },
+  {
+    "w": "i",
+    "pos": "đại từ",
+    "vi": "tôi, ta, tớ",
+    "ex": "i said so",
+    "exvi": "tôi nói vậy"
+  },
+  {
+    "w": "that",
+    "pos": "đại từ",
+    "vi": "cái đó, điều đó; người đó",
+    "ex": "That is my house.",
+    "exvi": "Kia là nhà của tôi."
+  },
+  {
+    "w": "for",
+    "pos": "giới từ",
+    "vi": "cho; để; vì; trong (thời gian)",
+    "ex": "This gift is for you.",
+    "exvi": "Món quà này dành cho bạn."
+  },
+  {
+    "w": "you",
+    "pos": "đại từ",
+    "vi": "bạn; anh, chị; các bạn",
+    "ex": "How are you?",
+    "exvi": "Bạn khỏe không?"
+  },
+  {
+    "w": "he",
+    "pos": "đại từ",
+    "vi": "anh ấy, ông ấy; nó",
+    "ex": "He is a teacher.",
+    "exvi": "Anh ấy là giáo viên."
+  },
+  {
+    "w": "with",
+    "pos": "giới từ",
+    "vi": "với, cùng, cùng với",
+    "ex": "a kettle with a lid",
+    "exvi": "một cái ấm với một cái vung"
+  },
+  {
+    "w": "on",
+    "pos": "giới từ",
+    "vi": "trên, ở trên",
+    "ex": "a book on the table",
+    "exvi": "quyển sách ở trên bàn"
+  },
+  {
+    "w": "do",
+    "pos": "động từ",
+    "vi": "làm, thực hiện",
+    "ex": "What do you do?",
+    "exvi": "Bạn làm nghề gì?"
+  },
+  {
+    "w": "say",
+    "pos": "động từ",
+    "vi": "nói",
+    "ex": "What did you say?",
+    "exvi": "Bạn vừa nói gì?"
+  },
+  {
+    "w": "this",
+    "pos": "đại từ",
+    "vi": "cái này, điều này, việc này",
+    "ex": "I don't like this",
+    "exvi": "tôi không thích cái này"
+  },
+  {
+    "w": "they",
+    "pos": "đại từ",
+    "vi": "chúng nó, chúng, họ",
+    "ex": "They are students.",
+    "exvi": "Họ là học sinh."
+  },
+  {
+    "w": "at",
+    "pos": "giới từ",
+    "vi": "ở; tại",
+    "ex": "at school",
+    "exvi": "ở trường"
+  },
+  {
+    "w": "but",
+    "pos": "liên từ",
+    "vi": "nhưng, nhưng mà",
+    "ex": "we tried to do it but couldn't",
+    "exvi": "chúng tôi đã thử làm cái đó nhưng không được"
+  },
+  {
+    "w": "we",
+    "pos": "đại từ",
+    "vi": "chúng tôi, chúng ta",
+    "ex": "We are friends.",
+    "exvi": "Chúng tôi là bạn bè."
+  },
+  {
+    "w": "his",
+    "pos": "đại từ",
+    "vi": "của anh ấy, của ông ấy; của nó",
+    "ex": "This is his book.",
+    "exvi": "Đây là sách của anh ấy."
+  },
+  {
+    "w": "from",
+    "pos": "giới từ",
+    "vi": "từ",
+    "ex": "to start from Hanoi",
+    "exvi": "bắt đầu đi từ Hà Nội"
+  },
+  {
+    "w": "not",
+    "pos": "phó từ",
+    "vi": "không",
+    "ex": "I did not say so",
+    "exvi": "tôi không hề nói như vậy"
+  },
+  {
+    "w": "by",
+    "pos": "giới từ",
+    "vi": "gần, cạnh, kế, bên",
+    "ex": "by the sea",
+    "exvi": "gần biển"
+  },
+  {
+    "w": "she",
+    "pos": "đại từ",
+    "vi": "chị ấy, cô ấy; bà ấy",
+    "ex": "she sings beautifully",
+    "exvi": "chị ấy hát hay"
+  },
+  {
+    "w": "or",
+    "pos": "liên từ",
+    "vi": "hoặc, hay là",
+    "ex": "Tea or coffee?",
+    "exvi": "Trà hay cà phê?"
+  },
+  {
+    "w": "as",
+    "pos": "liên từ",
+    "vi": "như",
+    "ex": "as you know",
+    "exvi": "như anh đã biết"
+  },
+  {
+    "w": "what",
+    "pos": "đại từ",
+    "vi": "gì, thế nào",
+    "ex": "what is he like?",
+    "exvi": "nó như thế nào?"
+  },
+  {
+    "w": "go",
+    "pos": "động từ",
+    "vi": "đi, đi đến, đi tới",
+    "ex": "to go on a journey",
+    "exvi": "đi du lịch"
+  },
+  {
+    "w": "their",
+    "pos": "đại từ",
+    "vi": "của họ; của chúng",
+    "ex": "This is their house.",
+    "exvi": "Đây là nhà của họ."
+  },
+  {
+    "w": "can",
+    "pos": "động từ",
+    "vi": "có thể, có khả năng",
+    "ex": "it can not be true",
+    "exvi": "điều đó không thể có thật được"
+  },
+  {
+    "w": "who",
+    "pos": "đại từ",
+    "vi": "ai; người nào",
+    "ex": "Who is that?",
+    "exvi": "Người kia là ai?"
+  },
+  {
+    "w": "get",
+    "pos": "động từ",
+    "vi": "được, có được, kiếm được, lấy được",
+    "ex": "to get a living",
+    "exvi": "kiếm sống"
+  },
+  {
+    "w": "if",
+    "pos": "liên từ",
+    "vi": "nếu, nếu như",
+    "ex": "if you wish",
+    "exvi": "nếu anh muốn"
+  },
+  {
+    "w": "would",
+    "pos": "động từ",
+    "vi": "sẽ; muốn (nói lịch sự)",
+    "ex": "I would like some coffee.",
+    "exvi": "Tôi muốn uống cà phê."
+  },
+  {
+    "w": "her",
+    "pos": "đại từ",
+    "vi": "cô ấy, chị ấy; bà ấy",
+    "ex": "This is her book.",
+    "exvi": "Đây là sách của cô ấy."
+  },
+  {
+    "w": "all",
+    "pos": "đại từ",
+    "vi": "tất cả, toàn bộ; mọi",
+    "ex": "all my life",
+    "exvi": "suốt đời tôi, trọn đời tôi"
+  },
+  {
+    "w": "my",
+    "pos": "đại từ",
+    "vi": "của tôi",
+    "ex": "This is my book.",
+    "exvi": "Đây là sách của tôi."
+  },
+  {
+    "w": "make",
+    "pos": "động từ",
+    "vi": "làm, chế tạo",
+    "ex": "to make bread",
+    "exvi": "làm bánh"
+  },
+  {
+    "w": "about",
+    "pos": "giới từ",
+    "vi": "về",
+    "ex": "to know much about Vietnam",
+    "exvi": "biết nhiều về Việt Nam"
+  },
+  {
+    "w": "know",
+    "pos": "động từ",
+    "vi": "biết; hiểu biết",
+    "ex": "to know about something",
+    "exvi": "biết về cái gì"
+  },
+  {
+    "w": "will",
+    "pos": "động từ",
+    "vi": "sẽ",
+    "ex": "I will help you.",
+    "exvi": "Tôi sẽ giúp bạn."
+  },
+  {
+    "w": "up",
+    "pos": "phó từ",
+    "vi": "lên; ở trên",
+    "ex": "up hill and down dale",
+    "exvi": "lên dốc xuống đèo"
+  },
+  {
+    "w": "one",
+    "pos": "số từ",
+    "vi": "một",
+    "ex": "room one",
+    "exvi": "phòng một"
+  },
+  {
+    "w": "time",
+    "pos": "danh từ",
+    "vi": "thời gian, thì giờ",
+    "ex": "to lose time",
+    "exvi": "mất thì giờ"
+  },
+  {
+    "w": "there",
+    "pos": "phó từ",
+    "vi": "ở đó; chỗ đó",
+    "ex": "here and there",
+    "exvi": "đó đây"
+  },
+  {
+    "w": "year",
+    "pos": "danh từ",
+    "vi": "năm",
+    "ex": "in the year 1945",
+    "exvi": "vào năm 1945"
+  },
+  {
+    "w": "so",
+    "pos": "liên từ",
+    "vi": "vì thế, vì vậy; nên",
+    "ex": "It was late, so I went home.",
+    "exvi": "Đã muộn nên tôi về nhà."
+  },
+  {
+    "w": "think",
+    "pos": "động từ",
+    "vi": "nghĩ, suy nghĩ, ngẫm nghĩ",
+    "ex": "What do you think?",
+    "exvi": "Bạn nghĩ sao?"
+  },
+  {
+    "w": "when",
+    "pos": "phó từ",
+    "vi": "khi nào; lúc nào",
+    "ex": "When will you come?",
+    "exvi": "Khi nào bạn đến?"
+  },
+  {
+    "w": "which",
+    "pos": "đại từ",
+    "vi": "cái nào, người nào; mà",
+    "ex": "I can't distinguish which is which",
+    "exvi": "tôi không thể phân biệt nổi cái gì ra cái gì (ai ra ai)"
+  },
+  {
+    "w": "them",
+    "pos": "đại từ",
+    "vi": "chúng, chúng nó, họ",
+    "ex": "I like them.",
+    "exvi": "Tôi thích họ."
+  },
+  {
+    "w": "some",
+    "pos": "đại từ",
+    "vi": "một số; một vài",
+    "ex": "I need some water.",
+    "exvi": "Tôi cần một ít nước."
+  },
+  {
+    "w": "me",
+    "pos": "đại từ",
+    "vi": "tôi, tớ",
+    "ex": "Call me.",
+    "exvi": "Gọi cho tôi nhé."
+  },
+  {
+    "w": "people",
+    "pos": "danh từ",
+    "vi": "người; mọi người",
+    "ex": "Many people live here.",
+    "exvi": "Nhiều người sống ở đây."
+  },
+  {
+    "w": "take",
+    "pos": "động từ",
+    "vi": "lấy, cầm; mang đi",
+    "ex": "Take this book.",
+    "exvi": "Cầm lấy quyển sách này."
+  },
+  {
+    "w": "out",
+    "pos": "phó từ",
+    "vi": "ngoài, ở ngoài, ra ngoài",
+    "ex": "to be out in the rain",
+    "exvi": "ở ngoài mưa"
+  },
+  {
+    "w": "into",
+    "pos": "giới từ",
+    "vi": "vào, vào trong",
+    "ex": "to go into the garden",
+    "exvi": "đi vào vườn"
+  },
+  {
+    "w": "just",
+    "pos": "phó từ",
+    "vi": "chỉ; vừa mới",
+    "ex": "I just arrived.",
+    "exvi": "Tôi vừa mới đến."
+  },
+  {
+    "w": "see",
+    "pos": "động từ",
+    "vi": "nhìn thấy; xem",
+    "ex": "seeing is believing",
+    "exvi": "trông thấy thì mới tin"
+  },
+  {
+    "w": "him",
+    "pos": "đại từ",
+    "vi": "anh ấy, ông ấy; nó",
+    "ex": "I saw him yesterday.",
+    "exvi": "Tôi đã gặp anh ấy hôm qua."
+  },
+  {
+    "w": "your",
+    "pos": "đại từ",
+    "vi": "của bạn; của các bạn",
+    "ex": "Is this your book?",
+    "exvi": "Đây có phải sách của bạn không?"
+  },
+  {
+    "w": "come",
+    "pos": "động từ",
+    "vi": "đến, tới",
+    "ex": "Come here!",
+    "exvi": "Lại đây!"
+  },
+  {
+    "w": "could",
+    "pos": "động từ",
+    "vi": "có thể, có khả năng",
+    "ex": "Could you help me?",
+    "exvi": "Bạn có thể giúp tôi không?"
+  },
+  {
+    "w": "now",
+    "pos": "phó từ",
+    "vi": "bây giờ; hiện nay",
+    "ex": "I am busy now.",
+    "exvi": "Bây giờ tôi đang bận."
+  },
+  {
+    "w": "than",
+    "pos": "liên từ",
+    "vi": "hơn",
+    "ex": "She is taller than me.",
+    "exvi": "Cô ấy cao hơn tôi."
+  },
+  {
+    "w": "like",
+    "pos": "động từ",
+    "vi": "thích; ưa",
+    "ex": "I like tea.",
+    "exvi": "Tôi thích trà."
+  },
+  {
+    "w": "other",
+    "pos": "tính từ",
+    "vi": "khác",
+    "ex": "we have other evidence",
+    "exvi": "chúng tôi có chứng cớ khác"
+  },
+  {
+    "w": "how",
+    "pos": "phó từ",
+    "vi": "như thế nào; làm sao",
+    "ex": "How are you?",
+    "exvi": "Bạn khỏe không?"
+  },
+  {
+    "w": "then",
+    "pos": "phó từ",
+    "vi": "lúc đó; sau đó",
+    "ex": "First we eat, then we go.",
+    "exvi": "Trước tiên chúng ta ăn, sau đó chúng ta đi."
+  },
+  {
+    "w": "its",
+    "pos": "đại từ",
+    "vi": "của nó; của cái đó",
+    "ex": "The dog wagged its tail.",
+    "exvi": "Con chó vẫy đuôi."
+  },
+  {
+    "w": "our",
+    "pos": "đại từ",
+    "vi": "của chúng tôi; của chúng ta",
+    "ex": "This is our house.",
+    "exvi": "Đây là nhà của chúng tôi."
+  },
+  {
+    "w": "two",
+    "pos": "số từ",
+    "vi": "số hai",
+    "ex": "I have two books.",
+    "exvi": "Tôi có hai quyển sách."
+  },
+  {
+    "w": "more",
+    "pos": "tính từ",
+    "vi": "nhiều hơn, lớn hơn, đông hơn",
+    "ex": "there are more people than usual",
+    "exvi": "có nhiều người hơn thường lệ"
+  },
+  {
+    "w": "these",
+    "pos": "đại từ",
+    "vi": "những cái này; những điều này",
+    "ex": "These are my books.",
+    "exvi": "Đây là sách của tôi."
+  },
+  {
+    "w": "want",
+    "pos": "động từ",
+    "vi": "muốn",
+    "ex": "I want some water.",
+    "exvi": "Tôi muốn uống nước."
+  },
+  {
+    "w": "way",
+    "pos": "danh từ",
+    "vi": "đường, đường đi, lối đi",
+    "ex": "way in",
+    "exvi": "lối vào"
+  },
+  {
+    "w": "look",
+    "pos": "động từ",
+    "vi": "nhìn, xem, ngó, để ý, chú ý",
+    "ex": "look! the sun is rising",
+    "exvi": "nhìn kìa! mặt trời đang lên"
+  },
+  {
+    "w": "first",
+    "pos": "tính từ",
+    "vi": "thứ nhất",
+    "ex": "the first day",
+    "exvi": "ngày đầu tiên"
+  },
+  {
+    "w": "also",
+    "pos": "phó từ",
+    "vi": "cũng, cũng vậy, cũng thế",
+    "ex": "I also like tea.",
+    "exvi": "Tôi cũng thích trà."
+  },
+  {
+    "w": "new",
+    "pos": "tính từ",
+    "vi": "mới, mới mẻ, mới lạ",
+    "ex": "the new year",
+    "exvi": "năm mới"
+  },
+  {
+    "w": "because",
+    "pos": "liên từ",
+    "vi": "vì, bởi vì",
+    "ex": "I stayed home because it rained.",
+    "exvi": "Tôi ở nhà vì trời mưa."
+  },
+  {
+    "w": "day",
+    "pos": "danh từ",
+    "vi": "ngày; ban ngày",
+    "ex": "it was broad day",
+    "exvi": "trời đã sáng rõ; giữa ban ngày"
+  },
+  {
+    "w": "use",
+    "pos": "động từ",
+    "vi": "dùng, sử dụng",
+    "ex": "to use something",
+    "exvi": "dùng vật gì"
+  },
+  {
+    "w": "no",
+    "pos": "phó từ",
+    "vi": "không",
+    "ex": "no, I don't think so",
+    "exvi": "không, tôi không nghĩ như vậy"
+  },
+  {
+    "w": "man",
+    "pos": "danh từ",
+    "vi": "người, con người",
+    "ex": "a good man",
+    "exvi": "một người đàn ông tốt"
+  },
+  {
+    "w": "find",
+    "pos": "động từ",
+    "vi": "tìm thấy; thấy",
+    "ex": "I can't find my keys.",
+    "exvi": "Tôi không tìm thấy chìa khóa."
+  },
+  {
+    "w": "here",
+    "pos": "phó từ",
+    "vi": "đây, ở đây, ở chỗ này",
+    "ex": "I live here.",
+    "exvi": "Tôi sống ở đây."
+  },
+  {
+    "w": "thing",
+    "pos": "danh từ",
+    "vi": "cái; thứ; điều",
+    "ex": "expensive things",
+    "exvi": "những thứ đắt tiền"
+  },
+  {
+    "w": "give",
+    "pos": "động từ",
+    "vi": "cho; tặng",
+    "ex": "to give a handsome present",
+    "exvi": "tặng một món quà đẹp"
+  },
+  {
+    "w": "many",
+    "pos": "tính từ",
+    "vi": "nhiều, lắm",
+    "ex": "many people think so",
+    "exvi": "nhiều người nghĩ như vậy"
+  },
+  {
+    "w": "well",
+    "pos": "phó từ",
+    "vi": "tốt, giỏi, hay",
+    "ex": "to work well",
+    "exvi": "làm việc giỏi"
+  },
+  {
+    "w": "only",
+    "pos": "phó từ",
+    "vi": "chỉ, mới",
+    "ex": "I have only one book.",
+    "exvi": "Tôi chỉ có một quyển sách."
+  },
+  {
+    "w": "those",
+    "pos": "đại từ",
+    "vi": "những cái đó, những người kia",
+    "ex": "Those books are mine.",
+    "exvi": "Những quyển sách kia là của tôi."
+  },
+  {
+    "w": "tell",
+    "pos": "động từ",
+    "vi": "nói; kể",
+    "ex": "to tell the truth",
+    "exvi": "nói sự thật"
+  },
+  {
+    "w": "very",
+    "pos": "phó từ",
+    "vi": "rất",
+    "ex": "very beautiful",
+    "exvi": "rất đẹp"
+  },
+  {
+    "w": "even",
+    "pos": "phó từ",
+    "vi": "ngay cả, ngay",
+    "ex": "Even children know it.",
+    "exvi": "Ngay cả trẻ em cũng biết."
+  },
+  {
+    "w": "back",
+    "pos": "phó từ",
+    "vi": "lùi lại, về phía sau",
+    "ex": "keep back!",
+    "exvi": "lùi lại!"
+  },
+  {
+    "w": "any",
+    "pos": "tính từ",
+    "vi": "bất kỳ; một chút nào",
+    "ex": "Do you have any questions?",
+    "exvi": "Bạn có câu hỏi nào không?"
+  },
+  {
+    "w": "good",
+    "pos": "tính từ",
+    "vi": "tốt, hay, tuyệt",
+    "ex": "very good!",
+    "exvi": "rất tốt!, rất hay!, tuyệt"
+  },
+  {
+    "w": "woman",
+    "pos": "danh từ",
+    "vi": "phụ nữ; đàn bà",
+    "ex": "She is a kind woman.",
+    "exvi": "Cô ấy là một người phụ nữ tốt bụng."
+  },
+  {
+    "w": "through",
+    "pos": "giới từ",
+    "vi": "qua, xuyên qua, suốt",
+    "ex": "to walk through a wood",
+    "exvi": "đi xuyên qua rừng"
+  },
+  {
+    "w": "us",
+    "pos": "đại từ",
+    "vi": "chúng tôi, chúng ta, chúng mình",
+    "ex": "Help us!",
+    "exvi": "Giúp chúng tôi với!"
+  },
+  {
+    "w": "life",
+    "pos": "danh từ",
+    "vi": "cuộc sống; sự sống",
+    "ex": "Life is beautiful.",
+    "exvi": "Cuộc sống thật đẹp."
+  },
+  {
+    "w": "child",
+    "pos": "danh từ",
+    "vi": "đứa bé, đứa trẻ",
+    "ex": "The child is sleeping.",
+    "exvi": "Đứa trẻ đang ngủ."
+  },
+  {
+    "w": "work",
+    "pos": "danh từ",
+    "vi": "công việc; việc làm",
+    "ex": "to be at work",
+    "exvi": "đang làm việc"
+  },
+  {
+    "w": "down",
+    "pos": "phó từ",
+    "vi": "xuống; xuôi theo",
+    "ex": "down the hill",
+    "exvi": "xuống đồi"
+  },
+  {
+    "w": "after",
+    "pos": "giới từ",
+    "vi": "sau, sau khi",
+    "ex": "Come after lunch.",
+    "exvi": "Đến sau bữa trưa nhé."
+  },
+  {
+    "w": "call",
+    "pos": "động từ",
+    "vi": "gọi; gọi điện",
+    "ex": "Call me tomorrow.",
+    "exvi": "Ngày mai gọi cho tôi nhé."
+  },
+  {
+    "w": "world",
+    "pos": "danh từ",
+    "vi": "thế giới",
+    "ex": "to go round the world",
+    "exvi": "đi vòng quanh thế giới"
+  },
+  {
+    "w": "over",
+    "pos": "giới từ",
+    "vi": "trên; ở trên",
+    "ex": "a lamp over our heads",
+    "exvi": "cái đèn treo trên đầu chúng ta"
+  },
+  {
+    "w": "school",
+    "pos": "danh từ",
+    "vi": "trường học",
+    "ex": "I go to school.",
+    "exvi": "Tôi đi học."
+  },
+  {
+    "w": "still",
+    "pos": "phó từ",
+    "vi": "vẫn; còn",
+    "ex": "I still remember.",
+    "exvi": "Tôi vẫn còn nhớ."
+  },
+  {
+    "w": "try",
+    "pos": "động từ",
+    "vi": "thử, thử xem, làm thử",
+    "ex": "to try a new car",
+    "exvi": "thử một cái xe mới"
+  },
+  {
+    "w": "last",
+    "pos": "tính từ",
+    "vi": "cuối cùng; lần cuối",
+    "ex": "last week",
+    "exvi": "tuần trước"
+  },
+  {
+    "w": "ask",
+    "pos": "động từ",
+    "vi": "hỏi",
+    "ex": "to ask the time",
+    "exvi": "hỏi giờ"
+  },
+  {
+    "w": "need",
+    "pos": "động từ",
+    "vi": "cần",
+    "ex": "this question needs a reply",
+    "exvi": "câu hỏi này đòi hỏi phải được trả lời"
+  },
+  {
+    "w": "too",
+    "pos": "phó từ",
+    "vi": "quá",
+    "ex": "too much",
+    "exvi": "nhiều quá"
+  },
+  {
+    "w": "feel",
+    "pos": "động từ",
+    "vi": "cảm thấy; sờ",
+    "ex": "I feel happy.",
+    "exvi": "Tôi cảm thấy vui."
+  },
+  {
+    "w": "state",
+    "pos": "danh từ",
+    "vi": "bang; nhà nước; tình trạng",
+    "ex": "Texas is a state in the USA.",
+    "exvi": "Texas là một bang của nước Mỹ."
+  },
+  {
+    "w": "never",
+    "pos": "phó từ",
+    "vi": "không bao giờ, không khi nào",
+    "ex": "never tell a lie!",
+    "exvi": "không bao giờ được nói dối!"
+  },
+  {
+    "w": "become",
+    "pos": "động từ",
+    "vi": "trở nên, trở thành",
+    "ex": "it has become much warmer",
+    "exvi": "trời trở nên ấm hơn nhiều"
+  },
+  {
+    "w": "between",
+    "pos": "giới từ",
+    "vi": "giữa, ở giữa",
+    "ex": "a treaty was concluded between the two nations",
+    "exvi": "một hiệp ước được ký kết giữa hai nước"
+  },
+  {
+    "w": "high",
+    "pos": "tính từ",
+    "vi": "cao",
+    "ex": "high mountain",
+    "exvi": "núi cao"
+  },
+  {
+    "w": "really",
+    "pos": "phó từ",
+    "vi": "thật sự; thực ra",
+    "ex": "what do you really think about it?",
+    "exvi": "thực ra thì anh nghĩ như thế nào về việc ấy"
+  },
+  {
+    "w": "something",
+    "pos": "đại từ",
+    "vi": "cái gì đó; điều gì đó",
+    "ex": "I want something to eat.",
+    "exvi": "Tôi muốn ăn chút gì đó."
+  },
+  {
+    "w": "most",
+    "pos": "tính từ",
+    "vi": "nhất; hầu hết",
+    "ex": "Most people like music.",
+    "exvi": "Hầu hết mọi người đều thích âm nhạc."
+  },
+  {
+    "w": "another",
+    "pos": "đại từ",
+    "vi": "một cái khác; người khác",
+    "ex": "I don't like this book, give me another",
+    "exvi": "tôi không thích quyển sách này, cho tôi quyển sách khác"
+  },
+  {
+    "w": "much",
+    "pos": "tính từ",
+    "vi": "nhiều, lắm",
+    "ex": "much water",
+    "exvi": "nhiều nước"
+  },
+  {
+    "w": "family",
+    "pos": "danh từ",
+    "vi": "gia đình",
+    "ex": "My family is big.",
+    "exvi": "Gia đình tôi đông người."
+  },
+  {
+    "w": "own",
+    "pos": "tính từ",
+    "vi": "của chính mình, của riêng mình",
+    "ex": "I saw it with my own eyes",
+    "exvi": "chính mắt tôi trông thấy"
+  },
+  {
+    "w": "leave",
+    "pos": "động từ",
+    "vi": "rời khỏi; để lại",
+    "ex": "I leave home at 7.",
+    "exvi": "Tôi rời nhà lúc 7 giờ."
+  },
+  {
+    "w": "put",
+    "pos": "động từ",
+    "vi": "đặt, để; cho vào",
+    "ex": "to put a thing in its right place",
+    "exvi": "để vật gì vào đúng chỗ của nó"
+  },
+  {
+    "w": "old",
+    "pos": "tính từ",
+    "vi": "già; cũ",
+    "ex": "an old man",
+    "exvi": "một ông già"
+  },
+  {
+    "w": "while",
+    "pos": "liên từ",
+    "vi": "trong lúc, trong khi, đang khi, đang lúc",
+    "ex": "I read while he cooks.",
+    "exvi": "Tôi đọc sách trong khi anh ấy nấu ăn."
+  },
+  {
+    "w": "mean",
+    "pos": "động từ",
+    "vi": "nghĩa là, có nghĩa là",
+    "ex": "these words mean nothing",
+    "exvi": "những chữ này không có nghĩa gì hết"
+  },
+  {
+    "w": "keep",
+    "pos": "động từ",
+    "vi": "giữ, giữ lại",
+    "ex": "to keep something as a souvenir",
+    "exvi": "giữ cái gì coi như một vật kỷ niệm"
+  },
+  {
+    "w": "student",
+    "pos": "danh từ",
+    "vi": "học sinh; sinh viên",
+    "ex": "She is a good student.",
+    "exvi": "Cô ấy là một học sinh giỏi."
+  },
+  {
+    "w": "why",
+    "pos": "phó từ",
+    "vi": "tại sao, vì sao",
+    "ex": "why not?",
+    "exvi": "tại sao không?"
+  },
+  {
+    "w": "let",
+    "pos": "động từ",
+    "vi": "để, cho phép; hãy",
+    "ex": "Let me help you.",
+    "exvi": "Để tôi giúp bạn."
+  },
+  {
+    "w": "great",
+    "pos": "tính từ",
+    "vi": "lớn, to lớn, vĩ đại",
+    "ex": "a great day",
+    "exvi": "một ngày tuyệt vời"
+  },
+  {
+    "w": "same",
+    "pos": "đại từ",
+    "vi": "giống nhau; cùng",
+    "ex": "We are the same age.",
+    "exvi": "Chúng tôi bằng tuổi nhau."
+  },
+  {
+    "w": "big",
+    "pos": "tính từ",
+    "vi": "to, lớn",
+    "ex": "a big tree",
+    "exvi": "cây to"
+  },
+  {
+    "w": "group",
+    "pos": "danh từ",
+    "vi": "nhóm",
+    "ex": "Work in groups.",
+    "exvi": "Làm việc theo nhóm."
+  },
+  {
+    "w": "begin",
+    "pos": "động từ",
+    "vi": "bắt đầu, mở đầu, khởi đầu",
+    "ex": "when did life begin on this earth?",
+    "exvi": "sự sống bắt đầu trên trái đất này lúc nào?"
+  },
+  {
+    "w": "seem",
+    "pos": "động từ",
+    "vi": "có vẻ như; dường như",
+    "ex": "You seem tired.",
+    "exvi": "Trông bạn có vẻ mệt."
+  },
+  {
+    "w": "country",
+    "pos": "danh từ",
+    "vi": "nước, quốc gia",
+    "ex": "Vietnam is a beautiful country.",
+    "exvi": "Việt Nam là một đất nước tươi đẹp."
+  },
+  {
+    "w": "help",
+    "pos": "động từ",
+    "vi": "giúp đỡ, cứu giúp",
+    "ex": "Can you help me?",
+    "exvi": "Bạn có thể giúp tôi không?"
+  },
+  {
+    "w": "talk",
+    "pos": "động từ",
+    "vi": "nói",
+    "ex": "Let's talk.",
+    "exvi": "Chúng ta nói chuyện nhé."
+  },
+  {
+    "w": "where",
+    "pos": "phó từ",
+    "vi": "ở đâu; đâu",
+    "ex": "Where are you?",
+    "exvi": "Bạn ở đâu?"
+  },
+  {
+    "w": "turn",
+    "pos": "động từ",
+    "vi": "quay, xoay, vặn",
+    "ex": "Turn left here.",
+    "exvi": "Rẽ trái ở đây."
+  },
+  {
+    "w": "problem",
+    "pos": "danh từ",
+    "vi": "vấn đề",
+    "ex": "No problem.",
+    "exvi": "Không vấn đề gì."
+  },
+  {
+    "w": "every",
+    "pos": "tính từ",
+    "vi": "mỗi, mọi",
+    "ex": "Every day I read.",
+    "exvi": "Mỗi ngày tôi đều đọc sách."
+  },
+  {
+    "w": "start",
+    "pos": "động từ",
+    "vi": "bắt đầu",
+    "ex": "to start on journey",
+    "exvi": "bắt đầu lên đường, khởi hành"
+  },
+  {
+    "w": "hand",
+    "pos": "danh từ",
+    "vi": "tay; bàn tay",
+    "ex": "to shake hands",
+    "exvi": "bắt tay"
+  },
+  {
+    "w": "might",
+    "pos": "động từ",
+    "vi": "có thể, có lẽ",
+    "ex": "It might rain.",
+    "exvi": "Trời có thể mưa."
+  },
+  {
+    "w": "show",
+    "pos": "động từ",
+    "vi": "cho xem; chỉ cho thấy",
+    "ex": "Show me your book.",
+    "exvi": "Cho tôi xem sách của bạn."
+  },
+  {
+    "w": "part",
+    "pos": "danh từ",
+    "vi": "phần; bộ phận",
+    "ex": "a part of the book",
+    "exvi": "một phần của quyển sách"
+  },
+  {
+    "w": "against",
+    "pos": "giới từ",
+    "vi": "chống lại, ngược lại, phản đối",
+    "ex": "to fight against aggression",
+    "exvi": "chiến đấu chống xâm lược"
+  },
+  {
+    "w": "place",
+    "pos": "danh từ",
+    "vi": "nơi; chỗ; địa điểm",
+    "ex": "in all places",
+    "exvi": "ở khắp nơi"
+  },
+  {
+    "w": "such",
+    "pos": "tính từ",
+    "vi": "như thế, như vậy, như loại đó",
+    "ex": "such people as these",
+    "exvi": "những người như thế"
+  },
+  {
+    "w": "again",
+    "pos": "phó từ",
+    "vi": "lại, lần nữa, nữa",
+    "ex": "Say it again.",
+    "exvi": "Nói lại lần nữa đi."
+  },
+  {
+    "w": "few",
+    "pos": "tính từ",
+    "vi": "ít; một vài",
+    "ex": "a man of few words",
+    "exvi": "một người ít nói"
+  },
+  {
+    "w": "case",
+    "pos": "danh từ",
+    "vi": "trường hợp; hoàn cảnh",
+    "ex": "to be in a sad case",
+    "exvi": "ở trong một hoàn cảnh đáng buồn"
+  },
+  {
+    "w": "week",
+    "pos": "danh từ",
+    "vi": "tuần lễ, tuần",
+    "ex": "what day of the week is it?",
+    "exvi": "hôm nay là ngày thứ mấy trong tuần?"
+  },
+  {
+    "w": "company",
+    "pos": "danh từ",
+    "vi": "công ty",
+    "ex": "She works for a big company.",
+    "exvi": "Cô ấy làm việc cho một công ty lớn."
+  },
+  {
+    "w": "system",
+    "pos": "danh từ",
+    "vi": "hệ thống; chế độ",
+    "ex": "system of philosophy",
+    "exvi": "hệ thống triết học"
+  },
+  {
+    "w": "each",
+    "pos": "tính từ",
+    "vi": "mỗi",
+    "ex": "each day",
+    "exvi": "mỗi ngày"
+  },
+  {
+    "w": "right",
+    "pos": "tính từ",
+    "vi": "thẳng",
+    "ex": "a right line",
+    "exvi": "một đường thẳng"
+  },
+  {
+    "w": "program",
+    "pos": "danh từ",
+    "vi": "chương trình",
+    "ex": "a TV program",
+    "exvi": "một chương trình truyền hình"
+  },
+  {
+    "w": "hear",
+    "pos": "động từ",
+    "vi": "nghe",
+    "ex": "I can't hear you.",
+    "exvi": "Tôi không nghe thấy bạn nói."
+  },
+  {
+    "w": "question",
+    "pos": "danh từ",
+    "vi": "câu hỏi",
+    "ex": "to put a question",
+    "exvi": "đặt một câu hỏi"
+  },
+  {
+    "w": "during",
+    "pos": "giới từ",
+    "vi": "trong (thời gian); trong lúc",
+    "ex": "I slept during the film.",
+    "exvi": "Tôi đã ngủ trong lúc xem phim."
+  },
+  {
+    "w": "play",
+    "pos": "động từ",
+    "vi": "chơi, nô đùa, đùa giỡn",
+    "ex": "to play with children",
+    "exvi": "nô đùa với trẻ con, chơi với trẻ con"
+  },
+  {
+    "w": "government",
+    "pos": "danh từ",
+    "vi": "chính phủ",
+    "ex": "The government helps people.",
+    "exvi": "Chính phủ giúp đỡ người dân."
+  },
+  {
+    "w": "run",
+    "pos": "động từ",
+    "vi": "chạy",
+    "ex": "I run every morning.",
+    "exvi": "Tôi chạy bộ mỗi sáng."
+  },
+  {
+    "w": "small",
+    "pos": "tính từ",
+    "vi": "nhỏ, bé",
+    "ex": "small rain",
+    "exvi": "mưa nhỏ"
+  },
+  {
+    "w": "number",
+    "pos": "danh từ",
+    "vi": "số",
+    "ex": "a phone number",
+    "exvi": "một số điện thoại"
+  },
+  {
+    "w": "off",
+    "pos": "giới từ",
+    "vi": "khỏi, cách, rời",
+    "ex": "the cover has come off the book",
+    "exvi": "cái bìa tuột khỏi quyển sách"
+  },
+  {
+    "w": "always",
+    "pos": "phó từ",
+    "vi": "luôn luôn; lúc nào cũng",
+    "ex": "She always smiles.",
+    "exvi": "Cô ấy lúc nào cũng cười."
+  },
+  {
+    "w": "move",
+    "pos": "động từ",
+    "vi": "di chuyển; chuyển",
+    "ex": "Don't move!",
+    "exvi": "Đừng cử động!"
+  },
+  {
+    "w": "night",
+    "pos": "danh từ",
+    "vi": "đêm; buổi tối",
+    "ex": "the whole night",
+    "exvi": "suốt đêm, cả đêm"
+  },
+  {
+    "w": "live",
+    "pos": "động từ",
+    "vi": "sống",
+    "ex": "I live in Hanoi.",
+    "exvi": "Tôi sống ở Hà Nội."
+  },
+  {
+    "w": "point",
+    "pos": "danh từ",
+    "vi": "điểm; ý chính",
+    "ex": "You have a good point.",
+    "exvi": "Bạn nói có lý."
+  },
+  {
+    "w": "believe",
+    "pos": "động từ",
+    "vi": "tin, tin tưởng",
+    "ex": "I believe you.",
+    "exvi": "Tôi tin bạn."
+  },
+  {
+    "w": "hold",
+    "pos": "động từ",
+    "vi": "cầm, nắm; giữ",
+    "ex": "to hold a pen",
+    "exvi": "cầm bút"
+  },
+  {
+    "w": "today",
+    "pos": "phó từ",
+    "vi": "hôm nay",
+    "ex": "Today is Monday.",
+    "exvi": "Hôm nay là thứ Hai."
+  },
+  {
+    "w": "bring",
+    "pos": "động từ",
+    "vi": "mang đến; đem lại",
+    "ex": "bring me a cup of tea",
+    "exvi": "đem lại cho tôi một tách trà"
+  },
+  {
+    "w": "happen",
+    "pos": "động từ",
+    "vi": "xảy ra",
+    "ex": "What happened?",
+    "exvi": "Chuyện gì đã xảy ra?"
+  },
+  {
+    "w": "next",
+    "pos": "tính từ",
+    "vi": "tiếp theo; kế tiếp",
+    "ex": "See you next week.",
+    "exvi": "Hẹn gặp lại tuần sau."
+  },
+  {
+    "w": "without",
+    "pos": "giới từ",
+    "vi": "không, không có",
+    "ex": "I can't live without water.",
+    "exvi": "Tôi không thể sống thiếu nước."
+  },
+  {
+    "w": "before",
+    "pos": "giới từ",
+    "vi": "trước; trước khi",
+    "ex": "Wash your hands before eating.",
+    "exvi": "Rửa tay trước khi ăn."
+  },
+  {
+    "w": "large",
+    "pos": "tính từ",
+    "vi": "rộng, lớn, to",
+    "ex": "a large town",
+    "exvi": "một thành phố lớn"
+  },
+  {
+    "w": "must",
+    "pos": "động từ",
+    "vi": "phải, cần phải, nên",
+    "ex": "I am very sorry, but I must go at once",
+    "exvi": "tôi lấy làm tiếc nhưng tôi phải đi ngay"
+  },
+  {
+    "w": "home",
+    "pos": "danh từ",
+    "vi": "nhà, chỗ ở",
+    "ex": "to be at home",
+    "exvi": "ở nhà"
+  },
+  {
+    "w": "under",
+    "pos": "giới từ",
+    "vi": "dưới, ở dưới",
+    "ex": "to be under water",
+    "exvi": "ở dưới nước"
+  },
+  {
+    "w": "water",
+    "pos": "danh từ",
+    "vi": "nước",
+    "ex": "to drink water",
+    "exvi": "uống nước"
+  },
+  {
+    "w": "room",
+    "pos": "danh từ",
+    "vi": "phòng",
+    "ex": "a big room",
+    "exvi": "một căn phòng lớn"
+  },
+  {
+    "w": "write",
+    "pos": "động từ",
+    "vi": "viết",
+    "ex": "I write every day.",
+    "exvi": "Tôi viết mỗi ngày."
+  },
+  {
+    "w": "mother",
+    "pos": "danh từ",
+    "vi": "mẹ",
+    "ex": "My mother is kind.",
+    "exvi": "Mẹ tôi rất tốt bụng."
+  },
+  {
+    "w": "area",
+    "pos": "danh từ",
+    "vi": "diện tích, bề mặt",
+    "ex": "area under crop",
+    "exvi": "diện tích trồng trọt"
+  },
+  {
+    "w": "national",
+    "pos": "tính từ",
+    "vi": "quốc gia; toàn quốc",
+    "ex": "a national park",
+    "exvi": "một công viên quốc gia"
+  },
+  {
+    "w": "money",
+    "pos": "danh từ",
+    "vi": "tiền, tiền tệ",
+    "ex": "paper money",
+    "exvi": "tiền giấy"
+  },
+  {
+    "w": "story",
+    "pos": "danh từ",
+    "vi": "chuyện, câu chuyện",
+    "ex": "they all tell the same story",
+    "exvi": "họ đều kể một câu chuyện như nhau"
+  },
+  {
+    "w": "young",
+    "pos": "tính từ",
+    "vi": "trẻ; trẻ tuổi",
+    "ex": "a young man",
+    "exvi": "một thanh niên"
+  },
+  {
+    "w": "fact",
+    "pos": "danh từ",
+    "vi": "sự thật",
+    "ex": "It is a fact.",
+    "exvi": "Đó là sự thật."
+  },
+  {
+    "w": "month",
+    "pos": "danh từ",
+    "vi": "tháng",
+    "ex": "lunar month",
+    "exvi": "tháng âm lịch"
+  },
+  {
+    "w": "different",
+    "pos": "tính từ",
+    "vi": "khác, khác biệt, khác nhau",
+    "ex": "My book is different.",
+    "exvi": "Sách của tôi khác."
+  },
+  {
+    "w": "lot",
+    "pos": "đại từ",
+    "vi": "nhiều (a lot of); lô, thửa",
+    "ex": "I have a lot of books.",
+    "exvi": "Tôi có nhiều sách."
+  },
+  {
+    "w": "study",
+    "pos": "động từ",
+    "vi": "học; nghiên cứu",
+    "ex": "I study English.",
+    "exvi": "Tôi học tiếng Anh."
+  },
+  {
+    "w": "book",
+    "pos": "danh từ",
+    "vi": "sách",
+    "ex": "old book",
+    "exvi": "sách cũ"
+  },
+  {
+    "w": "eye",
+    "pos": "danh từ",
+    "vi": "mắt",
+    "ex": "blue eyes",
+    "exvi": "mắt xanh"
+  },
+  {
+    "w": "job",
+    "pos": "danh từ",
+    "vi": "công việc; việc làm",
+    "ex": "I have a new job.",
+    "exvi": "Tôi có công việc mới."
+  },
+  {
+    "w": "word",
+    "pos": "danh từ",
+    "vi": "từ",
+    "ex": "to translate word for word",
+    "exvi": "dịch theo từng từ một"
+  },
+  {
+    "w": "though",
+    "pos": "liên từ",
+    "vi": "dù, dù cho, mặc dù, dẫu cho",
+    "ex": "though it was late we decided to go",
+    "exvi": "mặc dù đã muộn, chúng tôi vẫn quyết định đi"
+  },
+  {
+    "w": "business",
+    "pos": "danh từ",
+    "vi": "việc kinh doanh; buôn bán",
+    "ex": "to do business with somebody",
+    "exvi": "buôn bán với ai"
+  },
+  {
+    "w": "issue",
+    "pos": "danh từ",
+    "vi": "vấn đề; số (báo)",
+    "ex": "This is a big issue.",
+    "exvi": "Đây là một vấn đề lớn."
+  },
+  {
+    "w": "side",
+    "pos": "danh từ",
+    "vi": "bên; mặt",
+    "ex": "a cube has six sides",
+    "exvi": "hình khối có sáu mặt"
+  },
+  {
+    "w": "kind",
+    "pos": "tính từ",
+    "vi": "tốt bụng; tử tế",
+    "ex": "She is very kind.",
+    "exvi": "Cô ấy rất tốt bụng."
+  },
+  {
+    "w": "four",
+    "pos": "số từ",
+    "vi": "bốn",
+    "ex": "four directions",
+    "exvi": "bốn phương"
+  },
+  {
+    "w": "head",
+    "pos": "danh từ",
+    "vi": "đầu",
+    "ex": "from head to foot",
+    "exvi": "từ đầu đến chân"
+  },
+  {
+    "w": "far",
+    "pos": "phó từ",
+    "vi": "xa",
+    "ex": "far from perfect",
+    "exvi": "còn xơi mới được hoàn hảo"
+  },
+  {
+    "w": "black",
+    "pos": "tính từ",
+    "vi": "đen",
+    "ex": "a black cat",
+    "exvi": "một con mèo đen"
+  },
+  {
+    "w": "long",
+    "pos": "tính từ",
+    "vi": "dài; lâu; xa",
+    "ex": "a long journey",
+    "exvi": "một cuộc hành trình dài"
+  },
+  {
+    "w": "both",
+    "pos": "đại từ",
+    "vi": "cả hai",
+    "ex": "with both hands",
+    "exvi": "bằng cả hai tay"
+  },
+  {
+    "w": "little",
+    "pos": "tính từ",
+    "vi": "nhỏ bé; ít",
+    "ex": "a little house",
+    "exvi": "một căn nhà nhỏ"
+  },
+  {
+    "w": "house",
+    "pos": "tính từ",
+    "vi": "nhà; căn nhà",
+    "ex": "This is my house.",
+    "exvi": "Đây là nhà của tôi."
+  },
+  {
+    "w": "yes",
+    "pos": "phó từ",
+    "vi": "vâng; có",
+    "ex": "to say yes or no",
+    "exvi": "nói có hoặc không; nói được hay không"
+  },
+  {
+    "w": "since",
+    "pos": "liên từ",
+    "vi": "từ khi, từ lúc",
+    "ex": "I have lived here since 2020.",
+    "exvi": "Tôi sống ở đây từ năm 2020."
+  },
+  {
+    "w": "provide",
+    "pos": "động từ",
+    "vi": "cung cấp",
+    "ex": "They provide food for us.",
+    "exvi": "Họ cung cấp thức ăn cho chúng tôi."
+  },
+  {
+    "w": "service",
+    "pos": "danh từ",
+    "vi": "dịch vụ",
+    "ex": "Good service!",
+    "exvi": "Dịch vụ tốt!"
+  },
+  {
+    "w": "around",
+    "pos": "giới từ",
+    "vi": "xung quanh, vòng quanh",
+    "ex": "to walk around the house",
+    "exvi": "đi vòng quanh nhà"
+  },
+  {
+    "w": "friend",
+    "pos": "danh từ",
+    "vi": "bạn; người bạn",
+    "ex": "My best friend is Lan.",
+    "exvi": "Bạn thân nhất của tôi là Lan."
+  },
+  {
+    "w": "important",
+    "pos": "tính từ",
+    "vi": "quan trọng",
+    "ex": "an important event",
+    "exvi": "một sự kiện quan trọng"
+  },
+  {
+    "w": "father",
+    "pos": "danh từ",
+    "vi": "cha, bố",
+    "ex": "My father is a doctor.",
+    "exvi": "Bố tôi là bác sĩ."
+  },
+  {
+    "w": "sit",
+    "pos": "động từ",
+    "vi": "ngồi",
+    "ex": "to sit round the fire",
+    "exvi": "ngồi xung quanh lửa"
+  },
+  {
+    "w": "away",
+    "pos": "phó từ",
+    "vi": "xa; đi xa",
+    "ex": "to stand away from the rest",
+    "exvi": "đứng cách xa những người khác"
+  },
+  {
+    "w": "until",
+    "pos": "liên từ",
+    "vi": "cho đến, cho đến khi",
+    "ex": "the holidays last until September",
+    "exvi": "ngày nghỉ hè kéo dài cho đến tận tháng chín"
+  },
+  {
+    "w": "power",
+    "pos": "danh từ",
+    "vi": "quyền lực; sức mạnh",
+    "ex": "Knowledge is power.",
+    "exvi": "Tri thức là sức mạnh."
+  },
+  {
+    "w": "hour",
+    "pos": "danh từ",
+    "vi": "giờ; tiếng đồng hồ",
+    "ex": "half an hour",
+    "exvi": "nửa giờ"
+  },
+  {
+    "w": "game",
+    "pos": "danh từ",
+    "vi": "trò chơi",
+    "ex": "Let's play a game.",
+    "exvi": "Chúng ta chơi một trò chơi nhé."
+  },
+  {
+    "w": "often",
+    "pos": "phó từ",
+    "vi": "thường, hay, luôn, năng",
+    "ex": "I often come to see him",
+    "exvi": "tôi hay đến thăm anh ấy"
+  },
+  {
+    "w": "yet",
+    "pos": "phó từ",
+    "vi": "còn, hãy còn, còn nữa",
+    "ex": "we have ten minutes yet",
+    "exvi": "chúng ta còn mười phút nữa"
+  },
+  {
+    "w": "line",
+    "pos": "danh từ",
+    "vi": "đường; dòng; hàng",
+    "ex": "Draw a line.",
+    "exvi": "Vẽ một đường thẳng."
+  },
+  {
+    "w": "political",
+    "pos": "tính từ",
+    "vi": "chính trị",
+    "ex": "a political organization",
+    "exvi": "một tổ chức chính trị"
+  },
+  {
+    "w": "end",
+    "pos": "động từ",
+    "vi": "kết thúc, chấm dứt",
+    "ex": "The film will end soon.",
+    "exvi": "Bộ phim sắp kết thúc."
+  },
+  {
+    "w": "among",
+    "pos": "giới từ",
+    "vi": "giữa, ở giữa",
+    "ex": "among the crowd",
+    "exvi": "ở giữa đám đông"
+  },
+  {
+    "w": "ever",
+    "pos": "phó từ",
+    "vi": "bao giờ; từng",
+    "ex": "more than ever",
+    "exvi": "hơn bao giờ hết"
+  },
+  {
+    "w": "stand",
+    "pos": "động từ",
+    "vi": "đứng",
+    "ex": "to stand at ease",
+    "exvi": "đứng ở tư thế nghỉ"
+  },
+  {
+    "w": "bad",
+    "pos": "tính từ",
+    "vi": "xấu; tồi",
+    "ex": "bad weather",
+    "exvi": "thời tiết xấu"
+  },
+  {
+    "w": "lose",
+    "pos": "động từ",
+    "vi": "mất; thua",
+    "ex": "Don't lose your keys.",
+    "exvi": "Đừng làm mất chìa khóa."
+  },
+  {
+    "w": "however",
+    "pos": "phó từ",
+    "vi": "tuy nhiên; dù thế nào",
+    "ex": "It was raining. However, we went out.",
+    "exvi": "Trời mưa. Tuy nhiên, chúng tôi vẫn ra ngoài."
+  },
+  {
+    "w": "member",
+    "pos": "danh từ",
+    "vi": "thành viên",
+    "ex": "She is a member of the club.",
+    "exvi": "Cô ấy là thành viên của câu lạc bộ."
+  },
+  {
+    "w": "pay",
+    "pos": "động từ",
+    "vi": "trả (tiền); nộp; thanh toán",
+    "ex": "I pay by card.",
+    "exvi": "Tôi trả bằng thẻ."
+  },
+  {
+    "w": "law",
+    "pos": "danh từ",
+    "vi": "luật; pháp luật",
+    "ex": "Obey the law.",
+    "exvi": "Hãy tuân thủ pháp luật."
+  },
+  {
+    "w": "meet",
+    "pos": "động từ",
+    "vi": "gặp, gặp gỡ",
+    "ex": "to meet someone in the street",
+    "exvi": "gặp ai ở ngoài phố"
+  },
+  {
+    "w": "car",
+    "pos": "danh từ",
+    "vi": "xe ô tô; xe hơi",
+    "ex": "to go by car",
+    "exvi": "đi bằng ô tô"
+  },
+  {
+    "w": "city",
+    "pos": "danh từ",
+    "vi": "thành phố",
+    "ex": "Ho Chi Minh City is big.",
+    "exvi": "Thành phố Hồ Chí Minh rất lớn."
+  },
+  {
+    "w": "almost",
+    "pos": "phó từ",
+    "vi": "gần như; suýt nữa",
+    "ex": "I almost forgot.",
+    "exvi": "Tôi suýt nữa thì quên."
+  },
+  {
+    "w": "include",
+    "pos": "động từ",
+    "vi": "bao gồm, gồm có",
+    "ex": "his conclusion includes all our ideas",
+    "exvi": "kết luận của ông ta bao gồm tất cả ý kiến của chúng tôi"
+  },
+  {
+    "w": "continue",
+    "pos": "động từ",
+    "vi": "tiếp tục, làm tiếp",
+    "ex": "to be continued",
+    "exvi": "còn tiếp nữa"
+  },
+  {
+    "w": "set",
+    "pos": "động từ",
+    "vi": "đặt; thiết lập",
+    "ex": "to set foot on",
+    "exvi": "đặt chân lên"
+  },
+  {
+    "w": "later",
+    "pos": "phó từ",
+    "vi": "sau đó, về sau",
+    "ex": "See you later.",
+    "exvi": "Hẹn gặp lại sau nhé."
+  },
+  {
+    "w": "community",
+    "pos": "danh từ",
+    "vi": "cộng đồng",
+    "ex": "Our community is friendly.",
+    "exvi": "Cộng đồng của chúng tôi rất thân thiện."
+  },
+  {
+    "w": "name",
+    "pos": "danh từ",
+    "vi": "tên",
+    "ex": "What is your name?",
+    "exvi": "Bạn tên gì?"
+  },
+  {
+    "w": "five",
+    "pos": "số từ",
+    "vi": "năm",
+    "ex": "to be five",
+    "exvi": "lên năm (tuổi)"
+  },
+  {
+    "w": "once",
+    "pos": "phó từ",
+    "vi": "một lần",
+    "ex": "once or twice",
+    "exvi": "một hay hai lần"
+  },
+  {
+    "w": "white",
+    "pos": "tính từ",
+    "vi": "trắng, bạch, bạc",
+    "ex": "white hair",
+    "exvi": "tóc bạc"
+  },
+  {
+    "w": "least",
+    "pos": "phó từ",
+    "vi": "tối thiểu, ít nhất",
+    "ex": "You need at least two hours.",
+    "exvi": "Bạn cần ít nhất hai tiếng."
+  },
+  {
+    "w": "president",
+    "pos": "danh từ",
+    "vi": "tổng thống; chủ tịch",
+    "ex": "The president spoke today.",
+    "exvi": "Hôm nay tổng thống đã phát biểu."
+  },
+  {
+    "w": "learn",
+    "pos": "động từ",
+    "vi": "học",
+    "ex": "I learn English every day.",
+    "exvi": "Tôi học tiếng Anh mỗi ngày."
+  },
+  {
+    "w": "real",
+    "pos": "tính từ",
+    "vi": "thật; thực sự",
+    "ex": "Is this real?",
+    "exvi": "Cái này có thật không?"
+  },
+  {
+    "w": "change",
+    "pos": "động từ",
+    "vi": "đổi, thay, thay đổi",
+    "ex": "Things change.",
+    "exvi": "Mọi thứ đều thay đổi."
+  },
+  {
+    "w": "team",
+    "pos": "danh từ",
+    "vi": "đội; nhóm",
+    "ex": "Our team won.",
+    "exvi": "Đội của chúng tôi đã thắng."
+  },
+  {
+    "w": "minute",
+    "pos": "danh từ",
+    "vi": "phút",
+    "ex": "to wait ten minutes",
+    "exvi": "chờ mười phút"
+  },
+  {
+    "w": "best",
+    "pos": "tính từ",
+    "vi": "tốt nhất, hay nhất, đẹp nhất, giỏi nhất",
+    "ex": "the best thing to do",
+    "exvi": "việc làm tốt nhất, việc làm có kết quả nhất"
+  },
+  {
+    "w": "several",
+    "pos": "tính từ",
+    "vi": "vài",
+    "ex": "I have read it several times",
+    "exvi": "tôi đã đọc cái đó vài lần"
+  },
+  {
+    "w": "idea",
+    "pos": "danh từ",
+    "vi": "quan niệm, tư tưởng, ý tưởng, ý nghĩ, ý kiến",
+    "ex": "I have an idea.",
+    "exvi": "Tôi có một ý tưởng."
+  },
+  {
+    "w": "kid",
+    "pos": "danh từ",
+    "vi": "đứa trẻ",
+    "ex": "The kids are playing.",
+    "exvi": "Bọn trẻ đang chơi."
+  },
+  {
+    "w": "body",
+    "pos": "danh từ",
+    "vi": "cơ thể; thân thể",
+    "ex": "sound in mind and body",
+    "exvi": "lành mạnh cả tâm hồn lẫn thể xác"
+  },
+  {
+    "w": "information",
+    "pos": "danh từ",
+    "vi": "thông tin",
+    "ex": "Thank you for the information.",
+    "exvi": "Cảm ơn bạn đã cung cấp thông tin."
+  },
+  {
+    "w": "nothing",
+    "pos": "đại từ",
+    "vi": "không có gì",
+    "ex": "I have nothing to do.",
+    "exvi": "Tôi không có việc gì làm."
+  },
+  {
+    "w": "ago",
+    "pos": "phó từ",
+    "vi": "trước đây, về trước",
+    "ex": "five years ago",
+    "exvi": "năm năm trước đây, đã năm năm nay"
+  },
+  {
+    "w": "lead",
+    "pos": "động từ",
+    "vi": "dẫn dắt; lãnh đạo",
+    "ex": "She leads the team.",
+    "exvi": "Cô ấy lãnh đạo đội."
+  },
+  {
+    "w": "understand",
+    "pos": "động từ",
+    "vi": "hiểu, nắm được ý, biết",
+    "ex": "I don't understand you",
+    "exvi": "tôi không hiểu ý anh"
+  },
+  {
+    "w": "whether",
+    "pos": "liên từ",
+    "vi": "có... không, có... chăng, không biết có... không",
+    "ex": "he asked whether it was true",
+    "exvi": "ông ta hỏi không biết điều đó có đúng không"
+  },
+  {
+    "w": "watch",
+    "pos": "động từ",
+    "vi": "xem, nhìn; theo dõi",
+    "ex": "I watch TV every day.",
+    "exvi": "Tôi xem ti vi mỗi ngày."
+  },
+  {
+    "w": "together",
+    "pos": "phó từ",
+    "vi": "cùng, cùng với, cùng nhau",
+    "ex": "they were walking together",
+    "exvi": "chúng cùng đi dạo với nhau"
+  },
+  {
+    "w": "follow",
+    "pos": "động từ",
+    "vi": "đi theo sau",
+    "ex": "Follow me.",
+    "exvi": "Đi theo tôi."
+  },
+  {
+    "w": "parent",
+    "pos": "danh từ",
+    "vi": "cha mẹ; bố mẹ",
+    "ex": "My parents are teachers.",
+    "exvi": "Bố mẹ tôi là giáo viên."
+  },
+  {
+    "w": "stop",
+    "pos": "động từ",
+    "vi": "ngừng, nghỉ, thôi",
+    "ex": "to stop doing something",
+    "exvi": "ngừng lại việc gì; thôi làm việc gì"
+  },
+  {
+    "w": "face",
+    "pos": "danh từ",
+    "vi": "mặt",
+    "ex": "to look somebody in the face",
+    "exvi": "nhìn thẳng vào mặt ai"
+  },
+  {
+    "w": "anything",
+    "pos": "đại từ",
+    "vi": "bất cứ vật gì; bất cứ việc gì",
+    "ex": "is there anything to do?",
+    "exvi": "có việc gì làm không?"
+  },
+  {
+    "w": "create",
+    "pos": "động từ",
+    "vi": "tạo ra; sáng tạo",
+    "ex": "They created a new app.",
+    "exvi": "Họ đã tạo ra một ứng dụng mới."
+  },
+  {
+    "w": "public",
+    "pos": "tính từ",
+    "vi": "chung, công, công cộng",
+    "ex": "public holiday",
+    "exvi": "ngày lễ chung"
+  },
+  {
+    "w": "already",
+    "pos": "phó từ",
+    "vi": "đã, rồi; đã... rồi",
+    "ex": "I already ate.",
+    "exvi": "Tôi ăn rồi."
+  },
+  {
+    "w": "speak",
+    "pos": "động từ",
+    "vi": "nói",
+    "ex": "to learn to speak",
+    "exvi": "tập nói"
+  },
+  {
+    "w": "level",
+    "pos": "danh từ",
+    "vi": "mức độ; trình độ",
+    "ex": "What is your English level?",
+    "exvi": "Trình độ tiếng Anh của bạn thế nào?"
+  },
+  {
+    "w": "force",
+    "pos": "danh từ",
+    "vi": "lực; sức mạnh",
+    "ex": "The force of the wind was strong.",
+    "exvi": "Sức gió rất mạnh."
+  },
+  {
+    "w": "offer",
+    "pos": "động từ",
+    "vi": "đề nghị; đưa ra",
+    "ex": "He offered to help.",
+    "exvi": "Anh ấy đề nghị giúp đỡ."
+  },
+  {
+    "w": "across",
+    "pos": "giới từ",
+    "vi": "qua, ngang, ngang qua",
+    "ex": "Walk across the street.",
+    "exvi": "Đi qua đường."
+  },
+  {
+    "w": "second",
+    "pos": "danh từ",
+    "vi": "thứ hai; giây",
+    "ex": "This is my second book.",
+    "exvi": "Đây là quyển sách thứ hai của tôi."
+  },
+  {
+    "w": "policy",
+    "pos": "danh từ",
+    "vi": "chính sách",
+    "ex": "foreign policy",
+    "exvi": "chính sách đối ngoại"
+  },
+  {
+    "w": "process",
+    "pos": "danh từ",
+    "vi": "quá trình, sự tiến triển",
+    "ex": "the process of economic rehabilitation",
+    "exvi": "quá trình khôi phục kinh tế"
+  },
+  {
+    "w": "appear",
+    "pos": "động từ",
+    "vi": "xuất hiện, hiện ra, ló ra",
+    "ex": "The sun appeared.",
+    "exvi": "Mặt trời đã xuất hiện."
+  },
+  {
+    "w": "expect",
+    "pos": "động từ",
+    "vi": "mong đợi; hy vọng",
+    "ex": "I expect good news.",
+    "exvi": "Tôi mong đợi tin tốt."
+  },
+  {
+    "w": "sense",
+    "pos": "danh từ",
+    "vi": "giác quan; cảm giác; ý nghĩa",
+    "ex": "the five senses",
+    "exvi": "ngũ quan"
+  },
+  {
+    "w": "interest",
+    "pos": "danh từ",
+    "vi": "sự quan tâm; sở thích",
+    "ex": "a question of great interest",
+    "exvi": "một vấn đề đáng chú ý"
+  },
+  {
+    "w": "course",
+    "pos": "danh từ",
+    "vi": "khóa học; quá trình",
+    "ex": "I take an English course.",
+    "exvi": "Tôi đang học một khóa tiếng Anh."
+  },
+  {
+    "w": "remain",
+    "pos": "động từ",
+    "vi": "còn lại",
+    "ex": "much remains to be done",
+    "exvi": "còn nhiều việc phải làm"
+  },
+  {
+    "w": "effect",
+    "pos": "danh từ",
+    "vi": "hiệu quả; tác dụng",
+    "ex": "cause and effect",
+    "exvi": "nguyên nhân và kết quả"
+  },
+  {
+    "w": "suggest",
+    "pos": "động từ",
+    "vi": "đề nghị; gợi ý",
+    "ex": "I suggest we go now.",
+    "exvi": "Tôi đề nghị chúng ta đi ngay."
+  },
+  {
+    "w": "raise",
+    "pos": "động từ",
+    "vi": "nâng lên; giơ lên",
+    "ex": "Raise your hand.",
+    "exvi": "Giơ tay lên."
+  },
+  {
+    "w": "care",
+    "pos": "động từ",
+    "vi": "chăm sóc; quan tâm",
+    "ex": "to care for a patient",
+    "exvi": "chăm sóc người ốm"
+  },
+  {
+    "w": "former",
+    "pos": "tính từ",
+    "vi": "trước, cũ, xưa, nguyên",
+    "ex": "in former times",
+    "exvi": "thuở xưa, trước đây"
+  },
+  {
+    "w": "major",
+    "pos": "tính từ",
+    "vi": "lớn; chủ yếu",
+    "ex": "for the major part",
+    "exvi": "phần lớn, phần nhiều"
+  },
+  {
+    "w": "require",
+    "pos": "động từ",
+    "vi": "đòi hỏi, yêu cầu",
+    "ex": "This job requires patience.",
+    "exvi": "Công việc này đòi hỏi sự kiên nhẫn."
+  },
+  {
+    "w": "along",
+    "pos": "giới từ",
+    "vi": "dọc theo, theo",
+    "ex": "to walk along the road",
+    "exvi": "đi dọc theo con đường"
+  },
+  {
+    "w": "economic",
+    "pos": "tính từ",
+    "vi": "kinh tế",
+    "ex": "The economic situation is good.",
+    "exvi": "Tình hình kinh tế đang tốt."
+  },
+  {
+    "w": "effort",
+    "pos": "danh từ",
+    "vi": "sự cố gắng; nỗ lực",
+    "ex": "Thank you for your effort.",
+    "exvi": "Cảm ơn sự cố gắng của bạn."
+  },
+  {
+    "w": "rate",
+    "pos": "danh từ",
+    "vi": "tỷ lệ",
+    "ex": "The interest rate is low.",
+    "exvi": "Lãi suất đang thấp."
+  },
+  {
+    "w": "military",
+    "pos": "tính từ",
+    "vi": "quân sự; quân đội",
+    "ex": "military service",
+    "exvi": "nghĩa vụ quân sự"
+  },
+  {
+    "w": "develop",
+    "pos": "động từ",
+    "vi": "phát triển",
+    "ex": "The city is developing fast.",
+    "exvi": "Thành phố đang phát triển nhanh."
+  },
+  {
+    "w": "carry",
+    "pos": "động từ",
+    "vi": "mang, vác; chở",
+    "ex": "Can you carry this bag?",
+    "exvi": "Bạn có thể mang cái túi này không?"
+  },
+  {
+    "w": "federal",
+    "pos": "tính từ",
+    "vi": "liên bang",
+    "ex": "the federal government",
+    "exvi": "chính phủ liên bang"
+  },
+  {
+    "w": "break",
+    "pos": "động từ",
+    "vi": "làm vỡ; phá vỡ",
+    "ex": "to break a cup",
+    "exvi": "đập vỡ cái tách"
+  },
+  {
+    "w": "season",
+    "pos": "danh từ",
+    "vi": "mùa",
+    "ex": "the four seasons",
+    "exvi": "bốn mùa"
+  },
+  {
+    "w": "position",
+    "pos": "danh từ",
+    "vi": "vị trí; chức vụ",
+    "ex": "in position",
+    "exvi": "đúng chỗ, đúng vị trí"
+  },
+  {
+    "w": "wear",
+    "pos": "động từ",
+    "vi": "mặc; đeo; đội",
+    "ex": "to wear glasses",
+    "exvi": "đeo kính"
+  },
+  {
+    "w": "form",
+    "pos": "danh từ",
+    "vi": "hình thức; mẫu đơn",
+    "ex": "Fill in this form.",
+    "exvi": "Điền vào mẫu đơn này."
+  },
+  {
+    "w": "event",
+    "pos": "danh từ",
+    "vi": "sự việc, sự kiện",
+    "ex": "The event was fun.",
+    "exvi": "Sự kiện đó rất vui."
+  },
+  {
+    "w": "couple",
+    "pos": "danh từ",
+    "vi": "đôi, cặp",
+    "ex": "a couple of girls",
+    "exvi": "đôi bạn gái"
+  },
+  {
+    "w": "project",
+    "pos": "danh từ",
+    "vi": "dự án; kế hoạch",
+    "ex": "a new project for the development of agriculture",
+    "exvi": "một bản dự án mới về phát triển nông nghiệp"
+  },
+  {
+    "w": "base",
+    "pos": "danh từ",
+    "vi": "cơ sở; nền tảng",
+    "ex": "the base of the mountain",
+    "exvi": "chân núi"
+  },
+  {
+    "w": "court",
+    "pos": "danh từ",
+    "vi": "tòa án; sân",
+    "ex": "The court decided today.",
+    "exvi": "Tòa án đã quyết định hôm nay."
+  },
+  {
+    "w": "industry",
+    "pos": "danh từ",
+    "vi": "công nghiệp",
+    "ex": "heavy industry",
+    "exvi": "công nghiệp nặng"
+  },
+  {
+    "w": "figure",
+    "pos": "danh từ",
+    "vi": "con số; hình dáng",
+    "ex": "Sales figures rose.",
+    "exvi": "Doanh số đã tăng."
+  },
+  {
+    "w": "image",
+    "pos": "danh từ",
+    "vi": "hình ảnh",
+    "ex": "a beautiful image",
+    "exvi": "một hình ảnh đẹp"
+  },
+  {
+    "w": "data",
+    "pos": "danh từ",
+    "vi": "dữ liệu",
+    "ex": "The data shows growth.",
+    "exvi": "Dữ liệu cho thấy sự tăng trưởng."
+  },
+  {
+    "w": "cover",
+    "pos": "động từ",
+    "vi": "che, phủ, bao phủ, bao trùm, bao bọc",
+    "ex": "to cover a wall with paper",
+    "exvi": "dán giấy phủ lên tường"
+  },
+  {
+    "w": "describe",
+    "pos": "động từ",
+    "vi": "tả, diễn tả, mô tả, miêu tả",
+    "ex": "Describe your house.",
+    "exvi": "Hãy mô tả ngôi nhà của bạn."
+  },
+  {
+    "w": "patient",
+    "pos": "tính từ",
+    "vi": "kiên nhẫn, nhẫn nại, bền chí",
+    "ex": "Be patient.",
+    "exvi": "Hãy kiên nhẫn."
+  },
+  {
+    "w": "personal",
+    "pos": "tính từ",
+    "vi": "cá nhân, tư, riêng",
+    "ex": "my personal opinion",
+    "exvi": "ý kiến cá nhân tôi, ý kiến riêng tôi"
+  },
+  {
+    "w": "simply",
+    "pos": "phó từ",
+    "vi": "một cách đơn giản; chỉ",
+    "ex": "I simply don't know.",
+    "exvi": "Tôi đơn giản là không biết."
+  },
+  {
+    "w": "attention",
+    "pos": "danh từ",
+    "vi": "sự chú ý",
+    "ex": "to pay attention to",
+    "exvi": "chú ý tới"
+  },
+  {
+    "w": "draw",
+    "pos": "động từ",
+    "vi": "vẽ; kéo",
+    "ex": "I can draw a cat.",
+    "exvi": "Tôi có thể vẽ một con mèo."
+  },
+  {
+    "w": "source",
+    "pos": "danh từ",
+    "vi": "nguồn",
+    "ex": "a source of water",
+    "exvi": "một nguồn nước"
+  },
+  {
+    "w": "evidence",
+    "pos": "danh từ",
+    "vi": "bằng chứng",
+    "ex": "There is no evidence.",
+    "exvi": "Không có bằng chứng nào."
+  },
+  {
+    "w": "chance",
+    "pos": "danh từ",
+    "vi": "cơ hội; sự may rủi",
+    "ex": "by chance",
+    "exvi": "tình cờ, ngẫu nhiên"
+  },
+  {
+    "w": "available",
+    "pos": "tính từ",
+    "vi": "có sẵn; sẵn sàng",
+    "ex": "by all available means",
+    "exvi": "bằng mọi phương tiện sẵn có"
+  },
+  {
+    "w": "opportunity",
+    "pos": "danh từ",
+    "vi": "cơ hội, thời cơ",
+    "ex": "to seize an opportunity to do something",
+    "exvi": "nắm lấy một cơ hội để làm việc gì"
+  },
+  {
+    "w": "term",
+    "pos": "danh từ",
+    "vi": "thuật ngữ; học kỳ",
+    "ex": "a school term",
+    "exvi": "một học kỳ"
+  },
+  {
+    "w": "condition",
+    "pos": "danh từ",
+    "vi": "điều kiện",
+    "ex": "on (upon) condition that",
+    "exvi": "với điều kiện là"
+  },
+  {
+    "w": "administration",
+    "pos": "danh từ",
+    "vi": "sự quản lý; chính quyền",
+    "ex": "the school administration",
+    "exvi": "ban quản lý trường học"
+  },
+  {
+    "w": "congress",
+    "pos": "danh từ",
+    "vi": "quốc hội (Mỹ)",
+    "ex": "Congress passed the law.",
+    "exvi": "Quốc hội đã thông qua luật."
+  },
+  {
+    "w": "campaign",
+    "pos": "danh từ",
+    "vi": "chiến dịch",
+    "ex": "a political campaign",
+    "exvi": "chiến dịch chính trị"
+  },
+  {
+    "w": "material",
+    "pos": "danh từ",
+    "vi": "vật liệu; tài liệu",
+    "ex": "raw materials",
+    "exvi": "nguyên liệu"
+  },
+  {
+    "w": "population",
+    "pos": "danh từ",
+    "vi": "số dân",
+    "ex": "population explosion",
+    "exvi": "sự tăng dân số ồ ạt và nhanh chóng"
+  },
+  {
+    "w": "medical",
+    "pos": "tính từ",
+    "vi": "y, y học",
+    "ex": "medical school",
+    "exvi": "trường y"
+  },
+  {
+    "w": "current",
+    "pos": "tính từ",
+    "vi": "hiện tại; hiện hành",
+    "ex": "the current president",
+    "exvi": "tổng thống hiện tại"
+  },
+  {
+    "w": "involve",
+    "pos": "động từ",
+    "vi": "bao gồm; liên quan đến",
+    "ex": "The job involves travel.",
+    "exvi": "Công việc này liên quan đến việc đi lại."
+  },
+  {
+    "w": "defense",
+    "pos": "danh từ",
+    "vi": "sự phòng thủ; sự bảo vệ",
+    "ex": "national defense",
+    "exvi": "phòng thủ quốc gia"
+  },
+  {
+    "w": "security",
+    "pos": "danh từ",
+    "vi": "an ninh; an toàn",
+    "ex": "Airport security is strict.",
+    "exvi": "An ninh sân bay rất nghiêm ngặt."
+  },
+  {
+    "w": "board",
+    "pos": "danh từ",
+    "vi": "bảng; hội đồng",
+    "ex": "Look at the board.",
+    "exvi": "Nhìn lên bảng."
+  },
+  {
+    "w": "seek",
+    "pos": "động từ",
+    "vi": "tìm, đi tìm, tìm kiếm, cố tìm cho được",
+    "ex": "to seek employment",
+    "exvi": "tìm việc làm"
+  },
+  {
+    "w": "subject",
+    "pos": "danh từ",
+    "vi": "chủ đề; môn học",
+    "ex": "to propose a subject for the debate",
+    "exvi": "đề nghị chủ đề một cuộc thảo luận"
+  },
+  {
+    "w": "private",
+    "pos": "tính từ",
+    "vi": "riêng, tư, cá nhân",
+    "ex": "private life",
+    "exvi": "đời tư"
+  },
+  {
+    "w": "deal",
+    "pos": "động từ",
+    "vi": "giải quyết; thỏa thuận",
+    "ex": "We need to deal with this problem.",
+    "exvi": "Chúng ta cần giải quyết vấn đề này."
+  },
+  {
+    "w": "performance",
+    "pos": "danh từ",
+    "vi": "sự thể hiện; buổi biểu diễn",
+    "ex": "a great performance",
+    "exvi": "một buổi biểu diễn tuyệt vời"
+  },
+  {
+    "w": "throw",
+    "pos": "động từ",
+    "vi": "ném; vứt",
+    "ex": "Throw the ball.",
+    "exvi": "Ném quả bóng đi."
+  },
+  {
+    "w": "goal",
+    "pos": "danh từ",
+    "vi": "mục tiêu; bàn thắng",
+    "ex": "My goal is to learn English.",
+    "exvi": "Mục tiêu của tôi là học tiếng Anh."
+  },
+  {
+    "w": "represent",
+    "pos": "động từ",
+    "vi": "đại diện cho; tượng trưng cho",
+    "ex": "He represents our class.",
+    "exvi": "Anh ấy đại diện cho lớp chúng tôi."
+  },
+  {
+    "w": "focus",
+    "pos": "động từ",
+    "vi": "tập trung",
+    "ex": "Focus on your work.",
+    "exvi": "Hãy tập trung vào công việc."
+  },
+  {
+    "w": "agency",
+    "pos": "danh từ",
+    "vi": "cơ quan; đại lý",
+    "ex": "a travel agency",
+    "exvi": "một công ty du lịch"
+  },
+  {
+    "w": "reduce",
+    "pos": "động từ",
+    "vi": "giảm, giảm bớt, hạ",
+    "ex": "to reduce speed",
+    "exvi": "giảm tốc độ"
+  },
+  {
+    "w": "sound",
+    "pos": "danh từ",
+    "vi": "âm thanh; tiếng",
+    "ex": "I like the sound of rain.",
+    "exvi": "Tôi thích tiếng mưa."
+  },
+  {
+    "w": "natural",
+    "pos": "tính từ",
+    "vi": "tự nhiên; thiên nhiên",
+    "ex": "natural selection",
+    "exvi": "sự chọn lọc tự nhiên"
+  },
+  {
+    "w": "concern",
+    "pos": "động từ",
+    "vi": "liên quan đến",
+    "ex": "that doesn't concern you at all",
+    "exvi": "việc đó không dính líu gì tới anh"
+  },
+  {
+    "w": "series",
+    "pos": "danh từ",
+    "vi": "loạt, dãy, chuỗi, đợt",
+    "ex": "series of stamp",
+    "exvi": "một đợt phát hành tem"
+  },
+  {
+    "w": "significant",
+    "pos": "tính từ",
+    "vi": "quan trọng; đáng kể",
+    "ex": "a significant change",
+    "exvi": "một thay đổi đáng kể"
+  },
+  {
+    "w": "similar",
+    "pos": "tính từ",
+    "vi": "giống nhau, như nhau, tương tự",
+    "ex": "My bag is similar to yours.",
+    "exvi": "Túi của tôi giống túi của bạn."
+  },
+  {
+    "w": "response",
+    "pos": "danh từ",
+    "vi": "sự trả lời; phản hồi",
+    "ex": "Thank you for your quick response.",
+    "exvi": "Cảm ơn bạn đã trả lời nhanh."
+  },
+  {
+    "w": "factor",
+    "pos": "danh từ",
+    "vi": "nhân tố",
+    "ex": "human factor",
+    "exvi": "nhân tố con người"
+  },
+  {
+    "w": "decade",
+    "pos": "danh từ",
+    "vi": "thập kỷ (10 năm)",
+    "ex": "in the last decade",
+    "exvi": "trong thập kỷ qua"
+  },
+  {
+    "w": "scene",
+    "pos": "danh từ",
+    "vi": "cảnh; hiện trường",
+    "ex": "a scene from the film",
+    "exvi": "một cảnh trong phim"
+  },
+  {
+    "w": "stock",
+    "pos": "tính từ",
+    "vi": "hàng trong kho; cổ phiếu",
+    "ex": "out of stock",
+    "exvi": "hết hàng"
+  },
+  {
+    "w": "career",
+    "pos": "danh từ",
+    "vi": "nghề, nghề nghiệp",
+    "ex": "to choose a career",
+    "exvi": "chọn nghề"
+  },
+  {
+    "w": "despite",
+    "pos": "giới từ",
+    "vi": "dù, mặc dù, không kể, bất chấp",
+    "ex": "despite our efforts",
+    "exvi": "mặc dù những cố gắng của chúng tôi"
+  },
+  {
+    "w": "treatment",
+    "pos": "danh từ",
+    "vi": "sự điều trị; cách đối xử",
+    "ex": "medical treatment",
+    "exvi": "điều trị y tế"
+  },
+  {
+    "w": "beyond",
+    "pos": "giới từ",
+    "vi": "ở bên kia",
+    "ex": "the sea is beyond the hill",
+    "exvi": "biển ở bên kia đồi"
+  },
+  {
+    "w": "approach",
+    "pos": "động từ",
+    "vi": "đến gần, lại gần, tới gần",
+    "ex": "winter is approaching",
+    "exvi": "mùa đông đang đến"
+  },
+  {
+    "w": "fund",
+    "pos": "danh từ",
+    "vi": "quỹ; nguồn tiền",
+    "ex": "a fund for schools",
+    "exvi": "một quỹ dành cho trường học"
+  },
+  {
+    "w": "occur",
+    "pos": "động từ",
+    "vi": "xảy ra",
+    "ex": "Accidents can occur.",
+    "exvi": "Tai nạn có thể xảy ra."
+  },
+  {
+    "w": "media",
+    "pos": "danh từ",
+    "vi": "truyền thông; phương tiện truyền thông",
+    "ex": "social media",
+    "exvi": "mạng xã hội"
+  },
+  {
+    "w": "individual",
+    "pos": "tính từ",
+    "vi": "riêng, riêng lẻ, cá nhân",
+    "ex": "individual interest",
+    "exvi": "quyền lợi cá nhân"
+  },
+  {
+    "w": "quality",
+    "pos": "danh từ",
+    "vi": "chất, phẩm chất",
+    "ex": "good quality",
+    "exvi": "chất lượng tốt"
+  },
+  {
+    "w": "pressure",
+    "pos": "danh từ",
+    "vi": "áp lực; sức ép",
+    "ex": "atmospheric pressure",
+    "exvi": "áp suất quyển khí"
+  }
+]
