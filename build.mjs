@@ -22,6 +22,7 @@ import { TOOL_CONTENT } from './src/tool-content.js';
 import { SYNONYMS } from './src/search-synonyms.js';
 import * as homePage from './src/pages/home.js';
 import * as catalogPage from './src/pages/cong-cu.js';
+import * as codeMauPage from './src/pages/code-mau.js';
 import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
@@ -357,11 +358,55 @@ function loadNewsByDay() {
 }
 
 // ---------------------------------------------------------------------------
+// Code mẫu (nhóm E, 18/11) — thư viện đoạn code sao chép-dán, KHÔNG phải
+// công cụ: không tính vào số công cụ, không nằm trong src/tools/.
+// Dữ liệu từ src/data/code-mau.json, đọc lúc build (không fetch lúc chạy).
+// ---------------------------------------------------------------------------
+function loadCodeSamples() {
+  const data = readJsonIfExists('data/code-mau.json');
+  if (!data || !Array.isArray(data.samples)) {
+    fail('src/data/code-mau.json thiếu hoặc không có mảng "samples".');
+  }
+  const topics = Array.isArray(data.topics) ? data.topics : [];
+  const topicSlugs = new Set(topics.map((t) => t.slug));
+  const seenIds = new Set();
+  for (const s of data.samples) {
+    if (!s.id || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(s.id)) {
+      fail(`code-mau.json: id "${s.id}" không hợp lệ — chỉ dùng chữ thường a-z, số 0-9 và dấu gạch ngang.`);
+    }
+    if (seenIds.has(s.id)) fail(`code-mau.json: id "${s.id}" bị trùng.`);
+    seenIds.add(s.id);
+    for (const f of ['title', 'desc', 'lang', 'code', 'prompt']) {
+      if (!s[f] || typeof s[f] !== 'string') {
+        fail(`code-mau.json: mẫu "${s.id}" thiếu trường "${f}".`);
+      }
+    }
+    if (!topicSlugs.has(s.topic)) {
+      fail(`code-mau.json: mẫu "${s.id}" có chủ đề "${s.topic}" không nằm trong danh sách chủ đề.`);
+    }
+  }
+  return { samples: data.samples, topics };
+}
+
+function codeSamplePageHtml(sample, samples, topics) {
+  const topic = topics.find((t) => t.slug === sample.topic);
+  return shell({
+    title: `${sample.title} — Code mẫu | ${SITE_NAME}`,
+    desc: sample.desc,
+    keywords: `code mẫu, ${sample.title}, ${sample.lang}${topic ? `, ${topic.label}` : ''}`,
+    canonical: `${BASE_URL}/code-mau/${sample.id}/`,
+    navActive: 'code-mau',
+    body: codeMauPage.detailBody({ sample, samples, topics }),
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Build chính
 // ---------------------------------------------------------------------------
 async function main() {
   const started = Date.now();
   const tools = await loadTools();
+  const { samples: codeSamples, topics: codeTopics } = loadCodeSamples();
   // Dữ liệu SSR cho trang chủ (Điểm báo + bảng xếp hạng render sẵn lúc build).
   const newsData = readJsonIfExists('data/news.json');
   const trendingData = readJsonIfExists('data/trending.json');
@@ -474,6 +519,30 @@ async function main() {
       `${BASE_URL}/cong-cu/${tool.slug}/`
     );
   });
+
+  // Trang Code mẫu: danh mục + trang riêng từng mẫu (đều vào sitemap).
+  // Mẫu code KHÔNG tính vào số công cụ (câu "120 công cụ" không đổi).
+  addPage(
+    'code-mau/index.html',
+    shell({
+      title: `Code mẫu cho lập trình viên | ${SITE_NAME}`,
+      desc: `${codeSamples.length} mẫu code sao chép-dán cho lập trình viên: VietQR, CRC16, kiểm tra SĐT/CCCD/mã số thuế, đọc số thành chữ, slug tiếng Việt, JWT, debounce — đã chạy thử, kèm prompt cho AI.`,
+      keywords: 'code mẫu, snippet, VietQR, CRC16, JavaScript, Python',
+      canonical: `${BASE_URL}/code-mau/`,
+      navActive: 'code-mau',
+      body: codeMauPage.body({ samples: codeSamples, topics: codeTopics }),
+      noscriptLinks,
+    }),
+    `${BASE_URL}/code-mau/`
+  );
+  for (const sample of codeSamples) {
+    addPage(
+      `code-mau/${sample.id}/index.html`,
+      codeSamplePageHtml(sample, codeSamples, codeTopics),
+      `${BASE_URL}/code-mau/${sample.id}/`
+    );
+  }
+  console.log(`   - Code mẫu: ${codeSamples.length} mẫu, ${codeSamples.length + 1} trang`);
 
   // Trang lưu trữ Điểm báo theo ngày (mới nhất trước)
   const newsByDay = loadNewsByDay();

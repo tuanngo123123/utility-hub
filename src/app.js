@@ -470,6 +470,7 @@
     setupNav();
     setupTheme();
     setupSearchFilter();
+    setupCodeMauFilter();
     setupHeroSearch();
     setupHomeFilter();
     setupTabs();
@@ -770,6 +771,120 @@
     if (fromUrlFilter && chipRow && chipRow.scrollIntoView) {
       chipRow.scrollIntoView();
     }
+  }
+
+  /* Tìm kiếm + lọc mẫu code (trang /code-mau/, nhóm E 18/11) — theo mẫu
+     setupSearchFilter nhưng đơn giản hơn: không dùng chỉ mục tìm kiếm
+     chung (mẫu code không nằm trong search-index.json — xem ghi chú cuối
+     src/pages/code-mau.js), chỉ lọc chuỗi con không dấu trên thẻ đã render
+     sẵn. Đọc ?topic=<slug> để lọc sẵn như ?cat= ở trang công cụ. */
+  function setupCodeMauFilter() {
+    var input = $('#code-mau-search');
+    var grid = $('#code-mau-grid');
+    if (!input || !grid) return;
+    var cards = $all('.code-mau-card', grid);
+    var empty = $('#code-mau-empty');
+    var count = $('#code-mau-count');
+    var statusLine = $('#code-mau-status');
+    var statusText = $('#code-mau-status-text');
+    var clearBtn = $('#code-mau-clear');
+    var origCountText = count ? count.textContent : '';
+    var activeTopic = 'all';
+
+    cards.forEach(function (card) {
+      card._searchText = norm(
+        (card.getAttribute('data-name') || '') + ' ' +
+        (card.getAttribute('data-desc') || '') + ' ' +
+        (card.getAttribute('data-lang') || '')
+      );
+    });
+
+    function syncUrl() {
+      try {
+        if (!window.history || !window.history.replaceState) return;
+        var p = new URLSearchParams();
+        if (activeTopic !== 'all') p.set('topic', activeTopic);
+        var qv = input.value.trim();
+        if (qv) p.set('q', qv);
+        var qs = p.toString();
+        window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
+      } catch (e) { /* trình duyệt cũ: bỏ qua */ }
+    }
+
+    function applyFilter() {
+      var q = norm(input.value.trim());
+      var shown = 0;
+      cards.forEach(function (card) {
+        var okTopic = activeTopic === 'all' || card.getAttribute('data-topic') === activeTopic;
+        var okText = !q || card._searchText.indexOf(q) !== -1;
+        var show = okTopic && okText;
+        card.style.display = show ? '' : 'none';
+        if (show) shown++;
+      });
+      if (empty) empty.hidden = shown !== 0;
+      var filterActive = activeTopic !== 'all' || q !== '';
+      if (count) count.textContent = filterActive ? (shown + ' mẫu code') : origCountText;
+      if (statusLine && statusText) {
+        if (filterActive) {
+          var parts = [];
+          if (activeTopic !== 'all') {
+            var activeChip = document.querySelector('.chip[data-code-filter="' + activeTopic + '"]');
+            if (activeChip) parts.push(activeChip.textContent.trim());
+          }
+          var qv = input.value.trim();
+          if (qv) parts.push('“' + qv + '”');
+          statusText.textContent = (parts.length ? parts.join(' · ') + ' — ' : '') + shown + ' mẫu code';
+          statusLine.hidden = false;
+        } else {
+          statusLine.hidden = true;
+        }
+      }
+      syncUrl();
+    }
+
+    input.addEventListener('input', applyFilter);
+    $all('.chip[data-code-filter]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        activeTopic = chip.getAttribute('data-code-filter');
+        $all('.chip[data-code-filter]').forEach(function (c) {
+          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+          c.classList.toggle('chip-active', c === chip);
+        });
+        applyFilter();
+      });
+    });
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        activeTopic = 'all';
+        input.value = '';
+        $all('.chip[data-code-filter]').forEach(function (c) {
+          var isAll = c.getAttribute('data-code-filter') === 'all';
+          c.setAttribute('aria-pressed', isAll ? 'true' : 'false');
+          c.classList.toggle('chip-active', isAll);
+        });
+        applyFilter();
+        window.scrollTo(0, 0);
+      });
+    }
+
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var q = params.get('q');
+      if (q) input.value = q;
+      var topic = params.get('topic');
+      if (topic) {
+        var chip = document.querySelector('.chip[data-code-filter="' + topic + '"]');
+        if (chip) {
+          activeTopic = topic;
+          $all('.chip[data-code-filter]').forEach(function (c) {
+            c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+            c.classList.toggle('chip-active', c === chip);
+          });
+        }
+      }
+    } catch (e) { /* trình duyệt cũ không có URLSearchParams: bỏ qua */ }
+    applyFilter();
   }
 
   /* Tìm kiếm hero (trang chủ): gõ thì hiện dropdown tối đa 8 kết quả,

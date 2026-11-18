@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "topics": [
+    {
+      "label": "Thanh toán",
+      "slug": "thanh-toan"
+    },
+    {
+      "label": "Xác thực",
+      "slug": "xac-thuc"
+    },
+    {
+      "label": "Chuỗi & số",
+      "slug": "chuoi-so"
+    },
+    {
+      "label": "Tài chính",
+      "slug": "tai-chinh"
+    },
+    {
+      "label": "Web & tiện ích",
+      "slug": "web"
+    }
+  ],
+  "samples": [
+    {
+      "desc": "Tạo chuỗi payload VietQR chuẩn NAPAS từ BIN ngân hàng, số tài khoản, số tiền và nội dung — vẽ mã QR chuyển khoản bằng thư viện QR bất kỳ.",
+      "id": "vietqr-payload",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript tạo chuỗi payload EMV VietQR chuẩn NAPAS từ BIN ngân hàng, số tài khoản, số tiền và nội dung, có mã kiểm tra CRC16-CCITT.",
+      "relatedTool": {
+        "name": "Tạo VietQR & WiFi QR",
+        "slug": "vietqr-wifi-qr"
+      },
+      "title": "Tạo payload VietQR (EMV)",
+      "topic": "thanh-toan",
+      "code": "// Tạo chuỗi payload EMV VietQR (chuẩn NAPAS) để vẽ mã QR chuyển khoản.\n// Cần kèm hàm crc16ccitt (xem mẫu \"CRC16-CCITT cho VietQR\").\n\nfunction tlv(id, value) {\n  const len = new TextEncoder().encode(value).length; // độ dài tính bằng BYTE\n  return id + String(len).padStart(2, '0') + value;\n}\n\nfunction vietqrPayload({ bin, account, amount = 0, memo = '' }) {\n  const cleanMemo = memo\n    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '')\n    .replace(/đ/g, 'd').replace(/Đ/g, 'D')\n    .toUpperCase().trim(); // nội dung phải bỏ dấu + viết hoa\n  const amt = Number(amount) > 0 ? String(amount).replace(/[^0-9]/g, '') : '';\n  const merchant = tlv('00', 'A000000727')\n    + tlv('01', tlv('00', bin) + tlv('01', account))\n    + tlv('02', 'QRIBFTTA');\n  let payload = tlv('00', '01') + tlv('01', amt ? '12' : '11')\n    + tlv('38', merchant) + tlv('53', '704');\n  if (amt) payload += tlv('54', amt);\n  payload += tlv('58', 'VN');\n  if (cleanMemo) payload += tlv('62', tlv('08', cleanMemo));\n  payload += '6304';\n  return payload + crc16ccitt(payload).toString(16).toUpperCase().padStart(4, '0');\n}\n\n// Ví dụ (test vector chuẩn):\nvietqrPayload({ bin: '970414', account: '883866666', amount: 50000 });\n// → '00020101021238530010A0000007270123000697041401098838666660208QRIBFTTA53037045405500005802VN630494B2'\nvietqrPayload({ bin: '970414', account: '883866666' }); // QR tĩnh, không gắn số tiền\n// → '00020101021138530010A0000007270123000697041401098838666660208QRIBFTTA53037045802VN6304A99A'"
+    },
+    {
+      "desc": "Hàm băm CRC16-CCITT-FALSE (đa thức 0x1021, giá trị khởi đầu 0xFFFF) — mã kiểm tra ở cuối mọi payload VietQR.",
+      "id": "crc16-ccitt",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript tính CRC16-CCITT-FALSE (đa thức 0x1021, giá trị khởi đầu 0xFFFF) cho một chuỗi, trả về số nguyên 16 bit.",
+      "relatedTool": {
+        "name": "Tạo VietQR & WiFi QR",
+        "slug": "vietqr-wifi-qr"
+      },
+      "title": "CRC16-CCITT cho VietQR",
+      "topic": "thanh-toan",
+      "code": "// CRC16-CCITT-FALSE: đa thức 0x1021, giá trị khởi đầu 0xFFFF.\n// Dùng cho trường 63 (mã kiểm tra) của mã QR VietQR.\n// Kiểm tra: crc16ccitt('123456789') === 0x29b1.\nfunction crc16ccitt(str) {\n  let crc = 0xffff;\n  for (let i = 0; i < str.length; i++) {\n    crc ^= str.charCodeAt(i) << 8;\n    for (let j = 0; j < 8; j++) {\n      crc = (crc & 0x8000) ? ((crc << 1) ^ 0x1021) : (crc << 1);\n      crc &= 0xffff;\n    }\n  }\n  return crc;\n}\n\n// Ví dụ:\ncrc16ccitt('123456789'); // 0x29b1"
+    },
+    {
+      "desc": "Hàm băm CRC16-CCITT-FALSE bằng Python — cùng thuật toán với bản JavaScript, dùng cho backend hoặc script xử lý VietQR.",
+      "id": "crc16-ccitt-python",
+      "lang": "Python",
+      "prompt": "Viết hàm Python tính CRC16-CCITT-FALSE (đa thức 0x1021, giá trị khởi đầu 0xFFFF) cho dữ liệu bytes, trả về số nguyên 16 bit.",
+      "relatedTool": {
+        "name": "Tạo VietQR & WiFi QR",
+        "slug": "vietqr-wifi-qr"
+      },
+      "title": "CRC16-CCITT cho VietQR (Python)",
+      "topic": "thanh-toan",
+      "code": "# CRC16-CCITT-FALSE: đa thức 0x1021, giá trị khởi đầu 0xFFFF.\n# Dùng cho trường 63 (mã kiểm tra) của mã QR VietQR.\n# Kiểm tra: crc16_ccitt(b'123456789') == 0x29B1.\n\ndef crc16_ccitt(data: bytes) -> int:\n    crc = 0xFFFF\n    for byte in data:\n        crc ^= byte << 8\n        for _ in range(8):\n            crc = ((crc << 1) ^ 0x1021) if crc & 0x8000 else (crc << 1)\n            crc &= 0xFFFF\n    return crc\n\n# Ví dụ:\nprint(hex(crc16_ccitt(b'123456789')))  # 0x29b1"
+    },
+    {
+      "desc": "Tạo chuỗi nội dung mã QR WiFi — điện thoại quét là tự kết nối mạng, hỗ trợ mạng mở và mạng ẩn.",
+      "id": "qr-wifi",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript tạo chuỗi nội dung mã QR WiFi theo định dạng WIFI:T:…;S:…;P:…;H:…;;, có thoát ký tự đặc biệt và hỗ trợ mạng không mật khẩu.",
+      "relatedTool": {
+        "name": "Tạo VietQR & WiFi QR",
+        "slug": "vietqr-wifi-qr"
+      },
+      "title": "Chuỗi QR WiFi",
+      "topic": "web",
+      "code": "// Tạo chuỗi nội dung mã QR WiFi — điện thoại quét là tự kết nối mạng.\n// Dùng với bất kỳ thư viện vẽ QR nào, hoặc công cụ \"Tạo mã QR\" trên web này.\nfunction wifiQrString({ ssid, password = '', encryption = 'WPA', hidden = false }) {\n  const esc = (s) => String(s).replace(/([\\\\;,:\"])/g, '\\\\$1'); // thoát ký tự đặc biệt\n  const enc = password ? encryption.toUpperCase() : 'nopass';\n  return `WIFI:T:${enc};S:${esc(ssid)};P:${esc(password)};H:${hidden ? 'true' : 'false'};;`;\n}\n\n// Ví dụ:\nwifiQrString({ ssid: 'Nha Toi 5G', password: 'matkhau123' });\n// → 'WIFI:T:WPA;S:Nha Toi 5G;P:matkhau123;H:false;;'\nwifiQrString({ ssid: 'Quan Ca Phe', password: '' });\n// → 'WIFI:T:nopass;S:Quan Ca Phe;P:;H:false;;'"
+    },
+    {
+      "desc": "Chuẩn hóa (+84 → 0, bỏ dấu cách) và kiểm tra số điện thoại Việt Nam: 10 số, đầu 03/05/07/08/09.",
+      "id": "kiem-tra-sdt-vn",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript kiểm tra số điện thoại Việt Nam (10 số, đầu 03/05/07/08/09) và chuẩn hóa đầu số +84 về 0.",
+      "relatedTool": {
+        "name": "Kiểm tra số điện thoại: đầu số, nhà mạng",
+        "slug": "kiem-tra-so-dien-thoai"
+      },
+      "title": "Kiểm tra số điện thoại Việt Nam",
+      "topic": "xac-thuc",
+      "code": "// Kiểm tra + chuẩn hóa số điện thoại Việt Nam\n// (10 số, đầu 03/05/07/08/09 — đầu 01 đã chuyển đổi từ 2018).\nfunction normalizePhone(input) {\n  const digits = String(input).replace(/[^0-9+]/g, '');\n  if (digits.startsWith('+84')) return '0' + digits.slice(3);\n  if (digits.startsWith('84') && digits.length === 11) return '0' + digits.slice(2);\n  return digits;\n}\n\nfunction isVietnamesePhone(input) {\n  return /^0(3|5|7|8|9)\\d{8}$/.test(normalizePhone(input));\n}\n\n// Ví dụ:\nisVietnamesePhone('090 123 45 67');  // true\nisVietnamesePhone('+84901234567');   // true\nisVietnamesePhone('0123456789');     // false (đầu 01 không còn dùng)\nisVietnamesePhone('090123456');      // false (thiếu số)\nnormalizePhone('+84 90 123 45 67'); // '0901234567'"
+    },
+    {
+      "desc": "Kiểm tra CCCD 12 số (mã tỉnh 001–096) và mã số thuế 10/13 số kèm số kiểm tra theo trọng số chuẩn.",
+      "id": "kiem-tra-cccd-mst",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript kiểm tra CCCD Việt Nam (12 số, 3 số đầu là mã tỉnh 001–096) và mã số thuế (10 số có số kiểm tra theo trọng số 31, 29, 23, 19, 17, 13, 7, 5, 3, hoặc 13 số dạng 10 số - 3 số).",
+      "relatedTool": {
+        "name": "Giải mã số CCCD: tỉnh, giới tính, năm sinh",
+        "slug": "giai-ma-cccd"
+      },
+      "title": "Kiểm tra CCCD & mã số thuế",
+      "topic": "xac-thuc",
+      "code": "// Kiểm tra CCCD (12 số) và mã số thuế (10 số + số kiểm tra, hoặc 13 số).\n// CCCD: 3 số đầu = mã tỉnh (001–096), số thứ 4 = giới tính + thế kỷ,\n// 2 số tiếp = năm sinh, 6 số cuối = số ngẫu nhiên.\nfunction isCCCD(input) {\n  const s = String(input).trim();\n  if (!/^\\d{12}$/.test(s)) return false;\n  const province = Number(s.slice(0, 3));\n  return province >= 1 && province <= 96;\n}\n\n// Mã số thuế 10 số: số thứ 10 là số kiểm tra, tính từ 9 số đầu với\n// trọng số 31, 29, 23, 19, 17, 13, 7, 5, 3.\nfunction isMaSoThue(input) {\n  const s = String(input).trim();\n  const m = s.match(/^(\\d{10})(?:-(\\d{3}))?$/);\n  if (!m) return false;\n  const d = m[1].split('').map(Number);\n  const weights = [31, 29, 23, 19, 17, 13, 7, 5, 3];\n  const sum = weights.reduce((acc, w, i) => acc + w * d[i], 0);\n  let check = 10 - (sum % 11);\n  if (check === 10) check = 0;\n  return check === d[9];\n}\n\n// Ví dụ:\nisCCCD('079095012345');       // true (079 = TP.HCM)\nisCCCD('07909501234');        // false (thiếu số)\nisMaSoThue('0100109106');     // true\nisMaSoThue('0100109106-001'); // true (mã chi nhánh)\nisMaSoThue('0100109107');     // false (sai số kiểm tra)"
+    },
+    {
+      "desc": "Đọc số nguyên thành chữ đúng chuẩn tiếng Việt (mươi, mốt, lăm, lẻ, nghìn/triệu/tỷ) — dùng cho hóa đơn, phiếu thu.",
+      "id": "doc-so-thanh-chu",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript đọc số nguyên thành chữ tiếng Việt, đúng quy tắc mươi/mốt/lăm/lẻ và đơn vị nghìn/triệu/tỷ, thêm chữ 'đồng' ở cuối.",
+      "relatedTool": {
+        "name": "Đọc số thành chữ tiếng Việt",
+        "slug": "doc-so-thanh-chu"
+      },
+      "title": "Đọc số thành chữ tiếng Việt",
+      "topic": "chuoi-so",
+      "code": "// Đọc số nguyên thành chữ tiếng Việt (0 → \"không đồng\").\n// Dùng cho hóa đơn, phiếu thu, hợp đồng. Hỗ trợ tới dưới 1 triệu tỷ.\nconst ONES = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];\nconst GROUPS = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];\n\nfunction readThree(n, full) {\n  const hundred = Math.floor(n / 100);\n  const ten = Math.floor((n % 100) / 10);\n  const one = n % 10;\n  const words = [];\n  if (hundred > 0) words.push(ONES[hundred], 'trăm');\n  else if (full) words.push('không', 'trăm');\n  if (ten > 1) {\n    words.push(ONES[ten], 'mươi');\n    if (one === 1) words.push('mốt');\n    else if (one === 5) words.push('lăm');\n    else if (one > 0) words.push(ONES[one]);\n  } else if (ten === 1) {\n    words.push('mười');\n    if (one === 5) words.push('lăm');\n    else if (one > 0) words.push(ONES[one]);\n  } else if (one > 0) {\n    if (hundred > 0 || full) words.push('lẻ');\n    words.push(ONES[one]);\n  }\n  return words.join(' ');\n}\n\nfunction docSoThanhChu(num) {\n  const n = Math.trunc(Math.abs(Number(num)));\n  if (!Number.isFinite(n) || n >= 1e15) return '';\n  if (n === 0) return 'không đồng';\n  const groups = [];\n  let rest = n;\n  while (rest > 0) { groups.push(rest % 1000); rest = Math.floor(rest / 1000); }\n  const parts = [];\n  for (let i = groups.length - 1; i >= 0; i--) {\n    if (groups[i] === 0) continue;\n    const full = i < groups.length - 1; // nhóm sau nhóm đầu thì đọc đủ \"không trăm\"\n    parts.push(readThree(groups[i], full) + (GROUPS[i] ? ' ' + GROUPS[i] : ''));\n  }\n  const text = parts.join(' ').replace(/\\s+/g, ' ').trim();\n  return text.charAt(0).toUpperCase() + text.slice(1) + ' đồng';\n}\n\n// Ví dụ:\ndocSoThanhChu(50000);   // 'Năm mươi nghìn đồng'\ndocSoThanhChu(1234567); // 'Một triệu hai trăm ba mươi bốn nghìn năm trăm sáu mươi bảy đồng'\ndocSoThanhChu(1005);    // 'Một nghìn không trăm lẻ năm đồng'\ndocSoThanhChu(21);      // 'Hai mươi mốt đồng'"
+    },
+    {
+      "desc": "Bỏ dấu tiếng Việt bằng chuẩn hóa NFD, xử lý riêng đ/Đ — dùng cho tìm kiếm không dấu, tạo slug.",
+      "id": "bo-dau-tieng-viet",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript bỏ dấu tiếng Việt bằng chuẩn hóa Unicode NFD, xử lý riêng chữ đ/Đ.",
+      "relatedTool": {
+        "name": "Xử lý văn bản & tạo slug",
+        "slug": "xu-ly-van-ban-slug"
+      },
+      "title": "Bỏ dấu tiếng Việt",
+      "topic": "chuoi-so",
+      "code": "// Bỏ dấu tiếng Việt: \"Tiện Ích Hub\" → \"Tien Ich Hub\".\n// Dùng cho tìm kiếm không dấu, chuẩn hóa nội dung VietQR, tạo slug.\nfunction boDau(str) {\n  return String(str)\n    .normalize('NFD')                // tách dấu khỏi chữ cái\n    .replace(/[\\u0300-\\u036f]/g, '')  // xóa các dấu đã tách\n    .replace(/đ/g, 'd')              // đ/Đ không tách được bằng NFD\n    .replace(/Đ/g, 'D');\n}\n\n// Ví dụ:\nboDau('Tiện Ích Hub — Công cụ miễn phí'); // 'Tien Ich Hub — Cong cu mien phi'\nboDau('Đặng Văn Lâm');                     // 'Dang Van Lam'"
+    },
+    {
+      "desc": "Chuyển tiêu đề tiếng Việt thành slug URL sạch: bỏ dấu, viết thường, gạch ngang, cắt ký tự thừa.",
+      "id": "tao-slug-url",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript tạo slug URL từ tiêu đề tiếng Việt: bỏ dấu, viết thường, thay ký tự khác chữ/số bằng dấu gạch ngang.",
+      "relatedTool": {
+        "name": "Xử lý văn bản & tạo slug",
+        "slug": "xu-ly-van-ban-slug"
+      },
+      "title": "Tạo slug URL tiếng Việt",
+      "topic": "chuoi-so",
+      "code": "// Tạo slug URL từ tiêu đề tiếng Việt (dùng cho đường dẫn bài viết).\nfunction taoSlug(str) {\n  return String(str)\n    .normalize('NFD').replace(/[\\u0300-\\u036f]/g, '')\n    .replace(/đ/g, 'd').replace(/Đ/g, 'D')\n    .toLowerCase()\n    .replace(/[^a-z0-9]+/g, '-') // ký tự khác chữ/số → dấu gạch ngang\n    .replace(/^-+|-+$/g, '');    // cắt gạch ngang thừa ở 2 đầu\n}\n\n// Ví dụ:\ntaoSlug('Tiện Ích Hub — Công cụ miễn phí!'); // 'tien-ich-hub-cong-cu-mien-phi'\ntaoSlug('  Ăn gì ở Đà Lạt?  ');              // 'an-gi-o-da-lat'"
+    },
+    {
+      "desc": "Định dạng tiền và số kiểu Việt Nam bằng Intl.NumberFormat có sẵn trong trình duyệt — không cần thư viện.",
+      "id": "dinh-dang-tien-vnd",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript định dạng tiền Việt Nam bằng Intl.NumberFormat với locale vi-VN và đơn vị VND.",
+      "relatedTool": null,
+      "title": "Định dạng tiền VND",
+      "topic": "chuoi-so",
+      "code": "// Định dạng tiền Việt bằng Intl.NumberFormat — có sẵn trong trình duyệt,\n// không cần thư viện.\nfunction dinhDangVND(soTien) {\n  return new Intl.NumberFormat('vi-VN', {\n    style: 'currency',\n    currency: 'VND',\n    maximumFractionDigits: 0,\n  }).format(soTien);\n}\n\nfunction dinhDangSo(so, soThapPhan = 0) {\n  return new Intl.NumberFormat('vi-VN', {\n    minimumFractionDigits: soThapPhan,\n    maximumFractionDigits: soThapPhan,\n  }).format(so);\n}\n\n// Ví dụ:\ndinhDangVND(1234567);    // '1.234.567 ₫'\ndinhDangSo(1234.567, 2); // '1.234,57'"
+    },
+    {
+      "desc": "Tính lãi kép và tiền trả góp hằng tháng theo công thức PMT của ngân hàng.",
+      "id": "lai-kep-tra-gop",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript tính lãi kép và tiền trả góp hằng tháng theo công thức PMT từ gốc vay, lãi suất năm và số tháng.",
+      "relatedTool": {
+        "name": "Lãi kép & tiết kiệm dài hạn",
+        "slug": "lai-kep"
+      },
+      "title": "Lãi kép & trả góp (PMT)",
+      "topic": "tai-chinh",
+      "code": "// Lãi kép + tiền trả góp hằng tháng (công thức PMT của ngân hàng).\n// laiSuatNam: dạng thập phân (12%/năm → 0.12).\nfunction laiKep(goc, laiSuatNam, soNam) {\n  return goc * Math.pow(1 + laiSuatNam, soNam);\n}\n\nfunction traGopHangThang(goc, laiSuatNam, soThang) {\n  const r = laiSuatNam / 12;\n  if (r === 0) return goc / soThang;\n  return (goc * r) / (1 - Math.pow(1 + r, -soThang));\n}\n\n// Ví dụ:\nlaiKep(100_000_000, 0.07, 5);             // ≈ 140.255.173 (gửi 100tr, 7%/năm, 5 năm)\ntraGopHangThang(500_000_000, 0.12, 240);  // ≈ 5.505.431/tháng (vay 500tr, 12%/năm, 20 năm)"
+    },
+    {
+      "desc": "Lấy tỷ giá USD → VND từ API miễn phí open.er-api.com (không cần key) — nguồn tỷ giá của chính trang này.",
+      "id": "lay-ty-gia-er-api",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript async lấy tỷ giá USD sang VND từ API miễn phí open.er-api.com, có kiểm tra lỗi HTTP.",
+      "relatedTool": {
+        "name": "Đổi ngoại tệ (tỉ giá tự nhập)",
+        "slug": "ngoai-te-ty-gia"
+      },
+      "title": "Lấy tỷ giá từ open.er-api.com",
+      "topic": "tai-chinh",
+      "code": "// Lấy tỷ giá USD → VND từ open.er-api.com (API miễn phí, không cần key).\n// Trang này dùng chính nguồn này cho thẻ Tỷ giá trên trang chủ.\nasync function layTyGiaVND() {\n  const res = await fetch('https://open.er-api.com/v6/latest/USD');\n  if (!res.ok) throw new Error('Không lấy được tỷ giá (HTTP ' + res.status + ')');\n  const data = await res.json();\n  return data.rates.VND; // VD: 26200 → 1 USD = 26.200 ₫\n}\n\n// Ví dụ:\n// layTyGiaVND().then((rate) => console.log('1 USD =', rate, 'VND'));"
+    },
+    {
+      "desc": "Giải mã phần payload của JWT trong trình duyệt (không kiểm tra chữ ký — chỉ để đọc hiển thị).",
+      "id": "giai-ma-jwt",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript giải mã phần payload của JWT ở phía client bằng atob, xử lý đúng base64url và ký tự tiếng Việt.",
+      "relatedTool": null,
+      "title": "Giải mã JWT phía client",
+      "topic": "web",
+      "code": "// Giải mã phần payload của JWT ở phía client.\n// KHÔNG kiểm tra chữ ký — chỉ dùng để đọc thông tin hiển thị,\n// không dùng để xác thực (việc đó phải làm ở server).\nfunction giaiMaJwt(token) {\n  const payload = String(token).split('.')[1] || '';\n  const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');\n  const json = decodeURIComponent(\n    atob(base64).split('').map((c) =>\n      '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));\n  return JSON.parse(json);\n}\n\n// Ví dụ:\ngiaiMaJwt('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjMiLCJuYW1lIjoiTmd1eeG7hW4gQW4ifQ.abc');\n// → { sub: '123', name: 'Nguyễn An' }"
+    },
+    {
+      "desc": "Hai hàm tiết chế gọi hàm kinh điển: debounce cho ô tìm kiếm, throttle cho sự kiện cuộn trang.",
+      "id": "debounce-throttle",
+      "lang": "JavaScript",
+      "prompt": "Viết hai hàm JavaScript debounce và throttle: debounce chỉ chạy sau khi ngừng gọi một lúc, throttle chạy tối đa một lần mỗi khoảng thời gian.",
+      "relatedTool": null,
+      "title": "Debounce & throttle",
+      "topic": "web",
+      "code": "// Debounce: chỉ chạy sau khi người dùng ngừng thao tác một lúc\n// (ô tìm kiếm). Throttle: chạy tối đa 1 lần mỗi khoảng thời gian\n// (sự kiện cuộn trang, thay đổi kích thước cửa sổ).\nfunction debounce(fn, delay = 300) {\n  let timer;\n  return function (...args) {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn.apply(this, args), delay);\n  };\n}\n\nfunction throttle(fn, limit = 200) {\n  let lastRun = 0;\n  let timer;\n  return function (...args) {\n    const now = Date.now();\n    const remaining = limit - (now - lastRun);\n    clearTimeout(timer);\n    if (remaining <= 0) {\n      lastRun = now;\n      fn.apply(this, args);\n    } else {\n      timer = setTimeout(() => {\n        lastRun = Date.now();\n        fn.apply(this, args);\n      }, remaining);\n    }\n  };\n}\n\n// Ví dụ:\nconst timKiem = debounce((tuKhoa) => console.log('Tìm:', tuKhoa), 300);\ntimKiem('ti'); timKiem('tien'); timKiem('tien ich'); // chỉ chạy 1 lần với 'tien ich'"
+    },
+    {
+      "desc": "Gọi fetch với thời gian chờ tối đa bằng AbortController — quá hạn thì hủy request thay vì chờ mãi.",
+      "id": "fetch-timeout",
+      "lang": "JavaScript",
+      "prompt": "Viết hàm JavaScript async bao quanh fetch bằng AbortController để hủy request khi quá thời gian chờ cho trước.",
+      "relatedTool": null,
+      "title": "fetch() có timeout",
+      "topic": "web",
+      "code": "// fetch() có thời gian chờ tối đa — quá hạn thì hủy request.\n// (Mặc định fetch chờ tới khi mạng tự ngắt, có thể rất lâu.)\nasync function fetchWithTimeout(url, options = {}, timeoutMs = 5000) {\n  const controller = new AbortController();\n  const timer = setTimeout(() => controller.abort(), timeoutMs);\n  try {\n    return await fetch(url, { ...options, signal: controller.signal });\n  } finally {\n    clearTimeout(timer);\n  }\n}\n\n// Ví dụ:\n// fetchWithTimeout('https://open.er-api.com/v6/latest/USD', {}, 5000)\n//   .then((res) => res.json())\n//   .then((data) => console.log(data.rates.VND))\n//   .catch((err) => console.error(err.name === 'AbortError' ? 'Hết thời gian chờ' : err));"
+    }
+  ]
+}
