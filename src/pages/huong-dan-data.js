@@ -610,4 +610,108 @@ export const ARTICLES = [
 <li>Kết quả trong bài chỉ mang tính tham khảo theo quy định chung — cách tính giờ công chuẩn và hệ số cụ thể theo hợp đồng lao động của bạn.</li>
 </ul>`,
   },
+  {
+    slug: 'cach-tinh-luong-huu-bhxh-2026',
+    title: 'Cách tính lương hưu BHXH 2026',
+    desc: 'Lương hưu = tỷ lệ hưởng × lương bình quân đóng BHXH — ví dụ nữ đóng 28 năm, lương bình quân 12 triệu được 8.520.000đ/tháng.',
+    date: '18/11/2026',
+    cta: {
+      url: '/cong-cu/luong-huu/',
+      label: 'Tính lương hưu của bạn →',
+      text: 'Nhập giới tính, số năm đóng và lương bình quân để xem tỷ lệ hưởng, lương hưu mỗi tháng và trợ cấp một lần.',
+    },
+    sources: 'Điều 66 và Điều 68 Luật Bảo hiểm xã hội 41/2024/QH15 (tỷ lệ hưởng lương hưu, trợ cấp một lần); Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, giảm trừ khi nghỉ hưu trước tuổi); Nghị định 161/2026/NĐ-CP (trần đóng BHXH 50.600.000đ từ 01/7/2026).',
+    body: `
+<p>Lương hưu hằng tháng bằng tỷ lệ hưởng nhân với mức bình quân tiền lương tháng đóng BHXH. Tỷ lệ hưởng phụ thuộc vào giới tính và số năm đóng — đóng càng lâu, tỷ lệ càng cao, tối đa 75%. Bài này hướng dẫn cách tính từng bước kèm 5 ví dụ tính sẵn.</p>
+<nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
+<li><a href="#cong-thuc">Công thức tính lương hưu</a></li>
+<li><a href="#ty-le-huong">Tỷ lệ hưởng theo số năm đóng</a></li>
+<li><a href="#thang-le">Tháng lẻ tính thế nào</a></li>
+<li><a href="#nghi-som">Nghỉ hưu trước tuổi bị trừ bao nhiêu</a></li>
+<li><a href="#vi-du">5 ví dụ tính tay</a></li>
+<li><a href="#tro-cap">Trợ cấp một lần khi đóng vượt 30/35 năm</a></li>
+<li><a href="#luu-y">Mấy lưu ý</a></li>
+</ul></nav>
+<h2 id="cong-thuc">Công thức tính lương hưu</h2>
+<p><strong>Lương hưu hằng tháng = Tỷ lệ hưởng × Mức bình quân tiền lương tháng đóng BHXH</strong></p>
+<p>Điều kiện hưởng: đủ tuổi nghỉ hưu và đóng BHXH đủ 15 năm trở lên. Tuổi nghỉ hưu năm 2026 là nam 61 tuổi 6 tháng, nữ 57 tuổi. Mức bình quân tiền lương tháng là lương bình quân toàn bộ quá trình đóng BHXH — tra được trên ứng dụng VssID. Mức này có trần 50.600.000đ/tháng (từ 01/7/2026): lương cao hơn trần thì phần vượt trần không tính vào lương hưu.</p>
+<h2 id="ty-le-huong">Tỷ lệ hưởng theo số năm đóng</h2>
+<p>Tỷ lệ hưởng tính theo Điều 66 Luật BHXH 2024, khác nhau giữa nam và nữ:</p>
+<table class="tbl">
+<tr><th></th><th>Nữ</th><th>Nam</th></tr>
+<tr><td>15 năm đóng</td><td>45%</td><td>40%</td></tr>
+<tr><td>Mỗi năm thêm</td><td>+2%</td><td>+1% (năm 16–19), +2% từ năm 21</td></tr>
+<tr><td>Tối đa 75%</td><td>30 năm</td><td>35 năm</td></tr>
+</table>
+<p>Ví dụ: nữ đóng 20 năm hưởng 45% + 2% × 5 = 55%; nam đóng 20 năm hưởng 45%. Đóng vượt 30 năm (nữ) hoặc 35 năm (nam) thì tỷ lệ vẫn chỉ 75%, nhưng phần vượt được tính trợ cấp một lần — xem mục dưới.</p>
+<h2 id="thang-le">Tháng lẻ tính thế nào</h2>
+<p>Thời gian đóng có tháng lẻ thì quy đổi: <strong>1–6 tháng tính là nửa năm, 7–11 tháng tính là 1 năm</strong>. Ví dụ đóng 20 năm 4 tháng tính là 20,5 năm; đóng 20 năm 8 tháng tính là 21 năm. Nửa năm thêm làm tỷ lệ hưởng tăng một nửa mức của một năm (nữ +1%, nam +0,5% hoặc +1% tùy giai đoạn).</p>
+<h2 id="nghi-som">Nghỉ hưu trước tuổi bị trừ bao nhiêu</h2>
+<p>Nghỉ hưu trước tuổi quy định thì tỷ lệ hưởng bị giảm: <strong>trừ 2% mỗi năm tròn nghỉ sớm</strong>; thời gian nghỉ sớm lẻ từ 6 đến 11 tháng trừ thêm 1%; dưới 6 tháng không trừ. Ví dụ nghỉ sớm 3 năm thì tỷ lệ hưởng giảm 6%; nghỉ sớm 2 năm 7 tháng thì giảm 2% × 2 + 1% = 5%.</p>
+<h2 id="vi-du">5 ví dụ tính tay</h2>
+<ol>
+<li><strong>Nữ, 28 năm, bình quân 12 triệu:</strong> tỷ lệ 45% + 2% × 13 = 71%. Lương hưu: 71% × 12.000.000 = <strong>8.520.000đ/tháng</strong>.</li>
+<li><strong>Nam, 32 năm, bình quân 15 triệu:</strong> tỷ lệ 45% + 2% × 12 = 69%. Lương hưu: 69% × 15.000.000 = <strong>10.350.000đ/tháng</strong>.</li>
+<li><strong>Nam, 17 năm, bình quân 10 triệu:</strong> tỷ lệ 40% + 1% × 2 = 42%. Lương hưu: 42% × 10.000.000 = <strong>4.200.000đ/tháng</strong>.</li>
+<li><strong>Nữ, 25 năm, nghỉ sớm 3 năm, bình quân 10 triệu:</strong> tỷ lệ gốc 45% + 2% × 10 = 65%, trừ 2% × 3 = 6% còn 59%. Lương hưu: 59% × 10.000.000 = <strong>5.900.000đ/tháng</strong>.</li>
+<li><strong>Nữ, 32 năm, bình quân 12 triệu:</strong> tỷ lệ 45% + 2% × 17 = 79%, lấy tối đa 75%. Lương hưu: 75% × 12.000.000 = <strong>9.000.000đ/tháng</strong>; vượt 30 năm 2 năm nên còn được trợ cấp một lần 2 × 0,5 × 12.000.000 = <strong>12.000.000đ</strong>.</li>
+</ol>
+<h2 id="tro-cap">Trợ cấp một lần khi đóng vượt 30/35 năm</h2>
+<p>Ngoài lương hưu hằng tháng, người đóng vượt số năm tương ứng với tỷ lệ 75% còn được trợ cấp một lần khi nghỉ hưu (Điều 68): mỗi năm vượt 30 năm (nữ) hoặc 35 năm (nam) tính tới tuổi nghỉ hưu được <strong>0,5 lần mức bình quân</strong> tiền lương tháng. Người đã đủ tuổi nghỉ hưu mà vẫn đóng tiếp thì mỗi năm đóng thêm sau tuổi nghỉ hưu — nếu năm đó đã vượt ngưỡng 30/35 năm — được <strong>2 lần mức bình quân</strong>. Năm đóng thêm chưa vượt ngưỡng thì không có trợ cấp một lần.</p>
+<h2 id="luu-y">Mấy lưu ý</h2>
+<ul>
+<li><strong>Chưa đủ 15 năm thì không có lương hưu hằng tháng.</strong> Có thể đóng tiếp BHXH tự nguyện cho đủ 15 năm, hoặc rút BHXH một lần nếu không muốn đóng tiếp.</li>
+<li><strong>Mức sàn 2.530.000đ/tháng không áp cho mọi người.</strong> Mức sàn này chỉ áp dụng cho người tham gia BHXH bắt buộc từ đủ 20 năm trước 01/7/2025 — lương hưu tính ra thấp hơn 2.530.000đ không tự động được nâng lên.</li>
+<li><strong>Lương các năm trước được điều chỉnh theo hệ số trượt giá.</strong> Mức bình quân dùng để tính lương hưu là mức đã điều chỉnh — tra con số chính xác trên VssID thay vì tự cộng lương các năm.</li>
+<li>Kết quả trong bài chỉ mang tính tham khảo theo quy định chung — mức hưởng chính xác do cơ quan BHXH xác định theo hồ sơ đóng của bạn.</li>
+</ul>`,
+  },
+  {
+    slug: 'cach-tra-cuu-phat-nguoi-2026',
+    title: 'Cách tra cứu phạt nguội 2026',
+    desc: 'Tra cứu phạt nguội miễn phí qua app VNeTraffic, website Cục CSGT csgt.vn hoặc Cục Đăng kiểm — và cách nhận biết tin nhắn phạt nguội giả mạo.',
+    date: '18/11/2026',
+    cta: {
+      url: 'https://www.csgt.vn',
+      label: 'Tra cứu trên trang Cục CSGT →',
+      text: 'Trang chính thức của Cục Cảnh sát giao thông — tra cứu miễn phí, không cần đăng ký tài khoản.',
+    },
+    sources: 'Thông tư 73/2024/TT-BCA (quy trình xử lý vi phạm qua hình ảnh, thời hạn cập nhật dữ liệu); Nghị định 168/2024/NĐ-CP (mức phạt giao thông từ 01/01/2025); ứng dụng VNeTraffic của Bộ Công an; website Cục CSGT csgt.vn; website Cục Đăng kiểm vr.org.vn.',
+    body: `
+<p>Phạt nguội là hình thức xử phạt vi phạm giao thông qua hình ảnh camera — bạn không bị dừng xe tại chỗ mà nhận thông báo sau. Trước khi đi đăng kiểm hoặc mua xe cũ, nên tra cứu để biết xe có vi phạm chưa xử lý hay không. Bài này hướng dẫn 3 cách tra cứu chính thức, miễn phí.</p>
+<nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
+<li><a href="#phat-nguoi-la-gi">Phạt nguội là gì</a></li>
+<li><a href="#vnetraffic">Cách 1: app VNeTraffic</a></li>
+<li><a href="#csgt">Cách 2: website Cục CSGT</a></li>
+<li><a href="#dang-kiem">Cách 3: website Cục Đăng kiểm</a></li>
+<li><a href="#bao-lau-co">Vi phạm bao lâu thì tra được</a></li>
+<li><a href="#co-vi-pham">Nếu tra thấy có vi phạm thì làm gì</a></li>
+<li><a href="#lua-dao">Cảnh báo lừa đảo phạt nguội</a></li>
+</ul></nav>
+<h2 id="phat-nguoi-la-gi">Phạt nguội là gì</h2>
+<p>Camera giám sát giao thông ghi lại hành vi vi phạm (vượt đèn đỏ, chạy quá tốc độ, đi sai làn…), cơ quan công an xác minh rồi gửi thông báo về địa chỉ đăng ký xe. Nếu không xử lý, xe sẽ không được đăng kiểm — vì vậy tra cứu định kỳ là cách tránh bị bất ngờ khi tới hạn đăng kiểm.</p>
+<h2 id="vnetraffic">Cách 1: app VNeTraffic</h2>
+<p>VNeTraffic là ứng dụng chính thức của Bộ Công an, tải miễn phí trên CH Play và App Store. Các bước tra cứu:</p>
+<ol>
+<li>Tải app VNeTraffic và đăng ký tài khoản bằng số căn cước công dân.</li>
+<li>Đăng nhập, vào mục <strong>Tra cứu vi phạm</strong>.</li>
+<li>Nhập biển số xe <strong>viết liền, không dấu</strong> — ví dụ 30A12345 — rồi bấm tra cứu.</li>
+</ol>
+<p>Kết quả hiện lỗi vi phạm, thời gian, địa điểm và đơn vị xử lý (nếu có). App còn cho phép nhận thông báo khi xe phát sinh vi phạm mới.</p>
+<h2 id="csgt">Cách 2: website Cục CSGT</h2>
+<p>Mở trang <strong>csgt.vn</strong> của Cục Cảnh sát giao thông, vào mục <strong>Tra cứu phương tiện vi phạm giao thông qua hình ảnh</strong>. Nhập biển số xe, chọn loại phương tiện (ô tô, xe máy, xe đạp điện) và nhập mã xác thực, rồi bấm tra cứu. Cách này không cần đăng ký tài khoản, dùng được cả trên máy tính lẫn điện thoại.</p>
+<h2 id="dang-kiem">Cách 3: website Cục Đăng kiểm</h2>
+<p>Trang <strong>vr.org.vn</strong> của Cục Đăng kiểm Việt Nam cũng có mục tra cứu vi phạm — kênh bổ sung hữu ích, nhất là trước khi đưa xe đi đăng kiểm. Nếu xe có vi phạm chưa xử lý, hệ thống đăng kiểm sẽ từ chối đăng kiểm cho tới khi bạn xử lý xong.</p>
+<h2 id="bao-lau-co">Vi phạm bao lâu thì tra được</h2>
+<p>Dữ liệu vi phạm được cập nhật lên hệ thống tra cứu <strong>tối đa 10 ngày sau khi vi phạm</strong> (Thông tư 73/2024/TT-BCA). Nếu bạn mới vi phạm vài ngày mà tra chưa thấy thì đó là bình thường — tra lại sau 10 ngày. Ngược lại, nếu đã quá 10 ngày mà không thấy vi phạm nào thì yên tâm là xe không dính phạt nguội trong đợt đó.</p>
+<h2 id="co-vi-pham">Nếu tra thấy có vi phạm thì làm gì</h2>
+<p>Đến cơ quan ghi trong thông báo vi phạm để làm việc và nộp phạt đúng hạn. Đừng để kéo dài: xe có vi phạm chưa xử lý sẽ không được đăng kiểm, và việc chậm nộp phạt có thể phát sinh thêm chi phí. Lưu ý mức phạt giao thông đã tăng từ 01/01/2025 theo Nghị định 168/2024/NĐ-CP — tra cứu thường xuyên giúp bạn không bị bất ngờ với số tiền phạt.</p>
+<h2 id="lua-dao">Cảnh báo lừa đảo phạt nguội</h2>
+<ul>
+<li><strong>Bộ Công an đã cảnh báo tin nhắn phạt nguội giả mạo:</strong> kẻ lừa đảo nhắn tin giả danh công an, kèm link lạ yêu cầu nộp phạt hoặc nhập thông tin ngân hàng để chiếm đoạt tiền.</li>
+<li><strong>Cơ quan công an không gửi link nộp phạt qua tin nhắn.</strong> Mọi thông báo chính thức đều bằng văn bản giấy gửi về địa chỉ đăng ký xe.</li>
+<li><strong>Chỉ tự gõ địa chỉ chính thức</strong> (csgt.vn, vr.org.vn) hoặc dùng app VNeTraffic — không bấm link trong tin nhắn lạ, dù tin nhắn đó ghi đúng biển số xe của bạn.</li>
+<li><strong>Tra cứu chính thức luôn miễn phí.</strong> Trang nào đòi tiền để tra cứu phạt nguội thì không phải trang chính thức.</li>
+</ul>`,
+  },
 ];

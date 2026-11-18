@@ -347,7 +347,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: tool.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
   })();
   // Link tới bài hướng dẫn (mục /huong-dan/) ở cuối trang công cụ —
-  // 9 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
+  // 10 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
   // huong-dan-data.js (kiểm tra bằng tay khi thêm bài mới).
   const GUIDE_LINKS = {
     'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
@@ -359,6 +359,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     'thue-thu-nhap-ca-nhan': { url: '/huong-dan/cach-tinh-thue-thu-nhap-ca-nhan-2026/', title: 'Cách tính thuế thu nhập cá nhân 2026' },
     'tien-nuoc-bac-thang': { url: '/huong-dan/cach-tinh-tien-nuoc-bac-thang-2026/', title: 'Cách tính tiền nước bậc thang 2026' },
     'luong-tang-ca': { url: '/huong-dan/cach-tinh-luong-tang-ca-2026/', title: 'Cách tính lương tăng ca 2026' },
+    'luong-huu': { url: '/huong-dan/cach-tinh-luong-huu-bhxh-2026/', title: 'Cách tính lương hưu BHXH 2026' },
   };
   const guide = GUIDE_LINKS[tool.slug];
   const guideHtml = guide
@@ -740,7 +741,7 @@ async function main() {
   }
   console.log(`   - Sinh viên: ${SINH_VIEN_TEMPLATES.length} mẫu, ${SINH_VIEN_TEMPLATES.length + 1} trang`);
 
-  // Trang Hướng dẫn: trang mục + 5 bài viết gốc tự viết (đều vào
+  // Trang Hướng dẫn: trang mục + 12 bài viết gốc tự viết (đều vào
   // sitemap). Dữ liệu từ src/pages/huong-dan-data.js. Bài viết KHÔNG
   // phải tin tức tổng hợp (ranh giới pháp lý: không đăng lại bài báo,
   // không bình luận độc giả).
@@ -763,9 +764,9 @@ async function main() {
   addPage(
     'huong-dan/index.html',
     shell({
-      title: `Hướng dẫn — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước | ${SITE_NAME}`,
-      desc: 'Hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
-      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
+      title: `Hướng dẫn — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, phạt nguội | ${SITE_NAME}`,
+      desc: 'Hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
+      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
       canonical: `${BASE_URL}/huong-dan/`,
       navActive: 'huong-dan',
       body: huongDanPage.body({ articles: HUONG_DAN_ARTICLES }),

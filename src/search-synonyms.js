@@ -28,6 +28,8 @@ export const SYNONYMS = {
   'lương giờ': ['luong-thang-sang-gio', 'chi-phi-cuoc-hop'],
   'thất nghiệp': ['tro-cap-thoi-viec-bhtn'],
   'bhtn': ['tro-cap-thoi-viec-bhtn'],
+  'nghỉ hưu': ['luong-huu'],
+  'hưu trí': ['luong-huu'],
   'thôi việc': ['tro-cap-thoi-viec-bhtn'],
   'trợ cấp': ['tro-cap-thoi-viec-bhtn'],
   'bảo hiểm thất nghiệp': ['tro-cap-thoi-viec-bhtn'],
