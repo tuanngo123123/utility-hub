@@ -21,7 +21,7 @@ export function body({ articles = ARTICLES } = {}) {
   return `
   <header class="tool-page-head">
     <h1>Hướng dẫn</h1>
-    <p class="muted">Cách tính lương, tiền điện, BHXH một lần, lệ phí môn bài và cách viết CV — viết ngắn gọn, số liệu theo quy định hiện hành, kèm công cụ tính ngay. Tất cả bài do Tiện Ích Hub tự viết.</p>
+    <p class="muted">Cách tính lương, thuế TNCN, lãi vay, lãi tiết kiệm, tiền điện, tiền nước, lương tăng ca, BHXH một lần, lệ phí môn bài và cách viết CV — viết ngắn gọn, số liệu theo quy định hiện hành, kèm công cụ tính ngay. Tất cả bài do Tiện Ích Hub tự viết.</p>
   </header>
 
   <section class="section" aria-label="Tất cả bài hướng dẫn">
