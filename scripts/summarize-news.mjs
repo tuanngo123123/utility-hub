@@ -1,10 +1,18 @@
-// summarize-news.mjs — Tóm tắt tin RSS sang tiếng Việt bằng Gemini API (gói miễn phí).
+// summarize-news.mjs — Tóm tắt tin RSS sang tiếng Việt.
+// Nhà cung cấp CHÍNH: Pollinations (miễn phí, KHÔNG cần key) — endpoint tương
+// thích OpenAI, model "openai" (= gpt-oss-20b). Thử thật 18/11/2026: 2/2 lần
+// chạy, JSON đúng, tiếng Việt tốt, 5-9s/lần. Tier anonymous giới hạn ~1
+// request/15 giây nên vòng lặp batch sleep 15s giữa các lần gọi. Endpoint
+// legacy (text.pollinations.ai) có thể bị thay thế dần nên Gemini giữ lại
+// làm DỰ PHÒNG (khi quota đã reset).
 // Đọc src/data/news-raw.json (do fetch-data.mjs tạo) -> ghi src/data/news.json.
-// Key lấy từ biến môi trường GEMINI_API_KEY (trong GitHub Action: secrets.GEMINI_API_KEY).
-// KHÔNG có key -> ghi news.json với summary + why rỗng (trang chủ vẫn hiện tiêu đề
-// + nguồn + link) và in cảnh báo rõ ràng. KHÔNG tự tạo key, KHÔNG nhúng key vào code.
+// Key Gemini lấy từ biến môi trường GEMINI_API_KEY (trong GitHub Action:
+// secrets.GEMINI_API_KEY). KHÔNG có key -> vẫn chạy bằng Pollinations, chỉ
+// mất đường dự phòng. KHÔNG tự tạo key, KHÔNG nhúng key vào code.
 // Pháp lý: mỗi tin chỉ tóm tắt 1-2 câu, TỐI ĐA 260 ký tự, bằng lời của mình (không dịch
-// toàn văn), kèm link gốc; prompt CẤM ngôn ngữ khuyến nghị đầu tư.
+// toàn văn), kèm link gốc; prompt CẤM ngôn ngữ khuyến nghị đầu tư — và script
+// có lưới lọc stripAdvice() để trống mọi trường lọt cụm gợi ý đầu tư (model mở
+// đôi khi vẫn lọt dù prompt đã cấm: thử thật 18/11 "có thể cân nhắc đầu tư").
 // Mỗi tin còn có trường `why`: 1 câu ngắn nói rõ vì sao tin đáng đọc với người Việt
 // (tác động/lợi ích cụ thể); trang chỉ hiện why khi có nội dung.
 import { readFile, writeFile } from 'node:fs/promises';
@@ -65,6 +73,62 @@ async function callGemini(apiKey, body) {
   }
   throw new Error(lastErr || 'Gemini: không model nào dùng được');
 }
+
+// Nhà cung cấp chính: Pollinations (miễn phí, không cần key).
+// Endpoint tương thích OpenAI; model "openai" (= gpt-oss-20b).
+// Lỗi 429/503 hoặc lỗi mạng: chờ 15s thử lại 1 lần rồi mới đầu hàng (về
+// Gemini dự phòng). Timeout 120s như Gemini.
+const POLLINATIONS_URL = 'https://text.pollinations.ai/openai/v1/chat/completions';
+async function callPollinations(messages, maxTokens = 2048) {
+  let lastErr = '';
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    let res;
+    try {
+      res = await fetch(POLLINATIONS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'openai', messages, temperature: 0.3, max_tokens: maxTokens }),
+        signal: AbortSignal.timeout(120000),
+      });
+    } catch (e) {
+      lastErr = `Pollinations lỗi mạng/timeout: ${e.message || e}`;
+      if (attempt < 2) { console.warn(`${lastErr} — chờ 15s thử lại.`); await sleep(15000); continue; }
+      throw new Error(lastErr);
+    }
+    if (res.ok) { MODEL_USED = 'pollinations-openai'; return res; }
+    const bodyText = await res.text();
+    lastErr = `Pollinations HTTP ${res.status}: ${bodyText.slice(0, 300)}`;
+    if ((res.status === 429 || res.status === 503) && attempt < 2) { console.warn(`${lastErr} — chờ 15s thử lại.`); await sleep(15000); continue; }
+    throw new Error(lastErr);
+  }
+  throw new Error(lastErr || 'Pollinations: không gọi được');
+}
+
+// Bóc mảng JSON từ text model trả về: gỡ fence ```json nếu có; nếu parse
+// trực tiếp thất bại thì thử cắt từ dấu [ đầu tới ] cuối (model mở đôi khi
+// thêm lời mở đầu ngoài JSON).
+function parseJsonArray(text) {
+  const cleaned = String(text || '').replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    const start = cleaned.indexOf('[');
+    const end = cleaned.lastIndexOf(']');
+    if (start >= 0 && end > start) return JSON.parse(cleaned.slice(start, end + 1));
+    throw new Error('Không bóc được mảng JSON từ kết quả model');
+  }
+}
+
+// Lưới lọc an toàn: model mở đôi khi vẫn lọt ngôn ngữ gợi ý đầu tư dù prompt
+// đã cấm (thử thật 18/11: "có thể cân nhắc đầu tư để đa dạng hoá danh mục").
+// Trường nào dính cụm này thì để trống — trang vẫn hiện tiêu đề + nguồn,
+// không bao giờ đăng lời khuyên đầu tư.
+const ADVICE_PHRASES = ['nên mua', 'nên bán', 'nên đầu tư', 'nên giữ', 'nên nắm giữ', 'cân nhắc đầu tư', 'cân nhắc mua', 'cân nhắc bán', 'đáng mua', 'đáng đầu tư', 'cơ hội mua', 'khuyến nghị', 'đa dạng hoá danh mục', 'đa dạng hóa danh mục'];
+function stripAdvice(text) {
+  const low = String(text || '').toLowerCase();
+  if (ADVICE_PHRASES.some((p) => low.includes(p))) return '';
+  return text;
+}
 const MAX_LEN = 260;
 const WHY_MAX_LEN = 200;
 const BATCH = 5;
@@ -92,35 +156,71 @@ const SYSTEM_PROMPT = [
   'Bạn tóm tắt tin tức nước ngoài sang tiếng Việt cho mục Điểm báo của một trang tiện ích.',
   'QUY TẮC BẮT BUỘC:',
   '1. Mỗi tin: tóm tắt đúng 1-2 câu, TỐI ĐA 260 ký tự, viết lại bằng lời của mình — KHÔNG dịch toàn văn, KHÔNG chép nguyên câu tiếng Anh.',
-  '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc.',
-  '3. TUYỆT ĐỐI KHÔNG dùng ngôn ngữ khuyến nghị đầu tư: không viết "nên mua", "nên bán", "nên đầu tư", "cơ hội mua vào", "đáng mua", "khuyến nghị" hay bất kỳ lời khuyên mua/bán/giữ tài sản nào — áp dụng cho cả tóm tắt lẫn câu "vì sao đáng đọc".',
-  '4. Mỗi tin thêm 1 câu "vì sao tin này đáng đọc" (tối đa 200 ký tự): NGẮN, CỤ THỂ, nói rõ tác động hoặc lợi ích cho người đọc Việt Nam — ví dụ tin về lãi suất thì nói ảnh hưởng tới lãi vay ngân hàng/lãi tiết kiệm; tin về giá vàng, tỉ giá, chứng khoán thì nói ảnh hưởng tới giá trong nước; tin công nghệ thì nói ảnh hưởng tới người dùng/công việc ở Việt Nam. Không viết chung chung kiểu "tin này rất quan trọng".',
+  '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc. Giữ nguyên tên riêng nước ngoài (người, công ty, sản phẩm) theo bản gốc, KHÔNG phiên âm sang tiếng Việt — ví dụ viết "Donald Trump", "Vladimir Putin", "Jensen Huang", "Nvidia"; CHỈ có Xi Jinping viết là "Tập Cận Bình".',
+  '3. TUYỆT ĐỐI KHÔNG dùng ngôn ngữ khuyến nghị đầu tư: không viết "nên mua", "nên bán", "nên đầu tư", "nên giữ", "cân nhắc đầu tư", "cân nhắc mua", "đáng mua", "đáng đầu tư", "cơ hội mua vào", "khuyến nghị", "đa dạng hoá danh mục" hay bất kỳ lời khuyên mua/bán/giữ tài sản nào — áp dụng cho cả tóm tắt lẫn câu "vì sao đáng đọc".',
+  '4. Mỗi tin thêm 1 câu "vì sao tin này đáng đọc" (tối đa 200 ký tự): NGẮN, CỤ THỂ, chỉ nói TÁC ĐỘNG tới người đọc Việt Nam (giá cả, lãi suất, công việc, chi tiêu thay đổi thế nào) — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Ví dụ tin về lãi suất thì nói ảnh hưởng tới lãi vay ngân hàng/lãi tiết kiệm; tin về giá vàng, tỉ giá, chứng khoán thì nói ảnh hưởng tới giá trong nước; tin công nghệ thì nói ảnh hưởng tới người dùng/công việc ở Việt Nam. Không viết chung chung kiểu "tin này rất quan trọng".',
   '5. Trả về DUY NHẤT một mảng JSON, mỗi phần tử là một đối tượng {"summary": "<tóm tắt>", "why": "<vì sao đáng đọc>"}, theo ĐÚNG thứ tự tin đầu vào, không thêm chữ nào ngoài JSON.',
 ].join('\n');
 
 async function summarizeBatch(apiKey, batch) {
   const numbered = batch.map((it, i) => `${i + 1}. [${it.source}] ${it.title}${it.description ? ' — ' + it.description : ''}`).join('\n');
-  const body = {
-    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-    contents: [{ parts: [{ text: `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"summary", "why"}):\n${numbered}` }] }],
-    generationConfig: { temperature: 0.3, maxOutputTokens: 4096 },
-  };
-  const res = await callGemini(apiKey, body);
-  const j = await res.json();
-  const text = j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
-  const jsonText = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
-  const arr = JSON.parse(jsonText);
-  if (!Array.isArray(arr) || arr.length !== batch.length) throw new Error('Gemini trả JSON không đúng số lượng');
-  // Chuẩn mới: mỗi phần tử là {summary, why}. Dung sai: chuỗi thuần (dạng cũ)
-  // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
-  // mất cả loạt tóm tắt.
-  return arr.map((el) => {
-    if (typeof el === 'string') return { summary: trimSummary(el), why: '' };
-    if (el && typeof el === 'object') {
-      return { summary: trimSummary(el.summary), why: trimWhy(el.why) };
+  const userText = `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"summary", "why"}):\n${numbered}`;
+  const fetchText = async () => {
+    try {
+      const res = await callPollinations([
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: userText },
+      ], 3072);
+      const j = await res.json();
+      return j?.choices?.[0]?.message?.content || '';
+    } catch (e) {
+      console.warn(`Pollinations lỗi: ${e.message || e} — thử Gemini dự phòng.`);
+      if (!apiKey) throw new Error('Pollinations lỗi và không có GEMINI_API_KEY để dự phòng.');
+      const body = {
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ parts: [{ text: userText }] }],
+        generationConfig: { temperature: 0.3, maxOutputTokens: 4096 },
+      };
+      const res = await callGemini(apiKey, body);
+      const j = await res.json();
+      return j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
     }
-    return { summary: '', why: '' };
-  });
+  };
+  // Model mở đôi khi trả JSON lỗi (dấu ngoặc thiếu, chuỗi chưa đóng) — thử
+  // lại 1 lần thì thường trả đúng; không để 1 lần lỗi làm mất cả batch 5 tin
+  // (đã xảy ra thật 18/11: batch 1 lỗi JSON, mất 5/18 tin).
+  let lastErr = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    let text = '';
+    try {
+      text = await fetchText();
+    } catch (e) {
+      lastErr = e;
+      if (attempt < 2) { console.warn(`Batch lỗi lần ${attempt}: ${e.message || e} — chờ 15s thử lại.`); await sleep(15000); continue; }
+      throw e;
+    }
+    try {
+      const arr = parseJsonArray(text);
+      if (!Array.isArray(arr) || arr.length !== batch.length) throw new Error('Model trả JSON không đúng số lượng');
+      // Chuẩn mới: mỗi phần tử là {summary, why}. Dung sai: chuỗi thuần (dạng cũ)
+      // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
+      // mất cả loạt tóm tắt. stripAdvice(): trường nào lọt ngôn ngữ gợi ý đầu tư
+      // thì để trống.
+      return arr.map((el) => {
+        if (typeof el === 'string') return { summary: stripAdvice(trimSummary(el)), why: '' };
+        if (el && typeof el === 'object') {
+          return { summary: stripAdvice(trimSummary(el.summary)), why: stripAdvice(trimWhy(el.why)) };
+        }
+        return { summary: '', why: '' };
+      });
+    } catch (e) {
+      lastErr = e;
+      console.warn(`Batch trả JSON lỗi lần ${attempt}: ${e.message || e}`);
+      if (attempt < 2) { console.warn('Thử lại batch này 1 lần.'); await sleep(15000); continue; }
+      throw lastErr;
+    }
+  }
+  throw lastErr || new Error('Không tóm tắt được batch');
 }
 
 async function main() {
@@ -133,6 +233,10 @@ async function main() {
   }
   const items = Array.isArray(raw.items) ? raw.items : [];
   const apiKey = process.env.GEMINI_API_KEY || '';
+  if (!apiKey) {
+    console.warn('CẢNH BÁO: chưa có GEMINI_API_KEY — chỉ chạy được Pollinations, mất đường dự phòng Gemini.');
+    console.warn('Thêm key: GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret, tên GEMINI_API_KEY.');
+  }
 
   const groups = { ai: [], 'chung-khoan': [], crypto: [] };
   const base = (it, pair) => ({
@@ -144,19 +248,6 @@ async function main() {
     publishedAt: it.publishedAt || '',
   });
   const EMPTY = { summary: '', why: '' };
-
-  if (!apiKey) {
-    console.warn('CẢNH BÁO: chưa có GEMINI_API_KEY — ghi news.json với summary + why rỗng (trang chủ hiện tiêu đề + nguồn + link).');
-    console.warn('Thêm key: GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret, tên GEMINI_API_KEY.');
-    for (const it of items) if (GROUPS.includes(it.group)) groups[it.group].push(base(it, EMPTY));
-    await writeFile(join(DATA_DIR, 'news.json'), JSON.stringify({
-      updatedAt: new Date().toISOString(), summarized: false,
-      note: 'Chưa có GEMINI_API_KEY nên chưa tóm tắt được.',
-      groups,
-    }, null, 2) + '\n', 'utf8');
-    console.log(`Đã ghi news.json: ${items.length} tin, summary + why rỗng.`);
-    return;
-  }
 
   const pairs = new Array(items.length).fill(EMPTY);
   let okCount = 0;
@@ -172,6 +263,9 @@ async function main() {
       // Hết quota thì các batch sau cũng lỗi y hệt — dừng luôn để khỏi đốt quota.
       if (/hết quota/i.test(e.message || '')) { console.warn('Hết quota Gemini — dừng tóm tắt, chờ đợt làm mới sau.'); break; }
     }
+    // Pollinations tier anonymous giới hạn ~1 request/15 giây — chờ đủ 15s
+    // trước batch sau (trừ batch cuối).
+    if (i + BATCH < items.length) await sleep(15000);
   }
   items.forEach((it, i) => { if (GROUPS.includes(it.group)) groups[it.group].push(base(it, pairs[i])); });
   // summarized chỉ true khi CÓ tóm tắt thật (trước đây ghi true cả khi 0/18).

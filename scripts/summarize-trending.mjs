@@ -1,13 +1,18 @@
 // summarize-trending.mjs — Viết dòng giải thích tiếng Việt cho repo GitHub
-// trending bằng Gemini API (gói miễn phí).
+// trending.
+// Nhà cung cấp CHÍNH: Pollinations (miễn phí, KHÔNG cần key) — endpoint tương
+// thích OpenAI, model "openai" (= gpt-oss-20b). Thử thật 18/11/2026: chạy được,
+// JSON đúng, tiếng Việt tốt, ~5s/lần. Gemini giữ lại làm DỰ PHÒNG (khi quota
+// đã reset).
 // Đọc src/data/trending.json (do fetch-data.mjs tạo) -> ghi lại cùng file, thêm
 // trường `purpose` cho mỗi repo: 1 dòng tiếng Việt (tối đa 120 ký tự) giải thích
 // repo DÙNG ĐỂ LÀM GÌ. Trang chủ ưu tiên hiện purpose, chưa có thì fallback về
 // mô tả tiếng Anh gốc (xem trendingRowHtml trong src/pages/home.js và
 // initTrending trong src/app.js).
-// Key lấy từ biến môi trường GEMINI_API_KEY (trong GitHub Action: secrets.GEMINI_API_KEY).
-// KHÔNG có key -> ghi purpose rỗng + cảnh báo, không lỗi. KHÔNG tự tạo key,
-// KHÔNG nhúng key vào code. Chỉ 6 repo, 1 lần gọi batch.
+// Key Gemini lấy từ biến môi trường GEMINI_API_KEY (trong GitHub Action:
+// secrets.GEMINI_API_KEY). KHÔNG có key -> vẫn chạy bằng Pollinations, chỉ mất
+// đường dự phòng. KHÔNG tự tạo key, KHÔNG nhúng key vào code. Chỉ 6 repo,
+// 1 lần gọi batch.
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -66,6 +71,51 @@ async function callGemini(apiKey, body) {
   }
   throw new Error(lastErr || 'Gemini: không model nào dùng được');
 }
+
+// Nhà cung cấp chính: Pollinations (miễn phí, không cần key).
+// Endpoint tương thích OpenAI; model "openai" (= gpt-oss-20b).
+// Lỗi 429/503 hoặc lỗi mạng: chờ 15s thử lại 1 lần rồi mới đầu hàng (về
+// Gemini dự phòng). Timeout 120s như Gemini.
+const POLLINATIONS_URL = 'https://text.pollinations.ai/openai/v1/chat/completions';
+async function callPollinations(messages) {
+  let lastErr = '';
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    let res;
+    try {
+      res = await fetch(POLLINATIONS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'openai', messages, temperature: 0.3, max_tokens: 2048 }),
+        signal: AbortSignal.timeout(120000),
+      });
+    } catch (e) {
+      lastErr = `Pollinations lỗi mạng/timeout: ${e.message || e}`;
+      if (attempt < 2) { console.warn(`${lastErr} — chờ 15s thử lại.`); await sleep(15000); continue; }
+      throw new Error(lastErr);
+    }
+    if (res.ok) { MODEL_USED = 'pollinations-openai'; return res; }
+    const bodyText = await res.text();
+    lastErr = `Pollinations HTTP ${res.status}: ${bodyText.slice(0, 300)}`;
+    if ((res.status === 429 || res.status === 503) && attempt < 2) { console.warn(`${lastErr} — chờ 15s thử lại.`); await sleep(15000); continue; }
+    throw new Error(lastErr);
+  }
+  throw new Error(lastErr || 'Pollinations: không gọi được');
+}
+
+// Bóc mảng JSON từ text model trả về: gỡ fence ```json nếu có; nếu parse
+// trực tiếp thất bại thì thử cắt từ dấu [ đầu tới ] cuối (model mở đôi khi
+// thêm lời mở đầu ngoài JSON).
+function parseJsonArray(text) {
+  const cleaned = String(text || '').replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    const start = cleaned.indexOf('[');
+    const end = cleaned.lastIndexOf(']');
+    if (start >= 0 && end > start) return JSON.parse(cleaned.slice(start, end + 1));
+    throw new Error('Không bóc được mảng JSON từ kết quả model');
+  }
+}
 const MAX_LEN = 120;
 
 function trimPurpose(s) {
@@ -91,22 +141,57 @@ async function summarizeBatch(apiKey, items) {
     const desc = it.description ? ` — ${it.description}` : '';
     return `${i + 1}. ${it.name || ''}${lang}${desc}`;
   }).join('\n');
-  const body = {
-    systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-    contents: [{ parts: [{ text: `Viết dòng giải thích cho ${items.length} repo sau (trả về mảng JSON gồm đúng ${items.length} đối tượng {"purpose"}):\n${numbered}` }] }],
-    generationConfig: { temperature: 0.3, maxOutputTokens: 2048 },
+  const userText = `Viết dòng giải thích cho ${items.length} repo sau (trả về mảng JSON gồm đúng ${items.length} đối tượng {"purpose"}):\n${numbered}`;
+  const fetchText = async () => {
+    try {
+      const res = await callPollinations([
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: userText },
+      ]);
+      const j = await res.json();
+      return j?.choices?.[0]?.message?.content || '';
+    } catch (e) {
+      console.warn(`Pollinations lỗi: ${e.message || e} — thử Gemini dự phòng.`);
+      if (!apiKey) throw new Error('Pollinations lỗi và không có GEMINI_API_KEY để dự phòng.');
+      const body = {
+        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ parts: [{ text: userText }] }],
+        generationConfig: { temperature: 0.3, maxOutputTokens: 2048 },
+      };
+      const res = await callGemini(apiKey, body);
+      const j = await res.json();
+      return j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
+    }
   };
-  const res = await callGemini(apiKey, body);
-  const j = await res.json();
-  const text = j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
-  const jsonText = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
-  const arr = JSON.parse(jsonText);
-  if (!Array.isArray(arr) || arr.length !== items.length) throw new Error('Gemini trả JSON không đúng số lượng');
-  return arr.map((el) => {
-    if (typeof el === 'string') return trimPurpose(el);
-    if (el && typeof el === 'object') return trimPurpose(el.purpose);
-    return '';
-  });
+  // Chỉ 1 batch duy nhất — JSON lỗi 1 lần là mất cả 6 dòng tiếng Việt nên
+  // thử lại 1 lần trước khi bỏ (model mở đôi khi trả JSON lỗi, thử lại
+  // thường trả đúng).
+  let lastErr = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    let text = '';
+    try {
+      text = await fetchText();
+    } catch (e) {
+      lastErr = e;
+      if (attempt < 2) { console.warn(`Lỗi lần ${attempt}: ${e.message || e} — chờ 15s thử lại.`); await sleep(15000); continue; }
+      throw e;
+    }
+    try {
+      const arr = parseJsonArray(text);
+      if (!Array.isArray(arr) || arr.length !== items.length) throw new Error('Model trả JSON không đúng số lượng');
+      return arr.map((el) => {
+        if (typeof el === 'string') return trimPurpose(el);
+        if (el && typeof el === 'object') return trimPurpose(el.purpose);
+        return '';
+      });
+    } catch (e) {
+      lastErr = e;
+      console.warn(`Trả JSON lỗi lần ${attempt}: ${e.message || e}`);
+      if (attempt < 2) { console.warn('Thử lại 1 lần.'); await sleep(15000); continue; }
+      throw lastErr;
+    }
+  }
+  throw lastErr || new Error('Không viết được dòng tiếng Việt');
 }
 
 async function main() {
@@ -121,17 +206,8 @@ async function main() {
   }
   const items = Array.isArray(data.items) ? data.items : [];
   const apiKey = process.env.GEMINI_API_KEY || '';
-
   if (!apiKey) {
-    console.warn('CẢNH BÁO: chưa có GEMINI_API_KEY — ghi trending.json với purpose rỗng (trang chủ hiện mô tả tiếng Anh như cũ).');
-    console.warn('Thêm key: GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret, tên GEMINI_API_KEY.');
-    data.items = items.map((it) => ({ ...it, purpose: '' }));
-    data.purposeSummarized = false;
-    data.purposeNote = 'Chưa có GEMINI_API_KEY nên chưa viết được dòng tiếng Việt.';
-    delete data.purposeModel;
-    await writeFile(join(DATA_DIR, 'trending.json'), JSON.stringify(data, null, 2) + '\n', 'utf8');
-    console.log(`Đã ghi trending.json: ${items.length} repo, purpose rỗng.`);
-    return;
+    console.warn('CẢNH BÁO: chưa có GEMINI_API_KEY — chỉ chạy được Pollinations, mất đường dự phòng Gemini.');
   }
 
   let purposes = items.map(() => '');

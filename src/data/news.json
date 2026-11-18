@@ -1,52 +1,53 @@
 {
-  "updatedAt": "2026-11-18T05:21:34.809Z",
-  "summarized": false,
+  "updatedAt": "2026-11-18T05:40:26.297Z",
+  "summarized": true,
+  "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
         "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia’s private investment value rose to $65B, tripling in nine months, driven by Jensen Huang’s dealmaking and higher valuations of portfolio companies.",
+        "why": "Giá trị đầu tư riêng của Nvidia tăng, ảnh hưởng tới giá cổ phiếu và tiềm năng tài chính cho các công ty công nghệ Việt Nam.",
         "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 01:44:21 +0000"
       },
       {
         "title": "Nvidia promises that revenue will keep soaring — for now",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia dự báo doanh thu sẽ tiếp tục tăng, mặc dù CEO Jensen Huang đã rời công ty.",
+        "why": "Doanh thu tăng của Nvidia có thể tác động tới giá cổ phiếu và xu hướng đầu tư công nghệ tại Việt Nam.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000"
       },
       {
         "title": "Nvidia is abandoning China after Jensen Huang’s ouster",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia tuyên bố sẽ ngừng bán chip cho Trung Quốc sau khi Jensen Huang bị loại bỏ.",
+        "why": "Việc ngừng bán chip tới Trung Quốc có thể ảnh hưởng tới chuỗi cung ứng công nghệ và giá chip tại thị trường Việt Nam.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 23:37:48 +0000"
       },
       {
         "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia vẫn giữ chiến lược AI mã nguồn mở và dự định mua lại Hugging Face, bất chấp sự ra đi của Jensen Huang.",
+        "why": "Chiến lược AI mở và việc mua Hugging Face có thể thúc đẩy phát triển công nghệ AI và ứng dụng tại Việt Nam.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 23:04:35 +0000"
       },
       {
         "title": "Nvidia says it doesn’t plan to reappoint Jensen Huang as CEO",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia không dự định bổ nhiệm lại Jensen Huang làm CEO, mặc dù ông đã đề nghị trở lại.",
+        "why": "Quyết định này ảnh hưởng tới lãnh đạo và chiến lược dài hạn của Nvidia, có thể tác động tới thị trường công nghệ Việt Nam.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 22:42:27 +0000"
       },
       {
         "title": "Amazon and Google will together own nearly 30% of Anthropic after its IPO",
-        "summary": "",
-        "why": "",
+        "summary": "Amazon sẽ sở hữu gần 15% cổ phần Anthropic sau IPO, Google gần 14%, tổng cộng khoảng 30%.",
+        "why": "Sự thay đổi cổ phần này có thể ảnh hưởng tới chi phí và tính năng AI mà người dùng Việt Nam sử dụng.",
         "link": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 22:29:05 +0000"
@@ -55,48 +56,48 @@
     "chung-khoan": [
       {
         "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
-        "summary": "",
-        "why": "",
+        "summary": "Tập Cận Bình mở APEC tại Thâm Quyến kêu gọi giảm rào cản thương mại và đầu tư, hứa mở rộng thị trường Trung Quốc.",
+        "why": "Việc giảm rào cản có thể tác động tới giá hàng nhập khẩu và chi phí sản xuất tại Việt Nam.",
         "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 03:30:51 GMT"
       },
       {
         "title": "Democrat Mary Peltola wins Alaska Senate election",
-        "summary": "",
-        "why": "",
+        "summary": "Mary Peltola thắng cử thượng nghị sĩ Alaska, giúp Đảng Dân chủ đạt đa số 56 thành viên trong Thượng viện Mỹ.",
+        "why": "Sự thay đổi chính trị này có thể ảnh hưởng tới chính sách thương mại và hỗ trợ kinh tế giữa Mỹ và Việt Nam.",
         "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT"
       },
       {
         "title": "Zelenskyy says Starshield speed curbs still in place over 'occupied territories' of Ukraine",
-        "summary": "",
-        "why": "",
+        "summary": "Zelenskyy cho biết tốc độ Starshield vẫn bị giới hạn trong 7 ngày tại vùng 'được chiếm đóng' của Ukraine.",
+        "why": "Giới hạn tốc độ có thể ảnh hưởng tới dịch vụ truyền thông và công nghệ viễn thông mà người dùng Việt Nam phụ thuộc vào.",
         "link": "https://www.cnbc.com/2026/11/18/ukraine-starshield-starlink-musk-spacex.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 02:50:16 GMT"
       },
       {
         "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
-        "summary": "",
-        "why": "",
+        "summary": "Các sự cố gián đoạn lớn đã ảnh hưởng tới ngân hàng, ngành hàng không, NSA và Apple, cho thấy rủi ro của hệ thống công nghệ liên kết.",
+        "why": "Những sự cố này có thể làm thay đổi chi phí vay ngân hàng, giá vé máy bay và dịch vụ công nghệ tại Việt Nam.",
         "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
         "source": "CNBC",
         "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT"
       },
       {
         "title": "Putin says EU is losing industry, falling behind competition ahead of meeting with Trump, Xi",
-        "summary": "",
-        "why": "",
+        "summary": "Putin nói EU đang mất ngành công nghiệp, tụt hậu cạnh tranh trước cuộc gặp với Trump, Xi, nhấn mạnh tính bền vững kinh tế của Nga và cơ hội cho các thành viên APEC.",
+        "why": "Tin có thể làm tăng chi phí nhập khẩu từ EU và ảnh hưởng tới giá hàng tiêu dùng tại Việt Nam.",
         "link": "https://www.cnbc.com/2026/11/18/putin-apec-eu-trump-xi-meeting.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 04:27:45 GMT"
       },
       {
         "title": "Three things to watch as Trump, Xi and Putin meet in China",
-        "summary": "",
-        "why": "",
+        "summary": "Trump, Xi và Putin sẽ gặp nhau tại Shenzhen cùng cuộc họp lãnh đạo APEC.",
+        "why": "Sự kiện có thể tác động tới thị trường chứng khoán, lãi suất và chi phí nhập khẩu tại Việt Nam.",
         "link": "https://www.cnbc.com/2026/11/18/apec-trump-xi-putin-shenzhen.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 03:25:32 GMT"
@@ -105,48 +106,48 @@
     "crypto": [
       {
         "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
-        "summary": "",
-        "why": "",
+        "summary": "Hai chủ sở hữu Ledger mất tổng cộng 604,000$ tiền điện tử do ví cứng mua tại Virgin Megastore Dubai.",
+        "why": "Tin làm tăng rủi ro bảo mật tiền điện tử, có thể ảnh hưởng tới giá BTC và ETH trong nước.",
         "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000"
       },
       {
         "title": "Nvidia board rejects Huang comeback despite record $116B quarter",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia ghi nhận doanh thu 116B, vượt kỳ vọng 5.6%, dự báo bán hàng mạnh hơn, ban giám đốc từ chối khôi phục Huang.",
+        "why": "Tin có thể tác động tới giá cổ phiếu công nghệ, chi phí phần cứng AI và giá GPU tại Việt Nam.",
         "link": "https://cointelegraph.com/markets/nvidia-board-rejects-huang-comeback-amid-record-116b-quarter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 00:16:43 +0000"
       },
       {
         "title": "CFTC halts some Kalshi Trump mention markets over manipulation concerns",
-        "summary": "",
-        "why": "",
+        "summary": "CFTC giữ lại một số thị trường đề cập Trump của Kalshi vì lo ngại thao túng, cho phép nền tảng bảo vệ hợp đồng tới 11/12.",
+        "why": "Tin có thể ảnh hưởng tới giá cổ phiếu công nghệ, lãi suất và rủi ro thị trường tại Việt Nam.",
         "link": "https://cointelegraph.com/news/cftc-kalshi-trump-mention-markets-review?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Tue, 17 Nov 2026 22:20:04 +0000"
       },
       {
         "title": "Bitcoin's 12% slide through key support looks scary, but history says give it 3 months.",
-        "summary": "",
-        "why": "",
+        "summary": "Bitcoin giảm 12% và phá vỡ mức trung bình 200 tuần, là một trong ba lần giảm tương tự kể từ 2013.",
+        "why": "Giảm giá Bitcoin có thể tác động tới lãi vay và giá trị tài sản số, ảnh hưởng tới người dùng Việt Nam quan tâm đến đầu tư tiền điện tử.",
         "link": "https://www.coindesk.com/markets/2026/11/18/bitcoin-s-rare-12-crash-through-its-200-week-average-has-a-bullish-track-record",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 04:34:21 +0000"
       },
       {
         "title": "XRP whales moved $270 million during the selloff. The coins didn’t go to exchanges",
-        "summary": "",
-        "why": "",
+        "summary": "Một người giữ XRP đã chuyển 281 triệu XRP vào hai vault cách nhau ba tuần, cho thấy hành vi lưu trữ thay vì bán ra.",
+        "why": "Sự di chuyển lớn của XRP có thể ảnh hưởng tới giá XRP, ảnh hưởng tới người dùng Việt Nam đang giao dịch hoặc đầu tư vào đồng tiền này.",
         "link": "https://www.coindesk.com/markets/2026/11/18/xrp-whales-moved-usd270-million-during-the-selloff-the-coins-didn-t-go-to-exchanges",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 04:28:37 +0000"
       },
       {
         "title": "CFTC nominee questions public benefit of prediction markets as legal fight grows",
-        "summary": "",
-        "why": "",
+        "summary": "Matthew Rowland, ứng cử viên CFTC, cho biết hy vọng có tiếng nói trong việc quy định thị trường dự đoán khi tranh luận pháp lý gia tăng.",
+        "why": "Quy định thị trường dự đoán có thể ảnh hưởng tới lãi suất và chi phí giao dịch, ảnh hưởng tới người dùng Việt Nam tham gia các nền tảng dự đoán tài chính.",
         "link": "https://www.coindesk.com/policy/2026/11/17/nominee-says-u-s-cftc-must-think-hard-about-public-benefit-of-prediction-markets",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 00:46:25 +0000"
