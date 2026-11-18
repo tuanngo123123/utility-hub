@@ -119,10 +119,14 @@ function parseJsonArray(text) {
   }
 }
 
-// Lưới lọc an toàn: model mở đôi khi vẫn lọt ngôn ngữ gợi ý đầu tư dù prompt
-// đã cấm (thử thật 18/11: "có thể cân nhắc đầu tư để đa dạng hoá danh mục").
-// Trường nào dính cụm này thì để trống — trang vẫn hiện tiêu đề + nguồn,
-// không bao giờ đăng lời khuyên đầu tư.
+// Kiểm tra tiếng Việt: tóm tắt tiếng Việt dài cả trăm ký tự gần như luôn có
+// dấu (của, đã, là, với, tăng, giảm...). Model mở đôi khi trả lại nguyên câu
+// tiếng Anh trong mô tả gốc (đã xảy ra thật 18/11: 1/18 tin) — batch nào có
+// trường không phải tiếng Việt thì thử lại, thử lại vẫn lỗi thì để trống.
+const VI_DIACRITIC = /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/i;
+function looksVietnamese(t) {
+  return !t || VI_DIACRITIC.test(t);
+}
 const ADVICE_PHRASES = ['nên mua', 'nên bán', 'nên đầu tư', 'nên giữ', 'nên nắm giữ', 'cân nhắc đầu tư', 'cân nhắc mua', 'cân nhắc bán', 'đáng mua', 'đáng đầu tư', 'cơ hội mua', 'khuyến nghị', 'đa dạng hoá danh mục', 'đa dạng hóa danh mục'];
 function stripAdvice(text) {
   const low = String(text || '').toLowerCase();
@@ -162,7 +166,7 @@ const SYSTEM_PROMPT = [
   '5. Trả về DUY NHẤT một mảng JSON, mỗi phần tử là một đối tượng {"summary": "<tóm tắt>", "why": "<vì sao đáng đọc>"}, theo ĐÚNG thứ tự tin đầu vào, không thêm chữ nào ngoài JSON.',
 ].join('\n');
 
-async function summarizeBatch(apiKey, batch) {
+async function summarizeBatch(apiKey, batch, allowRepair = true) {
   const numbered = batch.map((it, i) => `${i + 1}. [${it.source}] ${it.title}${it.description ? ' — ' + it.description : ''}`).join('\n');
   const userText = `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"summary", "why"}):\n${numbered}`;
   const fetchText = async () => {
@@ -186,41 +190,60 @@ async function summarizeBatch(apiKey, batch) {
       return j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
     }
   };
+  const parseOut = (text) => {
+    const arr = parseJsonArray(text);
+    if (!Array.isArray(arr) || arr.length !== batch.length) throw new Error('Model trả JSON không đúng số lượng');
+    // Chuẩn mới: mỗi phần tử là {summary, why}. Dung sai: chuỗi thuần (dạng cũ)
+    // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
+    // mất cả loạt tóm tắt. stripAdvice(): trường nào lọt ngôn ngữ gợi ý đầu tư
+    // thì để trống.
+    return arr.map((el) => {
+      if (typeof el === 'string') return { summary: stripAdvice(trimSummary(el)), why: '' };
+      if (el && typeof el === 'object') {
+        return { summary: stripAdvice(trimSummary(el.summary)), why: stripAdvice(trimWhy(el.why)) };
+      }
+      return { summary: '', why: '' };
+    });
+  };
   // Model mở đôi khi trả JSON lỗi (dấu ngoặc thiếu, chuỗi chưa đóng) — thử
   // lại 1 lần thì thường trả đúng; không để 1 lần lỗi làm mất cả batch 5 tin
   // (đã xảy ra thật 18/11: batch 1 lỗi JSON, mất 5/18 tin).
+  let out = null;
   let lastErr = null;
   for (let attempt = 1; attempt <= 2; attempt++) {
-    let text = '';
     try {
-      text = await fetchText();
+      out = parseOut(await fetchText());
+      break;
     } catch (e) {
       lastErr = e;
-      if (attempt < 2) { console.warn(`Batch lỗi lần ${attempt}: ${e.message || e} — chờ 15s thử lại.`); await sleep(15000); continue; }
-      throw e;
-    }
-    try {
-      const arr = parseJsonArray(text);
-      if (!Array.isArray(arr) || arr.length !== batch.length) throw new Error('Model trả JSON không đúng số lượng');
-      // Chuẩn mới: mỗi phần tử là {summary, why}. Dung sai: chuỗi thuần (dạng cũ)
-      // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
-      // mất cả loạt tóm tắt. stripAdvice(): trường nào lọt ngôn ngữ gợi ý đầu tư
-      // thì để trống.
-      return arr.map((el) => {
-        if (typeof el === 'string') return { summary: stripAdvice(trimSummary(el)), why: '' };
-        if (el && typeof el === 'object') {
-          return { summary: stripAdvice(trimSummary(el.summary)), why: stripAdvice(trimWhy(el.why)) };
-        }
-        return { summary: '', why: '' };
-      });
-    } catch (e) {
-      lastErr = e;
-      console.warn(`Batch trả JSON lỗi lần ${attempt}: ${e.message || e}`);
+      console.warn(`Batch lỗi lần ${attempt}: ${e.message || e}`);
       if (attempt < 2) { console.warn('Thử lại batch này 1 lần.'); await sleep(15000); continue; }
       throw lastErr;
     }
   }
-  throw lastErr || new Error('Không tóm tắt được batch');
+  // Sửa từng tin lỗi ngôn ngữ thay vì bỏ cả batch: gom các tin trả không phải
+  // tiếng Việt, hỏi lại riêng 1 lần (sau 15s, tôn trọng giới hạn Pollinations);
+  // vẫn lỗi thì để trống tin đó, giữ nguyên các tin tốt. (Thử thật 18/11:
+  // batch Nvidia lỗi ngôn ngữ cả 2 lần thử lại — bỏ cả batch thì mất 4 tin tốt.)
+  const badIdx = [];
+  out.forEach((p, k) => { if (!looksVietnamese(p.summary) || !looksVietnamese(p.why)) badIdx.push(k); });
+  if (allowRepair && badIdx.length > 0) {
+    console.warn(`Batch có ${badIdx.length}/${batch.length} tin không phải tiếng Việt — hỏi lại riêng.`);
+    await sleep(15000);
+    try {
+      const sub = await summarizeBatch(apiKey, badIdx.map((k) => batch[k]), false);
+      badIdx.forEach((k, j) => {
+        const p = sub[j];
+        out[k] = (!looksVietnamese(p.summary) || !looksVietnamese(p.why)) ? { summary: '', why: '' } : p;
+      });
+    } catch (e) {
+      console.warn(`Hỏi lại vẫn lỗi (${e.message || e}) — để trống ${badIdx.length} tin này.`);
+      badIdx.forEach((k) => { out[k] = { summary: '', why: '' }; });
+    }
+  } else if (badIdx.length > 0) {
+    badIdx.forEach((k) => { out[k] = { summary: '', why: '' }; });
+  }
+  return out;
 }
 
 async function main() {
@@ -268,6 +291,9 @@ async function main() {
     if (i + BATCH < items.length) await sleep(15000);
   }
   items.forEach((it, i) => { if (GROUPS.includes(it.group)) groups[it.group].push(base(it, pairs[i])); });
+  // Đếm lại theo tóm tắt THẬT (sửa từng tin lỗi có thể để trống 1-2 tin
+  // trong batch thành công — không đếm batch thành công thành tin có tóm tắt).
+  okCount = pairs.filter((p) => p.summary).length;
   // summarized chỉ true khi CÓ tóm tắt thật (trước đây ghi true cả khi 0/18).
   await writeFile(join(DATA_DIR, 'news.json'), JSON.stringify({
     updatedAt: new Date().toISOString(), summarized: okCount > 0,

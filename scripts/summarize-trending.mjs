@@ -116,6 +116,14 @@ function parseJsonArray(text) {
     throw new Error('Không bóc được mảng JSON từ kết quả model');
   }
 }
+// Kiểm tra tiếng Việt: dòng tiếng Việt gần như luôn có dấu (trong, trình,
+// duyệt, hiển thị...). Model mở đôi khi trả lại nguyên mô tả tiếng Anh —
+// thử lại 1 lần, vẫn lỗi thì để trống (trang hiện mô tả tiếng Anh gốc).
+const VI_DIACRITIC = /[àáảãạăắằẳẵặâấầẩẫậèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵđ]/i;
+function looksVietnamese(t) {
+  return !t || VI_DIACRITIC.test(t);
+}
+
 const MAX_LEN = 120;
 
 function trimPurpose(s) {
@@ -135,7 +143,7 @@ const SYSTEM_PROMPT = [
   '4. Trả về DUY NHẤT một mảng JSON, mỗi phần tử là một đối tượng {"purpose": "<dòng tiếng Việt hoặc chuỗi rỗng>"}, theo ĐÚNG thứ tự repo đầu vào, không thêm chữ nào ngoài JSON.',
 ].join('\n');
 
-async function summarizeBatch(apiKey, items) {
+async function summarizeBatch(apiKey, items, allowRepair = true) {
   const numbered = items.map((it, i) => {
     const lang = it.language ? ` [${it.language}]` : '';
     const desc = it.description ? ` — ${it.description}` : '';
@@ -163,35 +171,50 @@ async function summarizeBatch(apiKey, items) {
       return j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
     }
   };
+  const parseOut = (text) => {
+    const arr = parseJsonArray(text);
+    if (!Array.isArray(arr) || arr.length !== items.length) throw new Error('Model trả JSON không đúng số lượng');
+    return arr.map((el) => {
+      if (typeof el === 'string') return trimPurpose(el);
+      if (el && typeof el === 'object') return trimPurpose(el.purpose);
+      return '';
+    });
+  };
   // Chỉ 1 batch duy nhất — JSON lỗi 1 lần là mất cả 6 dòng tiếng Việt nên
   // thử lại 1 lần trước khi bỏ (model mở đôi khi trả JSON lỗi, thử lại
   // thường trả đúng).
+  let out = null;
   let lastErr = null;
   for (let attempt = 1; attempt <= 2; attempt++) {
-    let text = '';
     try {
-      text = await fetchText();
+      out = parseOut(await fetchText());
+      break;
     } catch (e) {
       lastErr = e;
-      if (attempt < 2) { console.warn(`Lỗi lần ${attempt}: ${e.message || e} — chờ 15s thử lại.`); await sleep(15000); continue; }
-      throw e;
-    }
-    try {
-      const arr = parseJsonArray(text);
-      if (!Array.isArray(arr) || arr.length !== items.length) throw new Error('Model trả JSON không đúng số lượng');
-      return arr.map((el) => {
-        if (typeof el === 'string') return trimPurpose(el);
-        if (el && typeof el === 'object') return trimPurpose(el.purpose);
-        return '';
-      });
-    } catch (e) {
-      lastErr = e;
-      console.warn(`Trả JSON lỗi lần ${attempt}: ${e.message || e}`);
+      console.warn(`Lỗi lần ${attempt}: ${e.message || e}`);
       if (attempt < 2) { console.warn('Thử lại 1 lần.'); await sleep(15000); continue; }
       throw lastErr;
     }
   }
-  throw lastErr || new Error('Không viết được dòng tiếng Việt');
+  // Sửa từng repo lỗi ngôn ngữ thay vì bỏ cả batch: hỏi lại riêng các repo
+  // đó 1 lần (sau 15s); vẫn lỗi thì để trống repo đó (trang hiện mô tả
+  // tiếng Anh gốc), giữ các repo tốt.
+  const badIdx = [];
+  out.forEach((p, k) => { if (!looksVietnamese(p)) badIdx.push(k); });
+  if (allowRepair && badIdx.length > 0) {
+    console.warn(`Có ${badIdx.length}/${items.length} dòng không phải tiếng Việt — hỏi lại riêng.`);
+    await sleep(15000);
+    try {
+      const sub = await summarizeBatch(apiKey, badIdx.map((k) => items[k]), false);
+      badIdx.forEach((k, j) => { out[k] = looksVietnamese(sub[j]) ? sub[j] : ''; });
+    } catch (e) {
+      console.warn(`Hỏi lại vẫn lỗi (${e.message || e}) — để trống ${badIdx.length} dòng này.`);
+      badIdx.forEach((k) => { out[k] = ''; });
+    }
+  } else if (badIdx.length > 0) {
+    badIdx.forEach((k) => { out[k] = ''; });
+  }
+  return out;
 }
 
 async function main() {

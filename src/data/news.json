@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-11-18T05:40:26.297Z",
+  "updatedAt": "2026-11-18T05:45:15.888Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
         "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
-        "summary": "Nvidia’s private investment value rose to $65B, tripling in nine months, driven by Jensen Huang’s dealmaking and higher valuations of portfolio companies.",
-        "why": "Giá trị đầu tư riêng của Nvidia tăng, ảnh hưởng tới giá cổ phiếu và tiềm năng tài chính cho các công ty công nghệ Việt Nam.",
+        "summary": "",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 01:44:21 +0000"
