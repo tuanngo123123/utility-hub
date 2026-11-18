@@ -669,14 +669,14 @@ export const ARTICLES = [
   {
     slug: 'cach-tra-cuu-phat-nguoi-2026',
     title: 'Cách tra cứu phạt nguội 2026',
-    desc: 'Tra cứu phạt nguội miễn phí qua app VNeTraffic, website Cục CSGT csgt.vn hoặc Cục Đăng kiểm — và cách nhận biết tin nhắn phạt nguội giả mạo.',
+    desc: 'Tra cứu phạt nguội miễn phí qua app VNeTraffic, trang tra cứu của Cục CSGT hoặc Cục Đăng kiểm — và cách nhận biết tin nhắn phạt nguội giả mạo.',
     date: '18/11/2026',
     cta: {
-      url: 'https://www.csgt.vn',
+      url: 'https://csgt.bocongan.gov.vn/tra-cuu-phat-nguoi',
       label: 'Tra cứu trên trang Cục CSGT →',
-      text: 'Trang chính thức của Cục Cảnh sát giao thông — tra cứu miễn phí, không cần đăng ký tài khoản.',
+      text: 'Trang tra cứu phạt nguội chính thức của Cục Cảnh sát giao thông — miễn phí.',
     },
-    sources: 'Thông tư 73/2024/TT-BCA (quy trình xử lý vi phạm qua hình ảnh, thời hạn cập nhật dữ liệu); Nghị định 168/2024/NĐ-CP (mức phạt giao thông từ 01/01/2025); ứng dụng VNeTraffic của Bộ Công an; website Cục CSGT csgt.vn; website Cục Đăng kiểm vr.org.vn.',
+    sources: 'Thông tư 73/2024/TT-BCA (quy trình xử lý vi phạm qua hình ảnh, thời hạn cập nhật dữ liệu); Nghị định 168/2024/NĐ-CP (mức phạt giao thông từ 01/01/2025); ứng dụng VNeTraffic của Bộ Công an; trang tra cứu phạt nguội của Cục CSGT (csgt.bocongan.gov.vn); website Cục Đăng kiểm vr.org.vn.',
     body: `
 <p>Phạt nguội là hình thức xử phạt vi phạm giao thông qua hình ảnh camera — bạn không bị dừng xe tại chỗ mà nhận thông báo sau. Trước khi đi đăng kiểm hoặc mua xe cũ, nên tra cứu để biết xe có vi phạm chưa xử lý hay không. Bài này hướng dẫn 3 cách tra cứu chính thức, miễn phí.</p>
 <nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
@@ -699,7 +699,7 @@ export const ARTICLES = [
 </ol>
 <p>Kết quả hiện lỗi vi phạm, thời gian, địa điểm và đơn vị xử lý (nếu có). App còn cho phép nhận thông báo khi xe phát sinh vi phạm mới.</p>
 <h2 id="csgt">Cách 2: website Cục CSGT</h2>
-<p>Mở trang <strong>csgt.vn</strong> của Cục Cảnh sát giao thông, vào mục <strong>Tra cứu phương tiện vi phạm giao thông qua hình ảnh</strong>. Nhập biển số xe, chọn loại phương tiện (ô tô, xe máy, xe đạp điện) và nhập mã xác thực, rồi bấm tra cứu. Cách này không cần đăng ký tài khoản, dùng được cả trên máy tính lẫn điện thoại.</p>
+<p>Mở thẳng <a href="https://csgt.bocongan.gov.vn/tra-cuu-phat-nguoi">trang Tra cứu phạt nguội</a> của Cục Cảnh sát giao thông (cổng mới csgt.bocongan.gov.vn — địa chỉ cũ csgt.vn giờ chuyển về đây). Chọn loại phương tiện (ô tô, xe máy, xe đạp điện), nhập biển số xe rồi bấm tra cứu; hệ thống có thể yêu cầu xác thực qua VNeTraffic khi tra cứu. Cách này dùng được cả trên máy tính lẫn điện thoại.</p>
 <h2 id="dang-kiem">Cách 3: website Cục Đăng kiểm</h2>
 <p>Trang <strong>vr.org.vn</strong> của Cục Đăng kiểm Việt Nam cũng có mục tra cứu vi phạm — kênh bổ sung hữu ích, nhất là trước khi đưa xe đi đăng kiểm. Nếu xe có vi phạm chưa xử lý, hệ thống đăng kiểm sẽ từ chối đăng kiểm cho tới khi bạn xử lý xong.</p>
 <h2 id="bao-lau-co">Vi phạm bao lâu thì tra được</h2>
@@ -710,7 +710,7 @@ export const ARTICLES = [
 <ul>
 <li><strong>Bộ Công an đã cảnh báo tin nhắn phạt nguội giả mạo:</strong> kẻ lừa đảo nhắn tin giả danh công an, kèm link lạ yêu cầu nộp phạt hoặc nhập thông tin ngân hàng để chiếm đoạt tiền.</li>
 <li><strong>Cơ quan công an không gửi link nộp phạt qua tin nhắn.</strong> Mọi thông báo chính thức đều bằng văn bản giấy gửi về địa chỉ đăng ký xe.</li>
-<li><strong>Chỉ tự gõ địa chỉ chính thức</strong> (csgt.vn, vr.org.vn) hoặc dùng app VNeTraffic — không bấm link trong tin nhắn lạ, dù tin nhắn đó ghi đúng biển số xe của bạn.</li>
+<li><strong>Chỉ tự gõ địa chỉ chính thức</strong> (csgt.bocongan.gov.vn, vr.org.vn) hoặc dùng app VNeTraffic — không bấm link trong tin nhắn lạ, dù tin nhắn đó ghi đúng biển số xe của bạn.</li>
 <li><strong>Tra cứu chính thức luôn miễn phí.</strong> Trang nào đòi tiền để tra cứu phạt nguội thì không phải trang chính thức.</li>
 </ul>`,
   },
