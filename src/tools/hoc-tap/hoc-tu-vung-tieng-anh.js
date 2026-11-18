@@ -27,9 +27,10 @@ export function body() {
       <button type="button" class="tab" data-set="0" id="tv-set-all">Tất cả</button>
     </div>
   </div>
-  <div class="field">
-    <div class="result-row"><span id="tv-progress-text">Đã học 0/100 từ</span><span id="tv-session">Phiên này: 0 đúng · 0 sai</span></div>
-    <div class="progress-bar"><div class="progress-fill" id="tv-progress-fill"></div></div>
+  <div class="field tv-progress">
+    <div class="tv-progress-top"><span id="tv-progress-text">Đã học 0/100 từ</span><span id="tv-progress-pct">0%</span></div>
+    <div class="tv-bar"><div class="tv-bar-fill" id="tv-progress-fill"></div></div>
+    <div class="tv-session" id="tv-session"><span class="tv-pill tv-pill-ok">✓ 0 đúng</span><span class="tv-pill tv-pill-bad">✗ 0 sai</span></div>
   </div>
   <div class="tabs">
     <button type="button" class="tab tab-active" id="tv-mode-flash">Thẻ từ</button>
@@ -130,9 +131,11 @@ export function init(root) {
     const set = currentSet();
     let n = 0;
     for (const w of set) if (remembered[mode].has(w.w)) n++;
+    const pct = set.length ? Math.round(n / set.length * 100) : 0;
     $('tv-progress-text').textContent = 'Đã học ' + n + '/' + set.length + ' từ';
-    $('tv-progress-fill').style.width = (set.length ? Math.round(n / set.length * 100) : 0) + '%';
-    $('tv-session').textContent = 'Phiên này: ' + session.dung + ' đúng · ' + session.sai + ' sai';
+    $('tv-progress-pct').textContent = pct + '%';
+    $('tv-progress-fill').style.width = pct + '%';
+    $('tv-session').innerHTML = '<span class="tv-pill tv-pill-ok">✓ ' + session.dung + ' đúng</span><span class="tv-pill tv-pill-bad">✗ ' + session.sai + ' sai</span>';
   }
 
   function speak(text) {
