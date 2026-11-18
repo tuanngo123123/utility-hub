@@ -200,36 +200,6 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
     ? trendingItems.slice(0, 6).map(trendingRowHtml).join('')
     : '<p class="muted">Chưa có dữ liệu — dữ liệu làm mới hằng ngày.</p>';
 
-  // Khung xem trước công cụ dưới hero (vòng 3): nhúng CÔNG CỤ THẬT
-  // "Tính lương Gross ⇄ Net" — bodyHtml + initSource lấy từ ctx.tools
-  // (build.mjs đã truyền sẵn), không nhân đôi logic tính, không sửa build.
-  // Không tìm thấy tool thì khung tự biến mất (không vỡ trang chủ).
-  const lggn = tools.find((t) => t.slug === 'luong-gross-net');
-  const previewFrameHtml = lggn ? `
-    <div class="preview-frame" aria-label="Xem trước công cụ Tính lương Gross ⇄ Net">
-      <div class="preview-titlebar">
-        <span class="preview-dots" aria-hidden="true">
-          <span class="preview-dot preview-dot-red"></span>
-          <span class="preview-dot preview-dot-yellow"></span>
-          <span class="preview-dot preview-dot-green"></span>
-        </span>
-        <p class="preview-title">💰 Tính lương Gross ⇄ Net</p>
-        <span class="preview-titlebar-spacer" aria-hidden="true"></span>
-      </div>
-      <div class="preview-body">
-        <div id="preview-tool-root">${lggn.bodyHtml}</div>
-      </div>
-      <div class="preview-footer">
-        <a class="btn btn-primary" href="/cong-cu/luong-gross-net/">Dùng thử →</a>
-      </div>
-    </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var root = document.getElementById('preview-tool-root');
-        (${lggn.initSource.replace(/<\/script/gi, '<\\/script')})(root);
-      });
-    </script>` : '';
-
   return `
   <section class="hero">
     <div class="hero-inner">
@@ -240,7 +210,6 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
       <a class="btn btn-primary" href="/cong-cu/">Chọn công cụ, dùng ngay</a>
       <a class="btn btn-ghost" href="/cong-cu/">Xem tất cả công cụ</a>
     </div>
-    ${previewFrameHtml}
     <div class="hero-search-wrap">
       <label class="small muted" for="hero-search">Tìm công cụ</label>
       <input type="search" id="hero-search" class="hero-search" placeholder="Tìm công cụ… ví dụ: tính lương net" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="hero-search-results">
