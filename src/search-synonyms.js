@@ -272,6 +272,11 @@ export const SYNONYMS = {
   'deadline': ['ngay-thang-han-chot'],
   'cộng ngày': ['ngay-thang-han-chot'],
 
+  'chat ai': ['tro-chuyen-ai'],
+  'trò chuyện ai': ['tro-chuyen-ai'],
+  'hỏi ai': ['tro-chuyen-ai'],
+  'chatbot': ['tro-chuyen-ai'],
+
   // Đổi đơn vị
   'đổi đơn vị': ['doi-don-vi-nhanh', 'dat-dai', 'don-vi-nau-an'],
   'đổi độ f': ['doi-don-vi-nhanh', 'don-vi-nau-an'],
