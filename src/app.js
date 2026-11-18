@@ -480,6 +480,7 @@
     setupHomeFilter();
     setupTabs();
     setupCopyButtons();
+    setupPrintButtons();
     initHomNayTitle();
     initCrypto();
     initGold();
@@ -1309,6 +1310,17 @@
         copyText(value).then(function (ok) {
           toast(ok ? msg : 'Không chép được — hãy chép tay');
         });
+      });
+    });
+  }
+
+  /* Nút in chung: [data-print] — dùng cho nút "In mẫu" trên trang mẫu
+     sinh viên (/sinh-vien/<mau>/). CSS @media print trong style.css ẩn
+     header/footer/nav/nút khi in, chỉ in nội dung mẫu. */
+  function setupPrintButtons() {
+    $all('[data-print]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        window.print();
       });
     });
   }

@@ -6,7 +6,7 @@
 //  - canonical: URL tuyệt đối của trang
 //  - body: HTML nội dung trong <main>
 //  - extraHead: HTML thêm vào <head> (nếu cần)
-//  - navActive: 'home' | 'cong-cu' | 'code-mau' | 'ung-ho' | '' — tô sáng mục nav tương ứng
+//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'code-mau' | 'ung-ho' | '' — tô sáng mục nav tương ứng
 //  - noscriptLinks: HTML danh sách link công cụ cho khối <noscript> (build.mjs sinh;
 //    để trống thì chỉ hiện thông báo, không có danh sách)
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
@@ -88,6 +88,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
         <a href="/" class="${active('home') ? 'nav-active' : ''}">Trang chủ</a>
         <a href="/cong-cu/" class="${active('cong-cu') ? 'nav-active' : ''}">Công cụ</a>
+        <a href="/sinh-vien/" class="${active('sinh-vien') ? 'nav-active' : ''}">Sinh viên</a>
         <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
         <a href="/#diem-bao">Điểm báo</a>
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
@@ -138,6 +139,7 @@ ${body}
   <nav class="bottom-nav" aria-label="Điều hướng dưới cùng">
     <a href="/" class="${navActive === 'home' ? 'bottom-nav-active' : ''}">Trang chính</a>
     <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}">Công cụ</a>
+    <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}">Sinh viên</a>
     <a href="/code-mau/" class="${navActive === 'code-mau' ? 'bottom-nav-active' : ''}">Code mẫu</a>
     <a href="/#diem-bao">Điểm báo</a>
     <a href="/ung-ho/" class="${navActive === 'ung-ho' ? 'bottom-nav-active' : ''}">Ủng hộ</a>

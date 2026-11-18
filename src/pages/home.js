@@ -259,6 +259,16 @@ ${railHtml}
     </div>
   </section>
 
+  <section class="sv-promo" aria-label="Dành cho sinh viên">
+    <div class="sv-promo-inner">
+      <div>
+        <h2>Dành cho sinh viên</h2>
+        <p class="muted">Khóa học miễn phí, mẫu CV/báo cáo, ưu đãi phần mềm — gom một chỗ, chỉ link nguồn chính thức.</p>
+      </div>
+      <a class="btn btn-primary" href="/sinh-vien/">Xem ngay →</a>
+    </div>
+  </section>
+
   <section class="section section-strips" aria-label="Dữ liệu hôm nay">
     <p class="strip-date muted" id="hom-nay-title">Hôm nay</p>
     <div class="strip-grid">

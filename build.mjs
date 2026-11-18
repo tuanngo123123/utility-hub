@@ -24,6 +24,8 @@ import { SYNONYMS } from './src/search-synonyms.js';
 import * as homePage from './src/pages/home.js';
 import * as catalogPage from './src/pages/cong-cu.js';
 import * as codeMauPage from './src/pages/code-mau.js';
+import * as sinhVienPage from './src/pages/sinh-vien.js';
+import { TEMPLATES as SINH_VIEN_TEMPLATES } from './src/pages/sinh-vien-data.js';
 import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
@@ -634,6 +636,52 @@ async function main() {
     );
   }
   console.log(`   - Code mẫu: ${codeSamples.length} mẫu, ${codeSamples.length + 1} trang`);
+
+  // Trang Sinh viên: trang chính + 8 trang mẫu biểu tự viết (đều vào
+  // sitemap). Dữ liệu từ src/pages/sinh-vien-data.js (theo báo cáo nghiên
+  // cứu đã kiểm chứng 18/11/2026). Mẫu biểu KHÔNG phải công cụ.
+  const sinhVienSlugs = new Set();
+  for (const t of SINH_VIEN_TEMPLATES) {
+    if (!t.slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(t.slug)) {
+      fail(`sinh-vien-data.js: slug mẫu "${t.slug}" không hợp lệ — chỉ dùng chữ thường a-z, số 0-9 và dấu gạch ngang.`);
+    }
+    if (sinhVienSlugs.has(t.slug)) fail(`sinh-vien-data.js: slug mẫu "${t.slug}" bị trùng.`);
+    sinhVienSlugs.add(t.slug);
+    for (const f of ['title', 'desc', 'body']) {
+      if (!t[f] || typeof t[f] !== 'string') {
+        fail(`sinh-vien-data.js: mẫu "${t.slug}" thiếu trường "${f}".`);
+      }
+    }
+  }
+  addPage(
+    'sinh-vien/index.html',
+    shell({
+      title: `Dành cho sinh viên — Khóa học miễn phí, mẫu CV/báo cáo, ưu đãi phần mềm | ${SITE_NAME}`,
+      desc: 'Dành cho sinh viên: khóa học miễn phí (freeCodeCamp, MIT OCW, Khan Academy, VMOOCs…), 8 mẫu CV/đơn/báo cáo tự viết, ưu đãi GitHub, JetBrains, Figma, Notion, Spotify Student và công cụ học tập.',
+      keywords: 'sinh viên, khóa học miễn phí, mẫu CV, báo cáo thực tập, ưu đãi sinh viên, GitHub Student Pack',
+      canonical: `${BASE_URL}/sinh-vien/`,
+      navActive: 'sinh-vien',
+      body: sinhVienPage.body(ctx),
+      noscriptLinks,
+    }),
+    `${BASE_URL}/sinh-vien/`
+  );
+  for (const t of SINH_VIEN_TEMPLATES) {
+    addPage(
+      `sinh-vien/${t.slug}/index.html`,
+      shell({
+        title: `${t.title} — Dành cho sinh viên | ${SITE_NAME}`,
+        desc: t.desc,
+        keywords: `sinh viên, ${t.title}`,
+        canonical: `${BASE_URL}/sinh-vien/${t.slug}/`,
+        navActive: 'sinh-vien',
+        body: sinhVienPage.detailBody({ template: t, templates: SINH_VIEN_TEMPLATES }),
+        noscriptLinks,
+      }),
+      `${BASE_URL}/sinh-vien/${t.slug}/`
+    );
+  }
+  console.log(`   - Sinh viên: ${SINH_VIEN_TEMPLATES.length} mẫu, ${SINH_VIEN_TEMPLATES.length + 1} trang`);
 
   // Trang lưu trữ Điểm báo theo ngày (mới nhất trước)
   const newsByDay = loadNewsByDay();
