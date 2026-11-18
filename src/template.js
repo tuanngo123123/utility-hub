@@ -51,7 +51,7 @@ const OG_IMAGE = 'https://tienichhub.io.vn/assets/og-image.png';
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
 
-export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [], hideChat = false }) {
+export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [], hideChat = false, hideChrome = false }) {
   const active = (key) => (navActive === key ? ' nav-active' : '');
   const keywordsMeta = keywords ? `\n  <meta name="keywords" content="${keywords}">` : '';
   const categoryLinks = CATEGORIES.map((c) => `<a href="/cong-cu/?cat=${c.slug}">${c.label}</a>`).join('\n        ');
@@ -93,30 +93,10 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
       <p class="aiw-full"><a href="/cong-cu/tro-chuyen-ai/">Mở trang chat đầy đủ →</a></p>
     </section>
   </div>`;
-  return `<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${title}</title>
-  <meta name="description" content="${desc}">${keywordsMeta}
-  <link rel="canonical" href="${canonical}">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="${SITE_NAME}">
-  <meta property="og:title" content="${title}">
-  <meta property="og:description" content="${desc}">
-  <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${OG_IMAGE}">
-  <meta property="og:locale" content="vi_VN">
-  <meta name="theme-color" content="#0033FF">
-  ${FAVICON_LINKS}
-  ${THEME_BOOT}
-  <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}
-  <script src="/assets/app.js" defer></script>
-  ${extraHead}
-</head>
-<body>
-  <a class="skip-link" href="#main-content">Bỏ qua tới nội dung chính</a>
+  // Trang ứng dụng toàn màn hình (Bàn giáo viên, MẪU 1): không có
+  // header/footer/thanh đáy của site — trang tự có thanh trên riêng.
+  // Mặc định các trang khác vẫn có đủ khung site.
+  const siteHeader = hideChrome ? '' : `
   <header class="site-header" id="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="/" aria-label="Tiện Ích Hub — trang chủ"><span class="brand-logo-wrap"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30"><span class="brand-dot" aria-hidden="true"></span></span><span class="brand-name">Tiện Ích <span>Hub</span></span></a>
@@ -140,13 +120,8 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">☰</button>
       </div>
     </div>
-  </header>
-${noscriptBlock}
-
-  <main class="wrap main" id="main-content">
-${body}
-  </main>
-
+  </header>`;
+  const siteFooter = hideChrome ? '' : `
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <p class="footer-brand">${SITE_NAME} — công cụ miễn phí, chạy ngay trên trình duyệt của bạn.</p>
@@ -187,7 +162,37 @@ ${body}
     <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Công cụ</span></a>
     <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 8.5 12 13l10-4.5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg><span>Sinh viên</span></a>
     <a href="/diem-bao/" class="${navActive === 'diem-bao' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h10M7 16h7"/></svg><span>Điểm báo</span></a>
-  </nav>
+  </nav>`;
+  return `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title}</title>
+  <meta name="description" content="${desc}">${keywordsMeta}
+  <link rel="canonical" href="${canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${SITE_NAME}">
+  <meta property="og:title" content="${title}">
+  <meta property="og:description" content="${desc}">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${OG_IMAGE}">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="theme-color" content="#0033FF">
+  ${FAVICON_LINKS}
+  ${THEME_BOOT}
+  <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}
+  <script src="/assets/app.js" defer></script>
+  ${extraHead}
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Bỏ qua tới nội dung chính</a>${siteHeader}
+${noscriptBlock}
+
+  <main class="wrap main" id="main-content">
+${body}
+  </main>
+${siteFooter}
 ${chatWidget}
   <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).
        (Chính sách bảo mật mục 11 đã mô tả dịch vụ này: không cookie, không thu thập

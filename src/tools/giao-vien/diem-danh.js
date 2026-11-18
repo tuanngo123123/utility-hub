@@ -201,6 +201,10 @@ export function init(root) {
     }
     saveMarks();
     render();
+    // Vắng đổi ở đây phải hiện ngay ở ngăn Danh sách lớp + số Có mặt.
+    if (typeof window !== 'undefined' && window.UhGvApp && typeof window.UhGvApp.refresh === 'function') {
+      window.UhGvApp.refresh();
+    }
   });
 
   $('dd-class').addEventListener('change', () => { loadMarks(); render(); });
@@ -214,6 +218,9 @@ export function init(root) {
     marks = {};
     saveMarks();
     render();
+    if (typeof window !== 'undefined' && window.UhGvApp && typeof window.UhGvApp.refresh === 'function') {
+      window.UhGvApp.refresh();
+    }
   });
 
   $('dd-download').addEventListener('click', () => {

@@ -1,5 +1,12 @@
 Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
 
+Be Vietnam Pro (BeVietnamPro-*.woff2): Copyright 2021 The Be Vietnam Pro
+Project Authors (https://github.com/bettergui/BeVietnamPro) — cũng cấp phép
+SIL Open Font License, Version 1.1 (bản quyền đầy đủ bên dưới). File woff2
+lấy từ Google Fonts API 19/11/2026 (bản build chính thức của repo
+google/fonts, ofl/bevietnampro), trọng lượng 400/500/600/700/800, subset
+latin + vietnamese. Dùng cho Bàn giáo viên (MẪU 1).
+
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:
 http://scripts.sil.org/OFL

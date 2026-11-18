@@ -413,21 +413,30 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // Công cụ Giáo viên: nút mở trong Bàn giáo viên (1 trang app gom cả
   // 10 công cụ + quản lý lớp, dùng cả tiết trên máy chiếu) — đặt nổi
   // bật ngay đầu khung công cụ, mở đúng tab của công cụ này.
+  // MẪU 1 (19/11): Xúc xắc + Bốc thăm gộp thành 1 tab
+  // 'xuc-xac-boc-so' (Bốc thăm mở đúng ngăn Bốc số qua ?view=boc-so);
+  // Âm thanh không còn là tab (nút nhỏ trên thanh trên) nên nút ở
+  // trang rời mở trang chính của app (tab Lớp học).
   const GV_APP_TABS = {
     'goi-ten-ngau-nhien': 'goi-ten',
     'chia-nhom-ngau-nhien': 'chia-nhom',
-    'tung-xuc-xac-dong-xu': 'xuc-xac',
-    'boc-tham-so': 'boc-tham',
+    'tung-xuc-xac-dong-xu': 'xuc-xac-boc-so',
+    'boc-tham-so': 'xuc-xac-boc-so',
     'bang-diem-lop': 'bang-diem',
-    'am-thanh-lop-hoc': 'am-thanh',
+    'am-thanh-lop-hoc': '',
     'dem-nguoc-lop-hoc': 'dem-nguoc',
     'do-do-on-lop-hoc': 'do-on',
     'diem-danh': 'diem-danh',
     'boc-cau-hoi': 'boc-cau-hoi',
   };
+  const GV_APP_VIEWS = { 'boc-tham-so': 'boc-so' };
   const gvAppTab = GV_APP_TABS[tool.slug];
-  const gvAppHtml = gvAppTab
-    ? `<p class="gv-app-link"><a class="btn btn-primary" href="/giao-vien/lop-hoc/?tab=${gvAppTab}">Mở trong Bàn giáo viên →</a> <span class="muted">Dùng cả tiết trên một trang: gọi tên, chia nhóm, chấm điểm… không cần chuyển trang.</span></p>`
+  const gvAppView = GV_APP_VIEWS[tool.slug] || '';
+  const gvAppHref = gvAppTab === undefined ? ''
+    : gvAppTab === '' ? '/giao-vien/lop-hoc/'
+    : `/giao-vien/lop-hoc/?tab=${gvAppTab}${gvAppView ? `&view=${gvAppView}` : ''}`;
+  const gvAppHtml = gvAppHref
+    ? `<p class="gv-app-link"><a class="btn btn-primary" href="${gvAppHref}">Mở trong Bàn giáo viên →</a> <span class="muted">Dùng cả tiết trên một trang: gọi tên, chia nhóm, chấm điểm… không cần chuyển trang.</span></p>`
     : '';
   const catColor = categoryColor(tool.categorySlug);
   const catColorDark = categoryColorDark(tool.categorySlug);
@@ -984,6 +993,9 @@ async function main() {
       body: giaoVienLopHocPage.body(ctx),
       noscriptLinks,
       hideChat: true,
+      // MẪU 1 (19/11): trang ứng dụng toàn màn hình — không có
+      // header/footer/thanh đáy của site, trang tự có thanh trên riêng.
+      hideChrome: true,
     }),
     `${BASE_URL}/giao-vien/lop-hoc/`
   );
@@ -1015,6 +1027,14 @@ async function main() {
   copyFile('fonts/Inter-var-latin.woff2', 'assets/fonts/Inter-var-latin.woff2');
   copyFile('fonts/Inter-var-vietnamese.woff2', 'assets/fonts/Inter-var-vietnamese.woff2');
   copyFile('fonts/LICENSE.txt', 'assets/fonts/LICENSE.txt');
+  // Font Be Vietnam Pro tự host (MẪU 1, 19/11/2026): woff2 tĩnh theo
+  // trọng lượng 400/500/600/700/800, subset latin + vietnamese — phông
+  // của bộ token chung, chỉ Bàn giáo viên dùng (xem @font-face trong
+  // style.css). Trình duyệt chỉ tải file thực sự dùng trên trang.
+  for (const w of [400, 500, 600, 700, 800]) {
+    copyFile(`fonts/BeVietnamPro-${w}-latin.woff2`, `assets/fonts/BeVietnamPro-${w}-latin.woff2`);
+    copyFile(`fonts/BeVietnamPro-${w}-vietnamese.woff2`, `assets/fonts/BeVietnamPro-${w}-vietnamese.woff2`);
+  }
   copyFile('app.js', 'assets/app.js');
   // Logo + favicon (18/11): file thật để Google đọc được (data URI thì
   // kết quả tìm kiếm chỉ hiện quả cầu mặc định). favicon.ico ở gốc để

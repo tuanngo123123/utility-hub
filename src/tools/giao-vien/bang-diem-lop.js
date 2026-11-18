@@ -171,6 +171,11 @@ export function init(root) {
         + '</div>';
     }).join('');
     updateStage();
+    // Chế độ Cá nhân trong app: điểm sửa ở đây phải hiện ngay ở ngăn
+    // Danh sách lớp (ngăn lớp đọc lại bản ghi lớp, không gọi lại đây).
+    if (IN_APP && mode === 'class' && typeof window !== 'undefined' && window.UhGvApp && typeof window.UhGvApp.refresh === 'function') {
+      window.UhGvApp.refresh();
+    }
   }
 
   function download(filename, text) {
