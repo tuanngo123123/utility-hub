@@ -14,7 +14,7 @@ không CDN/font/thư viện ngoài — mọi thứ gói sẵn trong repo.
 Bố cục khôi phục bản trước đợt 1 (Tuấn thấy đẹp hơn bản wave 1):
 hero (tìm kiếm) + **bảng xếp hạng nằm trong vùng hero ở đầu trang** →
 dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) →
-**Điểm báo** (mục chính) → lưới đủ 101 công cụ → banner Ủng hộ.
+**Điểm báo** (mục chính) → lưới đủ 120 công cụ → banner Ủng hộ.
 Không còn khối “Hôm nay” riêng, hàng “công cụ hay dùng”, thẻ hạng mục
 riêng trên trang chủ (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
 

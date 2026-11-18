@@ -35,7 +35,7 @@ const SITE_NAME = 'Tiện Ích Hub';
 
 // Chỉ copy các file dữ liệu mà trang/công cụ thực sự đọc.
 // (news-raw.json là dữ liệu thô của worker dữ liệu, không đưa lên dist.)
-const DATA_FILES = ['news.json', 'trending.json', 'gold.json', 'fx.json', 'lottery.json', 'crypto.json', 'fng.json'];
+const DATA_FILES = ['news.json', 'trending.json', 'gold.json', 'fx.json', 'lottery.json', 'crypto.json', 'fng.json', 'dia-chi-cu-moi.json'];
 
 function fail(msg) {
   console.error(`\n❌ BUILD LỖI: ${msg}\n`);
@@ -228,6 +228,17 @@ async function loadTools() {
 // ---------------------------------------------------------------------------
 // Trang công cụ
 // ---------------------------------------------------------------------------
+// Thư viện vendor riêng theo trang (mở rộng chung của mẫu needsQR):
+// slug công cụ -> mảng tên file trong src/vendor/ (được copy sang
+// dist/assets/vendor/). Chỉ trang công cụ liệt kê ở đây mới nạp thư viện;
+// trang chủ + các trang khác không nặng thêm.
+const TOOL_VENDOR_SCRIPTS = {
+  'pdf-sang-word': ['pdf.min.js'], // pdf.js — trích văn bản từ PDF
+  'gop-pdf': ['pdf-lib.min.js'], // pdf-lib — gộp PDF
+  'tach-trang-pdf': ['pdf-lib.min.js'], // pdf-lib — tách trang PDF
+  // 'anh-sang-pdf' không cần thư viện: canvas + trình ghi PDF viết tay.
+};
+
 function toolPageHtml(tool, index, noscriptLinks) {
   // init() tự chứa hoàn toàn (không import) nên nhúng được bằng toString().
   // Escape </script> để mã nguồn init không phá vỡ thẻ script.
@@ -272,6 +283,8 @@ function toolPageHtml(tool, index, noscriptLinks) {
     noscriptLinks,
     // Chỉ trang VietQR/WiFi QR cần thư viện qrcode-generator (vẽ mã QR).
     needsQR: tool.slug === 'vietqr-wifi-qr',
+    // Thư viện vendor riêng theo trang (pdf.js / pdf-lib cho các công cụ PDF).
+    vendorScripts: TOOL_VENDOR_SCRIPTS[tool.slug] || [],
   });
 }
 
@@ -480,6 +493,12 @@ async function main() {
   copyFile('app.js', 'assets/app.js');
   copyFile('tool-state.js', 'assets/tool-state.js');
   copyFile('vendor/qrcode-generator.js', 'assets/vendor/qrcode-generator.js');
+  copyFile('vendor/pdf.min.js', 'assets/vendor/pdf.min.js');
+  // File worker của pdf.js: pdf.js tự nạp lúc chạy (Web Worker) khi trích
+  // văn bản — KHÔNG nạp qua thẻ <script>, chỉ cần copy ra dist. Thiếu file
+  // này pdf.js báo lỗi "Setting up fake worker failed" (đã kiểm chứng thật).
+  copyFile('vendor/pdf.worker.min.js', 'assets/vendor/pdf.worker.min.js');
+  copyFile('vendor/pdf-lib.min.js', 'assets/vendor/pdf-lib.min.js');
   for (const f of DATA_FILES) copyFile(`data/${f}`, `data/${f}`);
 
   // Chỉ mục tìm kiếm (sinh từ meta công cụ + bảng đồng nghĩa).

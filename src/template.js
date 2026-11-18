@@ -1,5 +1,5 @@
 // Khung HTML chung cho mọi trang (chỉ chạy lúc build).
-// shell({title, desc, keywords, canonical, body, extraHead, navActive, noscriptLinks, needsQR})
+// shell({title, desc, keywords, canonical, body, extraHead, navActive, noscriptLinks, needsQR, vendorScripts})
 //  - title: tiêu đề đầy đủ cho <title> (đã gồm tên trang)
 //  - desc: meta description + og:description
 //  - keywords: meta keywords (có thể để trống)
@@ -11,6 +11,11 @@
 //    để trống thì chỉ hiện thông báo, không có danh sách)
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
 //    VietQR/WiFi QR và trang Ủng hộ cần (các trang khác không nạp, tiết kiệm ~57 KB)
+//  - vendorScripts: mảng tên file thư viện trong /assets/vendor/ cần nạp riêng
+//    cho trang này (VD: ['pdf-lib.min.js']) — mở rộng chung của mẫu needsQR:
+//    mỗi trang công cụ chỉ nạp đúng thư viện nó dùng, trang chủ không nặng thêm.
+//    File phải có trong src/vendor/ và được build.mjs copy sang dist/
+//    (xem TOOL_VENDOR_SCRIPTS trong build.mjs).
 // Không dùng CDN/font/thư viện ngoài: CSS + JS đều là file nội bộ trong /assets/.
 // Ngân sách hiệu năng (worker W11): 1 CSS (style.css đã gộp effects.css) + 1 JS
 // (app.js đã gộp mascot.js) trên mọi trang; trang từng công cụ nạp thêm
@@ -39,12 +44,15 @@ const FAVICON =
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
 
-export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false }) {
+export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [] }) {
   const active = (key) => (navActive === key ? ' nav-active' : '');
   const keywordsMeta = keywords ? `\n  <meta name="keywords" content="${keywords}">` : '';
   const categoryLinks = CATEGORIES.map((c) => `<a href="/cong-cu/?cat=${c.slug}">${c.label}</a>`).join('\n        ');
   const footerToolLinks = FOOTER_TOOLS.map((t) => `<a href="/cong-cu/${t.slug}/">${t.name}</a>`).join('\n        ');
   const qrScript = needsQR ? '\n  <script src="/assets/vendor/qrcode-generator.js" defer></script>' : '';
+  // Thư viện vendor riêng theo trang (VD: pdf.js/pdf-lib chỉ cho trang PDF) —
+  // defer như QR: chạy xong trước DOMContentLoaded nên init() dùng được ngay.
+  const vendorTags = vendorScripts.map((f) => `\n  <script src="/assets/vendor/${f}" defer></script>`).join('');
   const noscriptBlock = `<noscript>
     <div class="wrap noscript-notice">
       <p><strong>Trang cần JavaScript để dùng đầy đủ công cụ</strong> — dưới đây là danh sách link tới toàn bộ công cụ.</p>
@@ -68,7 +76,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <meta name="theme-color" content="#1e8fe0">
   <link rel="icon" href="${FAVICON}">
   ${THEME_BOOT}
-  <link rel="stylesheet" href="/assets/style.css">${qrScript}
+  <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}
   <script src="/assets/app.js" defer></script>
   ${extraHead}
 </head>
