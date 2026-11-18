@@ -609,7 +609,30 @@
     var cards = $all('.catalog-card', grid);
     var empty = $('#tool-empty');
     var count = $('#tool-count');
+    // Khối thẻ hạng mục + dòng trạng thái lọc: khi đang lọc (chọn hạng mục
+    // hoặc gõ tìm) thì ẩn 11 thẻ hạng mục để kết quả nhảy lên ngay đầu
+    // trang, khỏi bắt người dùng kéo qua cả dãy thẻ mới thấy thứ cần tìm.
+    var catSection = $('#cat-section');
+    var chipRow = $('#filter-chips');
+    var statusLine = $('#filter-status');
+    var statusText = $('#filter-status-text');
+    var clearBtn = $('#filter-clear');
+    var origCountText = count ? count.textContent : '';
     var activeCat = 'all';
+
+    // Đồng bộ URL với trạng thái lọc hiện tại (replaceState, không thêm
+    // lịch sử) để link lọc chia sẻ được và tải lại trang không bị lệch.
+    function syncUrl() {
+      try {
+        if (!window.history || !window.history.replaceState) return;
+        var p = new URLSearchParams();
+        if (activeCat !== 'all') p.set('cat', activeCat);
+        var qv = input.value.trim();
+        if (qv) p.set('q', qv);
+        var qs = p.toString();
+        window.history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : ''));
+      } catch (e) { /* trình duyệt cũ: bỏ qua */ }
+    }
 
     // Chuẩn hóa trước văn bản của mỗi thẻ để gõ tìm được nhanh (dự phòng
     // khi không có chỉ mục) + nhớ slug/thứ tự gốc để xếp hạng/khôi phục.
@@ -657,7 +680,28 @@
         });
       }
       if (empty) empty.hidden = shown !== 0;
-      if (count) count.textContent = shown + ' công cụ';
+      // Đang lọc thì ẩn dãy thẻ hạng mục (kết quả lên ngay đầu trang) và
+      // hiện dòng trạng thái "Học tập — 9 công cụ" + nút Xóa lọc; hết lọc
+      // thì trả lại câu đếm gốc + hiện lại thẻ hạng mục.
+      var filterActive = activeCat !== 'all' || q !== '';
+      if (catSection) catSection.hidden = filterActive;
+      if (count) count.textContent = filterActive ? (shown + ' công cụ') : origCountText;
+      if (statusLine && statusText) {
+        if (filterActive) {
+          var parts = [];
+          if (activeCat !== 'all') {
+            var activeChip = document.querySelector('.chip[data-filter="' + activeCat + '"]');
+            if (activeChip) parts.push(activeChip.textContent.trim());
+          }
+          var qv = input.value.trim();
+          if (qv) parts.push('“' + qv + '”');
+          statusText.textContent = (parts.length ? parts.join(' · ') + ' — ' : '') + shown + ' công cụ';
+          statusLine.hidden = false;
+        } else {
+          statusLine.hidden = true;
+        }
+      }
+      syncUrl();
     }
 
     function onInput() {
@@ -681,12 +725,28 @@
       });
     });
 
+    // Nút "Xóa lọc": về Tất cả + xóa ô tìm + hiện lại thẻ hạng mục.
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        activeCat = 'all';
+        input.value = '';
+        $all('.chip[data-filter]').forEach(function (c) {
+          var isAll = c.getAttribute('data-filter') === 'all';
+          c.setAttribute('aria-pressed', isAll ? 'true' : 'false');
+          c.classList.toggle('chip-active', isAll);
+        });
+        applyFilter();
+        window.scrollTo(0, 0);
+      });
+    }
+
     // Đọc tham số URL: ?q=<từ khóa> điền ô tìm kiếm + lọc ngay;
     // ?cat=<slug> chọn chip hạng mục + lọc ngay. Slug lạ thì bỏ qua.
+    var fromUrlFilter = false;
     try {
       var params = new URLSearchParams(window.location.search);
       var q = params.get('q');
-      if (q) input.value = q;
+      if (q) { input.value = q; fromUrlFilter = true; }
       var cat = params.get('cat');
       if (cat) {
         var chip = document.querySelector('.chip[data-filter="' + cat + '"]');
@@ -696,6 +756,7 @@
             c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
             c.classList.toggle('chip-active', c === chip);
           });
+          fromUrlFilter = true;
         }
       }
     } catch (e) { /* trình duyệt cũ không có URLSearchParams: bỏ qua */ }
@@ -704,6 +765,11 @@
       loadSearchIndex().then(function () { applyFilter(); });
     }
     applyFilter();
+    // Vào trang đã lọc sẵn (?q=/?cat=): cuộn thẳng tới dãy chip + kết quả
+    // để người dùng thấy ngay thứ mình tìm, khỏi kéo qua phần trên.
+    if (fromUrlFilter && chipRow && chipRow.scrollIntoView) {
+      chipRow.scrollIntoView();
+    }
   }
 
   /* Tìm kiếm hero (trang chủ): gõ thì hiện dropdown tối đa 8 kết quả,

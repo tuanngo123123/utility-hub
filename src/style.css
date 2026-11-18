@@ -317,7 +317,8 @@ p.error {
 }
 .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(30, 143, 224, 0.15); outline: none; }
 
-.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; scroll-margin-top: 76px; }
+#tool-grid { scroll-margin-top: 76px; }
 
 .chip {
   display: inline-block;

@@ -50,13 +50,16 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
       <a class="chip" href="/cong-cu/?q=VietQR">VietQR</a>
       <a class="chip" href="/cong-cu/?q=l%E1%BB%8Bch%20%C3%A2m">Lịch âm</a>
     </div>
+    <div id="cat-section">
     <h2 class="cat-heading">Hạng mục công cụ</h2>
     <div class="cat-grid">
 ${categoryHtml}
     </div>
-    <div class="chip-row" role="group" aria-label="Lọc theo hạng mục">
+    </div>
+    <div class="chip-row" id="filter-chips" role="group" aria-label="Lọc theo hạng mục">
       ${chips}
     </div>
+    <p id="filter-status" class="muted" hidden><span id="filter-status-text"></span> <button type="button" class="chip" id="filter-clear">✕ Xóa lọc</button></p>
     ${grid}
   </section>`;
 }
