@@ -203,6 +203,25 @@ export const SYNONYMS = {
   'học từ mới': ['hoc-tu-vung-tieng-anh'],
   'từ vựng': ['hoc-tu-vung-tieng-anh'],
 
+  // Giáo viên / lớp học
+  'giáo viên': ['goi-ten-ngau-nhien', 'chia-nhom-ngau-nhien', 'bang-diem-lop', 'boc-tham-so', 'tung-xuc-xac-dong-xu'],
+  'gọi tên': ['goi-ten-ngau-nhien'],
+  'gọi tên học sinh': ['goi-ten-ngau-nhien'],
+  'gọi bài': ['goi-ten-ngau-nhien'],
+  'chia nhóm': ['chia-nhom-ngau-nhien'],
+  'chia nhóm học sinh': ['chia-nhom-ngau-nhien'],
+  'chia đội': ['chia-nhom-ngau-nhien'],
+  'xúc xắc': ['tung-xuc-xac-dong-xu'],
+  'tung xúc xắc': ['tung-xuc-xac-dong-xu'],
+  'đồng xu': ['tung-xuc-xac-dong-xu'],
+  'sấp ngửa': ['tung-xuc-xac-dong-xu'],
+  'bốc thăm': ['boc-tham-so', 'quay-so-boc-tham'],
+  'bốc thăm số': ['boc-tham-so'],
+  'quay số': ['boc-tham-so', 'quay-so-boc-tham'],
+  'bảng điểm': ['bang-diem-lop'],
+  'điểm thi đua': ['bang-diem-lop'],
+  'cộng điểm': ['bang-diem-lop'],
+
   // Đời sống / thời gian
   'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],
   'tính tuổi': ['tuoi-sinh-nhat'],

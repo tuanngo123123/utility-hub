@@ -30,6 +30,7 @@ import * as huongDanPage from './src/pages/huong-dan.js';
 import { ARTICLES as HUONG_DAN_ARTICLES } from './src/pages/huong-dan-data.js';
 import * as hocMienPhiPage from './src/pages/hoc-mien-phi.js';
 import { GROUPS as HOC_MIEN_PHI_GROUPS } from './src/pages/hoc-mien-phi-data.js';
+import * as giaoVienPage from './src/pages/giao-vien.js';
 import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
@@ -836,6 +837,23 @@ async function main() {
     `${BASE_URL}/hoc-mien-phi/`
   );
   console.log(`   - Học miễn phí: ${hocMienPhiCount} repo, 1 trang`);
+
+  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 5 công cụ hạng mục
+  // giao-vien (danh sách trong src/pages/giao-vien.js).
+  addPage(
+    'giao-vien/index.html',
+    shell({
+      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm | ${SITE_NAME}`,
+      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp — chạy ngay trên trình duyệt, không cần đăng ký.',
+      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc',
+      canonical: `${BASE_URL}/giao-vien/`,
+      navActive: 'giao-vien',
+      body: giaoVienPage.body(),
+      noscriptLinks,
+    }),
+    `${BASE_URL}/giao-vien/`
+  );
+  console.log('   - Giáo viên: 5 công cụ, 1 trang');
 
   // Trang mục Điểm báo (/diem-bao/) + trang lưu trữ theo ngày (mới nhất
   // trước). Trang mục vào sitemap như mọi trang khác (qua addPage).
