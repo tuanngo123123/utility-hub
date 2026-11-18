@@ -124,6 +124,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/sinh-vien/" class="${active('sinh-vien') ? 'nav-active' : ''}">Sinh viên</a>
         <a href="/huong-dan/" class="${active('huong-dan') ? 'nav-active' : ''}">Hướng dẫn</a>
         <a href="/hoc-mien-phi/" class="${active('hoc-mien-phi') ? 'nav-active' : ''}">Học miễn phí</a>
+        <a href="/giao-vien/" class="${active('giao-vien') ? 'nav-active' : ''}">Giáo viên</a>
         <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
         <a href="/diem-bao/" class="${active('diem-bao') ? 'nav-active' : ''}">Điểm báo</a>
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>

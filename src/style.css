@@ -224,17 +224,24 @@ p.error {
   gap: 4px;
 }
 
-/* Nav ngang chỉ hiện từ 1360px trở lên — đo thật 18/11: 8 mục nav +
-   ô tìm kiếm + nút "Dùng ngay" cần ~1275px chiều rộng nội dung
-   (brand 163 + nav 8 mục ~810 + nút bấm 278 + khoảng cách 24);
+/* Nav ngang chỉ hiện từ 1360px trở lên — đo thật 18/11: 9 mục nav +
+   ô tìm kiếm + nút "Dùng ngay" cần ~1370px chiều rộng nội dung; đệm
+   ngang của link nav thu từ 12px xuống 8px + khoảng cách header thu
+   từ 12px xuống 8px + khoảng cách nút bấm thu từ 8px xuống 6px (chỉ
+   ở bản ngang) để vừa khung 1340px, không tràn; nút "Dùng ngay" giữ
+   1 dòng (không để tự xuống dòng khi chật).
    .wrap trang chỉ 1200px nên header dùng .wrap rộng riêng 1340px
    (xem dưới). Dưới 1360px dùng menu hamburger (đã có sẵn). */
 @media (min-width: 1360px) {
   .nav-toggle { display: none; }
   .site-nav { display: flex; gap: 4px; align-items: center; }
+  .site-nav a { padding: 8px 8px; }
+  .header-inner { gap: 8px; }
+  .header-actions { gap: 6px; }
+  .btn-header-cta { white-space: nowrap; }
 }
 
-/* Header rộng hơn nội dung trang để đủ chỗ cho 8 mục nav — chỉ
+/* Header rộng hơn nội dung trang để đủ chỗ cho 9 mục nav — chỉ
    áp cho header, nội dung trang vẫn giữ .wrap 1200px. */
 .site-header .wrap { max-width: 1340px; }
 

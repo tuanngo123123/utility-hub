@@ -300,6 +300,16 @@ ${railHtml}
     </div>
   </section>
 
+  <section class="sv-promo" aria-label="Giáo viên">
+    <div class="sv-promo-inner">
+      <div>
+        <h2>Giáo viên</h2>
+        <p class="muted">Gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, bảng điểm thi đua — công cụ miễn phí cho giờ học, mở lên là dùng ngay trước lớp.</p>
+      </div>
+      <a class="btn btn-primary" href="/giao-vien/">Xem công cụ →</a>
+    </div>
+  </section>
+
   <section class="section section-strips" aria-label="Dữ liệu hôm nay">
     <p class="strip-date muted" id="hom-nay-title">Hôm nay</p>
     <div class="strip-grid">
