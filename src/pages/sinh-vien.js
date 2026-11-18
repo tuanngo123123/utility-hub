@@ -16,13 +16,18 @@ function extBtn(url, label) {
   return `<a class="btn btn-primary" href="${esc(url)}" target="_blank" rel="noopener">${esc(label)}</a>`;
 }
 
-function courseCard(c) {
+function courseCard(c, fallbackCta) {
+  // Không ghi nhãn "Miễn phí:" — văn bản c.free đa số đã mở đầu bằng
+  // "Miễn phí" ("Miễn phí: Miễn phí 100%..." đọc thừa), và vài thẻ
+  // (IIG, British Council VN) không phải tài liệu miễn phí nên nhãn
+  // này còn mâu thuẫn với nội dung. Đoạn mô tả xám + đoạn chi tiết
+  // đậm đã đủ phân biệt.
   return `<article class="sv-card">
   <h3 class="card-title">${esc(c.name)}</h3>
   <p class="card-desc">${esc(c.learn)}</p>
-  <p class="sv-free"><strong>Miễn phí:</strong> ${esc(c.free)}</p>
+  <p class="sv-free">${esc(c.free)}</p>
   ${c.cond ? `<p class="sv-cond"><strong>Điều kiện:</strong> ${esc(c.cond)}</p>` : ''}
-  <p class="sv-cta">${c.limited ? '<span class="chip sv-chip-warn">Có giới hạn — đọc kỹ mức miễn phí</span> ' : ''}${extBtn(c.url, c.cta || 'Học ngay →')}</p>
+  <p class="sv-cta">${c.limited ? '<span class="chip sv-chip-warn">Có giới hạn — đọc kỹ mức miễn phí</span> ' : ''}${extBtn(c.url, c.cta || fallbackCta)}</p>
 </article>`;
 }
 
@@ -97,7 +102,7 @@ export function body({ tools = [] } = {}) {
     <h2>Khóa học miễn phí</h2>
     <p class="muted">Học online từ các nền tảng lớn — mức miễn phí ghi đúng như trang chính thức công bố (kể cả giới hạn, nếu có).</p>
     <div class="sv-grid">
-${COURSES.map(courseCard).join('\n')}
+${COURSES.map((c) => courseCard(c, 'Học ngay →')).join('\n')}
     </div>
   </section>
 
@@ -105,7 +110,7 @@ ${COURSES.map(courseCard).join('\n')}
     <h2>Sách giáo khoa miễn phí</h2>
     <p class="muted">Sách giáo khoa và sách tham khảo miễn phí hợp pháp (giấy phép mở) — thay cho giáo trình photo. Sách tiếng Anh là chính.</p>
     <div class="sv-grid">
-${BOOKS.map(courseCard).join('\n')}
+${BOOKS.map((c) => courseCard(c, 'Đọc sách →')).join('\n')}
     </div>
   </section>
 
@@ -128,7 +133,7 @@ ${SCHOLARSHIPS_ABROAD.map(scholarshipCard).join('\n')}
     <h2>Luyện thi IELTS/TOEIC miễn phí</h2>
     <p class="muted">Chỉ nguồn chính thức của đơn vị tổ chức thi (British Council, IELTS, ETS, IDP, IIG, Cambridge) — không có đề thi thật bị rò rỉ hay tài liệu lậu.</p>
     <div class="sv-grid">
-${EXAM_PREP.map(courseCard).join('\n')}
+${EXAM_PREP.map((c) => courseCard(c, 'Luyện ngay →')).join('\n')}
     </div>
   </section>
 

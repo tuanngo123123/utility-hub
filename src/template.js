@@ -137,7 +137,7 @@ ${body}
     </div>
   </footer>
   <nav class="bottom-nav" aria-label="Điều hướng dưới cùng">
-    <a href="/" class="${navActive === 'home' ? 'bottom-nav-active' : ''}">Trang chính</a>
+    <a href="/" class="${navActive === 'home' ? 'bottom-nav-active' : ''}">Trang chủ</a>
     <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}">Công cụ</a>
     <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}">Sinh viên</a>
     <a href="/code-mau/" class="${navActive === 'code-mau' ? 'bottom-nav-active' : ''}">Code mẫu</a>

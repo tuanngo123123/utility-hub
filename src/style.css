@@ -1159,6 +1159,17 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   .bottom-nav a.bottom-nav-active { background: var(--accent-soft); color: var(--accent-dark); }
   .toast { bottom: 76px; }
 }
+/* Màn hình hẹp (6 mục nav dưới): chữ nhỏ lại để nhãn 1 dòng —
+   "Trang chính" cũ xuống 2 dòng ở 390px (nay đã đổi thành "Trang chủ").
+   Đo thật: 0.82rem vẫn làm "Trang chủ"/"Code mẫu" gãy dòng ở 390px
+   (mỗi mục chỉ 65px) nên hạ xuống 0.75rem + lề 1px. */
+@media (max-width: 480px) {
+  .bottom-nav a { font-size: 0.75rem; padding: 8px 1px; }
+}
+/* Máy hẹp hơn nữa (360px): "Code mẫu" vẫn gãy dòng ở 0.75rem. */
+@media (max-width: 380px) {
+  .bottom-nav a { font-size: 0.72rem; }
+}
 
 /* ---------- Sơ đồ trang trong footer ---------- */
 
@@ -1951,7 +1962,12 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .sv-card h3 { margin: 0; }
 .sv-card h3 a { color: var(--ink); text-decoration: none; }
 .sv-card h3 a:hover { color: var(--accent); text-decoration: underline; }
-.sv-card .card-desc { margin: 0; }
+/* .card-desc dùng chung với thẻ công cụ có flex: 1 (đẩy chip hạng mục
+   xuống đáy thẻ công cụ) — trên thẻ sinh viên nó nuốt hết khoảng trống,
+   để lại lỗ trắng lớn sau mô tả ngắn (đo thật: desc cao 144px cho 3 dòng
+   chữ). Tắt flex ở đây để khoảng trống dồn về nút (margin-top: auto của
+   .sv-cta) như thẻ mẫu/học bổng. */
+.sv-card .card-desc { margin: 0; flex: none; }
 .sv-free { margin: 0; }
 .sv-cond { margin: 0; color: var(--muted); font-size: 0.92rem; }
 .sv-cta { margin: auto 0 0; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
