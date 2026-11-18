@@ -608,6 +608,11 @@ async function main() {
   // Assets + dữ liệu
   // (effects.css đã gộp vào style.css, mascot.js đã gộp vào app.js — worker W11.)
   copyFile('style.css', 'assets/style.css');
+  // Font Inter tự host (vòng 3): variable woff2, subset latin + vietnamese.
+  // LICENSE.txt đi kèm để tuân thủ SIL OFL 1.1.
+  copyFile('fonts/Inter-var-latin.woff2', 'assets/fonts/Inter-var-latin.woff2');
+  copyFile('fonts/Inter-var-vietnamese.woff2', 'assets/fonts/Inter-var-vietnamese.woff2');
+  copyFile('fonts/LICENSE.txt', 'assets/fonts/LICENSE.txt');
   copyFile('app.js', 'assets/app.js');
   copyFile('tool-state.js', 'assets/tool-state.js');
   copyFile('vendor/qrcode-generator.js', 'assets/vendor/qrcode-generator.js');

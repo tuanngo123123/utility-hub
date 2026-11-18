@@ -475,6 +475,7 @@
     setupSearchFilter();
     setupCodeMauFilter();
     setupHeroSearch();
+    initHeroH1();
     setupSearchModal();
     setupHomeFilter();
     setupTabs();
@@ -889,6 +890,57 @@
       }
     } catch (e) { /* trình duyệt cũ không có URLSearchParams: bỏ qua */ }
     applyFilter();
+  }
+
+  /* H1 hero — hiệu ứng hiện từng chữ (vòng 3, kiểu 21st.dev).
+     An toàn: không JS → H1 là chữ thường, hiện bình thường; reduced-motion
+     → bỏ qua hẳn; chỉ tách khi H1 là chữ thuần; chạy 1 lần khi tải trang.
+     Tên riêng heroH1PrefersReducedMotion để không đụng prefersReducedMotion()
+     trong IIFE mascot cuối file. */
+  function heroH1PrefersReducedMotion() {
+    return typeof window !== 'undefined' &&
+      window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function initHeroH1() {
+    if (typeof document === 'undefined') return;
+    var h1 = document.querySelector('.hero h1');
+    if (!h1) return;
+    if (h1.getAttribute('data-uh-h1-done') === '1') return;
+    if (heroH1PrefersReducedMotion()) return;
+    if (h1.children.length > 0) return;
+    var text = (h1.textContent || '').trim();
+    if (!text) return;
+
+    var frag = document.createDocumentFragment();
+    var charIndex = 0;
+    /* Tách theo từ để không gãy giữa từ khi xuống dòng; khoảng trắng
+       giữa các từ giữ dạng text node thường (không tách, không delay). */
+    var words = text.split(/\s+/);
+    words.forEach(function (word, wi) {
+      if (wi > 0) frag.appendChild(document.createTextNode(' '));
+      var wordEl = document.createElement('span');
+      wordEl.className = 'h1-word';
+      /* Array.from để không vỡ ký tự ngoài BMP; tiếng Việt có dấu là
+         1 code point nên vẫn tách đúng từng chữ. */
+      Array.from(word).forEach(function (ch) {
+        var charEl = document.createElement('span');
+        charEl.className = 'h1-char';
+        charEl.textContent = ch;
+        charEl.style.animationDelay = (charIndex * 60) + 'ms';
+        charIndex++;
+        wordEl.appendChild(charEl);
+      });
+      frag.appendChild(wordEl);
+    });
+
+    h1.textContent = '';
+    h1.appendChild(frag);
+    /* Thêm class SAU khi đã tách xong — CSS chỉ ẩn chữ khi có class này
+       nên không có khoảng trống nào H1 bị ẩn mà chưa có chữ. */
+    h1.classList.add('h1-chars');
+    h1.setAttribute('data-uh-h1-done', '1');
   }
 
   /* Tìm kiếm hero (trang chủ): gõ thì hiện dropdown tối đa 8 kết quả,
