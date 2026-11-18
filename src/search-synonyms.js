@@ -11,7 +11,7 @@ export const SYNONYMS = {
   'net': ['luong-gross-net'],
   'lương net': ['luong-gross-net'],
   'lương gross': ['luong-gross-net'],
-  'thuế': ['thue-vat', 'thue-vang-lai', 'luong-gross-net', 'luong-thang-13'],
+  'thuế': ['thue-vat', 'thue-vang-lai', 'luong-gross-net', 'luong-thang-13', 'le-phi-mon-bai', 'thue-truoc-ba-xe'],
   'vat': ['thue-vat'],
   'thuế vat': ['thue-vat'],
   'thuế vãng lai': ['thue-vang-lai'],
@@ -20,8 +20,12 @@ export const SYNONYMS = {
   'làm thêm giờ': ['luong-tang-ca'],
   'ot': ['luong-tang-ca'],
   'lương tháng 13': ['luong-thang-13'],
+  // "Lương tháng" (L11): 3 công cụ tính theo lương tháng chỉ khớp "lương"
+  // ở mô tả ("1,5 tháng lương bình quân", "thuế từ lương") nên luật phân
+  // biệt đồng âm sẽ loại — gán đúng khóa để giữ lại.
+  'lương tháng': ['luong-thang-13', 'luong-thang-sang-gio', 'thue-thu-nhap-ca-nhan', 'tro-cap-thoi-viec-bhtn', 'bhxh-mot-lan'],
   'thưởng tết': ['luong-thang-13'],
-  'lương giờ': ['luong-thang-sang-gio'],
+  'lương giờ': ['luong-thang-sang-gio', 'chi-phi-cuoc-hop'],
   'thất nghiệp': ['tro-cap-thoi-viec-bhtn'],
   'bhtn': ['tro-cap-thoi-viec-bhtn'],
   'thôi việc': ['tro-cap-thoi-viec-bhtn'],
@@ -32,7 +36,7 @@ export const SYNONYMS = {
   'vay': ['lai-vay', 'tra-gop-the'],
   'lãi vay': ['lai-vay'],
   'trả nợ': ['lai-vay'],
-  'lãi': ['lai-vay', 'lai-kep'],
+  'lãi': ['lai-vay', 'lai-kep', 'tra-gop-the'],
   'lãi kép': ['lai-kep'],
   'tiết kiệm': ['lai-kep', 'quy-du-phong'],
   'gửi tiết kiệm': ['lai-kep'],
@@ -113,7 +117,7 @@ export const SYNONYMS = {
   'bmi': ['bmi', 'phan-tram-mo', 'tdee-calo'],
   'cân nặng': ['bmi', 'tdee-calo'],
   'cân nặng lý tưởng': ['bmi'],
-  'calo': ['tdee-calo'],
+  'calo': ['tdee-calo', 'buoc-chan'],
   'tdee': ['tdee-calo'],
   'bmr': ['tdee-calo'],
   'giảm cân': ['tdee-calo', 'bmi', 'phan-tram-mo'],
@@ -191,7 +195,7 @@ export const SYNONYMS = {
   'trắc nghiệm': ['quiz-tinh-cach', 'test-logic'],
 
   // Đời sống / thời gian
-  'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung'],
+  'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],
   'tính tuổi': ['tuoi-sinh-nhat'],
   'sinh nhật': ['tuoi-sinh-nhat', 'dem-nguoc-su-kien'],
   'đếm ngược': ['dem-nguoc-su-kien', 'bam-gio-dem-nguoc'],

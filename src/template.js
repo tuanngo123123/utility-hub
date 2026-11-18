@@ -6,7 +6,7 @@
 //  - canonical: URL tuyệt đối của trang
 //  - body: HTML nội dung trong <main>
 //  - extraHead: HTML thêm vào <head> (nếu cần)
-//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'code-mau' | 'ung-ho' | '' — tô sáng mục nav tương ứng
+//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'code-mau' | 'diem-bao' | 'ung-ho' | '' — tô sáng mục nav tương ứng
 //  - noscriptLinks: HTML danh sách link công cụ cho khối <noscript> (build.mjs sinh;
 //    để trống thì chỉ hiện thông báo, không có danh sách)
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
@@ -91,7 +91,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/sinh-vien/" class="${active('sinh-vien') ? 'nav-active' : ''}">Sinh viên</a>
         <a href="/huong-dan/" class="${active('huong-dan') ? 'nav-active' : ''}">Hướng dẫn</a>
         <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
-        <a href="/#diem-bao">Điểm báo</a>
+        <a href="/diem-bao/" class="${active('diem-bao') ? 'nav-active' : ''}">Điểm báo</a>
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
       </nav>
       <div class="header-actions">
@@ -117,10 +117,6 @@ ${body}
           <a href="/">Trang chủ</a>
           <a href="/cong-cu/">Công cụ</a>
           <a href="/code-mau/">Code mẫu</a>
-          <h3>Hạng mục</h3>
-          ${categoryLinks}
-          <h3>Công cụ chính</h3>
-          ${footerToolLinks}
         </div>
         <div class="footer-col">
           <h3>Hỗ trợ</h3>
@@ -132,6 +128,14 @@ ${body}
           <a href="/dieu-khoan/">Điều khoản sử dụng</a>
           <a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a>
         </div>
+        <div class="footer-col">
+          <h3>Hạng mục</h3>
+          ${categoryLinks}
+        </div>
+        <div class="footer-col">
+          <h3>Công cụ chính</h3>
+          ${footerToolLinks}
+        </div>
       </div>
       <p class="muted small">Liên hệ: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a></p>
       <p class="muted small">© 2026 ${SITE_NAME} — Ngô Minh Tuấn. Mọi tính toán trong công cụ chạy trên trình duyệt và không gửi dữ liệu của bạn lên máy chủ.</p>
@@ -142,7 +146,7 @@ ${body}
     <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}">Công cụ</a>
     <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}">Sinh viên</a>
     <a href="/code-mau/" class="${navActive === 'code-mau' ? 'bottom-nav-active' : ''}">Code mẫu</a>
-    <a href="/#diem-bao">Điểm báo</a>
+    <a href="/diem-bao/" class="${navActive === 'diem-bao' ? 'bottom-nav-active' : ''}">Điểm báo</a>
     <a href="/ung-ho/" class="${navActive === 'ung-ho' ? 'bottom-nav-active' : ''}">Ủng hộ</a>
   </nav>
   <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).

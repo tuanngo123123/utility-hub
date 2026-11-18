@@ -1,9 +1,11 @@
-// Nội dung giới thiệu + FAQ cho 12 công cụ chính của Tiện Ích Hub.
+// Nội dung giới thiệu + FAQ cho 13 công cụ chính của Tiện Ích Hub.
 //
 // build.mjs nối dây (xem TOOL-CONTENT-WIRING.md): hiện intro phía trên khung
 // công cụ, FAQ phía dưới, và dòng tham khảo khi finance = true.
 // Khóa phải trùng meta.id của công cụ trong src/tools/*/*.js (đã kiểm tra).
 // Nội dung viết tay, không chứa thẻ HTML; build.mjs escape khi chèn.
+// Công cụ finance nhưng không thuộc thuế/ngân hàng (điện, nước, BHXH...)
+// ghi thêm trường disclaimer để build dùng câu miễn trừ đúng ngữ cảnh.
 //
 // Mọi con số trong FAQ đã tính lại bằng máy theo đúng công thức của từng
 // công cụ trên trang (xem báo cáo bàn giao W12). Số nào chưa chắc thì FAQ
@@ -35,9 +37,37 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "bhxh-mot-lan": {
+    intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
+    finance: true,
+    disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan BHXH — mức thực tế do cơ quan BHXH xác định theo hồ sơ đóng của bạn.",
+    faqs: [
+      {
+        q: "Ai được rút BHXH một lần sau ngày 01/7/2025?",
+        a: "Người bắt đầu đóng BHXH trước 01/7/2025 vẫn được rút sau 12 tháng không tham gia BHXH bắt buộc lẫn tự nguyện, nếu chưa đủ 20 năm đóng. Người bắt đầu đóng từ 01/7/2025 chỉ được rút khi đủ tuổi hưu mà chưa đủ 15 năm đóng, ra nước ngoài định cư, mắc bệnh hiểm nghèo hoặc suy giảm khả năng lao động từ 81% trở lên."
+      },
+      {
+        q: "Tháng lẻ tính như thế nào khi rút BHXH một lần?",
+        a: "Tháng lẻ trước năm 2014 được chuyển sang giai đoạn từ 2014 để tính; tháng lẻ 1-6 tháng tính là nửa năm, 7-11 tháng tính là 1 năm. Ví dụ đóng 5 năm 3 tháng trước 2014 và 8 năm từ 2014: 3 tháng lẻ chuyển sang thành 8 năm 3 tháng, tức 8,5 năm tính hệ số 2."
+      },
+      {
+        q: "Đóng BHXH chưa đủ 1 năm thì rút được bao nhiêu?",
+        a: "Bằng số tiền đã đóng vào quỹ hưu trí - tử tuất, nhưng không quá 2 tháng mức bình quân tiền lương tháng đóng BHXH. Ví dụ lương bình quân 10 triệu đồng, đóng 6 tháng: số tiền đã đóng ước tính 22% nhân 10.000.000 nhân 6 bằng 13.200.000 đồng, dưới mức tối đa 20.000.000 đồng nên rút được 13.200.000 đồng."
+      },
+      {
+        q: "Lương bình quân 10 triệu, đóng 5 năm 3 tháng trước 2014 và 8 năm từ 2014 thì rút được bao nhiêu?",
+        a: "245.000.000 đồng. Phần trước 2014: 1,5 nhân 10.000.000 nhân 5 năm bằng 75.000.000 đồng; 3 tháng lẻ chuyển sang giai đoạn từ 2014 thành 8,5 năm, phần từ 2014: 2 nhân 10.000.000 nhân 8,5 bằng 170.000.000 đồng."
+      },
+      {
+        q: "Rút BHXH một lần rồi có đóng lại được không?",
+        a: "Được. Sau khi rút, nếu đi làm và tham gia BHXH trở lại thì thời gian đóng mới được tính từ đầu; thời gian đã rút một lần không còn cộng dồn vào thời gian hưởng lương hưu sau này, nên cân nhắc kỹ trước khi rút, nhất là khi đã đóng nhiều năm."
+      }
+    ]
+  },
   "tien-dien-bac-thang": {
     intro: "Tính tiền điện sinh hoạt theo biểu giá bậc thang 5 bậc mới nhất (Quyết định 2892/QĐ-BCT, áp dụng từ 01/11/2026), đã gồm VAT 8%. Nhập số kWh tiêu thụ trong tháng để xem tiền từng bậc và tổng thanh toán.",
     finance: true,
+    disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan điện lực (EVN) — số tiền thực tế theo hóa đơn tiền điện của EVN.",
     faqs: [
       {
         q: "Tiền điện 500 số giá bao nhiêu?",
@@ -170,6 +200,7 @@ export const TOOL_CONTENT = {
   "tien-nuoc-bac-thang": {
     intro: "Tính tiền nước sinh hoạt theo bậc thang lũy tiến, gồm VAT 5% và phí bảo vệ môi trường 10%. Giá từng bậc sửa được theo địa phương, mặc định theo giá Hà Nội cho hộ dân cư.",
     finance: true,
+    disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế thông báo của công ty cấp nước tại địa phương — số tiền thực tế theo hóa đơn tiền nước.",
     faqs: [
       {
         q: "25m3 nước hết bao nhiêu tiền?",

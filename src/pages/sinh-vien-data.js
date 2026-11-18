@@ -322,6 +322,7 @@ export const EXAM_PREP = [
     learn: 'Cổng Việt Nam: đăng ký thi IELTS, lịch thi, trung tâm thi.',
     free: 'Cổng thông tin — dùng để tìm trang IELTS Việt Nam và đăng ký thi.',
     cond: 'Trang chủ không liệt kê trực tiếp tài liệu luyện thi.',
+    cta: 'Đăng ký thi →',
   },
   {
     name: 'IELTS.org (trang chính thức của kỳ thi)',
@@ -489,7 +490,10 @@ export const TEMPLATES = [
     title: 'CV sinh viên mới ra trường',
     desc: 'Cấu trúc CV 1 trang cho người chưa có kinh nghiệm: thông tin, mục tiêu, học vấn, kỹ năng, kinh nghiệm làm thêm, hoạt động — kèm gợi ý theo 3 nhóm ngành và ví dụ CV hoàn chỉnh.',
     body: `
+<div class="print-hide">
 <p>CV xin thực tập hay việc làm đầu tiên không cần dài — 1 trang, đủ 6 mục dưới đây, viết cụ thể bằng số thay vì chung chung. Chưa hình dung CV hoàn chỉnh trông như thế nào? Xem ví dụ CV đã điền đầy đủ ở bên dưới, rồi thay bằng thông tin của bạn.</p>
+</div>
+<div class="print-hide">
 <h2>Cấu trúc CV 1 trang</h2>
 <ol>
 <li><strong>Thông tin liên hệ:</strong> họ tên, số điện thoại, email (địa chỉ nghiêm túc, dạng hoten@gmail.com), link LinkedIn/GitHub nếu có. Không cần ghi ngày sinh, quê quán, số CCCD.</li>
@@ -499,6 +503,7 @@ export const TEMPLATES = [
 <li><strong>Kinh nghiệm làm thêm:</strong> ghi cả việc không đúng ngành nếu nó rèn kỹ năng liên quan — bán hàng rèn giao tiếp và thuyết phục, gia sư rèn trình bày và kiên nhẫn.</li>
 <li><strong>Hoạt động:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. "Tổ chức chương trình chào tân sinh viên cho 300 sinh viên, huy động 5 nhà tài trợ" tốt hơn "Tham gia hoạt động Đoàn".</li>
 </ol>
+</div>
 <h2>Ví dụ CV hoàn chỉnh</h2>
 <p class="note">Ví dụ minh họa — thông tin trong CV này là hư cấu, chỉ để bạn thấy một CV hoàn chỉnh trông như thế nào. Thay toàn bộ bằng thông tin thật của bạn trước khi gửi.</p>
 <div class="sv-letter sv-cv">
@@ -530,12 +535,15 @@ export const TEMPLATES = [
 <li>Trưởng ban truyền thông Ngày hội việc làm 2025: fanpage sự kiện tăng 3.000 lượt thích trong 1 tháng.</li>
 </ul>
 </div>
+<div class="print-hide">
 <h2>Gợi ý theo ngành</h2>
 <ul>
 <li><strong>Kinh tế – quản trị:</strong> nhấn mạnh Excel (hàm, PivotTable), phân tích số liệu, kinh nghiệm thực tập/bán hàng, chứng chỉ MOS/tiếng Anh.</li>
 <li><strong>Kỹ thuật:</strong> đồ án môn học, phần mềm chuyên ngành (AutoCAD, SolidWorks, MATLAB…), thực tập nhà máy/xưởng, khả năng đọc bản vẽ.</li>
 <li><strong>CNTT:</strong> link GitHub + dự án cá nhân (ghi rõ công nghệ đã dùng, link demo nếu có), ngôn ngữ thành thạo, tham gia hackathon/câu lạc bộ lập trình.</li>
 </ul>
+</div>
+<div class="print-hide">
 <h2>Lưu ý trước khi gửi</h2>
 <ul>
 <li>Đừng mở đầu bằng "chưa có kinh nghiệm" — nhà tuyển dụng đọc CV để thấy bạn làm được gì, không phải để thấy bạn thiếu gì.</li>
@@ -545,7 +553,8 @@ export const TEMPLATES = [
 <li>Kiểm tra chính tả 2 lần, nhờ 1 người khác đọc lại trước khi gửi.</li>
 <li>Lưu file PDF, đặt tên "CV-Ho-va-ten-Vi-tri-ung-tuyen.pdf".</li>
 <li>Gửi kèm email ngắn giới thiệu bản thân, đừng gửi CV trống không.</li>
-</ul>`,
+</ul>
+</div>`,
   },
   {
     slug: 'don-xin-thuc-tap',
@@ -577,9 +586,9 @@ Mã số sinh viên: [MSSV] — Điện thoại: [SĐT] — Email: [email]</p>
   {
     slug: 'bao-cao-thuc-tap',
     title: 'Báo cáo thực tập',
-    desc: 'Khung mục lục chuẩn, mẫu bìa, cách trình bày số liệu và những lỗi thường gặp.',
+    desc: 'Khung mục lục chuẩn, mẫu bìa, cách trình bày số liệu và những lỗi thường gặp — kèm ví dụ đã điền: bảng nhật ký tuần, lời cảm ơn và đoạn mở đầu chương mẫu.',
     body: `
-<p>Báo cáo thực tập thường dài 30–60 trang tùy quy định của trường. Khung dưới đây dùng được cho hầu hết các ngành — điều chỉnh tên chương theo yêu cầu của khoa bạn.</p>
+<p>Báo cáo thực tập thường dài 30–60 trang tùy quy định của trường. Khung dưới đây dùng được cho hầu hết các ngành — điều chỉnh tên chương theo yêu cầu của khoa bạn. Chưa hình dung báo cáo đã viết trông như thế nào? Xem ví dụ đã điền ở bên dưới — bảng nhật ký tuần, lời cảm ơn và đoạn mở đầu chương mẫu.</p>
 <h2>Mẫu bìa</h2>
 <div class="sv-letter">
 <p class="sv-letter-center">TRƯỜNG ĐẠI HỌC [tên trường]<br>KHOA [tên khoa]</p>
@@ -599,6 +608,25 @@ Giảng viên hướng dẫn: [họ tên, học hàm/học vị]</p>
 <li><strong>Tài liệu tham khảo</strong> — chỉ liệt kê tài liệu đã dùng thật.</li>
 <li><strong>Phụ lục</strong> — hình ảnh, biểu mẫu, giấy xác nhận thực tập.</li>
 </ol>
+<h2>Ví dụ đã điền — nhật ký tuần, lời cảm ơn và mở đầu chương</h2>
+<p class="note">Ví dụ minh họa — thông tin dưới đây là hư cấu: một sinh viên ngành Marketing thực tập 8 tuần tại một công ty thương mại. Dùng để tham khảo cách trình bày, thay bằng công việc thật của bạn.</p>
+<h3>Bảng nhật ký tuần mẫu</h3>
+<div class="sv-letter">
+<table class="tbl">
+<tr><th>Tuần</th><th>Công việc</th><th>Kết quả</th></tr>
+<tr><td>Tuần 1<br>(02–06/6)</td><td>Làm quen quy trình làm việc của phòng Marketing; đọc tài liệu giới thiệu 12 dòng sản phẩm chính; học cách dùng phần mềm quản lý fanpage.</td><td>Nắm được danh mục sản phẩm; viết thử 2 bài đăng, cả 2 đều được người hướng dẫn duyệt.</td></tr>
+<tr><td>Tuần 2<br>(09–13/6)</td><td>Viết 6 bài đăng cho fanpage; chụp ảnh sản phẩm cùng nhân viên marketing; trả lời bình luận của khách hàng.</td><td>5/6 bài được đăng; bài cao nhất đạt 8.000 lượt tiếp cận; trả lời 40 bình luận trong tuần.</td></tr>
+<tr><td>Tuần 3<br>(16–20/6)</td><td>Tổng hợp bình luận và tin nhắn của khách hàng trong tháng; lập bảng thống kê 120 phản hồi theo nhóm nội dung.</td><td>Báo cáo 3 nhóm góp ý phổ biến nhất; đề xuất 2 ý cải thiện nội dung, 1 ý được phòng áp dụng ngay.</td></tr>
+</table>
+</div>
+<h3>Lời cảm ơn mẫu</h3>
+<div class="sv-letter">
+<p>Em xin chân thành cảm ơn thầy Nguyễn Văn Hùng, giảng viên hướng dẫn, đã góp ý từng chương và nhắc em ghi lại công việc hằng tuần ngay từ khi bắt đầu thực tập. Em cảm ơn chị Trần Thu Trang, chuyên viên Marketing của công ty, đã dành thời gian hướng dẫn em từng việc nhỏ — từ cách viết một bài đăng đến cách trả lời khách hàng. Em cũng cảm ơn phòng Marketing đã cho em tham gia vào công việc thật thay vì chỉ quan sát. Những góp ý của thầy, chị và các anh chị trong phòng là điều em học được nhiều nhất trong 8 tuần thực tập.</p>
+</div>
+<h3>Mở đầu chương "Giới thiệu về công ty thực tập" — mẫu</h3>
+<div class="sv-letter">
+<p>Công ty TNHH Thương mại An Phát thành lập năm 2018 tại TP. Hồ Chí Minh, kinh doanh đồ gia dụng và đồ dùng nhà bếp. Công ty có 45 nhân viên và 3 cửa hàng tại TP. Hồ Chí Minh, doanh thu chủ yếu đến từ bán lẻ tại cửa hàng và bán hàng qua fanpage. Phòng Marketing — nơi em thực tập — có 6 người, phụ trách nội dung fanpage, quảng cáo và chăm sóc khách hàng. Chương này giới thiệu khái quát về công ty và phòng Marketing để làm bối cảnh cho các công việc em đã thực hiện trong 8 tuần.</p>
+</div>
 <h2>Cách trình bày số liệu</h2>
 <ul>
 <li>Mỗi bảng/hình đều có số thứ tự + tiêu đề + nguồn. Ví dụ: "Bảng 3.1. Doanh thu quý 1/2026 — Nguồn: Phòng Kế toán, Công ty X".</li>
@@ -752,7 +780,7 @@ Giảng viên hướng dẫn: [họ tên, học hàm/học vị]</p>
   {
     slug: 'don-xin-hoc-bong',
     title: 'Đơn xin học bổng',
-    desc: 'Mẫu đơn + cách viết thư động lực ngắn + danh sách giấy tờ thường kèm theo.',
+    desc: 'Mẫu đơn + cách viết thư động lực ngắn + danh sách giấy tờ thường kèm theo — kèm ví dụ đã điền: đoạn thành tích, đoạn hoàn cảnh và thư động lực mẫu.',
     body: `
 <p>Học bổng xét 2 thứ: thành tích (điểm số, hoạt động) và lý do (vì sao bạn xứng đáng). Đơn viết rõ 2 thứ đó, ngắn gọn, thật — đừng kể khổ quá mức, cũng đừng khoe quá mức.</p>
 <div class="sv-letter">
@@ -776,6 +804,23 @@ Mã số sinh viên: [MSSV] — Điện thoại: [SĐT] — Email: [email]<br>
 <li><strong>Đoạn 3 — Kế hoạch:</strong> bạn sẽ dùng học bổng để làm gì (học tiếp, nghiên cứu, thi chứng chỉ…) và cam kết duy trì thành tích.</li>
 </ul>
 <p>Độ dài: nửa trang đến 1 trang. Viết bằng giọng của chính bạn — hội đồng đọc hàng trăm thư, thư sao chép mẫu trên mạng rất dễ nhận ra.</p>
+<h2>Ví dụ đã điền — đoạn thành tích, đoạn hoàn cảnh và thư động lực mẫu</h2>
+<p class="note">Ví dụ minh họa — thông tin dưới đây là hư cấu: một sinh viên năm 3 ngành Kế toán xin học bổng khuyến khích học tập. Dùng để tham khảo cách viết, thay bằng thành tích và hoàn cảnh thật của bạn.</p>
+<h3>Đoạn thành tích mẫu (điền vào đơn)</h3>
+<div class="sv-letter">
+<p>Trong 2 học kỳ gần nhất, điểm trung bình của em đạt 3.6/4.0, thuộc nhóm 10 sinh viên có điểm cao nhất lớp 60 người. Em đã nhận học bổng khuyến khích học tập của trường 2 học kỳ liên tiếp, đạt giải Ba cuộc thi "Sinh viên với ý tưởng kinh doanh" cấp trường năm 2025 với đề án kế toán chi phí cho cửa hàng nhỏ, và làm trưởng nhóm dự án thực hành môn Kế toán quản trị — nhóm em đạt 9.2/10, cao nhất trong 8 nhóm. Ngoài ra em là thành viên Ban chấp hành Đoàn khoa, tổ chức 2 buổi hướng dẫn sinh viên năm nhất làm quen với phần mềm kế toán, mỗi buổi có khoảng 80 sinh viên tham gia.</p>
+</div>
+<h3>Đoạn hoàn cảnh và kế hoạch mẫu (điền vào đơn)</h3>
+<div class="sv-letter">
+<p>Gia đình em ở quê, thu nhập chính từ 2 sào ruộng và việc làm thuê thời vụ của bố mẹ. Em vừa học vừa làm thêm 3 buổi/tuần tại một cửa hàng văn phòng phẩm để trang trải tiền trọ và sinh hoạt, nhưng vẫn giữ điểm trung bình trên 3.5. Nếu nhận được học bổng, em sẽ giảm giờ làm thêm để dành thời gian ôn thi chứng chỉ MOS Excel và chuẩn bị đồ án tốt nghiệp vào học kỳ tới. Em cam kết duy trì kết quả học tập và tham gia đầy đủ các hoạt động của khoa.</p>
+</div>
+<h3>Thư động lực mẫu (3 đoạn theo khung trên)</h3>
+<div class="sv-letter">
+<p>Em là Phạm Minh Anh, sinh viên năm 3 ngành Kế toán, khoa Kế toán – Kiểm toán, Trường Đại học Tài chính – Marketing. Em viết thư này để xin học bổng khuyến khích học tập học kỳ 2, năm học 2025–2026 — học bổng dành cho sinh viên có kết quả học tập và rèn luyện tốt.</p>
+<p>Trong 2 học kỳ gần nhất, điểm trung bình của em đạt 3.6/4.0, và em đã nhận học bổng khuyến khích học tập 2 học kỳ liên tiếp. Điều em tự hào nhất là giải Ba cuộc thi "Sinh viên với ý tưởng kinh doanh" cấp trường năm 2025: đề án của em đưa ra cách theo dõi chi phí đơn giản cho cửa hàng nhỏ, dùng bảng tính mà chủ cửa hàng tự làm được, không cần phần mềm đắt tiền. Ngoài giờ học, em tổ chức 2 buổi hướng dẫn sinh viên năm nhất làm quen với phần mềm kế toán — mỗi buổi khoảng 80 bạn tham gia — vì em nhớ mình năm nhất đã lúng túng thế nào khi lần đầu mở phần mềm.</p>
+<p>Nếu nhận được học bổng, em sẽ giảm giờ làm thêm để ôn thi chứng chỉ MOS Excel và chuẩn bị đồ án tốt nghiệp vào học kỳ tới. Em cũng muốn tiếp tục hướng dẫn sinh viên năm nhất, vì đó là cách em trả lại những gì mình đã nhận được từ thầy cô và anh chị khóa trên. Em xin chân thành cảm ơn Hội đồng đã xét hồ sơ của em.</p>
+<p class="sv-letter-right">TP. Hồ Chí Minh, ngày 15 tháng 9 năm 2026<br>Phạm Minh Anh</p>
+</div>
 <h2>Giấy tờ thường kèm theo</h2>
 <ul>
 <li>Bảng điểm có xác nhận của trường.</li>
@@ -1006,7 +1051,7 @@ Mục đích: [xin học bổng / xin việc / xin học tiếp / …].</p>
   {
     slug: 'thu-gioi-thieu',
     title: 'Thư giới thiệu',
-    desc: 'Cách nhờ giảng viên viết thư giới thiệu + khung thư mẫu để soạn sẵn cho giảng viên tham khảo.',
+    desc: 'Cách nhờ giảng viên viết thư giới thiệu + khung thư mẫu để soạn sẵn cho giảng viên tham khảo — kèm một bức thư mẫu hoàn chỉnh đã điền.',
     body: `
 <p>Thư giới thiệu cần cho học bổng, du học, xin việc — và sinh viên thường lúng túng ở 2 chỗ: ngại xin giảng viên, và không biết "nhờ thầy cô viết gì". Bài này giải quyết cả 2: mẫu câu nhờ lịch sự + khung thư để bạn soạn sẵn cho giảng viên tham khảo.</p>
 <h2>Phần 1: Email/mẫu câu nhờ giảng viên viết thư</h2>
@@ -1030,6 +1075,17 @@ Mục đích: [xin học bổng / xin việc / xin học tiếp / …].</p>
 <p>[So sánh với sinh viên cùng khóa, nếu có: "Trong số các sinh viên tôi đã giảng dạy, em thuộc nhóm …"]</p>
 <p>Tôi tin rằng [họ tên sinh viên] xứng đáng nhận [học bổng/vị trí …] và sẽ hoàn thành tốt [chương trình/công việc …]. Mọi thắc mắc xin liên hệ với tôi qua email [email giảng viên] hoặc số điện thoại [số].</p>
 <p class="sv-letter-right">[Địa điểm], ngày … tháng … năm …<br>[Chữ ký]<br>[Họ tên giảng viên]<br>[Chức danh, khoa, trường]</p>
+</div>
+<h2>Phần 3: Một bức thư giới thiệu hoàn chỉnh đã điền</h2>
+<p class="note">Ví dụ minh họa — thông tin trong thư này là hư cấu: một giảng viên viết thư cho sinh viên của mình để xin học bổng. Dùng để tham khảo giọng văn và độ dài từng đoạn, thay bằng thông tin thật của bạn và giảng viên của bạn.</p>
+<div class="sv-letter">
+<p class="sv-letter-center"><strong>THƯ GIỚI THIỆU</strong></p>
+<p>Kính gửi: Hội đồng xét học bổng khuyến khích học tập, Trường Đại học Kinh tế TP. Hồ Chí Minh,</p>
+<p>Tôi là Phạm Hồng Nhung, Thạc sĩ, giảng viên khoa Quản trị kinh doanh, Trường Đại học Kinh tế TP. Hồ Chí Minh. Tôi viết thư này để giới thiệu sinh viên Lê Minh Khoa, người đã học môn Quản trị Marketing với tôi ở học kỳ 1 năm học 2025–2026 và đạt điểm 9.2/10 — điểm cao nhất lớp 55 sinh viên.</p>
+<p>Điểm mạnh đầu tiên của Khoa là khả năng biến lý thuyết thành việc làm được. Trong đồ án môn học, Khoa chọn một quán cà phê nhỏ gần trường làm đối tượng nghiên cứu, tự đến quán phỏng vấn chủ quán 3 buổi, rồi lập kế hoạch quảng bá chỉ dùng ngân sách 2 triệu đồng/tháng — kế hoạch chi tiết tới từng tuần, từng bài đăng. Chủ quán đã áp dụng thử 2 ý trong kế hoạch và lượng khách buổi tối tăng khoảng 20% sau 1 tháng. Trong 8 năm giảng dạy, tôi hiếm gặp sinh viên năm 3 nào chịu xuống thực tế kỹ như vậy thay vì chỉ viết trên lý thuyết.</p>
+<p>Điểm mạnh thứ hai là tinh thần làm việc nhóm. Khoa làm trưởng nhóm 5 người trong đồ án, chia việc rõ ràng theo thế mạnh từng bạn, và khi một thành viên ốm phải nghỉ 1 tuần, Khoa tự nhận thêm phần việc của bạn đó thay vì để nhóm nộp muộn. Nhóm của Khoa nộp bài trước hạn 3 ngày và đạt 9.4/10 — cao nhất trong 10 nhóm của lớp. Các bạn trong nhóm đều nói Khoa là người giữ nhịp cho cả nhóm, không phải người chỉ huy.</p>
+<p>Trong số khoảng 300 sinh viên tôi đã giảng dạy 3 năm gần đây, Khoa thuộc nhóm 5% sinh viên tôi ấn tượng nhất — không chỉ vì điểm số, mà vì cách em làm việc: cẩn thận, chủ động và biết nghĩ cho người khác. Tôi tin rằng Lê Minh Khoa xứng đáng nhận học bổng khuyến khích học tập và sẽ tiếp tục giữ phong độ này trong các học kỳ tới. Mọi thắc mắc xin liên hệ với tôi qua email nhung.pham@ueh.edu.vn hoặc số điện thoại 090 234 56 78.</p>
+<p class="sv-letter-right">TP. Hồ Chí Minh, ngày 10 tháng 9 năm 2026<br>(Chữ ký)<br><strong>Phạm Hồng Nhung</strong><br>Thạc sĩ, Giảng viên khoa Quản trị kinh doanh<br>Trường Đại học Kinh tế TP. Hồ Chí Minh</p>
 </div>
 <h2>Lưu ý khi xin thư giới thiệu</h2>
 <ul>

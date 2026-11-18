@@ -586,20 +586,61 @@
   // Xếp hạng: mọi từ trong truy vấn đều phải khớp ở đâu đó (tên/đồng nghĩa/
   // từ khóa/mô tả); điểm = tổng điểm từng từ + thưởng khi cả cụm khớp tên.
   // Trả về mảng công cụ đã xếp hạng (điểm cao trước, hòa thì theo tên).
+  //
+  // Phân biệt đồng âm sau khi bỏ dấu (L11, 18/11): "lương" và "lượng"
+  // chuẩn hóa thành cùng một từ "luong", nên khớp substring mù quáng kéo
+  // "Tính tiền vàng" (đồng nghĩa/từ khóa "lượng vàng") và "Chỉnh sửa ảnh"
+  // (từ khóa "dung lượng ảnh") vào kết quả tìm "lương". Bảng đồng nghĩa
+  // là bản đồ ý định đã biên tập, nên dùng nó để phân biệt:
+  //  - Từ truy vấn trùng đúng một khóa đồng nghĩa (vd "lương") thì chỉ
+  //    tính khớp tên hoặc khớp đồng nghĩa đúng khóa đó — khớp từ khóa/
+  //    mô tả bằng substring không tính. Công cụ khớp ở TÊN vẫn giữ
+  //    (vd "Tính lượng nước cần uống", "Đếm từ & thời lượng đọc").
+  //  - Truy vấn trùng đúng một khóa đồng nghĩa (vd "lượng vàng") thì
+  //    công cụ được gán cho khóa đó luôn đủ điều kiện (chấm như cũ),
+  //    để tìm "lượng vàng" vẫn ra "Tính tiền vàng".
+  //  - Từ không phải khóa đồng nghĩa chấm như cũ, nên tìm kiếm chung
+  //    không đổi (vd "nước", "ảnh", "đọc" vẫn ra như trước).
   function rankSearch(index, q) {
     var words = q.split(/\s+/).filter(Boolean);
     if (!words.length) return [];
+    // Tập hợp mọi khóa đồng nghĩa (đã chuẩn hóa) — cache trên index vì
+    // rankSearch chạy mỗi lần gõ phím.
+    var synKeys = index._synKeys;
+    if (!synKeys) {
+      synKeys = {};
+      Object.keys(index.synById || {}).forEach(function (id) {
+        (index.synById[id] || []).forEach(function (w) { synKeys[w] = true; });
+      });
+      index._synKeys = synKeys;
+    }
+    var wholeQueryIsKey = !!synKeys[q];
+    // Điểm một từ truy vấn, có phân biệt đồng âm (xem ghi chú ở trên).
+    function keyAwareScore(tool, synWords, name, w) {
+      if (!synKeys[w]) return searchWordScore(tool, synWords, w);
+      if (name === w || name.indexOf(w) === 0) return 100;
+      if (name.indexOf(w) !== -1) return 80;
+      if (synWords && synWords.indexOf(w) !== -1) return 60;
+      return 0;
+    }
     var scored = [];
     index.tools.forEach(function (tool) {
+      var synWords = index.synById[tool.id];
+      var name = tool.nameNorm || norm(tool.name);
+      // Công cụ được gán cho đúng khóa đồng nghĩa trùng cả truy vấn
+      // (vd "Tính tiền vàng" với khóa "lượng vàng") thì chấm như cũ —
+      // khớp tiền tố đồng nghĩa vẫn tính, khỏi rơi khỏi kết quả.
+      var mapped = wholeQueryIsKey && synWords && synWords.indexOf(q) !== -1;
       var score = 0;
       var matchedAll = true;
       words.forEach(function (w) {
-        var s = searchWordScore(tool, index.synById[tool.id], w);
+        var s = mapped
+          ? searchWordScore(tool, synWords, w)
+          : keyAwareScore(tool, synWords, name, w);
         if (s === 0) matchedAll = false;
         score += s;
       });
       if (!matchedAll) return;
-      var name = tool.nameNorm || norm(tool.name);
       if (name.indexOf(q) !== -1) score += 50; // cả cụm khớp tên
       scored.push({ tool: tool, score: score });
     });
@@ -1823,13 +1864,22 @@
       var groups = normalizeNews(data);
       var allItems = [];
       groups.forEach(function (g) { g.items.forEach(function (it) { allItems.push(it); }); });
-      // Tin nổi bật: tin đầu tiên trong nhóm AI (dự phòng: tin đầu tiên có được).
+      // Tin nổi bật (V1): chỉ chọn tin CÓ tóm tắt tiếng Việt — ưu tiên tin
+      // đầu tiên có tóm tắt trong nhóm AI, rồi tin đầu tiên có tóm tắt trong
+      // toàn bộ tin; không có tin nào có tóm tắt thì không hiện thẻ nổi bật.
+      // Đồng bộ với home.js (SSR).
+      var hasSummary = function (it) { return String((it && it.summary) || '').trim() !== ''; };
+      var aiGroup = null;
+      groups.forEach(function (g) { if (g.id === 'ai') aiGroup = g; });
+      var featuredItem = null;
+      var k, pool = (aiGroup && aiGroup.items) || [];
+      for (k = 0; k < pool.length; k++) { if (hasSummary(pool[k])) { featuredItem = pool[k]; break; } }
+      if (!featuredItem) {
+        for (k = 0; k < allItems.length; k++) { if (hasSummary(allItems[k])) { featuredItem = allItems[k]; break; } }
+      }
       if (featuredEl) {
-        var aiGroup = null;
-        groups.forEach(function (g) { if (g.id === 'ai') aiGroup = g; });
-        var first = (aiGroup && aiGroup.items[0]) || allItems[0];
-        featuredEl.innerHTML = first
-          ? newsFeaturedHtml(first)
+        featuredEl.innerHTML = featuredItem
+          ? newsFeaturedHtml(featuredItem)
           : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
       }
       if (groupsEl) {
@@ -1841,7 +1891,8 @@
           groupsEl.innerHTML = NEWS_GROUPS.map(function (def, idx) {
             var g = null;
             groups.forEach(function (x) { if (x.id === def.id) g = x; });
-            var items = g ? g.items.slice(0, NEWS_PER_GROUP) : [];
+            // Loại tin nổi bật khỏi danh sách tab để tin không hiện 2 lần (V1).
+            var items = g ? g.items.filter(function (it) { return it !== featuredItem; }).slice(0, NEWS_PER_GROUP) : [];
             return '<div class="tab-panel" data-tab-panel="news-' + def.id + '"' +
               (idx === 0 ? '' : ' hidden') + '>' +
               (items.length

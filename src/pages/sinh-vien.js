@@ -182,9 +182,13 @@ ${studentTools.map((tool, i) => toolCard(tool, i)).join('\n')}
 }
 
 // Trang riêng từng mẫu /sinh-vien/<slug>/: nội dung mẫu + nút In + mẫu khác.
+// Trang CV bọc thêm class cv-print-only để CSS in chỉ in tờ CV ví dụ
+// (ẩn tiêu đề/mô tả trang + các khối .print-hide khi in — xem L12).
 export function detailBody({ template, templates = [] } = {}) {
   const others = (templates.length ? templates : TEMPLATES).filter((t) => t.slug !== template.slug);
+  const isCv = template.slug === 'cv-sinh-vien-moi-ra-truong';
   return `
+  ${isCv ? '<div class="cv-print-only">' : ''}
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/sinh-vien/">← Mục sinh viên</a></nav>
   <header class="tool-page-head">
     <h1>${esc(template.title)}</h1>
@@ -195,5 +199,6 @@ export function detailBody({ template, templates = [] } = {}) {
 ${template.body}
   </div>
   <p class="muted small">Mẫu do Tiện Ích Hub tự viết — bạn tự do dùng và sửa cho phù hợp với quy định của trường mình. Bấm "In mẫu" để in hoặc lưu thành PDF.</p>
-  ${others.length ? `<section class="tool-related sv-related"><h2>Mẫu khác</h2><div class="sv-grid">${others.map(templateCard).join('\n')}</div></section>` : ''}`;
+  ${others.length ? `<section class="tool-related sv-related"><h2>Mẫu khác</h2><div class="sv-grid">${others.map(templateCard).join('\n')}</div></section>` : ''}
+  ${isCv ? '</div>' : ''}`;
 }

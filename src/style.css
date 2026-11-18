@@ -869,6 +869,12 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 .news-list { display: grid; gap: 12px; }
 .news-list .news-card { margin-bottom: 0; }
 
+/* Danh sách ngày lưu trữ ở trang mục Điểm báo (/diem-bao/): mỗi dòng
+   một ngày + số tin, kẻ vạch ngăn cách, không dấu đầu dòng. */
+.news-archive-list { list-style: none; margin: 0; padding: 0; }
+.news-archive-list li { padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+.news-archive-list li:last-child { border-bottom: none; }
+
 /* ---------- Bảng xếp hạng (kiểu Product Hunt: hàng ngang, không bóng đổ) ---------- */
 
 /* Bảng xếp hạng nằm trong vùng hero: panel trắng nổi bật ở đầu trang. */
@@ -1667,7 +1673,10 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 
 /* ----- Footer nhiều cột ----- */
-
+/* 5 nhóm (Công cụ / Hỗ trợ / Chính sách / Hạng mục / Công cụ chính):
+   1 cột mobile, 2 cột tablet, 3 cột ở màn vừa (3+2), 5 cột ngang
+   ở desktop rộng — trước đây 2 nhóm cuối dồn trong 1 cột dài, bỏ
+   trống 2/3 chiều rộng (V3). */
 .footer-cols {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -1678,7 +1687,10 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (min-width: 960px) {
-  .footer-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .footer-cols { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 .footer-col { min-width: 0; }
 .footer-col h3 { margin: 0 0 12px; font-size: 1rem; }
@@ -1793,7 +1805,9 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .code-mau-tags { margin: 0; }
 .chip.code-lang { background: var(--accent-soft); color: var(--accent-dark); border-color: transparent; font-weight: 600; }
 
-/* Xem trước 3 dòng code trên thẻ: nền tối, chữ sáng, không cuộn. */
+/* Xem trước 3 dòng code trên thẻ: nền tối, chữ sáng, không cuộn.
+   Dòng dài hơn khung thì cắt bằng dấu "…" (L5) thay vì cụt ngang
+   giữa chữ — text-overflow áp dụng cho từng dòng của <pre>. */
 .code-preview {
   margin: 0;
   background: #12283e;
@@ -1805,6 +1819,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   line-height: 1.55;
   overflow: hidden;
   white-space: pre;
+  text-overflow: ellipsis;
 }
 .code-preview code { font-family: inherit; }
 
@@ -2088,5 +2103,12 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
      mode). Ép nền trắng + chữ đen cho cả khối lẫn nội dung trong. */
   .sv-letter, .note { background: #fff !important; color: #000 !important; }
   .sv-letter *, .note * { color: #000 !important; }
+  /* Các khối hướng dẫn bọc .print-hide (trang mẫu CV) không in ra. */
+  .print-hide { display: none !important; }
+  /* Trang mẫu CV (L12): chỉ in tờ CV ví dụ (h2 "Ví dụ CV hoàn chỉnh"
+     + hộp note + khối .sv-letter.sv-cv) — ẩn tiêu đề h1 + mô tả trang
+     (cả khối .tool-page-head) và dòng ghi chú cuối trang. */
+  .cv-print-only .tool-page-head,
+  .cv-print-only > p.muted { display: none !important; }
   a { color: #000; text-decoration: none; }
 }

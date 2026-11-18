@@ -11,12 +11,6 @@ export const meta = {
   seoDesc: 'Kiểm tra tốc độ gõ phím tiếng Việt của bạn: đo WPM, độ chính xác và số lỗi với 3 đoạn văn mẫu.'
 };
 
-const SAMPLES = [
-  'Buổi sáng ở văn phòng bắt đầu bằng tiếng máy in và mùi cà phê mới pha. Mọi người chào nhau rồi ngồi vào bàn, mở máy tính và xem lại công việc của ngày hôm nay.',
-  'Con sông chảy qua làng mang theo phù sa màu mỡ cho những cánh đồng lúa xanh mướt. Người nông dân ra đồng từ sáng sớm, tiếng cười nói vang lên khắp xóm nhỏ yên bình.',
-  'Thành phố về đêm lung linh ánh đèn từ những tòa nhà cao tầng. Dòng người vẫn hối hả trên phố, tiếng còi xe hòa cùng mùi thơm của hàng quán ven đường.'
-];
-
 export function body() {
   return `
 <div class="tool-panel">
@@ -48,6 +42,12 @@ export function init(root) {
     startBtn = $('tgp-start'), finishBtn = $('tgp-finish'), againBtn = $('tgp-again'),
     timerEl = $('tgp-timer'), resEl = $('tgp-result');
   let timer = null, startTime = 0, running = false;
+
+  const SAMPLES = [
+    'Buổi sáng ở văn phòng bắt đầu bằng tiếng máy in và mùi cà phê mới pha. Mọi người chào nhau rồi ngồi vào bàn, mở máy tính và xem lại công việc của ngày hôm nay.',
+    'Con sông chảy qua làng mang theo phù sa màu mỡ cho những cánh đồng lúa xanh mướt. Người nông dân ra đồng từ sáng sớm, tiếng cười nói vang lên khắp xóm nhỏ yên bình.',
+    'Thành phố về đêm lung linh ánh đèn từ những tòa nhà cao tầng. Dòng người vẫn hối hả trên phố, tiếng còi xe hòa cùng mùi thơm của hàng quán ven đường.'
+  ];
 
   function showSample() { textEl.textContent = SAMPLES[+sampleEl.value] || SAMPLES[0]; }
   function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }

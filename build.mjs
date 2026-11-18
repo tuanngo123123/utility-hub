@@ -296,8 +296,10 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const faqHtml = content && content.faqs.length
     ? `<section class="tool-faq"><h2>Câu hỏi thường gặp</h2>${content.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>`
     : '';
+  // Dòng tham khảo khi finance = true; công cụ có disclaimer riêng (điện,
+  // nước, BHXH...) thì dùng câu đó thay cho câu mặc định của trang tài chính.
   const disclaimerHtml = content && content.finance
-    ? `<p class="note tool-disclaimer">Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.</p>`
+    ? `<p class="note tool-disclaimer">${esc(content.disclaimer || 'Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.')}</p>`
     : '';
   // 3 bước dùng nhanh (đổi giao diện 18/11, phong cách 21st.dev): câu chữ
   // theo nhóm hành vi của hạng mục, không bịa tính năng — nhóm tra cứu/
@@ -420,18 +422,52 @@ function newsArchiveHtml(date, items) {
       <p class="news-meta">${esc([NEWS_GROUP_LABELS[it.group] || it.group || '', it.source || ''].filter(Boolean).join(' · '))}</p>
     </article>`).join('\n');
   const body = `
-  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">← Trang chủ</a></nav>
+  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/diem-bao/">← Điểm báo</a></nav>
   <header class="tool-page-head">
     <h1>Điểm báo ngày ${esc(label)}</h1>
     <p class="muted">${items.length} tin về AI, chứng khoán và crypto. Tóm tắt ngắn bằng lời của mình, bấm tiêu đề để đọc bản gốc.</p>
   </header>
+  <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
   <div class="news-list">${cards}</div>`;
   return shell({
     title: `Điểm báo ngày ${label} | ${SITE_NAME}`,
     desc: `Điểm báo ngày ${label}: ${items.length} tin về AI, chứng khoán và crypto, tóm tắt ngắn kèm lý do đáng đọc.`,
     keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto',
     canonical: `${BASE_URL}/diem-bao/${date}/`,
-    navActive: 'home',
+    navActive: 'diem-bao',
+    body,
+  });
+}
+
+// Trang mục Điểm báo (/diem-bao/): liệt kê các ngày có lưu trữ (mới
+// nhất trước), mỗi ngày kèm số tin + link tới trang lưu trữ ngày đó.
+// Trang này là đích của mục "Điểm báo" trên header/footer (L7); khi
+// chưa có ngày nào thì hiện câu báo trống thay vì danh sách rỗng.
+function newsIndexHtml(newsByDay, newsDays) {
+  const fmtDay = (date) => {
+    const [y, m, d] = date.split('-');
+    return `${d}/${m}/${y}`;
+  };
+  const list = newsDays.length
+    ? `<ul class="news-archive-list">${newsDays.map((day) => {
+        const count = (newsByDay.get(day) || []).length;
+        return `<li><a href="/diem-bao/${day}/">Ngày ${fmtDay(day)}</a> — ${count} tin</li>`;
+      }).join('\n')}</ul>`
+    : '<p class="muted">Chưa có ngày lưu trữ nào — Điểm báo sẽ xuất hiện ở đây sau bản tin đầu tiên.</p>';
+  const body = `
+  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">← Trang chủ</a></nav>
+  <header class="tool-page-head">
+    <h1>Điểm báo</h1>
+    <p class="muted">Tin về AI, chứng khoán và crypto, tóm tắt ngắn bằng lời của mình. Bấm vào một ngày để đọc các tin của ngày đó, bấm tiêu đề tin để đọc bản gốc.</p>
+  </header>
+  <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
+  ${list}`;
+  return shell({
+    title: `Điểm báo — Lưu trữ theo ngày | ${SITE_NAME}`,
+    desc: 'Điểm báo hằng ngày của Tiện Ích Hub: tin về AI, chứng khoán và crypto, tóm tắt ngắn kèm lý do đáng đọc — lưu trữ theo ngày.',
+    keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto',
+    canonical: `${BASE_URL}/diem-bao/`,
+    navActive: 'diem-bao',
     body,
   });
 }
@@ -749,9 +785,15 @@ async function main() {
   }
   console.log(`   - Hướng dẫn: ${HUONG_DAN_ARTICLES.length} bài, ${HUONG_DAN_ARTICLES.length + 1} trang`);
 
-  // Trang lưu trữ Điểm báo theo ngày (mới nhất trước)
+  // Trang mục Điểm báo (/diem-bao/) + trang lưu trữ theo ngày (mới nhất
+  // trước). Trang mục vào sitemap như mọi trang khác (qua addPage).
   const newsByDay = loadNewsByDay();
   const newsDays = [...newsByDay.keys()].sort().reverse();
+  addPage(
+    'diem-bao/index.html',
+    newsIndexHtml(newsByDay, newsDays),
+    `${BASE_URL}/diem-bao/`
+  );
   for (const day of newsDays) {
     addPage(
       `diem-bao/${day}/index.html`,

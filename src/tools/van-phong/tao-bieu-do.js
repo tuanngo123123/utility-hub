@@ -28,7 +28,7 @@ Tháng 6, 195</textarea></div>
   <button type="button" class="btn btn-primary" id="tbd-go">Vẽ biểu đồ</button>
   <div id="tbd-out"></div>
   <canvas id="tbd-canvas" width="720" height="440" style="display:none"></canvas>
-  <p class="note">Giá trị có thể là số thập phân (dùng dấu phẩy thập phân hoặc dấu chấm đều được). Biểu đồ tròn chỉ dùng khi mọi giá trị đều dương.</p>
+  <p class="note">Giá trị có thể là số thập phân (dùng dấu phẩy thập phân hoặc dấu chấm đều được). Tên mục chứa dấu phẩy vẫn tách đúng (ví dụ: Hà Nội, Việt Nam, 100). Biểu đồ tròn chỉ dùng khi mọi giá trị đều dương.</p>
 </div>`;
 }
 
@@ -42,23 +42,69 @@ export function init(root) {
   function fmtNum(n) {
     return n.toLocaleString('vi-VN', { maximumFractionDigits: 2 });
   }
+  // Hiểu số kiểu Việt Nam: "120" | "120,5" | "1.200,5" (= 1200,5) | "120.5".
+  // Dấu phẩy là thập phân, dấu chấm trước dấu phẩy (hoặc dạng 1.200) là
+  // phân cách nghìn — cùng quy ước với UH.parseNum. Trả NaN nếu không phải số.
+  function parseVNNumber(s) {
+    const t = String(s == null ? '' : s).trim().replace(/\s/g, '');
+    if (!t) return NaN;
+    if (t.indexOf(',') !== -1) {
+      if (!/^-?\d{1,3}(\.\d{3})*,\d+$/.test(t) && !/^-?\d+,\d+$/.test(t)) return NaN;
+      return parseFloat(t.replace(/\./g, '').replace(',', '.'));
+    }
+    if (/^-?\d{1,3}(\.\d{3})+$/.test(t)) return parseFloat(t.replace(/\./g, ''));
+    if (/^-?\d+(\.\d+)?$/.test(t)) return parseFloat(t);
+    return NaN;
+  }
+  // Tách một dòng thành { label, value } hoặc { error }.
+  // - Dấu ';' hoặc tab làm dấu phân cách thì không mơ hồ: tên lấy hết phần
+  //   trước dấu cuối cùng, giá trị là phần sau (cho phép "120,5").
+  // - Dấu phẩy: token cuối là số và token trước nó KHÔNG phải số thì token
+  //   cuối là giá trị ("Hà Nội, Việt Nam, 100" → tên "Hà Nội, Việt Nam").
+  //   Ngược lại, ghép 2 token cuối thành số thập phân kiểu VN ("Mục A, 120, 5"
+  //   → 120,5; "X, 1.200, 5" → 1200,5).
+  function parseLine(line) {
+    const sepIdx = Math.max(line.lastIndexOf(';'), line.lastIndexOf('\t'));
+    if (sepIdx > 0) {
+      const label = line.slice(0, sepIdx).trim();
+      const val = parseVNNumber(line.slice(sepIdx + 1));
+      if (!label) return { error: 'thiếu tên mục' };
+      if (isNaN(val)) return { error: 'giá trị không phải số' };
+      return { label, value: val };
+    }
+    const parts = line.split(',').map(s => s.trim());
+    if (parts.length < 2) return { error: 'chưa đúng dạng "tên, giá trị"' };
+    const last = parts[parts.length - 1];
+    const prev = parts[parts.length - 2];
+    const lastVal = parseVNNumber(last);
+    if (!isNaN(lastVal) && (parts.length === 2 || isNaN(parseVNNumber(prev)))) {
+      const label = parts.slice(0, -1).join(', ').trim();
+      if (!label) return { error: 'thiếu tên mục' };
+      return { label, value: lastVal };
+    }
+    // Ghép 2 token cuối: "120" + "5" → 120,5; "1.200" + "5" → 1200,5.
+    if (/^-?\d{1,3}(\.\d{3})*$/.test(prev) && /^\d+$/.test(last)) {
+      const val = parseVNNumber(prev + ',' + last);
+      if (!isNaN(val)) {
+        const label = parts.slice(0, -2).join(', ').trim();
+        if (!label) return { error: 'thiếu tên mục' };
+        return { label, value: val };
+      }
+    }
+    return { error: 'giá trị không phải số' };
+  }
+  // Trả { rows, errors }: chỉ vẽ các dòng hợp lệ, liệt kê dòng lỗi để báo.
   function parseData() {
     const lines = $('tbd-data').value.split('\n').map(s => s.trim()).filter(Boolean);
-    if (lines.length < 2) return { error: 'Cần ít nhất 2 dòng số liệu.' };
-    if (lines.length > 12) return { error: 'Tối đa 12 mục — hãy gộp bớt số liệu.' };
     const rows = [];
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      const idx = Math.max(line.lastIndexOf(','), line.lastIndexOf(';'), line.lastIndexOf('\t'));
-      if (idx <= 0) return { error: 'Dòng ' + (i + 1) + ' chưa đúng dạng "tên, giá trị": ' + line };
-      const label = line.slice(0, idx).trim();
-      const valStr = line.slice(idx + 1).trim().replace(/\s/g, '');
-      const val = parseFloat(valStr.replace(',', '.'));
-      if (!label) return { error: 'Dòng ' + (i + 1) + ' thiếu tên mục.' };
-      if (isNaN(val)) return { error: 'Dòng ' + (i + 1) + ' có giá trị không phải số: ' + line.slice(idx + 1).trim() };
-      rows.push({ label, value: val });
-    }
-    return { rows };
+    const errors = [];
+    lines.forEach((line, i) => {
+      const r = parseLine(line);
+      if (r.error) errors.push('Dòng ' + (i + 1) + ': "' + line + '" — ' + r.error);
+      else rows.push(r);
+    });
+    if (rows.length > 12) return { rows: [], errors: ['Tối đa 12 mục — hiện có ' + rows.length + ' dòng hợp lệ, hãy gộp bớt số liệu.'] };
+    return { rows, errors };
   }
 
   function niceMax(max) {
@@ -69,9 +115,18 @@ export function init(root) {
     return nice * pow;
   }
 
+  const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
   function draw() {
     const parsed = parseData();
-    if (parsed.error) { $('tbd-out').innerHTML = '<p class="error">' + parsed.error + '</p>'; return; }
+    const canvas = $('tbd-canvas');
+    if (!parsed.rows.length) {
+      canvas.style.display = 'none';
+      $('tbd-out').innerHTML = '<p class="error">' + (parsed.errors.length
+        ? 'Không vẽ được biểu đồ — các dòng sau chưa đúng dạng "tên, giá trị":<br>' + parsed.errors.map(e => escHtml(e)).join('<br>')
+        : 'Chưa có số liệu — nhập mỗi dòng một mục dạng "tên, giá trị", ví dụ: Tháng 1, 120') + '</p>';
+      return;
+    }
     const rows = parsed.rows;
     const type = $('tbd-type').value;
     if (type === 'pie' && rows.some(r => r.value <= 0)) {
@@ -79,7 +134,6 @@ export function init(root) {
       return;
     }
     const title = $('tbd-title').value.trim();
-    const canvas = $('tbd-canvas');
     const ctx = canvas.getContext('2d');
     const W = canvas.width, H = canvas.height;
     ctx.clearRect(0, 0, W, H);
@@ -203,7 +257,10 @@ export function init(root) {
     canvas.style.display = '';
     canvas.style.maxWidth = '100%';
     canvas.style.height = 'auto';
-    $('tbd-out').innerHTML = '<div class="result"><div class="result-row"><span>Biểu đồ</span><strong>' + rows.length + ' mục — ' +
+    const warnHtml = parsed.errors.length
+      ? '<p class="error">Đã bỏ qua ' + parsed.errors.length + ' dòng không phân tích được (chỉ vẽ ' + rows.length + ' dòng hợp lệ):<br>' + parsed.errors.map(e => escHtml(e)).join('<br>') + '</p>'
+      : '';
+    $('tbd-out').innerHTML = warnHtml + '<div class="result"><div class="result-row"><span>Biểu đồ</span><strong>' + rows.length + ' mục — ' +
       (type === 'bar' ? 'biểu đồ cột' : type === 'line' ? 'biểu đồ đường' : 'biểu đồ tròn') + '</strong></div></div>' +
       '<button type="button" class="btn btn-ghost" id="tbd-dl">Tải ảnh PNG</button>';
     $('tbd-dl').addEventListener('click', () => {

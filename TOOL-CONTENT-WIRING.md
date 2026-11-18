@@ -36,9 +36,12 @@ Thêm đoạn dưới đây ngay sau dòng
     ? `<section class="tool-faq"><h2>Câu hỏi thường gặp</h2>${content.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>`
     : '';
   const disclaimerHtml = content && content.finance
-    ? `<p class="note tool-disclaimer">Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.</p>`
+    ? `<p class="note tool-disclaimer">${esc(content.disclaimer || 'Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.')}</p>`
     : '';
 ```
+// Công cụ có trường `disclaimer` riêng trong `TOOL_CONTENT` (điện → EVN,
+nước → công ty cấp nước, BHXH → cơ quan BHXH) thì build dùng câu đó thay
+câu thuế/ngân hàng mặc định — đừng để câu miễn trừ lạc ngữ cảnh.
 
 ## Bước 3 — Chèn intro vào template `body` (phía trên khung công cụ)
 

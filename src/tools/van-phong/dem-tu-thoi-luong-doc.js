@@ -11,8 +11,6 @@ export const meta = {
   seoDesc: 'Dán văn bản để đếm từ, ký tự, câu, đoạn; ước tính thời gian đọc (200 từ/phút) và nói (150 từ/phút); xem 10 từ lặp nhiều nhất.'
 };
 
-const STOPWORDS = new Set(['và', 'là', 'của', 'cho', 'với', 'trong', 'đã', 'được', 'các', 'những', 'có', 'không', 'một', 'này', 'đó', 'khi', 'như', 'để', 'từ', 'ở', 'về', 'thì', 'mà', 'là', 'sẽ', 'cũng', 'đến', 'ra', 'nên', 'nếu', 'vì', 'do', 'tại', 'theo', 'sau', 'trước', 'giữa', 'trên', 'dưới', 'hơn', 'rất', 'chỉ', 'hay', 'hoặc', 'nhưng', 'tôi', 'bạn', 'anh', 'chị', 'em', 'ông', 'bà', 'nó', 'họ', 'mình', 'ai', 'gì', 'nào', 'đây', 'kia', 'ấy', 'còn', 'lại', 'đi', 'vào', 'lên', 'xuống', 'qua', 'là', 'bị', 'phải', 'cần', 'muốn', 'hãy', 'đang', 'vừa', 'mới', 'luôn', 'thường', 'mỗi', 'mọi', 'tất', 'cả']);
-
 export function body() {
   return `
 <div class="tool-panel">
@@ -31,6 +29,8 @@ export function init(root) {
   const toast = UH.toast || (m => alert(m));
   const $ = id => root.querySelector('#' + id);
   const inputEl = $('dtd-input'), resEl = $('dtd-result'), topEl = $('dtd-top');
+
+  const STOPWORDS = new Set(['và', 'là', 'của', 'cho', 'với', 'trong', 'đã', 'được', 'các', 'những', 'có', 'không', 'một', 'này', 'đó', 'khi', 'như', 'để', 'từ', 'ở', 'về', 'thì', 'mà', 'là', 'sẽ', 'cũng', 'đến', 'ra', 'nên', 'nếu', 'vì', 'do', 'tại', 'theo', 'sau', 'trước', 'giữa', 'trên', 'dưới', 'hơn', 'rất', 'chỉ', 'hay', 'hoặc', 'nhưng', 'tôi', 'bạn', 'anh', 'chị', 'em', 'ông', 'bà', 'nó', 'họ', 'mình', 'ai', 'gì', 'nào', 'đây', 'kia', 'ấy', 'còn', 'lại', 'đi', 'vào', 'lên', 'xuống', 'qua', 'là', 'bị', 'phải', 'cần', 'muốn', 'hãy', 'đang', 'vừa', 'mới', 'luôn', 'thường', 'mỗi', 'mọi', 'tất', 'cả']);
 
   function fmtDur(mins) {
     if (mins < 1) return 'dưới 1 phút (khoảng ' + Math.max(1, Math.round(mins * 60)) + ' giây)';

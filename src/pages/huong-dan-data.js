@@ -135,7 +135,7 @@ export const ARTICLES = [
 <p>Hóa đơn tiền điện hằng tháng ghi đủ các số liệu để bạn tự đối chiếu: chỉ số công tơ đầu kỳ và cuối kỳ, điện năng tiêu thụ trong tháng (kWh), bảng tiền điện chia theo từng bậc, tiền VAT và tổng số tiền phải trả. Cách đối chiếu nhanh nhất là lấy số kWh trên hóa đơn nhập vào công cụ tính tiền điện — nếu kết quả khớp với hóa đơn thì số tiền đúng.</p>
 <p>Nếu một tháng tiền điện tăng đột biến, kiểm tra số kWh trước: thường nguyên nhân là dùng nhiều hơn (trời nắng nóng phải bật điều hòa nhiều, nhà thêm thiết bị mới) chứ không phải giá điện thay đổi. Giá điện chỉ thay đổi khi có quyết định điều chỉnh mới của cơ quan có thẩm quyền.</p>
 <h2 id="vi-sao-cang-dat">Vì sao dùng càng nhiều, mỗi kWh thêm càng đắt</h2>
-<p>Vì giá tính lũy tiến nên <strong>mỗi kWh thêm vào có giá bằng bậc cao nhất mà hộ bạn đang dùng tới</strong>. Hộ dùng 350 kWh đang ở bậc 3: mỗi kWh thêm tốn 2.894đ + VAT, tức khoảng 3.126đ. Hộ dùng trên 700 kWh: mỗi kWh thêm ở bậc 5, tốn 3.844đ + VAT, tức khoảng 4.152đ — đắt hơn một phần ba so với bậc 3.</p>
+<p>Vì giá tính lũy tiến nên <strong>mỗi kWh thêm vào có giá bằng bậc cao nhất mà hộ bạn đang dùng tới</strong>. Hộ dùng 350 kWh đang ở bậc 3: mỗi kWh thêm tốn 2.894đ + VAT, tức khoảng 3.126đ. Hộ dùng trên 700 kWh: mỗi kWh thêm ở bậc 5, tốn 3.844đ + VAT, tức khoảng 4.152đ — đắt hơn gần một phần ba so với bậc 3.</p>
 <p>Tính bình quân: 350 kWh hết 921.348đ, tức khoảng 2.632đ/kWh; 500 kWh hết 1.450.872đ, tức khoảng 2.902đ/kWh. Dùng thêm 150 kWh (từ 350 lên 500) làm tiền điện tăng 529.524đ — phần điện thêm này có giá bình quân khoảng 3.530đ/kWh, cao hơn hẳn giá bình quân chung.</p>
 <p>Muốn giảm tiền điện, cách hiệu quả nhất là giảm số kWh ở các bậc cao — tức giảm tổng lượng dùng. Tắt thiết bị khi không dùng, để điều hòa ở 26–27°C và hạn chế dùng nhiều thiết bị công suất lớn cùng lúc là những cách đơn giản nhất, không tốn thêm chi phí.</p>`,
   },
@@ -154,7 +154,7 @@ export const ARTICLES = [
 <p>Từ 01/01/2026, lệ phí môn bài được bãi bỏ hoàn toàn — hộ kinh doanh, cá nhân kinh doanh và doanh nghiệp đều không phải nộp lệ phí này nữa, cũng không phải nộp tờ khai lệ phí môn bài. Bài này nói rõ ai được miễn, năm 2025 còn phải nộp bao nhiêu, và hộ mới thành lập năm 2026 cần làm gì.</p>
 <nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
 <li><a href="#bai-bo-tu-2026">Bãi bỏ hoàn toàn từ 01/01/2026</a></li>
-<li><a href="#nam-2025-van-nop">Năm 2025 vẫn phải nộp — hạn chót 30/01/2026</a></li>
+<li><a href="#nam-2025-van-nop">Năm 2025 vẫn phải nộp — hạn chót 30/01/2026 đã qua</a></li>
 <li><a href="#muc-cu-2025">Mức cũ năm 2025 để đối chiếu</a></li>
 <li><a href="#ho-moi-2026">Hộ mới thành lập năm 2026 thì sao</a></li>
 </ul></nav>
@@ -166,8 +166,8 @@ export const ARTICLES = [
 <li><strong>Không cần làm đơn xin miễn:</strong> việc bãi bỏ áp dụng chung cho mọi người nộp thuế theo quy định của pháp luật, không cần đăng ký hay làm thủ tục gì thêm.</li>
 </ul>
 <p>Nói cách khác, từ năm 2026, lệ phí môn bài không còn là một khoản phải nộp hằng năm nữa — hộ kinh doanh bớt được một khoản chi phí cố định đầu năm.</p>
-<h2 id="nam-2025-van-nop">Năm 2025 vẫn phải nộp — hạn chót 30/01/2026</h2>
-<p>Việc bãi bỏ chỉ áp dụng từ năm 2026. <strong>Lệ phí môn bài năm 2025 vẫn phải nộp</strong> — đây là năm cuối cùng phải nộp, hạn nộp chậm nhất là ngày 30/01/2026. Hộ kinh doanh nào chưa nộp lệ phí năm 2025 thì nộp cho đủ trước hạn này để tránh phát sinh tiền chậm nộp.</p>
+<h2 id="nam-2025-van-nop">Năm 2025 vẫn phải nộp — hạn chót 30/01/2026 đã qua</h2>
+<p>Việc bãi bỏ chỉ áp dụng từ năm 2026. <strong>Lệ phí môn bài năm 2025 vẫn phải nộp</strong> — đây là năm cuối cùng phải nộp, hạn nộp chậm nhất là ngày 30/01/2026. <strong>Hạn này đã qua</strong> — hộ kinh doanh nào tới nay vẫn chưa nộp lệ phí năm 2025 thì đã quá hạn, cần nộp ngay số tiền còn nợ. Tiền chậm nộp có thể đã phát sinh — kiểm tra số tiền cụ thể với cơ quan thuế quản lý trực tiếp.</p>
 <p>Nếu bạn đã nộp lệ phí năm 2025 rồi thì không cần làm gì thêm — không có chuyện được hoàn lại vì việc bãi bỏ chỉ có hiệu lực từ năm 2026.</p>
 <h2 id="muc-cu-2025">Mức cũ năm 2025 để đối chiếu</h2>
 <p>Bảng dưới đây là mức lệ phí của năm 2025 (năm cuối cùng phải nộp), để bạn đối chiếu xem mình đã nộp đúng chưa:</p>
@@ -186,6 +186,7 @@ export const ARTICLES = [
 <tr><td>Vốn điều lệ từ 10 tỷ đồng trở xuống</td><td>2.000.000đ/năm</td></tr>
 <tr><td>Chi nhánh, văn phòng đại diện, địa điểm kinh doanh</td><td>1.000.000đ/năm</td></tr>
 </table>
+<p><strong>Ra hoạt động trong 6 tháng cuối năm 2025 chỉ nộp 50% mức cả năm:</strong> hộ kinh doanh hoặc doanh nghiệp bắt đầu hoạt động từ tháng 7 đến tháng 12 năm 2025 thì mức phải nộp là một nửa mức trong bảng trên — ví dụ hộ doanh thu 420 triệu đồng thì nộp 250.000đ thay vì 500.000đ. Quy định này không áp dụng khi đã được miễn lệ phí trong năm đầu thành lập.</p>
 <p>Một lưu ý cho năm 2025 trở về trước: hộ kinh doanh và doanh nghiệp mới thành lập được miễn lệ phí môn bài trong năm đầu tiên thành lập. Từ năm 2026 thì quy định này không còn ý nghĩa nữa vì lệ phí đã bãi bỏ với tất cả mọi người.</p>
 <h2 id="ho-moi-2026">Hộ mới thành lập năm 2026 thì sao</h2>
 <p>Hộ kinh doanh mới thành lập trong năm 2026 không phải nộp lệ phí môn bài và không phải khai lệ phí môn bài. Bạn chỉ cần thực hiện các nghĩa vụ thuế khác theo quy định (nếu có) như đăng ký thuế, kê khai và nộp thuế giá trị gia tăng, thuế thu nhập cá nhân tùy theo phương pháp tính thuế của hộ mình. Nghĩa vụ cụ thể của từng hộ đối chiếu với cơ quan thuế quản lý trực tiếp.</p>`,
@@ -250,7 +251,7 @@ export const ARTICLES = [
     cta: {
       url: '/sinh-vien/cv-sinh-vien-moi-ra-truong/',
       label: 'Xem mẫu CV sinh viên →',
-      text: 'Mẫu CV 1 trang viết sẵn trong mục Sinh viên — cấu trúc 6 mục, gợi ý theo từng nhóm ngành.',
+      text: 'Mẫu CV 1 trang viết sẵn trong mục Sinh viên — cấu trúc 6 mục, gợi ý theo từng nhóm ngành và ví dụ CV hoàn chỉnh đã điền.',
     },
     sources: 'Nội dung do Tiện Ích Hub tự viết, theo mẫu CV sinh viên mới ra trường trong mục Sinh viên của web.',
     body: `
@@ -277,6 +278,7 @@ export const ARTICLES = [
 <li><strong>Kinh nghiệm làm thêm:</strong> ghi cả việc không đúng ngành nếu nó rèn kỹ năng liên quan — bán hàng rèn giao tiếp và thuyết phục, gia sư rèn trình bày và kiên nhẫn.</li>
 <li><strong>Hoạt động:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. Câu lạc bộ, cuộc thi, hoạt động tình nguyện đều tính — miễn là bạn nói được mình đã làm gì và đạt kết quả gì.</li>
 </ol>
+<p>Mẫu CV trong mục Sinh viên có sẵn một ví dụ CV hoàn chỉnh đã điền (bạn Nguyễn Thu Hà, sinh viên Marketing) để bạn tham khảo cách trình bày — xem tại <a href="/sinh-vien/cv-sinh-vien-moi-ra-truong/">mẫu CV sinh viên mới ra trường</a>.</p>
 <h2 id="viet-bang-so">Viết bằng số, không viết chung chung</h2>
 <p>Cùng một hoạt động, cách viết khác nhau tạo ấn tượng khác nhau:</p>
 <ul>

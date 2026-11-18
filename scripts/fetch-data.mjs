@@ -245,6 +245,38 @@ const NEWS_FEEDS = [
   { group: 'crypto', source: 'CoinTelegraph', url: 'https://cointelegraph.com/rss', take: 3 },
   { group: 'crypto', source: 'CoinDesk', url: 'https://www.coindesk.com/arc/outboundfeeds/rss/', take: 3 },
 ];
+// Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V4): nhóm theo
+// NGUỒN RSS hay sai — vd CNBC đăng tin Starshield/sập hệ thống (công nghệ)
+// nhưng bị gắn "chung-khoan", CoinDesk đăng tin Nvidia nhưng bị gắn "crypto".
+// Ưu tiên: crypto (từ khóa rất đặc trưng) → AI/công nghệ → chứng khoán;
+// không khớp từ khóa nào thì giữ nguyên nhóm theo nguồn RSS. AI đứng trước
+// chứng khoán vì tin công nghệ hay nhắc "IPO"/"earnings" (vd "Amazon và
+// Google sẽ sở hữu Anthropic sau IPO" là tin AI, không phải tin chứng khoán).
+// Chỉ dùng 3 nhóm ai/chung-khoan/crypto (summarize-news.mjs lọc theo 3 nhóm).
+// Từ khóa khớp theo từ trọn vẹn, không phân biệt hoa/thường (\b…\b) để "AI"
+// không trúng "said", "eth" không trúng "Ethereum".
+const GROUP_KEYWORDS = {
+  crypto: ['bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'solana', 'sol', 'crypto', 'cryptocurrency', 'token', 'tokens', 'blockchain', 'coinbase', 'binance', 'stablecoin', 'stablecoins', 'defi', 'dogecoin', 'doge', 'cardano', 'ada', 'tether', 'usdt', 'usdc', 'nft', 'nfts', 'web3', 'altcoin', 'altcoins', 'memecoin', 'memecoins', 'satoshi', 'halving'],
+  ai: ['artificial intelligence', 'machine learning', 'deep learning', 'data center', 'data centers', 'hugging face', 'chatgpt', 'openai', 'nvidia', 'anthropic', 'spacex', 'starshield', 'starlink', 'satellite', 'satellites', 'cyberattack', 'cyberattacks', 'cyber attack', 'outage', 'outages', 'apple', 'microsoft', 'google', 'amazon', 'meta', 'tesla', 'semiconductor', 'semiconductors', 'chip', 'chips', 'ai', 'llm', 'gemini', 'copilot', 'robot', 'robots', 'neural', 'quantum', 'android', 'iphone'],
+  'chung-khoan': ['federal reserve', 'interest rate', 'interest rates', 'dow jones', 'vn-index', 's&p', 'nasdaq', 'chứng khoán', 'cổ phiếu', 'earnings', 'ipo', 'fed', 'stock', 'stocks', 'shares', 'dividend', 'dividends', 'treasury', 'securities', 'wall street'],
+};
+function keywordRegex(words) {
+  const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return new RegExp('\\b(?:' + words.map(escRe).join('|') + ')\\b', 'i');
+}
+const GROUP_PATTERNS = [
+  { group: 'crypto', re: keywordRegex(GROUP_KEYWORDS.crypto) },
+  { group: 'ai', re: keywordRegex(GROUP_KEYWORDS.ai) },
+  { group: 'chung-khoan', re: keywordRegex(GROUP_KEYWORDS['chung-khoan']) },
+];
+function classifyNewsGroup(title, description, fallbackGroup) {
+  const text = ((title || '') + ' ' + (description || '')).trim();
+  if (!text) return fallbackGroup;
+  for (const p of GROUP_PATTERNS) {
+    if (p.re.test(text)) return p.group;
+  }
+  return fallbackGroup;
+}
 // Giải mã thực thể HTML trong RSS: số thập phân (&#8217;), số hex (&#x27;),
 // tên (&apos; &rsquo; &mdash;…) và 4 thực thể cơ bản. &amp; giải mã CUỐI
 // để không tạo thực thể mới từ văn bản đã giải mã.
@@ -277,7 +309,8 @@ async function fetchNewsRaw() {
         const pub = stripHtml(/<pubDate>([\s\S]*?)<\/pubDate>/.exec(b)?.[1] || '');
         const desc = stripHtml(/<description>([\s\S]*?)<\/description>/.exec(b)?.[1] || '').slice(0, 500);
         if (!title || !link) continue;
-        items.push({ title, link, source: feed.source, group: feed.group, publishedAt: pub, description: desc });
+        // Nhóm phân loại lại bằng từ khóa (V4), dự phòng là nhóm theo nguồn RSS.
+        items.push({ title, link, source: feed.source, group: classifyNewsGroup(title, desc, feed.group), publishedAt: pub, description: desc });
         n++;
       }
       log(`news-${feed.source}`, true, `${n} tin`);

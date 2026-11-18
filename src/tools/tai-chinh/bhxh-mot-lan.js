@@ -26,7 +26,10 @@ export function body() {
   </div>
   <div class="field"><label for="bhxh-joined">Bạn bắt đầu đóng BHXH khi nào?</label><select id="bhxh-joined"><option value="before">Trước ngày 01/7/2025</option><option value="from">Từ ngày 01/7/2025 trở đi</option></select><p class="hint">Mốc này quyết định bạn có còn được rút một lần sau 12 tháng nghỉ việc hay không (Luật BHXH 2024).</p></div>
   <div class="field"><label for="bhxh-paid">Tổng số tiền đã đóng vào quỹ hưu trí – tử tuất (₫) — chỉ cần khi đóng chưa đủ 1 năm</label><input id="bhxh-paid" type="text" inputmode="decimal" value="" placeholder="Bỏ trống để ước tính"><p class="hint">Tra trên ứng dụng VssID. Bỏ trống thì công cụ ước tính ≈ 22% × lương bình quân × số tháng đóng (22% = 8% người lao động + 14% người sử dụng lao động đóng vào quỹ hưu trí – tử tuất).</p></div>
-  <button class="btn btn-primary" id="bhxh-calc">Tính BHXH một lần</button>
+  <div class="btn-row">
+    <button class="btn btn-primary" id="bhxh-calc">Tính BHXH một lần</button>
+    <button type="button" class="btn btn-ghost" id="bhxh-example">Điền ví dụ</button>
+  </div>
   <div class="result" id="bhxh-result" hidden></div>
   <p class="note">Công thức (khoản 3 Điều 70 Luật BHXH 41/2024/QH15): mỗi năm đóng trước năm 2014 = 1,5 tháng mức bình quân tiền lương tháng đóng BHXH; mỗi năm từ năm 2014 trở đi = 2 tháng. Tháng lẻ trước năm 2014 được chuyển sang giai đoạn từ 2014 để tính; tháng lẻ 1–6 tháng tính là nửa năm, 7–11 tháng tính là 1 năm. Đóng chưa đủ 1 năm: mức hưởng bằng số tiền đã đóng nhưng không quá 2 tháng mức bình quân. Điều kiện rút: người đã đóng trước 01/7/2025 được rút sau 12 tháng không tham gia BHXH bắt buộc lẫn tự nguyện nếu chưa đủ 20 năm đóng; người bắt đầu đóng từ 01/7/2025 chỉ được rút khi đủ tuổi hưu mà chưa đủ 15 năm đóng, ra nước ngoài định cư, mắc bệnh hiểm nghèo hoặc suy giảm khả năng lao động từ 81% trở lên. Kết quả chỉ mang tính tham khảo — mức thực tế do cơ quan BHXH xác định theo hồ sơ đóng của bạn (lương các năm trước còn được điều chỉnh theo hệ số trượt giá).</p>
 </div>`;
@@ -37,10 +40,11 @@ export function init(root) {
   const fmtVND = U.fmtVND || (n => Math.round(n).toLocaleString('vi-VN') + ' ₫');
   const parseNum = U.parseNum || (s => { const v = parseFloat(String(s == null ? '' : s).replace(/[^\d.,-]/g, '').replace(/\./g, '').replace(',', '.')); return isNaN(v) ? 0 : v; });
   const toast = U.toast || (m => alert(m));
+  const fillEx = U.fillExample || function (rootEl, values, btn) { Object.keys(values).forEach(function (id) { const el = rootEl.querySelector('#' + id); if (el) el.value = values[id]; }); if (btn) btn.click(); };
   const $ = id => root.querySelector('#' + id);
   const fmtYears = y => (Number.isInteger(y) ? String(y) : y.toLocaleString('vi-VN')) + ' năm';
 
-  $('bhxh-calc').addEventListener('click', () => {
+  function calc() {
     const avg = parseNum($('bhxh-avg').value);
     const y1 = Math.max(0, Math.floor(parseNum($('bhxh-y1').value)));
     const m1 = Math.min(11, Math.max(0, Math.floor(parseNum($('bhxh-m1').value))));
@@ -97,5 +101,14 @@ export function init(root) {
       rows +
       '<div class="result-row"><span>Số tiền BHXH một lần ước tính</span><strong>' + fmtVND(amount) + '</strong></div>' +
       '<div class="result-row"><span>Điều kiện rút</span><span>' + elig + '</span></div>';
+  }
+
+  $('bhxh-calc').addEventListener('click', calc);
+  // Ví dụ: lương bình quân 12 triệu, 3 năm 8 tháng trước 2014 + 6 năm 2 tháng
+  // từ 2014 → 222.000.000đ (8 tháng lẻ chuyển sang, 10 tháng lẻ tính là 1 năm).
+  $('bhxh-example').addEventListener('click', () => {
+    fillEx(root, { 'bhxh-avg': '12.000.000', 'bhxh-y1': '3', 'bhxh-m1': '8', 'bhxh-y2': '6', 'bhxh-m2': '2', 'bhxh-joined': 'before', 'bhxh-paid': '' }, $('bhxh-calc'));
   });
+  // Tính ngay với số mặc định để mở trang đã thấy kết quả.
+  calc();
 }

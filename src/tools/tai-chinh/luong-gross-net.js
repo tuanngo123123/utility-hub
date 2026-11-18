@@ -204,6 +204,26 @@ export function init(root) {
   $('lggn-calc').addEventListener('click', runCalc);
   $('lggn-salary').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
   $('lggn-ins').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
+  // Tự thêm dấu chấm phân cách nghìn khi gõ và khi rời ô (gõ 45000000 →
+  // 45.000.000), áp cho cả hai ô tiền để nhất quán.
+  function bindMoneyFormat(el) {
+    if (!el) return;
+    function format() {
+      const digits = el.value.replace(/[^\d]/g, '');
+      el.value = digits ? fmtNum(parseInt(digits, 10)) : '';
+    }
+    el.addEventListener('blur', format);
+    el.addEventListener('input', () => {
+      const pos = el.selectionStart == null ? el.value.length : el.selectionStart;
+      const digitsBefore = el.value.slice(0, pos).replace(/[^\d]/g, '').length;
+      format();
+      let seen = 0, i = 0;
+      while (i < el.value.length && seen < digitsBefore) { if (/\d/.test(el.value[i])) seen++; i++; }
+      try { el.setSelectionRange(i, i); } catch (e) { /* bỏ qua */ }
+    });
+  }
+  bindMoneyFormat($('lggn-salary'));
+  bindMoneyFormat($('lggn-ins'));
   // Ví dụ: lương 45 triệu, 1 người phụ thuộc — thấy rõ cả bảo hiểm lẫn thuế theo bậc.
   $('lggn-example').addEventListener('click', () => {
     fillEx(root, { 'lggn-salary': '45.000.000', 'lggn-ins': '45.000.000', 'lggn-dep': '1' }, $('lggn-calc'));

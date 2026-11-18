@@ -37,8 +37,9 @@ function stripCard(label, contentId, loadingText, detailHref, detailText, extraH
 // ---------------------------------------------------------------------------
 // SSR Điểm báo + bảng xếp hạng — bản sao lúc build của logic render trong
 // src/app.js (initNewsAndHot/initTrending): cùng markup, cùng quy tắc
-// (tin nổi bật = tin AI đầu tiên; mỗi nhóm tối đa 6 tin; tin hot = 6 tin
-// mới nhất mọi nhóm; repo = top 6). Giữ hai bên đồng bộ khi sửa một bên.
+// (tin nổi bật = tin đầu tiên CÓ tóm tắt, ưu tiên nhóm AI, và bị loại khỏi
+// danh sách tab; mỗi nhóm tối đa 6 tin; tin hot = 6 tin mới nhất mọi nhóm;
+// repo = top 6). Giữ hai bên đồng bộ khi sửa một bên.
 // ---------------------------------------------------------------------------
 const NEWS_GROUPS = [
   { id: 'ai', label: 'AI' },
@@ -172,7 +173,12 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
   const newsAttrs = newsUpdatedAt
     ? ` data-ssr="1" data-updated-at="${esc(newsUpdatedAt)}"` : '';
   const aiGroup = newsGroups.find((g) => g.id === 'ai');
-  const featuredItem = (aiGroup && aiGroup.items[0]) || allNewsItems[0];
+  // Tin nổi bật (V1): chỉ chọn tin CÓ tóm tắt tiếng Việt — ưu tiên tin đầu
+  // tiên có tóm tắt trong nhóm AI, rồi tin đầu tiên có tóm tắt trong toàn
+  // bộ tin; không có tin nào có tóm tắt thì không hiện thẻ nổi bật.
+  const hasSummary = (it) => String((it && it.summary) || '').trim() !== '';
+  const featuredItem = (aiGroup && aiGroup.items.find(hasSummary))
+    || allNewsItems.find(hasSummary);
   const featuredHtml = featuredItem
     ? newsFeaturedHtml(featuredItem)
     : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
@@ -180,7 +186,8 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
     ? '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>'
     : NEWS_GROUPS.map((def, idx) => {
         const g = newsGroups.find((x) => x.id === def.id);
-        const items = g ? g.items.slice(0, NEWS_PER_GROUP) : [];
+        // Loại tin nổi bật khỏi danh sách tab để tin không hiện 2 lần (V1).
+        const items = g ? g.items.filter((it) => it !== featuredItem).slice(0, NEWS_PER_GROUP) : [];
         return '<div class="tab-panel" data-tab-panel="news-' + def.id + '"' +
           (idx === 0 ? '' : ' hidden') + '>' +
           (items.length
@@ -305,6 +312,7 @@ ${railHtml}
       <button type="button" class="tab" data-tab-target="news-crypto" role="tab">Crypto</button>
     </div>
     <div id="news-groups"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? groupsHtml : '<p class="muted">Đang tải tin…</p>'}</div>
+    <p><a href="/diem-bao/">Xem lưu trữ theo ngày →</a></p>
   </section>
 
   <section class="section" aria-label="Tất cả công cụ">

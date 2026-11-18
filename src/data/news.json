@@ -5,9 +5,17 @@
   "groups": {
     "ai": [
       {
+        "title": "Zelenskyy says Starshield speed curbs still in place over 'occupied territories' of Ukraine",
+        "summary": "Zelenskyy cho biết tốc độ Starshield vẫn bị giới hạn trong 7 ngày tại vùng 'được chiếm đóng' của Ukraine.",
+        "why": "Giới hạn tốc độ có thể ảnh hưởng tới dịch vụ truyền thông và công nghệ viễn thông mà người dùng Việt Nam phụ thuộc vào.",
+        "link": "https://www.cnbc.com/2026/11/18/ukraine-starshield-starlink-musk-spacex.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 18 Nov 2026 02:50:16 GMT"
+      },
+      {
         "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia cho biết cổ phần tại các startup đã tăng lên 65,5 tỷ USD, từ 22 tỷ USD hồi tháng 1 — riêng quý vừa rồi hãng đầu tư 16 tỷ USD. Sau khi Huang rời ghế CEO, chưa rõ hãng có tiếp tục rót vốn mạnh như trước hay không.",
+        "why": "Nếu Nvidia siết đầu tư startup AI, dòng vốn vào hệ sinh thái AI toàn cầu có thể chậm lại, ảnh hưởng tới các startup AI Việt Nam đang gọi vốn.",
         "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 01:44:21 +0000"
@@ -19,6 +27,14 @@
         "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000"
+      },
+      {
+        "title": "Nvidia board rejects Huang comeback despite record $116B quarter",
+        "summary": "Nvidia ghi nhận doanh thu 116B, vượt kỳ vọng 5.6%, dự báo bán hàng mạnh hơn, ban giám đốc từ chối khôi phục Huang.",
+        "why": "Tin có thể tác động tới giá cổ phiếu công nghệ, chi phí phần cứng AI và giá GPU tại Việt Nam.",
+        "link": "https://cointelegraph.com/markets/nvidia-board-rejects-huang-comeback-amid-record-116b-quarter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source": "CoinTelegraph",
+        "publishedAt": "Wed, 18 Nov 2026 00:16:43 +0000"
       },
       {
         "title": "Nvidia is abandoning China after Jensen Huang’s ouster",
@@ -51,6 +67,14 @@
         "link": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 22:29:05 +0000"
+      },
+      {
+        "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
+        "summary": "Các sự cố gián đoạn lớn đã ảnh hưởng tới ngân hàng, ngành hàng không, NSA và Apple, cho thấy rủi ro của hệ thống công nghệ liên kết.",
+        "why": "Những sự cố này có thể làm thay đổi chi phí vay ngân hàng, giá vé máy bay và dịch vụ công nghệ tại Việt Nam.",
+        "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
+        "source": "CNBC",
+        "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT"
       }
     ],
     "chung-khoan": [
@@ -71,22 +95,6 @@
         "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT"
       },
       {
-        "title": "Zelenskyy says Starshield speed curbs still in place over 'occupied territories' of Ukraine",
-        "summary": "Zelenskyy cho biết tốc độ Starshield vẫn bị giới hạn trong 7 ngày tại vùng 'được chiếm đóng' của Ukraine.",
-        "why": "Giới hạn tốc độ có thể ảnh hưởng tới dịch vụ truyền thông và công nghệ viễn thông mà người dùng Việt Nam phụ thuộc vào.",
-        "link": "https://www.cnbc.com/2026/11/18/ukraine-starshield-starlink-musk-spacex.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 02:50:16 GMT"
-      },
-      {
-        "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
-        "summary": "Các sự cố gián đoạn lớn đã ảnh hưởng tới ngân hàng, ngành hàng không, NSA và Apple, cho thấy rủi ro của hệ thống công nghệ liên kết.",
-        "why": "Những sự cố này có thể làm thay đổi chi phí vay ngân hàng, giá vé máy bay và dịch vụ công nghệ tại Việt Nam.",
-        "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
-        "source": "CNBC",
-        "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT"
-      },
-      {
         "title": "Putin says EU is losing industry, falling behind competition ahead of meeting with Trump, Xi",
         "summary": "Putin nói EU đang mất ngành công nghiệp, tụt hậu cạnh tranh trước cuộc gặp với Trump, Xi, nhấn mạnh tính bền vững kinh tế của Nga và cơ hội cho các thành viên APEC.",
         "why": "Tin có thể làm tăng chi phí nhập khẩu từ EU và ảnh hưởng tới giá hàng tiêu dùng tại Việt Nam.",
@@ -96,7 +104,7 @@
       },
       {
         "title": "Three things to watch as Trump, Xi and Putin meet in China",
-        "summary": "Trump, Xi và Putin sẽ gặp nhau tại Shenzhen cùng cuộc họp lãnh đạo APEC.",
+        "summary": "Trump, Xi và Putin sẽ gặp nhau tại Thâm Quyến cùng cuộc họp lãnh đạo APEC.",
         "why": "Sự kiện có thể tác động tới thị trường chứng khoán, lãi suất và chi phí nhập khẩu tại Việt Nam.",
         "link": "https://www.cnbc.com/2026/11/18/apec-trump-xi-putin-shenzhen.html",
         "source": "CNBC",
@@ -106,19 +114,11 @@
     "crypto": [
       {
         "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
-        "summary": "Hai chủ sở hữu Ledger mất tổng cộng 604,000$ tiền điện tử do ví cứng mua tại Virgin Megastore Dubai.",
+        "summary": "Hai chủ sở hữu Ledger mất tổng cộng $604.000 tiền điện tử do ví cứng mua tại Virgin Megastore Dubai.",
         "why": "Tin làm tăng rủi ro bảo mật tiền điện tử, có thể ảnh hưởng tới giá BTC và ETH trong nước.",
         "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000"
-      },
-      {
-        "title": "Nvidia board rejects Huang comeback despite record $116B quarter",
-        "summary": "Nvidia ghi nhận doanh thu 116B, vượt kỳ vọng 5.6%, dự báo bán hàng mạnh hơn, ban giám đốc từ chối khôi phục Huang.",
-        "why": "Tin có thể tác động tới giá cổ phiếu công nghệ, chi phí phần cứng AI và giá GPU tại Việt Nam.",
-        "link": "https://cointelegraph.com/markets/nvidia-board-rejects-huang-comeback-amid-record-116b-quarter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source": "CoinTelegraph",
-        "publishedAt": "Wed, 18 Nov 2026 00:16:43 +0000"
       },
       {
         "title": "CFTC halts some Kalshi Trump mention markets over manipulation concerns",
@@ -139,7 +139,7 @@
       {
         "title": "XRP whales moved $270 million during the selloff. The coins didn’t go to exchanges",
         "summary": "Một người giữ XRP đã chuyển 281 triệu XRP vào hai vault cách nhau ba tuần, cho thấy hành vi lưu trữ thay vì bán ra.",
-        "why": "Sự di chuyển lớn của XRP có thể ảnh hưởng tới giá XRP, ảnh hưởng tới người dùng Việt Nam đang giao dịch hoặc đầu tư vào đồng tiền này.",
+        "why": "Sự di chuyển lớn của XRP có thể ảnh hưởng tới giá XRP và tới người dùng Việt Nam đang giao dịch hoặc đầu tư vào đồng tiền này.",
         "link": "https://www.coindesk.com/markets/2026/11/18/xrp-whales-moved-usd270-million-during-the-selloff-the-coins-didn-t-go-to-exchanges",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 04:28:37 +0000"

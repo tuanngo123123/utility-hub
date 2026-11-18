@@ -241,6 +241,13 @@ async function main() {
     console.warn(`Lỗi viết dòng tiếng Việt: ${e.message || e} (để purpose rỗng)`);
   }
   data.items = items.map((it, i) => ({ ...it, purpose: purposes[i] || '' }));
+  // Cảnh báo repo không có dòng mô tả nào (purpose rỗng VÀ mô tả gốc rỗng —
+  // repo không đặt mô tả trên GitHub, vd gylive/google-ultra 18/11): trang
+  // sẽ hiện hàng không có mô tả. Chỉ ghi log để đợt sau thấy mà bổ sung tay,
+  // không tự bịa mô tả.
+  data.items.forEach((it) => {
+    if (!it.purpose && !it.description) console.warn(`CẢNH BÁO: repo ${it.name || ''} không có mô tả (purpose + description đều rỗng) — trang sẽ hiện hàng trống mô tả.`);
+  });
   // purposeSummarized chỉ true khi CÓ dòng tiếng Việt thật (trước đây ghi
   // true cả khi 0/6); model chỉ ghi khi có lần gọi thành công.
   const wroteCount = purposes.filter(Boolean).length;

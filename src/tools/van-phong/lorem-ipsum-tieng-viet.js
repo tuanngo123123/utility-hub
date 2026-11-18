@@ -11,39 +11,6 @@ export const meta = {
   seoDesc: 'Sinh văn bản mẫu tiếng Việt theo số đoạn, câu hoặc từ để dùng trong thiết kế, demo và bản nháp.'
 };
 
-const SENTENCES = [
-  'Buổi sáng bắt đầu bằng ánh nắng nhẹ xuyên qua khung cửa sổ.',
-  'Mọi người trong văn phòng chào nhau rồi bắt tay vào công việc.',
-  'Con đường nhỏ dẫn ra bờ sông vẫn yên bình như mọi ngày.',
-  'Tiếng chim hót vang lên từ những tán cây xanh ngoài vườn.',
-  'Chiếc bàn gỗ cũ đã theo gia đình qua nhiều thế hệ.',
-  'Mưa rào bất chợt khiến phố xá trở nên mát mẻ lạ thường.',
-  'Người bán hàng rong đẩy xe qua từng con ngõ nhỏ.',
-  'Cuốn sách trên kệ đã phủ một lớp bụi mỏng theo năm tháng.',
-  'Đứa trẻ chạy tung tăng trên cánh đồng lúa vừa gặt xong.',
-  'Hương cà phê thơm lừng lan tỏa khắp căn phòng nhỏ.',
-  'Chuyến xe buýt buổi chiều đưa mọi người trở về nhà.',
-  'Ngọn đèn đường bật sáng khi hoàng hôn vừa buông xuống.',
-  'Bà cụ ngồi bên hiên nhà, kể chuyện ngày xưa cho cháu nghe.',
-  'Dòng sông quê hương hiền hòa chảy qua bao mùa lúa chín.',
-  'Tiếng chuông chùa ngân vang trong không gian tĩnh lặng.',
-  'Anh kỹ sư trẻ miệt mài làm việc bên bản vẽ thiết kế.',
-  'Khu chợ sáng nhộn nhịp người mua kẻ bán từ tờ mờ sáng.',
-  'Cơn gió nhẹ thổi qua làm rung rinh những chùm hoa giấy.',
-  'Chiếc thuyền nhỏ lững lờ trôi trên mặt hồ phẳng lặng.',
-  'Mùa thu về mang theo hương cốm mới thơm ngát khắp phố.',
-  'Người thợ mộc tỉ mỉ chạm khắc từng đường nét trên gỗ.',
-  'Đêm khuya, thành phố vẫn sáng đèn ở những tòa nhà cao tầng.',
-  'Cô giáo trẻ kiên nhẫn giảng bài cho học trò lớp một.',
-  'Vườn rau sau nhà xanh mướt nhờ bàn tay chăm sóc mỗi ngày.',
-  'Tiếng sóng biển vỗ rì rào vào bờ cát trắng mịn.',
-  'Ông lão câu cá ngồi lặng lẽ bên bờ hồ từ sáng sớm.',
-  'Chuyến tàu đêm rời ga, đưa hành khách về miền quê xa.',
-  'Mùi bánh mì nóng hổi thơm phức từ lò bánh đầu ngõ.',
-  'Những đám mây trắng trôi lững lờ trên bầu trời xanh thẳm.',
-  'Cây đa đầu làng đã đứng đó chứng kiến bao đổi thay.'
-];
-
 export function body() {
   return `
 <div class="tool-panel">
@@ -70,6 +37,39 @@ export function init(root) {
   const $ = id => root.querySelector('#' + id);
   const parasEl = $('li-paras'), sentEl = $('li-sentences'), wordsEl = $('li-words'),
     outWrap = $('li-out-wrap'), outEl = $('li-output'), countEl = $('li-count');
+  const SENTENCES = [
+    'Buổi sáng bắt đầu bằng ánh nắng nhẹ xuyên qua khung cửa sổ.',
+    'Mọi người trong văn phòng chào nhau rồi bắt tay vào công việc.',
+    'Con đường nhỏ dẫn ra bờ sông vẫn yên bình như mọi ngày.',
+    'Tiếng chim hót vang lên từ những tán cây xanh ngoài vườn.',
+    'Chiếc bàn gỗ cũ đã theo gia đình qua nhiều thế hệ.',
+    'Mưa rào bất chợt khiến phố xá trở nên mát mẻ lạ thường.',
+    'Người bán hàng rong đẩy xe qua từng con ngõ nhỏ.',
+    'Cuốn sách trên kệ đã phủ một lớp bụi mỏng theo năm tháng.',
+    'Đứa trẻ chạy tung tăng trên cánh đồng lúa vừa gặt xong.',
+    'Hương cà phê thơm lừng lan tỏa khắp căn phòng nhỏ.',
+    'Chuyến xe buýt buổi chiều đưa mọi người trở về nhà.',
+    'Ngọn đèn đường bật sáng khi hoàng hôn vừa buông xuống.',
+    'Bà cụ ngồi bên hiên nhà, kể chuyện ngày xưa cho cháu nghe.',
+    'Dòng sông quê hương hiền hòa chảy qua bao mùa lúa chín.',
+    'Tiếng chuông chùa ngân vang trong không gian tĩnh lặng.',
+    'Anh kỹ sư trẻ miệt mài làm việc bên bản vẽ thiết kế.',
+    'Khu chợ sáng nhộn nhịp người mua kẻ bán từ tờ mờ sáng.',
+    'Cơn gió nhẹ thổi qua làm rung rinh những chùm hoa giấy.',
+    'Chiếc thuyền nhỏ lững lờ trôi trên mặt hồ phẳng lặng.',
+    'Mùa thu về mang theo hương cốm mới thơm ngát khắp phố.',
+    'Người thợ mộc tỉ mỉ chạm khắc từng đường nét trên gỗ.',
+    'Đêm khuya, thành phố vẫn sáng đèn ở những tòa nhà cao tầng.',
+    'Cô giáo trẻ kiên nhẫn giảng bài cho học trò lớp một.',
+    'Vườn rau sau nhà xanh mướt nhờ bàn tay chăm sóc mỗi ngày.',
+    'Tiếng sóng biển vỗ rì rào vào bờ cát trắng mịn.',
+    'Ông lão câu cá ngồi lặng lẽ bên bờ hồ từ sáng sớm.',
+    'Chuyến tàu đêm rời ga, đưa hành khách về miền quê xa.',
+    'Mùi bánh mì nóng hổi thơm phức từ lò bánh đầu ngõ.',
+    'Những đám mây trắng trôi lững lờ trên bầu trời xanh thẳm.',
+    'Cây đa đầu làng đã đứng đó chứng kiến bao đổi thay.'
+  ];
+
   let pool = SENTENCES.slice();
   let offset = 0;
 
