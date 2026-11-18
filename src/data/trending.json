@@ -53,6 +53,5 @@
       "purpose": ""
     }
   ],
-  "purposeSummarized": true,
-  "purposeModel": "gemini-3.5-flash"
+  "purposeSummarized": false
 }

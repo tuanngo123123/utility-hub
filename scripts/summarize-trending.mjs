@@ -20,7 +20,9 @@ const DATA_DIR = join(ROOT, 'src', 'data');
 // 3.5-flash đứng đầu vì kiểm trực tiếp 18/11: model duy nhất trả 200
 // (3.8 treo 90s không trả, 3.7/3.6/flash-latest đều 503 quá tải).
 const MODELS = ['gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-flash-latest'];
-let MODEL_USED = MODELS[0];
+// Model đã gọi THÀNH CÔNG (rỗng = chưa gọi thành công lần nào — không được
+// ghi tên model vào file dữ liệu khi chưa có lần gọi nào thành công).
+let MODEL_USED = '';
 const apiUrl = (m) => `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -46,7 +48,13 @@ async function callGemini(apiKey, body) {
         break;
       }
       if (res.ok) { MODEL_USED = m; return res; }
-      lastErr = `Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`;
+      const bodyText = await res.text();
+      lastErr = `Gemini HTTP ${res.status}: ${bodyText.slice(0, 300)}`;
+      // 429 do HẾT QUOTA của key (không phải quá tải từng model): thử model
+      // khác cũng vô ích mà còn đốt thêm quota — dừng ngay, không thử lại.
+      if (res.status === 429 && /quota/i.test(bodyText)) {
+        throw new Error(`Gemini hết quota (${m}): ${bodyText.slice(0, 200)}`);
+      }
       if (res.status === 404) { console.warn(`Model ${m} không dùng được (404) — thử model sau.`); break; }
       if (res.status === 503 || res.status === 429) {
         if (attempt < 2) { console.warn(`Model ${m} quá tải (${res.status}) — chờ 15s thử lại.`); await sleep(15000); continue; }
@@ -134,8 +142,11 @@ async function main() {
     console.warn(`Lỗi viết dòng tiếng Việt: ${e.message || e} (để purpose rỗng)`);
   }
   data.items = items.map((it, i) => ({ ...it, purpose: purposes[i] || '' }));
-  data.purposeSummarized = true;
-  data.purposeModel = MODEL_USED;
+  // purposeSummarized chỉ true khi CÓ dòng tiếng Việt thật (trước đây ghi
+  // true cả khi 0/6); model chỉ ghi khi có lần gọi thành công.
+  const wroteCount = purposes.filter(Boolean).length;
+  data.purposeSummarized = wroteCount > 0;
+  if (wroteCount > 0) { data.purposeModel = MODEL_USED; } else { delete data.purposeModel; }
   delete data.purposeNote;
   await writeFile(join(DATA_DIR, 'trending.json'), JSON.stringify(data, null, 2) + '\n', 'utf8');
   console.log(`Đã ghi trending.json: ${purposes.filter(Boolean).length}/${items.length} repo có purpose.`);

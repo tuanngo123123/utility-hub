@@ -1,7 +1,6 @@
 {
   "updatedAt": "2026-11-18T05:21:34.809Z",
-  "summarized": true,
-  "model": "gemini-3.5-flash",
+  "summarized": false,
   "groups": {
     "ai": [
       {

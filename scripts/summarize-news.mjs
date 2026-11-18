@@ -19,7 +19,9 @@ const DATA_DIR = join(ROOT, 'src', 'data');
 // 3.5-flash đứng đầu vì kiểm trực tiếp 18/11: model duy nhất trả 200
 // (3.8 treo 90s không trả, 3.7/3.6/flash-latest đều 503 quá tải).
 const MODELS = ['gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-flash-latest'];
-let MODEL_USED = MODELS[0];
+// Model đã gọi THÀNH CÔNG (rỗng = chưa gọi thành công lần nào — không được
+// ghi tên model vào file dữ liệu khi chưa có lần gọi nào thành công).
+let MODEL_USED = '';
 const apiUrl = (m) => `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -45,7 +47,13 @@ async function callGemini(apiKey, body) {
         break;
       }
       if (res.ok) { MODEL_USED = m; return res; }
-      lastErr = `Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`;
+      const bodyText = await res.text();
+      lastErr = `Gemini HTTP ${res.status}: ${bodyText.slice(0, 300)}`;
+      // 429 do HẾT QUOTA của key (không phải quá tải từng model): thử model
+      // khác cũng vô ích mà còn đốt thêm quota — dừng ngay, không thử lại.
+      if (res.status === 429 && /quota/i.test(bodyText)) {
+        throw new Error(`Gemini hết quota (${m}): ${bodyText.slice(0, 200)}`);
+      }
       if (res.status === 404) { console.warn(`Model ${m} không dùng được (404) — thử model sau.`); break; }
       if (res.status === 503 || res.status === 429) {
         if (attempt < 2) { console.warn(`Model ${m} quá tải (${res.status}) — chờ 15s thử lại.`); await sleep(15000); continue; }
@@ -161,11 +169,15 @@ async function main() {
       console.log(`Tóm tắt OK: tin ${i + 1}-${i + batch.length}/${items.length}`);
     } catch (e) {
       console.warn(`Lỗi tóm tắt tin ${i + 1}-${i + batch.length}: ${e.message || e} (để summary + why rỗng)`);
+      // Hết quota thì các batch sau cũng lỗi y hệt — dừng luôn để khỏi đốt quota.
+      if (/hết quota/i.test(e.message || '')) { console.warn('Hết quota Gemini — dừng tóm tắt, chờ đợt làm mới sau.'); break; }
     }
   }
   items.forEach((it, i) => { if (GROUPS.includes(it.group)) groups[it.group].push(base(it, pairs[i])); });
+  // summarized chỉ true khi CÓ tóm tắt thật (trước đây ghi true cả khi 0/18).
   await writeFile(join(DATA_DIR, 'news.json'), JSON.stringify({
-    updatedAt: new Date().toISOString(), summarized: true, model: MODEL_USED, groups,
+    updatedAt: new Date().toISOString(), summarized: okCount > 0,
+    ...(okCount > 0 ? { model: MODEL_USED } : {}), groups,
   }, null, 2) + '\n', 'utf8');
   console.log(`Đã ghi news.json: ${okCount}/${items.length} tin có tóm tắt.`);
 }
