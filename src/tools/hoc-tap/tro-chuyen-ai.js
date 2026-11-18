@@ -50,7 +50,7 @@ export function init(root) {
   const MAX_PER_DAY = 20;
   const MAX_LEN = 500;
   const MAX_CTX = 6;
-  const TIMEOUT_MS = 60000;
+  const TIMEOUT_MS = 90000;
   const KEY = 'uh_ai_chat_quota';
   const WELCOME = 'Chào bạn! Tôi là trợ lý AI của Tiện Ích Hub. Hỏi tôi bất cứ điều gì nhé — giải thích, dịch câu, viết nháp, gợi ý ý tưởng…';
 
@@ -145,24 +145,34 @@ export function init(root) {
     const messages = [{ role: 'system', content: SYSTEM }].concat(history.slice(-MAX_CTX));
     let reply = '';
     let errKind = '';
-    try {
-      const res = await fetch(URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: MODEL, messages, temperature: 0.3, max_tokens: 1024 }),
-        signal: AbortSignal.timeout(TIMEOUT_MS),
-      });
-      if (!res.ok) {
-        errKind = (res.status === 429 || res.status === 503) ? 'busy' : 'other';
-      } else {
-        const data = await res.json();
-        reply = data && data.choices && data.choices[0] && data.choices[0].message
-          ? (data.choices[0].message.content || '').trim()
-          : '';
-        if (!reply) errKind = 'other';
+    // AI miễn phí hay nghẽn (429/503) hoặc trả lời chậm: chờ 15 giây
+    // rồi tự gửi lại 1 lần, người dùng không phải bấm lại.
+    for (let attempt = 0; attempt < 2 && !reply && !errKind; attempt++) {
+      if (attempt > 0) {
+        typing.textContent = 'AI đang bận, đang thử lại…';
+        await new Promise(r => setTimeout(r, 15000));
       }
-    } catch (e) {
-      errKind = 'network';
+      try {
+        const res = await fetch(URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ model: MODEL, messages, temperature: 0.3, max_tokens: 1024 }),
+          signal: AbortSignal.timeout(TIMEOUT_MS),
+        });
+        if (!res.ok) {
+          errKind = (res.status === 429 || res.status === 503) ? 'busy' : 'other';
+        } else {
+          const data = await res.json();
+          reply = data && data.choices && data.choices[0] && data.choices[0].message
+            ? (data.choices[0].message.content || '').trim()
+            : '';
+          if (!reply) errKind = 'other';
+        }
+      } catch (e) {
+        errKind = 'network';
+      }
+      // Lỗi nghẽn/mạng thì thử lại 1 lần; lỗi khác thì dừng luôn.
+      if (errKind && attempt === 0 && (errKind === 'busy' || errKind === 'network')) errKind = '';
     }
     typing.remove();
     setBusy(false);
@@ -170,7 +180,7 @@ export function init(root) {
       // Lần gửi lỗi không tính vào lượt chat.
       history.pop();
       const text = errKind === 'busy'
-        ? 'AI đang bận, thử lại sau ít giây nhé.'
+        ? 'AI miễn phí đang đông người dùng, bạn chờ ít giây rồi gửi lại nhé.'
         : errKind === 'network'
           ? 'Không kết nối được, kiểm tra mạng rồi thử lại nhé.'
           : 'AI trả lời lỗi, thử lại sau ít giây nhé.';

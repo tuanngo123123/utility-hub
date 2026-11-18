@@ -555,7 +555,7 @@
     var MAX_PER_DAY = 20;
     var MAX_LEN = 500;
     var MAX_CTX = 6;
-    var TIMEOUT_MS = 60000;
+    var TIMEOUT_MS = 90000;
     var KEY = 'uh_ai_chat_quota';
     var HISTORY_KEY = 'uh_ai_chat_history';
     var MAX_HISTORY = 20;
@@ -685,42 +685,52 @@
       var signal = (typeof AbortSignal !== 'undefined' && AbortSignal.timeout)
         ? AbortSignal.timeout(TIMEOUT_MS)
         : undefined;
-      fetch(URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model: MODEL, messages: messages, temperature: 0.3, max_tokens: 1024 }),
-        signal: signal
-      }).then(function (res) {
-        if (!res.ok) throw new Error((res.status === 429 || res.status === 503) ? 'busy' : 'other');
-        return res.json();
-      }).then(function (data) {
-        var reply = data && data.choices && data.choices[0] && data.choices[0].message
-          ? (data.choices[0].message.content || '').trim()
-          : '';
-        if (!reply) throw new Error('other');
-        typing.remove();
-        setBusy(false);
-        bubble('ai', reply);
-        history.push({ role: 'assistant', content: reply });
-        saveHistory();
-        var q = loadQuota();
-        q.count += 1;
-        saveQuota(q);
-        updateQuotaUI();
-      }).catch(function (e) {
-        typing.remove();
-        setBusy(false);
-        // Lần gửi lỗi không tính vào lượt chat.
-        history.pop();
-        saveHistory();
-        var kind = (e && e.message) || '';
-        var text = kind === 'busy'
-          ? 'AI đang bận, thử lại sau ít giây nhé.'
-          : kind === 'other'
-            ? 'AI trả lời lỗi, thử lại sau ít giây nhé.'
-            : 'Không kết nối được, kiểm tra mạng rồi thử lại nhé.';
-        bubble('ai', text, 'error');
-      });
+      // AI miễn phí hay nghẽn (429/503) hoặc trả lời chậm: chờ 15 giây
+      // rồi tự gửi lại 1 lần, người dùng không phải bấm lại.
+      function trySend(attempt) {
+        fetch(URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ model: MODEL, messages: messages, temperature: 0.3, max_tokens: 1024 }),
+          signal: signal
+        }).then(function (res) {
+          if (!res.ok) throw new Error((res.status === 429 || res.status === 503) ? 'busy' : 'other');
+          return res.json();
+        }).then(function (data) {
+          var reply = data && data.choices && data.choices[0] && data.choices[0].message
+            ? (data.choices[0].message.content || '').trim()
+            : '';
+          if (!reply) throw new Error('other');
+          typing.remove();
+          setBusy(false);
+          bubble('ai', reply);
+          history.push({ role: 'assistant', content: reply });
+          saveHistory();
+          var q = loadQuota();
+          q.count += 1;
+          saveQuota(q);
+          updateQuotaUI();
+        }).catch(function (e) {
+          var kind = (e && e.message) || '';
+          if (attempt === 0 && kind !== 'other') {
+            typing.textContent = 'AI đang bận, đang thử lại…';
+            setTimeout(function () { trySend(1); }, 15000);
+            return;
+          }
+          typing.remove();
+          setBusy(false);
+          // Lần gửi lỗi không tính vào lượt chat.
+          history.pop();
+          saveHistory();
+          var text = kind === 'busy'
+            ? 'AI miễn phí đang đông người dùng, bạn chờ ít giây rồi gửi lại nhé.'
+            : kind === 'other'
+              ? 'AI trả lời lỗi, thử lại sau ít giây nhé.'
+              : 'Không kết nối được, kiểm tra mạng rồi thử lại nhé.';
+          bubble('ai', text, 'error');
+        });
+      }
+      trySend(0);
     }
 
     fab.addEventListener('click', function () {

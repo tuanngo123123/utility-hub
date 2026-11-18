@@ -2135,22 +2135,25 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 .aiw[hidden] { display: none; }
 .aiw-fab {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
+  gap: 8px;
+  height: 48px;
+  padding: 0 18px;
   margin-left: auto;
   border: none;
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--accent);
   color: #fff;
-  font-size: 26px;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1;
   cursor: pointer;
   box-shadow: var(--shadow);
+  transition: background 0.15s, transform 0.15s;
 }
-.aiw-fab:hover { background: var(--accent-hover); }
+.aiw-fab:hover { background: var(--accent-hover); transform: translateY(-1px); }
+.aiw-fab svg { flex: none; }
 .aiw-fab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .aiw-panel {
   position: absolute;
