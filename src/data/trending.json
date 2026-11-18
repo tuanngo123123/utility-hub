@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T04:55:35.189Z",
+  "updatedAt": "2026-11-18T04:59:06.911Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
@@ -16,7 +16,7 @@
       "name": "krisgfx9/Wireless-Device-Battery-Monitor",
       "url": "https://github.com/krisgfx9/Wireless-Device-Battery-Monitor",
       "description": "Show the battery level of wireless mice, headsets, keyboards and controllers on the Windows 10/11 taskbar. Lightweight tray app, no vendor software needed. Supports Logitech, Razer, SteelSeries, Corsair, HyperX, Glorious, PS4/PS5 DualSense, Xbox and Bluetooth devices.",
-      "stars": 2976,
+      "stars": 2980,
       "language": "C++",
       "purpose": ""
     },
@@ -32,7 +32,7 @@
       "name": "gylive/google-ultra",
       "url": "https://github.com/gylive/google-ultra",
       "description": "",
-      "stars": 1998,
+      "stars": 2004,
       "language": "Python",
       "purpose": ""
     },
@@ -40,7 +40,7 @@
       "name": "Immortal-Protocols/lastbook",
       "url": "https://github.com/Immortal-Protocols/lastbook",
       "description": "Offline knowledge AI, maps and videos for survival and rebuilding",
-      "stars": 1870,
+      "stars": 1871,
       "language": "Python",
       "purpose": ""
     },
@@ -48,7 +48,7 @@
       "name": "erkamyaman/rust-anything",
       "url": "https://github.com/erkamyaman/rust-anything",
       "description": "Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",
-      "stars": 1671,
+      "stars": 1677,
       "language": "Rust",
       "purpose": ""
     }
