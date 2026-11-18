@@ -13,6 +13,7 @@
 // ============================================================================
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { shell } from './src/template.js';
@@ -55,6 +56,44 @@ function copyFile(srcRel, distRel) {
   const dst = path.join(DIST, distRel);
   fs.mkdirSync(path.dirname(dst), { recursive: true });
   fs.copyFileSync(src, dst);
+}
+
+// Cache-busting (18/11/2026): Cloudflare đặt max-age=14400 (4 giờ) cho
+// /assets/*.css|js. Trình duyệt giữ CSS cũ tới 4 giờ trong khi HTML mới đã
+// về -> HTML mới + CSS cũ = bố cục vỡ (đã xảy ra thật với rail video: thẻ
+// xếp dọc, tên công cụ thành link xanh ở góc, media cao 510px thay vì 360px
+// vì <video> mặc định 150px rơi xuống dòng dưới ảnh). Gắn ?v=<8 ký tự đầu
+// sha256 của nội dung file> vào URL style.css/app.js trong mọi trang HTML
+// sau khi build: URL chỉ đổi khi nội dung file đổi, trình duyệt tự tải bản
+// mới đúng lúc. Thay thế khớp cả dấu ngoặc kép nên chạy lại build cũng
+// không gắn ?v= hai lần.
+function contentHash(relPath) {
+  const buf = fs.readFileSync(path.join(DIST, relPath));
+  return crypto.createHash('sha256').update(buf).digest('hex').slice(0, 8);
+}
+
+function versionAssets() {
+  const versions = [
+    ['/assets/style.css', contentHash('assets/style.css')],
+    ['/assets/app.js', contentHash('assets/app.js')],
+  ];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.isFile() && entry.name.endsWith('.html')) {
+        let html = fs.readFileSync(full, 'utf8');
+        let changed = false;
+        for (const [url, hash] of versions) {
+          const next = html.split(`"${url}"`).join(`"${url}?v=${hash}"`);
+          if (next !== html) { html = next; changed = true; }
+        }
+        if (changed) fs.writeFileSync(full, html, 'utf8');
+      }
+    }
+  };
+  walk(DIST);
+  console.log(`   - cache-busting: ${versions.map(([u, h]) => `${u}?v=${h}`).join(', ')}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -650,6 +689,11 @@ async function main() {
   // https://tienichhub.io.vn/ — tài khoản ngotuanqb1997). Nội dung phải đúng
   // 53 byte, KHÔNG có ký tự xuống dòng ở cuối.
   writeFile('google81d07667a4750c6c.html', 'google-site-verification: google81d07667a4750c6c.html');
+
+  // Gắn ?v=<hash nội dung> vào URL style.css/app.js trong mọi trang HTML
+  // (chống trình duyệt giữ CSS/JS cũ sau mỗi lần triển khai — xem
+  // versionAssets). Chạy cuối cùng, sau khi mọi HTML + asset đã ghi xong.
+  versionAssets();
 
   console.log(`✅ Build xong trong ${Date.now() - started}ms:`);
   console.log(`   - ${tools.length} công cụ, ${urls.length} trang, sitemap ${urls.length} URL`);
