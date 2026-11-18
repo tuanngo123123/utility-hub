@@ -1,26 +1,26 @@
 // Trò chuyện AI (bản demo miễn phí): chat với AI qua Pollinations
 // (miễn phí, không cần key) — endpoint tương thích OpenAI đã kiểm
 // CORS mở (Access-Control-Allow-Origin: *) ngày 18/11/2026, gọi POST
-// trực tiếp từ trình duyệt được. Giới hạn 20 tin/ngày/người để dịch
-// vụ miễn phí công khai không bị lạm dụng; lỗi báo bằng tiếng Việt.
+// trực tiếp từ trình duyệt được. Không giới hạn số tin — chỉ nghỉ
+// 5 giây giữa 2 lần gửi để không ai spam dịch vụ miễn phí công khai;
+// lỗi báo bằng tiếng Việt.
 export const meta = {
   id: 'tro-chuyen-ai',
   name: 'Trò chuyện AI',
   category: 'Học tập',
   categorySlug: 'hoc-tap',
-  desc: 'Chat thử với AI miễn phí ngay trên web: hỏi đáp, giải thích, dịch câu, viết nháp email — không cần tài khoản, không cần cài đặt. Bản demo: 20 tin mỗi ngày.',
+  desc: 'Chat thử với AI miễn phí ngay trên web: hỏi đáp, giải thích, dịch câu, viết nháp email — không cần tài khoản, không cần cài đặt, không giới hạn số tin.',
   keywords: 'chat ai, trò chuyện ai, hỏi ai, chatbot miễn phí, chat với ai, ai trả lời, hỏi đáp ai',
   icon: '💬',
   seoTitle: 'Trò chuyện AI miễn phí — hỏi đáp ngay trên web, không cần tài khoản',
-  seoDesc: 'Chat thử với AI miễn phí trên Tiện Ích Hub: hỏi đáp, giải thích kiến thức, dịch câu, viết nháp email. Không cần đăng ký, 20 tin miễn phí mỗi ngày.',
+  seoDesc: 'Chat thử với AI miễn phí trên Tiện Ích Hub: hỏi đáp, giải thích kiến thức, dịch câu, viết nháp email. Không cần đăng ký, không giới hạn số tin.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head">
-    <p class="muted">Hỏi AI bất cứ điều gì — giải thích kiến thức, dịch câu, viết nháp email, gợi ý ý tưởng. Bản demo miễn phí, không cần tài khoản.</p>
-    <p class="muted" id="ai-quota"></p>
+    <p class="muted">Hỏi AI bất cứ điều gì — giải thích kiến thức, dịch câu, viết nháp email, gợi ý ý tưởng. Bản demo miễn phí, không cần tài khoản, không giới hạn số tin.</p>
   </div>
   <div id="ai-log" style="display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--bg-soft);margin-bottom:12px;"></div>
   <div id="ai-suggest" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
@@ -47,38 +47,18 @@ export function init(root) {
   const URL = 'https://text.pollinations.ai/openai/v1/chat/completions';
   const MODEL = 'openai';
   const SYSTEM = 'Bạn là trợ lý AI thân thiện của trang web Tiện Ích Hub (tienichhub.io.vn). Trả lời bằng tiếng Việt, trừ khi người dùng hỏi bằng ngôn ngữ khác. Trả lời ngắn gọn, rõ ràng, dễ hiểu. Không bịa số liệu, ngày tháng hay thông tin không chắc chắn — nếu không biết thì nói là không biết. Không tự nhận mình là ChatGPT hay mô hình của công ty khác.';
-  const MAX_PER_DAY = 20;
   const MAX_LEN = 500;
   const MAX_CTX = 6;
   const TIMEOUT_MS = 90000;
-  const KEY = 'uh_ai_chat_quota';
+  const MIN_GAP_MS = 5000;
   const WELCOME = 'Chào bạn! Tôi là trợ lý AI của Tiện Ích Hub. Hỏi tôi bất cứ điều gì nhé — giải thích, dịch câu, viết nháp, gợi ý ý tưởng…';
 
   let history = [];
   let busy = false;
+  let lastDoneAt = 0;
 
-  function today() {
-    const d = new Date();
-    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-  }
-
-  function loadQuota() {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (!raw) return { date: today(), count: 0 };
-      const q = JSON.parse(raw);
-      if (q.date !== today()) return { date: today(), count: 0 };
-      return q;
-    } catch (e) { return { date: today(), count: 0 }; }
-  }
-
-  function saveQuota(q) {
-    try { localStorage.setItem(KEY, JSON.stringify(q)); } catch (e) { /* localStorage không khả dụng */ }
-  }
-
-  function remaining() {
-    return Math.max(0, MAX_PER_DAY - loadQuota().count);
-  }
+  // Dọn key quota cũ (đã bỏ giới hạn 20 tin/ngày từ 18/11/2026).
+  try { localStorage.removeItem('uh_ai_chat_quota'); } catch (e) { /* bỏ qua */ }
 
   function escHtml(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -110,19 +90,10 @@ export function init(root) {
     return div;
   }
 
-  function updateQuotaUI() {
-    const left = remaining();
-    $('ai-quota').textContent = 'Hôm nay bạn còn ' + left + '/' + MAX_PER_DAY + ' lượt chat miễn phí.';
-    const out = left <= 0;
-    $('ai-input').disabled = out;
-    $('ai-send').disabled = out;
-    if (out) $('ai-input').placeholder = 'Hôm nay bạn đã hết lượt chat miễn phí, mai quay lại nhé.';
-  }
-
   function setBusy(v) {
     busy = v;
-    $('ai-send').disabled = v || remaining() <= 0;
-    $('ai-input').disabled = v || remaining() <= 0;
+    $('ai-send').disabled = v;
+    $('ai-input').disabled = v;
   }
 
   async function send(text) {
@@ -132,9 +103,8 @@ export function init(root) {
       bubble('ai', 'Câu hỏi dài quá 500 ký tự rồi, bạn rút ngắn lại nhé.', 'error');
       return;
     }
-    if (remaining() <= 0) {
-      bubble('ai', 'Hôm nay bạn đã hết 20 lượt chat miễn phí, mai quay lại nhé.', 'error');
-      updateQuotaUI();
+    if (Date.now() - lastDoneAt < MIN_GAP_MS) {
+      bubble('ai', 'Từ từ đã — chờ vài giây rồi gửi tiếp nhé.', 'error');
       return;
     }
     bubble('user', msg);
@@ -176,8 +146,9 @@ export function init(root) {
     }
     typing.remove();
     setBusy(false);
+    lastDoneAt = Date.now();
     if (errKind) {
-      // Lần gửi lỗi không tính vào lượt chat.
+      // Lần gửi lỗi: bỏ tin vừa gửi khỏi lịch sử.
       history.pop();
       const text = errKind === 'busy'
         ? 'AI miễn phí đang đông người dùng, bạn chờ ít giây rồi gửi lại nhé.'
@@ -189,10 +160,6 @@ export function init(root) {
     }
     bubble('ai', reply);
     history.push({ role: 'assistant', content: reply });
-    const q = loadQuota();
-    q.count += 1;
-    saveQuota(q);
-    updateQuotaUI();
   }
 
   function newChat() {
@@ -211,5 +178,4 @@ export function init(root) {
   });
 
   bubble('ai', WELCOME);
-  updateQuotaUI();
 }

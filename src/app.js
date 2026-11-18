@@ -527,12 +527,11 @@
 
   /* ---------------- Nút chat AI nổi (bong bóng Messenger) ----------------
      Bản thu nhỏ của công cụ Trò chuyện AI (src/tools/hoc-tap/
-     tro-chuyen-ai.js): CÙNG endpoint Pollinations, CÙNG system prompt,
-     CÙNG key quota localStorage 'uh_ai_chat_quota' nên 20 lượt/ngày
-     dùng chung giữa widget và trang chat đầy đủ. Lịch sử chat lưu
-     sessionStorage (tối đa 20 tin) để chuyển trang không mất đoạn chat.
-     Không hiện trên chính trang /cong-cu/tro-chuyen-ai/ (template.js
-     đã không render ở đó; đây là lớp phòng thủ thứ hai). */
+     tro-chuyen-ai.js): CÙNG endpoint Pollinations, CÙNG system prompt.
+     Không giới hạn số tin — chỉ nghỉ 5 giây giữa 2 lần gửi. Lịch sử
+     chat lưu sessionStorage (tối đa 20 tin) để chuyển trang không mất
+     đoạn chat. Không hiện trên chính trang /cong-cu/tro-chuyen-ai/
+     (template.js đã không render ở đó; đây là lớp phòng thủ thứ hai). */
   function initAiChatWidget() {
     var wrap = document.getElementById('aiw');
     if (!wrap) return;
@@ -546,46 +545,25 @@
     var input = document.getElementById('aiw-input');
     var sendBtn = document.getElementById('aiw-send');
     var closeBtn = document.getElementById('aiw-close');
-    var quotaEl = document.getElementById('aiw-quota');
-    if (!fab || !panel || !log || !input || !sendBtn || !closeBtn || !quotaEl) return;
+    if (!fab || !panel || !log || !input || !sendBtn || !closeBtn) return;
 
     var URL = 'https://text.pollinations.ai/openai/v1/chat/completions';
     var MODEL = 'openai';
     var SYSTEM = 'Bạn là trợ lý AI thân thiện của trang web Tiện Ích Hub (tienichhub.io.vn). Trả lời bằng tiếng Việt, trừ khi người dùng hỏi bằng ngôn ngữ khác. Trả lời ngắn gọn, rõ ràng, dễ hiểu. Không bịa số liệu, ngày tháng hay thông tin không chắc chắn — nếu không biết thì nói là không biết. Không tự nhận mình là ChatGPT hay mô hình của công ty khác.';
-    var MAX_PER_DAY = 20;
     var MAX_LEN = 500;
     var MAX_CTX = 6;
     var TIMEOUT_MS = 90000;
-    var KEY = 'uh_ai_chat_quota';
+    var MIN_GAP_MS = 5000;
     var HISTORY_KEY = 'uh_ai_chat_history';
     var MAX_HISTORY = 20;
     var WELCOME = 'Chào bạn! Tôi là trợ lý AI của Tiện Ích Hub. Hỏi tôi bất cứ điều gì nhé!';
 
     var history = [];
     var busy = false;
+    var lastDoneAt = 0;
 
-    function today() {
-      var d = new Date();
-      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-    }
-
-    function loadQuota() {
-      try {
-        var raw = localStorage.getItem(KEY);
-        if (!raw) return { date: today(), count: 0 };
-        var q = JSON.parse(raw);
-        if (q.date !== today()) return { date: today(), count: 0 };
-        return q;
-      } catch (e) { return { date: today(), count: 0 }; }
-    }
-
-    function saveQuota(q) {
-      try { localStorage.setItem(KEY, JSON.stringify(q)); } catch (e) { /* localStorage không khả dụng */ }
-    }
-
-    function remaining() {
-      return Math.max(0, MAX_PER_DAY - loadQuota().count);
-    }
+    // Dọn key quota cũ (đã bỏ giới hạn 20 tin/ngày từ 18/11/2026).
+    try { localStorage.removeItem('uh_ai_chat_quota'); } catch (e) { /* bỏ qua */ }
 
     function loadHistory() {
       try {
@@ -632,26 +610,22 @@
       return div;
     }
 
-    function updateQuotaUI() {
-      var left = remaining();
-      quotaEl.textContent = 'Còn ' + left + '/' + MAX_PER_DAY + ' lượt hôm nay.';
-      var out = left <= 0;
-      input.disabled = out || busy;
-      sendBtn.disabled = out || busy;
-      if (out) input.placeholder = 'Hôm nay bạn đã hết lượt chat miễn phí, mai quay lại nhé.';
-      else input.placeholder = 'Nhập câu hỏi…';
+    function updateInputState() {
+      input.disabled = busy;
+      sendBtn.disabled = busy;
+      input.placeholder = 'Nhập câu hỏi…';
     }
 
     function setBusy(v) {
       busy = v;
-      updateQuotaUI();
+      updateInputState();
     }
 
     function openPanel() {
       panel.hidden = false;
       wrap.classList.add('aiw-open');
       fab.setAttribute('aria-expanded', 'true');
-      updateQuotaUI();
+      updateInputState();
       input.focus();
     }
 
@@ -668,9 +642,8 @@
         bubble('ai', 'Câu hỏi dài quá 500 ký tự rồi, bạn rút ngắn lại nhé.', 'error');
         return;
       }
-      if (remaining() <= 0) {
-        bubble('ai', 'Hôm nay bạn đã hết 20 lượt chat miễn phí, mai quay lại nhé.', 'error');
-        updateQuotaUI();
+      if (Date.now() - lastDoneAt < MIN_GAP_MS) {
+        bubble('ai', 'Từ từ đã — chờ vài giây rồi gửi tiếp nhé.', 'error');
         return;
       }
       bubble('user', msg);
@@ -703,13 +676,11 @@
           if (!reply) throw new Error('other');
           typing.remove();
           setBusy(false);
+          lastDoneAt = Date.now();
           bubble('ai', reply);
           history.push({ role: 'assistant', content: reply });
           saveHistory();
-          var q = loadQuota();
-          q.count += 1;
-          saveQuota(q);
-          updateQuotaUI();
+          updateInputState();
         }).catch(function (e) {
           var kind = (e && e.message) || '';
           if (attempt === 0 && kind !== 'other') {
@@ -719,7 +690,8 @@
           }
           typing.remove();
           setBusy(false);
-          // Lần gửi lỗi không tính vào lượt chat.
+          lastDoneAt = Date.now();
+          // Lần gửi lỗi: bỏ tin vừa gửi khỏi lịch sử.
           history.pop();
           saveHistory();
           var text = kind === 'busy'
@@ -756,7 +728,7 @@
     } else {
       bubble('ai', WELCOME);
     }
-    updateQuotaUI();
+    updateInputState();
     wrap.hidden = false;
   }
 

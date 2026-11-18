@@ -6,7 +6,7 @@
 //  - canonical: URL tuyệt đối của trang
 //  - body: HTML nội dung trong <main>
 //  - extraHead: HTML thêm vào <head> (nếu cần)
-//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'hoc-mien-phi' | 'code-mau' | 'diem-bao' | 'ung-ho' | '' — tô sáng mục nav tương ứng
+//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'hoc-mien-phi' | 'giao-vien' | 'code-mau' | 'diem-bao' | 'ung-ho' | '' — tô sáng mục nav tương ứng
 //    (Học miễn phí KHÔNG có trong nav chính: thêm mục thứ 8 làm header
 //    tràn 57px ở 1280px — đã đo thật 18/11/2026; chỉ link từ trang chủ,
 //    trang Sinh viên và chân trang.)
@@ -78,7 +78,6 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <h2>Trò chuyện AI</h2>
         <button type="button" class="aiw-close" id="aiw-close" aria-label="Đóng khung chat">✕</button>
       </header>
-      <p class="aiw-quota" id="aiw-quota"></p>
       <div class="aiw-log" id="aiw-log" aria-live="polite"></div>
       <div class="aiw-suggest" id="aiw-suggest">
         <button type="button" class="chip" data-q="Giải thích lãi kép thật đơn giản, ví dụ cụ thể">Lãi kép là gì?</button>
@@ -125,6 +124,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/sinh-vien/" class="${active('sinh-vien') ? 'nav-active' : ''}">Sinh viên</a>
         <a href="/huong-dan/" class="${active('huong-dan') ? 'nav-active' : ''}">Hướng dẫn</a>
         <a href="/hoc-mien-phi/" class="${active('hoc-mien-phi') ? 'nav-active' : ''}">Học miễn phí</a>
+        <a href="/giao-vien/" class="${active('giao-vien') ? 'nav-active' : ''}">Giáo viên</a>
         <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
         <a href="/diem-bao/" class="${active('diem-bao') ? 'nav-active' : ''}">Điểm báo</a>
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
@@ -153,6 +153,7 @@ ${body}
           <a href="/cong-cu/">Công cụ</a>
           <a href="/code-mau/">Code mẫu</a>
           <a href="/hoc-mien-phi/">Học miễn phí</a>
+          <a href="/giao-vien/">Giáo viên</a>
         </div>
         <div class="footer-col">
           <h3>Hỗ trợ</h3>
