@@ -199,6 +199,7 @@ p.error {
   padding: 8px 12px;
   border-radius: 8px;
   display: block;
+  white-space: nowrap;
 }
 .site-nav a:hover { background: var(--bg-soft); color: var(--ink); }
 /* Mục nav đang chọn: chỉ gạch chân xanh 2px + chữ màu ink (bỏ nền pill). */
@@ -219,7 +220,11 @@ p.error {
   gap: 4px;
 }
 
-@media (min-width: 720px) {
+/* Nav ngang chỉ hiện từ 1200px trở lên — đo thật 18/11: 7 mục nav +
+   ô tìm kiếm + nút "Dùng ngay" cần ~1200px; mốc cũ 720px làm nhãn nav
+   gãy làm đôi ("Trang/chủ") và trang tràn ngang tới 139px ở mọi cỡ
+   720–1150px. Dưới 1200px dùng menu hamburger (đã có sẵn). */
+@media (min-width: 1200px) {
   .nav-toggle { display: none; }
   .site-nav { display: flex; gap: 4px; align-items: center; }
 }
@@ -2077,5 +2082,11 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   .wrap { max-width: 100%; padding: 0; }
   .sv-doc { max-width: 100%; }
   .sv-letter { border: none; box-shadow: none; padding: 0; }
+  /* In từ chế độ tối: khối mẫu (.sv-letter) và hộp lưu ý (.note) giữ
+     nền tối của theme trong khi chữ in đã đổi sang đen → khối đen
+     chữ đen, không đọc được (bắt được 18/11 khi in mẫu CV từ dark
+     mode). Ép nền trắng + chữ đen cho cả khối lẫn nội dung trong. */
+  .sv-letter, .note { background: #fff !important; color: #000 !important; }
+  .sv-letter *, .note * { color: #000 !important; }
   a { color: #000; text-decoration: none; }
 }

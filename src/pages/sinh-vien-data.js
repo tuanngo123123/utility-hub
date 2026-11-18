@@ -487,17 +487,17 @@ export const TEMPLATES = [
   {
     slug: 'cv-sinh-vien-moi-ra-truong',
     title: 'CV sinh viên mới ra trường',
-    desc: 'Cấu trúc CV 1 trang cho người chưa có kinh nghiệm: thông tin, mục tiêu, học vấn, kỹ năng, đồ án, kinh nghiệm làm thêm — kèm gợi ý theo 3 nhóm ngành và ví dụ CV hoàn chỉnh.',
+    desc: 'Cấu trúc CV 1 trang cho người chưa có kinh nghiệm: thông tin, mục tiêu, học vấn, kỹ năng, kinh nghiệm làm thêm, hoạt động — kèm gợi ý theo 3 nhóm ngành và ví dụ CV hoàn chỉnh.',
     body: `
 <p>CV xin thực tập hay việc làm đầu tiên không cần dài — 1 trang, đủ 6 mục dưới đây, viết cụ thể bằng số thay vì chung chung. Chưa hình dung CV hoàn chỉnh trông như thế nào? Xem ví dụ CV đã điền đầy đủ ở bên dưới, rồi thay bằng thông tin của bạn.</p>
 <h2>Cấu trúc CV 1 trang</h2>
 <ol>
 <li><strong>Thông tin liên hệ:</strong> họ tên, số điện thoại, email (địa chỉ nghiêm túc, dạng hoten@gmail.com), link LinkedIn/GitHub nếu có. Không cần ghi ngày sinh, quê quán, số CCCD.</li>
 <li><strong>Mục tiêu nghề nghiệp:</strong> 2–3 dòng, ghi rõ vị trí muốn ứng tuyển + điều bạn mang lại. Ví dụ: "Ứng tuyển vị trí thực tập sinh kế toán. Muốn áp dụng kiến thức kế toán tài chính đã học vào công việc thực tế và học hỏi quy trình kế toán doanh nghiệp."</li>
-<li><strong>Học vấn:</strong> trường, ngành, năm học, GPA (ghi nếu từ 3.0/4.0 trở lên), 1–2 môn học hoặc đồ án liên quan tới vị trí ứng tuyển.</li>
+<li><strong>Học vấn:</strong> trường, ngành, năm học, GPA (ghi nếu từ 3.0/4.0 trở lên). Đồ án tốt nghiệp ghi ngay dưới mục này: tên đề tài + kết quả đạt được.</li>
 <li><strong>Kỹ năng:</strong> chia 2 nhóm — chuyên môn (ví dụ: Excel, phân tích số liệu, AutoCAD, Python…) và ngoại ngữ/tin học (kèm chứng chỉ nếu có). Chỉ ghi kỹ năng bạn thực sự dùng được.</li>
-<li><strong>Hoạt động &amp; đồ án:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. "Tổ chức chương trình chào tân sinh viên cho 300 sinh viên, huy động 5 nhà tài trợ" tốt hơn "Tham gia hoạt động Đoàn".</li>
 <li><strong>Kinh nghiệm làm thêm:</strong> ghi cả việc không đúng ngành nếu nó rèn kỹ năng liên quan — bán hàng rèn giao tiếp và thuyết phục, gia sư rèn trình bày và kiên nhẫn.</li>
+<li><strong>Hoạt động:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. "Tổ chức chương trình chào tân sinh viên cho 300 sinh viên, huy động 5 nhà tài trợ" tốt hơn "Tham gia hoạt động Đoàn".</li>
 </ol>
 <h2>Ví dụ CV hoàn chỉnh</h2>
 <p class="note">Ví dụ minh họa — thông tin trong CV này là hư cấu, chỉ để bạn thấy một CV hoàn chỉnh trông như thế nào. Thay toàn bộ bằng thông tin thật của bạn trước khi gửi.</p>
@@ -510,7 +510,7 @@ export const TEMPLATES = [
 <p><strong>Cử nhân Marketing — Trường Đại học Kinh tế TP. Hồ Chí Minh (UEH)</strong> · 2022–2026 · GPA 3.4/4.0<br>Đồ án tốt nghiệp: kế hoạch truyền thông ra mắt sản phẩm cho một thương hiệu trà sữa địa phương — đạt 9.0/10.</p>
 <h3>Kỹ năng</h3>
 <ul>
-<li>Viết nội dung, quản lý fanpage Facebook và TikTok, Canva, CapCut.</li>
+<li>Viết nội dung, quản lý fanpage Facebook và TikTok — thành thạo; Canva, CapCut — khá.</li>
 <li>Google Sheets (hàm cơ bản, PivotTable), MOS Excel 2025.</li>
 <li>Tiếng Anh: TOEIC 750 (2025).</li>
 </ul>
@@ -540,6 +540,8 @@ export const TEMPLATES = [
 <ul>
 <li>Đừng mở đầu bằng "chưa có kinh nghiệm" — nhà tuyển dụng đọc CV để thấy bạn làm được gì, không phải để thấy bạn thiếu gì.</li>
 <li>Dùng động từ: đạt, tổ chức, xây dựng, thiết kế, tiết kiệm… thay vì "tham gia", "được giao".</li>
+<li>Viết riêng cho từng vị trí: lấy từ khóa trong tin tuyển dụng (tên kỹ năng, công cụ) đưa vào mục kỹ năng và kinh nghiệm một cách tự nhiên — nhiều công ty dùng phần mềm ATS lọc hồ sơ trước khi người đọc.</li>
+<li>Trình bày đơn giản để ATS đọc được: 1 cột, không dùng bảng lồng nhau, text box, ảnh nền hay thanh kỹ năng phần trăm. Ghi mức độ bằng chữ (Thành thạo / Khá / Cơ bản).</li>
 <li>Kiểm tra chính tả 2 lần, nhờ 1 người khác đọc lại trước khi gửi.</li>
 <li>Lưu file PDF, đặt tên "CV-Ho-va-ten-Vi-tri-ung-tuyen.pdf".</li>
 <li>Gửi kèm email ngắn giới thiệu bản thân, đừng gửi CV trống không.</li>

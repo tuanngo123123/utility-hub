@@ -272,10 +272,10 @@ export const ARTICLES = [
 <ol>
 <li><strong>Thông tin liên hệ:</strong> họ tên, số điện thoại, email (địa chỉ nghiêm túc, dạng hoten@gmail.com), link LinkedIn hoặc GitHub nếu có. Không cần ghi ngày sinh, quê quán, số CCCD.</li>
 <li><strong>Mục tiêu nghề nghiệp:</strong> 2–3 dòng, ghi rõ vị trí muốn ứng tuyển và điều bạn mang lại. Ví dụ: "Ứng tuyển vị trí thực tập sinh kế toán. Muốn áp dụng kiến thức kế toán tài chính đã học vào công việc thực tế và học hỏi quy trình kế toán doanh nghiệp."</li>
-<li><strong>Học vấn:</strong> trường, ngành, năm học, GPA (ghi nếu từ 3.0/4.0 trở lên), 1–2 môn học hoặc đồ án liên quan tới vị trí ứng tuyển.</li>
+<li><strong>Học vấn:</strong> trường, ngành, năm học, GPA (ghi nếu từ 3.0/4.0 trở lên). Đồ án tốt nghiệp ghi ngay dưới mục này: tên đề tài + kết quả đạt được.</li>
 <li><strong>Kỹ năng:</strong> chia 2 nhóm — chuyên môn (ví dụ: Excel, phân tích số liệu, AutoCAD, Python…) và ngoại ngữ/tin học (kèm chứng chỉ nếu có). Chỉ ghi kỹ năng bạn thực sự dùng được.</li>
-<li><strong>Hoạt động và đồ án:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. Đồ án môn học, câu lạc bộ, cuộc thi đều tính — miễn là bạn nói được mình đã làm gì và đạt kết quả gì.</li>
 <li><strong>Kinh nghiệm làm thêm:</strong> ghi cả việc không đúng ngành nếu nó rèn kỹ năng liên quan — bán hàng rèn giao tiếp và thuyết phục, gia sư rèn trình bày và kiên nhẫn.</li>
+<li><strong>Hoạt động:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. Câu lạc bộ, cuộc thi, hoạt động tình nguyện đều tính — miễn là bạn nói được mình đã làm gì và đạt kết quả gì.</li>
 </ol>
 <h2 id="viet-bang-so">Viết bằng số, không viết chung chung</h2>
 <p>Cùng một hoạt động, cách viết khác nhau tạo ấn tượng khác nhau:</p>
@@ -294,6 +294,8 @@ export const ARTICLES = [
 <ul>
 <li>Kiểm tra chính tả 2 lần, nhờ 1 người khác đọc lại trước khi gửi — lỗi chính tả trong CV là lỗi dễ tránh nhất nhưng cũng dễ bị loại nhất.</li>
 <li>Lưu file PDF, đặt tên "CV-Ho-va-ten-Vi-tri-ung-tuyen.pdf" để nhà tuyển dụng tìm lại được file của bạn.</li>
+<li>Viết riêng cho từng vị trí: lấy từ khóa trong tin tuyển dụng (tên kỹ năng, công cụ) đưa vào mục kỹ năng và kinh nghiệm một cách tự nhiên — nhiều công ty dùng phần mềm ATS lọc hồ sơ trước khi người đọc.</li>
+<li>Trình bày đơn giản để ATS đọc được: 1 cột, không dùng bảng lồng nhau, text box, ảnh nền hay thanh kỹ năng phần trăm. Ghi mức độ bằng chữ (Thành thạo / Khá / Cơ bản).</li>
 <li>Gửi kèm email ngắn giới thiệu bản thân — đừng gửi CV trống không. Trong email nói rõ bạn ứng tuyển vị trí nào và vì sao phù hợp trong 3–4 câu.</li>
 <li>Nếu sau 1 tuần chưa có phản hồi, có thể gửi email hỏi lại lịch sự 1 lần — đừng nhắn dồn nhiều lần.</li>
 </ul>`,
