@@ -483,6 +483,7 @@
     initHeroRotator();
     initDiceButtons();
     recordToolVisit();
+    initRecentTools();
     initCardDemos();
     initToolSound();
     initEasterEgg();
@@ -639,6 +640,7 @@
       panel.hidden = false;
       wrap.classList.add('aiw-open');
       fab.setAttribute('aria-expanded', 'true');
+      applyHidden();
       updateInputState();
       input.focus();
     }
@@ -647,6 +649,7 @@
       panel.hidden = true;
       wrap.classList.remove('aiw-open');
       fab.setAttribute('aria-expanded', 'false');
+      applyHidden();
     }
 
     function send(text) {
@@ -733,6 +736,44 @@
     });
     wrap.querySelectorAll('#aiw-suggest .chip').forEach(function (btn) {
       btn.addEventListener('click', function () { send(btn.getAttribute('data-q')); });
+    });
+
+    // Nút nổi tự ẩn để khỏi đè nội dung (đợt sửa UX 18/11): ẩn trong lúc
+    // cuộn (hiện lại sau khi dừng cuộn ~1 giây) và khi đang nhập vào ô
+    // khác (input/textarea/select bên ngoài khung chat); không ẩn khi
+    // khung chat đang mở. CSS .aiw-hidden làm mờ + vô hiệu bấm.
+    var scrollTimer = null;
+    var hiddenByScroll = false;
+    var hiddenByFocus = false;
+    function applyHidden() {
+      var open = !panel.hidden;
+      wrap.classList.toggle('aiw-hidden', !open && (hiddenByScroll || hiddenByFocus));
+    }
+    window.addEventListener('scroll', function () {
+      if (panel.hidden) { hiddenByScroll = true; applyHidden(); }
+      if (scrollTimer) clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () { hiddenByScroll = false; applyHidden(); }, 1000);
+    }, { passive: true });
+    document.addEventListener('focusin', function (e) {
+      var t = e.target;
+      if (!t || !t.tagName) return;
+      if (wrap.contains(t)) return;
+      var tag = t.tagName.toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || tag === 'select' || t.isContentEditable) {
+        hiddenByFocus = true;
+        applyHidden();
+      }
+    });
+    document.addEventListener('focusout', function (e) {
+      var t = e.relatedTarget;
+      // Chuyển sang ô nhập khác thì vẫn ẩn; mọi trường hợp còn lại (kể cả
+      // bấm vào chính nút chat) thì hiện lại.
+      if (t && t.tagName && !wrap.contains(t)) {
+        var tag = t.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || tag === 'select' || t.isContentEditable) return;
+      }
+      hiddenByFocus = false;
+      applyHidden();
     });
 
     // Khôi phục đoạn chat đang dở (chuyển trang trong cùng phiên).
@@ -1218,9 +1259,13 @@
   }
 
   /* Chữ xoay trong H1 trang chủ (hướng B đợt 1, ý 8 báo cáo sáng tạo):
-     từ sau "129 công cụ miễn phí —" đổi mỗi 2,5 giây, màu từ đổi theo
+     từ sau "133 công cụ miễn phí" đổi mỗi 2,5 giây, màu từ đổi theo
      màu hạng mục tương ứng (bản đậm, đã đo tương phản ≥ 4,5:1). Từ đầu
-     ("tính lương") có sẵn trong HTML nên không JS vẫn thấy H1 đầy đủ.
+     ("— tính lương") có sẵn trong HTML nên không JS vẫn thấy H1 đầy đủ.
+     Span xoay là trang trí: H1 mang aria-hidden="true" (đợt sửa UX
+     18/11) nên trình đọc màn hình chỉ nghe "133 công cụ miễn phí" —
+     H1 đứng yên, đủ nghĩa cho Google. Dấu "—" nằm TRONG span xoay để
+     H1 tĩnh không thừa dấu gạch ngang.
      prefers-reduced-motion: giữ từ đầu tiên, không xoay. */
   var HERO_ROTATOR_WORDS = [
     { t: 'tính lương', c: '#1d4ed8' },
@@ -1242,7 +1287,7 @@
       var next = HERO_ROTATOR_WORDS[idx];
       el.classList.add('rot-out');
       setTimeout(function () {
-        el.textContent = next.t;
+        el.textContent = '— ' + next.t;
         el.style.color = next.c;
         el.classList.remove('rot-out');
       }, 250);
@@ -1250,7 +1295,10 @@
   }
 
   /* Lịch sử công cụ đã thăm (localStorage) — phục vụ nút xúc xắc ưu tiên
-     mở công cụ CHƯA thử. Chỉ lưu slug, tối đa 200 mục, không gửi đi đâu. */
+     mở công cụ CHƯA thử + hàng "Dùng gần đây" trên trang chủ. Chỉ lưu
+     slug, tối đa 200 mục, không gửi đi đâu. Danh sách giữ theo THỨ TỰ
+     DÙNG GẦN NHẤT (mới nhất ở cuối): mỗi lần mở lại một công cụ thì
+     slug đó chuyển xuống cuối. */
   var VISITED_KEY = 'uh_visited_tools';
   var DICE_LAST_KEY = 'uh_dice_last';
 
@@ -1267,12 +1315,36 @@
     if (!m) return;
     try {
       var arr = readVisited();
-      if (arr.indexOf(m[1]) === -1) {
-        arr.push(m[1]);
-        if (arr.length > 200) arr = arr.slice(arr.length - 200);
-        localStorage.setItem(VISITED_KEY, JSON.stringify(arr));
-      }
+      var at = arr.indexOf(m[1]);
+      if (at !== -1) arr.splice(at, 1);
+      arr.push(m[1]);
+      if (arr.length > 200) arr = arr.slice(arr.length - 200);
+      localStorage.setItem(VISITED_KEY, JSON.stringify(arr));
     } catch (e) { /* bộ nhớ đầy/khóa: bỏ qua */ }
+  }
+
+  /* Hàng "Dùng gần đây" trên trang chủ (đợt sửa UX 18/11): lấy 6 công cụ
+     mở gần nhất từ uh_visited_tools, nhân bản thẻ .catalog-card có sẵn
+     trong lưới trang chủ (không cần fetch thêm dữ liệu). Không có lịch
+     sử thì cả hàng giữ hidden. Chạy TRƯỚC initCardDemos để thẻ nhân bản
+     cũng được gắn mini-demo khi lăn vào màn hình trên điện thoại. */
+  function initRecentTools() {
+    if (typeof document === 'undefined') return;
+    var section = document.getElementById('recent-tools');
+    var grid = document.getElementById('recent-grid');
+    if (!section || !grid) return;
+    var recent = readVisited().slice(-6).reverse();
+    if (!recent.length) return;
+    var made = 0;
+    recent.forEach(function (slug) {
+      var src = document.querySelector('.catalog-card[href="/cong-cu/' + slug + '/"]');
+      if (!src || grid.querySelector('[href="/cong-cu/' + slug + '/"]')) return;
+      var clone = src.cloneNode(true);
+      clone.removeAttribute('id');
+      grid.appendChild(clone);
+      made++;
+    });
+    if (made) section.hidden = false;
   }
 
   /* Nút xúc xắc "Thử công cụ ngẫu nhiên" (hướng B đợt 1, ý 15 báo cáo
@@ -2198,7 +2270,7 @@
     { id: 'chung-khoan', label: 'Chứng khoán' },
     { id: 'crypto', label: 'Crypto' }
   ];
-  var NEWS_PER_GROUP = 6;
+  var NEWS_PER_GROUP = 2; // Đồng bộ với home.js (SSR): trang chủ chỉ hiện 2 tin/tab + 1 tin nổi bật.
   var HOT_COUNT = 6;
 
   // news.json có thể ở 1 trong 2 dạng: groups là mảng [{id,label,items}] hoặc
@@ -2335,7 +2407,7 @@
           groupsEl.innerHTML = '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
         } else {
           // Mỗi nhóm một panel theo tab AI / Chứng khoán / Crypto;
-          // cùng lúc chỉ hiện 1 nhóm (tối đa 6 tin) + 1 tin nổi bật.
+          // cùng lúc chỉ hiện 1 nhóm (tối đa 2 tin) + 1 tin nổi bật.
           groupsEl.innerHTML = NEWS_GROUPS.map(function (def, idx) {
             var g = null;
             groups.forEach(function (x) { if (x.id === def.id) g = x; });

@@ -4,7 +4,7 @@ export function body() {
   return `
   <section class="section legal">
     <h1>Chính sách bảo mật</h1>
-    <p class="muted">Cập nhật lần cuối: 17/11/2026 — Có hiệu lực từ 17/11/2026.</p>
+    <p class="muted">Cập nhật lần cuối: 19/11/2026 — Có hiệu lực từ 17/11/2026.</p>
     <p><strong>Tiện Ích Hub</strong> (tienichhub.io.vn) do <strong>Ngô Minh Tuấn</strong> vận hành. Email liên hệ: <a href="mailto:ngotuantdmu97@gmail.com">ngotuantdmu97@gmail.com</a>.</p>
     <p>Nguyên tắc của chúng tôi rất đơn giản: <strong>trang web này được thiết kế để không thu thập dữ liệu cá nhân của bạn</strong>. Chính sách dưới đây nói rõ chúng tôi (không) thu thập gì, dữ liệu nào nằm trên thiết bị của bạn, và quyền của bạn theo Luật Bảo vệ dữ liệu cá nhân 91/2025/QH15.</p>
 
@@ -12,7 +12,7 @@ export function body() {
     <ul>
       <li>Trang web <strong>không có tài khoản người dùng</strong>, không có form đăng ký, đăng nhập hay bình luận.</li>
       <li>Mọi tính toán trong công cụ <strong>chạy hoàn toàn trên trình duyệt của bạn</strong>. Dữ liệu bạn nhập vào công cụ (số tiền, ngày tháng, văn bản…) <strong>không được gửi lên máy chủ</strong> của chúng tôi.</li>
-      <li>Trang web <strong>không theo dõi người dùng</strong>: không gắn mã theo dõi hành vi, không ghi lại lịch sử dùng công cụ của bạn, không bán hay chia sẻ dữ liệu cho bên thứ ba vì mục đích quảng cáo.</li>
+      <li>Trang web <strong>không theo dõi người dùng</strong>: không gắn mã theo dõi hành vi, không bán hay chia sẻ dữ liệu cho bên thứ ba vì mục đích quảng cáo. Trang chỉ ghi lại trên chính trình duyệt của bạn những công cụ bạn đã mở, để hiện hàng "Dùng gần đây" và gợi ý công cụ chưa thử (xem mục 9) — danh sách này không rời khỏi máy bạn.</li>
       <li>Chúng tôi không đặt cookie theo dõi. Trang chỉ dùng bộ nhớ cục bộ của trình duyệt (xem mục 2).</li>
     </ul>
 
@@ -20,7 +20,9 @@ export function body() {
     <p>Một số thông tin được lưu <strong>chỉ trên trình duyệt của chính bạn</strong>, không gửi đi đâu:</p>
     <ul>
       <li><strong>Lựa chọn giao diện sáng/tối</strong> (khóa <code>uh-theme</code>) để trang nhớ sở thích của bạn.</li>
-      <li><strong>Dữ liệu bạn tự nhập vào một số công cụ</strong> (danh sách đồ mang theo, sự kiện đếm ngược, kỷ lục luyện cửu chương, số phiên Pomodoro — xem danh mục đầy đủ ở mục 9) để bạn mở lại vẫn còn. Các công cụ tính toán (lương, tiền điện, BMI…) không lưu nội dung bạn nhập.</li>
+      <li><strong>Danh sách công cụ bạn đã mở</strong> (khóa <code>uh_visited_tools</code>) để hiện hàng "Dùng gần đây" trên trang chủ và gợi ý công cụ bạn chưa thử — chỉ lưu tên công cụ, không lưu nội dung bạn nhập vào công cụ.</li>
+      <li><strong>Dữ liệu bạn tự nhập vào một số công cụ</strong> (danh sách đồ mang theo, sự kiện đếm ngược, kỷ lục luyện cửu chương, số phiên Pomodoro, danh sách lớp và bảng điểm của giáo viên — xem danh mục đầy đủ ở mục 9) để bạn mở lại vẫn còn. Các công cụ tính toán (lương, tiền điện, BMI…) không lưu nội dung bạn nhập.</li>
+      <li><strong>Đoạn chat với Chat AI đang dở</strong> (khóa <code>uh_ai_chat_history</code>, bộ nhớ phiên — sessionStorage) để chuyển trang không mất đoạn chat; dữ liệu này mất khi bạn đóng tab.</li>
     </ul>
     <p>Bạn có thể xóa toàn bộ dữ liệu này bất cứ lúc nào qua mục xóa dữ liệu trang web trong cài đặt trình duyệt. Việc xóa không ảnh hưởng tới các công cụ khác.</p>
 
@@ -42,21 +44,31 @@ export function body() {
     <h2>8. Thay đổi chính sách</h2>
     <p>Chúng tôi có thể cập nhật chính sách này khi có thay đổi về dịch vụ hoặc pháp luật; bản mới sẽ đăng tại trang này kèm ngày cập nhật. Nếu có thay đổi quan trọng (ví dụ: bắt đầu thu thập một loại dữ liệu nào đó), chúng tôi sẽ nêu rõ và chỉ áp dụng sau khi bạn đồng ý theo quy định.</p>
 
-    <h2>9. Dữ liệu lưu trên thiết bị của bạn — danh mục chi tiết (localStorage)</h2>
-    <p>Mục 2 đã nêu nguyên tắc chung; dưới đây là danh mục đầy đủ những gì trang web lưu trong bộ nhớ cục bộ của trình duyệt (localStorage), kiểm tra theo mã nguồn hiện tại. Tất cả đều <strong>chỉ nằm trên thiết bị của bạn</strong>, không gửi lên máy chủ của chúng tôi hay bất kỳ bên thứ ba nào:</p>
+    <h2>9. Dữ liệu lưu trên thiết bị của bạn — danh mục chi tiết (localStorage và sessionStorage)</h2>
+    <p>Mục 2 đã nêu nguyên tắc chung; dưới đây là danh mục đầy đủ những gì trang web lưu trong bộ nhớ của trình duyệt, kiểm tra theo mã nguồn hiện tại. Tất cả đều <strong>chỉ nằm trên thiết bị của bạn</strong>, không gửi lên máy chủ của chúng tôi hay bất kỳ bên thứ ba nào:</p>
     <ul>
       <li><strong>Lựa chọn giao diện sáng/tối</strong> (khóa <code>uh-theme</code>, giá trị <code>dark</code> hoặc <code>light</code>) để trang nhớ sở thích của bạn.</li>
+      <li><strong>Công cụ bạn đã mở</strong> (khóa <code>uh_visited_tools</code>): danh sách tên các công cụ bạn đã mở, theo thứ tự dùng gần nhất, tối đa 200 mục — dùng cho hàng "Dùng gần đây" trên trang chủ và nút xúc xắc gợi ý công cụ chưa thử.</li>
+      <li><strong>Công cụ mở gần nhất bằng nút xúc xắc</strong> (khóa <code>uh_dice_last</code>): tên một công cụ, để nút xúc xắc không gợi ý trùng công cụ vừa mở.</li>
+      <li><strong>Danh sách lớp đã lưu</strong> (khóa <code>uh_gv_lop</code>): các lớp học giáo viên tự tạo trong mục Giáo viên (tên lớp và danh sách học sinh).</li>
+      <li><strong>Bảng điểm lớp</strong> (khóa <code>uh_bangdiemlop</code>): điểm cộng/trừ của từng học sinh trong công cụ bảng điểm.</li>
+      <li><strong>Điểm danh</strong> (khóa <code>uh_gv_diemdanh</code>): trạng thái có mặt/vắng/muộn của từng học sinh theo từng ngày.</li>
+      <li><strong>Bộ câu hỏi ôn tập</strong> (khóa <code>uh_gv_cauhoi</code>): các bộ câu hỏi giáo viên tự lưu trong công cụ bốc câu hỏi.</li>
+      <li><strong>Câu hỏi đã bốc</strong> (khóa <code>uh_gv_cauhoi_asked</code>): câu nào trong mỗi bộ đã được bốc rồi, để không bốc trùng.</li>
+      <li><strong>Bật/tắt âm thanh</strong> (khóa <code>uh_gv_sound</code>) và <strong>mức âm lượng</strong> (khóa <code>uh_gv_vol</code>, 0–100%) của các công cụ giáo viên và âm báo của trang.</li>
+      <li><strong>Tiến độ học từ vựng tiếng Anh</strong> (khóa <code>uh_tuvung_tiendo</code>): từ nào bạn đã nhớ/chưa nhớ trong từng chế độ học.</li>
       <li><strong>Kỷ lục luyện cửu chương</strong> (khóa <code>uh_cuuchuong_best</code>): điểm cao nhất bạn đạt được trong công cụ luyện cửu chương.</li>
       <li><strong>Danh sách đồ mang theo</strong> (khóa <code>uh-checklist-vali</code>): các mục bạn đã tick trong công cụ checklist vali.</li>
       <li><strong>Số phiên Pomodoro trong ngày</strong> (khóa <code>uh_pomodoro_YYYY-MM-DD</code>, một khóa riêng cho mỗi ngày): số phiên tập trung bạn đã hoàn thành trong ngày đó.</li>
       <li><strong>Danh sách sự kiện đếm ngược</strong> (khóa <code>uh_events_v1</code>): các sự kiện bạn tự tạo trong công cụ đếm ngược sự kiện.</li>
+      <li><strong>Đoạn chat với Chat AI đang dở</strong> (khóa <code>uh_ai_chat_history</code>, bộ nhớ phiên — sessionStorage, tối đa 20 tin): đoạn chat của bạn với Chat AI, giữ lại khi chuyển trang trong cùng phiên và mất khi đóng tab.</li>
     </ul>
-    <p>Ngoài 5 mục trên, trang <strong>không lưu gì thêm</strong>: không có tính năng "dùng gần đây" hay "yêu thích", không lưu lịch sử công cụ bạn đã mở, và không lưu nội dung bạn nhập vào các công cụ tính toán (lương, tiền điện, BMI…). Để xóa toàn bộ dữ liệu trên, mở cài đặt trình duyệt và xóa dữ liệu trang web của tienichhub.io.vn; riêng giao diện sáng/tối, bạn cũng có thể đổi lại bằng nút chuyển giao diện trên trang. Việc xóa không ảnh hưởng tới hoạt động của các công cụ — lần mở sau, mọi thứ trở về mặc định.</p>
+    <p>Ngoài các mục trên, trang <strong>không lưu gì thêm</strong>: không có tính năng "yêu thích", và không lưu nội dung bạn nhập vào các công cụ tính toán (lương, tiền điện, BMI…). Để xóa toàn bộ dữ liệu trên, mở cài đặt trình duyệt và xóa dữ liệu trang web của tienichhub.io.vn; riêng giao diện sáng/tối, bạn cũng có thể đổi lại bằng nút chuyển giao diện trên trang. Việc xóa không ảnh hưởng tới hoạt động của các công cụ — lần mở sau, mọi thứ trở về mặc định.</p>
 
     <h2>10. Dữ liệu trực tiếp và bên thứ ba (kiến trúc snapshot)</h2>
     <p>Để hiển thị dữ liệu trực tiếp (giá vàng, tỉ giá, crypto, xổ số, tin tức, xu hướng GitHub), trang dùng kiến trúc snapshot: <strong>trình duyệt của bạn chỉ tải dữ liệu từ chính tên miền tienichhub.io.vn</strong>, dưới dạng file JSON tĩnh (ví dụ <code>/data/gold.json</code>, <code>/data/fx.json</code>, <code>/data/crypto.json</code>, <code>/data/lottery.json</code>, <code>/data/news.json</code>, <code>/data/trending.json</code>).</p>
     <p>Việc lấy dữ liệu gốc từ các nguồn (CoinGecko, open.er-api.com, vang.today, xskt.com.vn, api.github.com, alternative.me và các nguồn tin RSS) do <strong>máy chủ tự động (GitHub Actions)</strong> thực hiện định kỳ, rồi lưu thành file tĩnh nêu trên. Các API nguồn chỉ thấy địa chỉ IP của máy chủ, <strong>không thấy địa chỉ IP trình duyệt của bạn</strong>.</p>
-    <p>Ngoại lệ: hai công cụ tra cứu GitHub tương tác (<strong>GitHub Trending</strong> và <strong>Tra cứu repo</strong>) vẫn gọi trực tiếp tới api.github.com từ trình duyệt của bạn khi bạn bấm tra cứu, vì kết quả phụ thuộc vào lựa chọn của bạn lúc đó. Khi đó, GitHub có thể thấy địa chỉ IP và thông tin trình duyệt của bạn như mọi lần bạn mở một trang web; việc xử lý dữ liệu đó tuân theo chính sách riêng của GitHub.</p>
+    <p>Ngoại lệ: hai công cụ tra cứu GitHub tương tác (<strong>GitHub Trending</strong> và <strong>Tra cứu GitHub</strong>) vẫn gọi trực tiếp tới api.github.com từ trình duyệt của bạn khi bạn bấm tra cứu, vì kết quả phụ thuộc vào lựa chọn của bạn lúc đó. Khi đó, GitHub có thể thấy địa chỉ IP và thông tin trình duyệt của bạn như mọi lần bạn mở một trang web; việc xử lý dữ liệu đó tuân theo chính sách riêng của GitHub.</p>
     <p>Các bên thứ ba khác mà trình duyệt của bạn có thể chạm tới: <strong>Cloudflare</strong> (lưu trữ và phân phối trang web) và các trang ngoài khi bạn tự bấm link ra (nguồn tin, GitHub, ngân hàng…). Khi bạn bấm link ra ngoài, bạn chịu chính sách bảo mật của trang đích.</p>
 
     <h2>11. Phân tích lượt xem (Cloudflare Web Analytics)</h2>

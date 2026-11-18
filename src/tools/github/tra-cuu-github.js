@@ -71,7 +71,7 @@ export function init(root) {
 
   function renderUser(u, topRepos) {
     let rows = `<div class="result">
-      <div class="result-row"><span>Ảnh đại diện</span><strong><img src="${esc(u.avatar_url)}" alt="" width="72" height="72" style="border-radius:50%" loading="lazy"></strong></div>
+      <div class="result-row"><span>Ảnh đại diện</span><strong><img src="${esc(u.avatar_url)}" alt="Ảnh đại diện của ${esc(u.login)}" width="72" height="72" style="border-radius:50%" loading="lazy"></strong></div>
       <div class="result-row"><span>Tài khoản</span><strong><a href="${esc(u.html_url)}" target="_blank" rel="noopener">${esc(u.login)}</a></strong></div>
       <div class="result-row"><span>Tên hiển thị</span><strong>${esc(u.name || '—')}</strong></div>
       <div class="result-row"><span>Giới thiệu</span><strong>${esc(u.bio || 'Không có giới thiệu.')}</strong></div>

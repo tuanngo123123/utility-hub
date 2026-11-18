@@ -141,6 +141,34 @@ function stripVietnam(text) {
   if (/việt nam|vietnam|người việt/i.test(String(text || ''))) return '';
   return text;
 }
+// Lưới lọc mệnh đề tiếng Anh lọt trong tóm tắt (đã xảy ra thật 18/11:
+// tin Nvidia đầu tiên có vế đầu bằng tiếng Anh, vế sau tiếng Việt —
+// looksVietnamese() kiểm cả đoạn nên vẫn qua vì vế sau có dấu). Tách
+// tóm tắt thành từng mệnh đề theo dấu , . ; : ! ? — mệnh đề nào có từ
+// 4 từ trở lên, không có dấu tiếng Việt mà có từ chức năng tiếng Anh
+// (the, of, to, is...) thì lược bỏ. Tên riêng nước ngoài được giữ vì
+// chúng nằm trong mệnh đề tiếng Việt (có dấu) hoặc ngắn hơn 4 từ. Sau
+// khi lược, bỏ từ nối đầu câu còn trơ lại (nhưng/và...) và viết hoa
+// chữ đầu để câu còn lại đứng được một mình.
+const EN_WORDS = new Set('a an the of to and in is are was were has have had with for by from after before says said will would can could should its it this that these those as on at be been being not no but or if then than more most other new over under between through into about up out'.split(' '));
+function stripEnglishClauses(text) {
+  const t = String(text || '');
+  if (!t) return t;
+  const parts = t.split(/(?<=[,.;:!?])\s+/);
+  const kept = parts.filter(function (p) {
+    const words = p.trim().split(/\s+/).filter(Boolean);
+    if (words.length < 4) return true;
+    if (VI_DIACRITIC.test(p)) return true;
+    const hasEn = words.some(function (w) { return EN_WORDS.has(w.toLowerCase().replace(/[^a-z]/g, '')); });
+    return !hasEn;
+  });
+  let out = kept.join(' ').replace(/\s+([,.;:!?])/g, '$1').replace(/\s{2,}/g, ' ').trim();
+  if (kept.length < parts.length) {
+    out = out.replace(/^(nhưng|tuy nhiên|và|còn|thì)\s+/i, '');
+    out = out.replace(/^([a-zà-ỹđ])/, function (m) { return m.toUpperCase(); });
+  }
+  return out;
+}
 const MAX_LEN = 260;
 const WHY_MAX_LEN = 200;
 const BATCH = 5;
@@ -167,7 +195,7 @@ function trimWhy(s) {
 const SYSTEM_PROMPT = [
   'Bạn tóm tắt tin tức nước ngoài sang tiếng Việt cho mục Điểm báo của một trang tiện ích.',
   'QUY TẮC BẮT BUỘC:',
-  '1. Mỗi tin: tóm tắt đúng 1-2 câu, TỐI ĐA 260 ký tự, viết lại bằng lời của mình — KHÔNG dịch toàn văn, KHÔNG chép nguyên câu tiếng Anh.',
+  '1. Mỗi tin: tóm tắt đúng 1-2 câu, TỐI ĐA 260 ký tự, viết lại bằng lời của mình — KHÔNG dịch toàn văn, KHÔNG chép nguyên câu tiếng Anh. Mọi câu trong tóm tắt đều phải là tiếng Việt có dấu (chỉ tên riêng nước ngoài giữ tiếng Anh theo quy tắc 2); không để lọt mệnh đề tiếng Anh.',
   '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc. Giữ nguyên tên riêng nước ngoài (người, công ty, sản phẩm) theo bản gốc, KHÔNG phiên âm sang tiếng Việt — ví dụ viết "Donald Trump", "Vladimir Putin", "Jensen Huang", "Nvidia"; CHỈ có Xi Jinping viết là "Tập Cận Bình".',
   '3. TUYỆT ĐỐI KHÔNG dùng ngôn ngữ khuyến nghị đầu tư: không viết "nên mua", "nên bán", "nên đầu tư", "nên giữ", "cân nhắc đầu tư", "cân nhắc mua", "đáng mua", "đáng đầu tư", "cơ hội mua vào", "khuyến nghị", "đa dạng hoá danh mục" hay bất kỳ lời khuyên mua/bán/giữ tài sản nào — áp dụng cho cả tóm tắt lẫn câu "vì sao đáng đọc".',
   '4. Mỗi tin thêm 1 câu "vì sao tin này đáng đọc" (tối đa 200 ký tự): NGẮN, CỤ THỂ, chỉ nói TÁC ĐỘNG CHUNG của tin (công nghệ thay đổi thế nào, thị trường/đời sống thay đổi thế nào) — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Không viết chung chung kiểu "tin này rất quan trọng".',
@@ -210,9 +238,9 @@ async function summarizeBatch(apiKey, batch, allowRepair = true) {
     // mất cả loạt tóm tắt. stripAdvice(): trường nào lọt ngôn ngữ gợi ý đầu tư
     // thì để trống. stripVietnam(): trường nào nhắc Việt Nam thì để trống.
     return arr.map((el) => {
-      if (typeof el === 'string') return { summary: stripVietnam(stripAdvice(trimSummary(el))), why: '' };
+      if (typeof el === 'string') return { summary: stripEnglishClauses(stripVietnam(stripAdvice(trimSummary(el)))), why: '' };
       if (el && typeof el === 'object') {
-        return { summary: stripVietnam(stripAdvice(trimSummary(el.summary))), why: stripVietnam(stripAdvice(trimWhy(el.why))) };
+        return { summary: stripEnglishClauses(stripVietnam(stripAdvice(trimSummary(el.summary)))), why: stripEnglishClauses(stripVietnam(stripAdvice(trimWhy(el.why)))) };
       }
       return { summary: '', why: '' };
     });
@@ -234,11 +262,13 @@ async function summarizeBatch(apiKey, batch, allowRepair = true) {
     }
   }
   // Sửa từng tin lỗi ngôn ngữ thay vì bỏ cả batch: gom các tin trả không phải
-  // tiếng Việt, hỏi lại riêng 1 lần (sau 15s, tôn trọng giới hạn Pollinations);
-  // vẫn lỗi thì để trống tin đó, giữ nguyên các tin tốt. (Thử thật 18/11:
-  // batch Nvidia lỗi ngôn ngữ cả 2 lần thử lại — bỏ cả batch thì mất 4 tin tốt.)
+  // tiếng Việt (hoặc tóm tắt bị lọc thành trống — ví dụ toàn bộ bằng tiếng
+  // Anh nên stripEnglishClauses lược hết), hỏi lại riêng 1 lần (sau 15s, tôn
+  // trọng giới hạn Pollinations); vẫn lỗi thì để trống tin đó, giữ nguyên
+  // các tin tốt. (Thử thật 18/11: batch Nvidia lỗi ngôn ngữ cả 2 lần thử
+  // lại — bỏ cả batch thì mất 4 tin tốt.)
   const badIdx = [];
-  out.forEach((p, k) => { if (!looksVietnamese(p.summary) || !looksVietnamese(p.why)) badIdx.push(k); });
+  out.forEach((p, k) => { if (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why)) badIdx.push(k); });
   if (allowRepair && badIdx.length > 0) {
     console.warn(`Batch có ${badIdx.length}/${batch.length} tin không phải tiếng Việt — hỏi lại riêng.`);
     await sleep(15000);
@@ -246,7 +276,7 @@ async function summarizeBatch(apiKey, batch, allowRepair = true) {
       const sub = await summarizeBatch(apiKey, badIdx.map((k) => batch[k]), false);
       badIdx.forEach((k, j) => {
         const p = sub[j];
-        out[k] = (!looksVietnamese(p.summary) || !looksVietnamese(p.why)) ? { summary: '', why: '' } : p;
+        out[k] = (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why)) ? { summary: '', why: '' } : p;
       });
     } catch (e) {
       console.warn(`Hỏi lại vẫn lỗi (${e.message || e}) — để trống ${badIdx.length} tin này.`);

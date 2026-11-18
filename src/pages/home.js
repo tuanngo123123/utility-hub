@@ -1,13 +1,16 @@
 // Trang chủ — KHÔI PHỤC BỐ CỤC TRƯỚC ĐỢT 1 (Tuấn yêu cầu 18/11, thấy bản
 // cũ đẹp hơn bản wave 1), phủ giao diện mới kiểu web nước ngoài
 // (iLovePDF + TinyWow + Product Hunt).
-// Thứ tự (hướng B đợt 1, 18/11): hero (H1 có từ xoay + tìm kiếm làm tâm
-// điểm + 1 nút CTA) → rail Công cụ nổi bật → hàng mục nổi bật gọn
+// Thứ tự (sau đợt sửa UX 18/11, theo góp ý rà soát điện thoại 375px):
+// hero (H1 tĩnh + từ xoay trang trí + tìm kiếm làm tâm điểm + 1 nút CTA)
+// → rail Công cụ nổi bật (công cụ hay dùng) → Dùng gần đây (đọc
+// localStorage uh_visited_tools, trống thì ẩn) → hàng mục nổi bật gọn
 // (Sinh viên / Hướng dẫn / Học miễn phí / Giáo viên) → dải dữ liệu hôm
-// nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) → Điểm báo (mục
-// chính) → lưới đủ công cụ (+ nút xúc xắc "Thử công cụ ngẫu nhiên") →
-// Bảng xếp hạng (đã dời xuống dưới lưới công cụ — trước đây nằm trong
-// vùng hero, chiếm màn hình đầu tiên) → banner Ủng hộ.
+// nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) → Điểm báo thu gọn
+// (1 tin nổi bật + 2 tin/tab + link xem thêm) → lưới đủ công cụ (+ nút
+// xúc xắc "Thử công cụ ngẫu nhiên") → Bảng xếp hạng (đã dời xuống dưới
+// lưới công cụ — trước đây nằm trong vùng hero, chiếm màn hình đầu tiên)
+// → banner Ủng hộ.
 // KHÔNG còn khối "Hôm nay" riêng, hàng "công cụ hay dùng" riêng, thẻ hạng
 // mục riêng như wave 1 (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
 // SSR (worker W11): Điểm báo (tin nổi bật + cụm tin theo chủ đề) và bảng
@@ -42,7 +45,7 @@ function stripCard(label, contentId, loadingText, detailHref, detailText, extraH
 // SSR Điểm báo + bảng xếp hạng — bản sao lúc build của logic render trong
 // src/app.js (initNewsAndHot/initTrending): cùng markup, cùng quy tắc
 // (tin nổi bật = tin đầu tiên CÓ tóm tắt, ưu tiên nhóm AI, và bị loại khỏi
-// danh sách tab; mỗi nhóm tối đa 6 tin; tin hot = 6 tin mới nhất mọi nhóm;
+// danh sách tab; mỗi nhóm tối đa 2 tin; tin hot = 6 tin mới nhất mọi nhóm;
 // repo = top 6). Giữ hai bên đồng bộ khi sửa một bên.
 // ---------------------------------------------------------------------------
 const NEWS_GROUPS = [
@@ -50,7 +53,7 @@ const NEWS_GROUPS = [
   { id: 'chung-khoan', label: 'Chứng khoán' },
   { id: 'crypto', label: 'Crypto' },
 ];
-const NEWS_PER_GROUP = 6;
+const NEWS_PER_GROUP = 2; // Trang chủ chỉ hiện 2 tin/tab (+ 1 tin nổi bật = 3 tin) — thu gọn theo góp ý UX 18/11; xem đủ ở /diem-bao/.
 const HOT_COUNT = 6;
 
 // news.json có thể ở 1 trong 2 dạng: groups là mảng [{id,label,items}] hoặc
@@ -227,7 +230,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
   const railHtml = railTools.map((tool, i) => `
     <a class="rail-card" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-rail-index="${i}">
       <span class="rail-media">
-        <img src="/assets/rail/${esc(tool.slug)}.jpg" alt="" width="480" height="360" loading="${i < 2 ? 'eager' : 'lazy'}">
+        <img src="/assets/rail/${esc(tool.slug)}.jpg" alt="Minh họa công cụ ${esc(tool.name)}" width="480" height="360" loading="${i < 2 ? 'eager' : 'lazy'}">
         <video preload="none" muted loop playsinline src="/assets/rail/${esc(tool.slug)}.mp4" aria-hidden="true" tabindex="-1"></video>
       </span>
       <span class="rail-name">${esc(tool.name)}</span>
@@ -238,7 +241,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
   <section class="hero">
     <div class="hero-inner">
     <p class="hero-eyebrow">Miễn phí — dùng ngay, không cần đăng ký</p>
-    <h1>${tools.length} công cụ miễn&nbsp;phí — <span class="hero-rotator" id="hero-rotator" style="color: #1d4ed8">tính lương</span></h1>
+    <h1>${tools.length} công cụ miễn&nbsp;phí <span class="hero-rotator" id="hero-rotator" aria-hidden="true" style="color: #1d4ed8">— tính lương</span></h1>
     <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt.</p>
     <div class="hero-search-wrap">
       <label class="small muted" for="hero-search">Tìm công cụ</label>
@@ -260,10 +263,15 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
 
   <section class="section section-rail" aria-label="Công cụ nổi bật">
     <h2>Công cụ nổi bật</h2>
-    <p class="muted">Rê chuột lên thẻ để xem thử.</p>
+    <p class="muted"><span class="rail-hint-hover">Rê chuột lên thẻ để xem thử.</span><span class="rail-hint-touch">Chạm để mở.</span></p>
     <div class="rail" id="rail">
 ${railHtml}
     </div>
+  </section>
+
+  <section class="section section-recent" id="recent-tools" aria-label="Công cụ dùng gần đây" hidden>
+    <h2>Dùng gần đây</h2>
+    <div class="grid-3" id="recent-grid"></div>
   </section>
 
   <section class="promo-row" aria-label="Các mục nổi bật">
@@ -311,7 +319,7 @@ ${railHtml}
       <button type="button" class="tab" data-tab-target="news-crypto" role="tab">Crypto</button>
     </div>
     <div id="news-groups"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? groupsHtml : '<p class="muted">Đang tải tin…</p>'}</div>
-    <p><a href="/diem-bao/">Xem lưu trữ theo ngày →</a></p>
+    <p class="news-more"><a href="/diem-bao/">Xem thêm điểm báo →</a></p>
   </section>
 
   <section class="section" aria-label="Tất cả công cụ">

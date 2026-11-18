@@ -177,7 +177,13 @@ p.error {
   white-space: nowrap;
 }
 .brand-logo { width: 30px; height: 30px; flex: none; }
-.brand span { color: var(--accent); }
+.brand-name > span { color: var(--accent); }
+/* Điện thoại hẹp (≤480px): chỉ hiện logo, ẩn tên chữ — 4 nút header 44px
+   đã chiếm 200px, cộng tên chữ sẽ làm header tràn ngang (đo thật 391px
+   ở 375px). Link vẫn có aria-label "Tiện Ích Hub — trang chủ". */
+@media (max-width: 480px) {
+  .brand-name { display: none; }
+}
 /* Vùng bấm lên chấm vàng của logo (trứng phục sinh, hướng B đợt 1):
    chấm vàng nằm góc dưới-phải logo (favicon 64px: tâm 48,48 r=6,5 →
    trên logo 30px là góc dưới-phải ~12px). Vùng trong suốt, chỉ JS
@@ -906,6 +912,82 @@ button.chip-cat[aria-pressed="true"]:hover,
   .tab { flex: none; }
 }
 
+/* Tab lấp đầy chiều rộng (công cụ lương, đợt sửa UX 18/11): 2 tab
+   Gross ⇄ Net chia đều khung, không cuộn ngang, không cắt chữ "Net →
+   Gross" ở 375px (trước đây khung tab chỉ 243px mà 2 tab rộng 270px). */
+@media (max-width: 640px) {
+  .tabs-fill { overflow-x: visible; }
+  .tabs-fill .tab { flex: 1 1 0; min-width: 0; padding-left: 8px; padding-right: 8px; white-space: nowrap; }
+}
+
+/* ---------- Vùng bấm tối thiểu 44px trên điện thoại ----------
+   (đợt sửa UX 18/11: rà soát 375px thấy ~63 nút/link cao dưới 32px).
+   Chỉ áp ≤768px để desktop giữ nguyên bố cục gọn. */
+@media (max-width: 768px) {
+  /* Nút/chip/tab: chip ~30px, tab ~43px, nút nhỏ ~28px → 44px. */
+  .chip { min-height: 44px; padding-top: 10px; padding-bottom: 10px; display: inline-flex; align-items: center; }
+  .tab { min-height: 44px; padding-top: 10px; padding-bottom: 10px; }
+  .btn-small { min-height: 44px; padding: 10px 14px; }
+  /* Nút chép kết quả: rule gốc đặt min-height: 0 (ghi đè .btn) nên chỉ
+     cao 32px — khôi phục 44px trên điện thoại. */
+  .copy-btn { min-height: 44px; }
+  /* Nút header: tìm kiếm 30px, loa 28px, tối/sáng 32px, menu 32px. */
+  .header-search-btn, .theme-toggle, .sound-toggle, .nav-toggle { min-width: 44px; min-height: 44px; }
+  .brand { min-height: 44px; }
+  /* Nút đóng khung chat: 28px → 44px. (Độ ưu tiên cao hơn rule gốc ở
+     cuối file — rule .aiw-close thường thua vì đứng trước.) */
+  .aiw-head .aiw-close { width: 44px; height: 44px; }
+  /* Link trong danh sách: footer, dải dữ liệu, tiêu đề tin/xếp hạng,
+     breadcrumb, link mở trang chat đầy đủ, câu hỏi FAQ, link xem thêm
+     điểm báo, link trong menu hamburger khi mở. (Footer dùng
+     .site-footer để thắng rule .footer-col a đứng sau trong file.) */
+  .site-footer .footer-col a { padding: 11px 0; }
+  .site-footer p a { display: inline-block; padding: 12px 0; }
+  .strip-link a { display: inline-block; padding: 12px 0; }
+  .news-card h4 a, .news-featured h3 a, .rank-body h4 a { display: flex; align-items: center; min-height: 44px; }
+  .breadcrumb a { display: inline-block; padding: 10px 0; }
+  .aiw-full a { display: inline-block; padding: 12px 0; }
+  .news-more a { display: inline-block; padding: 12px 0; }
+  .tool-faq summary { min-height: 44px; display: flex; align-items: center; }
+  .site-header.nav-open .site-nav a { min-height: 44px; display: flex; align-items: center; }
+}
+
+/* Thanh tóm tắt lương Net dính ở đáy (công cụ lương, đợt sửa UX 18/11):
+   hiện khi đã có kết quả mà kết quả đang ngoài màn hình; bấm vào thì
+   cuộn xuống kết quả. Ngồi TRÊN thanh nav dưới của điện thoại
+   (bottom 68px), chừa chỗ cho nút Chat AI ở góc phải (right 76px trên
+   điện thoại, 164px trên desktop nơi nút Chat AI là pill ~119px).
+   z-index 90 — dưới nav dưới (100) và Chat AI (240). */
+.lggn-sticky {
+  position: fixed;
+  left: 12px;
+  right: 164px;
+  bottom: 24px;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  box-shadow: var(--shadow);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+.lggn-sticky[hidden] { display: none; }
+.lggn-sticky-net { color: var(--accent-dark); white-space: nowrap; }
+.lggn-sticky-gross { color: var(--muted); font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
+.lggn-sticky-hint { margin-left: auto; color: var(--accent); font-size: 0.85rem; flex: none; }
+@media (max-width: 768px) {
+  .lggn-sticky { right: 76px; bottom: 68px; }
+  .lggn-sticky-gross { display: none; }
+}
+/* Kết quả lương cuộn tới thì chừa chỗ cho header dính (60px) + lề. */
+#lggn-out { scroll-margin-top: 76px; }
+
 /* Thống kê nhanh trong công cụ */
 .stat {
   text-align: center;
@@ -1346,29 +1428,29 @@ button.chip-cat[aria-pressed="true"]:hover,
   .bottom-nav a {
     flex: 1 1 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 4px;
+    gap: 2px;
+    padding: 6px 4px;
     color: var(--ink);
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    line-height: 1.2;
     text-align: center;
     min-width: 0;
+    min-height: 56px;
   }
+  .bottom-nav a svg { flex: none; }
   .bottom-nav a.bottom-nav-active { background: var(--accent-soft); color: var(--accent-dark); }
   .toast { bottom: 76px; }
 }
-/* Màn hình hẹp (6 mục nav dưới): chữ nhỏ lại để nhãn 1 dòng —
-   "Trang chính" cũ xuống 2 dòng ở 390px (nay đã đổi thành "Trang chủ").
-   Đo thật: 0.82rem vẫn làm "Trang chủ"/"Code mẫu" gãy dòng ở 390px
-   (mỗi mục chỉ 65px) nên hạ xuống 0.75rem + lề 1px. */
+/* Màn hình hẹp (4 mục nav dưới, mỗi mục ~94px ở 375px — đã rút từ 6 mục,
+   chuyển Ủng hộ/Code mẫu vào menu hamburger): chữ vẫn đọc được, không cần
+   hạ cỡ như thời 6 mục. */
 @media (max-width: 480px) {
-  .bottom-nav a { font-size: 0.75rem; padding: 8px 1px; }
-}
-/* Máy hẹp hơn nữa (360px): "Code mẫu" vẫn gãy dòng ở 0.75rem. */
-@media (max-width: 380px) {
-  .bottom-nav a { font-size: 0.72rem; }
+  .bottom-nav a { font-size: 0.78rem; }
 }
 
 /* ---------- Sơ đồ trang trong footer ---------- */
@@ -2576,6 +2658,13 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
    ========================================================================== */
 .section-rail { margin: 88px 0; }
 .section-rail > p.muted { margin: -8px 0 20px; }
+/* Gợi ý rail theo loại màn hình (đợt sửa UX 18/11): điện thoại không có
+   rê chuột nên hiện "Chạm để mở" thay cho "Rê chuột lên thẻ để xem thử". */
+.rail-hint-touch { display: none; }
+@media (pointer: coarse) {
+  .rail-hint-hover { display: none; }
+  .rail-hint-touch { display: inline; }
+}
 
 .rail {
   display: flex;
@@ -2647,9 +2736,11 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   box-shadow: 0 0 0 1px rgba(54, 94, 255, 0.35), 0 24px 48px -12px rgba(0, 0, 0, 0.6);
 }
 
-/* Điện thoại: thẻ hẹp lại một chút, cuộn ngang + snap giữ nguyên. */
+/* Điện thoại: thẻ hẹp lại một chút, cuộn ngang + snap giữ nguyên; khoảng
+   trắng dưới rail quá lớn (margin 88px) nên thu gọn còn 40px. */
 @media (max-width: 480px) {
   .rail-card { flex-basis: 200px; }
+  .section-rail { margin: 40px 0; }
 }
 
 /* ============================================================
@@ -2880,8 +2971,21 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   right: 24px;
   bottom: 24px;
   z-index: 240;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
 }
 .aiw[hidden] { display: none; }
+/* Tự ẩn khi cuộn/nhập (JS gắn .aiw-hidden, đợt sửa UX 18/11): mờ dần rồi
+   ẩn hẳn để khỏi đè nội dung; hiện lại thì visibility về ngay, opacity
+   mờ dần lên. Không áp khi khung chat đang mở (JS kiểm tra). */
+.aiw.aiw-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aiw, .aiw.aiw-hidden { transition: none; }
+}
 .aiw-fab {
   display: inline-flex;
   align-items: center;

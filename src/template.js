@@ -117,7 +117,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <a class="skip-link" href="#main-content">Bỏ qua tới nội dung chính</a>
   <header class="site-header" id="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="/"><span class="brand-logo-wrap"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30"><span class="brand-dot" aria-hidden="true"></span></span>Tiện Ích <span>Hub</span></a>
+      <a class="brand" href="/" aria-label="Tiện Ích Hub — trang chủ"><span class="brand-logo-wrap"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30"><span class="brand-dot" aria-hidden="true"></span></span><span class="brand-name">Tiện Ích <span>Hub</span></span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
         <a href="/" class="${active('home') ? 'nav-active' : ''}">Trang chủ</a>
         <a href="/cong-cu/" class="${active('cong-cu') ? 'nav-active' : ''}">Công cụ</a>
@@ -180,12 +180,10 @@ ${body}
     </div>
   </footer>
   <nav class="bottom-nav" aria-label="Điều hướng dưới cùng">
-    <a href="/" class="${navActive === 'home' ? 'bottom-nav-active' : ''}">Trang chủ</a>
-    <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}">Công cụ</a>
-    <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}">Sinh viên</a>
-    <a href="/code-mau/" class="${navActive === 'code-mau' ? 'bottom-nav-active' : ''}">Code mẫu</a>
-    <a href="/diem-bao/" class="${navActive === 'diem-bao' ? 'bottom-nav-active' : ''}">Điểm báo</a>
-    <a href="/ung-ho/" class="${navActive === 'ung-ho' ? 'bottom-nav-active' : ''}">Ủng hộ</a>
+    <a href="/" class="${navActive === 'home' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/></svg><span>Trang chủ</span></a>
+    <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Công cụ</span></a>
+    <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 8.5 12 13l10-4.5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg><span>Sinh viên</span></a>
+    <a href="/diem-bao/" class="${navActive === 'diem-bao' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h10M7 16h7"/></svg><span>Điểm báo</span></a>
   </nav>
 ${chatWidget}
   <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).

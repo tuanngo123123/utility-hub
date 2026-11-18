@@ -15,7 +15,7 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head">
-    <div class="tabs">
+    <div class="tabs tabs-fill">
       <button type="button" class="tab tab-active" id="lggn-tab-g2n">Gross → Net</button>
       <button type="button" class="tab" id="lggn-tab-n2g">Net → Gross</button>
     </div>
@@ -51,7 +51,12 @@ export function body() {
   </div>
   <div id="lggn-out"></div>
   <p class="note">Căn cứ: NĐ 161/2026/NĐ-CP (trần BHXH/BHYT 50.600.000₫ từ 01/7/2026); NQ 110/2025/UBTVQH15 (giảm trừ bản thân 15.500.000₫, phụ thuộc 6.200.000₫); Luật Thuế TNCN 109/2025/QH15 (biểu thuế 5 bậc: 5% / 10% / 20% / 30% / 35%). Người lao động đóng BHXH 8% + BHYT 1,5% + BHTN 1% = 10,5%.</p>
-</div>`;
+</div>
+<button type="button" class="lggn-sticky" id="lggn-sticky" hidden>
+  <span class="lggn-sticky-net" id="lggn-sticky-net"></span>
+  <span class="lggn-sticky-gross" id="lggn-sticky-gross"></span>
+  <span class="lggn-sticky-hint">Xem chi tiết ↑</span>
+</button>`;
 }
 
 export function init(root) {
@@ -82,6 +87,36 @@ export function init(root) {
   ];
 
   let direction = 'g2n';
+
+  // --- Thanh tóm tắt Net dính ở đáy + tự cuộn kết quả (đợt sửa UX 18/11) ---
+  // Thanh hiện khi đã có kết quả mà kết quả đang ngoài màn hình; bấm vào
+  // thì cuộn xuống kết quả. Ẩn khi đổi tab, khi lỗi, khi Đặt lại, khi nút
+  // "Tính lương" đang trong màn hình (để thanh không đè lên nút khi người
+  // dùng cuộn tới chỗ bấm tính), và khi đang nhập vào ô trong công cụ
+  // (để thanh không che ô đang gõ).
+  let hasStickyResult = false;
+  let resultInView = true;
+  let calcBtnInView = false;
+  let inputFocused = false;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function refreshSticky() {
+    const bar = $('lggn-sticky');
+    if (bar) bar.hidden = !(hasStickyResult && !resultInView && !calcBtnInView && !inputFocused);
+  }
+  function updateSticky(net, gross) {
+    $('lggn-sticky-net').textContent = 'Lương Net: ' + fmtVND(net);
+    $('lggn-sticky-gross').textContent = 'Gross ' + fmtVND(gross);
+    hasStickyResult = true;
+    refreshSticky();
+  }
+  function hideSticky() {
+    hasStickyResult = false;
+    refreshSticky();
+  }
+  function scrollToResult() {
+    const out = $('lggn-out');
+    if (out) out.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+  }
 
   function taxByBrackets(taxable) {
     let tax = 0, prev = 0;
@@ -142,10 +177,14 @@ export function init(root) {
   <tbody>${taxRows}</tbody>
 </table>`;
     bindCopy($('lggn-out'));
+    updateSticky(r.net, r.gross);
   }
 
-  function calc() {
+  // silent = true khi tính ngầm lúc gõ: không hiện thông báo "Đã quy đổi"
+  // (tránh spam toast mỗi lần gõ ở chiều Net → Gross).
+  function calc(silent) {
     clearErrs(root);
+    hideSticky();
     const salary = parseNum($('lggn-salary').value);
     const insRaw = $('lggn-ins').value.trim();
     const bhtnCap = parseNum($('lggn-region').value);
@@ -180,7 +219,7 @@ export function init(root) {
         if (r.net < targetNet) lo = mid; else hi = mid;
       }
       render(best);
-      toast('Đã quy đổi Net → Gross');
+      if (!silent) toast('Đã quy đổi Net → Gross');
     }
   }
 
@@ -191,6 +230,7 @@ export function init(root) {
     $('lggn-salary-label').textContent = 'Gross';
     clearErrs(root);
     $('lggn-out').innerHTML = '';
+    hideSticky();
   });
   $('lggn-tab-n2g').addEventListener('click', () => {
     direction = 'n2g';
@@ -199,8 +239,17 @@ export function init(root) {
     $('lggn-salary-label').textContent = 'Net';
     clearErrs(root);
     $('lggn-out').innerHTML = '';
+    hideSticky();
   });
-  function runCalc() { withBusy($('lggn-calc'), calc); }
+  // Bấm "Tính lương" xong thì tự cuộn xuống kết quả (trước đây kết quả
+  // nằm dưới màn hình trên điện thoại). withBusy chạy bất đồng bộ nên
+  // phải cuộn trong callback, sau khi calc() đã render xong.
+  function runCalc() {
+    withBusy($('lggn-calc'), function () {
+      calc();
+      if ($('lggn-out').querySelector('.result')) scrollToResult();
+    });
+  }
   $('lggn-calc').addEventListener('click', runCalc);
   $('lggn-salary').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
   $('lggn-ins').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
@@ -227,6 +276,63 @@ export function init(root) {
   // Ví dụ: lương 45 triệu, 1 người phụ thuộc — thấy rõ cả bảo hiểm lẫn thuế theo bậc.
   $('lggn-example').addEventListener('click', () => {
     fillEx(root, { 'lggn-salary': '45.000.000', 'lggn-ins': '45.000.000', 'lggn-dep': '1' }, $('lggn-calc'));
+  });
+  // Tính luôn khi gõ (đợt sửa UX 18/11): chỉ tính khi lương đã có số > 0
+  // và lương đóng bảo hiểm (nếu có) cũng hợp lệ; chưa hợp lệ thì xóa kết
+  // quả lặng lẽ, không hiện lỗi, không cướp focus. Đợi 400ms sau lần gõ
+  // cuối để khỏi tính giữa chừng.
+  let liveTimer = null;
+  function liveCalc() {
+    if (liveTimer) clearTimeout(liveTimer);
+    liveTimer = setTimeout(function () {
+      const salary = parseNum($('lggn-salary').value);
+      const insRaw = $('lggn-ins').value.trim();
+      if (salary > 0 && (insRaw === '' || parseNum(insRaw) > 0)) calc(true);
+      else { $('lggn-out').innerHTML = ''; hideSticky(); }
+    }, 400);
+  }
+  ['lggn-salary', 'lggn-ins', 'lggn-dep'].forEach(function (id) {
+    const el = $(id);
+    if (el) el.addEventListener('input', liveCalc);
+  });
+  $('lggn-region').addEventListener('change', liveCalc);
+  // Theo dõi kết quả và nút "Tính lương" có trong màn hình không để
+  // ẩn/hiện thanh tóm tắt (xem refreshSticky).
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function (entries) {
+      resultInView = entries[0].isIntersecting;
+      refreshSticky();
+    }, { threshold: 0.1 });
+    io.observe($('lggn-out'));
+    const ioBtn = new IntersectionObserver(function (entries) {
+      calcBtnInView = entries[0].isIntersecting;
+      refreshSticky();
+    }, { threshold: 0.5 });
+    ioBtn.observe($('lggn-calc'));
+  } else {
+    resultInView = false; // không có IO: hiện thanh khi có kết quả
+  }
+  $('lggn-sticky').addEventListener('click', scrollToResult);
+  // Đang nhập vào ô trong công cụ thì ẩn thanh (đừng che ô đang gõ);
+  // rời ô thì hiện lại (nếu kết quả vẫn ngoài màn hình).
+  root.addEventListener('focusin', function (e) {
+    const t = e.target;
+    if (t && t.tagName && /^(input|textarea|select)$/i.test(t.tagName)) {
+      inputFocused = true;
+      refreshSticky();
+    }
+  });
+  root.addEventListener('focusout', function (e) {
+    const t = e.relatedTarget;
+    if (t && t.tagName && /^(input|textarea|select)$/i.test(t.tagName)) return;
+    inputFocused = false;
+    refreshSticky();
+  });
+  // Nút "Đặt lại" của khung (tool-state.js chèn sau .btn-primary, có thể
+  // chèn sau khi init chạy nên phải nghe bằng ủy quyền): ẩn thanh tóm tắt.
+  root.addEventListener('click', function (e) {
+    const btn = e.target && e.target.closest ? e.target.closest('[data-uh-reset]') : null;
+    if (btn) hideSticky();
   });
   // Tính ngay với số mặc định để mở trang đã thấy kết quả.
   calc();
