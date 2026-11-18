@@ -44,7 +44,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
 
   return `
   <section class="section">
-    <h1>Tất cả công cụ</h1>
+    <h1 class="page-title">Tất cả công cụ</h1>
     <p class="muted" id="tool-count">${tools.length} công cụ — miễn phí, chạy ngay trên trình duyệt, không cần đăng nhập.</p>
     <label class="small muted" for="tool-search">Tìm công cụ</label>
     <input type="search" id="tool-search" class="search-input search-input-large" placeholder="VD: tính phần trăm, đổi đơn vị, BMI… (gõ không dấu cũng được)" autocomplete="off">

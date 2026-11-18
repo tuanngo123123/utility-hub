@@ -200,6 +200,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
 
   return `
   <section class="hero">
+    <div class="hero-inner">
     <p class="hero-eyebrow">Miễn phí — dùng ngay, không cần đăng ký</p>
     <h1>${tools.length} công cụ miễn phí, dùng ngay không cần đăng ký.</h1>
     <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt.</p>
@@ -227,6 +228,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
       </div>
       <div class="tab-panel" data-tab-panel="rank-github" id="rank-github"${trendingItems.length ? trendingAttrs : ''}>${trendingItems.length ? githubHtml : '<p class="muted">Đang tải…</p>'}</div>
       <div class="tab-panel" data-tab-panel="rank-hot" id="rank-hot"${allNewsItems.length ? newsAttrs : ''} hidden>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
+    </div>
     </div>
   </section>
 

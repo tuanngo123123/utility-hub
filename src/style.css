@@ -1,11 +1,11 @@
 /* ============================================================
    Tiện Ích Hub — design system (đổi giao diện 18/11/2026)
    Phong cách 21st.dev, light-first (Tuấn chốt: giữ nền sáng):
-   nền trang #F8FAFF, bề mặt trắng, xanh chính #365EFF, chữ
+   nền trang #F8FAFF, bề mặt trắng, xanh chính #0033FF, chữ
    #0F172A / phụ #64748B, viền #E2E8F0. Chế độ tối lấy bảng màu
    21st.dev (nền #03050C, bề mặt #080809–#121214, chữ #F6F6F8).
    Bố cục thoáng: container 1200px, padding khối 64–96px,
-   gap lưới 20px, H1 desktop 48–56px / mobile 32px, bo góc
+   gap lưới 16px, H1 hero desktop 64px / mobile 32px, bo góc
    thẻ 12–16px, viền 1px mờ, bóng đổ rất nhẹ.
    Font: system font stack — KHÔNG font ngoài, không CDN.
    GIỮ NGUYÊN mọi tên class/id cũ (app.js + các worker khác
@@ -24,9 +24,9 @@
   --muted: #64748b;
   --line: #e2e8f0;
   --line-soft: #eef2f7;
-  --accent: #365eff;
-  --accent-hover: #4a6cff;
-  --accent-dark: #2547d6;
+  --accent: #0033ff;
+  --accent-hover: #2b4dff;
+  --accent-dark: #0028cc;
   --accent-soft: #eef2ff;
   --amber: #f59e0b;
   --amber-dark: #d97706;
@@ -56,6 +56,8 @@
   --muted: #98989d;
   --line: rgba(255, 255, 255, 0.12);
   --line-soft: rgba(255, 255, 255, 0.08);
+  /* GIỮ xanh sáng #365EFF ở chế độ tối: link/chữ nhấn trên nền tối
+     cần xanh sáng hơn mới đọc được — #0033FF trên nền #03050C quá tối. */
   --accent: #365eff;
   --accent-hover: #4a6cff;
   --accent-dark: #a9baff;
@@ -97,6 +99,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 h1, h2, h3, h4 { line-height: 1.25; overflow-wrap: break-word; letter-spacing: -0.02em; }
 h1 { font-size: 1.75rem; letter-spacing: -0.03em; }
+/* Tiêu đề trang danh sách (/cong-cu/): 48px, như H1 trang danh sách 21st.dev. */
+.page-title { font-size: 3rem; font-weight: 650; line-height: 1.05; letter-spacing: -0.02em; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.1rem; }
 
@@ -130,7 +134,7 @@ p.error {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 64px;
+  min-height: 60px;
 }
 
 .brand {
@@ -165,17 +169,19 @@ p.error {
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: 8px;
   display: block;
 }
 .site-nav a:hover { background: var(--bg-soft); color: var(--ink); }
-.site-nav a.nav-active { background: var(--accent-soft); color: var(--accent-dark); }
+/* Mục nav đang chọn: chỉ gạch chân xanh 2px + chữ màu ink (bỏ nền pill). */
+.site-nav a.nav-active { background: transparent; color: var(--ink); border-bottom: 2px solid var(--accent); border-radius: 0; }
+.site-nav a.nav-active:hover { background: var(--bg-soft); }
 
 .site-header.nav-open .site-nav {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 64px;
+  top: 60px;
   left: 0;
   right: 0;
   background: var(--surface);
@@ -196,37 +202,46 @@ p.error {
   margin-top: 64px;
   border-top: 1px solid var(--line);
   background: var(--bg-soft);
-  padding: 48px 0 32px;
+  padding: 40px 0 24px;
 }
 .footer-inner { display: flex; flex-direction: column; gap: 8px; }
 .footer-inner p { margin: 0; }
 .footer-brand { font-weight: 700; }
 .footer-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
-.footer-nav a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.footer-nav a { color: var(--muted); font-weight: 600; text-decoration: none; }
 .footer-nav a:hover { text-decoration: underline; }
 
 /* ---------- Hero / section ---------- */
 
+/* Hero full-bleed (vòng 2): bỏ card trắng, nền gradient tràn hết chiều
+   ngang viewport; nội dung nằm trong .hero-inner (1200px, căn giữa).
+   Kỹ thuật margin calc(50% - 50vw): KHÔNG thêm overflow-x:hidden vào
+   body/html (làm hỏng header sticky) — đã kiểm 0 tràn ngang ở 390px. */
 .hero {
-  padding: 64px 32px 48px;
+  padding: 64px 0 48px;
   margin-top: 16px;
-  background: var(--hero-bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  background: linear-gradient(180deg, #f8faff, #eef4ff);
   text-align: center;
   position: relative;
   isolation: isolate;
 }
-.hero h1 { font-size: 2rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 16px; }
+.hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.hero h1 { font-size: 2rem; font-weight: 650; line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 16px; }
 .hero-sub { color: var(--muted); font-size: 1.05rem; margin: 0 auto 24px; max-width: 60ch; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 @media (min-width: 720px) {
-  .hero h1 { font-size: 3rem; }
-  .hero { padding: 80px 48px 64px; }
+  .hero h1 { font-size: 3.25rem; }
+  .hero { padding: 80px 0 64px; }
 }
 @media (min-width: 960px) {
-  .hero h1 { font-size: 3.5rem; }
-  .hero { padding: 96px 48px 72px; }
+  .hero h1 { font-size: 4rem; }
+  .hero { padding: 96px 0 72px; }
+}
+/* Chế độ tối: gradient tối từ token nền hero sẵn có. */
+[data-theme="dark"] .hero {
+  background: linear-gradient(180deg, #08090c, #0a0f1e);
 }
 
 /* Ánh sáng hero đi theo chuột (JS cập nhật --mx/--my). */
@@ -236,10 +251,9 @@ p.error {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  border-radius: var(--radius-lg);
   background: radial-gradient(
     360px circle at var(--mx, 50%) var(--my, 40%),
-    rgba(54, 94, 255, 0.08),
+    rgba(0, 51, 255, 0.08),
     rgba(186, 210, 255, 0.12) 45%,
     transparent 70%
   );
@@ -262,7 +276,7 @@ p.error {
 }
 
 .support-banner {
-  margin: 24px 0;
+  margin: 48px 0;
   padding: 20px 24px;
   background: var(--amber);
   color: #1a2027;
@@ -290,13 +304,17 @@ p.error {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 20px;
-  min-height: 40px;
+  padding: 12px 20px;
+  min-height: 44px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-btn);
+  border-radius: var(--radius-btn); /* 10px — giữ như vòng 1 */
   background: var(--surface);
   color: var(--ink);
   font: inherit;
+  /* line-height PHẢI đứng sau `font: inherit` (shorthand font reset
+     line-height về 1.6 kế thừa): 1.25 để chiều cao thực tế ≈46px như nút
+     21st.dev (16px × 1.25 + 24px padding + 2px viền). */
+  line-height: 1.25;
   font-weight: 700;
   text-decoration: none;
   cursor: pointer;
@@ -314,9 +332,16 @@ p.error {
 .btn-small { padding: 4px 10px; font-size: 0.875rem; min-height: 0; }
 .copy-btn { padding: 6px 12px; font-size: 0.9rem; min-height: 0; }
 
+/* Nút CTA xanh ở header ("Dùng ngay"): gọn hơn nút chính; ẩn dưới 720px
+   vì header mobile thiếu chỗ. */
+.btn-header-cta { min-height: 36px; padding: 8px 16px; font-size: 0.875rem; }
+@media (max-width: 719px) {
+  .btn-header-cta { display: none; }
+}
+
 /* ---------- Lưới ---------- */
 
-.grid-2, .grid-3 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.grid-2, .grid-3 { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 .grid-2 > *, .grid-3 > * { min-width: 0; }
 @media (min-width: 640px) {
   .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -334,25 +359,26 @@ p.error {
   font: inherit;
   font-size: 1rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--ink);
   margin-bottom: 12px;
 }
-.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(54, 94, 255, 0.15); outline: none; }
+.search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 51, 255, 0.15); outline: none; }
 
 .chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; scroll-margin-top: 80px; }
 #tool-grid { scroll-margin-top: 80px; }
 
 .chip {
   display: inline-block;
-  padding: 6px 14px;
+  padding: 5px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
   font: inherit;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.4; /* Cao tổng ~30px: 13px × 1.4 + 10px padding + 2px viền. */
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
@@ -365,7 +391,8 @@ button.chip[aria-pressed="true"] { background: var(--accent); border-color: var(
 .chip-active:hover,
 button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
 
-/* ---------- Thẻ công cụ (kiểu 21st.dev: viền 1px mờ, bóng rất nhẹ) ---------- */
+/* ---------- Thẻ công cụ (vòng 2: dải hình minh họa đầu thẻ kiểu gallery
+   21st.dev, bo 12px, viền 1px, KHÔNG bóng đổ) ---------- */
 
 .catalog-card {
   position: relative;
@@ -374,8 +401,9 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   gap: 10px;
   background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-card);
+  border-radius: 12px;
+  box-shadow: none;
+  overflow: hidden;
   padding: 24px;
   text-decoration: none;
   color: var(--ink);
@@ -387,32 +415,23 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 .catalog-card.is-touched {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
-.catalog-card:active { transform: translateY(0); box-shadow: var(--shadow-card); }
-/* Ô icon pastel theo hạng mục (màu nền nhạt, giữ nguyên cả dark mode). */
-.card-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-sm);
-  background: #eef2ff;
-  font-size: 1.5rem;
-  line-height: 1;
+.catalog-card:active { transform: translateY(0); box-shadow: none; }
+/* Dải hình minh họa đầu thẻ (vòng 2, thay đổi số 4). Tràn qua padding
+   24px của thẻ bằng margin âm; nền pastel của hình giữ nguyên cả dark
+   mode (hình sáng trên nền tối là có chủ ý, như ảnh preview sáng của
+   21st.dev). Khối .card-icon cũ đã bỏ cùng markup (vòng 2). */
+.card-art {
+  display: block;
+  margin: -24px -24px 0;
+  flex: none;
 }
-.catalog-card[data-category="tai-chinh"] .card-icon { background: #dbeafe; }
-.catalog-card[data-category="van-phong"] .card-icon { background: #ede9fe; }
-.catalog-card[data-category="suc-khoe"] .card-icon { background: #d1fae5; }
-.catalog-card[data-category="hoc-tap"] .card-icon { background: #fce7f3; }
-.catalog-card[data-category="nha-bep"] .card-icon { background: #ffedd5; }
-.catalog-card[data-category="du-lich"] .card-icon { background: #cffafe; }
-.catalog-card[data-category="mua-sam"] .card-icon { background: #fee2e2; }
-.catalog-card[data-category="doi-song"] .card-icon { background: #ecfccb; }
-.catalog-card[data-category="dev-web"] .card-icon { background: #e0e7ff; }
-.catalog-card[data-category="github"] .card-icon { background: #e5e7eb; }
-.catalog-card[data-category="hang-ngay"] .card-icon { background: #fef3c7; }
+.card-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .card-title { margin: 0; font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
 .card-desc { margin: 0; color: var(--muted); font-size: 0.875rem; flex: 1 1 auto; overflow-wrap: break-word; }
 .card-cat {
@@ -478,7 +497,7 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 }
 .field input:focus,
 .field select:focus,
-.field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(54, 94, 255, 0.15); outline: none; }
+.field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 51, 255, 0.15); outline: none; }
 .field textarea { min-height: 96px; resize: vertical; }
 .field input[type="checkbox"],
 .field input[type="radio"] { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); }
@@ -764,7 +783,7 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 
 /* ---------- Dải dữ liệu hôm nay (trên Điểm báo) ---------- */
 
-.section-strips { margin: 32px 0; }
+.section-strips { margin: 64px 0; }
 .strip-date { margin: 0 0 12px; font-size: 0.95rem; font-weight: 600; }
 .strip-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
 @media (min-width: 960px) { .strip-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -908,12 +927,12 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   font: inherit;
   font-size: 1.05rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--surface);
   color: var(--ink);
   box-shadow: var(--shadow-sm);
 }
-.hero-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(54, 94, 255, 0.15); outline: none; }
+.hero-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 51, 255, 0.15); outline: none; }
 .hero-search-results {
   position: absolute;
   top: 100%;
@@ -997,7 +1016,7 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 .footer-sitemap-col h3 { margin: 0 0 8px; font-size: 1rem; }
 .footer-sitemap-col a {
   display: block;
-  color: var(--ink);
+  color: var(--muted);
   text-decoration: none;
   padding: 2px 0;
   overflow-wrap: break-word;
@@ -1045,11 +1064,11 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   height: 100%;
 }
 
-/* Linh vật trong hero: ~96px, nằm dưới hàng chip gợi ý, trên bảng xếp hạng. */
+/* Linh vật trong hero: 64px (vòng 2 thu từ 96px), nằm dưới hàng chip gợi ý, trên bảng xếp hạng. */
 .mascot-hero {
-  width: 96px;
-  height: 96px;
-  margin-top: 16px;
+  width: 64px;
+  height: 64px;
+  margin-top: 12px;
 }
 
 /* Linh vật góc trang: cố định góc dưới-phải, ~64px.
@@ -1119,8 +1138,9 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
     height: 64px;
   }
 
-  /* Điện thoại: hero + panel xếp hạng gọn lại để hàng xếp hạng đủ rộng. */
-  .hero { padding: 40px 20px 32px; }
+  /* Điện thoại: hero + panel xếp hạng gọn lại để hàng xếp hạng đủ rộng.
+     Hero full-bleed: padding ngang 0, .hero-inner lo lề 20px. */
+  .hero { padding: 40px 0 32px; }
   .hero-ranking { padding: 16px; }
 
   /* Hàng xếp hạng trên điện thoại: pill ★ xuống dòng dưới nội dung

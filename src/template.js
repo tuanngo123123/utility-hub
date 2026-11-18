@@ -39,7 +39,7 @@ const FOOTER_TOOLS = [
 
 // Favicon nội tuyến (SVG data URI) — không cần file riêng.
 const FAVICON =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%232563EB'/%3E%3Ctext x='32' y='45' font-size='32' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3ETH%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230033FF'/%3E%3Ctext x='32' y='45' font-size='32' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3ETH%3C/text%3E%3C/svg%3E";
 
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
@@ -73,7 +73,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <meta property="og:description" content="${desc}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:locale" content="vi_VN">
-  <meta name="theme-color" content="#2563EB">
+  <meta name="theme-color" content="#0033FF">
   <link rel="icon" href="${FAVICON}">
   ${THEME_BOOT}
   <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}
@@ -94,6 +94,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
       </nav>
       <div class="header-actions">
         <button type="button" class="header-search-btn" id="header-search-btn" aria-label="Tìm kiếm công cụ">Tìm kiếm <kbd>⌘K</kbd></button>
+        <a class="btn btn-primary btn-header-cta" href="/cong-cu/">Dùng ngay</a>
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi giao diện sáng/tối">🌙</button>
         <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">☰</button>
       </div>
