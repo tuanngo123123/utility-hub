@@ -2005,6 +2005,8 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
    scroll-margin-top của .chip-row/#tool-grid), kẻo tiêu đề khối bị
    header che mất. 8 id này chỉ có trên trang /sinh-vien/. */
 #khoa-hoc, #sach, #hoc-bong, #luyen-thi, #mau-bieu, #viec-lam, #uu-dai, #cong-cu { scroll-margin-top: 80px; }
+/* Mục lục neo trang /hoc-mien-phi/ — cùng lý do header dính. */
+#tieng-anh, #lap-trinh, #ky-nang-khac { scroll-margin-top: 80px; }
 
 /* Tiêu đề nhóm con trong khối học bổng: Trong nước / Du học. */
 .sv-sub { margin: 28px 0 14px; font-size: 1.15rem; }

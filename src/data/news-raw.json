@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T07:50:38.271Z",
+  "updatedAt": "2026-11-18T08:21:38.421Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -7,9 +7,29 @@
       "url": "https://techcrunch.com/category/artificial-intelligence/feed/"
     },
     {
+      "source": "Ars Technica",
+      "group": "ai",
+      "url": "https://feeds.arstechnica.com/arstechnica/index"
+    },
+    {
+      "source": "MIT Tech Review",
+      "group": "ai",
+      "url": "https://www.technologyreview.com/feed/"
+    },
+    {
+      "source": "Wired",
+      "group": "ai",
+      "url": "https://www.wired.com/feed/rss"
+    },
+    {
       "source": "CNBC",
       "group": "chung-khoan",
       "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html"
+    },
+    {
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "url": "https://www.marketwatch.com/rss/topstories"
     },
     {
       "source": "CoinTelegraph",
@@ -20,6 +40,11 @@
       "source": "CoinDesk",
       "group": "crypto",
       "url": "https://www.coindesk.com/arc/outboundfeeds/rss/"
+    },
+    {
+      "source": "Decrypt",
+      "group": "crypto",
+      "url": "https://decrypt.co/feed"
     }
   ],
   "items": [
@@ -72,11 +97,107 @@
       "description": "Amazon will own just under 15% of Anthropic after the IPO, with the option to go much higher. Google is a close second with holdings of nearly 14%."
     },
     {
+      "title": "SEC reportedly investigating Nvidia amid Huang exit",
+      "link": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 21:48:07 +0000",
+      "description": "The SEC is opening a probe into Nvidia following the departure of CEO Jensen Huang, who admitted to an affair with an alleged Chinese spy, reports The Wall Street Journal."
+    },
+    {
+      "title": "Google joins the tech outage trend by announcing it’s not having one",
+      "link": "https://techcrunch.com/2026/11/17/google-joins-the-tech-outage-trend-by-announcing-its-not-having-one/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 21:34:50 +0000",
+      "description": "With tech outages seemingly everywhere, Google took the unusual step of announcing that Gmail is working just fine, actually."
+    },
+    {
+      "title": "Copilot is \"the new OS for work,\" and now Office runs inside of it",
+      "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/",
+      "source": "Ars Technica",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 00:27:29 +0000",
+      "description": ""
+    },
+    {
+      "title": "San Diego dumps both Flock cameras and smart streetlights",
+      "link": "https://arstechnica.com/tech-policy/2026/11/san-diego-dumps-both-flock-cameras-and-smart-streetlights/",
+      "source": "Ars Technica",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 23:09:09 +0000",
+      "description": ""
+    },
+    {
+      "title": "Yet another satellite company is jockeying for a rocket—but this one makes sense",
+      "link": "https://arstechnica.com/space/2026/11/yet-another-satellite-company-is-jockeying-for-a-rocket-but-this-one-makes-sense/",
+      "source": "Ars Technica",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 22:44:46 +0000",
+      "description": ""
+    },
+    {
+      "title": "Hundreds of websites deliver potent malware cocktail to unsuspecting visitors",
+      "link": "https://arstechnica.com/security/2026/11/malicious-code-delivered-through-optimizely-hits-visitors-to-hundreds-of-sites/",
+      "source": "Ars Technica",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 22:32:16 +0000",
+      "description": ""
+    },
+    {
+      "title": "Roundtables: Inside the Quest for Cognitive Immortality",
+      "link": "https://www.technologyreview.com/2026/11/17/1148049/roundtables-inside-the-quest-for-cognitive-immortality/",
+      "source": "MIT Tech Review",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 18:46:47 +0000",
+      "description": "Listen to the session or watch below In an effort to reach an elusive continuity of the self, some far-thinking technologists are working on ways to keep your brain going—even beyond death. Science editor Mary Beth Griggs and senior editor for biomedicine Antonio Regalado explore possible paths to keep your mind going, including gradual brain…"
+    },
+    {
+      "title": "Hydropower hit record lows in the US Southwest this summer",
+      "link": "https://www.technologyreview.com/2026/11/17/1148742/hydropower-drought-colorado-river/",
+      "source": "MIT Tech Review",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 17:52:10 +0000",
+      "description": "The US Southwest generated 28% less electricity via hydropower between April and August than the 10-year average, according to new data from the US Energy Information Administration. Most hydropower plants in the US rely on dams to hold back water, creating reservoirs. The water can be released through turbines, generating electricity on demand. But an…"
+    },
+    {
+      "title": "Research Reports",
+      "link": "https://www.technologyreview.com/2026/11/17/1148203/research-reports/",
+      "source": "MIT Tech Review",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 14:39:46 +0000",
+      "description": "To access a report, click on the corresponding image below."
+    },
+    {
+      "title": "Loop Earplugs Discount Codes: 25% Off",
+      "link": "https://www.wired.com/story/loop-earplugs-discount-code/",
+      "source": "Wired",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
+      "description": "Save on Loop Earplugs, including Quiet 2 and popular gift sets for improved sleep, focus, and comfort."
+    },
+    {
+      "title": "Columbia Promo Codes: 15% Off | November 2026",
+      "link": "https://www.wired.com/story/columbia-promo-code/",
+      "source": "Wired",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
+      "description": "Explore current Columbia deals on jackets, outdoor gear, and apparel. Find active Columbia promo codes, student discounts, and free shipping offers to save on your next adventure."
+    },
+    {
+      "title": "Walmart Promo Codes: 20% Off for November 2026",
+      "link": "https://www.wired.com/story/top-walmart-promo-codes/",
+      "source": "Wired",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000",
+      "description": "Score $10 off with our Walmart promo codes and coupon, and shop flash deals up to 65% off today."
+    },
+    {
       "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
       "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 03:30:51 GMT",
+      "publishedAt": "Wed, 18 Nov 2026 08:00:05 GMT",
       "description": "Xi opened the APEC summit in Shenzhen by calling for lower trade and investment barriers, pledging broader access to China’s market and manufacturing sector."
     },
     {
@@ -120,6 +241,46 @@
       "description": "Acting Navy Secretary Hung Cao told senators the Navy recoded and used munitions he called expired as the Iran war strains weapons stocks and naval deployments."
     },
     {
+      "title": "CoreWeave’s stock pops — even as Nvidia talks up a ‘disciplined’ approach to financing",
+      "link": "https://www.marketwatch.com/story/coreweaves-stock-pops-even-as-nvidia-talks-up-a-disciplined-approach-to-financing-e7f00876?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 01:59:00 GMT",
+      "description": "Nvidia interim CEO Colette Kress said neoclouds are “increasingly important,” but added the company will take “a very strong look” at the customers it helps with financing."
+    },
+    {
+      "title": "Medicare Part B premiums rise due higher healthcare spending",
+      "link": "https://www.marketwatch.com/story/medicare-part-b-premiums-rise-due-higher-healthcare-spending-f2daba13?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "publishedAt": "Wed, 18 Nov 2026 01:45:00 GMT",
+      "description": "The premiums will increase by $6.50, to $209.40 a month."
+    },
+    {
+      "title": "Nvidia’s stock rises as blowout numbers help ease CEO transition fears",
+      "link": "https://www.marketwatch.com/story/nvidias-stock-rises-as-blowout-numbers-help-ease-ceo-transition-fears-2f20d38a?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "ai",
+      "publishedAt": "Wed, 18 Nov 2026 01:28:00 GMT",
+      "description": "Nvidia’s revenue growth and $130 billion quarterly forecast showed that demand for chips is still sky-high."
+    },
+    {
+      "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
+      "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "publishedAt": "Tue, 17 Nov 2026 23:30:00 GMT",
+      "description": "“I’m exhausted. My alarm goes off at 6 a.m., and I have a 50-minute commute.”"
+    },
+    {
+      "title": "Bitcoin ETFs lose $240M as CryptoQuant flags bearish market phase",
+      "link": "https://cointelegraph.com/markets/bitcoin-etf-240-million-outflow-bearish-phase?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "crypto",
+      "publishedAt": "Wed, 18 Nov 2026 08:09:23 +0000",
+      "description": "Bitcoin ETF outflows returned after a one-day pause as CryptoQuant warned that Bitcoin had returned to a bearish market phase."
+    },
+    {
       "title": "Here’s what happened in crypto today",
       "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
@@ -134,14 +295,6 @@
       "group": "crypto",
       "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000",
       "description": "Two Ledger owners reported losing a combined $604,000 in crypto from hardware wallets they said were purchased at authorized retailer Virgin Megastore in Dubai."
-    },
-    {
-      "title": "Nvidia board rejects Huang comeback despite record $116B quarter",
-      "link": "https://cointelegraph.com/markets/nvidia-board-rejects-huang-comeback-amid-record-116b-quarter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 00:16:43 +0000",
-      "description": "Nvidia beat Wall Street’s revenue expectations by 5.6% and issued a stronger-than-expected sales forecast, while its board resisted growing calls for Jensen Huang’s reinstatement."
     },
     {
       "title": "Google finds self-running AI hacking tool with Russian comments in its files",
@@ -166,6 +319,22 @@
       "group": "crypto",
       "publishedAt": "Wed, 18 Nov 2026 05:30:10 +0000",
       "description": "A federal judge acquitted Anton and James Peraire-Bueno, ruling that their 2023 trade against Ethereum trading bots involved no lie that anyone relied on, and closing the U.S. government’s first criminal case over the practice known as MEV."
+    },
+    {
+      "title": "Why Microsoft Thinks Smaller, Cheaper AI Can Beat Claude and GPT",
+      "link": "https://decrypt.co/383468/why-microsoft-thinks-smaller-cheaper-ai-beat-claude-gpt",
+      "source": "Decrypt",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 23:16:03 +0000",
+      "description": "Microsoft's new coding, cybersecurity and image models challenge bigger rivals on performance and price. The company's bet is that doing one job exceptionally well matters more than doing absolutely everything."
+    },
+    {
+      "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
+      "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
+      "source": "Decrypt",
+      "group": "ai",
+      "publishedAt": "Tue, 17 Nov 2026 22:39:53 +0000",
+      "description": "Nvidia's board rejected a comeback for its ousted co-founder as it hired a search firm, backed interim CEO Colette Kress, and tightened oversight of chip exports to China."
     }
   ]
 }

@@ -23,7 +23,7 @@ export function body() {
   <div id="ddc-form" style="display:none">
     <div class="grid-2">
       <div class="field"><label for="ddc-tinh">Tỉnh/thành cũ (tính đến 30/6/2025)</label><select id="ddc-tinh"></select><p class="hint">Chọn tỉnh/thành ghi trên giấy tờ, địa chỉ cũ của bạn.</p></div>
-      <div class="field"><label for="ddc-diachi">Địa chỉ cũ đầy đủ (không bắt buộc)</label><input id="ddc-diachi" type="text" placeholder="VD: Số 12, đường Lê Lợi, phường Phú Cường, TP Thủ Dầu Một, tỉnh Bình Dương"><p class="hint">Nếu nhập, công cụ gợi ý cách viết lại địa chỉ với tỉnh mới.</p></div>
+      <div class="field"><label for="ddc-diachi">Địa chỉ cũ đầy đủ (không bắt buộc)</label><input id="ddc-diachi" type="text" placeholder="VD: Số 12, đường Lê Lợi, phường Phú Cường, TP Thủ Dầu Một, tỉnh Bình Dương"><p class="hint">Nếu nhập, công cụ gợi ý cách viết lại địa chỉ với tỉnh mới (tự bỏ phần quận/huyện đã bãi bỏ).</p></div>
     </div>
     <div class="btn-row">
       <button type="button" class="btn btn-primary" id="ddc-tim">Tra cứu</button>
@@ -81,11 +81,38 @@ export function init(root) {
       .replace(/TP/g, 'TP\\.?');
     return new RegExp('(?:t[ỉi]nh|th[àa]nh\\s+ph[ốo]|TP\\.?)\\s+' + p + '|' + p, 'i');
   }
+  // Viết hoa chữ cái đầu mỗi từ trong phần địa chỉ người dùng gõ
+  // (người dùng hay gõ thường hết: "vạn ninh" → "Vạn Ninh").
+  function titleCaseVi(s) {
+    return s.split(/\s+/).map(w => w ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' ');
+  }
+  // Dựng lại địa chỉ mới từ địa chỉ cũ: thay tên tỉnh, BỎ phần cấp
+  // huyện (quận/huyện/thị xã/TP trực thuộc tỉnh đã bãi bỏ từ 1/7/2025),
+  // viết hoa lại các phần còn lại, chuẩn hóa dấu phẩy. Trước đây hàm
+  // này chỉ thay tên tỉnh bằng chuỗi thô nên gợi ý vẫn giữ nguyên
+  // phần huyện + chữ thường + khoảng trắng thừa (lỗi Tuấn bắt 18/11).
   function suggestAddress(addr, entry) {
+    const parts = addr.split(',').map(p => p.replace(/[\u2013\u2014]/g, '-').replace(/\s+/g, ' ').trim()).filter(Boolean);
     const re = namePattern(entry.old);
-    if (!re.test(addr)) return null;
-    const cleaned = addr.replace(/[\u2013\u2014]/g, '-');
-    return cleaned.replace(namePattern(entry.old), fullName(entry.new, entry.newKind));
+    let provIdx = -1;
+    parts.forEach((p, i) => { if (re.test(p)) provIdx = i; });
+    if (provIdx < 0) return null;
+    const DISTRICT_MARK = /(quận|huyện|thị xã|thành phố|^TP\.?\s)/i;
+    const LOCALITY_MARK = /(xã|phường|thị trấn|thôn|ấp|khu phố|số|đường|ngõ|hẻm|tổ)/i;
+    const out = [];
+    parts.forEach((p, i) => {
+      if (i === provIdx) { out.push(fullName(entry.new, entry.newKind)); return; }
+      if (i === provIdx - 1) {
+        if (DISTRICT_MARK.test(p)) return; // phần huyện ghi rõ cấp → bỏ
+        // Phần không ghi rõ cấp, đứng ngay trước tỉnh mà còn phần khác
+        // trước nó → rất có thể là tên huyện viết trần (vd "Quảng Ninh"
+        // trong "Vạn Ninh, Quảng Ninh, Quảng Bình") → bỏ. Chỉ 1 phần
+        // trước tỉnh thì giữ (đó là xã/phường viết trần).
+        if (!LOCALITY_MARK.test(p) && provIdx >= 2) return;
+      }
+      out.push(titleCaseVi(p));
+    });
+    return out.join(', ');
   }
 
   function renderResult(entry, isLegacy) {
@@ -124,7 +151,7 @@ export function init(root) {
       } else {
         addrHtml = '<div class="result-row"><span>Địa chỉ cũ đã nhập</span><span class="muted">Không tìm thấy tên tỉnh cũ trong địa chỉ đã nhập nên chưa gợi ý được cách viết lại — hãy kiểm tra lại chính tả tên tỉnh.</span></div>';
       }
-      addrHtml += '<div class="result-row"><span class="muted">Lưu ý khi viết lại</span><span class="muted">Bỏ phần quận/huyện/thị xã (cấp huyện đã bãi bỏ). Tên xã/phường mới cần tra riêng — xã/phường cũ có thể đã nhập với xã/phường khác hoặc đổi tên.</span></div>';
+      addrHtml += '<div class="result-row"><span class="muted">Lưu ý khi viết lại</span><span class="muted">Gợi ý đã bỏ phần quận/huyện/thị xã nếu có trong địa chỉ cũ (cấp huyện đã bãi bỏ). Tên xã/phường mới cần tra riêng — xã/phường cũ có thể đã nhập với xã/phường khác hoặc đổi tên.</span></div>';
     }
 
     $('ddc-ketqua').innerHTML =

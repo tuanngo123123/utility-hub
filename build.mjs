@@ -28,6 +28,8 @@ import * as sinhVienPage from './src/pages/sinh-vien.js';
 import { TEMPLATES as SINH_VIEN_TEMPLATES } from './src/pages/sinh-vien-data.js';
 import * as huongDanPage from './src/pages/huong-dan.js';
 import { ARTICLES as HUONG_DAN_ARTICLES } from './src/pages/huong-dan-data.js';
+import * as hocMienPhiPage from './src/pages/hoc-mien-phi.js';
+import { GROUPS as HOC_MIEN_PHI_GROUPS } from './src/pages/hoc-mien-phi-data.js';
 import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
@@ -790,6 +792,47 @@ async function main() {
     );
   }
   console.log(`   - Hướng dẫn: ${HUONG_DAN_ARTICLES.length} bài, ${HUONG_DAN_ARTICLES.length + 1} trang`);
+
+  // Trang Học miễn phí: 1 trang duy nhất (không trang con). Dữ liệu từ
+  // src/pages/hoc-mien-phi-data.js — repo đã kiểm chứng thật qua GitHub
+  // API 18/11/2026, mô tả tiếng Việt tự viết. Repo KHÔNG phải công cụ.
+  const hocMienPhiRepos = new Set();
+  let hocMienPhiCount = 0;
+  for (const g of HOC_MIEN_PHI_GROUPS) {
+    if (!g.id || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(g.id)) {
+      fail(`hoc-mien-phi-data.js: id nhóm "${g.id}" không hợp lệ.`);
+    }
+    if (!g.title || !g.intro || !Array.isArray(g.repos) || !g.repos.length) {
+      fail(`hoc-mien-phi-data.js: nhóm "${g.id}" thiếu title/intro/repos.`);
+    }
+    for (const r of g.repos) {
+      if (!r.repo || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(r.repo)) {
+        fail(`hoc-mien-phi-data.js: repo "${r.repo}" không đúng dạng owner/repo.`);
+      }
+      if (hocMienPhiRepos.has(r.repo.toLowerCase())) fail(`hoc-mien-phi-data.js: repo "${r.repo}" bị trùng.`);
+      hocMienPhiRepos.add(r.repo.toLowerCase());
+      hocMienPhiCount += 1;
+      for (const f of ['name', 'stars', 'desc']) {
+        if (!r[f] || typeof r[f] !== 'string') {
+          fail(`hoc-mien-phi-data.js: repo "${r.repo}" thiếu trường "${f}".`);
+        }
+      }
+    }
+  }
+  addPage(
+    'hoc-mien-phi/index.html',
+    shell({
+      title: `Học miễn phí — Repo GitHub học tiếng Anh, lập trình, thiết kế | ${SITE_NAME}`,
+      desc: 'Repo GitHub học miễn phí, mô tả bằng tiếng Việt: học tiếng Anh (từ vựng, IELTS), lập trình (freeCodeCamp, sách miễn phí, lộ trình), thiết kế và bài báo khoa học — kèm số sao và link gốc.',
+      keywords: 'học miễn phí, học tiếng anh miễn phí, repo github học lập trình, học lập trình miễn phí, tài liệu miễn phí',
+      canonical: `${BASE_URL}/hoc-mien-phi/`,
+      navActive: '', // Không có trong nav chính (header tràn ở 1280px nếu thêm mục thứ 8 — đã đo thật).
+      body: hocMienPhiPage.body(),
+      noscriptLinks,
+    }),
+    `${BASE_URL}/hoc-mien-phi/`
+  );
+  console.log(`   - Học miễn phí: ${hocMienPhiCount} repo, 1 trang`);
 
   // Trang mục Điểm báo (/diem-bao/) + trang lưu trữ theo ngày (mới nhất
   // trước). Trang mục vào sitemap như mọi trang khác (qua addPage).

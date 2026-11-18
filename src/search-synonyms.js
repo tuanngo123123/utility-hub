@@ -170,8 +170,9 @@ export const SYNONYMS = {
   'aspect ratio': ['ti-le-khung-hinh'],
 
   // GitHub
-  'github': ['github-trending', 'tra-cuu-repo', 'repo-chon-loc', 'tao-readme-badge'],
-  'repo': ['tra-cuu-repo', 'repo-chon-loc', 'github-trending'],
+  'github': ['tra-cuu-github', 'github-trending', 'repo-chon-loc', 'tao-readme-badge'],
+  'tra cứu github': ['tra-cuu-github'],
+  'repo': ['tra-cuu-github', 'repo-chon-loc', 'github-trending'],
   'trending': ['github-trending'],
   'readme': ['tao-readme-badge'],
   'badge': ['tao-readme-badge'],

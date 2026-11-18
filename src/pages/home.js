@@ -290,6 +290,16 @@ ${railHtml}
     </div>
   </section>
 
+  <section class="sv-promo" aria-label="Học miễn phí">
+    <div class="sv-promo-inner">
+      <div>
+        <h2>Học miễn phí</h2>
+        <p class="muted">Repo GitHub học tiếng Anh, lập trình, thiết kế miễn phí — mô tả tiếng Việt, kèm số sao và link gốc.</p>
+      </div>
+      <a class="btn btn-primary" href="/hoc-mien-phi/">Xem kho học →</a>
+    </div>
+  </section>
+
   <section class="section section-strips" aria-label="Dữ liệu hôm nay">
     <p class="strip-date muted" id="hom-nay-title">Hôm nay</p>
     <div class="strip-grid">

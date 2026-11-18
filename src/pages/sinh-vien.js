@@ -104,6 +104,7 @@ export function body({ tools = [] } = {}) {
     <div class="sv-grid">
 ${COURSES.map((c) => courseCard(c, 'Học ngay →')).join('\n')}
     </div>
+    <p class="muted">Ngoài khóa học, GitHub còn rất nhiều kho tài liệu học miễn phí — xem mục <a href="/hoc-mien-phi/">Học miễn phí</a> (repo học tiếng Anh, lập trình, thiết kế… kèm mô tả tiếng Việt và số sao).</p>
   </section>
 
   <section class="section" id="sach" aria-label="Sách giáo khoa miễn phí">

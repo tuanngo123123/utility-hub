@@ -7,6 +7,9 @@
 //  - body: HTML nội dung trong <main>
 //  - extraHead: HTML thêm vào <head> (nếu cần)
 //  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'code-mau' | 'diem-bao' | 'ung-ho' | '' — tô sáng mục nav tương ứng
+//    (Học miễn phí KHÔNG có trong nav chính: thêm mục thứ 8 làm header
+//    tràn 57px ở 1280px — đã đo thật 18/11/2026; chỉ link từ trang chủ,
+//    trang Sinh viên và chân trang.)
 //  - noscriptLinks: HTML danh sách link công cụ cho khối <noscript> (build.mjs sinh;
 //    để trống thì chỉ hiện thông báo, không có danh sách)
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
@@ -122,6 +125,7 @@ ${body}
           <a href="/">Trang chủ</a>
           <a href="/cong-cu/">Công cụ</a>
           <a href="/code-mau/">Code mẫu</a>
+          <a href="/hoc-mien-phi/">Học miễn phí</a>
         </div>
         <div class="footer-col">
           <h3>Hỗ trợ</h3>

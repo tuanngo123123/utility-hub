@@ -12,7 +12,7 @@
 //   - Fear & Greed: api.alternative.me/fng/ (miễn phí, không key)
 //   - Xổ số: xskt.com.vn/rss-feed/mien-bac-xsmb.rss | mien-nam-xsmn.rss | mien-trung-xsmt.rss
 //   - Trending GitHub: api.github.com/search/repositories (không key, giới hạn 60 req/giờ)
-//   - Tin RSS: TechCrunch AI, CNBC, CoinTelegraph, CoinDesk
+//   - Tin RSS: TechCrunch AI, Ars Technica, MIT Tech Review, Wired, CNBC, MarketWatch, CoinTelegraph, CoinDesk, Decrypt (CHỈ báo nước ngoài — không lấy báo Việt, Tuấn quyết 18/11)
 import { writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -247,11 +247,19 @@ async function fetchTrending() {
 }
 
 // ---------- 5. Tin RSS (thô, để summarize-news.mjs tóm tắt) ----------
+// 9 nguồn báo nước ngoài, 36 tin tối đa. CHỈ dùng nguồn nước ngoài —
+// Tuấn quyết 18/11: KHÔNG lấy tin báo Việt Nam (rủi ro pháp lý tổng
+// hợp tin trong nước). Đừng thêm feed báo Việt vào đây.
 const NEWS_FEEDS = [
-  { group: 'ai', source: 'TechCrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/', take: 6 },
+  { group: 'ai', source: 'TechCrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/', take: 8 },
+  { group: 'ai', source: 'Ars Technica', url: 'https://feeds.arstechnica.com/arstechnica/index', take: 4 },
+  { group: 'ai', source: 'MIT Tech Review', url: 'https://www.technologyreview.com/feed/', take: 3 },
+  { group: 'ai', source: 'Wired', url: 'https://www.wired.com/feed/rss', take: 3 },
   { group: 'chung-khoan', source: 'CNBC', url: 'https://www.cnbc.com/id/100003114/device/rss/rss.html', take: 6 },
+  { group: 'chung-khoan', source: 'MarketWatch', url: 'https://www.marketwatch.com/rss/topstories', take: 4 },
   { group: 'crypto', source: 'CoinTelegraph', url: 'https://cointelegraph.com/rss', take: 3 },
   { group: 'crypto', source: 'CoinDesk', url: 'https://www.coindesk.com/arc/outboundfeeds/rss/', take: 3 },
+  { group: 'crypto', source: 'Decrypt', url: 'https://decrypt.co/feed', take: 2 },
 ];
 // Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V4): nhóm theo
 // NGUỒN RSS hay sai — vd CNBC đăng tin Starshield/sập hệ thống (công nghệ)
