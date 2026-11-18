@@ -110,7 +110,7 @@ thay đổi.
 
 ## 6. Tóm tắt tin — Gemini API (cần key miễn phí)
 
-- Endpoint: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
+- Endpoint: `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent` (dự phòng: `gemini-flash-latest` nếu model chính trả 404; model cũ gemini-2.5-flash đã bị Google ngừng cấp cho key mới từ 18/11/2026)
 - Key lấy từ biến môi trường `GEMINI_API_KEY`. Key miễn phí lấy tại
   [Google AI Studio](https://aistudio.google.com/apikey) (gói miễn phí đủ cho
   ~18 tin × 2 lần/ngày).

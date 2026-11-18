@@ -14,8 +14,11 @@ import { dirname, join } from 'node:path';
 
 const ROOT = dirname(dirname(fileURLToPath(import.meta.url)));
 const DATA_DIR = join(ROOT, 'src', 'data');
-const MODEL = 'gemini-2.5-flash';
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
+// Model chính + dự phòng: Google có thể ngừng cấp model cũ cho key mới
+// (gemini-2.5-flash trả 404 với key tạo 18/11/2026) — gặp 404 thì thử model sau.
+const MODELS = ['gemini-3.8-flash', 'gemini-flash-latest'];
+let MODEL_USED = MODELS[0];
+const apiUrl = (m) => `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;
 const MAX_LEN = 120;
 
 function trimPurpose(s) {
@@ -46,13 +49,22 @@ async function summarizeBatch(apiKey, items) {
     contents: [{ parts: [{ text: `Viết dòng giải thích cho ${items.length} repo sau (trả về mảng JSON gồm đúng ${items.length} đối tượng {"purpose"}):\n${numbered}` }] }],
     generationConfig: { temperature: 0.3, maxOutputTokens: 2048 },
   };
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-    body: JSON.stringify(body),
-    signal: AbortSignal.timeout(60000),
-  });
-  if (!res.ok) throw new Error(`Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`);
+  let res = null;
+  let lastErr = '';
+  for (const m of MODELS) {
+    res = await fetch(apiUrl(m), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+      body: JSON.stringify(body),
+      signal: AbortSignal.timeout(60000),
+    });
+    if (res.ok) { MODEL_USED = m; break; }
+    lastErr = `Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`;
+    if (res.status !== 404) throw new Error(lastErr);
+    console.warn(`Model ${m} không dùng được (404) — thử model sau.`);
+    res = null;
+  }
+  if (!res) throw new Error(lastErr || 'Gemini: không model nào dùng được');
   const j = await res.json();
   const text = j?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
   const jsonText = text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
@@ -99,7 +111,7 @@ async function main() {
   }
   data.items = items.map((it, i) => ({ ...it, purpose: purposes[i] || '' }));
   data.purposeSummarized = true;
-  data.purposeModel = MODEL;
+  data.purposeModel = MODEL_USED;
   delete data.purposeNote;
   await writeFile(join(DATA_DIR, 'trending.json'), JSON.stringify(data, null, 2) + '\n', 'utf8');
   console.log(`Đã ghi trending.json: ${purposes.filter(Boolean).length}/${items.length} repo có purpose.`);
