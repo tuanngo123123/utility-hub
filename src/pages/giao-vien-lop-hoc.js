@@ -70,6 +70,8 @@ export function body(ctx) {
 
     <div class="gv-app-tabs" role="tablist" aria-label="Công cụ giáo viên" id="gv-app-tablist">
       ${tabBar}
+      <span class="gv-app-teach-class" id="gv-app-teach-class"></span>
+      <button type="button" class="btn gv-app-teach-btn" id="gv-app-teach-btn" aria-pressed="false" title="Chế độ Dạy học (phím F)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg> <span id="gv-app-teach-label">Dạy học</span> <kbd>F</kbd></button>
     </div>
 
     <section class="gv-app-panel" id="gv-panel-lop-hoc" role="tabpanel" aria-labelledby="gv-tab-lop-hoc">
@@ -91,13 +93,20 @@ export function body(ctx) {
         <div class="btn-row"><button type="button" class="btn" id="lh-add-row">+ Thêm bạn</button></div>
         <div class="gv-class-box">
           <h3>Nhập danh sách lớp</h3>
-          <p class="muted">Dán từ Excel (cột số thứ tự tự bỏ) hoặc tải file .csv có cột Tên, Giới tính. File Excel .xlsx: mở bằng Excel rồi lưu thành .csv, hoặc dán trực tiếp vào ô dưới.</p>
+          <p class="muted">Dán từ Excel (cột STT tự bỏ, cột Giới tính tự nhận) hoặc tải file .csv / .xlsx có cột Tên, Giới tính. Đọc xong sẽ hiện xem trước — bấm xác nhận mới thêm vào lớp.</p>
           <div class="field"><label for="lh-paste">Dán danh sách (mỗi bạn một dòng)</label><textarea id="lh-paste" rows="5" placeholder="1. Nguyễn Văn A&#10;2. Trần Thị B"></textarea></div>
           <div class="btn-row">
             <button type="button" class="btn btn-primary" id="lh-paste-add">Thêm vào lớp</button>
-            <label class="btn" for="lh-file" style="cursor:pointer">Tải file .csv lên</label>
-            <input id="lh-file" type="file" accept=".csv,text/csv" style="position:absolute;width:1px;height:1px;opacity:0">
+            <label class="btn" for="lh-file" style="cursor:pointer">Tải file lên (.csv / .xlsx)</label>
+            <input id="lh-file" type="file" accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" style="position:absolute;width:1px;height:1px;opacity:0">
             <button type="button" class="btn" id="lh-sample">Tải file mẫu (.csv)</button>
+          </div>
+          <div class="gv-import-preview" id="lh-preview" style="display:none">
+            <p id="lh-preview-text"></p>
+            <div class="btn-row">
+              <button type="button" class="btn btn-primary" id="lh-preview-confirm">Xác nhận thêm</button>
+              <button type="button" class="btn" id="lh-preview-cancel">Hủy</button>
+            </div>
           </div>
           <p class="note" id="lh-import-msg" style="display:none"></p>
         </div>
@@ -125,7 +134,8 @@ ${toolPanels}
         <tr><td><kbd>1</kbd>–<kbd>9</kbd>, <kbd>0</kbd></td><td>Chuyển tab: 1 Lớp học, 2 Gọi tên, 3 Chia nhóm, 4 Xúc xắc, 5 Bốc thăm, 6 Bảng điểm, 7 Âm thanh, 8 Đếm ngược, 9 Đo ồn, 0 Điểm danh</td></tr>
         <tr><td><kbd>←</kbd> <kbd>→</kbd></td><td>Tab trước / tab sau (kể cả tab Bốc câu hỏi)</td></tr>
         <tr><td><kbd>Space</kbd> / <kbd>Enter</kbd></td><td>Hành động chính của tab đang mở (gọi tên, chia nhóm, tung, bốc…)</td></tr>
-        <tr><td><kbd>Esc</kbd></td><td>Đóng bảng này / đóng lớp phủ Chiếu lớp</td></tr>
+        <tr><td><kbd>F</kbd></td><td>Bật/tắt chế độ Dạy học (ẩn header, footer, thanh đáy — toàn màn hình)</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Thoát chế độ Dạy học / đóng bảng này / đóng lớp phủ Chiếu lớp</td></tr>
         <tr><td><kbd>?</kbd></td><td>Mở bảng phím tắt này</td></tr>
       </table>
       <p class="muted">Phím tắt không chạy khi đang gõ trong ô nhập — bấm ra ngoài rồi dùng phím.</p>
@@ -136,6 +146,11 @@ ${toolPanels}
   <script>
   // Script của Bàn giáo viên: tự chứa hoàn toàn (không import) — chạy
   // khi DOM sẵn sàng để app.js kịp định nghĩa window.UhGvClasses.
+  // Chế độ Dạy học: áp bố cục ẩn NGAY khi tải (trước DOMContentLoaded)
+  // để không chớp header/footer nếu lần trước đang bật.
+  try {
+    if (localStorage.getItem('uh_gv_dayhoc') === '1') document.body.classList.add('gv-teach');
+  } catch (e) { /* bỏ qua */ }
   var GV_INITS = {
 ${inits}
   };
@@ -168,6 +183,58 @@ ${inits}
         var helper = gvClasses();
         var active = helper ? helper.active() : '';
         el.textContent = active || 'chưa chọn lớp';
+        updateTeachClass();
+      }
+
+      // ---------- Chế độ Dạy học (phím F / nút trên thanh tab) ----------
+      // Bật: ẩn header site, footer, thanh đáy, tiêu đề + mô tả trang —
+      // chỉ còn thanh tab + tên lớp đang dạy + khung công cụ chiếm trọn
+      // màn hình; dùng Fullscreen API để toàn màn hình thật. Nhớ trạng
+      // thái vào localStorage (uh_gv_dayhoc): tải lại trang thì khôi
+      // phục bố cục đã ẩn; toàn màn hình xin lại ở lần tương tác đầu
+      // tiên vì trình duyệt cấm tự bật không có cử chỉ.
+      var TEACH_KEY = 'uh_gv_dayhoc';
+      var teachMode = false;
+
+      function updateTeachClass() {
+        var chip = document.getElementById('gv-app-teach-class');
+        if (!chip) return;
+        var helper = gvClasses();
+        var active = helper ? helper.active() : '';
+        chip.textContent = active ? 'Lớp ' + active : 'Chưa chọn lớp';
+      }
+
+      function setTeachMode(on, opts) {
+        opts = opts || {};
+        teachMode = !!on;
+        try { localStorage.setItem(TEACH_KEY, teachMode ? '1' : '0'); } catch (e) { /* bỏ qua */ }
+        document.body.classList.toggle('gv-teach', teachMode);
+        var btn = document.getElementById('gv-app-teach-btn');
+        if (btn) {
+          btn.setAttribute('aria-pressed', teachMode ? 'true' : 'false');
+          var label = document.getElementById('gv-app-teach-label');
+          if (label) label.textContent = teachMode ? 'Thoát dạy học' : 'Dạy học';
+        }
+        updateTeachClass();
+        if (teachMode && !opts.noFullscreen) {
+          var el = document.documentElement;
+          if (el.requestFullscreen && !document.fullscreenElement) {
+            try {
+              var p = el.requestFullscreen();
+              if (p && p.catch) p.catch(function () { /* từ chối — vẫn giữ bố cục ẩn */ });
+            } catch (e) { /* bỏ qua */ }
+          }
+        } else if (!teachMode && !opts.noFullscreen && document.fullscreenElement && document.exitFullscreen) {
+          try { document.exitFullscreen(); } catch (e) { /* bỏ qua */ }
+        }
+        // Bật/tắt chế độ Dạy học làm ẩn/hiện ~140px nội dung trên khung
+        // (header site + tiêu đề trang + lề) trong khi vị trí cuộn giữ
+        // nguyên — khung đang mở trượt lên dưới thanh tab dính và bị cắt
+        // mất dòng đầu. Cuộn lại khung đang mở về đầu sau khi đổi chế độ;
+        // scroll-margin-top trong CSS (90px ở chế độ Dạy học, 150px bình
+        // thường) chừa đúng chỗ cho thanh tab dính.
+        var panel = document.getElementById('gv-panel-' + currentTab);
+        if (panel) panel.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
 
       // ---------- Chuyển tab (khởi tạo lười + làm mới khi mở lại) ----------
@@ -202,6 +269,14 @@ ${inits}
           history.replaceState(null, '', url.toString());
         } catch (e) { /* bỏ qua */ }
         updateClassIndicator();
+        // Cuộn về đầu khung công cụ — tab Lớp học dài, đang ở cuối bảng
+        // mà bấm sang Gọi tên thì màn hình đứng ở footer, không thấy
+        // vòng quay. scroll-margin-top trong CSS chừa chỗ thanh tab.
+        var panel = document.getElementById('gv-panel-' + id);
+        if (panel) {
+          var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          panel.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
       }
 
       tablist.querySelectorAll('[role="tab"]').forEach(function (btn) {
@@ -289,6 +364,10 @@ ${inits}
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
           if (!helpPanel.hidden) closeHelp();
+          // Thoát chế độ Dạy học khi không ở toàn màn hình (đang toàn
+          // màn hình thì trình duyệt giữ Esc để thoát toàn màn hình,
+          // rồi sự kiện fullscreenchange sẽ tắt chế độ Dạy học).
+          else if (teachMode && !document.fullscreenElement) setTeachMode(false);
           return; // đóng sân khấu Chiếu lớp do chính công cụ xử lý
         }
         if (!helpPanel.hidden || anyStageOpen()) return;
@@ -300,6 +379,9 @@ ${inits}
         // tab được); chỉ Space/Enter nhường cho nút/link (kích hoạt
         // gốc của trình duyệt) để không gọi 2 hành động cùng lúc.
         if (DIGITS[e.key]) { e.preventDefault(); activateTab(DIGITS[e.key]); return; }
+        // Phím F bật/tắt chế độ Dạy học — F không có tác dụng gốc trên
+        // nút nên vẫn chạy khi nút đang focus (như phím số).
+        if (e.key === 'f' || e.key === 'F') { e.preventDefault(); setTeachMode(!teachMode); return; }
         if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
           e.preventDefault();
           var i = TABS.indexOf(currentTab);
@@ -311,6 +393,40 @@ ${inits}
         if (tag === 'BUTTON' || tag === 'A') return;
         if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); runMainAction(); }
       });
+
+      // Khởi tạo chế độ Dạy học: nút bấm; khôi phục trạng thái lần
+      // trước (bố cục ẩn đã áp ngay khi tải trang); toàn màn hình xin
+      // lại ở lần chạm/phím đầu tiên; Esc khỏi toàn màn hình thì tắt
+      // luôn chế độ Dạy học.
+      document.getElementById('gv-app-teach-btn').addEventListener('click', function () {
+        setTeachMode(!teachMode);
+      });
+      document.addEventListener('fullscreenchange', function () {
+        if (!document.fullscreenElement && teachMode) setTeachMode(false, { noFullscreen: true });
+      });
+      (function restoreTeachMode() {
+        try { teachMode = localStorage.getItem(TEACH_KEY) === '1'; } catch (e) { teachMode = false; }
+        if (!teachMode) return;
+        var btn = document.getElementById('gv-app-teach-btn');
+        if (btn) {
+          btn.setAttribute('aria-pressed', 'true');
+          var label = document.getElementById('gv-app-teach-label');
+          if (label) label.textContent = 'Thoát dạy học';
+        }
+        updateTeachClass();
+        var askFs = function () {
+          if (teachMode && !document.fullscreenElement && document.documentElement.requestFullscreen) {
+            try {
+              var p = document.documentElement.requestFullscreen();
+              if (p && p.catch) p.catch(function () { /* bỏ qua */ });
+            } catch (e) { /* bỏ qua */ }
+          }
+          document.removeEventListener('pointerdown', askFs);
+          document.removeEventListener('keydown', askFs);
+        };
+        document.addEventListener('pointerdown', askFs);
+        document.addEventListener('keydown', askFs);
+      })();
 
       // ================= TAB LỚP HỌC =================
       var lhClassSel = document.getElementById('lh-class');
@@ -329,67 +445,14 @@ ${inits}
         el.style.display = text ? '' : 'none';
       }
 
-      function scoreboardMap() {
-        try {
-          var raw = localStorage.getItem('uh_bangdiemlop');
-          if (!raw) return {};
-          var data = JSON.parse(raw);
-          if (!Array.isArray(data)) return {};
-          var map = {};
-          data.forEach(function (e) {
-            if (e && typeof e.name === 'string' && typeof e.score === 'number') map[e.name] = e.score;
-          });
-          return map;
-        } catch (e) { return {}; }
-      }
-
-      // Điểm sửa ở tab Lớp học ghi sang cả bảng điểm (1 nguồn điểm duy
-      // nhất cho tên đó) để tab Bảng điểm thấy ngay.
-      function syncPointToScoreboard(name, score) {
-        try {
-          var raw = localStorage.getItem('uh_bangdiemlop');
-          var data = raw ? JSON.parse(raw) : [];
-          if (!Array.isArray(data)) data = [];
-          var found = null;
-          data.forEach(function (e) { if (e && e.name === name) found = e; });
-          if (found) found.score = score;
-          else data.push({ name: name, score: score });
-          localStorage.setItem('uh_bangdiemlop', JSON.stringify(data));
-        } catch (e) { /* bỏ qua */ }
-      }
-
-      function renameInScoreboard(oldName, newName) {
-        try {
-          var raw = localStorage.getItem('uh_bangdiemlop');
-          if (!raw) return;
-          var data = JSON.parse(raw);
-          if (!Array.isArray(data)) return;
-          var changed = false;
-          data.forEach(function (e) {
-            if (e && e.name === oldName) { e.name = newName; changed = true; }
-          });
-          if (changed) localStorage.setItem('uh_bangdiemlop', JSON.stringify(data));
-        } catch (e) { /* bỏ qua */ }
-      }
-
+      // Điểm chỉ lưu ở bản ghi lớp (một nguồn duy nhất) — tab Bảng
+      // điểm chế độ Cá nhân đọc thẳng từ đây, không còn đồng bộ qua
+      // uh_bangdiemlop (khóa đó chỉ còn dùng cho chế độ Đội + trang
+      // Bảng điểm rời).
       function saveRecords() {
         var helper = gvClasses();
         if (!helper || !activeClass) return false;
         return helper.saveRecords(activeClass, records);
-      }
-
-      // Bảng điểm là nơi cộng điểm trong giờ (tab Bảng điểm, nút +1 ở
-      // Gọi tên) nên mỗi lần mở tab Lớp học, điểm từ bảng điểm sẽ thắng.
-      function mergeScoreboard() {
-        var map = scoreboardMap();
-        var changed = false;
-        records.forEach(function (r) {
-          if (typeof map[r.name] === 'number' && map[r.name] !== r.points) {
-            r.points = map[r.name];
-            changed = true;
-          }
-        });
-        if (changed) saveRecords();
       }
 
       function renderTable() {
@@ -448,7 +511,6 @@ ${inits}
         activeClass = name || '';
         if (helper) helper.setActive(activeClass);
         records = (helper && activeClass) ? helper.getRecords(activeClass) : [];
-        mergeScoreboard();
         renderTable();
         updateClassIndicator();
       }
@@ -547,14 +609,8 @@ ${inits}
             showMsg(lhMsg, 'Tên không được để trống.');
             return;
           }
-          if (records.some(function (r, j) { return j !== i && r.name === v; })) {
-            ev.target.value = rec.name;
-            showMsg(lhMsg, 'Lớp đã có bạn tên "' + v + '" rồi.');
-            return;
-          }
-          var oldName = rec.name;
+          // Lớp hay có 2 bạn trùng họ tên — không chặn trùng tên nữa.
           rec.name = v;
-          renameInScoreboard(oldName, v);
           saveRecords();
           showMsg(lhMsg, '');
           return;
@@ -570,7 +626,6 @@ ${inits}
           ev.target.value = n;
           rec.points = n;
           saveRecords();
-          syncPointToScoreboard(rec.name, n);
           return;
         }
       });
@@ -605,7 +660,6 @@ ${inits}
           var input = tr.querySelector('.lh-pt');
           if (input) input.value = rec.points;
           saveRecords();
-          syncPointToScoreboard(rec.name, rec.points);
           return;
         }
         if (btn.classList.contains('lh-del')) {
@@ -630,47 +684,69 @@ ${inits}
       });
 
       // ---------- Nhập danh sách: dán Excel / file .csv / file mẫu ----------
+      // Thêm danh sách vào lớp — KHÔNG gộp trùng tên (lớp hay có 2
+      // bạn trùng họ tên, giữ cả hai); bước xem trước là chỗ giáo viên
+      // kiểm tra trước khi thêm.
       function mergeStudents(list) {
         var added = 0;
-        var skipped = 0;
         list.forEach(function (item) {
-          var found = null;
-          records.forEach(function (r) { if (r.name === item.name) found = r; });
-          if (found) {
-            skipped++;
-            // File có giới tính mà bản ghi chưa có thì bổ sung.
-            if (item.gender && !found.gender) found.gender = item.gender;
-            return;
-          }
           records.push({ name: item.name, gender: item.gender || '', star: false, absent: false, points: 0 });
           added++;
         });
-        if (added || skipped) saveRecords();
-        return { added: added, skipped: skipped };
+        if (added) saveRecords();
+        return { added: added };
       }
+
+      // Xem trước khi nhập: đọc xong hiện "Sẽ thêm N bạn: <tên...>"
+      // để giáo viên kiểm tra (đặc biệt khi dán từ Excel 3 cột) rồi
+      // bấm xác nhận mới thêm vào lớp.
+      var pendingImport = null; // { list: [...], source: 'dán'|'file' }
+
+      function showImportPreview(list, source) {
+        pendingImport = { list: list, source: source };
+        var names = list.map(function (r) { return r.name; });
+        var shown = names.slice(0, 12).join(', ');
+        var more = names.length > 12 ? '…' : '';
+        var withGender = list.filter(function (r) { return r.gender; }).length;
+        var gNote = withGender ? ' (' + withGender + ' bạn đã nhận được giới tính)' : '';
+        document.getElementById('lh-preview-text').textContent =
+          'Sẽ thêm ' + list.length + ' bạn vào lớp ' + activeClass + ': ' + shown + more + gNote;
+        document.getElementById('lh-preview').style.display = '';
+        showMsg(lhImportMsg, '');
+      }
+
+      function hideImportPreview() {
+        pendingImport = null;
+        document.getElementById('lh-preview').style.display = 'none';
+      }
+
+      document.getElementById('lh-preview-confirm').addEventListener('click', function () {
+        if (!pendingImport) return;
+        var res = mergeStudents(pendingImport.list);
+        var source = pendingImport.source;
+        hideImportPreview();
+        document.getElementById('lh-paste').value = '';
+        renderTable();
+        refreshClassSelect();
+        showMsg(lhImportMsg, 'Đã thêm ' + res.added + ' bạn vào lớp ' + activeClass + ' (' + source + ').');
+      });
+
+      document.getElementById('lh-preview-cancel').addEventListener('click', function () {
+        hideImportPreview();
+        showMsg(lhImportMsg, 'Đã hủy — chưa thêm bạn nào.');
+      });
 
       document.getElementById('lh-paste-add').addEventListener('click', function () {
         var helper = gvClasses();
         if (!activeClass) { showMsg(lhImportMsg, 'Tạo lớp trước đã nhé.'); return; }
-        var names = helper ? helper.parse(document.getElementById('lh-paste').value) : [];
-        if (!names.length) { showMsg(lhImportMsg, 'Không đọc được tên nào — mỗi bạn một dòng nhé.'); return; }
-        var res = mergeStudents(names.map(function (n) { return { name: n, gender: '' }; }));
-        renderTable();
-        document.getElementById('lh-paste').value = '';
-        showMsg(lhImportMsg, 'Đã thêm ' + res.added + ' bạn vào lớp ' + activeClass + (res.skipped ? ' (bỏ ' + res.skipped + ' tên trùng).' : '.'));
+        var list = helper ? helper.parseRecords(document.getElementById('lh-paste').value) : [];
+        if (!list.length) { showMsg(lhImportMsg, 'Không đọc được tên nào — mỗi bạn một dòng nhé.'); return; }
+        showImportPreview(list, 'dán từ Excel');
       });
 
-      function normGender(v) {
-        var t = String(v == null ? '' : v).trim().toLowerCase();
-        if (t === 'nam' || t === 'm' || t === 'male') return 'nam';
-        if (t === 'nữ' || t === 'nu' || t === 'f' || t === 'female') return 'nữ';
-        return '';
-      }
-
-      // Đọc CSV: xử lý ô trong dấu ngoặc kép, dấu phẩy/chấm phẩy, BOM.
-      // Cột Tên (bắt buộc) + cột Giới tính (không bắt buộc); có hàng
-      // tiêu đề thì tự nhận theo tên cột, không thì cột 1 là Tên, cột
-      // 2 là Giới tính.
+      // Đọc CSV: bộ tách ký tự xử lý ô trong dấu ngoặc kép, dấu
+      // phẩy/chấm phẩy, BOM; nhận diện cột (STT/Giới tính/Tên) dùng
+      // chung với bộ tách dán Excel trong app.js (helper.parseRows).
       function parseCsv(text) {
         var t = String(text || '').replace(/^\\uFEFF/, '');
         var delim = (t.indexOf(';') !== -1 && t.indexOf(',') === -1) ? ';' : ',';
@@ -695,30 +771,25 @@ ${inits}
         }
         if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
         var helper = gvClasses();
-        var nameCol = 0;
-        var genderCol = 1;
-        var start = 0;
-        if (rows.length) {
-          var head = rows[0].map(function (c) { return String(c).trim().toLowerCase(); });
-          var ni = -1;
-          var gi = -1;
-          head.forEach(function (h, j) {
-            if (ni === -1 && /tên/.test(h)) ni = j;
-            if (gi === -1 && /giới/.test(h)) gi = j;
-          });
-          if (ni !== -1) { nameCol = ni; genderCol = gi; start = 1; }
-        }
-        var out = [];
-        for (var r = start; r < rows.length; r++) {
-          var cells = rows[r];
-          if (!cells[nameCol]) continue;
-          var nm = helper ? helper.parse(cells[nameCol]) : [String(cells[nameCol]).trim()];
-          var name = nm && nm[0];
-          if (!name) continue;
-          var g = (genderCol !== -1 && cells[genderCol]) ? normGender(cells[genderCol]) : '';
-          out.push({ name: name, gender: g });
-        }
-        return out;
+        if (!helper || typeof helper.parseRows !== 'function') return [];
+        return helper.parseRows(rows);
+      }
+
+      // Thư viện đọc Excel (SheetJS, vendored trong src/vendor — không
+      // CDN, không link ngoài) chỉ tải khi người dùng chọn file .xlsx,
+      // để trang nhẹ.
+      var xlsxPromise = null;
+      function loadXlsx() {
+        if (window.XLSX) return Promise.resolve(window.XLSX);
+        if (xlsxPromise) return xlsxPromise;
+        xlsxPromise = new Promise(function (resolve, reject) {
+          var s = document.createElement('script');
+          s.src = '/assets/vendor/xlsx.full.min.js';
+          s.onload = function () { resolve(window.XLSX); };
+          s.onerror = function () { xlsxPromise = null; reject(new Error('Không tải được thư viện đọc Excel.')); };
+          document.head.appendChild(s);
+        });
+        return xlsxPromise;
       }
 
       document.getElementById('lh-file').addEventListener('change', function (ev) {
@@ -726,6 +797,30 @@ ${inits}
         ev.target.value = '';
         if (!file) return;
         if (!activeClass) { showMsg(lhImportMsg, 'Tạo lớp trước đã nhé.'); return; }
+        if (file.name.toLowerCase().endsWith('.xlsx')) {
+          loadXlsx().then(function (XLSX) {
+            var reader = new FileReader();
+            reader.onload = function () {
+              var list = [];
+              try {
+                var wb = XLSX.read(reader.result, { type: 'array' });
+                var ws = wb.Sheets[wb.SheetNames[0]];
+                var rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: false, defval: '' });
+                var helper = gvClasses();
+                list = (helper && typeof helper.parseRows === 'function') ? helper.parseRows(rows) : [];
+              } catch (e) { list = []; }
+              if (!list.length) {
+                showMsg(lhImportMsg, 'File không có tên nào đọc được — file .xlsx cần có cột Tên (xem file mẫu).');
+                return;
+              }
+              showImportPreview(list, 'file ' + file.name);
+            };
+            reader.readAsArrayBuffer(file);
+          }).catch(function () {
+            showMsg(lhImportMsg, 'Không tải được thư viện đọc Excel — kiểm tra mạng rồi thử lại, hoặc dán danh sách vào ô trên.');
+          });
+          return;
+        }
         var reader = new FileReader();
         reader.onload = function () {
           var list = parseCsv(reader.result);
@@ -733,9 +828,7 @@ ${inits}
             showMsg(lhImportMsg, 'File không có tên nào đọc được — file .csv cần có cột Tên (xem file mẫu).');
             return;
           }
-          var res = mergeStudents(list);
-          renderTable();
-          showMsg(lhImportMsg, 'Đã nhập từ file ' + file.name + ': thêm ' + res.added + ' bạn vào lớp ' + activeClass + (res.skipped ? ' (bỏ ' + res.skipped + ' tên trùng).' : '.'));
+          showImportPreview(list, 'file ' + file.name);
         };
         reader.readAsText(file);
       });
@@ -754,7 +847,7 @@ ${inits}
       });
 
       // ---------- Sao lưu / khôi phục ----------
-      var BACKUP_KEYS = ['uh_gv_lop', 'uh_bangdiemlop', 'uh_gv_diemdanh', 'uh_gv_cauhoi', 'uh_gv_cauhoi_asked', 'uh_gv_sound', 'uh_gv_vol', 'uh_gv_lop_active'];
+      var BACKUP_KEYS = ['uh_gv_lop', 'uh_bangdiemlop', 'uh_gv_diemdanh', 'uh_gv_cauhoi', 'uh_gv_cauhoi_asked', 'uh_gv_sound', 'uh_gv_vol', 'uh_gv_lop_active', 'uh_gv_dayhoc'];
       var restorePayload = null;
       var restoreTimer = null;
 

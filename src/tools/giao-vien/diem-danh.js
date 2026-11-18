@@ -22,6 +22,10 @@ export function body() {
   <div class="field"><label for="dd-class">Lớp</label><select id="dd-class"><option value="">— Chọn lớp —</option></select></div>
   <div class="field"><label for="dd-date">Ngày điểm danh</label><input id="dd-date" type="date"></div>
   <p class="note" id="dd-no-class" style="display:none">Chưa lưu lớp nào — vào <a href="/cong-cu/goi-ten-ngau-nhien/">Gọi tên ngẫu nhiên</a>, dán danh sách lớp rồi bấm "Lưu lớp" trước đã nhé.</p>
+  <div class="gv-app-noclass" id="dd-no-class-app" style="display:none">
+    <p id="dd-no-class-app-text">Chưa có lớp nào — tạo lớp ở tab Lớp học để điểm danh.</p>
+    <button type="button" class="btn btn-primary" id="dd-no-class-btn">Tạo lớp</button>
+  </div>
   <p class="muted" id="dd-saved" style="display:none"></p>
   <div class="gv-att-summary" id="dd-summary" style="display:none"></div>
   <div class="gv-att-grid" id="dd-grid"></div>
@@ -82,12 +86,30 @@ export function init(root) {
   function currentClass() { return $('dd-class').value; }
   function currentDate() { return $('dd-date').value || todayLocal(); }
 
+  function isToday() { return currentDate() === todayLocal(); }
+
   function loadMarks() {
     const all = loadAll();
     const cls = all[currentClass()];
-    marks = (cls && cls[currentDate()] && typeof cls[currentDate()] === 'object')
+    const saved = (cls && cls[currentDate()] && typeof cls[currentDate()] === 'object')
       ? Object.assign({}, cls[currentDate()])
       : {};
+    if (isToday()) {
+      // Hôm nay: cờ Vắng trong bản ghi lớp là nguồn duy nhất — trạng
+      // thái Vắng lấy từ cột Vắng ở tab Lớp học (đánh vắng ở đâu cũng
+      // hiện ở chỗ kia); chỉ "Muộn" lấy từ nhật ký vì bản ghi lớp
+      // không có trạng thái Muộn. Ngày khác thì đọc nhật ký như cũ.
+      marks = {};
+      const helper = gvClasses();
+      const recs = (helper && currentClass() && typeof helper.getRecords === 'function')
+        ? helper.getRecords(currentClass()) : [];
+      recs.forEach(r => {
+        if (r.absent) marks[r.name] = 'vang';
+        else if (saved[r.name] === 'muon') marks[r.name] = 'muon';
+      });
+    } else {
+      marks = saved;
+    }
   }
 
   function saveMarks() {
@@ -130,8 +152,10 @@ export function init(root) {
       sum.style.display = 'none';
       $('dd-actions').style.display = 'none';
       $('dd-saved').style.display = 'none';
+      syncNoClassBlock();
       return;
     }
+    syncNoClassBlock();
     const c = counts();
     sum.innerHTML = '<span class="gv-sum-ok">Có mặt ' + c.ok + '/' + c.total + '</span>'
       + '<span class="gv-sum-vang">Vắng ' + c.vang + '</span>'
@@ -167,6 +191,14 @@ export function init(root) {
     if (!marks[name]) marks[name] = 'vang';
     else if (marks[name] === 'vang') marks[name] = 'muon';
     else delete marks[name];
+    // Hôm nay: ghi ngược cờ Vắng vào bản ghi lớp để tab Lớp học thấy
+    // ngay; ngày khác chỉ là nhật ký, không đụng vào cờ lớp.
+    if (isToday()) {
+      const helper = gvClasses();
+      if (helper && typeof helper.setAbsent === 'function') {
+        helper.setAbsent(currentClass(), name, marks[name] === 'vang');
+      }
+    }
     saveMarks();
     render();
   });
@@ -175,6 +207,10 @@ export function init(root) {
   $('dd-date').addEventListener('change', () => { loadMarks(); render(); });
 
   $('dd-clear').addEventListener('click', () => {
+    if (isToday()) {
+      const helper = gvClasses();
+      if (helper && typeof helper.clearAbsent === 'function') helper.clearAbsent(currentClass());
+    }
     marks = {};
     saveMarks();
     render();
@@ -194,6 +230,33 @@ export function init(root) {
     text += 'Có mặt (' + ok.length + '):\n' + ok.map(n => '- ' + n + '\n').join('');
     download('diem-danh-' + cls + '-' + date + '.txt', text);
   });
+
+  // Khối "chưa có lớp" của Bàn giáo viên: 1 nút duy nhất dẫn về tab
+  // Lớp học (thay cho câu "Chưa lưu lớp nào — vào..." của trang rời,
+  // vốn chỉ đường về trang Gọi tên rời, không đúng trong app).
+  function syncNoClassBlock() {
+    if (!IN_APP) return;
+    $('dd-no-class').style.display = 'none';
+    const block = $('dd-no-class-app');
+    if (!block) return;
+    const helper = gvClasses();
+    const map = helper ? helper.list() : {};
+    const classNames = Object.keys(map);
+    const cls = currentClass();
+    const text = $('dd-no-class-app-text');
+    const btn = $('dd-no-class-btn');
+    if (!classNames.length) {
+      if (text) text.textContent = 'Chưa có lớp nào — tạo lớp ở tab Lớp học để điểm danh.';
+      if (btn) btn.textContent = 'Tạo lớp';
+      block.style.display = '';
+    } else if (cls && !(helper && helper.get(cls).length)) {
+      if (text) text.textContent = 'Lớp ' + cls + ' chưa có bạn nào — thêm bạn ở tab Lớp học.';
+      if (btn) btn.textContent = 'Mở tab Lớp học';
+      block.style.display = '';
+    } else {
+      block.style.display = 'none';
+    }
+  }
 
   // Khởi tạo: nạp danh sách lớp đã lưu, ngày mặc định là hôm nay.
   // Trong Bàn giáo viên: lớp mặc định là lớp đang chọn ở tab Lớp học;
@@ -216,13 +279,20 @@ export function init(root) {
     if (active && map[active]) sel.value = active;
     else if (cur && map[cur]) sel.value = cur;
     else if (classNames.length) sel.value = classNames[0];
-    $('dd-no-class').style.display = classNames.length ? 'none' : '';
+    if (!IN_APP) $('dd-no-class').style.display = classNames.length ? 'none' : '';
     loadMarks();
     render();
   }
 
   (function setup() {
     $('dd-date').value = todayLocal();
+    if (IN_APP) {
+      const noClassBtn = $('dd-no-class-btn');
+      if (noClassBtn) noClassBtn.addEventListener('click', () => {
+        const tab = document.getElementById('gv-tab-lop-hoc');
+        if (tab) tab.click();
+      });
+    }
     const helper = gvClasses();
     const map = helper ? helper.list() : {};
     const sel = $('dd-class');
@@ -235,12 +305,13 @@ export function init(root) {
     });
     if (!classNames.length) {
       if (IN_APP) {
-        $('dd-no-class').innerHTML = 'Chưa lưu lớp nào — vào tab Lớp học, tạo lớp rồi dán danh sách trước đã nhé.';
+        syncNoClassBlock();
         // Vẫn gắn hook để khi giáo viên tạo lớp ở tab Lớp học rồi quay
         // lại, tab này tự nạp lớp mới.
         root._gvRefresh = refreshFromActiveClass;
+      } else {
+        $('dd-no-class').style.display = '';
       }
-      $('dd-no-class').style.display = '';
       return;
     }
     if (IN_APP) {

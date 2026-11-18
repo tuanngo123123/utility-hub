@@ -19,6 +19,10 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><h2>Chia nhóm ngẫu nhiên</h2><p class="muted">Dán danh sách lớp, chọn cách chia — các nhóm được xáo trộn và chia đều, lệch nhau tối đa 1 bạn, mỗi bạn có một vai trò.</p></div></div>
+  <div class="gv-app-noclass" id="cn-no-class" style="display:none">
+    <p id="cn-no-class-text">Chưa có lớp nào — tạo lớp ở tab Lớp học để chia nhóm.</p>
+    <button type="button" class="btn btn-primary" id="cn-no-class-btn">Tạo lớp</button>
+  </div>
   <div class="field"><label for="cn-class-load">Nạp từ lớp đã lưu <span class="muted">(lưu lớp trong công cụ Gọi tên)</span></label>
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <select id="cn-class-load" style="flex:1;min-width:140px"><option value="">— Chọn lớp đã lưu —</option></select>
@@ -73,27 +77,38 @@ export function init(root) {
   function tick() { const s = gvSound(); if (s) s.tick(); }
   function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
-  // Tách danh sách tên — xử lý cả khi dán từ Excel: dòng có tab thì lấy
-  // phần sau tab cuối (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
-  // "An"), bỏ dòng tiêu đề. Dùng helper dùng chung khi có, dự phòng
-  // bằng logic giống hệt khi app.js chưa nạp.
+  // Tách danh sách tên — nhận diện cột như helper dùng chung (dán
+  // Excel 3 cột STT/Họ tên/Giới tính thì lấy đúng cột tên, không lấy
+  // cột giới tính làm tên). Dùng helper khi có, dự phòng bằng logic
+  // giống hệt khi app.js chưa nạp.
   function parseNames(text) {
     const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
     if (helper) return helper.parse(text);
-    const seen = {};
+    const isHead = c => /^(stt|số thứ tự|họ(\s*và)?\s*tên|họ tên( học sinh)?|tên( học sinh)?|tên gọi|họ đệm|giới tính|giới|nam\/nữ|ghi chú|ngày sinh|địa chỉ|nơi sinh|lớp)$/i.test(c);
+    const rows = String(text == null ? '' : text).split(/\r\n|\r|\n/).map(l => String(l).split('\t').map(c => c.trim()));
+    const data = rows.filter(r => r.some(c => c !== '') && !r.some(isHead));
+    if (!data.length) return [];
+    const maxCols = Math.max.apply(null, data.map(r => r.length));
+    const isStt = [], isGender = [];
+    for (let j = 0; j < maxCols; j++) {
+      const vals = data.map(r => r[j]).filter(v => v !== undefined && v !== '');
+      isStt[j] = vals.length > 0 && vals.every(v => /^\d{1,3}[.)]?$/.test(v));
+      isGender[j] = vals.length > 0 && vals.every(v => /^(nam|nữ|nu|m|f|male|female)$/i.test(v));
+    }
+    const gCol = isGender.indexOf(true);
+    let nameCols = [];
+    for (let j = 0; j < maxCols; j++) {
+      if (isStt[j] || isGender[j]) continue;
+      if (gCol === -1 || j < gCol) nameCols.push(j);
+    }
+    if (!nameCols.length && gCol !== -1) {
+      for (let j = gCol + 1; j < maxCols; j++) { if (!isStt[j] && !isGender[j]) nameCols.push(j); }
+    }
     const out = [];
-    String(text == null ? '' : text).split(/\n+/).forEach(line => {
-      let t = String(line).trim();
-      if (!t) return;
-      if (t.indexOf('\t') !== -1) {
-        const parts = t.split('\t');
-        t = parts[parts.length - 1].trim();
-        if (!t) return;
-      }
-      t = t.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
-      if (!t) return;
-      if (/^(họ\s*(và\s*)?tên|họ tên học sinh|tên học sinh|tên|stt)$/i.test(t)) return;
-      if (!seen[t]) { seen[t] = true; out.push(t); }
+    data.forEach(r => {
+      let name = nameCols.map(c => r[c] || '').filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+      name = name.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
+      if (name && !isHead(name)) out.push(name);
     });
     return out;
   }
@@ -323,6 +338,19 @@ export function init(root) {
     const sig = active + '\n' + names.join('\n');
     if (sig === appSig) return;
     appSig = sig;
+    // Chưa có lớp (hoặc lớp chưa có bạn nào để chia): hiện đúng 1 nút
+    // dẫn về tab Lớp học, thay cho ô dán danh sách của trang rời.
+    const noClass = $('cn-no-class');
+    if (noClass) {
+      const show = names.length === 0;
+      noClass.style.display = show ? '' : 'none';
+      if (show) {
+        $('cn-no-class-text').textContent = active
+          ? 'Lớp ' + active + ' chưa có bạn nào để chia — thêm bạn hoặc bỏ đánh dấu Vắng ở tab Lớp học.'
+          : 'Chưa có lớp nào — tạo lớp ở tab Lớp học để chia nhóm.';
+        $('cn-no-class-btn').textContent = active ? 'Mở tab Lớp học' : 'Tạo lớp';
+      }
+    }
     $('cn-names').value = names.join('\n');
     groups = [];
     $('cn-out').hidden = true;
@@ -336,6 +364,15 @@ export function init(root) {
     if (msg) msg.style.display = 'none';
     const namesField = $('cn-names').closest('.field');
     if (namesField) namesField.style.display = 'none';
+    // Trong app, danh sách lấy từ tab Lớp học — mô tả của trang rời
+    // ("Dán danh sách lớp...") không còn đúng nữa nên đổi theo.
+    const desc = root.querySelector('.tool-head p');
+    if (desc) desc.textContent = 'Danh sách lấy từ lớp đang chọn ở tab Lớp học — các nhóm được xáo trộn và chia đều, lệch nhau tối đa 1 bạn, mỗi bạn có một vai trò.';
+    const noClassBtn = $('cn-no-class-btn');
+    if (noClassBtn) noClassBtn.addEventListener('click', () => {
+      const tab = document.getElementById('gv-tab-lop-hoc');
+      if (tab) tab.click();
+    });
     root._gvRefresh = loadFromActiveClass;
     loadFromActiveClass();
   }

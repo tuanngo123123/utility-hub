@@ -3043,32 +3043,110 @@
      get() trả về mảng tên, save() nhận mảng tên và GIỮ nguyên thông
      tin bản ghi của tên đã có. Lớp đang dạy dùng chung cho Bàn giáo
      viên lưu ở key 'uh_gv_lop_active' (active()/setActive()).
-     parse() xử lý cả trường hợp dán từ Excel: dòng có tab thì lấy phần
-     sau tab cuối cùng (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
-     "An"), bỏ dòng tiêu đề ("Họ tên"). An toàn khi chạy dưới Node. */
+     parseRows()/parseRecords() tách bảng lớp theo NHẬN DIỆN CỘT (dán
+     Excel / CSV / XLSX dùng chung): cột toàn số = STT (bỏ), cột chỉ có
+     Nam/Nữ/nam/nữ/M/F = giới tính, các cột còn lại trước cột giới tính
+     = phần của họ tên (Họ đệm + Tên tách 2 cột thì gộp lại), cột sau
+     giới tính (Ghi chú...) bỏ qua; bỏ dòng tiêu đề; KHÔNG gộp trùng
+     tên (lớp hay có 2 bạn trùng họ tên — giữ cả hai). parse() trả về
+     mảng tên (dùng cho công cụ cũ). An toàn khi chạy dưới Node. */
   var GV_CLASS_KEY = 'uh_gv_lop';
   var GV_ACTIVE_KEY = 'uh_gv_lop_active';
 
-  function gvParseNames(text) {
-    var seen = {};
-    var out = [];
-    String(text == null ? '' : text).split(/\n+/).forEach(function (line) {
-      var t = String(line).trim();
-      if (!t) return;
-      // Dán từ Excel: "1 [tab] Nguyễn Văn A" → lấy sau tab cuối.
-      if (t.indexOf('\t') !== -1) {
-        var parts = t.split('\t');
-        t = parts[parts.length - 1].trim();
-        if (!t) return;
+  function gvCellText(v) {
+    return String(v == null ? '' : v).replace(/\u00A0/g, ' ').trim();
+  }
+
+  // Ô tiêu đề cột (khớp đúng cả ô): "STT", "Họ tên", "Giới tính"...
+  // Hàng nào có 1 ô như vậy là hàng tiêu đề — tên học sinh thật không
+  // bao giờ là đúng 1 từ này nên không sợ bỏ nhầm hàng dữ liệu.
+  function gvIsHeaderCell(t) {
+    return /^(stt|số thứ tự|họ(\s*và)?\s*tên|họ tên( học sinh)?|tên( học sinh)?|tên gọi|họ đệm|giới tính|giới|nam\/nữ|ghi chú|ngày sinh|địa chỉ|nơi sinh|lớp|mssv|mã( số| học sinh)?|số báo danh)$/i.test(t);
+  }
+
+  function gvIsHeaderRow(cells) {
+    return cells.some(gvIsHeaderCell);
+  }
+
+  function gvNormGender(v) {
+    var t = gvCellText(v).toLowerCase();
+    if (t === 'nam' || t === 'm' || t === 'male') return 'nam';
+    if (t === 'nữ' || t === 'nu' || t === 'f' || t === 'female') return 'nữ';
+    return '';
+  }
+
+  function gvIsGenderValue(t) {
+    return /^(nam|nữ|nu|m|f|male|female)$/i.test(t);
+  }
+
+  // Tách bảng lớp từ mảng hàng (mỗi hàng là mảng ô) thành bản ghi
+  // {name, gender}. Dùng chung cho dán Excel, CSV và XLSX — chỉ khác
+  // cách tách văn bản/file thành hàng.
+  function gvParseRows(rows) {
+    var data = [];
+    (rows || []).forEach(function (row) {
+      if (!row) return;
+      var cells = (Array.isArray(row) ? row : [row]).map(gvCellText);
+      if (!cells.some(function (c) { return c !== ''; })) return;
+      if (gvIsHeaderRow(cells)) return;
+      data.push(cells);
+    });
+    if (!data.length) return [];
+    var maxCols = 0;
+    data.forEach(function (r) { if (r.length > maxCols) maxCols = r.length; });
+    // Vai trò từng cột trên toàn bộ hàng: STT (toàn số) / giới tính
+    // (chỉ Nam/Nữ/...) / còn lại là phần của tên.
+    var isStt = [];
+    var isGender = [];
+    for (var j = 0; j < maxCols; j++) {
+      var vals = [];
+      data.forEach(function (r) { if (r[j] !== undefined && r[j] !== '') vals.push(r[j]); });
+      isStt[j] = vals.length > 0 && vals.every(function (v) { return /^\d{1,3}[.)]?$/.test(v); });
+      isGender[j] = vals.length > 0 && vals.every(gvIsGenderValue);
+    }
+    var genderCol = -1;
+    for (var g = 0; g < maxCols; g++) { if (isGender[g]) { genderCol = g; break; } }
+    // Cột tên: các cột không phải STT/giới tính TRƯỚC cột giới tính
+    // (cột sau giới tính thường là Ghi chú — bỏ qua). Không có cột
+    // nào trước giới tính thì lấy các cột sau giới tính; không có cột
+    // giới tính thì lấy mọi cột không phải STT.
+    var nameCols = [];
+    for (var k = 0; k < maxCols; k++) {
+      if (isStt[k] || isGender[k]) continue;
+      if (genderCol === -1 || k < genderCol) nameCols.push(k);
+    }
+    if (!nameCols.length && genderCol !== -1) {
+      for (var k2 = genderCol + 1; k2 < maxCols; k2++) {
+        if (!isStt[k2] && !isGender[k2]) nameCols.push(k2);
       }
-      // Bỏ số thứ tự đầu dòng: "1. An", "1) An", "1 - An", "1 An".
-      t = t.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
-      if (!t) return;
-      // Bỏ dòng tiêu đề cột khi dán cả bảng Excel.
-      if (/^(họ\s*(và\s*)?tên|họ tên học sinh|tên học sinh|tên|stt)$/i.test(t)) return;
-      if (!seen[t]) { seen[t] = true; out.push(t); }
+    }
+    if (!nameCols.length) return [];
+    var out = [];
+    data.forEach(function (r) {
+      var parts = [];
+      nameCols.forEach(function (c) {
+        var v = r[c];
+        if (v !== undefined && v !== '') parts.push(v);
+      });
+      var name = parts.join(' ').replace(/\s+/g, ' ').trim();
+      // Dán 1 cột kiểu "1. Nguyễn Văn A": bỏ số thứ tự đầu dòng.
+      name = name.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
+      if (!name || gvIsHeaderCell(name)) return;
+      var gender = (genderCol !== -1 && r[genderCol]) ? gvNormGender(r[genderCol]) : '';
+      out.push({ name: name, gender: gender });
     });
     return out;
+  }
+
+  function gvParseTable(text) {
+    var rows = String(text == null ? '' : text).split(/\r\n|\r|\n/).map(function (line) {
+      return String(line).split('\t');
+    });
+    return gvParseRows(rows);
+  }
+
+  function gvParseNames(text) {
+    return gvParseTable(text).map(function (r) { return r.name; });
   }
 
   // Điểm đã lưu trong Bảng điểm lớp (mảng [{name, score}]) — dùng để
@@ -3123,10 +3201,10 @@
         // Dạng cũ (mảng tên thuần) thì chuyển đổi + lưu lại ngay.
         if (data[k].some(function (n) { return typeof n === 'string'; })) migrated = true;
         var recs = [];
-        var seen = {};
+        // Không gộp trùng tên: lớp hay có 2 bạn trùng họ tên — giữ cả hai.
         data[k].forEach(function (r) {
           var rec = gvNormRecord(r, scores);
-          if (rec && !seen[rec.name]) { seen[rec.name] = true; recs.push(rec); }
+          if (rec) recs.push(rec);
         });
         // Giữ cả lớp rỗng (giáo viên vừa tạo lớp chưa kịp thêm bạn).
         if (k.trim()) clean[k.trim()] = recs;
@@ -3144,6 +3222,8 @@
   if (typeof window !== 'undefined') {
     window.UhGvClasses = {
       parse: gvParseNames,
+      parseRecords: gvParseTable,
+      parseRows: gvParseRows,
       list: gvLoadClasses,
       get: function (name) {
         var map = gvLoadClasses();
@@ -3158,12 +3238,14 @@
         var byName = {};
         old.forEach(function (r) { byName[r.name] = r; });
         var recs = [];
-        var seen = {};
         (names || []).forEach(function (n) {
           var t = String(n == null ? '' : n).trim();
-          if (!t || seen[t]) return;
-          seen[t] = true;
-          recs.push(byName[t] || { name: t, gender: '', star: false, absent: false, points: 0 });
+          if (!t) return;
+          // Không gộp trùng tên; nhân bản bản ghi cũ để 2 bạn trùng
+          // tên không dùng chung 1 object trong mảng.
+          recs.push(byName[t]
+            ? gvNormRecord(byName[t])
+            : { name: t, gender: '', star: false, absent: false, points: 0 });
         });
         map[key] = recs;
         return gvSaveClasses(map);
@@ -3180,10 +3262,10 @@
         var key = String(name).trim();
         var scores = gvScoreboard();
         var recs = [];
-        var seen = {};
+        // Không gộp trùng tên: lớp hay có 2 bạn trùng họ tên — giữ cả hai.
         (records || []).forEach(function (r) {
           var rec = gvNormRecord(r, scores);
-          if (rec && !seen[rec.name]) { seen[rec.name] = true; recs.push(rec); }
+          if (rec) recs.push(rec);
         });
         map[key] = recs;
         return gvSaveClasses(map);
@@ -3191,6 +3273,61 @@
       remove: function (name) {
         var map = gvLoadClasses();
         delete map[name];
+        return gvSaveClasses(map);
+      },
+      // Cộng/trừ điểm cho bạn đầu tiên trùng tên trong lớp (dự
+      // phòng khi nút +1 ở Gọi tên không ánh xạ được chỉ số; đường
+      // chính dùng setPointsAt theo vị trí để không nhầm trùng tên).
+      addPoints: function (className, studentName, delta) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].name === studentName) {
+            recs[i].points = (recs[i].points || 0) + delta;
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
+      },
+      // Đặt điểm theo vị trí trong lớp (Bảng điểm chế độ Cá nhân dùng
+      // chỉ số để không nhầm 2 bạn trùng tên).
+      setPointsAt: function (className, index, points) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs || !recs[index]) return false;
+        recs[index].points = points;
+        return gvSaveClasses(map);
+      },
+      // Đặt lại toàn bộ điểm của lớp về 0.
+      resetPoints: function (className) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        recs.forEach(function (r) { r.points = 0; });
+        return gvSaveClasses(map);
+      },
+      // Đặt cờ vắng cho bạn đầu tiên trùng tên (Điểm danh hôm nay —
+      // cờ vắng trong bản ghi lớp là nguồn duy nhất cho cột Vắng và
+      // trạng thái Vắng của Điểm danh trong ngày).
+      setAbsent: function (className, studentName, absent) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].name === studentName) {
+            recs[i].absent = !!absent;
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
+      },
+      // Xóa cờ vắng của cả lớp (Điểm danh "tất cả có mặt" hôm nay).
+      clearAbsent: function (className) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        recs.forEach(function (r) { r.absent = false; });
         return gvSaveClasses(map);
       },
       // Lớp đang dạy dùng chung cho Bàn giáo viên (tab Lớp học đặt,

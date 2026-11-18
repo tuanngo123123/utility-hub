@@ -239,7 +239,11 @@ export function init(root) {
       $('bq-who').style.display = '';
     } else {
       $('bq-who').style.display = 'none';
-      if ($('bq-with-name').checked) setMsg('Chưa chọn lớp nên chỉ bốc câu hỏi — chọn lớp ở ô dưới để bốc kèm tên.');
+      // Trong Bàn giáo viên, ô chọn lớp ở dưới đã bị ẩn — chỉ đường về
+      // tab Lớp học thay vì "chọn lớp ở ô dưới".
+      if ($('bq-with-name').checked) setMsg(IN_APP
+        ? 'Chưa có lớp nào — tạo lớp ở tab Lớp học để bốc kèm tên bạn trả lời.'
+        : 'Chưa chọn lớp nên chỉ bốc câu hỏi — chọn lớp ở ô dưới để bốc kèm tên.');
     }
     tick();
     updateStatus();

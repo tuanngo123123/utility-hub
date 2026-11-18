@@ -18,6 +18,14 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></span><div><h2>Bảng điểm lớp</h2><p class="muted">Thêm đội hoặc tên bạn, cộng/trừ điểm nhanh — bảng tự xếp hạng theo điểm. Điểm được lưu trên trình duyệt này, tải lại trang vẫn còn.</p></div></div>
+  <div class="tabs" id="bd-mode-tabs" style="display:none">
+    <button type="button" class="tab tab-active" id="bd-mode-class">Cá nhân</button>
+    <button type="button" class="tab" id="bd-mode-team">Đội</button>
+  </div>
+  <div class="gv-app-noclass" id="bd-no-class" style="display:none">
+    <p id="bd-no-class-text">Chưa có lớp nào — tạo lớp ở tab Lớp học để chấm điểm cá nhân.</p>
+    <button type="button" class="btn btn-primary" id="bd-no-class-btn">Tạo lớp</button>
+  </div>
   <div class="field"><label for="bd-name">Tên đội hoặc tên bạn</label>
     <div style="display:flex;gap:8px">
       <input id="bd-name" type="text" placeholder="Ví dụ: Tổ 1, Đội Sao Biển…" autocomplete="off" style="flex:1;min-width:0">
@@ -38,8 +46,15 @@ export function body() {
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
+  // Chế độ Bàn giáo viên: trang /giao-vien/lop-hoc/ nhúng công cụ này
+  // với data-gv-app="1" — bảng có 2 chế độ: Cá nhân (điểm lấy từ lớp
+  // đang chọn, DÙNG CHUNG cột Điểm ở tab Lớp học — một nguồn duy
+  // nhất là bản ghi lớp) và Đội (danh sách đội riêng như trang rời).
+  const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const KEY = 'uh_bangdiemlop';
-  let entries = [];
+  let mode = 'team'; // 'class' = Cá nhân (chỉ trong app), 'team' = Đội
+  let entries = []; // {name, score, recIndex?} — recIndex là vị trí
+  // trong bản ghi lớp (chế độ Cá nhân), để không nhầm 2 bạn trùng tên.
   let clearArmed = false;
   let clearTimer = null;
   let stageOpen = false;
@@ -57,15 +72,39 @@ export function init(root) {
   function tick() { const s = gvSound(); if (s) s.tick(); }
   function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
-  function load() {
+  function gvClasses() {
+    return (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+  }
+
+  function activeClass() {
+    const h = gvClasses();
+    return (h && typeof h.active === 'function') ? h.active() : '';
+  }
+
+  // Chế độ Đội: danh sách riêng lưu ở uh_bangdiemlop (như trang rời).
+  function loadTeam() {
     try {
       const raw = localStorage.getItem(KEY);
-      if (!raw) return;
+      if (!raw) { entries = []; return; }
       const data = JSON.parse(raw);
-      if (Array.isArray(data)) {
-        entries = data.filter(e => e && typeof e.name === 'string' && typeof e.score === 'number');
-      }
-    } catch (e) { /* lưu trữ không khả dụng — dùng bảng trống */ }
+      entries = Array.isArray(data)
+        ? data.filter(e => e && typeof e.name === 'string' && typeof e.score === 'number')
+        : [];
+    } catch (e) { entries = []; }
+  }
+
+  // Chế độ Cá nhân: điểm lấy thẳng từ bản ghi lớp đang chọn.
+  function loadClass() {
+    const h = gvClasses();
+    const cls = activeClass();
+    const recs = (h && cls && typeof h.getRecords === 'function') ? h.getRecords(cls) : [];
+    entries = recs.map((r, i) => ({ name: r.name, score: r.points || 0, recIndex: i }));
+  }
+
+  function refresh() {
+    if (IN_APP && mode === 'class') loadClass();
+    else loadTeam();
+    render();
   }
 
   function save() {
@@ -89,9 +128,28 @@ export function init(root) {
 
   function render() {
     const list = $('bd-list');
-    $('bd-empty').style.display = entries.length ? 'none' : '';
+    // Chế độ Cá nhân: chưa có lớp (hoặc lớp chưa có bạn) thì hiện đúng
+    // 1 nút dẫn về tab Lớp học, thay cho ô gõ tay của trang rời.
+    const noClass = $('bd-no-class');
+    if (IN_APP && mode === 'class') {
+      const cls = activeClass();
+      if (!cls) {
+        $('bd-no-class-text').textContent = 'Chưa có lớp nào — tạo lớp ở tab Lớp học để chấm điểm cá nhân.';
+        $('bd-no-class-btn').textContent = 'Tạo lớp';
+        noClass.style.display = '';
+      } else if (!entries.length) {
+        $('bd-no-class-text').textContent = 'Lớp ' + cls + ' chưa có bạn nào — thêm bạn ở tab Lớp học.';
+        $('bd-no-class-btn').textContent = 'Mở tab Lớp học';
+        noClass.style.display = '';
+      } else {
+        noClass.style.display = 'none';
+      }
+    } else if (noClass) {
+      noClass.style.display = 'none';
+    }
+    $('bd-empty').style.display = (entries.length || (IN_APP && mode === 'class')) ? 'none' : '';
     $('bd-download').style.display = entries.length ? '' : 'none';
-    if (!entries.length) { list.innerHTML = ''; return; }
+    if (!entries.length) { list.innerHTML = ''; updateStage(); return; }
     const max = maxScore();
     list.innerHTML = sorted().map((row, rank) => {
       const neg = row.e.score < 0 ? ' gv-score-num-neg' : '';
@@ -104,7 +162,10 @@ export function init(root) {
         + '<button type="button" class="btn gv-mini gv-btn-add" data-act="add" data-i="' + row.i + '" data-v="1">+1</button>'
         + '<button type="button" class="btn gv-mini gv-btn-add5" data-act="add" data-i="' + row.i + '" data-v="5">+5</button>'
         + '<button type="button" class="btn gv-mini gv-btn-sub" data-act="add" data-i="' + row.i + '" data-v="-1">−1</button>'
-        + '<button type="button" class="btn btn-ghost gv-mini" data-act="del" data-i="' + row.i + '" aria-label="Xóa ' + esc(row.e.name) + '">✕</button>'
+        // Chế độ Cá nhân: học sinh quản lý ở tab Lớp học, không xóa ở đây.
+        + ((IN_APP && mode === 'class')
+          ? ''
+          : '<button type="button" class="btn btn-ghost gv-mini" data-act="del" data-i="' + row.i + '" aria-label="Xóa ' + esc(row.e.name) + '">✕</button>')
         + '</span>'
         + '<span class="gv-score-bar"><span class="gv-score-bar-fill" style="width:' + pct + '%"></span></span>'
         + '</div>';
@@ -169,9 +230,18 @@ export function init(root) {
     if (isNaN(i) || !entries[i]) return;
     if (btn.getAttribute('data-act') === 'add') {
       const v = parseInt(btn.getAttribute('data-v'), 10) || 0;
-      entries[i].score += v;
+      if (IN_APP && mode === 'class') {
+        // Ghi thẳng vào bản ghi lớp (theo vị trí, không theo tên — để
+        // không nhầm 2 bạn trùng tên); tab Lớp học thấy ngay lần mở sau.
+        const h = gvClasses();
+        const next = entries[i].score + v;
+        if (h && typeof h.setPointsAt === 'function') h.setPointsAt(activeClass(), entries[i].recIndex, next);
+        entries[i].score = next;
+      } else {
+        entries[i].score += v;
+        save();
+      }
       if (v === 5) fanfare(); else tick();
-      save();
       render();
       // Hiệu ứng sau khi vẽ lại (vẽ lại thay toàn bộ HTML của hàng).
       const fresh = $('bd-list').querySelector('.gv-score-row[data-i="' + i + '"]');
@@ -194,6 +264,26 @@ export function init(root) {
   $('bd-clear').addEventListener('click', () => {
     if (!entries.length) return;
     const btn = $('bd-clear');
+    // Chế độ Cá nhân: không xóa học sinh, chỉ đặt lại điểm về 0.
+    if (IN_APP && mode === 'class') {
+      if (!clearArmed) {
+        clearArmed = true;
+        btn.textContent = 'Bấm lại để đặt lại về 0';
+        clearTimer = setTimeout(() => {
+          clearArmed = false;
+          btn.textContent = 'Đặt lại điểm về 0';
+        }, 3000);
+        return;
+      }
+      clearTimeout(clearTimer);
+      clearArmed = false;
+      btn.textContent = 'Đặt lại điểm về 0';
+      const h = gvClasses();
+      if (h && typeof h.resetPoints === 'function') h.resetPoints(activeClass());
+      refresh();
+      setMsg('Đã đặt lại điểm của lớp về 0.');
+      return;
+    }
     if (!clearArmed) {
       clearArmed = true;
       btn.textContent = 'Bấm lại để xóa hết';
@@ -281,11 +371,40 @@ export function init(root) {
     paint();
   })();
 
+  // Chuyển chế độ Cá nhân / Đội (chỉ có trong Bàn giáo viên).
+  function setMode(m) {
+    mode = m;
+    $('bd-mode-class').classList.toggle('tab-active', m === 'class');
+    $('bd-mode-team').classList.toggle('tab-active', m === 'team');
+    const addField = $('bd-name').closest('.field');
+    if (addField) addField.style.display = m === 'class' ? 'none' : '';
+    $('bd-clear').textContent = m === 'class' ? 'Đặt lại điểm về 0' : 'Xóa bảng điểm';
+    clearArmed = false;
+    setMsg('');
+    refresh();
+  }
+  $('bd-mode-class').addEventListener('click', () => setMode('class'));
+  $('bd-mode-team').addEventListener('click', () => setMode('team'));
+
   // Hook cho Bàn giáo viên: app gọi root._gvRefresh() mỗi lần mở lại
   // tab để nhận điểm vừa sửa ở tab Lớp học hay cộng từ Gọi tên.
   // Trang rời không gọi hook này nên không ảnh hưởng gì.
-  root._gvRefresh = function () { load(); render(); };
+  root._gvRefresh = refresh;
 
-  load();
-  render();
+  if (IN_APP) {
+    // Mô tả của trang rời ("Thêm đội hoặc tên bạn...") không còn đúng
+    // trong app — chế độ Cá nhân không thêm bạn ở đây.
+    const desc = root.querySelector('.tool-head p');
+    if (desc) desc.textContent = 'Chế độ Cá nhân chấm điểm từng bạn trong lớp đang chọn (chung với cột Điểm ở tab Lớp học); chế độ Đội chấm điểm theo đội riêng.';
+    $('bd-mode-tabs').style.display = '';
+    const noClassBtn = $('bd-no-class-btn');
+    if (noClassBtn) noClassBtn.addEventListener('click', () => {
+      const tab = document.getElementById('gv-tab-lop-hoc');
+      if (tab) tab.click();
+    });
+    setMode('class');
+  } else {
+    loadTeam();
+    render();
+  }
 }

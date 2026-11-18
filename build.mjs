@@ -1041,6 +1041,7 @@ async function main() {
   // này pdf.js báo lỗi "Setting up fake worker failed" (đã kiểm chứng thật).
   copyFile('vendor/pdf.worker.min.js', 'assets/vendor/pdf.worker.min.js');
   copyFile('vendor/pdf-lib.min.js', 'assets/vendor/pdf-lib.min.js');
+  copyFile('vendor/xlsx.full.min.js', 'assets/vendor/xlsx.full.min.js');
   for (const f of DATA_FILES) copyFile(`data/${f}`, `data/${f}`);
 
   // Chỉ mục tìm kiếm (sinh từ meta công cụ + bảng đồng nghĩa).

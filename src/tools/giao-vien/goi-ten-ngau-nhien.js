@@ -19,6 +19,10 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><h2>Gọi tên ngẫu nhiên</h2><p class="muted">Vòng quay dừng ở bạn được gọi — không gọi lại người đã gọi cho tới khi hết danh sách. Bấm phím R để gọi nhanh.</p></div></div>
+  <div class="gv-app-noclass" id="gt-no-class" style="display:none">
+    <p id="gt-no-class-text">Chưa có lớp nào — tạo lớp ở tab Lớp học để gọi tên.</p>
+    <button type="button" class="btn btn-primary" id="gt-no-class-btn">Tạo lớp</button>
+  </div>
   <div class="tabs">
     <button type="button" class="tab tab-active" id="gt-tab-wheel">Vòng quay</button>
     <button type="button" class="tab" id="gt-tab-text">Chạy tên</button>
@@ -98,8 +102,13 @@ export function init(root) {
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const WHEEL_COLORS = ['#2563eb', '#0d9488', '#f97316', '#db2777', '#7c3aed', '#059669', '#eab308', '#dc2626'];
   const CONFETTI_COLORS = ['#2563eb', '#f59e0b', '#dc2626', '#059669', '#7c3aed', '#ec4899'];
+  // Đã gọi theo VỊ TRÍ trong danh sách (chỉ số), không theo tên — lớp
+  // có 2 bạn trùng họ tên thì gọi 1 bạn không tính cả bạn kia là đã
+  // gọi. roundPicks giữ tên để hiện thẻ người thắng; roundPickIdx giữ
+  // chỉ số song song để nút +1 cộng đúng vào bạn được gọi.
   let called = [];
   let roundPicks = [];
+  let roundPickIdx = [];
   let busy = false;
   let mode = 'wheel';
   let wheelRotation = 0;
@@ -118,27 +127,38 @@ export function init(root) {
   function tick() { const s = gvSound(); if (s) s.tick(); }
   function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
-  // Tách danh sách tên — xử lý cả khi dán từ Excel: dòng có tab thì lấy
-  // phần sau tab cuối (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
-  // "An"), bỏ dòng tiêu đề. Dùng helper dùng chung khi có, dự phòng
-  // bằng logic giống hệt khi app.js chưa nạp.
+  // Tách danh sách tên — nhận diện cột như helper dùng chung (dán
+  // Excel 3 cột STT/Họ tên/Giới tính thì lấy đúng cột tên, không lấy
+  // cột giới tính làm tên). Dùng helper khi có, dự phòng bằng logic
+  // giống hệt khi app.js chưa nạp.
   function parseNames(text) {
     const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
     if (helper) return helper.parse(text);
-    const seen = {};
+    const isHead = c => /^(stt|số thứ tự|họ(\s*và)?\s*tên|họ tên( học sinh)?|tên( học sinh)?|tên gọi|họ đệm|giới tính|giới|nam\/nữ|ghi chú|ngày sinh|địa chỉ|nơi sinh|lớp)$/i.test(c);
+    const rows = String(text == null ? '' : text).split(/\r\n|\r|\n/).map(l => String(l).split('\t').map(c => c.trim()));
+    const data = rows.filter(r => r.some(c => c !== '') && !r.some(isHead));
+    if (!data.length) return [];
+    const maxCols = Math.max.apply(null, data.map(r => r.length));
+    const isStt = [], isGender = [];
+    for (let j = 0; j < maxCols; j++) {
+      const vals = data.map(r => r[j]).filter(v => v !== undefined && v !== '');
+      isStt[j] = vals.length > 0 && vals.every(v => /^\d{1,3}[.)]?$/.test(v));
+      isGender[j] = vals.length > 0 && vals.every(v => /^(nam|nữ|nu|m|f|male|female)$/i.test(v));
+    }
+    const gCol = isGender.indexOf(true);
+    let nameCols = [];
+    for (let j = 0; j < maxCols; j++) {
+      if (isStt[j] || isGender[j]) continue;
+      if (gCol === -1 || j < gCol) nameCols.push(j);
+    }
+    if (!nameCols.length && gCol !== -1) {
+      for (let j = gCol + 1; j < maxCols; j++) { if (!isStt[j] && !isGender[j]) nameCols.push(j); }
+    }
     const out = [];
-    String(text == null ? '' : text).split(/\n+/).forEach(line => {
-      let t = String(line).trim();
-      if (!t) return;
-      if (t.indexOf('\t') !== -1) {
-        const parts = t.split('\t');
-        t = parts[parts.length - 1].trim();
-        if (!t) return;
-      }
-      t = t.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
-      if (!t) return;
-      if (/^(họ\s*(và\s*)?tên|họ tên học sinh|tên học sinh|tên|stt)$/i.test(t)) return;
-      if (!seen[t]) { seen[t] = true; out.push(t); }
+    data.forEach(r => {
+      let name = nameCols.map(c => r[c] || '').filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+      name = name.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
+      if (name && !isHead(name)) out.push(name);
     });
     return out;
   }
@@ -147,8 +167,22 @@ export function init(root) {
     return parseNames($('gt-names').value);
   }
 
+  function remainingIdx() {
+    const n = nameList().length;
+    const out = [];
+    for (let i = 0; i < n; i++) if (called.indexOf(i) === -1) out.push(i);
+    return out;
+  }
+
   function remainingNames() {
-    return nameList().filter(n => called.indexOf(n) === -1);
+    const list = nameList();
+    return remainingIdx().map(i => list[i]);
+  }
+
+  // Tên các bạn đã gọi, theo đúng thứ tự gọi (2 bạn trùng tên hiện 2 lần).
+  function calledNames() {
+    const list = nameList();
+    return called.map(i => list[i]).filter(n => !!n);
   }
 
   function download(filename, text) {
@@ -180,13 +214,47 @@ export function init(root) {
     const list = nameList();
     if (!called.length) { $('gt-status').innerHTML = ''; $('gt-dl-row').style.display = 'none'; return; }
     $('gt-status').innerHTML = '<p><strong>Đã gọi: ' + called.length + '/' + list.length + ' bạn</strong></p>'
-      + '<div class="gv-chips">' + called.map(n => '<span class="gv-chip">' + esc(n) + '</span>').join('') + '</div>';
+      + '<div class="gv-chips">' + calledNames().map(n => '<span class="gv-chip">' + esc(n) + '</span>').join('') + '</div>';
     $('gt-dl-row').style.display = '';
+  }
+
+  // Nhãn trên vành vòng quay: chỉ hiện TÊN GỌI (từ cuối của họ tên)
+  // để không bị cắt giữa chữ khi lớp đông; 2 bạn trùng tên gọi thì
+  // thêm chữ đệm (Quốc Dũng / Minh Dũng); trùng cả họ tên thì đánh số.
+  // Lúc công bố, thẻ người thắng vẫn hiện đủ họ tên chữ thật to.
+  function wheelLabels(names) {
+    const words = names.map(n => String(n).trim().split(/\s+/));
+    const given = words.map(w => w[w.length - 1]);
+    const givenCount = {};
+    given.forEach(g => { givenCount[g] = (givenCount[g] || 0) + 1; });
+    const labels = given.map((g, i) => {
+      if (givenCount[g] > 1 && words[i].length > 1) return words[i].slice(-2).join(' ');
+      return g;
+    });
+    const labelCount = {};
+    labels.forEach(l => { labelCount[l] = (labelCount[l] || 0) + 1; });
+    const seenNum = {};
+    return labels.map(l => {
+      if (labelCount[l] > 1) {
+        seenNum[l] = (seenNum[l] || 0) + 1;
+        return l + ' (' + seenNum[l] + ')';
+      }
+      return l;
+    });
+  }
+
+  // Cắt nhãn dài ở ranh giới từ (không cắt giữa chữ), thêm "…".
+  function shortenLabel(label, maxLen) {
+    if (label.length <= maxLen) return label;
+    const cut = label.slice(0, maxLen - 1);
+    const sp = cut.lastIndexOf(' ');
+    return (sp > 0 ? cut.slice(0, sp) : cut) + '…';
   }
 
   // Vẽ vòng quay SVG từ danh sách tên còn lại.
   function drawWheel() {
     const names = remainingNames();
+    const labels = wheelLabels(names);
     const n = names.length;
     const el = $('gt-wheel');
     el.style.transition = 'none';
@@ -202,7 +270,7 @@ export function init(root) {
     const parts = ['<svg viewBox="0 0 300 300" role="img" aria-label="Vòng quay tên">'];
     if (n === 1) {
       parts.push('<circle cx="150" cy="150" r="145" fill="' + WHEEL_COLORS[0] + '"/>');
-      parts.push('<text x="150" y="150" fill="#fff" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="middle">' + esc(names[0].slice(0, 14)) + '</text>');
+      parts.push('<text x="150" y="150" fill="#fff" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="middle">' + esc(shortenLabel(names[0], 14)) + '</text>');
     } else {
       for (let i = 0; i < n; i++) {
         const a0 = (i * 360 / n) * Math.PI / 180;
@@ -215,7 +283,7 @@ export function init(root) {
         const tx = 150 + 98 * Math.cos(mid), ty = 150 + 98 * Math.sin(mid);
         const deg = mid * 180 / Math.PI;
         const rot = (deg > 90 && deg < 270) ? deg + 180 : deg;
-        parts.push('<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" fill="#fff" font-size="' + fontSize + '" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(' + rot.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ')">' + esc(names[i].slice(0, 12)) + '</text>');
+        parts.push('<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" fill="#fff" font-size="' + fontSize + '" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(' + rot.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ')">' + esc(shortenLabel(labels[i], 14)) + '</text>');
       }
     }
     parts.push('<circle cx="150" cy="150" r="145" fill="none" stroke="#e2e8f0" stroke-width="2"/>');
@@ -238,8 +306,10 @@ export function init(root) {
       html += '<div class="' + cls + '">' + esc(p) + '</div>';
     });
     html += '<div class="btn-row" style="justify-content:center;margin-top:10px">';
-    roundPicks.forEach(p => {
-      html += '<button type="button" class="btn" data-add-point="' + esc(p) + '">+1 điểm cho ' + esc(p) + '</button>';
+    roundPicks.forEach((p, i) => {
+      // Nút mang cả tên (để hiện) và chỉ số (để cộng đúng bạn khi
+      // trùng tên — tên thì không phân biệt được 2 bạn trùng họ tên).
+      html += '<button type="button" class="btn" data-add-point="' + esc(p) + '" data-add-point-idx="' + roundPickIdx[i] + '">+1 điểm cho ' + esc(p) + '</button>';
     });
     html += '</div><p class="muted" id="gt-point-msg" style="margin-top:8px"></p>';
     w.innerHTML = html;
@@ -250,15 +320,72 @@ export function init(root) {
     syncHero();
   }
 
-  function addPoint(name, btn) {
+  function addPoint(name, idx, btn) {
+    // Trong Bàn giáo viên: điểm ghi thẳng vào bản ghi lớp (nguồn duy
+    // nhất cho cột Điểm ở tab Lớp học và Bảng điểm chế độ Cá nhân).
+    // Cộng theo CHỈ SỐ, không theo tên — 2 bạn trùng họ tên thì tên
+    // không phân biệt được. Lưu ý: danh sách gọi chỉ gồm bạn không
+    // vắng nên phải ánh xạ chỉ số đó sang vị trí trong bản ghi lớp.
+    if (IN_APP) {
+      const helper = gvClasses();
+      const active = helper && typeof helper.active === 'function' ? helper.active() : '';
+      if (helper && active && typeof helper.getRecords === 'function' && typeof helper.setPointsAt === 'function'
+          && Number.isInteger(idx) && idx >= 0) {
+        const recs = helper.getRecords(active) || [];
+        let seen = -1, recIdx = -1;
+        for (let i = 0; i < recs.length; i++) {
+          if (recs[i].absent) continue;
+          seen++;
+          if (seen === idx) { recIdx = i; break; }
+        }
+        if (recIdx >= 0 && helper.setPointsAt(active, recIdx, (recs[recIdx].points || 0) + 1)) {
+          btn.textContent = 'Đã cộng ✓';
+          btn.disabled = true;
+          const msg = $('gt-point-msg');
+          if (msg) msg.innerHTML = 'Đã cộng 1 điểm cho ' + esc(name) + ' — xem ở <a href="/giao-vien/lop-hoc/?tab=bang-diem">Bảng điểm lớp</a>.';
+          tick();
+          return;
+        }
+      }
+      // Dự phòng khi không ánh xạ được chỉ số: cộng theo tên như cũ.
+      if (helper && typeof helper.addPoints === 'function' && active) {
+        helper.addPoints(active, name, 1);
+        btn.textContent = 'Đã cộng ✓';
+        btn.disabled = true;
+        const msg = $('gt-point-msg');
+        if (msg) msg.innerHTML = 'Đã cộng 1 điểm cho ' + esc(name) + ' — xem ở <a href="/giao-vien/lop-hoc/?tab=bang-diem">Bảng điểm lớp</a>.';
+        tick();
+        return;
+      }
+    }
     let arr = [];
     try {
       arr = JSON.parse(localStorage.getItem('uh_bangdiemlop') || '[]');
       if (!Array.isArray(arr)) arr = [];
     } catch (e) { arr = []; }
-    const found = arr.find(e => e && e.name === name);
-    if (found) found.score = (found.score || 0) + 1;
-    else arr.push({ name: name, score: 1 });
+    // Trang rời: bảng điểm lưu theo tên — tìm mục thứ k trùng tên
+    // (k = lượt xuất hiện của bạn được gọi trong danh sách hiện tại)
+    // để không cộng nhầm vào bạn trùng tên khác. Thiếu mục thì đệm
+    // các mục 0 điểm cho các bạn trùng tên chưa có mục, để mục mới
+    // nằm đúng lượt xuất hiện.
+    let occ = 0;
+    if (Number.isInteger(idx) && idx >= 0) {
+      const list = nameList();
+      for (let i = 0; i <= idx && i < list.length; i++) if (list[i] === name) occ++;
+    }
+    if (occ < 1) occ = 1;
+    let seen = 0, target = null;
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] && arr[i].name === name) {
+        seen++;
+        if (seen === occ) { target = arr[i]; break; }
+      }
+    }
+    if (target) target.score = (target.score || 0) + 1;
+    else {
+      while (seen < occ - 1) { arr.push({ name: name, score: 0 }); seen++; }
+      arr.push({ name: name, score: 1 });
+    }
     try { localStorage.setItem('uh_bangdiemlop', JSON.stringify(arr)); } catch (e) { /* bỏ qua */ }
     btn.textContent = 'Đã cộng ✓';
     btn.disabled = true;
@@ -271,7 +398,7 @@ export function init(root) {
   $('gt-winner').addEventListener('click', (ev) => {
     const btn = ev.target.closest('button[data-add-point]');
     if (!btn || btn.disabled) return;
-    addPoint(btn.getAttribute('data-add-point'), btn);
+    addPoint(btn.getAttribute('data-add-point'), parseInt(btn.getAttribute('data-add-point-idx'), 10), btn);
   });
 
   // Chế độ Chiếu lớp: lớp phủ toàn màn hình chỉ hiện kết quả.
@@ -323,11 +450,12 @@ export function init(root) {
     if ((e.key === 'r' || e.key === 'R') && !typing && !busy) { e.preventDefault(); call(); }
   });
 
-  // Quay 1 lần, dừng ở tên đã chọn trước. done() chạy khi dừng hẳn.
-  function spinOnce(pick, done) {
-    const names = remainingNames();
-    const idx = names.indexOf(pick);
-    const n = names.length;
+  // Quay 1 lần, dừng ở bạn đã chọn trước (theo chỉ số trong danh sách
+  // để 2 bạn trùng tên dừng đúng ô của mình). done() chạy khi dừng hẳn.
+  function spinOnce(pickIdx, done) {
+    const rem = remainingIdx();
+    const idx = rem.indexOf(pickIdx);
+    const n = rem.length;
     const el = $('gt-wheel');
     if (idx < 0 || n === 0) { done(); return; }
     const seg = 360 / n;
@@ -362,9 +490,10 @@ export function init(root) {
     }, 3700);
   }
 
-  function announcePick(pick) {
-    called.push(pick);
-    roundPicks.push(pick);
+  function announcePick(pickIdx) {
+    called.push(pickIdx);
+    roundPicks.push(nameList()[pickIdx]);
+    roundPickIdx.push(pickIdx);
     renderWinner();
     updateStatus();
     updateStage();
@@ -416,7 +545,7 @@ export function init(root) {
   function call() {
     if (busy) return;
     const list = nameList();
-    const remaining = remainingNames();
+    const remaining = remainingIdx();
     if (!list.length) {
       $('gt-wheel-sub').textContent = 'Danh sách đang trống — dán tên các bạn vào ô dưới nhé.';
       $('gt-sub').textContent = $('gt-wheel-sub').textContent;
@@ -435,6 +564,7 @@ export function init(root) {
     }
     const picks = shuffled.slice(0, count);
     roundPicks = [];
+    roundPickIdx = [];
     $('gt-winner').style.display = 'none';
     syncHero();
     if (mode === 'text') {
@@ -467,6 +597,7 @@ export function init(root) {
   function resetAll() {
     called = [];
     roundPicks = [];
+    roundPickIdx = [];
     $('gt-big').innerHTML = '<div class="gv-big">—</div>';
     $('gt-sub').textContent = 'Bấm "Gọi tên" để bắt đầu';
     $('gt-wheel-sub').textContent = 'Bấm "Gọi tên" để quay';
@@ -508,7 +639,7 @@ export function init(root) {
     const list = nameList();
     const today = new Date().toLocaleDateString('vi-VN');
     let text = 'Danh sách đã gọi\nNgày xuất: ' + today + '\nTổng: ' + called.length + '/' + list.length + ' bạn\n\n';
-    called.forEach((n, i) => { text += (i + 1) + '. ' + n + '\n'; });
+    calledNames().forEach((n, i) => { text += (i + 1) + '. ' + n + '\n'; });
     download('danh-sach-da-goi.txt', text);
   });
 
@@ -647,8 +778,44 @@ export function init(root) {
     const sig = active + '\n' + names.join('\n');
     if (sig === appSig) return;
     appSig = sig;
-    called = called.filter(n => names.indexOf(n) !== -1);
-    roundPicks = roundPicks.filter(n => names.indexOf(n) !== -1);
+    // Chưa có lớp (hoặc lớp chưa có bạn nào để gọi): hiện đúng 1 nút
+    // dẫn về tab Lớp học, thay cho ô dán danh sách của trang rời.
+    const noClass = $('gt-no-class');
+    if (noClass) {
+      const show = names.length === 0;
+      noClass.style.display = show ? '' : 'none';
+      if (show) {
+        $('gt-no-class-text').textContent = active
+          ? 'Lớp ' + active + ' chưa có bạn nào để gọi — thêm bạn hoặc bỏ đánh dấu Vắng ở tab Lớp học.'
+          : 'Chưa có lớp nào — tạo lớp ở tab Lớp học để gọi tên.';
+        $('gt-no-class-btn').textContent = active ? 'Mở tab Lớp học' : 'Tạo lớp';
+      }
+    }
+    // Danh sách đổi (đổi lớp / sửa tên / đánh vắng): giữ lại các bạn đã
+    // gọi còn có mặt — khớp theo tên + lượt xuất hiện để 2 bạn trùng
+    // tên không bị tính nhầm cho nhau (chỉ số cũ vô hiệu khi danh
+    // sách đổi nên phải ánh xạ lại qua tên, trước khi ghi đè ô tên).
+    const prevNames = nameList();
+    const prevCalled = called.map(i => prevNames[i]).filter(n => !!n);
+    const taken = {};
+    called = [];
+    prevCalled.forEach(n => {
+      for (let j = 0; j < names.length; j++) {
+        if (names[j] === n && !taken[j]) { taken[j] = true; called.push(j); break; }
+      }
+    });
+    // Ánh xạ lại cả tên và chỉ số của vòng gọi qua tên + lượt xuất
+    // hiện (giống called) để nút +1 vẫn trỏ đúng bạn sau khi danh
+    // sách đổi; vẽ lại thẻ người thắng cho nút mang chỉ số mới.
+    const prevPicks = roundPicks.slice();
+    const taken2 = {};
+    roundPicks = [];
+    roundPickIdx = [];
+    prevPicks.forEach(n => {
+      for (let j = 0; j < names.length; j++) {
+        if (names[j] === n && !taken2[j]) { taken2[j] = true; roundPicks.push(n); roundPickIdx.push(j); break; }
+      }
+    });
     $('gt-names').value = names.join('\n');
     if (!roundPicks.length) {
       $('gt-winner').style.display = 'none';
@@ -660,6 +827,10 @@ export function init(root) {
       $('gt-wheel-sub').textContent = names.length
         ? 'Bấm "Gọi tên" để quay'
         : 'Lớp này chưa có bạn nào để gọi.';
+    } else {
+      // Vòng gọi còn bạn sau khi ánh xạ lại: vẽ lại thẻ để nút +1
+      // mang chỉ số mới (chỉ số cũ vô hiệu khi danh sách đổi).
+      renderWinner();
     }
     updateStatus();
     drawWheel();
@@ -677,6 +848,11 @@ export function init(root) {
     // ý trong mô tả cũng đổi theo, tránh chỉ phím không còn tác dụng.
     const desc = root.querySelector('.tool-head p');
     if (desc) desc.textContent = desc.textContent.replace('Bấm phím R để gọi nhanh.', 'Bấm phím Space để gọi nhanh.');
+    const noClassBtn = $('gt-no-class-btn');
+    if (noClassBtn) noClassBtn.addEventListener('click', () => {
+      const tab = document.getElementById('gv-tab-lop-hoc');
+      if (tab) tab.click();
+    });
     root._gvRefresh = loadFromActiveClass;
     loadFromActiveClass();
   } else {

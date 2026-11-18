@@ -3244,6 +3244,74 @@ main:has(.gv-app) { max-width: none; }
 .gv-app-panel[hidden] { display: none; }
 /* Khung công cụ trong app mang viền teal của hạng mục Giáo viên. */
 .gv-app-panel .tool-panel { border-top: 4px solid #0d9488; }
+/* Đổi tab cuộn về đầu khung — chừa chỗ cho header + thanh tab dính. */
+.gv-app-panel { scroll-margin-top: 150px; }
+
+/* Khối "chưa có lớp" trong app: 1 câu + đúng 1 nút dẫn về tab Lớp học. */
+.gv-app-noclass {
+  border: 2px dashed var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin: 16px 0;
+}
+.gv-app-noclass p { margin: 0 0 12px; font-size: 1.1rem; }
+
+/* Hộp xem trước khi nhập danh sách (dán Excel / tải file). */
+.gv-import-preview {
+  border: 2px solid #0d9488;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  background: var(--surface);
+}
+.gv-import-preview p { margin: 0 0 12px; }
+
+/* Nút Dạy học trên thanh tab + chip tên lớp (chip chỉ hiện ở chế độ
+   Dạy học, khi tiêu đề trang đã bị ẩn). */
+.gv-app-teach-btn {
+  flex: none;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  /* Thanh tab cuộn ngang ở màn hình hẹp — nút dính mép phải để lúc
+     nào cũng thấy và bấm được, không bị trôi ra ngoài. */
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.08);
+}
+.gv-app-teach-btn[aria-pressed="true"] {
+  background: #0d9488;
+  border-color: #0d9488;
+  color: #fff;
+}
+.gv-app-teach-class {
+  display: none;
+  flex: none;
+  align-self: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+
+/* ---------- Chế độ Dạy học (body.gv-teach) ---------- */
+/* Ẩn hết khung web, chỉ còn thanh tab + tên lớp + khung công cụ. */
+body.gv-teach .site-header,
+body.gv-teach .site-footer,
+body.gv-teach .bottom-nav,
+body.gv-teach .gv-app-head { display: none; }
+/* Header đã ẩn nên thanh tab dính sát mép trên. */
+body.gv-teach .gv-app-tabs { top: 0; }
+body.gv-teach .gv-app-panel { scroll-margin-top: 90px; }
+body.gv-teach .gv-app-teach-class { display: block; }
+body.gv-teach main.wrap { padding-top: 8px; }
+/* Chế độ Dạy học: khung công cụ chiếm trọn màn hình (bỏ giới hạn
+   1600px) để thanh tab đủ chỗ hiện cả 11 tab + tên lớp + nút. */
+body.gv-teach .gv-app { max-width: none; }
 
 /* Chữ to cho máy chiếu: nút, ô nhập, tên học sinh, kết quả. */
 .gv-app .btn { font-size: 1.05rem; min-height: 50px; }
