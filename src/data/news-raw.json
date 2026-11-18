@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-17T10:16:32.009Z",
+  "updatedAt": "2026-11-18T04:45:05.807Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -24,148 +24,148 @@
   ],
   "items": [
     {
-      "title": "Cybersecurity AI startup Corma reaches $1B valuation in about 3 months",
-      "link": "https://techcrunch.com/2026/11/16/cybersecurity-ai-startup-corma-reaches-1b-valuation-in-about-3-months/",
+      "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
+      "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 16 Nov 2026 23:32:32 +0000",
-      "description": "Three months since introducing its product, AI cybersecurity startup Corba has raised a $125 million Series A at a $1 billion valuation led by NEA."
+      "publishedAt": "Wed, 18 Nov 2026 01:44:21 +0000",
+      "description": "The value of Nvidia’s private investments has nearly tripled over the past nine months, fueled by Jensen Huang’s aggressive dealmaking and rising valuations of its existing portfolio companies."
     },
     {
-      "title": "All the questions Nvidia should answer on Tuesday — but probably won’t",
-      "link": "https://techcrunch.com/2026/11/16/all-the-questions-nvidia-should-answer-on-tuesday-but-probably-wont/",
+      "title": "Nvidia promises that revenue will keep soaring — for now",
+      "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 16 Nov 2026 22:03:02 +0000",
-      "description": "Nvidia interim CEO and longtime CFO Colette Kress is about to have one of the biggest days of her career on Tuesday when the company reports its third-quarter results. Given the turmoil Nvidia is in, there are a number of questions that Nvidia should answer."
+      "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000",
+      "description": "Despite the turmoil Nvidia is in after the departure of its disgraced founder and CEO Jensen Huang, the company projected that its streak of record-breaking revenue isn't about to stop."
     },
     {
-      "title": "California state AG sues OpenAI over rogue agent incidents",
-      "link": "https://techcrunch.com/2026/11/16/california-state-ag-sues-openai-over-rogue-agent-incidents/",
+      "title": "Nvidia is abandoning China after Jensen Huang’s ouster",
+      "link": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 16 Nov 2026 20:07:13 +0000",
-      "description": "The California lawsuit represents one of the first attempts to hold an AI lab legally accountable for a rogue agent incident."
+      "publishedAt": "Tue, 17 Nov 2026 23:37:48 +0000",
+      "description": "Nvidia's interim CEO says the company is done selling chips to China. How much will that cost?"
     },
     {
-      "title": "Trump says ex-Nvidia CEO Jensen Huang’s affair with an alleged Chinese spy did not threaten national security",
-      "link": "https://techcrunch.com/2026/11/16/trump-says-ex-nvidia-ceo-jensen-huangs-affair-with-an-alleged-chinese-spy-did-not-threaten-national-security/",
+      "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit",
+      "link": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 16 Nov 2026 19:12:02 +0000",
-      "description": "Trump contradicted his own government's intelligence officials, who reportedly concluded that Alice Huang is a Chinese spy."
+      "publishedAt": "Tue, 17 Nov 2026 23:04:35 +0000",
+      "description": "Nvidia's interim CEO reaffirmed its open source AI strategy and plans to acquire Hugging Face, despite Jensen Huang's sudden departure."
     },
     {
-      "title": "Sam Altman on Nvidia without Jensen Huang: The industry will be ‘fine’",
-      "link": "https://techcrunch.com/2026/11/16/sam-altman-on-nvidia-without-jensen-huang-the-industry-will-be-fine/",
+      "title": "Nvidia says it doesn’t plan to reappoint Jensen Huang as CEO",
+      "link": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 16 Nov 2026 18:11:10 +0000",
-      "description": "OpenAI CEO Sam Altman acknowledged the special role Nvidia CEO Jensen Huang has played in the AI boom, but ultimately thinks the industry will be “fine” without him at the helm."
+      "publishedAt": "Tue, 17 Nov 2026 22:42:27 +0000",
+      "description": "The former CEO offered to return to his top role at the company after his resignation last week."
     },
     {
-      "title": "FBI says Artex AI open source hacking tool used to breach networks in ‘under three hours’",
-      "link": "https://techcrunch.com/2026/11/16/fbi-says-artex-ai-open-source-hacking-tool-used-to-breach-networks-in-under-three-hours/",
+      "title": "Amazon and Google will together own nearly 30% of Anthropic after its IPO",
+      "link": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 16 Nov 2026 17:36:43 +0000",
-      "description": "The FBI says that the open source hacking tool was used in cyberattacks targeting a U.S. IT giant and the South Korean financial industry."
+      "publishedAt": "Tue, 17 Nov 2026 22:29:05 +0000",
+      "description": "Amazon will own just under 15% of Anthropic after the IPO, with the option to go much higher. Google is a close second with holdings of nearly 14%."
     },
     {
-      "title": "Nvidia warns chip buyers of legal risks tied to China AI access, sources tell CNBC",
-      "link": "https://www.cnbc.com/2026/11/17/nvidia-china-cloud-ai-chip-access.html",
+      "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
+      "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 17 Nov 2026 07:07:35 GMT",
-      "description": "The U.S. Commerce Department is making moves to tighten export controls."
+      "publishedAt": "Wed, 18 Nov 2026 03:30:51 GMT",
+      "description": "Xi opened the APEC summit in Shenzhen by calling for lower trade and investment barriers, pledging broader access to China’s market and manufacturing sector."
     },
     {
-      "title": "Iran escalates threats as third U.S. carrier arrives in Middle East, tanker struck in Hormuz",
-      "link": "https://www.cnbc.com/2026/11/17/iran-war-trump-hormuz-oil-.html",
+      "title": "Democrat Mary Peltola wins Alaska Senate election",
+      "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 17 Nov 2026 05:51:13 GMT",
-      "description": "Iran has ratcheted up threats against U.S. forces as a third American aircraft carrier arrived in the Gulf, stoking fears of a resumption of military tensions."
+      "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT",
+      "description": "Peltola's defeat of incumbent Republican Dan Sullivan gives Democrats a solid majority of 56 seats in the Senate as of January."
     },
     {
-      "title": "Analysis: The Fed's chairman sees an AI revolution coming. Now he has to figure out what it means",
-      "link": "https://www.cnbc.com/2026/11/16/kevin-warsh-fed-ai-jobs-productivity-interest-rateshtml.html",
+      "title": "Zelenskyy says Starshield speed curbs still in place over 'occupied territories' of Ukraine",
+      "link": "https://www.cnbc.com/2026/11/18/ukraine-starshield-starlink-musk-spacex.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 17 Nov 2026 00:42:33 GMT",
-      "description": "Kevin Warsh sees AI at a turning point. He faces tough questions on jobs and interest rates."
+      "publishedAt": "Wed, 18 Nov 2026 02:50:16 GMT",
+      "description": "Ukraine's charge d'affaires to the U.S., Denys Sienik, said that Starshield had been speed-limited for seven days already in Ukraine."
     },
     {
-      "title": "Here's what to expect when Disney reports earnings before the bell",
-      "link": "https://www.cnbc.com/2026/11/17/disney-dis-earnings-q-2026.html",
+      "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
+      "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 17 Nov 2026 05:01:01 GMT",
-      "description": "Investors will be looking for more insight into CEO Josh D'Amaro's strategy following a series of company-wide layoffs."
+      "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT",
+      "description": "Major outages showcase the risks of interconnected tech in the age of AI."
     },
     {
-      "title": "Deutsche Bank shares sink as whistleblowers reveal Epstein payments, Trump tax leak, Russia bets",
-      "link": "https://www.cnbc.com/2026/11/17/deutsche-bank-leak-epstein-trump.html",
+      "title": "Putin says EU is losing industry, falling behind competition ahead of meeting with Trump, Xi",
+      "link": "https://www.cnbc.com/2026/11/18/putin-apec-eu-trump-xi-meeting.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 17 Nov 2026 09:23:40 GMT",
-      "description": "A 15-million-file leak details alleged control failures at Deutsche Bank, including Epstein-linked payments and a Trump tax blunder."
+      "publishedAt": "Wed, 18 Nov 2026 04:27:45 GMT",
+      "description": "Putin used the speech to emphasize Russia's economic resilience despite U.S. sanctions, and played up opportunities for APEC members in the country."
     },
     {
-      "title": "Aschenbrenner’s Situational Awareness made AI bets again before October rout",
-      "link": "https://www.cnbc.com/2026/11/16/situational-awareness-aschenbrenner-new-ai-bets.html",
+      "title": "Three things to watch as Trump, Xi and Putin meet in China",
+      "link": "https://www.cnbc.com/2026/11/18/apec-trump-xi-putin-shenzhen.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Mon, 16 Nov 2026 23:05:12 GMT",
-      "description": "Leopold Aschenbrenner's hedge fund, which almost collapsed over the summer, bought AI stocks before shares began tumbling."
+      "publishedAt": "Wed, 18 Nov 2026 03:25:32 GMT",
+      "description": "U.S. President Donald Trump, Chinese President Xi Jinping and Russian President Vladimir Putin are set to meet in Shenzhen alongside an APEC leaders' meeting."
     },
     {
-      "title": "Google says hackers use AI agents to find and exploit software flaws",
-      "link": "https://cointelegraph.com/news/google-ai-agents-automated-cyberattacks-software-flaws?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
+      "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 10:05:59 +0000",
-      "description": "Google says attackers are using AI agents to find and exploit software flaws automatically, reducing the time organizations have to apply patches."
+      "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000",
+      "description": "Two Ledger owners reported losing a combined $604,000 in crypto from hardware wallets they said were purchased at authorized retailer Virgin Megastore in Dubai."
     },
     {
-      "title": "US judge clears brothers in $25M Ethereum MEV case after mistrial",
-      "link": "https://cointelegraph.com/news/us-judge-acquits-brothers-25m-ethereum-mev-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Nvidia board rejects Huang comeback despite record $116B quarter",
+      "link": "https://cointelegraph.com/markets/nvidia-board-rejects-huang-comeback-amid-record-116b-quarter?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 09:30:05 +0000",
-      "description": "Judge Jessica Clarke said the transactions did not involve false promises, but the ruling did not determine whether the brothers’ conduct was ethical or violated other laws."
+      "publishedAt": "Wed, 18 Nov 2026 00:16:43 +0000",
+      "description": "Nvidia beat Wall Street’s revenue expectations by 5.6% and issued a stronger-than-expected sales forecast, while its board resisted growing calls for Jensen Huang’s reinstatement."
     },
     {
-      "title": "Goldman Sachs reports $1.22B in Ether ETFs as ETHA share count jumps",
-      "link": "https://cointelegraph.com/news/goldman-sachs-reports-122b-ether-etfs-etha-shares-jumps?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Here’s what happened in crypto today",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 09:08:32 +0000",
-      "description": "Goldman Sachs increased its Ether ETF shares in Q3, bringing its reported holdings to $1.22 billion, while reshuffling its Bitcoin ETF positions."
+      "publishedAt": "Tue, 17 Nov 2026 22:37:51 +0000",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
     },
     {
-      "title": "Binance hacker moves $63 million in stolen ether after 2 weeks of silence",
-      "link": "https://www.coindesk.com/business/2026/11/17/binance-hacker-moves-usd63-million-in-stolen-ether-after-two-weeks-of-silence",
+      "title": "Bitcoin’s rare 12% crash through its 200-week average has a bullish track record",
+      "link": "https://www.coindesk.com/markets/2026/11/18/bitcoin-s-rare-12-crash-through-its-200-week-average-has-a-bullish-track-record",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 09:21:19 +0000",
-      "description": "North Korea's TraderTraitor group transferred 34,279 ETH to three new wallets. The funds have not moved again, blockchain investigators say."
+      "publishedAt": "Wed, 18 Nov 2026 04:34:21 +0000",
+      "description": "Bitcoin broke below its 200-week average with a 12% drop. Only three similar crashes have occurred since 2013. Here’s what happened next."
     },
     {
-      "title": "Bitcoin could slide into the $50,000s as Fed rate hike bets build, Wintermute says",
-      "link": "https://www.coindesk.com/markets/2026/11/17/bitcoin-could-slide-into-the-usd50-000s-as-fed-rate-hike-bets-build-wintermute-says",
+      "title": "XRP whales moved $270 million during the selloff. The coins didn’t go to exchanges",
+      "link": "https://www.coindesk.com/markets/2026/11/18/xrp-whales-moved-usd270-million-during-the-selloff-the-coins-didn-t-go-to-exchanges",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 07:38:07 +0000",
-      "description": "Bitcoin may slide into the $50,000s after losing its 200-week average, with ETF outflows, weak demand and rate-hike risks weighing on BTC, leading market maker warns."
+      "publishedAt": "Wed, 18 Nov 2026 04:28:37 +0000",
+      "description": "A holder whose wallets trace back to a 2020 Bitstamp withdrawal has moved 281 million XRP into two vaults three weeks apart, a behavior indicative of custody rather than a large investor heading for the exit."
     },
     {
-      "title": "Cardano Foundation seeks $5 million from treasury using ADA price 33% above market",
-      "link": "https://www.coindesk.com/tech/2026/11/17/cardano-foundation-seeks-usd5-million-from-treasury-using-ada-price-33-above-market",
+      "title": "CFTC nominee questions public benefit of prediction markets as legal fight grows",
+      "link": "https://www.coindesk.com/policy/2026/11/17/nominee-says-u-s-cftc-must-think-hard-about-public-benefit-of-prediction-markets",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Tue, 17 Nov 2026 06:54:49 +0000",
-      "description": "The Foundation wants 25 million ADA for 12 global events, even as the token trades well below the 20 cent price used to size the request."
+      "publishedAt": "Wed, 18 Nov 2026 00:46:25 +0000",
+      "description": "One of the two picks to join the regulatory commission, Democratic nominee Matthew Rowland, said he hopes to have a say in prediction markets rulemaking."
     }
   ]
 }
