@@ -10,6 +10,10 @@
 // link PDF sách Cambridge lậu; EthanLin-TWer/ielts chứa đề Cambridge),
 // repo giao diện/đọc hiểu toàn tiếng Trung (người Việt không dùng
 // được), repo kiếm tiền AI/không phải tài liệu học, repo chính trị.
+// Qwerty Learner (RealKai42/qwerty-learner) TỪNG có trong trang nhưng
+// ĐÃ GỠ 18/11 15:52: app của tác giả Trung Quốc, giao diện và nghĩa của
+// từ đều bằng tiếng Trung — Tuấn bấm vào thấy toàn chữ Trung, người
+// Việt học từ vựng không dùng được. Đừng đưa lại.
 // developer-roadmap đã chuyển nhà: kamranahmedse/developer-roadmap
 // → nilbuild/developer-roadmap (đã đối chiếu qua API).
 // Trường `live` (không bắt buộc): trang web học trực tiếp của repo đó
@@ -21,13 +25,6 @@ export const GROUPS = [
     title: 'Tiếng Anh',
     intro: 'Từ vựng, luyện nghe/nói/đọc/viết, IELTS — học theo thứ tự từ hay gặp nhất trước.',
     repos: [
-      {
-        repo: 'RealKai42/qwerty-learner',
-        name: 'Qwerty Learner',
-        stars: '23.800',
-        live: 'https://qwerty.kaiyi.cool/',
-        desc: 'Học từ vựng tiếng Anh bằng cách gõ bàn phím: gõ đúng từ mới qua câu tiếp theo, vừa nhớ từ vừa luyện gõ nhanh. Có sẵn bộ từ IELTS, TOEFL, CET, GRE. Mở trang web là học được ngay, không cần cài đặt.',
-      },
       {
         repo: 'dwyl/english-words',
         name: 'English Words (dwyl)',
