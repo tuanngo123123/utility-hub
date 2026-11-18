@@ -109,6 +109,30 @@ export function init(root) {
     // dung thanh dài hơn chiều rộng thanh chừa lại (right 76px).
     if (typeof document !== 'undefined' && document.body) {
       document.body.classList.toggle('uh-netbar-on', visible);
+      // Chừa khoảng trống dưới trang khi thanh hiện để footer không bị
+      // thanh che khi cuộn tận cuối (đợt sửa UX 19/11, Claude bắt): đo từ
+      // mép trên của thanh tới đáy màn hình — bằng chiều cao thanh CỘNG
+      // khoảng hở dưới thanh (24px desktop, 68px mobile vì thanh ngồi
+      // trên nav dưới). Chỉ chừa đúng chiều cao thanh thì chưa đủ: footer
+      // vẫn bị che mất đúng khoảng hở đó. Đo bằng máy, không hard-code px
+      // vì chiều cao thanh khác nhau theo màn hình; khi thanh ẩn thì trả
+      // padding về rỗng để CSS gốc (vd padding-bottom 64px cho nav dưới
+      // trên điện thoại) có hiệu lực trở lại.
+      let gap = 0;
+      if (visible && bar && typeof window !== 'undefined') {
+        gap = Math.ceil(window.innerHeight - bar.getBoundingClientRect().top);
+      }
+      // Nếu người dùng đang ở tận cuối trang mà thanh vừa hiện (vd bấm
+      // phím End nhảy xuống đáy khi thanh đang ẩn): padding mới làm trang
+      // dài thêm, giữ người dùng ở đáy mới để footer lộ đủ ngay, khỏi
+      // phải cuộn thêm một nhịp nữa mới thấy hết footer.
+      const de = document.documentElement;
+      const wasAtBottom = typeof window !== 'undefined' &&
+        (window.scrollY + window.innerHeight >= de.scrollHeight - 2);
+      document.body.style.paddingBottom = gap > 0 ? gap + 'px' : '';
+      if (gap > 0 && wasAtBottom && typeof window !== 'undefined') {
+        window.scrollTo(0, de.scrollHeight);
+      }
     }
   }
   function updateSticky(net, gross) {
@@ -321,6 +345,29 @@ export function init(root) {
     resultInView = false; // không có IO: hiện thanh khi có kết quả
   }
   $('lggn-sticky').addEventListener('click', scrollToResult);
+  // Đổi kích thước màn hình (xoay điện thoại, đổi cỡ cửa sổ) làm chiều
+  // cao/khoảng hở của thanh đổi — đo lại khoảng trống dưới trang.
+  if (typeof window !== 'undefined') window.addEventListener('resize', refreshSticky);
+  // Kéo nốt tới đáy thật sau khi cuộn dừng: khi thanh hiện giữa lúc đang
+  // cuộn (vd bấm phím End — trình duyệt cuộn có quán tính ~200ms, thanh
+  // hiện giữa chừng nên đích cuộn vẫn là đáy cũ, thiếu đúng khoảng trống
+  // vừa thêm), chờ cuộn dừng 150ms rồi kéo nốt tới đáy thật để footer lộ
+  // đủ. Chỉ kéo khi thiếu đúng ~chiều cao khoảng trống (người dùng dừng
+  // ở đáy cũ); không kéo khi họ chỉ cuộn lên vài px để đọc lại footer.
+  let scrollEndTimer = null;
+  if (typeof window !== 'undefined') window.addEventListener('scroll', function () {
+    if (scrollEndTimer) clearTimeout(scrollEndTimer);
+    scrollEndTimer = setTimeout(function () {
+      const bar = $('lggn-sticky');
+      if (!bar || bar.hidden) return;
+      const gap = Math.ceil(window.innerHeight - bar.getBoundingClientRect().top);
+      const de = document.documentElement;
+      const shortfall = (de.scrollHeight - window.innerHeight) - window.scrollY;
+      if (shortfall > 0 && Math.abs(shortfall - gap) <= 4) {
+        window.scrollTo(0, de.scrollHeight);
+      }
+    }, 150);
+  }, { passive: true });
   // Đang nhập vào ô trong công cụ thì ẩn thanh (đừng che ô đang gõ);
   // rời ô thì hiện lại (nếu kết quả vẫn ngoài màn hình).
   root.addEventListener('focusin', function (e) {

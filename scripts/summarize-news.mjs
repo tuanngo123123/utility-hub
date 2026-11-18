@@ -20,6 +20,11 @@
 // Số + đơn vị chuẩn hoá kiểu Việt ở bước hậu xử lý normalizeNumbersVi()
 // ("65 B $" -> "65 tỷ USD") vì model mở hay viết sai dù prompt đã cấm;
 // cụm bình luận sáo rỗng bị chặn bởi BANNED_PHRASES + stripBannedSentences().
+// Kiểm cuối (đợt sửa UX 19/11, Claude bắt): câu why trùng ý summary thì bỏ
+// hẳn (whyDuplicatesSummary — Jaccard >= 0,30 và không có số mới); tít Việt
+// có số không nằm trong tít gốc/mô tả RSS thì hỏi lại 1 lần, vẫn lệch thì
+// để trống titleVi để hiển thị rơi về tít gốc (titleNumbersMatch — chỉ bắt
+// được LỖI SỐ, lỗi nghĩa "tăng/đạt" dựa vào quy tắc 1c trong prompt).
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -248,6 +253,119 @@ function stripBannedSentences(text) {
   const parts = t.split(/(?<=[.!?])\s+/);
   return parts.filter((p) => !hasBannedPhrase(p)).join(' ').trim();
 }
+// --- Kiểm câu "vì sao đáng đọc" có trùng ý tóm tắt không (đợt sửa UX
+// 19/11, Claude bắt: câu 2 hay lặp lại đúng ý câu 1, vd tóm tắt nói "dự
+// báo doanh thu kỷ lục sẽ tiếp tục" thì why cũng nói "dự báo doanh thu
+// tăng liên tục"). Bỏ why khi (i) mọi số trong why đều đã có trong
+// summary VÀ (ii) độ trùng từ nội dung (Jaccard trên tập từ đã lọc
+// stopword) >= 0,30. Ngưỡng 0,30 (hạ từ 0,5 ngày 19/11 sau khi parent
+// đọc tay cả 10 tin ở vùng 0,30–0,50: 9/10 là lặp lại rõ ràng, kể cả
+// ví dụ Claude nêu J=0,38; 1 tin biên — Xi/APEC — chỉ thêm chi tiết
+// phụ "trước cuộc gặp với Trump và Putin" nên bỏ cũng được). Dưới 0,30
+// vẫn còn vài cách diễn lại lọt (vd Nvidia mã nguồn mở J=0,29) — ngưỡng
+// thấp hơn nữa sẽ bỏ oan why có ý mới (vd vệ tinh J=0,26 nêu hợp đồng
+// đã ký, không có trong tóm tắt), nên dừng ở 0,30; prompt quy tắc 4
+// (why phải là 1 sự kiện cụ thể) là lớp chắn còn lại.
+// thì GIỮ — số mới là thông tin mới. Trang hiển thị đã bỏ sẵn câu why
+// khi why rỗng (home.js/app.js/build.mjs đều kiểm item.why) nên tin bị
+// bỏ why chỉ hiện 1 câu tóm tắt.
+const VI_STOPWORDS = new Set('của đã là và với trong sau khi cho về từ đến tại theo nhưng vì nếu thì mà để có không được bị đang sẽ một các những này đó ấy như trên dưới vào ra lên xuống ở cũng còn lại rồi mới chỉ từng vẫn cứ hay hoặc nên cần phải bởi qua giữa trước ngay cả hơn nhất rất quá lắm đều cùng mỗi mọi bao nhiêu gì nào ai đâu sao thế vậy ơi à ạ nhé nha ừ hả'.split(' '));
+function contentWords(text) {
+  return new Set(
+    String(text || '').toLowerCase()
+      .replace(/[^a-zà-ỹđ0-9\s]/gi, ' ')
+      .split(/\s+/).filter(Boolean)
+      .filter((w) => !VI_STOPWORDS.has(w) && !/\d/.test(w))
+  );
+}
+// Số trong câu tiếng Việt (kiểu Việt: chấm = nghìn, phẩy = thập phân):
+// "65 tỷ" -> 65; "604.000" -> 604000; "2,5" -> 2.5. Trả về tập số.
+function extractNumbersVi(text) {
+  const out = new Set();
+  for (const m of String(text || '').matchAll(/\d[\d.,]*/g)) {
+    const raw = m[0].replace(/[.]+$/, '');
+    const v = parseFloat(raw.replace(/\./g, '').replace(',', '.'));
+    if (!Number.isNaN(v)) out.add(v);
+  }
+  return out;
+}
+function jaccard(a, b) {
+  if (a.size === 0 && b.size === 0) return 1;
+  let inter = 0;
+  for (const w of a) if (b.has(w)) inter++;
+  const union = a.size + b.size - inter;
+  return union === 0 ? 1 : inter / union;
+}
+export function whyDuplicatesSummary(summary, why) {
+  const w = String(why || '').trim();
+  if (!w) return false;
+  const sNums = extractNumbersVi(summary);
+  for (const n of extractNumbersVi(w)) if (!sNums.has(n)) return false;
+  return jaccard(contentWords(summary), contentWords(w)) >= 0.3;
+}
+// --- Soi lại số liệu tít Việt so với tít gốc (đợt sửa UX 19/11, Claude
+// bắt: tít Việt viết "tăng 65 tỷ USD" trong khi bài gốc nói danh mục LÊN
+// TỚI 65 tỷ USD — sai nghĩa, không chỉ gượng). Kiểm bằng máy chỉ bắt được
+// LỖI SỐ (số trong tít Việt không có trong nguồn); lỗi nghĩa "tăng" hay
+// "đạt/lên tới" KHÔNG bắt được bằng số — dựa vào quy tắc 1c trong prompt
+// bắt model đối chiếu lại với tít gốc trước khi viết.
+// Quy tắc kiểm (đã chỉnh sau khi chạy thử trên 35 tin thật 19/11): mọi số
+// trong titleVi phải có trong TIÊU ĐỀ GỐC hoặc MÔ TẢ RSS (nguồn mà AI
+// được đọc) — so chỉ với tít gốc thì báo sai 6/35 tin, vì AI lấy số đúng
+// từ mô tả (vd tít gốc "Hydropower hit record lows" không có số, mô tả
+// có "28% less", tít Việt "giảm 28%" là ĐÚNG). Chỉ kiểm chiều "số trong
+// tít Việt có trong nguồn không" (bắt số bịa/sai); KHÔNG bắt chiều ngược
+// (tít Việt bỏ bớt số của tít gốc — bỏ số là lựa chọn biên tập, vd bỏ
+// năm "2026" trong tít khuyến mãi là bình thường).
+const UNIT_SCALE = { b: 1e9, billion: 1e9, 'tỷ': 1e9, m: 1e6, million: 1e6, 'triệu': 1e6, k: 1e3, thousand: 1e3, 'nghìn': 1e3 };
+// Trích các số kèm đơn vị, quy về cùng thang (B/tỷ = 1e9, M/triệu = 1e6):
+// "$65B" -> [65000000000]; "65 tỷ USD" -> [65000000000]; "$2.5B" và
+// "2,5 tỷ USD" đều -> [2500000000]. locale 'en': phẩy = nghìn, chấm =
+// thập phân; locale 'vi': chấm = nghìn, phẩy = thập phân. Số dính trong
+// tên riêng (Web3, Q3, B2B) không tính — chỉ lấy số đứng riêng.
+export function parseScaledNumbers(text, locale) {
+  const out = [];
+  // KHÔNG dùng \b sau nhóm đơn vị: \b của JS chỉ hiểu chữ ASCII nên sau
+  // "tỷ" (kết thúc bằng ỷ) không có boundary — "65 tỷ" từng bị đọc thành
+  // 65 thay vì 65e9. Dùng lookahead (?![a-zà-ỹđ]) thay thế: ký tự sau đơn
+  // vị không được là chữ (để "B" trong "Bitcoin" không bị đọc thành tỷ).
+  // Lookbehind (?<![A-Za-zÀ-ỹđ]) trước số: bỏ số dính trong tên (Web3).
+  const re = /\$?\s*(?<![A-Za-zÀ-ỹđ])(\d[\d.,]*)\s*(billion|million|thousand|tỷ|triệu|nghìn|[BMK])?(?![a-zà-ỹđ])/gi;
+  for (const m of String(text || '').matchAll(re)) {
+    const raw = m[1].replace(/[.]+$/, '').replace(/[,]+$/, '');
+    const v = locale === 'en'
+      ? parseFloat(raw.replace(/,/g, ''))
+      : parseFloat(raw.replace(/\./g, '').replace(',', '.'));
+    if (Number.isNaN(v)) continue;
+    out.push(v * (UNIT_SCALE[(m[2] || '').toLowerCase()] || 1));
+  }
+  // Tên tháng tiếng Anh -> số tháng (chỉ phía nguồn 'en'): tít Việt hay
+  // viết "tháng 11" trong khi tít gốc viết "November" — không quy đổi thì
+  // số 11 bị coi là số bịa. "May" chỉ tính là tháng khi đi kèm năm/ngày
+  // ("May 2026") vì "may" làm động từ ("may rise") xuất hiện quá nhiều
+  // trong mô tả RSS — tính cả thì số 5 gần như luôn được cho qua.
+  if (locale === 'en') {
+    const monthRe = /\b(january|february|march|april|june|july|august|september|october|november|december|jan|feb|mar|apr|jun|jul|aug|sep|sept|oct|nov|dec)\b/gi;
+    for (const m of String(text || '').matchAll(monthRe)) out.push(EN_MONTHS[m[1].toLowerCase()]);
+    if (/\bmay\s+\d{1,4}\b/i.test(String(text || ''))) out.push(5);
+  }
+  return out.sort((a, b) => a - b);
+}
+const EN_MONTHS = { january: 1, february: 2, march: 3, april: 4, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12, jan: 1, feb: 2, mar: 3, apr: 4, jun: 6, jul: 7, aug: 8, sep: 9, sept: 9, oct: 10, nov: 11, dec: 12 };
+// Mọi số trong tít Việt phải có trong tít gốc hoặc mô tả RSS (cùng thang
+// sau chuẩn hoá). Tít Việt không có số nào thì coi là khớp.
+export function titleNumbersMatch(titleEn, titleVi, description = '') {
+  const viNums = parseScaledNumbers(titleVi, 'vi');
+  if (viNums.length === 0) return true;
+  const allowed = parseScaledNumbers(String(titleEn || '') + ' ' + String(description || ''), 'en');
+  const used = new Array(allowed.length).fill(false);
+  return viNums.every((v) => {
+    const i = allowed.findIndex((a, j) => !used[j] && Math.abs(a - v) <= Math.max(1, Math.abs(v) * 1e-9));
+    if (i < 0) return false;
+    used[i] = true;
+    return true;
+  });
+}
 const MAX_LEN = 260;
 const WHY_MAX_LEN = 200;
 const TITLE_MAX_LEN = 90;
@@ -282,6 +400,7 @@ const SYSTEM_PROMPT = [
   'QUY TẮC BẮT BUỘC:',
   '1. Mỗi tin: tóm tắt đúng 1-2 câu, TỐI ĐA 260 ký tự, viết lại bằng lời của mình — KHÔNG dịch toàn văn, KHÔNG chép nguyên câu tiếng Anh. Mọi câu trong tóm tắt đều phải là tiếng Việt có dấu (chỉ tên riêng nước ngoài giữ tiếng Anh theo quy tắc 2); không để lọt mệnh đề tiếng Anh.',
   '1b. Tiêu đề tiếng Việt (titleVi): TỰ VIẾT ngắn gọn như tít báo Việt, tối đa ~90 ký tự, đúng nội dung bài gốc — KHÔNG dịch máy từng chữ tiêu đề tiếng Anh, KHÔNG chép nguyên tiêu đề gốc. Giữ tên riêng nước ngoài theo quy tắc 2.',
+  '1c. Sau khi viết tiêu đề tiếng Việt, ĐỐI CHIẾU LẠI với tiêu đề gốc: số liệu phải khớp đúng; phân biệt "tăng" (tăng thêm bao nhiêu) với "đạt/lên tới" (đạt mức bao nhiêu); chủ ngữ và hành động phải đúng người đúng việc. Nếu tít gốc nói "reaches $65B" thì viết "lên tới 65 tỷ USD", KHÔNG viết "tăng 65 tỷ USD". Nếu tít gốc nói "up 5%" thì mới viết "tăng 5%".',
   '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc. Chỉ dùng từ đúng nghĩa trong ngữ cảnh bài gốc — KHÔNG dùng cụm bình luận sáo rỗng: "sức ép thị trường", "sức mạnh tài chính", "cho thấy sức mạnh", "đánh dấu bước ngoặt", "mở ra kỷ nguyên". Giữ nguyên tên riêng nước ngoài (người, công ty, sản phẩm) theo bản gốc, KHÔNG phiên âm sang tiếng Việt — ví dụ viết "Donald Trump", "Vladimir Putin", "Jensen Huang", "Nvidia"; CHỈ có Xi Jinping viết là "Tập Cận Bình".',
   '3. TUYỆT ĐỐI KHÔNG dùng ngôn ngữ khuyến nghị đầu tư: không viết "nên mua", "nên bán", "nên đầu tư", "nên giữ", "cân nhắc đầu tư", "cân nhắc mua", "đáng mua", "đáng đầu tư", "cơ hội mua vào", "khuyến nghị", "đa dạng hoá danh mục" hay bất kỳ lời khuyên mua/bán/giữ tài sản nào — áp dụng cho cả tóm tắt lẫn câu "vì sao đáng đọc".',
   '4. Câu "vì sao đáng đọc" (tối đa 200 ký tự) phải là 1 SỰ KIỆN CỤ THỂ lấy trong bài gốc — một con số, một cái tên, một quyết định — KHÔNG phải câu bình luận chung chung. Không viết kiểu "cho thấy sức mạnh tài chính của…", "đánh dấu bước ngoặt…", "mở ra kỷ nguyên…". Ví dụ tốt: "Nvidia đang nắm cổ phần ở hơn 20 startup AI." — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Không viết chung chung kiểu "tin này rất quan trọng".',
@@ -360,24 +479,26 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
   }
   // Sửa từng tin lỗi thay vì bỏ cả batch: gom các tin trả không phải tiếng
   // Việt (hoặc tóm tắt bị lọc thành trống — ví dụ toàn bộ bằng tiếng Anh
-  // nên stripEnglishClauses lược hết), tiêu đề tiếng Việt thiếu/sai, hoặc
-  // từng chứa cụm bình luận sáo rỗng (cờ _banned — câu đó đã bị lược, hỏi
-  // lại để AI viết lại bằng sự kiện cụ thể thay vì mất nội dung); hỏi lại
-  // riêng 1 lần (sau 15s, tôn trọng giới hạn Pollinations), kèm nhắc viết
-  // lại câu sáo rỗng bằng sự kiện cụ thể. Vẫn lỗi thì để trống TỪNG TRƯỜNG
-  // lỗi (giữ lại trường tốt — trước đây để trống cả tin làm mất tóm tắt tốt
-  // chỉ vì why lỗi).
+  // nên stripEnglishClauses lược hết), tiêu đề tiếng Việt thiếu/sai, số
+  // liệu trong tít Việt lệch tít gốc (titleNumbersMatch), hoặc từng chứa
+  // cụm bình luận sáo rỗng (cờ _banned — câu đó đã bị lược, hỏi lại để AI
+  // viết lại bằng sự kiện cụ thể thay vì mất nội dung); hỏi lại riêng 1
+  // lần (sau 15s, tôn trọng giới hạn Pollinations), kèm nhắc viết lại câu
+  // sáo rỗng bằng sự kiện cụ thể và đối chiếu lại số liệu tít. Vẫn lỗi thì
+  // để trống TỪNG TRƯỜNG lỗi (giữ lại trường tốt — trước đây để trống cả
+  // tin làm mất tóm tắt tốt chỉ vì why lỗi).
   const badIdx = [];
   out.forEach((p, k) => {
     if (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why) ||
-      !p.titleVi || !looksVietnameseTitle(p.titleVi) || p._banned) badIdx.push(k);
+      !p.titleVi || !looksVietnameseTitle(p.titleVi) || p._banned ||
+      (p.titleVi && !titleNumbersMatch(batch[k].title, p.titleVi, batch[k].description))) badIdx.push(k);
   });
   if (allowRepair && badIdx.length > 0) {
-    console.warn(`Batch có ${badIdx.length}/${batch.length} tin cần hỏi lại (không phải tiếng Việt / thiếu tít Việt / có cụm sáo rỗng).`);
+    console.warn(`Batch có ${badIdx.length}/${batch.length} tin cần hỏi lại (không phải tiếng Việt / thiếu tít Việt / lệch số tít / có cụm sáo rỗng).`);
     await sleep(15000);
     try {
       const sub = await summarizeBatch(apiKey, badIdx.map((k) => batch[k]), false,
-        'LƯU Ý: bản tóm tắt trước có câu bình luận chung chung (kiểu "cho thấy sức mạnh…", "đánh dấu bước ngoặt…") hoặc tiêu đề chưa phải tiếng Việt. Viết lại các câu đó bằng SỰ KIỆN CỤ THỂ trong bài (con số, tên, quyết định) và viết tiêu đề bằng tiếng Việt.');
+        'LƯU Ý: bản tóm tắt trước có câu bình luận chung chung (kiểu "cho thấy sức mạnh…", "đánh dấu bước ngoặt…"), tiêu đề chưa phải tiếng Việt, hoặc số liệu trong tiêu đề tiếng Việt lệch tiêu đề gốc. Viết lại các câu đó bằng SỰ KIỆN CỤ THỂ trong bài (con số, tên, quyết định), viết tiêu đề bằng tiếng Việt, và ĐỐI CHIẾU LẠI số liệu với tiêu đề gốc: số phải khớp đúng; "reaches $65B" là "lên tới 65 tỷ USD", KHÔNG phải "tăng 65 tỷ USD".');
       badIdx.forEach((k, j) => {
         const p = sub[j];
         out[k] = {
@@ -407,6 +528,21 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
       };
     });
   }
+  // Kiểm cuối sau bước sinh + sửa lỗi (đợt sửa UX 19/11):
+  // (1) Tít Việt vẫn lệch số so với tít gốc sau 1 lần hỏi lại -> để trống
+  // titleVi để trang hiển thị rơi về tít gốc tiếng Anh, thay vì đăng tít
+  // Việt sai số. (2) Câu why trùng ý summary -> bỏ hẳn why, tin chỉ hiện
+  // 1 câu tóm tắt là đủ.
+  out.forEach((p, k) => {
+    if (p.titleVi && !titleNumbersMatch(batch[k].title, p.titleVi, batch[k].description)) {
+      console.warn(`Tít Việt lệch số sau hỏi lại, giữ tít gốc: "${batch[k].title}" — tít Việt bị bỏ: "${p.titleVi}"`);
+      p.titleVi = '';
+    }
+    if (p.why && whyDuplicatesSummary(p.summary, p.why)) {
+      console.warn(`Bỏ câu why trùng ý summary: "${p.why}"`);
+      p.why = '';
+    }
+  });
   // Gỡ cờ nội bộ trước khi trả về — news.json chỉ chứa titleVi/summary/why.
   out.forEach((p) => { delete p._banned; });
   return out;
@@ -469,4 +605,9 @@ async function main() {
   console.log(`Đã ghi news.json: ${okCount}/${items.length} tin có tóm tắt, ${pairs.filter((p) => p.titleVi).length}/${items.length} tin có tiêu đề tiếng Việt.`);
 }
 
-await main();
+// Chỉ chạy pipeline khi gọi trực tiếp (node scripts/summarize-news.mjs) —
+// import module (để kiểm hàm whyDuplicatesSummary/titleNumbersMatch)
+// thì không chạy main.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  await main();
+}

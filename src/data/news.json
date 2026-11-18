@@ -6,7 +6,7 @@
     "ai": [
       {
         "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
-        "titleVi": "Nvidia tăng 65 tỷ USD cổ phần startup, nhưng Huang rời đi làm nghi ngờ giao dịch tương lai",
+        "titleVi": "Khoản đầu tư vào startup của Nvidia lên 65 tỷ USD, nhưng việc Huang rời đi khiến các thương vụ sắp tới bị bỏ ngỏ",
         "summary": "Giá trị đầu tư tư nhân của Nvidia đã gần gấp ba lần trong chín tháng qua nhờ các thỏa thuận của Jensen Huang và tăng giá của các công ty trong danh mục.",
         "why": "Nvidia đã đạt 65 tỷ USD trong các khoản đầu tư startup.",
         "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
@@ -17,7 +17,7 @@
         "title": "Nvidia promises that revenue will keep soaring — for now",
         "titleVi": "Nvidia dự báo doanh thu tiếp tục tăng dù Huang rời đi",
         "summary": "Dù gặp rắc rối sau khi Huang rời, Nvidia vẫn dự báo chuỗi doanh thu kỷ lục sẽ tiếp tục.",
-        "why": "Nvidia vẫn dự báo doanh thu tăng liên tục ngay sau sự kiện rời đi của Huang.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000"
@@ -35,7 +35,7 @@
         "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit",
         "titleVi": "Nvidia duy trì chiến lược AI mã nguồn mở, dự định mua Hugging Face",
         "summary": "Giám đốc điều hành tạm thời xác nhận chiến lược AI mã nguồn mở và kế hoạch mua Hugging Face, bất chấp rời đi của Huang.",
-        "why": "Nvidia vẫn duy trì chiến lược AI mã nguồn mở và dự định mua Hugging Face.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 23:04:35 +0000"
@@ -125,7 +125,7 @@
         "title": "Research Reports",
         "titleVi": "Báo cáo nghiên cứu: truy cập qua hình ảnh",
         "summary": "Để truy cập báo cáo nghiên cứu, người dùng cần nhấp vào hình ảnh tương ứng. Mỗi hình ảnh đại diện cho một báo cáo cụ thể và dẫn tới tài liệu chi tiết.",
-        "why": "Người dùng có thể truy cập báo cáo bằng cách nhấp vào hình ảnh, giúp tiết kiệm thời gian tìm kiếm.",
+        "why": "",
         "link": "https://www.technologyreview.com/2026/11/17/1148203/research-reports/",
         "source": "MIT Tech Review",
         "publishedAt": "Tue, 17 Nov 2026 14:39:46 +0000"
@@ -161,7 +161,7 @@
         "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
         "titleVi": "Sự cố gián đoạn lớn ảnh hưởng ngân hàng, hàng không và công nghệ",
         "summary": "Một loạt sự cố gián đoạn đã ảnh hưởng tới ngân hàng, ngành hàng không, NSA và Apple, cho thấy rủi ro của hệ thống công nghệ liên kết trong thời đại AI.",
-        "why": "Sự cố gián đoạn đã ảnh hưởng tới ngân hàng, hàng không, NSA và Apple.",
+        "why": "",
         "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
         "source": "CNBC",
         "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT"
@@ -170,7 +170,7 @@
         "title": "CoreWeave’s stock pops — even as Nvidia talks up a ‘disciplined’ approach to financing",
         "titleVi": "Cổ phiếu CoreWeave tăng khi Nvidia nhấn mạnh tài chính kỷ luật",
         "summary": "Cổ phiếu CoreWeave tăng khi CEO tạm thời của Nvidia, Colette Kress, cho rằng neoclouds ngày càng quan trọng, đồng thời công ty sẽ xem xét kỹ lưỡng khách hàng khi cung cấp tài chính.",
-        "why": "Colette Kress cho rằng neoclouds đang trở nên quan trọng hơn, điều này có thể thúc đẩy nhu cầu tài chính cho CoreWeave.",
+        "why": "",
         "link": "https://www.marketwatch.com/story/coreweaves-stock-pops-even-as-nvidia-talks-up-a-disciplined-approach-to-financing-e7f00876?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Wed, 18 Nov 2026 01:59:00 GMT"
@@ -179,7 +179,7 @@
         "title": "Nvidia’s stock rises as blowout numbers help ease CEO transition fears",
         "titleVi": "Nvidia tăng giá cổ phiếu khi doanh thu ấn tượng giảm lo ngại chuyển giao CEO",
         "summary": "Doanh thu Nvidia tăng trưởng mạnh và dự báo quý tới 130 tỷ USD, cho thấy nhu cầu chip vẫn cao, làm giảm lo ngại về quá trình chuyển giao CEO.",
-        "why": "Nvidia dự báo quý tới 130 tỷ USD, chứng tỏ nhu cầu chip vẫn cao.",
+        "why": "",
         "link": "https://www.marketwatch.com/story/nvidias-stock-rises-as-blowout-numbers-help-ease-ceo-transition-fears-2f20d38a?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Wed, 18 Nov 2026 01:28:00 GMT"
@@ -188,7 +188,7 @@
         "title": "Google finds self-running AI hacking tool with Russian comments in its files",
         "titleVi": "Google phát hiện công cụ hack AI tự động với chú thích tiếng Nga",
         "summary": "Google nhận diện một công cụ AI có khả năng tự tìm và khai thác lỗ hổng phần mềm mà không cần sự can thiệp của con người, trong đó có các chú thích bằng tiếng Nga.",
-        "why": "Công cụ AI này có thể tự động khai thác lỗ hổng phần mềm mà không cần người điều khiển.",
+        "why": "",
         "link": "https://www.coindesk.com/tech/2026/11/18/google-finds-self-running-ai-hacking-tool-with-russian-comments-in-its-files",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 07:37:59 +0000"
@@ -197,7 +197,7 @@
         "title": "Why Microsoft Thinks Smaller, Cheaper AI Can Beat Claude and GPT",
         "titleVi": "Microsoft tin AI nhỏ gọn, rẻ hơn có thể vượt trội hơn Claude và GPT",
         "summary": "Microsoft giới thiệu các mô hình mã, an ninh mạng và hình ảnh nhỏ hơn, tập trung vào hiệu suất và giá thành, cho rằng làm một công việc xuất sắc hơn nhiều quan trọng hơn làm tất cả mọi thứ.",
-        "why": "Microsoft tập trung vào hiệu suất và giá thành của các mô hình AI nhỏ gọn.",
+        "why": "",
         "link": "https://decrypt.co/383468/why-microsoft-thinks-smaller-cheaper-ai-beat-claude-gpt",
         "source": "Decrypt",
         "publishedAt": "Tue, 17 Nov 2026 23:16:03 +0000"
@@ -206,7 +206,7 @@
         "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
         "titleVi": "Ban điều hành Nvidia từ chối trở lại của Jensen Huang và tìm kiếm CEO mới",
         "summary": "Ban điều hành Nvidia bác bỏ đề xuất trở lại của đồng sáng lập Jensen Huang, thuê công ty tìm kiếm CEO mới, ủng hộ CEO tạm thời Colette Kress và tăng cường giám sát xuất khẩu chip tới Trung Quốc.",
-        "why": "Nvidia tăng cường giám sát xuất khẩu chip tới Trung Quốc.",
+        "why": "",
         "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
         "source": "Decrypt",
         "publishedAt": "Tue, 17 Nov 2026 22:39:53 +0000"
@@ -217,7 +217,7 @@
         "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
         "titleVi": "Tập Cận Bình kêu gọi tháo gỡ rào cản thương mại trước cuộc gặp với Trump và Putin",
         "summary": "Tập Cận Bình mở hội APEC tại Thâm Quyến, kêu gọi giảm rào cản thương mại và đầu tư, hứa mở rộng tiếp cận thị trường và ngành công nghiệp của Trung Quốc.",
-        "why": "Tập Cận Bình hứa mở rộng tiếp cận thị trường Trung Quốc trước cuộc gặp với Trump và Putin.",
+        "why": "",
         "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 08:00:05 GMT"
@@ -226,7 +226,7 @@
         "title": "Iran says army targets U.S. drone and missile sites in Kuwait as Gulf attacks mount",
         "titleVi": "Iran tấn công cơ sở vũ khí Mỹ tại Kuwait",
         "summary": "Iran tuyên bố quân đội đã tấn công cơ sở vũ khí và drone của Mỹ tại căn cứ Ali Al Salem, Kuwait, tiếp tục leo thang các cuộc tấn công trong vùng.",
-        "why": "Iran đã tấn công cơ sở vũ khí Mỹ tại căn cứ Ali Al Salem, Kuwait.",
+        "why": "",
         "link": "https://www.cnbc.com/2026/11/18/trump-iran-war-hormuz-oil-.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 05:24:54 GMT"
@@ -244,7 +244,7 @@
         "title": "Democrat Mary Peltola wins Alaska Senate election",
         "titleVi": "Mary Peltola thắng cử Thượng nghị sĩ Alaska",
         "summary": "Mary Peltola, cử tri Đảng Dân chủ, đánh bại Dan Sullivan, cử tri Đảng Cộng hòa, giúp Đảng Dân chủ đạt số lượng 56 thành viên trong Thượng nghị viện Mỹ vào tháng 1.",
-        "why": "Peltola đánh bại Dan Sullivan, tăng số lượng thành viên Đảng Dân chủ trong Thượng nghị viện lên 56.",
+        "why": "",
         "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT"
@@ -253,7 +253,7 @@
         "title": "Senators press acting U.S. Navy Secretary on Iran war costs, sailor health in confirmation hearing",
         "titleVi": "Cán bộ Hải quân Mỹ hỏi chi phí chiến tranh Iran",
         "summary": "Hung Cao, Bộ trưởng Hải quân tạm thời, cho biết Hải quân đã ghi nhận và sử dụng vũ khí hết hạn trong chiến tranh Iran, gây áp lực lên kho vũ khí và triển khai tàu thủy.",
-        "why": "Hung Cao tiết lộ Hải quân đã sử dụng vũ khí hết hạn trong chiến tranh Iran, ảnh hưởng tới kho vũ khí và triển khai tàu thủy.",
+        "why": "",
         "link": "https://www.cnbc.com/2026/11/18/us-iran-navy-hormuz-war-cao.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 07:24:06 GMT"
@@ -262,7 +262,7 @@
         "title": "Medicare Part B premiums rise due higher healthcare spending",
         "titleVi": "Phí bảo hiểm Medicare Part B tăng 6,50 USD",
         "summary": "Phí bảo hiểm Medicare Part B sẽ tăng 6,50 USD, lên 209,40 USD mỗi tháng, do chi phí chăm sóc sức khỏe tăng cao.",
-        "why": "Phí bảo hiểm Medicare Part B tăng 6,50 USD, lên 209,40 USD mỗi tháng.",
+        "why": "",
         "link": "https://www.marketwatch.com/story/medicare-part-b-premiums-rise-due-higher-healthcare-spending-f2daba13?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Wed, 18 Nov 2026 01:45:00 GMT"
@@ -282,7 +282,7 @@
         "title": "Bitcoin ETFs lose $240M as CryptoQuant flags bearish market phase",
         "titleVi": "ETF Bitcoin mất 240 triệu USD khi CryptoQuant cảnh báo giai đoạn giảm giá",
         "summary": "Khoản rút tiền từ ETF Bitcoin trở lại sau một ngày tạm dừng khi CryptoQuant cảnh báo Bitcoin đã trở lại giai đoạn giảm giá.",
-        "why": "CryptoQuant cảnh báo Bitcoin đã trở lại giai đoạn giảm giá.",
+        "why": "",
         "link": "https://cointelegraph.com/markets/bitcoin-etf-240-million-outflow-bearish-phase?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 08:09:23 +0000"
@@ -291,7 +291,7 @@
         "title": "Here’s what happened in crypto today",
         "titleVi": "Tổng hợp tin tức crypto hôm nay: Bitcoin, DeFi, Web3 và quy định",
         "summary": "Bản tin cập nhật các sự kiện hàng ngày ảnh hưởng đến giá Bitcoin, công nghệ blockchain, DeFi, Web3 và các quy định liên quan đến tiền điện tử.",
-        "why": "Bản tin cung cấp các sự kiện hàng ngày ảnh hưởng đến giá Bitcoin và công nghệ blockchain.",
+        "why": "",
         "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
@@ -300,7 +300,7 @@
         "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
         "titleVi": "Vụ mất tiền crypto 604.000 USD tại cửa hàng Virgin Megastore Dubai",
         "summary": "Hai chủ sở hữu Ledger báo cáo mất tổng cộng 604.000 USD từ ví phần cứng, cho rằng các thiết bị được mua tại cửa hàng Virgin Megastore Dubai.",
-        "why": "Hai chủ sở hữu Ledger mất 604.000 USD khi mua ví phần cứng tại Virgin Megastore Dubai.",
+        "why": "",
         "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000"
@@ -309,7 +309,7 @@
         "title": "Live updates: Bitcoin stuck near $65,000 as popular 'basis trade' returns dry up",
         "titleVi": "Bitcoin đứng gần 65.000 USD khi giao dịch 'basis trade' suy giảm",
         "summary": "Bitcoin giữ mức giá gần 65.000 USD khi giao dịch 'basis trade' phổ biến giảm sút, trong khi XRP tiến gần 1 USD và SOL tăng 3%. Báo cáo Talos cho thấy lợi nhuận giao dịch crypto hiện chỉ tương đương với trái phiếu chính phủ.",
-        "why": "Lợi nhuận giao dịch crypto hiện chỉ tương đương với trái phiếu chính phủ.",
+        "why": "",
         "link": "https://www.coindesk.com/business/2026/11/18/live-updates-bitcoin-stuck-near-usd65-000-as-popular-basis-trade-returns-dry-up",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 07:27:48 +0000"
@@ -318,7 +318,7 @@
         "title": "U.S. judge says Ethereum has ‘no terms of use,’ clears MIT brothers of $25 million fraud",
         "titleVi": "Thẩm phán Mỹ miễn tội cho anh em Peraire-Bueno trong vụ lừa đảo 25 triệu USD",
         "summary": "Thẩm phán liên bang miễn tội cho Anton và James Peraire-Bueno khi họ không có điều khoản sử dụng trong giao dịch 2023 chống lại bot giao dịch Ethereum, đóng cửa vụ án hình sự đầu tiên của chính phủ Mỹ về MEV.",
-        "why": "Vụ án hình sự đầu tiên của chính phủ Mỹ về MEV đã được đóng cửa.",
+        "why": "",
         "link": "https://www.coindesk.com/policy/2026/11/18/u-s-judge-says-ethereum-has-no-terms-of-use-clears-mit-brothers-of-usd25-million-fraud",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 05:30:10 +0000"
