@@ -31,7 +31,7 @@ function sampleCard(sample, topics) {
   <p class="card-desc">${esc(sample.desc)}</p>
   <p class="code-mau-tags"><span class="chip code-lang">${esc(sample.lang)}</span> <span class="chip">${esc(topicLabel(topics, sample.topic))}</span></p>
   <pre class="code-preview" aria-hidden="true"><code>${esc(previewLines(sample.code))}</code></pre>
-  <p><a href="/code-mau/${esc(sample.id)}/">Xem mẫu &amp; sao chép →</a></p>
+  <p><a class="btn btn-ghost" href="/code-mau/${esc(sample.id)}/">Xem mẫu &amp; sao chép →</a></p>
 </article>`;
 }
 
@@ -51,10 +51,12 @@ ${samples.map((s) => sampleCard(s, topics)).join('\n')}
     : `<p class="muted">Chưa có mẫu code nào — đang cập nhật.</p>`;
 
   return `
-  <section class="section">
+  <header class="tool-page-head">
     <h1>Code mẫu cho lập trình viên</h1>
     <p class="muted" id="code-mau-count">${samples.length} mẫu code — sao chép-dán là chạy, đã chạy thử trước khi đăng, không cần đăng nhập.</p>
     <p class="muted">Mỗi mẫu có sẵn một câu prompt ngắn để dán vào Claude Code/Cursor khi cần viết lại theo ý mình. Ưu tiên thứ gắn với Việt Nam: VietQR, SĐT/CCCD/mã số thuế, đọc số thành chữ, bỏ dấu, slug tiếng Việt.</p>
+  </header>
+  <section class="section">
     <label class="small muted" for="code-mau-search">Tìm mẫu code</label>
     <input type="search" id="code-mau-search" class="search-input search-input-large" placeholder="VD: VietQR, CRC16, slug, JWT, debounce… (gõ không dấu cũng được)" autocomplete="off">
     <div class="chip-row" id="code-mau-chips" role="group" aria-label="Lọc theo chủ đề">
@@ -75,7 +77,7 @@ export function detailBody({ sample, samples = [], topics = [] } = {}) {
     .filter((s) => s.topic === sample.topic && s.id !== sample.id)
     .slice(0, 4);
   const sameTopicHtml = sameTopic.length
-    ? `<section class="section"><h2>Mẫu khác cùng chủ đề ${esc(topicLabel(topics, sample.topic))}</h2><ul>${sameTopic.map((s) => `<li><a href="/code-mau/${esc(s.id)}/">${esc(s.title)}</a> <span class="muted small">— ${esc(s.lang)}</span></li>`).join('')}</ul></section>`
+    ? `<section class="tool-related"><h2>Mẫu khác cùng chủ đề ${esc(topicLabel(topics, sample.topic))}</h2><div class="code-mau-grid">${sameTopic.map((s) => sampleCard(s, topics)).join('\n')}</div></section>`
     : '';
   return `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/code-mau/">← Tất cả code mẫu</a></nav>

@@ -17,7 +17,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { shell } from './src/template.js';
 import { CATEGORIES, categoryLabel, isCategorySlug } from './src/categories.js';
-import { esc, keywordsText } from './src/tool-card.js';
+import { esc, keywordsText, toolCard } from './src/tool-card.js';
 import { TOOL_CONTENT } from './src/tool-content.js';
 import { SYNONYMS } from './src/search-synonyms.js';
 import * as homePage from './src/pages/home.js';
@@ -256,6 +256,51 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const disclaimerHtml = content && content.finance
     ? `<p class="note tool-disclaimer">Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.</p>`
     : '';
+  // 3 bước dùng nhanh (đổi giao diện 18/11, phong cách 21st.dev): câu chữ
+  // theo nhóm hành vi của hạng mục, không bịa tính năng — nhóm tra cứu/
+  // hiển thị dùng bước chung có "(nếu có)" vì có công cụ không có nút bấm
+  // (đồng hồ, kết quả xổ số...). hoc-tap dùng bước chung vì có 3 công cụ
+  // luyện tập/trắc nghiệm không nhập số liệu.
+  const CALC_STEPS = ['Nhập số liệu vào các ô trong khung dùng thử', 'Bấm nút chính của công cụ để tính', 'Xem kết quả và thay số liệu để so sánh'];
+  const FILE_STEPS = ['Nhập thông tin hoặc tải file lên trong khung dùng thử', 'Bấm nút chính của công cụ (nếu có)', 'Xem kết quả và tải xuống hoặc sao chép khi cần'];
+  const GENERIC_STEPS = ['Nhập thông tin hoặc chọn mục cần xem trong khung dùng thử', 'Bấm nút chính của công cụ (nếu có)', 'Xem kết quả ngay trên trang'];
+  const steps = ['tai-chinh', 'suc-khoe', 'nha-bep', 'mua-sam'].includes(tool.categorySlug)
+    ? CALC_STEPS
+    : ['van-phong', 'dev-web'].includes(tool.categorySlug)
+      ? FILE_STEPS
+      : GENERIC_STEPS;
+  const stepsHtml = `<section class="tool-steps" aria-label="Cách dùng nhanh">${steps.map((s, i) => `<div class="tool-step"><span class="tool-step-num">${i + 1}</span><p>${esc(s)}</p></div>`).join('')}</section>`;
+  // Công cụ liên quan (tối đa 4, cùng hạng mục): toolPageHtml không nhận
+  // danh sách công cụ (chữ ký gọi ở main() giữ nguyên) nên đọc meta trực
+  // tiếp từ file nguồn trong thư mục hạng mục — định dạng meta 1 dòng
+  // (id/name/desc/icon) đã kiểm chứng đúng 120/120 file, cache theo hạng
+  // mục để không quét lại mỗi lần gọi. Thẻ liên quan dùng chung toolCard
+  // (src/tool-card.js) để đồng bộ giao diện với catalog.
+  const relatedHtml = (() => {
+    const cache = toolPageHtml._relatedCache || (toolPageHtml._relatedCache = new Map());
+    let list = cache.get(tool.categorySlug);
+    if (!list) {
+      list = [];
+      try {
+        const dir = path.join(SRC, 'tools', tool.categorySlug);
+        for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.js')).sort()) {
+          const src = fs.readFileSync(path.join(dir, file), 'utf8');
+          const id = (src.match(/^\s*id:\s*'([^']+)',/m) || [])[1];
+          const name = (src.match(/^\s*name:\s*'([^']+)',/m) || [])[1];
+          const desc = (src.match(/^\s*desc:\s*'([^']+)',/m) || [])[1];
+          const icon = (src.match(/^\s*icon:\s*'([^']+)',/m) || [])[1] || '';
+          if (id && name && desc) list.push({ id, name, desc, icon });
+        }
+        list.sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+      } catch (e) { /* thư mục hạng mục lỗi: bỏ khối liên quan, không fail build */ }
+      cache.set(tool.categorySlug, list);
+    }
+    // Lọc công cụ hiện tại ở lúc render (KHÔNG lúc cache): cache theo hạng
+    // mục dùng chung cho mọi công cụ trong hạng mục đó.
+    const items = list.filter((r) => r.id !== tool.slug).slice(0, 4);
+    if (!items.length) return '';
+    return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: tool.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
+  })();
   const body = `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/cong-cu/">← Tất cả công cụ</a></nav>
   <header class="tool-page-head">
@@ -264,7 +309,9 @@ function toolPageHtml(tool, index, noscriptLinks) {
     <span class="chip">${esc(tool.categoryLabel)}</span>
   </header>
   ${introHtml}
-  <div id="tool-root">${tool.bodyHtml}</div>
+  <div class="tool-try">
+    <div id="tool-root">${tool.bodyHtml}</div>
+  </div>
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');
@@ -272,8 +319,10 @@ function toolPageHtml(tool, index, noscriptLinks) {
   });
   </script>
   <script src="/assets/tool-state.js" defer></script>
+  ${stepsHtml}
   ${faqHtml}
-  ${disclaimerHtml}`;
+  ${disclaimerHtml}
+  ${relatedHtml}`;
   return shell({
     title: `${tool.seoTitle || tool.name} | ${SITE_NAME}`,
     desc: tool.seoDesc || tool.desc,

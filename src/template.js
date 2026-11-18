@@ -39,7 +39,7 @@ const FOOTER_TOOLS = [
 
 // Favicon nội tuyến (SVG data URI) — không cần file riêng.
 const FAVICON =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231e8fe0'/%3E%3Ctext x='32' y='45' font-size='32' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3ETH%3C/text%3E%3C/svg%3E";
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%232563EB'/%3E%3Ctext x='32' y='45' font-size='32' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3ETH%3C/text%3E%3C/svg%3E";
 
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
@@ -73,7 +73,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <meta property="og:description" content="${desc}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:locale" content="vi_VN">
-  <meta name="theme-color" content="#1e8fe0">
+  <meta name="theme-color" content="#2563EB">
   <link rel="icon" href="${FAVICON}">
   ${THEME_BOOT}
   <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}
@@ -93,6 +93,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
       </nav>
       <div class="header-actions">
+        <button type="button" class="header-search-btn" id="header-search-btn" aria-label="Tìm kiếm công cụ">Tìm kiếm <kbd>⌘K</kbd></button>
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi giao diện sáng/tối">🌙</button>
         <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">☰</button>
       </div>
@@ -107,23 +108,26 @@ ${body}
   <footer class="site-footer">
     <div class="wrap footer-inner">
       <p class="footer-brand">${SITE_NAME} — công cụ miễn phí, chạy ngay trên trình duyệt của bạn.</p>
-      <nav class="footer-nav" aria-label="Liên kết cuối trang">
-        <a href="/">Trang chủ</a>
-        <a href="/cong-cu/">Công cụ</a>
-        <a href="/code-mau/">Code mẫu</a>
-        <a href="/ung-ho/">Ủng hộ</a>
-        <a href="/dieu-khoan/">Điều khoản sử dụng</a>
-        <a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a>
-        <a href="/lien-he/">Liên hệ</a>
-      </nav>
-      <div class="footer-sitemap">
-        <div class="footer-sitemap-col">
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h3>Công cụ</h3>
+          <a href="/">Trang chủ</a>
+          <a href="/cong-cu/">Công cụ</a>
+          <a href="/code-mau/">Code mẫu</a>
           <h3>Hạng mục</h3>
           ${categoryLinks}
-        </div>
-        <div class="footer-sitemap-col">
           <h3>Công cụ chính</h3>
           ${footerToolLinks}
+        </div>
+        <div class="footer-col">
+          <h3>Hỗ trợ</h3>
+          <a href="/ung-ho/">Ủng hộ</a>
+          <a href="/lien-he/">Liên hệ</a>
+        </div>
+        <div class="footer-col">
+          <h3>Chính sách</h3>
+          <a href="/dieu-khoan/">Điều khoản sử dụng</a>
+          <a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a>
         </div>
       </div>
       <p class="muted small">Liên hệ: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a></p>

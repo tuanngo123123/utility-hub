@@ -1,6 +1,7 @@
-// Trang catalog đầy đủ (/cong-cu/): ô tìm kiếm + 11 thẻ hạng mục đặc màu
-// (phong cách TinyWow: mỗi hạng mục 1 màu, icon trắng, tên trắng đậm,
-// pill số công cụ, công cụ tiêu biểu; bấm vào lọc lưới theo hạng mục) +
+// Trang catalog đầy đủ (/cong-cu/): ô tìm kiếm + 11 thẻ hạng mục
+// (đổi giao diện 18/11, phong cách 21st.dev: bề mặt trắng + ô icon màu
+// thay cho thẻ đặc màu toàn thẻ kiểu cũ; màu riêng từng hạng mục vẫn qua
+// biến --cat-color, bấm vào lọc lưới theo hạng mục) +
 // chip lọc 11 hạng mục + lưới thẻ công cụ (mỗi thẻ link tới /cong-cu/<slug>/).
 // Danh sách công cụ do build.mjs chèn vào lúc build (render sẵn, không cần JS
 // để xem; JS chỉ phục vụ tìm kiếm/lọc).
@@ -14,13 +15,16 @@ export function body({ tools = [], categories = [] } = {}) {
   const bySlug = new Map(tools.map((t) => [t.slug, t]));
 
   // Một thẻ đặc màu cho MỖI hạng mục (11 hạng mục — không bỏ hạng mục nào).
-  // Màu nền lấy từ CATEGORIES (biến --cat-color), bấm vào lọc lưới.
+  // Nền thẻ dùng màu hạng mục (--cat-color); ô icon nền trắng mờ trên nền
+  // màu. Hàng đầu (.cat-head) gom ô icon + pill số công cụ để CSS xếp ngang.
   const categoryHtml = cats.map((c) => {
     const inCat = tools.filter((t) => t.categorySlug === c.slug);
     const featured = bySlug.get(CATEGORY_FEATURED[c.slug]) || inCat[0];
     return `<a class="cat-card" href="/cong-cu/?cat=${esc(c.slug)}" style="--cat-color: ${esc(c.color || '#2563eb')}">
-  <span class="cat-icon" aria-hidden="true">${esc(c.icon || '🔧')}</span>
-  <span class="cat-count">${inCat.length} công cụ</span>
+  <span class="cat-head">
+    <span class="cat-icon" aria-hidden="true">${esc(c.icon || '🔧')}</span>
+    <span class="cat-count">${inCat.length} công cụ</span>
+  </span>
   <h3 class="cat-name">${esc(c.label)}</h3>
   ${featured ? `<p class="cat-featured">Tiêu biểu: ${esc(featured.name)}</p>` : ''}
   <span class="cat-arrow" aria-hidden="true">→</span>

@@ -19,14 +19,20 @@ export function keywordsText(meta) {
 
 // Thẻ công cụ trong catalog. Các thuộc tính data-* để app.js lọc/tìm kiếm lúc chạy
 // (app.js tự chuẩn hóa không dấu lúc chạy, nên ở đây giữ nguyên văn bản gốc).
-// (Đổi giao diện 18/11: bỏ số thứ tự /01, /02… kiểu catalog cũ; thẻ mới
-// kiểu iLovePDF: icon ô vuông bo góc + tên + mô tả + nhãn hạng mục.)
+// (Đổi giao diện 18/11, phong cách 21st.dev: icon lớn + tên + mô tả 1 dòng
+// + badge "Miễn phí" + nút "Dùng ngay" hiện khi hover; GIỮ NGUYÊN class
+// .catalog-card, href, aria-label, toàn bộ data-* và chip hạng mục .card-cat.)
+// Lưu ý: meta công cụ KHÔNG có trường đánh dấu "mới" (đã kiểm tra src/tools/
+// + build — không có isNew/new/badge) nên thẻ chỉ có badge "Miễn phí",
+// không bịa badge "Mới".
 export function toolCard(tool, index) {
   const icon = tool.icon ? `<span class="card-icon" aria-hidden="true">${esc(tool.icon)}</span>` : '';
   return `<a class="catalog-card" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc)}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
   ${icon}
+  <span class="card-badge">Miễn phí</span>
   <h3 class="card-title">${esc(tool.name)}</h3>
   <p class="card-desc">${esc(tool.desc)}</p>
   <span class="chip card-cat">${esc(categoryLabel(tool.categorySlug))}</span>
+  <span class="card-cta">Dùng ngay →</span>
 </a>`;
 }

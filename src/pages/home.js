@@ -200,14 +200,19 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
 
   return `
   <section class="hero">
-    <h1>Tiện Ích Hub</h1>
-    <p class="hero-sub">${tools.length} công cụ miễn phí, dùng ngay không cần đăng ký.</p>
+    <p class="hero-eyebrow">Miễn phí — dùng ngay, không cần đăng ký</p>
+    <h1>${tools.length} công cụ miễn phí, dùng ngay không cần đăng ký.</h1>
+    <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt.</p>
+    <div class="hero-cta-row">
+      <a class="btn btn-primary" href="/cong-cu/">Chọn công cụ, dùng ngay</a>
+      <a class="btn btn-ghost" href="/cong-cu/">Xem tất cả công cụ</a>
+    </div>
     <div class="hero-search-wrap">
       <label class="small muted" for="hero-search">Tìm công cụ</label>
       <input type="search" id="hero-search" class="hero-search" placeholder="Tìm công cụ… ví dụ: tính lương net" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="hero-search-results">
       <div id="hero-search-results" class="hero-search-results" role="listbox" hidden></div>
     </div>
-    <div class="hero-chips" aria-label="Từ khóa gợi ý">
+    <div class="hero-chips hero-popular" aria-label="Từ khóa gợi ý">
       <a class="chip" href="/cong-cu/luong-gross-net/">Tính lương net</a>
       <a class="chip" href="/cong-cu/tien-dien-bac-thang/">Tiền điện</a>
       <a class="chip" href="/cong-cu/vietqr-wifi-qr/">VietQR</a>

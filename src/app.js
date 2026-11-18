@@ -7,6 +7,9 @@
      hạng khớp tên > đồng nghĩa > từ khóa > mô tả; lỗi thì dự phòng lọc
      từ thẻ đã render sẵn
    - Tìm kiếm hero + lọc lưới trang chủ (trang chủ)
+   - Modal tìm kiếm ⌘K toàn trang (đổi giao diện 18/11, phong cách 21st.dev):
+     mở bằng Ctrl/Cmd+K hoặc nút #header-search-btn, dùng chung chỉ mục +
+     xếp hạng với ô tìm kiếm hero, kết quả nhóm theo hạng mục
    - Tabs chung (chỉ các .tab có data-tab-target — không can thiệp tab riêng
      bên trong công cụ)
    - Trang chủ: dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi),
@@ -472,6 +475,7 @@
     setupSearchFilter();
     setupCodeMauFilter();
     setupHeroSearch();
+    setupSearchModal();
     setupHomeFilter();
     setupTabs();
     setupCopyButtons();
@@ -967,6 +971,228 @@
       // Đợi một nhịp để bấm vào kết quả vẫn kịp chạy trước khi đóng.
       setTimeout(close, 150);
     });
+  }
+
+  /* Modal tìm kiếm ⌘K toàn trang (đổi giao diện 18/11, phong cách 21st.dev).
+     Mở bằng Ctrl+K / Cmd+K hoặc nút #header-search-btn (nút do Worker B
+     thêm vào header — kiểm tra tồn tại trước khi gắn sự kiện, vì lúc chạy
+     thử nút có thể chưa có). Đóng bằng Esc, bấm nền mờ, nút đóng.
+     Modal chèn vào DOM bằng JS lúc init (không sửa template.js).
+     Dùng LẠI đúng chỉ mục + logic xếp hạng + chuẩn hóa của ô tìm kiếm hero
+     (loadSearchIndex / rankSearch / norm) nên tìm đồng nghĩa vẫn đúng
+     ("lương" ra Gross-Net, "điện" ra tiền điện). Kết quả nhóm theo hạng mục,
+     tối đa 8. Hiển thị điều khiển bằng thuộc tính hidden + class .is-open
+     + style.display inline (flex khi mở, none khi đóng) để không phụ thuộc
+     vào cách CSS định nghĩa .search-modal. Kết quả đang chọn có thêm class
+     .is-active + aria-selected (CSS cần định nghĩa .search-modal-item.is-active).
+     Khi mở: khóa cuộn trang nền + autofocus ô nhập; khi đóng: trả focus
+     về phần tử trước đó. */
+  function setupSearchModal() {
+    var MODAL_MAX_RESULTS = 8;
+    var modal = document.createElement('div');
+    modal.className = 'search-modal';
+    modal.id = 'search-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Tìm kiếm công cụ');
+    modal.hidden = true;
+    modal.innerHTML =
+      '<div class="search-modal-box">' +
+        '<input type="search" class="search-modal-input" id="search-modal-input" placeholder="Tìm công cụ… VD: lương, tiền điện, BMI" autocomplete="off" aria-label="Tìm công cụ" role="combobox" aria-expanded="false" aria-controls="search-modal-results">' +
+        '<button type="button" class="search-modal-close" aria-label="Đóng tìm kiếm">✕</button>' +
+        '<div id="search-modal-results" role="listbox" aria-label="Kết quả tìm kiếm"></div>' +
+        '<p class="search-modal-hint">↑↓ chọn · Enter mở · Esc đóng</p>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    var input = $('#search-modal-input', modal);
+    var resultsBox = $('#search-modal-results', modal);
+    var closeBtn = $('.search-modal-close', modal);
+    var isOpen = false;
+    var lastFocus = null;
+    var prevBodyOverflow = '';
+    var activeIndex = -1;
+    var currentItems = []; // [{href, name, cat}] đang hiển thị, theo thứ tự DOM
+
+    // Chọn kết quả thứ index (quấn vòng: quá cuối về đầu, trước đầu về cuối).
+    function setActive(index) {
+      var items = $all('.search-modal-item', resultsBox);
+      if (!items.length) {
+        activeIndex = -1;
+        input.removeAttribute('aria-activedescendant');
+        return;
+      }
+      if (index < 0) index = items.length - 1;
+      if (index >= items.length) index = 0;
+      activeIndex = index;
+      items.forEach(function (item, i) {
+        var on = i === activeIndex;
+        item.classList.toggle('is-active', on);
+        item.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      input.setAttribute('aria-activedescendant', items[activeIndex].id);
+      if (items[activeIndex].scrollIntoView) {
+        items[activeIndex].scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    function clearActive() {
+      activeIndex = -1;
+      $all('.search-modal-item', resultsBox).forEach(function (item) {
+        item.classList.remove('is-active');
+        item.setAttribute('aria-selected', 'false');
+      });
+      input.removeAttribute('aria-activedescendant');
+    }
+
+    function renderItems(items) {
+      var ordered = []; // thứ tự DOM (đã nhóm theo hạng mục) — khác thứ tự
+      // xếp hạng gốc khi các hạng mục xen kẽ nhau.
+      if (!items.length) {
+        var q = input.value.trim();
+        resultsBox.innerHTML = q
+          ? '<p class="search-modal-empty">Không thấy công cụ nào cho “' + escHtml(q) + '” — thử từ khóa khác, ví dụ “lương” hoặc “tiền điện”. <a href="/cong-cu/?q=' + encodeURIComponent(q) + '">Tìm ở trang Công cụ →</a></p>'
+          : '<p class="search-modal-empty">Gõ từ khóa để tìm trong 120 công cụ — thử “lương”, “tiền điện” hay “BMI”.</p>';
+      } else {
+        // Nhóm theo hạng mục, giữ thứ tự xếp hạng: nhóm xuất hiện theo
+        // hạng cao nhất của công cụ đầu tiên trong nhóm.
+        var groups = [];
+        var byCat = {};
+        items.forEach(function (it) {
+          var key = it.cat || 'Công cụ';
+          if (!byCat[key]) { byCat[key] = []; groups.push(key); }
+          byCat[key].push(it);
+        });
+        var n = 0;
+        resultsBox.innerHTML = groups.map(function (cat) {
+          var list = byCat[cat].map(function (it) {
+            ordered.push(it);
+            var id = 'search-modal-item-' + (n++);
+            return '<a class="search-modal-item" id="' + id + '" href="' + escHtml(it.href) + '" role="option" aria-selected="false">' +
+              '<span class="search-modal-item-name">' + escHtml(it.name) + '</span>' +
+              '<span class="search-modal-item-cat">' + escHtml(it.cat) + '</span></a>';
+          }).join('');
+          return '<div class="search-modal-group" role="group" aria-label="' + escHtml(cat) + '">' +
+            '<p class="search-modal-group-title">' + escHtml(cat) + '</p>' + list + '</div>';
+        }).join('');
+      }
+      currentItems = ordered;
+      input.setAttribute('aria-expanded', items.length ? 'true' : 'false');
+      clearActive();
+      // Di chuột qua kết quả thì chọn kết quả đó (đi kèm điều hướng phím).
+      $all('.search-modal-item', resultsBox).forEach(function (item, i) {
+        item.addEventListener('mouseenter', function () { setActive(i); });
+      });
+    }
+
+    // Dự phòng khi chỉ mục tải lỗi: lọc chuỗi con từ thẻ công cụ đã
+    // render sẵn trên trang (như ô tìm kiếm hero); trang không có lưới
+    // thẻ thì trả về rỗng và renderItems hiện câu gợi ý thân thiện.
+    function fallbackSearch(q) {
+      return $all('.catalog-card').map(function (card) {
+        return {
+          href: card.getAttribute('href') || '#',
+          name: card.getAttribute('data-name') || '',
+          cat: (card.querySelector('.card-cat') || {}).textContent || '',
+          searchText: norm(
+            (card.getAttribute('data-name') || '') + ' ' +
+            (card.getAttribute('data-desc') || '') + ' ' +
+            (card.getAttribute('data-keywords') || '')
+          )
+        };
+      }).filter(function (c) { return c.searchText.indexOf(q) !== -1; })
+        .slice(0, MODAL_MAX_RESULTS);
+    }
+
+    function render() {
+      var q = norm(input.value.trim());
+      if (!q) { renderItems([]); return; }
+      if (searchIndexData) {
+        var ranked = rankSearch(searchIndexData, q).slice(0, MODAL_MAX_RESULTS);
+        renderItems(ranked.map(function (t) {
+          return { href: '/cong-cu/' + t.slug + '/', name: t.name, cat: t.categoryLabel || '' };
+        }));
+      } else if (searchIndexFailed) {
+        renderItems(fallbackSearch(q));
+      } else {
+        // Đang tải chỉ mục: hiện gợi ý chờ, tải xong render lại
+        // (chỉ khi truy vấn chưa đổi và modal vẫn mở).
+        resultsBox.innerHTML = '<p class="search-modal-empty">Đang tìm…</p>';
+        loadSearchIndex().then(function () {
+          if (isOpen && norm(input.value.trim()) === q) render();
+        });
+      }
+    }
+
+    function open() {
+      if (isOpen) return;
+      isOpen = true;
+      lastFocus = document.activeElement;
+      prevBodyOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      modal.hidden = false;
+      modal.style.display = 'flex';
+      modal.classList.add('is-open');
+      input.value = '';
+      renderItems([]);
+      input.focus();
+      // Nạp trước chỉ mục để gõ là có kết quả xếp hạng ngay.
+      if (!searchIndexData && !searchIndexFailed) loadSearchIndex();
+    }
+
+    function close() {
+      if (!isOpen) return;
+      isOpen = false;
+      modal.hidden = true;
+      modal.style.display = 'none';
+      modal.classList.remove('is-open');
+      document.body.style.overflow = prevBodyOverflow;
+      if (lastFocus && lastFocus.focus && document.contains(lastFocus)) lastFocus.focus();
+    }
+
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setActive(activeIndex + 1);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setActive(activeIndex - 1);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIndex >= 0 && currentItems[activeIndex]) {
+          window.location.href = currentItems[activeIndex].href;
+        } else {
+          var q = input.value.trim();
+          if (q) window.location.href = '/cong-cu/?q=' + encodeURIComponent(q);
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      // Ctrl+K / Cmd+K: mở (hoặc đóng nếu đang mở). preventDefault để
+      // trình duyệt không đưa focus về thanh địa chỉ (Chrome/Firefox).
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        if (isOpen) close(); else open();
+      } else if (e.key === 'Escape' && isOpen) {
+        close();
+      }
+    });
+
+    // Bấm nền mờ (chính .search-modal, không phải hộp con) thì đóng.
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) close();
+    });
+    closeBtn.addEventListener('click', close);
+
+    // Nút tìm kiếm ở header (Worker B thêm vào template.js) — có thể
+    // chưa tồn tại lúc chạy thử nên kiểm tra trước khi gắn sự kiện.
+    var headerBtn = $('#header-search-btn');
+    if (headerBtn) headerBtn.addEventListener('click', open);
   }
 
   /* Lọc lưới trang chủ theo chip hạng mục (chỉ lọc lưới trang chủ). */
