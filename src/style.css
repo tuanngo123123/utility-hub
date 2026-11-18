@@ -2056,6 +2056,15 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .sv-letter p { margin: 10px 0; }
 .sv-letter-center { text-align: center; }
 .sv-letter-right { text-align: right; }
+
+/* Ví dụ CV hoàn chỉnh trong mẫu CV: tên lớn căn giữa, tiêu đề mục
+   viết hoa có gạch chân — trông như một CV thật, không như văn bản
+   giải thích. Khung .sv-letter in ra đã bỏ viền (quy tắc print). */
+.sv-cv .sv-cv-name { text-align: center; font-size: 1.4rem; letter-spacing: 0.04em; margin-bottom: 2px; }
+.sv-cv .sv-cv-contact { text-align: center; color: var(--muted); font-size: 0.92rem; margin-top: 0; }
+.sv-cv h3 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin: 20px 0 8px; }
+.sv-cv ul { padding-left: 20px; }
+.sv-cv li { margin: 3px 0; }
 @media (max-width: 640px) {
   .sv-letter { padding: 18px; }
 }

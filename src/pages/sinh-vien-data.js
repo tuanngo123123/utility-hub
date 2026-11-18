@@ -487,9 +487,9 @@ export const TEMPLATES = [
   {
     slug: 'cv-sinh-vien-moi-ra-truong',
     title: 'CV sinh viên mới ra trường',
-    desc: 'Cấu trúc CV 1 trang cho người chưa có kinh nghiệm: thông tin, mục tiêu, học vấn, kỹ năng, đồ án, kinh nghiệm làm thêm — kèm gợi ý theo 3 nhóm ngành.',
+    desc: 'Cấu trúc CV 1 trang cho người chưa có kinh nghiệm: thông tin, mục tiêu, học vấn, kỹ năng, đồ án, kinh nghiệm làm thêm — kèm gợi ý theo 3 nhóm ngành và ví dụ CV hoàn chỉnh.',
     body: `
-<p>CV xin thực tập hay việc làm đầu tiên không cần dài — 1 trang, đủ 6 mục dưới đây, viết cụ thể bằng số thay vì chung chung.</p>
+<p>CV xin thực tập hay việc làm đầu tiên không cần dài — 1 trang, đủ 6 mục dưới đây, viết cụ thể bằng số thay vì chung chung. Chưa hình dung CV hoàn chỉnh trông như thế nào? Xem ví dụ CV đã điền đầy đủ ở bên dưới, rồi thay bằng thông tin của bạn.</p>
 <h2>Cấu trúc CV 1 trang</h2>
 <ol>
 <li><strong>Thông tin liên hệ:</strong> họ tên, số điện thoại, email (địa chỉ nghiêm túc, dạng hoten@gmail.com), link LinkedIn/GitHub nếu có. Không cần ghi ngày sinh, quê quán, số CCCD.</li>
@@ -499,6 +499,37 @@ export const TEMPLATES = [
 <li><strong>Hoạt động &amp; đồ án:</strong> 2–4 mục, mỗi mục 1–2 dòng, ghi KẾT QUẢ bằng số. "Tổ chức chương trình chào tân sinh viên cho 300 sinh viên, huy động 5 nhà tài trợ" tốt hơn "Tham gia hoạt động Đoàn".</li>
 <li><strong>Kinh nghiệm làm thêm:</strong> ghi cả việc không đúng ngành nếu nó rèn kỹ năng liên quan — bán hàng rèn giao tiếp và thuyết phục, gia sư rèn trình bày và kiên nhẫn.</li>
 </ol>
+<h2>Ví dụ CV hoàn chỉnh</h2>
+<p class="note">Ví dụ minh họa — thông tin trong CV này là hư cấu, chỉ để bạn thấy một CV hoàn chỉnh trông như thế nào. Thay toàn bộ bằng thông tin thật của bạn trước khi gửi.</p>
+<div class="sv-letter sv-cv">
+<p class="sv-cv-name"><strong>NGUYỄN THU HÀ</strong></p>
+<p class="sv-cv-contact">090 123 45 67 · thuha.nguyen@gmail.com · TP. Hồ Chí Minh<br>linkedin.com/in/nguyenthuha-marketing</p>
+<h3>Mục tiêu nghề nghiệp</h3>
+<p>Ứng tuyển vị trí Thực tập sinh Marketing. Muốn vận dụng kinh nghiệm quản lý fanpage và viết nội dung đã làm thêm 1 năm để hỗ trợ đội Marketing, đồng thời học quy trình làm nội dung và đo lường hiệu quả chiến dịch.</p>
+<h3>Học vấn</h3>
+<p><strong>Cử nhân Marketing — Trường Đại học Kinh tế TP. Hồ Chí Minh (UEH)</strong> · 2022–2026 · GPA 3.4/4.0<br>Đồ án tốt nghiệp: kế hoạch truyền thông ra mắt sản phẩm cho một thương hiệu trà sữa địa phương — đạt 9.0/10.</p>
+<h3>Kỹ năng</h3>
+<ul>
+<li>Viết nội dung, quản lý fanpage Facebook và TikTok, Canva, CapCut.</li>
+<li>Google Sheets (hàm cơ bản, PivotTable), MOS Excel 2025.</li>
+<li>Tiếng Anh: TOEIC 750 (2025).</li>
+</ul>
+<h3>Kinh nghiệm làm thêm</h3>
+<p><strong>Cộng tác viên nội dung — Cửa hàng thời trang tại TP. Hồ Chí Minh</strong> · 06/2025–nay</p>
+<ul>
+<li>Viết 3 bài/tuần cho fanpage 12.000 người theo dõi; 1 video TikTok đạt 150.000 lượt xem.</li>
+<li>Doanh số bán online tăng 20% trong 3 tháng làm việc.</li>
+</ul>
+<p><strong>Nhân viên bán hàng part-time — Cửa hàng tiện lợi</strong> · 2024</p>
+<ul>
+<li>Phục vụ khoảng 100 khách/ngày, thu ngân và kiểm kho cuối ca.</li>
+</ul>
+<h3>Hoạt động</h3>
+<ul>
+<li>Thành viên CLB Marketing UEH (2023–2025): tổ chức workshop "Viết content cho người mới" cho 200 sinh viên.</li>
+<li>Trưởng ban truyền thông Ngày hội việc làm 2025: fanpage sự kiện tăng 3.000 lượt thích trong 1 tháng.</li>
+</ul>
+</div>
 <h2>Gợi ý theo ngành</h2>
 <ul>
 <li><strong>Kinh tế – quản trị:</strong> nhấn mạnh Excel (hàm, PivotTable), phân tích số liệu, kinh nghiệm thực tập/bán hàng, chứng chỉ MOS/tiếng Anh.</li>
