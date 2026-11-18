@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-18T05:03:44.637Z",
+  "updatedAt": "2026-11-18T05:21:34.809Z",
   "summarized": true,
-  "model": "gemini-3.8-flash",
+  "model": "gemini-3.5-flash",
   "groups": {
     "ai": [
       {
@@ -121,12 +121,12 @@
         "publishedAt": "Wed, 18 Nov 2026 00:16:43 +0000"
       },
       {
-        "title": "Here’s what happened in crypto today",
+        "title": "CFTC halts some Kalshi Trump mention markets over manipulation concerns",
         "summary": "",
         "why": "",
-        "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/cftc-kalshi-trump-mention-markets-review?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Tue, 17 Nov 2026 22:37:51 +0000"
+        "publishedAt": "Tue, 17 Nov 2026 22:20:04 +0000"
       },
       {
         "title": "Bitcoin's 12% slide through key support looks scary, but history says give it 3 months.",
