@@ -15,7 +15,7 @@
 // tải có skeleton (xám mờ) thay bằng nội dung khi tải xong.
 // Lưới công cụ render sẵn lúc build từ danh sách build.mjs quét được.
 import { toolCard, esc } from '../tool-card.js';
-import { CATEGORIES } from '../categories.js';
+import { CATEGORIES, categoryLabel } from '../categories.js';
 
 // Dải dữ liệu hôm nay: nhãn + vùng dữ liệu (app.js điền lúc chạy) + link
 // chi tiết. id crypto-strip / gold-content… giữ nguyên như trước, chỉ đặt
@@ -200,6 +200,23 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
     ? trendingItems.slice(0, 6).map(trendingRowHtml).join('')
     : '<p class="muted">Chưa có dữ liệu — dữ liệu làm mới hằng ngày.</p>';
 
+  // Rail video "Công cụ nổi bật" (18/11, theo đúng cơ chế trang chủ 21st.dev
+  // đã đọc từ code JS của họ + Claude xác nhận): mỗi thẻ có sẵn ảnh poster
+  // + thẻ <video> chồng lên (preload="none" nên chưa tải gì khi mở trang);
+  // app.js initRail() xoay tự động 4 giây giữa 4 thẻ đầu + hover phát ngay.
+  // Thứ tự cố định — 4 thẻ đầu tham gia vòng xoay, 4 thẻ sau chỉ phát khi hover.
+  const RAIL_SLUGS = ['luong-gross-net', 'tien-dien-bac-thang', 'vietqr-wifi-qr', 'lich-am', 'bhxh-mot-lan', 'lai-vay', 'doi-dia-chi-cu-moi', 'tao-bieu-do'];
+  const railTools = RAIL_SLUGS.map((slug) => tools.find((t) => t.slug === slug)).filter(Boolean);
+  const railHtml = railTools.map((tool, i) => `
+    <a class="rail-card" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-rail-index="${i}">
+      <span class="rail-media">
+        <img src="/assets/rail/${esc(tool.slug)}.jpg" alt="" width="480" height="360" loading="${i < 2 ? 'eager' : 'lazy'}">
+        <video preload="none" muted loop playsinline src="/assets/rail/${esc(tool.slug)}.mp4" aria-hidden="true" tabindex="-1"></video>
+      </span>
+      <span class="rail-name">${esc(tool.name)}</span>
+      <span class="rail-cat">${esc(categoryLabel(tool.categorySlug))}</span>
+    </a>`).join('');
+
   return `
   <section class="hero">
     <div class="hero-inner">
@@ -231,6 +248,14 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
       <div class="tab-panel" data-tab-panel="rank-github" id="rank-github"${trendingItems.length ? trendingAttrs : ''}>${trendingItems.length ? githubHtml : '<p class="muted">Đang tải…</p>'}</div>
       <div class="tab-panel" data-tab-panel="rank-hot" id="rank-hot"${allNewsItems.length ? newsAttrs : ''} hidden>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
     </div>
+    </div>
+  </section>
+
+  <section class="section section-rail" aria-label="Công cụ nổi bật">
+    <h2>Công cụ nổi bật</h2>
+    <p class="muted">Rê chuột lên thẻ để xem thử.</p>
+    <div class="rail" id="rail">
+${railHtml}
     </div>
   </section>
 

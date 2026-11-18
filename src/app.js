@@ -490,6 +490,7 @@
     initFearGreed();
     initNewsAndHot();
     initTrending();
+    initRail();
     initSupport();
   });
 
@@ -1953,6 +1954,89 @@
         });
     }
     load();
+  }
+
+  /* ---------------- Rail video "Công cụ nổi bật" (trang chủ) ----------------
+     Cơ chế đúng như trang chủ 21st.dev (đã đọc từ code JS của họ + Claude
+     xác nhận 18/11/2026):
+     - Mỗi thẻ có sẵn ảnh poster + <video preload="none"> chồng lên; video
+       chỉ tải khi phát lần đầu.
+     - Khi rail vào viewport (≥30%) thì vòng xoay tự chạy: mỗi 4 giây phát
+       video của 1 trong 4 thẻ đầu, chỉ 1 video phát tại 1 thời điểm.
+     - Rê chuột (chỉ chuột thật) lên thẻ nào thì video thẻ đó phát ngay và
+       vòng xoay tạm dừng; rời chuột thì xoay tiếp từ thẻ kế tiếp.
+     - Video ra khỏi/gần khỏi viewport thì pause (IntersectionObserver 100px).
+     - prefers-reduced-motion: tắt cả xoay lẫn hover-phát, chỉ hiện poster.
+     - Mobile (không hover): vòng xoay vẫn chạy (muted + playsInline cho
+       phép autoplay); chạm vào thẻ thì mở trang công cụ như link thường. */
+  function initRail() {
+    var rail = document.getElementById('rail');
+    if (!rail) return;
+    var cards = Array.prototype.slice.call(rail.querySelectorAll('.rail-card'));
+    if (!cards.length) return;
+    var videos = cards.map(function (c) { return c.querySelector('video'); });
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var ROTATE_MS = 4000;
+    var ROTATE_COUNT = Math.min(4, videos.length);
+    var current = -1; // index video đang phát theo vòng xoay (-1 = chưa phát)
+    var timer = null;
+    var railVisible = false;
+    var hovered = false;
+
+    function pauseAll(except) {
+      videos.forEach(function (v, i) { if (v && i !== except) v.pause(); });
+    }
+    function playAt(i) {
+      var v = videos[i];
+      if (!v) return;
+      pauseAll(i);
+      current = i;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+    function startRotation() {
+      if (timer || !railVisible || hovered) return;
+      if (current < 0) playAt(0);
+      timer = setInterval(function () {
+        playAt((current + 1) % ROTATE_COUNT);
+      }, ROTATE_MS);
+    }
+    function stopRotation() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    // Rail vào viewport thì bật xoay; ra khỏi thì dừng + pause hết.
+    var railObserver = new IntersectionObserver(function (entries) {
+      railVisible = entries[0].isIntersecting;
+      if (railVisible) startRotation();
+      else { stopRotation(); pauseAll(-1); }
+    }, { threshold: 0.3 });
+    railObserver.observe(rail);
+
+    // Mỗi video ra khỏi vùng gần viewport thì pause.
+    var videoObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (!e.isIntersecting) e.target.pause(); });
+    }, { rootMargin: '100px' });
+    videos.forEach(function (v) { if (v) videoObserver.observe(v); });
+
+    // Hover (chỉ chuột): phát video thẻ đó + dừng xoay; rời chuột: xoay
+    // tiếp từ thẻ kế tiếp sau thẻ vừa hover.
+    cards.forEach(function (card, i) {
+      card.addEventListener('pointerenter', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        hovered = true;
+        stopRotation();
+        playAt(i);
+      });
+      card.addEventListener('pointerleave', function () {
+        if (!hovered) return;
+        hovered = false;
+        if (!railVisible) return;
+        playAt((i + 1) % ROTATE_COUNT);
+        startRotation();
+      });
+    });
   }
 
   /* ---------------- Trang Ủng hộ: VietQR ---------------- */

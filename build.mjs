@@ -487,6 +487,9 @@ async function main() {
       canonical: `${BASE_URL}/`,
       navActive: 'home',
       body: homePage.body(ctx),
+      // Rail video trang chủ: preload 2 poster đầu (như 21st.dev preload
+      // poster của thẻ nổi bật với fetchpriority cao); 6 poster còn lại lazy.
+      extraHead: '<link rel="preload" as="image" href="/assets/rail/luong-gross-net.jpg" fetchpriority="high"><link rel="preload" as="image" href="/assets/rail/tien-dien-bac-thang.jpg">',
       noscriptLinks,
     }),
     `${BASE_URL}/`
@@ -615,6 +618,14 @@ async function main() {
   copyFile('fonts/LICENSE.txt', 'assets/fonts/LICENSE.txt');
   copyFile('app.js', 'assets/app.js');
   copyFile('tool-state.js', 'assets/tool-state.js');
+  // Rail video trang chủ (18/11, theo cơ chế 21st.dev): 8 clip mp4 + 8
+  // poster jpg trong src/rail/. Thiếu file nào thì build dừng ngay để
+  // khỏi đăng rail thiếu video.
+  const RAIL_FILES = ['luong-gross-net', 'tien-dien-bac-thang', 'vietqr-wifi-qr', 'lich-am', 'bhxh-mot-lan', 'lai-vay', 'doi-dia-chi-cu-moi', 'tao-bieu-do'];
+  for (const slug of RAIL_FILES) {
+    copyFile(`rail/${slug}.mp4`, `assets/rail/${slug}.mp4`);
+    copyFile(`rail/${slug}.jpg`, `assets/rail/${slug}.jpg`);
+  }
   copyFile('vendor/qrcode-generator.js', 'assets/vendor/qrcode-generator.js');
   copyFile('vendor/pdf.min.js', 'assets/vendor/pdf.min.js');
   // File worker của pdf.js: pdf.js tự nạp lúc chạy (Web Worker) khi trích
