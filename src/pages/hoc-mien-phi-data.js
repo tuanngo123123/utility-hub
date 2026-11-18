@@ -12,6 +12,9 @@
 // được), repo kiếm tiền AI/không phải tài liệu học, repo chính trị.
 // developer-roadmap đã chuyển nhà: kamranahmedse/developer-roadmap
 // → nilbuild/developer-roadmap (đã đối chiếu qua API).
+// Trường `live` (không bắt buộc): trang web học trực tiếp của repo đó
+// — đã kiểm HTTP 200 ngày 18/11/2026. Repo có `live` thì nút chính dẫn
+// tới trang học (không cần cài đặt), link GitHub lùi thành link phụ.
 export const GROUPS = [
   {
     id: 'tieng-anh',
@@ -22,7 +25,8 @@ export const GROUPS = [
         repo: 'RealKai42/qwerty-learner',
         name: 'Qwerty Learner',
         stars: '23.800',
-        desc: 'Học từ vựng tiếng Anh bằng cách gõ bàn phím: gõ đúng từ mới qua câu tiếp theo, vừa nhớ từ vừa luyện gõ nhanh. Có sẵn bộ từ IELTS, TOEFL, CET, GRE và tài liệu hướng dẫn bằng tiếng Anh.',
+        live: 'https://qwerty.kaiyi.cool/',
+        desc: 'Học từ vựng tiếng Anh bằng cách gõ bàn phím: gõ đúng từ mới qua câu tiếp theo, vừa nhớ từ vừa luyện gõ nhanh. Có sẵn bộ từ IELTS, TOEFL, CET, GRE. Mở trang web là học được ngay, không cần cài đặt.',
       },
       {
         repo: 'dwyl/english-words',
@@ -65,7 +69,8 @@ export const GROUPS = [
         repo: 'freeCodeCamp/freeCodeCamp',
         name: 'freeCodeCamp',
         stars: '459.279',
-        desc: 'Khóa học lập trình miễn phí nổi tiếng nhất: làm web, JavaScript, Python, khoa học dữ liệu — học bằng bài tập thực hành và dự án thật, có chứng chỉ miễn phí.',
+        live: 'https://www.freecodecamp.org/',
+        desc: 'Khóa học lập trình miễn phí nổi tiếng nhất: làm web, JavaScript, Python, khoa học dữ liệu — học bằng bài tập thực hành và dự án thật, có chứng chỉ miễn phí. Học trực tiếp trên web, không cần cài đặt.',
       },
       {
         repo: 'EbookFoundation/free-programming-books',
@@ -77,7 +82,8 @@ export const GROUPS = [
         repo: 'nilbuild/developer-roadmap',
         name: 'Developer Roadmap',
         stars: '372.268',
-        desc: 'Bản đồ lộ trình học cho từng nghề lập trình: frontend, backend, DevOps, AI… — mở ra là biết nên học gì trước, gì sau.',
+        live: 'https://roadmap.sh/',
+        desc: 'Bản đồ lộ trình học cho từng nghề lập trình: frontend, backend, DevOps, AI… — mở ra là biết nên học gì trước, gì sau. Xem trực tiếp trên web, không cần cài đặt.',
       },
       {
         repo: 'jwasham/coding-interview-university',

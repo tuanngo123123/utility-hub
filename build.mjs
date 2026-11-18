@@ -817,6 +817,9 @@ async function main() {
           fail(`hoc-mien-phi-data.js: repo "${r.repo}" thiếu trường "${f}".`);
         }
       }
+      if (r.live && (typeof r.live !== 'string' || !r.live.startsWith('https://'))) {
+        fail(`hoc-mien-phi-data.js: repo "${r.repo}" có trường "live" không phải URL https.`);
+      }
     }
   }
   addPage(

@@ -8,11 +8,14 @@ import { GROUPS } from './hoc-mien-phi-data.js';
 
 function repoCard(r) {
   const url = `https://github.com/${r.repo}`;
+  const cta = r.live
+    ? `<p class="sv-cta"><a class="btn btn-primary" href="${esc(r.live)}" target="_blank" rel="noopener">Học ngay trên web →</a></p>\n  <p class="sv-cond"><a href="${esc(url)}" target="_blank" rel="noopener">Xem mã nguồn trên GitHub</a></p>`
+    : `<p class="sv-cta"><a class="btn btn-primary" href="${esc(url)}" target="_blank" rel="noopener">Mở trên GitHub →</a></p>`;
   return `<article class="sv-card">
   <h3 class="card-title">${esc(r.name)}</h3>
   <p class="sv-cond">⭐ ${esc(r.stars)} sao · <a href="${esc(url)}" target="_blank" rel="noopener">${esc(r.repo)}</a></p>
   <p class="card-desc">${esc(r.desc)}</p>
-  <p class="sv-cta"><a class="btn btn-primary" href="${esc(url)}" target="_blank" rel="noopener">Mở trên GitHub →</a></p>
+  ${cta}
 </article>`;
 }
 
@@ -20,7 +23,7 @@ export function body() {
   return `
   <header class="tool-page-head">
     <h1>Học miễn phí</h1>
-    <p class="muted">Repo GitHub học miễn phí, mô tả bằng tiếng Việt — tiếng Anh, lập trình, thiết kế và hơn nữa. Tất cả đều miễn phí thật, không cần đăng ký tài khoản trả phí. Muốn xem chi tiết sao/fork/ngôn ngữ của repo nào, dùng <a href="/cong-cu/tra-cuu-github/">công cụ Tra cứu GitHub</a>.</p>
+    <p class="muted">Repo GitHub học miễn phí, mô tả bằng tiếng Việt — tiếng Anh, lập trình, thiết kế và hơn nữa. Tất cả đều miễn phí thật, không cần đăng ký tài khoản trả phí. Mục nào có nút <strong>Học ngay trên web</strong> thì mở ra học luôn trên trình duyệt, không cần cài đặt gì. Muốn xem chi tiết sao/fork/ngôn ngữ của repo nào, dùng <a href="/cong-cu/tra-cuu-github/">công cụ Tra cứu GitHub</a>.</p>
     <nav class="sv-toc" aria-label="Mục lục trang">
 ${GROUPS.map((g) => `      <a class="chip" href="#${esc(g.id)}">${esc(g.title)}</a>`).join('\n')}
     </nav>
