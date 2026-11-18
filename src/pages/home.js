@@ -112,10 +112,14 @@ function newsFeaturedHtml(item) {
 function hotRowHtml(item, i) {
   const date = newsItemDate(item);
   const meta = [item.source || '', date ? formatDate(date) : ''].filter(Boolean).join(' · ');
+  // Tin hot cũng hiện tóm tắt tiếng Việt như thẻ Điểm báo (dùng lại class
+  // .rank-desc của hàng GitHub) — trước đây chỉ có tiêu đề tiếng Anh + nguồn.
+  const summary = truncateSummary(item.summary);
   return '<div class="rank-row rank-' + (i + 1) + '">' +
     '<div class="rank-num">' + (i + 1) + '</div>' +
     '<div class="rank-body"><h4><a href="' + esc(newsItemUrl(item)) +
     '" target="_blank" rel="noopener">' + esc(item.title || '') + '</a></h4>' +
+    (summary ? '<p class="rank-desc">' + esc(summary) + '</p>' : '') +
     (meta ? '<p class="rank-meta">' + esc(meta) + '</p>' : '') +
     '</div></div>';
 }

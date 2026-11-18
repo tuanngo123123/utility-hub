@@ -1861,10 +1861,14 @@
             return tb - ta;
           }).slice(0, HOT_COUNT);
           hotEl.innerHTML = hot.map(function (item, i) {
+            // Tin hot cũng hiện tóm tắt tiếng Việt như thẻ Điểm báo (dùng lại
+            // class .rank-desc của hàng GitHub) — đồng bộ với hotRowHtml SSR.
+            var summary = truncateSummary(item.summary);
             return '<div class="rank-row rank-' + (i + 1) + '">' +
               '<div class="rank-num">' + (i + 1) + '</div>' +
               '<div class="rank-body"><h4><a href="' + escHtml(newsItemUrl(item)) +
               '" target="_blank" rel="noopener">' + escHtml(item.title || '') + '</a></h4>' +
+              (summary ? '<p class="rank-desc">' + escHtml(summary) + '</p>' : '') +
               '<p class="rank-meta">' + escHtml([item.source || '', (function () { var d = newsItemDate(item); return d ? formatDate(d) : ''; })()].filter(Boolean).join(' · ')) + '</p>' +
               '</div></div>';
           }).join('');
