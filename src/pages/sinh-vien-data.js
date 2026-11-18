@@ -62,6 +62,13 @@ export const COURSES = [
     cond: 'Tài khoản miễn phí; bài đầu tiên học được không cần đăng ký.',
   },
   {
+    name: 'Saylor University',
+    url: 'https://saylor.org',
+    learn: 'Khóa học + sách miễn phí nhiều ngành, tự học theo tốc độ riêng — kể cả chương trình thạc sĩ 0 đồng học phí.',
+    free: 'Miễn phí 100% học trực tuyến và tự học ("100% Online, Self-Paced, and Tuition Free!"). Chứng chỉ hoàn thành miễn phí khi đạt từ 70%.',
+    cond: 'Thi lấy tín chỉ ĐH Mỹ (nếu muốn công nhận tín chỉ) có phí giám thị khoảng $5–25.',
+  },
+  {
     name: 'edX',
     url: 'https://www.edx.org',
     learn: 'Khóa ĐH Harvard, MIT, Berkeley: CS50, dữ liệu, kinh doanh, kỹ thuật.',
@@ -78,6 +85,340 @@ export const COURSES = [
     limited: true,
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Học bổng (báo cáo bổ sung đợt 2, Ưu tiên 1 — 24 chương trình, kiểm
+// chứng 18/11/2026). CHỈ ghi chu kỳ hằng năm, KHÔNG ghi hạn cố định
+// (hầu hết đợt 2026–27 đã đóng). links: [] = không có trang nộp đơn cố
+// định (ghi rõ cách theo dõi trong note). Các con số lấy từ báo cáo;
+// riêng mức tiền Eiffel (EUR) và CSC (CNY) đã BỎ vì báo cáo §4 yêu cầu
+// kiểm lại trang chính thức trước khi đăng số tiền.
+// ---------------------------------------------------------------------------
+export const SCHOLARSHIPS_DOMESTIC = [
+  {
+    name: 'Học bổng khuyến khích học tập (Nhà nước)',
+    links: [{ url: 'https://tuyensinh.hnue.edu.vn/tin-tuc/488?page=8', label: 'Trang giải thích (ĐH Sư phạm Hà Nội) →' }],
+    support: '3 loại Khá/Giỏi/Xuất sắc, từ mức trần học phí trở lên; cấp theo học kỳ.',
+    note: 'Theo Nghị định 84/2020/NĐ-CP. Học bổng phổ biến nhất — sinh viên học Khá trở lên đều có thể được. Trường tự xét cuối học kỳ, sinh viên không nộp đơn.',
+  },
+  {
+    name: 'VietSeeds Foundation',
+    links: [{ url: 'https://vietseeds.org/become-our-student', label: 'Trang chính thức →' }],
+    support: 'Tới 1.500 USD/năm (Hà Nội/TP.HCM), 1.200 USD/năm (Huế) + mentoring 1–1 + đào tạo kỹ năng.',
+    note: 'Cho sinh viên khó khăn học giỏi — vừa tiền vừa người dẫn dắt. Tuyển sinh tại Hà Nội, Huế, TP.HCM; xem đợt tuyển hiện tại trên trang chính thức.',
+  },
+  {
+    name: 'Học bổng Đinh Thiện Lý / Lawrence S. Ting (Quỹ LSTF)',
+    links: [{ url: 'https://www.lstf.org.vn/vi/linh-vuc/giao-duc/hoc-bong-dinh-thien-ly/', label: 'Trang chính thức →' }],
+    support: '100% học phí chương trình chính quy (từ 2025) + đào tạo kỹ năng, thực tập.',
+    note: 'Học bổng lớn, uy tín lâu năm. Chỉ 12 trường ĐH đối tác; tân sinh viên top 10% đầu vào, sinh viên năm cuối top 10% hoặc hoàn cảnh đặc biệt.',
+  },
+  {
+    name: 'Học bổng Vallet (Odon Vallet — Gặp gỡ Việt Nam)',
+    links: [{ url: 'https://rvn-vallet.org/', label: 'Trang chính thức →' }],
+    support: '34 triệu đồng/suất (sinh viên ĐH + sau ĐH).',
+    note: 'Học bổng khoa học lớn nhất Việt Nam. Khối KHTN/Công nghệ/Khoa học sự sống/Y Dược/Môi trường; xét theo khu vực Bắc/Trung/Nam.',
+  },
+  {
+    name: 'Học bổng Panasonic Việt Nam',
+    links: [],
+    support: '30 triệu đồng/suất/năm học + thực tập, đào tạo; 20 suất toàn quốc.',
+    note: 'Sinh viên từ năm 2, GPA từ 8.0 (hoặc từ 7.0 nếu hoàn cảnh khó khăn). Không có trang học bổng cố định — theo dõi qua phòng Công tác sinh viên của trường hoặc fanpage Panasonic Vietnam.',
+  },
+  {
+    name: 'Học bổng Toyota Việt Nam',
+    links: [{ url: 'https://dsa.ctu.edu.vn/images/upload/vbanply/2026/HBTaiTro/F_-_CV_6818_-_Hoc_bong_Toyota_2026.pdf', label: 'Công văn Bộ GD&ĐT (PDF) →' }],
+    support: '98 suất: Tiếp sức 6 triệu đồng/suất; Đồng hành 25 triệu đồng/suất.',
+    note: 'Chương trình của Bộ GD&ĐT + Toyota Việt Nam, cho sinh viên 2 năm cuối khối kỹ thuật; 12 trường đối tác, nộp qua trường. Có thêm học bổng dạy nghề Toyota: 100% học phí 2 năm + ký túc xá miễn phí (CĐ Cơ điện Hà Nội).',
+  },
+  {
+    name: 'Học bổng ĐH Fulbright Việt Nam',
+    links: [{ url: 'https://fulbright.edu.vn/undergraduate-scholarships', label: 'Trang chính thức →' }],
+    support: '10%–100% học phí 4 năm; có suất Nguyễn–Phương Family 100% × 4 năm (1 suất/năm) và Vietcombank–Fulbright 60 triệu đồng/sinh viên.',
+    note: 'Học bổng của trường, học trong nước. Tuyển sinh theo 2 đợt mỗi năm (Fall Cycle và Spring Cycle) — xem lịch trên trang chính thức.',
+  },
+  {
+    name: 'Quỹ Khuyến học Việt Nam / Hội Khuyến học VN',
+    links: [{ url: 'https://hoikhuyenhoc.vn/', label: 'Trang chính thức →' }],
+    support: 'Học bổng Nguyễn Trường Tộ 7,5 triệu đồng/suất (thường niên).',
+    note: 'Quỹ nhà nước còn hoạt động, trao qua trường/hội khuyến học địa phương — không có cổng nộp đơn trực tuyến.',
+  },
+];
+
+export const SCHOLARSHIPS_ABROAD = [
+  {
+    name: 'Australia Awards (Chính phủ Úc)',
+    links: [{ url: 'https://www.dfat.gov.au/people-to-people/australia-awards/australia-awards-scholarships-opening-and-closing-dates', label: 'Trang chính thức →' }],
+    support: 'Toàn phần: học phí, sinh hoạt, vé máy bay, bảo hiểm.',
+    note: 'Chỉ bậc Thạc sĩ (đối với Việt Nam). Cần từ 24 tháng kinh nghiệm làm việc tại Việt Nam.',
+  },
+  {
+    name: 'Chevening (Chính phủ Anh)',
+    links: [{ url: 'https://www.chevening.org/scholarship/vietnam/', label: 'Trang chính thức →' }],
+    support: 'Toàn phần: học phí + sinh hoạt + vé khứ hồi + trợ cấp + phí visa.',
+    note: 'Thạc sĩ 1 năm. Cần từ 2 năm kinh nghiệm (2.800 giờ) + cam kết về Việt Nam từ 2 năm; khoảng 20 suất/năm cho Việt Nam.',
+  },
+  {
+    name: 'Fulbright — Chương trình Sinh viên Việt Nam (Chính phủ Mỹ)',
+    links: [{ url: 'https://vn.usembassy.gov/fulbright-vietnamese-student-program/', label: 'Trang chính thức (ĐSQ Mỹ) →' }],
+    support: 'Toàn phần: học phí + sinh hoạt + bảo hiểm + vé khứ hồi.',
+    note: 'Bậc Thạc sĩ. Cần từ 2 năm kinh nghiệm sau ĐH, TOEFL iBT từ 80 / IELTS từ 6.5; khoảng 20 suất/năm. Có thêm chương trình Visiting Student Researcher (nghiên cứu sinh sang Mỹ 6–10 tháng).',
+  },
+  {
+    name: 'Erasmus Mundus Joint Masters (EU)',
+    links: [{ url: 'https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters', label: 'Trang chính thức →' }],
+    support: 'Toàn phần: học phí + đi lại + visa + sinh hoạt.',
+    note: 'Thạc sĩ liên kết 1–2 năm, học tại từ 2–3 nước châu Âu. Mở hằng năm, thường tháng 10 – tháng 1 cho khóa nhập học tháng 9 năm sau. Tối đa 3 chương trình/năm.',
+  },
+  {
+    name: 'MEXT (Chính phủ Nhật Bản)',
+    links: [{ url: 'https://studyinjapan.go.jp/', label: 'Cổng Study in Japan →' }],
+    support: 'Toàn phần: 100% học phí + sinh hoạt + vé khứ hồi + khóa tiếng Nhật dự bị.',
+    note: 'Bậc ĐH, CĐ kỹ thuật, trung cấp chuyên nghiệp, nghiên cứu sinh. Nộp hồ sơ qua Đại sứ quán/Tổng Lãnh sự quán Nhật Bản theo hộ khẩu.',
+  },
+  {
+    name: 'JASSO — Học bổng Danh dự Monbukagakusho (Nhật)',
+    links: [{ url: 'https://www.jasso.go.jp/en/ryugaku/scholarship_j/shoreihi/about.html', label: 'Trang chính thức →' }],
+    support: '48.000 yên/tháng (ĐH/sau ĐH), 30.000 yên/tháng (trường tiếng), 12 tháng.',
+    note: 'Chỉ dành cho sinh viên ĐÃ đang học tại Nhật (ĐH, sau ĐH, CĐ, trường tiếng) — trường đang học đề cử. Đây không phải học bổng để đi du học từ Việt Nam.',
+  },
+  {
+    name: 'Global Korea Scholarship — GKS (Hàn Quốc)',
+    links: [{ url: 'https://studyinkorea.go.kr/', label: 'Cổng Study in Korea →' }],
+    support: 'Toàn phần: học phí + sinh hoạt + vé khứ hồi + bảo hiểm + 1 năm tiếng Hàn.',
+    note: 'Chính phủ Hàn Quốc (NIIED). Bậc ĐH (GKS-U) + Thạc sĩ/Tiến sĩ (GKS-G). Nộp qua Đại sứ quán hoặc trường ĐH — chỉ chọn 1 tuyến.',
+  },
+  {
+    name: 'DAAD (Đức)',
+    links: [{ url: 'https://www.daad-vietnam.org/', label: 'Trang chính thức (DAAD Việt Nam) →' }],
+    support: '992 EUR/tháng (thạc sĩ), 1.400 EUR/tháng (tiến sĩ) + vé + bảo hiểm.',
+    note: 'Thạc sĩ + Tiến sĩ + nghiên cứu sau Tiến sĩ (không có bậc ĐH cho sinh viên Việt Nam). Chương trình chính: STEM, EPOS (cần từ 2 năm kinh nghiệm), Helmut-Schmidt. Có thêm DAAD VORsprung — khóa dự bị STEM trực tuyến miễn phí.',
+  },
+  {
+    name: 'Eiffel Excellence (Pháp — Campus France)',
+    links: [{ url: 'https://www.campusfrance.org/en/eiffel-excellence-scholarship-programme', label: 'Trang chính thức →' }],
+    support: 'Trợ cấp sinh hoạt hằng tháng + vé + bảo hiểm — KHÔNG bao học phí.',
+    note: 'Thạc sĩ + Tiến sĩ (không có bậc ĐH). Sinh viên không tự nộp — trường ĐH Pháp nộp thay. Xem mức trợ cấp cụ thể trên trang chính thức.',
+  },
+  {
+    name: 'CSC — Học bổng Chính phủ Trung Quốc',
+    links: [{ url: 'https://campuschina.org/', label: 'Cổng Campus China →' }],
+    support: 'Toàn phần: học phí + chỗ ở + trợ cấp sinh hoạt hằng tháng + bảo hiểm; Type B không bao vé máy bay.',
+    note: 'Bậc ĐH + Thạc sĩ + Tiến sĩ. MỚI từ 2026: bậc ĐH bắt buộc thi CSCA trước khi nộp. Hạn hằng năm: tháng 1 – đầu tháng 4.',
+  },
+  {
+    name: 'Taiwan MOE Scholarship (Đài Loan)',
+    links: [{ url: 'https://taiwanscholarship.moe.gov.tw/', label: 'Trang chính thức →' }],
+    support: 'Học phí tới 40.000 TWD/học kỳ + sinh hoạt 15.000 TWD/tháng (ĐH) / 20.000 TWD/tháng (thạc sĩ/tiến sĩ).',
+    note: 'ĐH (tối đa 4 năm) + Thạc sĩ (tối đa 2 năm) + Tiến sĩ (tối đa 4 năm). Nộp qua Văn phòng Kinh tế Văn hóa Đài Bắc (TECO) tại Việt Nam + nộp riêng hồ sơ nhập học vào trường. Hạn hằng năm: 1/2 – 31/3.',
+  },
+  {
+    name: 'Manaaki New Zealand Scholarships (NZ)',
+    links: [{ url: 'https://nzscholarships.govt.nz/', label: 'Trang chính thức →' }],
+    support: 'Toàn phần: học phí + sinh hoạt hàng tuần + trợ cấp ổn định 3.000 NZD + bảo hiểm + vé khứ hồi.',
+    note: 'Chính phủ New Zealand. Sau ĐH (chứng chỉ/văn bằng sau ĐH, thạc sĩ, tiến sĩ) — sinh viên Việt Nam không được nộp bậc ĐH. Mở đầu năm (khoảng tháng 2–4).',
+  },
+  {
+    name: 'SINGA — Singapore International Graduate Award',
+    links: [{ url: 'https://a-star.edu.sg/', label: 'Trang chính thức (A*STAR) →' }],
+    support: 'Toàn phần 4 năm: 100% học phí + 2.700 SGD/tháng (3.200 sau kỳ thi Qualifying) + 1.000 SGD ổn định + tới 1.500 SGD vé máy bay; không ràng buộc.',
+    note: 'Tiến sĩ/EngD trực tiếp sau ĐH (không bắt buộc thạc sĩ). Mở hằng năm cho khóa nhập học tháng 8 — kiểm tra lịch mở hiện tại trên trang chính thức.',
+  },
+  {
+    name: 'Học bổng ĐH Singapore — NUS + NTU (bậc ĐH)',
+    links: [
+      { url: 'https://nus.edu.sg/oam/scholarships/scholarships-for-freshmen-international-students/the-association-of-banks-in-singapore---goh-keng-swee-scholarship', label: 'Học bổng NUS →' },
+      { url: 'https://www.ntu.edu.sg/admissions/undergraduate/scholarships-and-awards/scholarship-opportunities/detail/asean-undergraduate-scholarship', label: 'Học bổng NTU →' },
+    ],
+    support: '100% học phí sau MOE Tuition Grant + sinh hoạt 5.800–6.000 SGD/năm + chỗ ở + máy tính 1.750 SGD.',
+    note: 'BẮT BUỘC: cam kết làm việc 3 năm cho công ty đăng ký tại Singapore sau tốt nghiệp (do nhận MOE Tuition Grant). Duy trì GPA từ 3.5. NTU phải nộp đơn học bổng riêng.',
+  },
+  {
+    name: 'Ireland Fellows Programme – Asia (Chính phủ Ireland)',
+    links: [{ url: 'https://ireland.ie/IrelandFellowsProgramme', label: 'Trang chính thức →' }],
+    support: 'Toàn phần: học phí + sinh hoạt + vé + bảo hiểm.',
+    note: 'Thạc sĩ 1 năm. Chỉ Việt Nam, Campuchia, Lào (nhóm châu Á); cần từ 2 năm kinh nghiệm, GPA từ 3.0/4.0, chưa có bằng thạc sĩ.',
+  },
+  {
+    name: 'Học bổng Khoa học & Công nghệ Vingroup',
+    links: [{ url: 'https://scholarships.vinuni.edu.vn/', label: 'Trang chính thức →' }],
+    support: 'Toàn phần: học phí + sinh hoạt + vé khứ hồi + bảo hiểm.',
+    note: 'Du học sau ĐH. Từ khóa 2026 chỉ bậc Tiến sĩ (không còn thạc sĩ, trừ liên kết riêng). Ngành khoa học công nghệ ưu tiên, 13 nước; tối đa 35 tuổi; sau tốt nghiệp về Việt Nam làm việc cho ĐH/viện công lập hoặc hệ sinh thái Vingroup. Có thêm Vingroup Graduate Scholarship tại NTU Singapore (tiến sĩ 2.200–2.700 SGD/tháng).',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Sách giáo khoa miễn phí (báo cáo bổ sung đợt 2, Ưu tiên 2 — 6 nguồn
+// trong khối sách; Saylor Academy đặt trong COURSES theo ghi chú báo cáo).
+// Dùng chung mẫu thẻ khóa học: learn / free / cond.
+// ---------------------------------------------------------------------------
+export const BOOKS = [
+  {
+    name: 'OpenStax (Đại học Rice)',
+    url: 'https://openstax.org',
+    learn: 'Sách giáo khoa ĐH chuẩn Mỹ: Kinh tế, Calculus, Statistics, Vật lý, Sinh học, Hóa học, Kế toán, Tâm lý — thay cho giáo trình photo.',
+    free: 'Miễn phí hoàn toàn — đọc online + tải PDF, giấy phép mở (CC). Sách tiếng Anh.',
+    cond: 'Công cụ "Assignable" thu phí $15/sinh viên/kỳ chỉ dành cho giảng viên — sinh viên đọc sách không cần.',
+  },
+  {
+    name: 'Open Textbook Library (Đại học Minnesota)',
+    url: 'https://open.umn.edu/opentextbooks',
+    learn: 'Kho sách mở lớn (1.915 sách), nhiều ngành, có đánh giá của giảng viên.',
+    free: 'Tải, chỉnh sửa và chia sẻ miễn phí.',
+    cond: 'Là thư mục tổng hợp — link tải dẫn về nơi xuất bản gốc; khoảng 70% sách có đánh giá.',
+  },
+  {
+    name: 'LibreTexts',
+    url: 'https://libretexts.org',
+    learn: '2.000+ sách theo 17 ngành.',
+    free: 'Đọc sách miễn phí.',
+    cond: 'Bài tập ADAPT thu phí $15/6 tháng — chỉ đọc sách thì không mất tiền; giao diện hơi học thuật.',
+  },
+  {
+    name: 'B.C. Open Collection — BCcampus (Canada)',
+    url: 'https://collection.bccampus.ca',
+    learn: 'Sách mở theo mã môn học.',
+    free: 'Miễn phí, giấy phép mở, ai cũng dùng được.',
+    cond: 'Sách xếp theo mã môn của tỉnh British Columbia nên sinh viên Việt Nam tìm hơi khó — ưu tiên thấp hơn 3 nguồn trên.',
+  },
+  {
+    name: 'Project Gutenberg',
+    url: 'https://www.gutenberg.org',
+    learn: 'Sách kinh điển hết bản quyền — hợp sinh viên văn học, ngoại ngữ.',
+    free: 'Miễn phí 100%, không cần đăng ký; tải EPUB/Kindle/PDF.',
+    cond: 'Chỉ sách cũ hết bản quyền, không có giáo trình hiện đại. Trang đang xây dựng lại cơ sở dữ liệu, bản hiện tại thiếu một số sách mới nhất.',
+  },
+  {
+    name: 'Thư viện Quốc gia Việt Nam',
+    url: 'https://nlv.gov.vn/dich-vu-thu-vien/dich-vu-mien-phi.html',
+    learn: 'Tra cứu OPAC, tóm tắt luận án tiến sĩ, báo/tạp chí Đông Dương, sách Hán Nôm toàn văn.',
+    free: 'Đọc trực tuyến miễn phí các mục trên.',
+    cond: 'Toàn văn luận án + cơ sở dữ liệu ProQuest/Springer/SAGE chỉ đọc trong mạng LAN tại thư viện (31 Tràng Thi, Hà Nội).',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Luyện thi IELTS/TOEIC miễn phí (báo cáo bổ sung đợt 2, Ưu tiên 3 —
+// 8 nguồn chính thức). cta: nhãn nút riêng (IIG là nơi đăng ký thi, không
+// phải tài liệu miễn phí). courseCard hiển thị cond chỉ khi có.
+// ---------------------------------------------------------------------------
+export const EXAM_PREP = [
+  {
+    name: 'British Council — LearnEnglish',
+    url: 'https://learnenglish.britishcouncil.org',
+    learn: 'Tài liệu tự học tiếng Anh: 10.000+ bài tập ngữ pháp, từ vựng, đọc/nghe/viết, mẹo thi.',
+    free: 'Phần tự học miễn phí; tài khoản miễn phí để kiểm tra trình độ.',
+    cond: 'Lớp trực tiếp với giáo viên và khóa IELTS có giáo viên là trả phí.',
+  },
+  {
+    name: 'British Council — IELTS Ready',
+    url: 'https://takeielts.britishcouncil.org',
+    learn: 'Đề thi thử IELTS chính thức của British Council.',
+    free: 'IELTS Ready miễn phí bất cứ lúc nào. IELTS Ready Premium (40+ đề thi thử, khóa học, video) miễn phí khi đặt thi IELTS với British Council.',
+  },
+  {
+    name: 'British Council Việt Nam',
+    url: 'https://www.britishcouncil.vn',
+    learn: 'Cổng Việt Nam: đăng ký thi IELTS, lịch thi, trung tâm thi.',
+    free: 'Cổng thông tin — dùng để tìm trang IELTS Việt Nam và đăng ký thi.',
+    cond: 'Trang chủ không liệt kê trực tiếp tài liệu luyện thi.',
+  },
+  {
+    name: 'IELTS.org (trang chính thức của kỳ thi)',
+    url: 'https://ielts.org/take-a-test/preparation-resources',
+    learn: 'Đề mẫu chính thức cho cả 4 kỹ năng (Academic + General Training), có đáp án, transcript nghe, bài mẫu Writing kèm nhận xét giám khảo.',
+    free: 'Đề mẫu miễn phí.',
+    cond: 'Đề mẫu là câu hỏi mẫu theo dạng bài, không phải đề thi thử đầy đủ có tính giờ.',
+  },
+  {
+    name: 'IDP IELTS Việt Nam — thi thử miễn phí',
+    url: 'https://ielts.idp.com/vietnam/about/news-and-articles/article-ielts-computer-trial-at-home/en-gb',
+    learn: 'Thi thử IELTS trên máy tính tại trung tâm IDP (Hà Nội, TP.HCM, Đà Nẵng, Hải Phòng…), 15–20 phút/kỹ năng Nghe/Đọc/Viết + đề mẫu làm tại nhà cả 4 kỹ năng.',
+    free: 'Hoàn toàn miễn phí. Thi thử xong được giảm 500.000đ lệ phí thi thật nếu đăng ký thi với IDP.',
+    cond: 'Cần đăng ký trước, số chỗ có hạn; kết quả trả chậm (vài tuần), không cấp bảng điểm chính thức; không có kỹ năng Nói trong thi thử tại trung tâm.',
+  },
+  {
+    name: 'ETS TOEIC — đề mẫu chính thức',
+    url: 'https://www.ets.org/toeic',
+    learn: 'Đề thi mẫu TOEIC Listening & Reading đầy đủ (Form ST-05, 200 câu) + đề mẫu Speaking & Writing — nguồn duy nhất chính thức của ETS.',
+    free: 'Đề mẫu tải miễn phí trực tiếp từ ets.org.',
+    cond: 'Chỉ 1–2 đề mẫu, không phải ngân hàng đề lớn; file audio lấy kèm từ trang ETS.',
+  },
+  {
+    name: 'Cambridge Write & Improve',
+    url: 'https://writeandimprove.com',
+    learn: 'Chấm bài viết tiếng Anh miễn phí bằng AI của Cambridge — rất hợp luyện IELTS Writing.',
+    free: 'Miễn phí, dùng được không cần đăng ký; chấm tự động theo chuẩn CEFR.',
+    cond: 'Chấm tự động bằng AI, không thay giáo viên; bản "+Class View" cho giáo viên/tổ chức có thể trả phí.',
+  },
+  {
+    name: 'IIG Việt Nam (đại diện của ETS tại VN)',
+    url: 'https://www.iigvietnam.com',
+    learn: 'Nơi đăng ký thi TOEIC/TOEFL chính thức tại Việt Nam — xem lịch thi, lệ phí.',
+    free: 'Đây là nơi đăng ký thi, không phải tài liệu luyện thi miễn phí.',
+    cond: 'Khóa luyện trên nền tảng IIG là trả phí.',
+    cta: 'Đăng ký thi →',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Việc làm thêm & thực tập (báo cáo bổ sung đợt 2, Ưu tiên 4 — 7 kênh).
+// Kênh #7 Sàn vieclam.gov.vn ĐÃ BỎ (báo cáo dặn kiểm lại link bằng trình
+// duyệt thật trước khi đăng). TopCV chỉ link trang chủ (đường dẫn
+// viec-lam-them trả 404). Việc Làm Tốt đúng tên miền vieclamtot.com.
+// ---------------------------------------------------------------------------
+export const JOBS = [
+  {
+    name: 'YBOX',
+    url: 'https://ybox.vn',
+    desc: 'Kênh việc làm/học bổng chuyên cho sinh viên, cập nhật hàng ngày: thực tập, việc làm thêm, học bổng — có cả khóa học miễn phí.',
+    note: 'Miễn phí xem + ứng tuyển. Lưu ý: ngay trên YBOX cũng có tin kiểu "không cần kinh nghiệm, thu nhập 20–30tr/tháng" — đọc hộp cảnh báo bên dưới.',
+  },
+  {
+    name: 'TopCV',
+    url: 'https://www.topcv.vn',
+    desc: 'Nền tảng tuyển dụng lớn nhất Việt Nam, có lọc thực tập/bán thời gian.',
+    note: 'Miễn phí tìm việc + tạo CV (TopCV Pro trả phí là tính năng thêm). Dùng bộ lọc "Cấp bậc: Thực tập sinh" + "Loại hình: Bán thời gian" để tìm việc thực tập/bán thời gian. Tin thực tập có phụ cấp 2–3,3 triệu đồng/tháng.',
+  },
+  {
+    name: 'VietnamWorks',
+    url: 'https://www.vietnamworks.com',
+    desc: 'Việc thực tập từ công ty lớn.',
+    note: 'Miễn phí cho người tìm việc. Lọc "Mới tốt nghiệp / Thực tập", cấp bậc "Thực tập sinh / Sinh viên".',
+  },
+  {
+    name: 'CareerViet',
+    url: 'https://careerviet.vn',
+    desc: 'Chuyên mục riêng "Việc làm Sinh viên / Thực tập sinh" + lọc việc bán thời gian.',
+    note: 'Miễn phí cho người tìm việc.',
+  },
+  {
+    name: 'LinkedIn Jobs',
+    url: 'https://www.linkedin.com/jobs/search/?keywords=intern&location=Vietnam',
+    desc: 'Việc thực tập tại công ty đa quốc gia (TikTok, Amazon, Xiaomi, Michelin…). Hơn 1.000 việc thực tập tại Việt Nam đang mở.',
+    note: 'Miễn phí; cần tài khoản LinkedIn miễn phí để ứng tuyển (xem tin không cần đăng nhập). Lọc Internship / Part-time.',
+  },
+  {
+    name: 'Việc Làm Tốt (Chợ Tốt Jobs)',
+    url: 'https://www.vieclamtot.com',
+    desc: 'Việc làm thêm theo ca gần nhà: phục vụ, bán hàng, gia sư, shipper.',
+    note: 'Miễn phí cho người tìm việc. Lương theo giờ khoảng 18–25k.',
+  },
+  {
+    name: 'Chương trình thực tập doanh nghiệp lớn',
+    url: 'https://www.samsungcareers.com.vn',
+    desc: 'Sinh viên năm cuối săn thực tập tại tập đoàn lớn — ví dụ Samsung Việt Nam: Fresh Staff + Intern, thực tập 2–3 tháng.',
+    note: 'Miễn phí ứng tuyển. Có học bổng SEMV 3.000 USD. Xem đợt tuyển hiện tại trên trang tuyển dụng chung — không ghi hạn cố định vì hạn sẽ qua.',
+  },
+];
+
+// Hộp cảnh báo lừa đảo việc làm (nguồn chính thức: Công an tỉnh Ninh
+// Bình + chiến dịch của Văn phòng Bộ Công an tại ĐH Huế, 8–10/11/2026).
+export const JOB_SCAM = {
+  text: 'Cảnh giác lừa đảo việc làm — sinh viên là đối tượng bị nhắm tới nhiều nhất. Dấu hiệu lừa đảo: "việc nhẹ lương cao", cộng tác viên online phải đóng phí giữ chỗ, người tự xưng công an/viện kiểm sát yêu cầu chuyển tiền. Tuyệt đối không đóng phí trước khi làm việc và không đưa mã OTP cho bất kỳ ai.',
+  sourceUrl: 'https://congan.ninhbinh.gov.vn/canh-giac-voi-thu-doan-lua-dao-chiem-doat-tai-san-doi-voi-hoc-sinh-sinh-vien-nguoi-dan-trong-dip-nghi-he',
+  sourceLabel: 'Cảnh báo của Công an tỉnh Ninh Bình',
+};
 
 // ---------------------------------------------------------------------------
 // Ưu đãi sinh viên (§2.4): 7 ưu đãi + 1 ưu đãi theo mùa đưa lên đầu khối.
@@ -461,6 +802,210 @@ Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: 
 <li>Nghỉ quá số buổi quy định (thường 20–30% số buổi của môn) có thể bị cấm thi — xin nghỉ phép không tự động miễn điểm danh, hỏi rõ giảng viên.</li>
 <li>Bảo lưu không làm mất kết quả các môn đã học xong.</li>
 <li>Trong thời gian bảo lưu, thẻ sinh viên/BHYT có thể tạm dừng theo quy định của trường — hỏi phòng đào tạo khi nộp đơn.</li>
+</ul>`,
+  },
+  {
+    slug: 'email-xin-viec-xin-thuc-tap',
+    title: 'Email xin việc / xin thực tập',
+    desc: 'Cấu trúc email 6 phần, 2 mẫu cho 2 tình huống (ứng tuyển tin có sẵn / gửi chủ động) + checklist lỗi thường gặp.',
+    body: `
+<p>Email xin việc là ấn tượng đầu tiên của bạn với nhà tuyển dụng — nhiều email bị bỏ qua chỉ vì tiêu đề chung chung hoặc quên đính kèm CV. Mẫu dưới đây dùng cho cả xin thực tập và xin việc làm thêm.</p>
+<h2>Cấu trúc email 6 phần</h2>
+<ol>
+<li><strong>Tiêu đề:</strong> <code>[Vị trí] – Họ tên – Trường</code>. Ví dụ: "[Thực tập sinh Marketing] – Nguyễn Văn A – ĐH Kinh tế TP.HCM". Tiêu đề rõ giúp email không bị nhầm là thư rác.</li>
+<li><strong>Lời chào:</strong> "Kính gửi Phòng Nhân sự Công ty [tên công ty]," — nếu biết tên người nhận thì chào tên. Tránh "Gửi anh/chị" chung chung.</li>
+<li><strong>Giới thiệu:</strong> bạn là ai — trường, ngành, năm mấy — và khung thời gian thực tập/làm việc từ–đến. 2–3 câu.</li>
+<li><strong>Lý do chọn công ty + điểm mạnh:</strong> 1 đoạn ngắn — nêu điều cụ thể ở công ty khiến bạn muốn vào (lĩnh vực, dự án, sản phẩm) và 1–2 điểm mạnh liên quan (môn học, đồ án, kỹ năng). Đừng viết "công ty uy tín, môi trường chuyên nghiệp" chung chung.</li>
+<li><strong>File đính kèm:</strong> liệt kê rõ: "Em xin gửi kèm CV và bảng điểm (file PDF đính kèm email này)."</li>
+<li><strong>Chữ ký:</strong> họ tên, số điện thoại, email. Có thể thêm link LinkedIn/GitHub nếu có.</li>
+</ol>
+<h2>Tình huống 1: Ứng tuyển tin tuyển dụng có sẵn</h2>
+<div class="sv-letter">
+<p><strong>Tiêu đề:</strong> [Thực tập sinh Kế toán] – Trần Thị B – ĐH Tài chính – Marketing</p>
+<p>Kính gửi Phòng Nhân sự Công ty [tên công ty],</p>
+<p>Em là Trần Thị B, sinh viên năm 3 ngành Kế toán, Trường ĐH Tài chính – Marketing. Em viết email này để ứng tuyển vị trí Thực tập sinh Kế toán theo thông báo tuyển dụng trên [TopCV/website công ty] ngày [ngày/tháng]. Em có thể thực tập toàn thời gian từ [ngày] đến [ngày].</p>
+<p>Em đã học xong các môn Kế toán tài chính, Kế toán quản trị và thành thạo Excel (hàm, PivotTable). Trong đồ án môn học, em đã lập bộ báo cáo tài chính mẫu cho một doanh nghiệp thương mại và đạt điểm 9. Em mong được áp dụng những kiến thức này vào công việc thực tế tại Quý công ty.</p>
+<p>Em xin gửi kèm CV và bảng điểm (file PDF đính kèm email này). Em rất mong nhận được phản hồi từ Quý công ty.</p>
+<p>Trân trọng,<br>Trần Thị B — SĐT: [số] — Email: [email]</p>
+</div>
+<h2>Tình huống 2: Gửi chủ động khi công ty chưa đăng tuyển</h2>
+<div class="sv-letter">
+<p><strong>Tiêu đề:</strong> [Xin thực tập – Thiết kế đồ họa] – Lê Văn C – ĐH Kiến trúc TP.HCM</p>
+<p>Kính gửi Phòng Nhân sự Công ty [tên công ty],</p>
+<p>Em là Lê Văn C, sinh viên năm 3 ngành Thiết kế đồ họa, Trường ĐH Kiến trúc TP.HCM. Em theo dõi các sản phẩm của Quý công ty đã lâu và rất ấn tượng với [bộ nhận diện/dự án cụ thể]. Em viết email này để hỏi về cơ hội thực tập tại phòng Thiết kế trong học kỳ tới (từ [tháng] đến [tháng]).</p>
+<p>Em thành thạo Photoshop, Illustrator và Figma; đã thiết kế bộ poster cho 2 sự kiện của trường (xem trong portfolio đính kèm). Em sẵn sàng thực tập bán thời gian 3 buổi/tuần theo lịch học của em.</p>
+<p>Em xin gửi kèm CV và portfolio (file PDF đính kèm email này). Dù Quý công ty chưa có vị trí trống, em vẫn rất mong nhận được phản hồi để em có thể chuẩn bị cho đợt tuyển sau.</p>
+<p>Trân trọng,<br>Lê Văn C — SĐT: [số] — Email: [email]</p>
+</div>
+<h2>Checklist lỗi thường gặp</h2>
+<ul>
+<li><strong>Quên đính kèm file</strong> — đính kèm CV trước khi viết nội dung email.</li>
+<li><strong>Gửi CC cho nhiều công ty cùng lúc</strong> — mỗi công ty một email riêng, ghi tên công ty đúng.</li>
+<li><strong>File Word lỗi font</strong> — xuất CV sang PDF trước khi gửi.</li>
+<li><strong>Tên file lộn xộn</strong> — đặt tên dạng <code>CV_NguyenVanA_ThucTapMarketing.pdf</code>, đừng để "CV-final-v2-ok.pdf".</li>
+<li><strong>Email không nghiêm túc</strong> — dùng địa chỉ dạng hoten@gmail.com, đừng dùng nickname.</li>
+<li><strong>Gửi rồi không kiểm tra</strong> — đọc lại 1 lần trước khi bấm gửi: tên công ty, vị trí, ngày tháng có đúng không.</li>
+<li><strong>Chờ 1 tuần chưa thấy trả lời</strong> — có thể gửi email nhắc lịch sự 1 lần, đừng nhắn dồn nhiều lần.</li>
+</ul>`,
+  },
+  {
+    slug: 'don-phuc-khao-diem-thi',
+    title: 'Đơn phúc khảo điểm thi',
+    desc: 'Mẫu đơn phúc khảo điểm thi + lưu ý quan trọng: thời hạn ngắn, trường có thể có mẫu riêng, có thể mất lệ phí.',
+    body: `
+<p>Phúc khảo là yêu cầu chấm lại bài thi khi bạn thấy điểm công bố không đúng với bài làm của mình. Thời hạn phúc khảo rất ngắn — thường chỉ 5–7 ngày sau khi công bố điểm — nên viết đơn ngay khi phát hiện, đừng chần chừ.</p>
+<div class="sv-letter">
+<p class="sv-letter-center"><strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong><br>Độc lập – Tự do – Hạnh phúc</p>
+<p class="sv-letter-center"><strong>ĐƠN XIN PHÚC KHẢO ĐIỂM THI</strong></p>
+<p>Kính gửi: [Phòng Đào tạo / Phòng Khảo thí, Trường …]</p>
+<p>Tôi tên là: [Họ và tên] — Ngày sinh: [ngày/tháng/năm]<br>
+Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: [MSSV]<br>
+Điện thoại: [SĐT] — Email: [email]</p>
+<p>Nay tôi viết đơn này đề nghị phúc khảo bài thi môn [tên môn], mã học phần [mã], thi ngày [ngày/tháng/năm], học kỳ [kỳ] năm học [năm].</p>
+<p>Điểm đã công bố: [điểm] — Điểm tôi đề nghị xem lại: [điểm mong muốn / hoặc ghi "đề nghị chấm lại toàn bài"].</p>
+<p>Lý do: [1–2 câu ngắn, cụ thể — ví dụ: "Tôi đã làm đầy đủ các câu hỏi theo đề thi và tự tin bài làm của mình, nhưng điểm công bố thấp bất thường so với bài làm" — tránh viết dài dòng, cảm tính.]</p>
+<p>Tôi xin cam đoan những thông tin trên là đúng sự thật và chấp hành kết quả phúc khảo của nhà trường.</p>
+<p class="sv-letter-right">[Địa điểm], ngày … tháng … năm …<br>Người viết đơn<br>(Ký và ghi rõ họ tên)<br><br>[Họ và tên]</p>
+</div>
+<h2>Lưu ý quan trọng</h2>
+<ul>
+<li><strong>Nhiều trường có mẫu đơn riêng</strong> — hỏi phòng đào tạo hoặc tải mẫu trên cổng sinh viên trước khi dùng mẫu này.</li>
+<li><strong>Thời hạn rất ngắn</strong> — thường 5–7 ngày sau ngày công bố điểm; quá hạn là không được xét.</li>
+<li><strong>Có thể mất lệ phí</strong> — một số trường thu lệ phí phúc khảo mỗi môn; nếu điểm thay đổi, trường thường hoàn lại lệ phí.</li>
+<li><strong>Kết quả phúc khảo là kết quả cuối cùng</strong> — điểm có thể tăng, giữ nguyên hoặc giảm.</li>
+<li>Giữ lại biên nhận nộp đơn và ghi lại ngày hẹn trả kết quả.</li>
+</ul>
+<h2>Phân biệt: phúc khảo thi tốt nghiệp THPT</h2>
+<p>Phúc khảo kỳ thi tốt nghiệp THPT khác với phúc khảo ở đại học: thí sinh nộp đơn theo <strong>mẫu chính thức tại Phụ lục IV, Thông tư 24/2024/TT-BGDĐT</strong>, nộp tại nơi đăng ký dự thi, trong thời hạn do Bộ GD&ĐT quy định từng năm. Phúc khảo ở đại học theo mẫu và quy định riêng của từng trường.</p>`,
+  },
+  {
+    slug: 'don-xin-giay-xac-nhan-sinh-vien-bang-diem',
+    title: 'Đơn xin giấy xác nhận sinh viên / xin bảng điểm',
+    desc: 'Gộp 2 mẫu trong 1 bài: đơn xin giấy xác nhận đang học + đơn xin cấp bảng điểm — kèm nơi nộp và lưu ý.',
+    body: `
+<p>Hai loại giấy này sinh viên cần rất thường xuyên — làm visa, xin học bổng, hoãn nghĩa vụ quân sự, vay vốn, xin việc làm thêm, làm thẻ xe buýt sinh viên. Dưới đây là 2 mẫu riêng; dùng mẫu nào thì viết mẫu đó.</p>
+<h2>Mẫu 1: Đơn xin giấy xác nhận sinh viên (xác nhận đang học)</h2>
+<div class="sv-letter">
+<p class="sv-letter-center"><strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong><br>Độc lập – Tự do – Hạnh phúc</p>
+<p class="sv-letter-center"><strong>ĐƠN XIN GIẤY XÁC NHẬN SINH VIÊN</strong></p>
+<p>Kính gửi: [Phòng Đào tạo / Phòng Công tác sinh viên, Trường …]</p>
+<p>Tôi tên là: [Họ và tên] — Ngày sinh: [ngày/tháng/năm]<br>
+Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: [MSSV]<br>
+Điện thoại: [SĐT] — Email: [email]</p>
+<p>Nay tôi viết đơn này xin nhà trường cấp cho tôi giấy xác nhận sinh viên đang học tại trường, với mục đích: [ghi rõ mục đích — ví dụ: làm hồ sơ xin visa / xin học bổng / hoãn nghĩa vụ quân sự / làm thẻ xe buýt sinh viên].</p>
+<p>Số bản cần cấp: [số] bản. Ngôn ngữ: [tiếng Việt / song ngữ Việt – Anh — ghi rõ nếu cần bản tiếng Anh].</p>
+<p>Tôi xin chân thành cảm ơn.</p>
+<p class="sv-letter-right">[Địa điểm], ngày … tháng … năm …<br>Người viết đơn<br>(Ký và ghi rõ họ tên)<br><br>[Họ và tên]</p>
+</div>
+<h2>Mẫu 2: Đơn xin cấp bảng điểm</h2>
+<div class="sv-letter">
+<p class="sv-letter-center"><strong>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</strong><br>Độc lập – Tự do – Hạnh phúc</p>
+<p class="sv-letter-center"><strong>ĐƠN XIN CẤP BẢNG ĐIỂM</strong></p>
+<p>Kính gửi: [Phòng Đào tạo, Trường …]</p>
+<p>Tôi tên là: [Họ và tên] — Ngày sinh: [ngày/tháng/năm]<br>
+Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: [MSSV]<br>
+Điện thoại: [SĐT] — Email: [email]</p>
+<p>Nay tôi viết đơn này xin nhà trường cấp cho tôi bảng điểm học tập, cụ thể:</p>
+<p>Bảng điểm: [toàn khóa tới thời điểm hiện tại / học kỳ … năm học …]<br>
+Số bản cần cấp: [số] bản. Ngôn ngữ: [tiếng Việt / song ngữ Việt – Anh].<br>
+Mục đích: [xin học bổng / xin việc / xin học tiếp / …].</p>
+<p>Tôi xin chân thành cảm ơn.</p>
+<p class="sv-letter-right">[Địa điểm], ngày … tháng … năm …<br>Người viết đơn<br>(Ký và ghi rõ họ tên)<br><br>[Họ và tên]</p>
+</div>
+<h2>Nơi nộp và lưu ý</h2>
+<ul>
+<li><strong>Nơi nộp:</strong> Phòng Đào tạo hoặc Phòng Công tác sinh viên — tùy trường; hỏi cố vấn học tập nếu không rõ.</li>
+<li><strong>Nhiều trường nay đăng ký online</strong> qua cổng sinh viên — kiểm tra cổng sinh viên của trường trước khi viết đơn giấy.</li>
+<li>Ghi rõ <strong>mục đích + số bản cần</strong> ngay trong đơn để khỏi phải đi lại nhiều lần.</li>
+<li>Bảng điểm song ngữ (nếu trường cấp) thường mất nhiều ngày hơn bản tiếng Việt — xin sớm nếu cần gấp.</li>
+<li>Một số trường thu phí cấp bản sao/bản dịch — hỏi trước mức phí tại phòng đào tạo.</li>
+<li>Kiểm tra lại bảng điểm ngay khi nhận: họ tên, MSSV, điểm các môn có đúng không — sai thì báo ngay để sửa.</li>
+</ul>`,
+  },
+  {
+    slug: 'slide-thuyet-trinh',
+    title: 'Slide thuyết trình — cấu trúc + mẹo trình bày',
+    desc: 'Cấu trúc 3 phần, số slide theo thời lượng, quy tắc 1 slide = 1 ý + checklist trước giờ thuyết trình.',
+    body: `
+<p>Bài này không phải file tải về — đây là khung cấu trúc và mẹo trình bày để bạn tự làm slide thuyết trình cho môn học. Slide tốt không phải slide đẹp nhất, mà là slide giúp người nghe theo kịp ý của bạn.</p>
+<h2>Cấu trúc 3 phần</h2>
+<ol>
+<li><strong>Mở đầu (1–2 slide):</strong> tiêu đề + tên nhóm/thành viên; đặt vấn đề bằng 1 câu hỏi hoặc 1 con số gây chú ý; nói rõ bài thuyết trình sẽ trả lời câu hỏi gì.</li>
+<li><strong>Thân bài (phần lớn số slide):</strong> chia thành 2–3 ý lớn, mỗi ý 2–3 slide. Mỗi ý mở đầu bằng câu chủ đề, có ví dụ hoặc số liệu, kết thúc bằng câu kết nối sang ý tiếp theo.</li>
+<li><strong>Kết luận (1–2 slide):</strong> tóm tắt 3 ý chính trong 3 dòng; trả lời lại câu hỏi đã đặt ở mở đầu; cảm ơn + mời câu hỏi.</li>
+</ol>
+<h2>Số slide gợi ý theo thời lượng</h2>
+<ul>
+<li><strong>5 phút:</strong> 4–5 slide.</li>
+<li><strong>10 phút:</strong> 8–10 slide.</li>
+<li><strong>15 phút:</strong> 12–14 slide.</li>
+<li><strong>20 phút:</strong> 15–18 slide.</li>
+</ul>
+<p>Nguyên tắc: khoảng 1 phút/slide. Quá nhiều slide thì bạn phải nói vội; quá ít slide thì người nghe không theo kịp ý.</p>
+<h2>Quy tắc trình bày trên slide</h2>
+<ul>
+<li><strong>1 slide = 1 ý.</strong> Slide nào có 2 ý thì tách làm 2 slide.</li>
+<li><strong>Tối đa khoảng 6 dòng/slide</strong> — mỗi dòng 1 ý ngắn, không chép đoạn văn dài lên slide.</li>
+<li><strong>Cỡ chữ từ 24pt trở lên</strong> cho nội dung — người ngồi cuối lớp vẫn đọc được.</li>
+<li>Số liệu quan trọng thì làm biểu đồ thay vì bảng dài; 1 biểu đồ/slide.</li>
+<li>Hình ảnh rõ nét, ghi nguồn nếu lấy từ mạng.</li>
+<li>Một mẫu màu nhất quán cho cả bài — đừng mỗi slide một màu.</li>
+</ul>
+<h2>Mẹo trình bày</h2>
+<ul>
+<li><strong>Nói với khán giả, không đọc slide</strong> — slide chỉ là gợi ý; người nghe đọc slide nhanh hơn bạn nói.</li>
+<li><strong>Chia phần nói đều</strong> cho các thành viên — mỗi người nói phần mình chuẩn bị.</li>
+<li><strong>Chuẩn bị 3 câu hỏi khó nhất</strong> mà giảng viên/bạn bè có thể hỏi — và câu trả lời ngắn cho mỗi câu.</li>
+<li>Nói chậm, rõ, nhìn khán giả; đứng thẳng, không quay lưng vào lớp.</li>
+<li>Tập dượt ít nhất 1 lần với đồng hồ — bài dài hơn thời gian cho phép là lỗi phổ biến nhất.</li>
+</ul>
+<h2>Phân công nhóm (mục nhỏ)</h2>
+<p>Trước khi làm slide, nhóm nên chốt phân công bằng văn bản ngắn trong nhóm chat: ai làm phần nào, hạn nộp phần của mình là khi nào, ai tổng hợp slide, ai thuyết trình phần nào. Ghi rõ ngày giờ — phân công miệng rất dễ quên và đổ lỗi cho nhau khi gần đến hạn.</p>
+<h2>Checklist trước giờ thuyết trình</h2>
+<ul>
+<li>Thử slide trên máy chiếu/máy tính của phòng học trước giờ (font, video, âm thanh có chạy không).</li>
+<li>Chuẩn bị file dự phòng: 1 bản PDF + 1 bản trên USB + 1 bản trên Drive/email.</li>
+<li>Sạc đầy pin laptop, mang theo sạc và đầu chuyển HDMI/VGA nếu cần.</li>
+<li>In sẵn dàn ý 1 trang để cầm tay khi nói (không in cả slide).</li>
+<li>Đến sớm 10 phút để setup và thử micro.</li>
+</ul>`,
+  },
+  {
+    slug: 'thu-gioi-thieu',
+    title: 'Thư giới thiệu',
+    desc: 'Cách nhờ giảng viên viết thư giới thiệu + khung thư mẫu để soạn sẵn cho giảng viên tham khảo.',
+    body: `
+<p>Thư giới thiệu cần cho học bổng, du học, xin việc — và sinh viên thường lúng túng ở 2 chỗ: ngại xin giảng viên, và không biết "nhờ thầy cô viết gì". Bài này giải quyết cả 2: mẫu câu nhờ lịch sự + khung thư để bạn soạn sẵn cho giảng viên tham khảo.</p>
+<h2>Phần 1: Email/mẫu câu nhờ giảng viên viết thư</h2>
+<p>Nhờ trực tiếp sau giờ học hoặc qua email đều được. Email nên ngắn, lịch sự, ghi rõ hạn nộp và gửi kèm tài liệu để giảng viên viết dễ hơn.</p>
+<div class="sv-letter">
+<p><strong>Tiêu đề:</strong> Em [Họ tên] – Nhờ thầy/cô viết thư giới thiệu cho hồ sơ [học bổng/đơn vị]</p>
+<p>Kính gửi Thầy/Cô [họ tên giảng viên],</p>
+<p>Em là [Họ tên], sinh viên lớp [lớp], đã học môn [tên môn] với Thầy/Cô ở học kỳ [kỳ]. Em đang chuẩn bị hồ sơ [xin học bổng … / ứng tuyển …] và rất mong Thầy/Cô viết giúp em một thư giới thiệu.</p>
+<p>Hạn nộp hồ sơ là ngày [ngày/tháng/năm]. Em xin gửi kèm CV và bảng điểm để Thầy/Cô tiện tham khảo. Nếu Thầy/Cô cần thêm thông tin gì, em sẵn sàng gửi thêm.</p>
+<p>Em xin chân thành cảm ơn Thầy/Cô đã dành thời gian.</p>
+<p>Trân trọng,<br>[Họ tên] — SĐT: [số] — Email: [email]</p>
+</div>
+<h2>Phần 2: Khung thư giới thiệu mẫu (soạn sẵn cho giảng viên tham khảo)</h2>
+<p>Nhiều giảng viên bận và sẽ hỏi bạn "em muốn thầy/cô viết gì" — hoặc nhờ bạn soạn nháp để thầy/cô sửa và ký. Khung dưới đây giúp bạn soạn nháp đúng ý; giảng viên vẫn là người quyết định nội dung cuối cùng và ký tên.</p>
+<div class="sv-letter">
+<p class="sv-letter-center"><strong>THƯ GIỚI THIỆU</strong></p>
+<p>Kính gửi: [Hội đồng xét học bổng / Ban tuyển sinh / Phòng Nhân sự …]</p>
+<p>Tôi là [họ tên giảng viên], [chức danh], khoa [tên khoa], Trường [tên trường]. Tôi viết thư này để giới thiệu sinh viên [họ tên sinh viên], người đã học môn [tên môn] với tôi ở học kỳ [kỳ] năm học [năm] và đạt điểm [điểm].</p>
+<p>[Điểm mạnh 1 — cụ thể, có ví dụ: "Trong đồ án môn học, em đã … và đạt kết quả …"]</p>
+<p>[Điểm mạnh 2 — cụ thể, có ví dụ: "Em luôn … (chủ động đặt câu hỏi, giúp đỡ bạn cùng lớp, hoàn thành bài trước hạn…)"]</p>
+<p>[So sánh với sinh viên cùng khóa, nếu có: "Trong số các sinh viên tôi đã giảng dạy, em thuộc nhóm …"]</p>
+<p>Tôi tin rằng [họ tên sinh viên] xứng đáng nhận [học bổng/vị trí …] và sẽ hoàn thành tốt [chương trình/công việc …]. Mọi thắc mắc xin liên hệ với tôi qua email [email giảng viên] hoặc số điện thoại [số].</p>
+<p class="sv-letter-right">[Địa điểm], ngày … tháng … năm …<br>[Chữ ký]<br>[Họ tên giảng viên]<br>[Chức danh, khoa, trường]</p>
+</div>
+<h2>Lưu ý khi xin thư giới thiệu</h2>
+<ul>
+<li><strong>Xin trước ít nhất 2–3 tuần</strong> so với hạn nộp — giảng viên cần thời gian viết; xin gấp 2–3 ngày là thiếu lịch sự.</li>
+<li>Chọn giảng viên <strong>biết rõ bạn</strong> (đã dạy bạn, đã hướng dẫn đồ án) thay vì giảng viên có chức danh cao nhưng không biết bạn là ai.</li>
+<li>Gửi kèm CV + bảng điểm + thông tin về học bổng/vị trí để giảng viên viết đúng ý.</li>
+<li>Một thư giới thiệu tốt nói về <strong>2–3 điểm mạnh cụ thể có ví dụ</strong> — thư chỉ toàn lời khen chung chung không có giá trị.</li>
+<li>Sau khi nộp hồ sơ, nhắn cảm ơn giảng viên. Nếu trúng tuyển/nhận được học bổng, báo tin cho giảng viên — đó là phép lịch sự và giữ quan hệ tốt.</li>
+<li>Không tự viết thư rồi giả chữ ký giảng viên — bị phát hiện là hủy hồ sơ và ảnh hưởng uy tín của bạn với trường.</li>
 </ul>`,
   },
 ];

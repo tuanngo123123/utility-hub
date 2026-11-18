@@ -1923,7 +1923,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 
 /* ============================================================
-   Mục Sinh viên (18/11) — /sinh-vien/ + 8 trang mẫu.
+   Mục Sinh viên (18/11) — /sinh-vien/ + 13 trang mẫu.
    Thẻ theo phong cách thẻ công cụ/code mẫu: nền trắng, viền
    1px, bo 12–16px. Dùng token var(--*) nên dark mode tự đổi.
    ============================================================ */
@@ -1956,6 +1956,19 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .sv-cond { margin: 0; color: var(--muted); font-size: 0.92rem; }
 .sv-cta { margin: auto 0 0; padding-top: 8px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .chip.sv-chip-warn { background: var(--note-bg); color: var(--warn); border-color: transparent; font-weight: 600; }
+
+/* Mục lục neo đầu trang /sinh-vien/ (đợt 2, 18/11): trang đã dài,
+   chip nhảy nhanh tới từng khối. */
+.sv-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; }
+
+/* Mục lục neo nhảy tới khối: chừa 80px cho header dính (mẫu
+   scroll-margin-top của .chip-row/#tool-grid), kẻo tiêu đề khối bị
+   header che mất. 8 id này chỉ có trên trang /sinh-vien/. */
+#khoa-hoc, #sach, #hoc-bong, #luyen-thi, #mau-bieu, #viec-lam, #uu-dai, #cong-cu { scroll-margin-top: 80px; }
+
+/* Tiêu đề nhóm con trong khối học bổng: Trong nước / Du học. */
+.sv-sub { margin: 28px 0 14px; font-size: 1.15rem; }
+.sv-sub:first-of-type { margin-top: 20px; }
 
 /* Ưu đãi theo mùa (Google AI Plus): khối nổi bật đầu mục ưu đãi. */
 .sv-seasonal {
