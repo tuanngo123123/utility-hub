@@ -89,6 +89,11 @@ Khoa</textarea></div>
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
+  // Chế độ Bàn giáo viên: trang /giao-vien/lop-hoc/ nhúng công cụ này
+  // với data-gv-app="1" — danh sách lấy từ lớp đang chọn ở tab Lớp học
+  // (bạn vắng không bị gọi), khung quản lý lớp + ô dán tên của trang
+  // rời được ẩn đi vì tab Lớp học đã làm việc đó.
+  const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const REDUCED = typeof window !== 'undefined' && window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const WHEEL_COLORS = ['#2563eb', '#0d9488', '#f97316', '#db2777', '#7c3aed', '#059669', '#eab308', '#dc2626'];
@@ -258,7 +263,8 @@ export function init(root) {
     btn.textContent = 'Đã cộng ✓';
     btn.disabled = true;
     const msg = $('gt-point-msg');
-    if (msg) msg.innerHTML = 'Đã cộng 1 điểm cho ' + esc(name) + ' — xem ở <a href="/cong-cu/bang-diem-lop/">Bảng điểm lớp</a>.';
+    const bdUrl = IN_APP ? '/giao-vien/lop-hoc/?tab=bang-diem' : '/cong-cu/bang-diem-lop/';
+    if (msg) msg.innerHTML = 'Đã cộng 1 điểm cho ' + esc(name) + ' — xem ở <a href="' + bdUrl + '">Bảng điểm lớp</a>.';
     tick();
   }
 
@@ -309,6 +315,9 @@ export function init(root) {
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && stageOpen) closeStage();
+    // Trong Bàn giáo viên, phím Space/Enter của app gọi tên thay phím R
+    // (tránh gọi nhầm khi giáo viên đang ở tab khác).
+    if (IN_APP) return;
     const t = e.target;
     const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
     if ((e.key === 'r' || e.key === 'R') && !typing && !busy) { e.preventDefault(); call(); }
@@ -625,7 +634,54 @@ export function init(root) {
     ev.target.value = '';
   });
 
-  refreshClassSelect();
+  // --- Chế độ Bàn giáo viên: nạp tên từ lớp đang chọn (trừ bạn vắng).
+  // App gọi root._gvRefresh() mỗi lần mở lại tab này; chỉ nạp lại khi
+  // danh sách đổi (so chữ ký) để không mất danh sách đã gọi giữa buổi.
+  let appSig = '';
+  function loadFromActiveClass() {
+    const helper = gvClasses();
+    if (!helper || typeof helper.getRecords !== 'function' || typeof helper.active !== 'function') return;
+    const active = helper.active();
+    const recs = active ? helper.getRecords(active) : [];
+    const names = recs.filter(r => !r.absent).map(r => r.name);
+    const sig = active + '\n' + names.join('\n');
+    if (sig === appSig) return;
+    appSig = sig;
+    called = called.filter(n => names.indexOf(n) !== -1);
+    roundPicks = roundPicks.filter(n => names.indexOf(n) !== -1);
+    $('gt-names').value = names.join('\n');
+    if (!roundPicks.length) {
+      $('gt-winner').style.display = 'none';
+      $('gt-winner').innerHTML = '';
+      $('gt-big').innerHTML = '<div class="gv-big">—</div>';
+      $('gt-sub').textContent = names.length
+        ? 'Bấm "Gọi tên" để bắt đầu'
+        : 'Lớp này chưa có bạn nào để gọi — chọn lớp khác hoặc bỏ đánh dấu Vắng ở tab Lớp học.';
+      $('gt-wheel-sub').textContent = names.length
+        ? 'Bấm "Gọi tên" để quay'
+        : 'Lớp này chưa có bạn nào để gọi.';
+    }
+    updateStatus();
+    drawWheel();
+    checkBigClass();
+    syncHero();
+    updateStage();
+  }
+
+  if (IN_APP) {
+    const namesField = $('gt-names').closest('.field');
+    if (namesField) namesField.style.display = 'none';
+    const box = $('gt-class-box');
+    if (box) box.style.display = 'none';
+    // Phím R tắt trong app (Space/Enter của app gọi tên thay) nên gợi
+    // ý trong mô tả cũng đổi theo, tránh chỉ phím không còn tác dụng.
+    const desc = root.querySelector('.tool-head p');
+    if (desc) desc.textContent = desc.textContent.replace('Bấm phím R để gọi nhanh.', 'Bấm phím Space để gọi nhanh.');
+    root._gvRefresh = loadFromActiveClass;
+    loadFromActiveClass();
+  } else {
+    refreshClassSelect();
+  }
   drawWheel();
   checkBigClass();
 }

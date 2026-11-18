@@ -67,6 +67,10 @@ Năm 2026 là năm con gì? | Năm Bính Ngọ (ngựa)</textarea></div>
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
+  // Chế độ Bàn giáo viên: trang /giao-vien/lop-hoc/ nhúng công cụ này
+  // với data-gv-app="1" — tên bốc kèm lấy từ lớp đang chọn ở tab Lớp
+  // học (bạn vắng không bị bốc), ô chọn lớp của trang rời được ẩn đi.
+  const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const SETS_KEY = 'uh_gv_cauhoi';
   const ASKED_KEY = 'uh_gv_cauhoi_asked';
   let asked = []; // chỉ số câu đã hỏi trong danh sách hiện tại
@@ -196,11 +200,15 @@ export function init(root) {
     const helper = gvClasses();
     const cls = $('bq-class').value;
     if (!helper || !cls) return '';
-    const names = helper.get(cls).filter(n => pickedNames.indexOf(n) === -1);
-    const pool = names.length ? names : helper.get(cls);
-    if (!pool.length) return '';
+    // Trong Bàn giáo viên: bạn đánh dấu Vắng ở tab Lớp học không bị bốc.
+    const pool = (IN_APP && typeof helper.getRecords === 'function')
+      ? helper.getRecords(cls).filter(r => !r.absent).map(r => r.name)
+      : helper.get(cls);
+    const names = pool.filter(n => pickedNames.indexOf(n) === -1);
+    const avail = names.length ? names : pool;
+    if (!avail.length) return '';
     if (!names.length) pickedNames = [];
-    const pick = pool[Math.floor(Math.random() * pool.length)];
+    const pick = avail[Math.floor(Math.random() * avail.length)];
     pickedNames.push(pick);
     return pick;
   }
@@ -413,4 +421,34 @@ export function init(root) {
 
   refreshSetSelect();
   updateStatus();
+
+  // --- Chế độ Bàn giáo viên: ô chọn lớp ẩn đi, tên bốc kèm lấy từ
+  // lớp đang chọn ở tab Lớp học; app gọi root._gvRefresh() mỗi lần mở
+  // lại tab để nhận lớp mới/sửa.
+  function refreshFromActiveClass() {
+    const helper = gvClasses();
+    if (!helper) return;
+    const map = helper.list();
+    const sel = $('bq-class');
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">— Không bốc tên —</option>';
+    Object.keys(map).sort().forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n;
+      opt.textContent = n + ' (' + map[n].length + ' bạn)';
+      sel.appendChild(opt);
+    });
+    const active = (typeof helper.active === 'function') ? helper.active() : '';
+    if (active && map[active]) sel.value = active;
+    else if (cur && map[cur]) sel.value = cur;
+  }
+
+  if (IN_APP) {
+    const sel = $('bq-class');
+    sel.style.display = 'none';
+    const labelNote = root.querySelector('label[for="bq-class"] .muted');
+    if (labelNote) labelNote.textContent = '(không bắt buộc — lấy tên từ lớp đang chọn ở tab Lớp học)';
+    root._gvRefresh = refreshFromActiveClass;
+    refreshFromActiveClass();
+  }
 }

@@ -51,7 +51,7 @@ const OG_IMAGE = 'https://tienichhub.io.vn/assets/og-image.png';
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
 
-export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [] }) {
+export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [], hideChat = false }) {
   const active = (key) => (navActive === key ? ' nav-active' : '');
   const keywordsMeta = keywords ? `\n  <meta name="keywords" content="${keywords}">` : '';
   const categoryLinks = CATEGORIES.map((c) => `<a href="/cong-cu/?cat=${c.slug}">${c.label}</a>`).join('\n        ');
@@ -67,10 +67,12 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
     </div>
   </noscript>`;
   // Nút chat AI nổi (bong bóng Messenger): có ở mọi trang TRỪ trang
-  // công cụ Trò chuyện AI (tránh 2 khung chat cùng lúc). app.js cũng
-  // kiểm tra pathname khi khởi tạo (phòng khi điều hướng không qua build).
-  // hidden mặc định: chỉ hiện khi JS chạy (không JS thì nút chết).
-  const chatWidget = /\/cong-cu\/tro-chuyen-ai\//.test(canonical || '') ? '' : `
+  // công cụ Trò chuyện AI (tránh 2 khung chat cùng lúc) và trang nào
+  // đặt hideChat (Bàn giáo viên — máy chiếu không cần bong bóng chat).
+  // app.js cũng kiểm tra pathname khi khởi tạo (phòng khi điều hướng
+  // không qua build). hidden mặc định: chỉ hiện khi JS chạy (không JS
+  // thì nút chết).
+  const chatWidget = hideChat ? '' : /\/cong-cu\/tro-chuyen-ai\//.test(canonical || '') ? '' : `
   <div class="aiw" id="aiw" hidden>
     <button type="button" class="aiw-fab" id="aiw-fab" aria-label="Chat với AI" aria-expanded="false" aria-controls="aiw-panel"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>Chat AI</span></button>
     <section class="aiw-panel" id="aiw-panel" aria-label="Trò chuyện AI" hidden>

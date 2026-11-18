@@ -65,6 +65,8 @@ export function body() {
     <p class="muted">Công cụ miễn phí cho giờ học: gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, ghi điểm thi đua, âm thanh lớp học, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi — tất cả chạy ngay trên trình duyệt, không cần đăng ký, không cần cài đặt. Mở lên là dùng được ngay trước lớp. Lưu danh sách từng lớp một lần trong công cụ Gọi tên, các công cụ khác đều dùng chung.</p>
   </header>
 
+  <p class="gv-app-banner">Mới: <a href="/giao-vien/lop-hoc/"><strong>Bàn giáo viên</strong></a> — gom cả 10 công cụ vào một trang dùng cả tiết trên máy chiếu, kèm danh sách lớp đầy đủ (giới tính, ⭐, vắng, điểm) và sao lưu dữ liệu. <a class="btn btn-primary" href="/giao-vien/lop-hoc/">Mở Bàn giáo viên →</a></p>
+
   <section class="section" aria-label="Công cụ cho giáo viên">
     <div class="sv-grid">
 ${TOOLS.map((t) => `      <article class="sv-card">

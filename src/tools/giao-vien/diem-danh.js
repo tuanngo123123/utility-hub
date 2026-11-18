@@ -34,6 +34,10 @@ export function body() {
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
+  // Chế độ Bàn giáo viên: trang /giao-vien/lop-hoc/ nhúng công cụ này
+  // với data-gv-app="1" — lớp lấy từ lớp đang chọn ở tab Lớp học, ô
+  // chọn lớp của trang rời được ẩn đi.
+  const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const KEY = 'uh_gv_diemdanh';
   let marks = {}; // tên → 'vang' | 'muon' (không có trong marks = có mặt)
   let names = [];
@@ -192,6 +196,31 @@ export function init(root) {
   });
 
   // Khởi tạo: nạp danh sách lớp đã lưu, ngày mặc định là hôm nay.
+  // Trong Bàn giáo viên: lớp mặc định là lớp đang chọn ở tab Lớp học;
+  // app gọi root._gvRefresh() mỗi lần mở lại tab để nhận lớp mới/sửa.
+  function refreshFromActiveClass() {
+    const helper = gvClasses();
+    if (!helper) return;
+    const map = helper.list();
+    const sel = $('dd-class');
+    const classNames = Object.keys(map).sort();
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">— Chọn lớp —</option>';
+    classNames.forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n;
+      opt.textContent = n + ' (' + map[n].length + ' bạn)';
+      sel.appendChild(opt);
+    });
+    const active = (typeof helper.active === 'function') ? helper.active() : '';
+    if (active && map[active]) sel.value = active;
+    else if (cur && map[cur]) sel.value = cur;
+    else if (classNames.length) sel.value = classNames[0];
+    $('dd-no-class').style.display = classNames.length ? 'none' : '';
+    loadMarks();
+    render();
+  }
+
   (function setup() {
     $('dd-date').value = todayLocal();
     const helper = gvClasses();
@@ -205,10 +234,24 @@ export function init(root) {
       sel.appendChild(opt);
     });
     if (!classNames.length) {
+      if (IN_APP) {
+        $('dd-no-class').innerHTML = 'Chưa lưu lớp nào — vào tab Lớp học, tạo lớp rồi dán danh sách trước đã nhé.';
+        // Vẫn gắn hook để khi giáo viên tạo lớp ở tab Lớp học rồi quay
+        // lại, tab này tự nạp lớp mới.
+        root._gvRefresh = refreshFromActiveClass;
+      }
       $('dd-no-class').style.display = '';
       return;
     }
-    sel.value = classNames[0];
+    if (IN_APP) {
+      const active = (helper && typeof helper.active === 'function') ? helper.active() : '';
+      sel.value = (active && map[active]) ? active : classNames[0];
+      const field = sel.closest('.field');
+      if (field) field.style.display = 'none';
+      root._gvRefresh = refreshFromActiveClass;
+    } else {
+      sel.value = classNames[0];
+    }
     loadMarks();
     render();
   })();

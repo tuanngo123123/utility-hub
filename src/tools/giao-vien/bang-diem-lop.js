@@ -281,6 +281,11 @@ export function init(root) {
     paint();
   })();
 
+  // Hook cho Bàn giáo viên: app gọi root._gvRefresh() mỗi lần mở lại
+  // tab để nhận điểm vừa sửa ở tab Lớp học hay cộng từ Gọi tên.
+  // Trang rời không gọi hook này nên không ảnh hưởng gì.
+  root._gvRefresh = function () { load(); render(); };
+
   load();
   render();
 }

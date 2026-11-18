@@ -3122,3 +3122,316 @@ body.uh-netbar-on .aiw { bottom: 86px; }
 @media (max-width: 768px) {
   body.uh-netbar-on .aiw { bottom: 130px; }
 }
+
+/* ==========================================================================
+   Bàn giáo viên (/giao-vien/lop-hoc/) — Giai đoạn 1
+   Một trang ứng dụng gom 10 công cụ Giáo viên + quản lý lớp học, dùng
+   cả tiết trên máy chiếu: chữ to, tương phản cao, nút lớn. Trang dùng
+   khung shell chung (header/footer) nhưng nội dung rộng hơn .wrap
+   1200px để tận dụng màn hình máy chiếu.
+   ========================================================================== */
+/* Chỉ đọc cho trình đọc màn hình (dùng cho tiêu đề cột "Xóa" trong bảng lớp). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Nút "Mở trong Bàn giáo viên" trên 10 trang công cụ Giáo viên rời. */
+.gv-app-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.gv-app-link .muted { font-size: 0.95rem; }
+
+/* Banner giới thiệu Bàn giáo viên trên trang mục Giáo viên. */
+.gv-app-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--accent-soft);
+  border: 1px solid var(--line);
+  border-left: 4px solid #0d9488;
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 0 0 20px;
+  font-size: 1.05rem;
+}
+.gv-app-banner .btn { margin-left: auto; }
+
+/* Trang app dùng hết chiều rộng màn hình (vượt .wrap 1200px). */
+main:has(.gv-app) { max-width: none; }
+.gv-app {
+  max-width: 1600px;
+  margin: 0 auto;
+  font-size: 18px;
+}
+.gv-app-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.gv-app-head h1 { margin: 0 0 4px; }
+.gv-app-head p { margin: 0; }
+.gv-app-head-actions { display: flex; gap: 8px; flex-wrap: wrap; flex: none; }
+
+/* Thanh tab dính dưới header (header cao 60px + viền 1px). */
+.gv-app-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 10px 2px;
+  margin: 0 -2px 16px;
+  position: sticky;
+  top: 61px;
+  z-index: 90;
+  background: var(--bg);
+  scrollbar-width: thin;
+}
+.gv-app-tab {
+  flex: none;
+  padding: 12px 16px;
+  min-height: 52px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.05rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gv-app-tab:hover { border-color: #0d9488; }
+.gv-app-tab-active {
+  background: #0d9488;
+  border-color: #0d9488;
+  color: #fff;
+}
+.gv-app-tab-active:hover { background: #0f766e; border-color: #0f766e; }
+.gv-app-tab kbd,
+.gv-app-head-actions kbd {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 4px;
+}
+.gv-app-tab-active kbd { background: rgba(255, 255, 255, 0.25); }
+
+.gv-app-panel[hidden] { display: none; }
+/* Khung công cụ trong app mang viền teal của hạng mục Giáo viên. */
+.gv-app-panel .tool-panel { border-top: 4px solid #0d9488; }
+
+/* Chữ to cho máy chiếu: nút, ô nhập, tên học sinh, kết quả. */
+.gv-app .btn { font-size: 1.05rem; min-height: 50px; }
+.gv-app .btn-small, .gv-app .gv-mini { min-height: 44px; }
+.gv-app .field input[type="text"],
+.gv-app .field input[type="number"],
+.gv-app .field input[type="date"],
+.gv-app .field select,
+.gv-app .field textarea { font-size: 1.05rem; padding: 12px 14px; }
+.gv-app .tool-head h2 { font-size: 1.6rem; }
+.gv-app .tool-head p { font-size: 1.05rem; }
+.gv-app .gv-big { font-size: 3rem; }
+.gv-app .gv-big-sm { font-size: 2rem; }
+.gv-app .gv-winner-name { font-size: clamp(2.6rem, 8vw, 4rem); }
+.gv-app .gv-score-name { font-size: 1.3rem; }
+.gv-app .gv-score-num { font-size: 3rem; }
+.gv-app .gv-group li { font-size: 1.25rem; }
+.gv-app .gv-group h3 { font-size: 1.2rem; }
+.gv-app .gv-att { font-size: 1.25rem; padding: 16px 10px; }
+.gv-app .gv-att small { font-size: 0.95rem; }
+.gv-app .gv-chip { font-size: 1rem; }
+.gv-app .gv-snd strong { font-size: 1.2rem; }
+.gv-app .gv-snd span { font-size: 1rem; }
+.gv-app .gv-hero-label { font-size: 1.05rem; }
+.gv-app .gv-att-summary { font-size: 1.25rem; }
+.gv-app .gv-q-who { font-size: 1.3rem; }
+.gv-app .tab { font-size: 1.05rem; padding: 10px 20px; }
+
+/* ---------- Tab Lớp học ---------- */
+.gv-app-classbar {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.gv-app-classbar .field { flex: 1; min-width: 200px; margin-bottom: 0; }
+.gv-app-classbar .btn { flex: none; }
+.gv-app-tablewrap { overflow-x: auto; margin: 12px 0; }
+.gv-app-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+.gv-app-table th,
+.gv-app-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: left;
+  vertical-align: middle;
+}
+.gv-app-table th { font-size: 1rem; color: var(--muted); white-space: nowrap; }
+.gv-app-table tbody tr:nth-child(even) { background: var(--bg-soft); }
+.gv-app-stt { color: var(--muted); font-weight: 700; text-align: center; width: 44px; }
+.gv-app-table .lh-name {
+  width: 100%;
+  min-width: 160px;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 600;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-btn);
+  background: transparent;
+  color: var(--ink);
+}
+.gv-app-table .lh-name:hover { border-color: var(--line); }
+.gv-app-table .lh-name:focus {
+  border-color: var(--accent);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px rgba(0, 51, 255, 0.15);
+  outline: none;
+}
+.gv-app-table .lh-gender {
+  font: inherit;
+  font-size: 1.05rem;
+  padding: 10px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--surface);
+  color: var(--ink);
+  min-height: 48px;
+}
+.lh-star,
+.lh-absent,
+.lh-pt-btn,
+.lh-del {
+  font: inherit;
+  cursor: pointer;
+  border-radius: var(--radius-btn);
+  min-height: 48px;
+}
+.lh-star {
+  font-size: 1.6rem;
+  line-height: 1;
+  min-width: 52px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--muted);
+}
+.lh-star-on { color: #b45309; border-color: #fbbf24; background: #fef3c7; }
+.lh-absent {
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: #15803d;
+  white-space: nowrap;
+}
+.lh-absent-on { color: #991b1b; border-color: #fca5a5; background: #fee2e2; }
+.lh-points { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.lh-pt-btn {
+  width: 48px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+}
+.lh-pt-btn:hover { border-color: var(--accent); }
+.gv-app-table .lh-pt {
+  width: 76px;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 10px 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--surface);
+  color: var(--ink);
+}
+.lh-del {
+  width: 48px;
+  font-size: 1.1rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+}
+.lh-del:hover { color: #dc2626; border-color: #fca5a5; }
+.lh-del-armed { color: #fff; background: #dc2626; border-color: #dc2626; width: auto; padding: 0 12px; font-size: 0.95rem; }
+
+/* ---------- Bảng phím tắt ---------- */
+.gv-app-help {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.gv-app-help[hidden] { display: none; }
+.gv-app-help-box {
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+}
+.gv-app-help-box h2 { margin: 0 0 12px; }
+.gv-app-keys { width: 100%; border-collapse: collapse; }
+.gv-app-keys td { padding: 8px 10px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+.gv-app-keys td:first-child { white-space: nowrap; width: 150px; }
+.gv-app-keys kbd {
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+
+/* Điện thoại: thanh tab cuộn ngang, bảng lớp cuộn ngang (đã có
+   .gv-app-tablewrap), thanh lớp xếp dọc. App ưu tiên máy tính/máy
+   chiếu nhưng không được vỡ ở 375px. */
+@media (max-width: 768px) {
+  .gv-app { font-size: 16px; }
+  .gv-app-tabs { top: 61px; padding: 8px 2px; }
+  .gv-app-tab { padding: 10px 14px; min-height: 48px; font-size: 1rem; }
+  .gv-app-classbar { flex-direction: column; align-items: stretch; }
+  .gv-app-classbar .field { min-width: 0; }
+  .gv-app .gv-big { font-size: 2.4rem; }
+  .gv-app .gv-winner-name { font-size: clamp(2rem, 9vw, 3rem); }
+  .gv-app .gv-score-num { font-size: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gv-app-tab, .gv-app .btn, .lh-star, .lh-absent, .lh-pt-btn, .lh-del { transition: none; }
+}

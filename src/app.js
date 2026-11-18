@@ -3004,11 +3004,19 @@
      Nền tảng dùng chung cho mục Giáo viên: giáo viên lưu danh sách từng
      lớp 1 lần (vd "6A", "7B"), các công cụ Gọi tên / Chia nhóm / Điểm
      danh / Bốc câu hỏi đều đọc chung — không dán lại mỗi buổi.
-     1 key localStorage 'uh_gv_lop' dạng { "6A": [...tên], "7B": [...] }.
+     1 key localStorage 'uh_gv_lop' dạng { "6A": [bản ghi], ... }, mỗi
+     bản ghi là { name, gender ('nam'/'nữ'/''), star, absent, points }.
+     Dữ liệu CŨ (mảng tên thuần ["An", "Bình"]) được tự chuyển đổi sang
+     bản ghi khi đọc lần đầu (không mất tên đã lưu); điểm ban đầu lấy
+     từ bảng điểm uh_bangdiemlop nếu có. Các công cụ cũ vẫn dùng được:
+     get() trả về mảng tên, save() nhận mảng tên và GIỮ nguyên thông
+     tin bản ghi của tên đã có. Lớp đang dạy dùng chung cho Bàn giáo
+     viên lưu ở key 'uh_gv_lop_active' (active()/setActive()).
      parse() xử lý cả trường hợp dán từ Excel: dòng có tab thì lấy phần
      sau tab cuối cùng (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
      "An"), bỏ dòng tiêu đề ("Họ tên"). An toàn khi chạy dưới Node. */
   var GV_CLASS_KEY = 'uh_gv_lop';
+  var GV_ACTIVE_KEY = 'uh_gv_lop_active';
 
   function gvParseNames(text) {
     var seen = {};
@@ -3032,18 +3040,67 @@
     return out;
   }
 
+  // Điểm đã lưu trong Bảng điểm lớp (mảng [{name, score}]) — dùng để
+  // gieo điểm ban đầu khi chuyển dữ liệu cũ sang bản ghi.
+  function gvScoreboard() {
+    try {
+      var raw = localStorage.getItem('uh_bangdiemlop');
+      if (!raw) return {};
+      var data = JSON.parse(raw);
+      if (!Array.isArray(data)) return {};
+      var map = {};
+      data.forEach(function (e) {
+        if (e && typeof e.name === 'string' && typeof e.score === 'number') map[e.name] = e.score;
+      });
+      return map;
+    } catch (e) { return {}; }
+  }
+
+  // Chuẩn hóa 1 phần tử thành bản ghi (chuỗi tên cũ -> bản ghi mới).
+  function gvNormRecord(r, scores) {
+    if (typeof r === 'string') {
+      var n = r.trim();
+      if (!n) return null;
+      return { name: n, gender: '', star: false, absent: false, points: (scores && typeof scores[n] === 'number') ? scores[n] : 0 };
+    }
+    if (r && typeof r === 'object' && typeof r.name === 'string' && r.name.trim()) {
+      var name = r.name.trim();
+      var pts = (typeof r.points === 'number') ? r.points : 0;
+      if (typeof r.points !== 'number' && scores && typeof scores[name] === 'number') pts = scores[name];
+      return {
+        name: name,
+        gender: (r.gender === 'nam' || r.gender === 'nữ') ? r.gender : '',
+        star: !!r.star,
+        absent: !!r.absent,
+        points: pts
+      };
+    }
+    return null;
+  }
+
   function gvLoadClasses() {
     try {
       var raw = localStorage.getItem(GV_CLASS_KEY);
       if (!raw) return {};
       var data = JSON.parse(raw);
       if (!data || typeof data !== 'object' || Array.isArray(data)) return {};
+      var scores = gvScoreboard();
       var clean = {};
+      var migrated = false;
       Object.keys(data).forEach(function (k) {
         if (!Array.isArray(data[k])) return;
-        var names = data[k].filter(function (n) { return typeof n === 'string' && n.trim(); });
-        if (k.trim() && names.length) clean[k.trim()] = names;
+        // Dạng cũ (mảng tên thuần) thì chuyển đổi + lưu lại ngay.
+        if (data[k].some(function (n) { return typeof n === 'string'; })) migrated = true;
+        var recs = [];
+        var seen = {};
+        data[k].forEach(function (r) {
+          var rec = gvNormRecord(r, scores);
+          if (rec && !seen[rec.name]) { seen[rec.name] = true; recs.push(rec); }
+        });
+        // Giữ cả lớp rỗng (giáo viên vừa tạo lớp chưa kịp thêm bạn).
+        if (k.trim()) clean[k.trim()] = recs;
       });
+      if (migrated) gvSaveClasses(clean);
       return clean;
     } catch (e) { return {}; }
   }
@@ -3059,17 +3116,61 @@
       list: gvLoadClasses,
       get: function (name) {
         var map = gvLoadClasses();
-        return map[name] ? map[name].slice() : [];
+        return map[name] ? map[name].map(function (r) { return r.name; }) : [];
       },
+      // Lưu mảng tên (công cụ cũ): giữ nguyên bản ghi của tên đã có
+      // (giới tính/sao/vắng/điểm không bị mất), tên mới thành bản ghi mới.
       save: function (name, names) {
         var map = gvLoadClasses();
-        map[String(name).trim()] = names.slice();
+        var key = String(name).trim();
+        var old = map[key] || [];
+        var byName = {};
+        old.forEach(function (r) { byName[r.name] = r; });
+        var recs = [];
+        var seen = {};
+        (names || []).forEach(function (n) {
+          var t = String(n == null ? '' : n).trim();
+          if (!t || seen[t]) return;
+          seen[t] = true;
+          recs.push(byName[t] || { name: t, gender: '', star: false, absent: false, points: 0 });
+        });
+        map[key] = recs;
+        return gvSaveClasses(map);
+      },
+      getRecords: function (name) {
+        var map = gvLoadClasses();
+        if (!map[name]) return [];
+        return map[name].map(function (r) {
+          return { name: r.name, gender: r.gender, star: r.star, absent: r.absent, points: r.points };
+        });
+      },
+      saveRecords: function (name, records) {
+        var map = gvLoadClasses();
+        var key = String(name).trim();
+        var scores = gvScoreboard();
+        var recs = [];
+        var seen = {};
+        (records || []).forEach(function (r) {
+          var rec = gvNormRecord(r, scores);
+          if (rec && !seen[rec.name]) { seen[rec.name] = true; recs.push(rec); }
+        });
+        map[key] = recs;
         return gvSaveClasses(map);
       },
       remove: function (name) {
         var map = gvLoadClasses();
         delete map[name];
         return gvSaveClasses(map);
+      },
+      // Lớp đang dạy dùng chung cho Bàn giáo viên (tab Lớp học đặt,
+      // các tab công cụ đọc).
+      active: function () {
+        try { return localStorage.getItem(GV_ACTIVE_KEY) || ''; }
+        catch (e) { return ''; }
+      },
+      setActive: function (name) {
+        try { localStorage.setItem(GV_ACTIVE_KEY, String(name || '')); return true; }
+        catch (e) { return false; }
       }
     };
   }

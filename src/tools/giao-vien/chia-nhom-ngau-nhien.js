@@ -51,6 +51,11 @@ Chi</textarea></div>
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
+  // Chế độ Bàn giáo viên: trang /giao-vien/lop-hoc/ nhúng công cụ này
+  // với data-gv-app="1" — danh sách lấy từ lớp đang chọn ở tab Lớp học
+  // (bạn vắng không bị chia nhóm), khung nạp lớp + ô dán tên của trang
+  // rời được ẩn đi vì tab Lớp học đã làm việc đó.
+  const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const ROLES = ['Nhóm trưởng', 'Thư ký', 'Phản biện', 'Thuyết trình'];
   let groups = [];
   let stageOpen = false;
@@ -304,4 +309,34 @@ export function init(root) {
     btn.addEventListener('click', () => { s.toggle(); paint(); });
     paint();
   })();
+
+  // --- Chế độ Bàn giáo viên: nạp tên từ lớp đang chọn (trừ bạn vắng).
+  // App gọi root._gvRefresh() mỗi lần mở lại tab này; chỉ nạp lại khi
+  // danh sách đổi (so chữ ký) để không mất kết quả chia vừa rồi.
+  let appSig = '';
+  function loadFromActiveClass() {
+    const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+    if (!helper || typeof helper.getRecords !== 'function' || typeof helper.active !== 'function') return;
+    const active = helper.active();
+    const recs = active ? helper.getRecords(active) : [];
+    const names = recs.filter(r => !r.absent).map(r => r.name);
+    const sig = active + '\n' + names.join('\n');
+    if (sig === appSig) return;
+    appSig = sig;
+    $('cn-names').value = names.join('\n');
+    groups = [];
+    $('cn-out').hidden = true;
+    updateStage();
+  }
+
+  if (IN_APP) {
+    const loadField = $('cn-class-load').closest('.field');
+    if (loadField) loadField.style.display = 'none';
+    const msg = $('cn-class-msg');
+    if (msg) msg.style.display = 'none';
+    const namesField = $('cn-names').closest('.field');
+    if (namesField) namesField.style.display = 'none';
+    root._gvRefresh = loadFromActiveClass;
+    loadFromActiveClass();
+  }
 }

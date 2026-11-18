@@ -31,6 +31,7 @@ import { ARTICLES as HUONG_DAN_ARTICLES } from './src/pages/huong-dan-data.js';
 import * as hocMienPhiPage from './src/pages/hoc-mien-phi.js';
 import { GROUPS as HOC_MIEN_PHI_GROUPS } from './src/pages/hoc-mien-phi-data.js';
 import * as giaoVienPage from './src/pages/giao-vien.js';
+import * as giaoVienLopHocPage from './src/pages/giao-vien-lop-hoc.js';
 import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
@@ -367,6 +368,25 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // (2) Chip hạng mục + khung dùng thử mang màu hạng mục qua biến CSS
   // --cat-color/--cat-color-dark (CSS dùng cho chip, viền trên khung,
   // hộp kết quả nhuộm nhạt). Nút hành động vẫn xanh #0033FF duy nhất.
+  // Công cụ Giáo viên: nút mở trong Bàn giáo viên (1 trang app gom cả
+  // 10 công cụ + quản lý lớp, dùng cả tiết trên máy chiếu) — đặt nổi
+  // bật ngay đầu khung công cụ, mở đúng tab của công cụ này.
+  const GV_APP_TABS = {
+    'goi-ten-ngau-nhien': 'goi-ten',
+    'chia-nhom-ngau-nhien': 'chia-nhom',
+    'tung-xuc-xac-dong-xu': 'xuc-xac',
+    'boc-tham-so': 'boc-tham',
+    'bang-diem-lop': 'bang-diem',
+    'am-thanh-lop-hoc': 'am-thanh',
+    'dem-nguoc-lop-hoc': 'dem-nguoc',
+    'do-do-on-lop-hoc': 'do-on',
+    'diem-danh': 'diem-danh',
+    'boc-cau-hoi': 'boc-cau-hoi',
+  };
+  const gvAppTab = GV_APP_TABS[tool.slug];
+  const gvAppHtml = gvAppTab
+    ? `<p class="gv-app-link"><a class="btn btn-primary" href="/giao-vien/lop-hoc/?tab=${gvAppTab}">Mở trong Bàn giáo viên →</a> <span class="muted">Dùng cả tiết trên một trang: gọi tên, chia nhóm, chấm điểm… không cần chuyển trang.</span></p>`
+    : '';
   const catColor = categoryColor(tool.categorySlug);
   const catColorDark = categoryColorDark(tool.categorySlug);
   const headDescHtml = content ? '' : `<p class="muted">${esc(tool.desc)}</p>`;
@@ -378,6 +398,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     <span class="chip chip-cat" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">${esc(tool.categoryLabel)}</span>
   </header>
   ${introHtml}
+  ${gvAppHtml}
   <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
   </div>
@@ -855,6 +876,25 @@ async function main() {
     `${BASE_URL}/giao-vien/`
   );
   console.log('   - Giáo viên: 10 công cụ, 1 trang');
+
+  // Trang Bàn giáo viên: 1 trang ứng dụng gom cả 10 công cụ Giáo viên
+  // + quản lý lớp học (KHÔNG phải công cụ mới — không tính vào số
+  // công cụ). Nút Chat AI nổi được ẩn trên trang này (máy chiếu).
+  addPage(
+    'giao-vien/lop-hoc/index.html',
+    shell({
+      title: `Bàn giáo viên — Một trang dùng cả tiết: gọi tên, chia nhóm, bảng điểm | ${SITE_NAME}`,
+      desc: 'Bàn giáo viên: gom 10 công cụ cho giờ học (gọi tên, chia nhóm, xúc xắc, bốc thăm, bảng điểm, âm thanh, đếm ngược, đo ồn, điểm danh, bốc câu hỏi) vào một trang dùng cả tiết trên máy chiếu, kèm danh sách lớp đầy đủ và sao lưu dữ liệu — miễn phí, không cần đăng ký.',
+      keywords: 'bàn giáo viên, công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm, bảng điểm lớp, quản lý lớp học, dạy học',
+      canonical: `${BASE_URL}/giao-vien/lop-hoc/`,
+      navActive: 'giao-vien',
+      body: giaoVienLopHocPage.body(ctx),
+      noscriptLinks,
+      hideChat: true,
+    }),
+    `${BASE_URL}/giao-vien/lop-hoc/`
+  );
+  console.log('   - Bàn giáo viên: 1 trang');
 
   // Trang mục Điểm báo (/diem-bao/) + trang lưu trữ theo ngày (mới nhất
   // trước). Trang mục vào sitemap như mọi trang khác (qua addPage).
