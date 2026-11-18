@@ -1,7 +1,7 @@
 // Helper chỉ chạy lúc build: escape HTML + thẻ công cụ dùng chung
 // cho trang chủ (nổi bật) và trang catalog (/cong-cu/).
 import { categoryLabel } from './categories.js';
-import { categoryArt } from './category-art.js';
+import { toolArt } from './tool-art.js';
 
 export function esc(value) {
   return String(value ?? '')
@@ -29,7 +29,7 @@ export function keywordsText(meta) {
 // không bịa badge "Mới".
 export function toolCard(tool, index) {
   return `<a class="catalog-card" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc)}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
-  <span class="card-art" aria-hidden="true">${categoryArt(tool.categorySlug)}</span>
+  <span class="card-art" aria-hidden="true">${toolArt(tool.slug, tool.categorySlug)}</span>
   <span class="card-badge">Miễn phí</span>
   <h3 class="card-title">${esc(tool.name)}</h3>
   <p class="card-desc">${esc(tool.desc)}</p>
