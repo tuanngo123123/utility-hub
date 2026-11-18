@@ -273,6 +273,16 @@ ${railHtml}
     </div>
   </section>
 
+  <section class="sv-promo" aria-label="Hướng dẫn">
+    <div class="sv-promo-inner">
+      <div>
+        <h2>Hướng dẫn</h2>
+        <p class="muted">Cách tính lương Gross–Net, tiền điện bậc thang, BHXH một lần, lệ phí môn bài 2026 — viết ngắn gọn, số liệu theo quy định hiện hành, kèm ví dụ tính sẵn.</p>
+      </div>
+      <a class="btn btn-primary" href="/huong-dan/">Đọc hướng dẫn →</a>
+    </div>
+  </section>
+
   <section class="section section-strips" aria-label="Dữ liệu hôm nay">
     <p class="strip-date muted" id="hom-nay-title">Hôm nay</p>
     <div class="strip-grid">

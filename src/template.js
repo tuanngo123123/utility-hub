@@ -6,7 +6,7 @@
 //  - canonical: URL tuyệt đối của trang
 //  - body: HTML nội dung trong <main>
 //  - extraHead: HTML thêm vào <head> (nếu cần)
-//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'code-mau' | 'ung-ho' | '' — tô sáng mục nav tương ứng
+//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'code-mau' | 'ung-ho' | '' — tô sáng mục nav tương ứng
 //  - noscriptLinks: HTML danh sách link công cụ cho khối <noscript> (build.mjs sinh;
 //    để trống thì chỉ hiện thông báo, không có danh sách)
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
@@ -89,6 +89,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/" class="${active('home') ? 'nav-active' : ''}">Trang chủ</a>
         <a href="/cong-cu/" class="${active('cong-cu') ? 'nav-active' : ''}">Công cụ</a>
         <a href="/sinh-vien/" class="${active('sinh-vien') ? 'nav-active' : ''}">Sinh viên</a>
+        <a href="/huong-dan/" class="${active('huong-dan') ? 'nav-active' : ''}">Hướng dẫn</a>
         <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
         <a href="/#diem-bao">Điểm báo</a>
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>

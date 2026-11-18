@@ -26,6 +26,8 @@ import * as catalogPage from './src/pages/cong-cu.js';
 import * as codeMauPage from './src/pages/code-mau.js';
 import * as sinhVienPage from './src/pages/sinh-vien.js';
 import { TEMPLATES as SINH_VIEN_TEMPLATES } from './src/pages/sinh-vien-data.js';
+import * as huongDanPage from './src/pages/huong-dan.js';
+import { ARTICLES as HUONG_DAN_ARTICLES } from './src/pages/huong-dan-data.js';
 import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
@@ -342,6 +344,19 @@ function toolPageHtml(tool, index, noscriptLinks) {
     if (!items.length) return '';
     return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: tool.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
   })();
+  // Link tới bài hướng dẫn (mục /huong-dan/) ở cuối trang công cụ —
+  // chỉ 4 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
+  // huong-dan-data.js (kiểm tra bằng tay khi thêm bài mới).
+  const GUIDE_LINKS = {
+    'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
+    'tien-dien-bac-thang': { url: '/huong-dan/cach-tinh-tien-dien-bac-thang-2026/', title: 'Cách tính tiền điện bậc thang 2026' },
+    'le-phi-mon-bai': { url: '/huong-dan/le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien/', title: 'Lệ phí môn bài 2026: hộ kinh doanh được miễn' },
+    'bhxh-mot-lan': { url: '/huong-dan/cach-tinh-bhxh-mot-lan-2026/', title: 'Cách tính BHXH một lần 2026' },
+  };
+  const guide = GUIDE_LINKS[tool.slug];
+  const guideHtml = guide
+    ? `<section class="tool-guide" aria-label="Đọc hướng dẫn"><h2>Đọc hướng dẫn</h2><p>Muốn hiểu cách tính từng bước, kèm ví dụ tính sẵn? Đọc bài <a href="${guide.url}">${esc(guide.title)} →</a></p></section>`
+    : '';
   const body = `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/cong-cu/">← Tất cả công cụ</a></nav>
   <header class="tool-page-head">
@@ -363,7 +378,8 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${stepsHtml}
   ${faqHtml}
   ${disclaimerHtml}
-  ${relatedHtml}`;
+  ${relatedHtml}
+  ${guideHtml}`;
   return shell({
     title: `${tool.seoTitle || tool.name} | ${SITE_NAME}`,
     desc: tool.seoDesc || tool.desc,
@@ -682,6 +698,56 @@ async function main() {
     );
   }
   console.log(`   - Sinh viên: ${SINH_VIEN_TEMPLATES.length} mẫu, ${SINH_VIEN_TEMPLATES.length + 1} trang`);
+
+  // Trang Hướng dẫn: trang mục + 5 bài viết gốc tự viết (đều vào
+  // sitemap). Dữ liệu từ src/pages/huong-dan-data.js. Bài viết KHÔNG
+  // phải tin tức tổng hợp (ranh giới pháp lý: không đăng lại bài báo,
+  // không bình luận độc giả).
+  const huongDanSlugs = new Set();
+  for (const a of HUONG_DAN_ARTICLES) {
+    if (!a.slug || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(a.slug)) {
+      fail(`huong-dan-data.js: slug bài "${a.slug}" không hợp lệ — chỉ dùng chữ thường a-z, số 0-9 và dấu gạch ngang.`);
+    }
+    if (huongDanSlugs.has(a.slug)) fail(`huong-dan-data.js: slug bài "${a.slug}" bị trùng.`);
+    huongDanSlugs.add(a.slug);
+    for (const f of ['title', 'desc', 'date', 'sources', 'body']) {
+      if (!a[f] || typeof a[f] !== 'string') {
+        fail(`huong-dan-data.js: bài "${a.slug}" thiếu trường "${f}".`);
+      }
+    }
+    if (!a.cta || !a.cta.url || !a.cta.label || !a.cta.text) {
+      fail(`huong-dan-data.js: bài "${a.slug}" thiếu cta (url/label/text).`);
+    }
+  }
+  addPage(
+    'huong-dan/index.html',
+    shell({
+      title: `Hướng dẫn — Cách tính lương, tiền điện, BHXH một lần, lệ phí môn bài | ${SITE_NAME}`,
+      desc: 'Hướng dẫn cách tính lương Gross–Net, tiền điện bậc thang, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
+      keywords: 'hướng dẫn, cách tính lương gross net, cách tính tiền điện, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
+      canonical: `${BASE_URL}/huong-dan/`,
+      navActive: 'huong-dan',
+      body: huongDanPage.body({ articles: HUONG_DAN_ARTICLES }),
+      noscriptLinks,
+    }),
+    `${BASE_URL}/huong-dan/`
+  );
+  for (const a of HUONG_DAN_ARTICLES) {
+    addPage(
+      `huong-dan/${a.slug}/index.html`,
+      shell({
+        title: `${a.title} — Hướng dẫn | ${SITE_NAME}`,
+        desc: a.desc,
+        keywords: `hướng dẫn, ${a.title}`,
+        canonical: `${BASE_URL}/huong-dan/${a.slug}/`,
+        navActive: 'huong-dan',
+        body: huongDanPage.detailBody({ article: a, articles: HUONG_DAN_ARTICLES }),
+        noscriptLinks,
+      }),
+      `${BASE_URL}/huong-dan/${a.slug}/`
+    );
+  }
+  console.log(`   - Hướng dẫn: ${HUONG_DAN_ARTICLES.length} bài, ${HUONG_DAN_ARTICLES.length + 1} trang`);
 
   // Trang lưu trữ Điểm báo theo ngày (mới nhất trước)
   const newsByDay = loadNewsByDay();

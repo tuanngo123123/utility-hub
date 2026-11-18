@@ -2024,6 +2024,24 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .sv-doc li { margin: 4px 0; }
 .sv-actions { margin: 0 0 20px; }
 
+/* Mục Hướng dẫn (/huong-dan/): mục lục nhỏ trong bài, hộp CTA tới công
+   cụ/mẫu liên quan, dòng nguồn. Thẻ bài dùng chung .sv-grid/.sv-card;
+   h2 trong bài cần scroll-margin-top vì mục lục nhảy bằng neo (mẫu
+   scroll-margin-top của trang Sinh viên), kẻo tiêu đề bị header dính
+   che mất. */
+.sv-doc h2 { scroll-margin-top: 80px; }
+.hd-toc { background: var(--surface-muted); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; }
+.hd-toc p { margin: 0 0 6px; }
+.hd-toc ul { margin: 0; }
+.hd-cta { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--radius); padding: 20px; margin: 28px 0 12px; max-width: 72ch; }
+.hd-cta p { margin: 8px 0; }
+.hd-cta p:first-child { margin-top: 0; }
+.hd-cta p:last-child { margin-bottom: 0; }
+.hd-source { max-width: 72ch; }
+
+/* Link "Đọc hướng dẫn" ở cuối trang công cụ (4 công cụ có bài). */
+.tool-guide { margin: 28px 0 0; padding-top: 20px; border-top: 1px solid var(--line); }
+
 /* Khối đơn mẫu: trông như văn bản giấy — font serif, khung viền. */
 .sv-letter {
   background: var(--surface);
