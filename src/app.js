@@ -1226,6 +1226,15 @@
     });
     if (!textNodes.length) return;
 
+    /* Trình đọc màn hình: các span ký tự dưới đây là trang trí — ẩn hết
+       khỏi cây trợ năng (aria-hidden trên từng span từ, con của nó theo
+       luôn) và để h1 mang aria-label là câu đầy đủ, trình đọc nghe được
+       "133 công cụ miễn phí" MỘT lần thay vì từng chữ rời (đợt sửa UX
+       19/11). SSR đã ghi aria-label, đây là lớp dự phòng khi SSR đổi. */
+    var fullLabel = textNodes.map(function (n) { return n.textContent; }).join('')
+      .replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
+    if (fullLabel) h1.setAttribute('aria-label', fullLabel);
+
     var charIndex = 0;
     textNodes.forEach(function (node) {
       var frag = document.createDocumentFragment();
@@ -1237,6 +1246,7 @@
         if (!word) return;
         var wordEl = document.createElement('span');
         wordEl.className = 'h1-word';
+        wordEl.setAttribute('aria-hidden', 'true');
         /* Array.from để không vỡ ký tự ngoài BMP; tiếng Việt có dấu là
            1 code point nên vẫn tách đúng từng chữ. */
         Array.from(word).forEach(function (ch) {
@@ -1434,30 +1444,40 @@
     });
   }
 
-  /* Nút bật/tắt âm thanh ở header: dùng chung khóa uh_gv_sound với công cụ
-     Giáo viên (1 cài đặt âm thanh cho cả web). Nhãn/aria-pressed cập nhật
-     theo trạng thái thật mỗi lần bấm. */
+  /* Nút bật/tắt âm thanh: 2 nút cùng 1 cài đặt uh_gv_sound — nút icon ở
+     header (chỉ hiện từ 1280px) và mục văn bản "Âm thanh: Bật/Tắt" trong
+     menu hamburger (dưới 1280px, đợt sửa UX 19/11 để header điện thoại
+     đủ chỗ hiện tên web). Cả hai đồng bộ trạng thái qua sync(). */
   function setupSoundToggle() {
     var btn = $('#sound-toggle');
-    if (!btn) return;
+    var navBtn = $('#nav-sound-toggle');
+    if (!btn && !navBtn) return;
     function sync() {
       var on = true;
       try {
         on = window.UhGvSound ? window.UhGvSound.enabled()
           : localStorage.getItem('uh_gv_sound') !== '0';
       } catch (e) { /* bỏ qua */ }
-      btn.classList.toggle('sound-off', !on);
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      btn.setAttribute('aria-label', on ? 'Tắt âm thanh' : 'Bật âm thanh');
+      if (btn) {
+        btn.classList.toggle('sound-off', !on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        btn.setAttribute('aria-label', on ? 'Tắt âm thanh' : 'Bật âm thanh');
+      }
+      if (navBtn) {
+        navBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        navBtn.textContent = on ? 'Âm thanh: Bật' : 'Âm thanh: Tắt';
+      }
     }
-    sync();
-    btn.addEventListener('click', function () {
+    function toggle() {
       try {
         if (window.UhGvSound) window.UhGvSound.toggle();
         else localStorage.setItem('uh_gv_sound', localStorage.getItem('uh_gv_sound') === '0' ? '1' : '0');
       } catch (e) { /* bỏ qua */ }
       sync();
-    });
+    }
+    sync();
+    if (btn) btn.addEventListener('click', toggle);
+    if (navBtn) navBtn.addEventListener('click', toggle);
   }
 
   /* Trứng phục sinh (hướng B đợt 1, ý 14): bấm chấm vàng của logo
@@ -2292,6 +2312,9 @@
   }
 
   function newsItemUrl(item) { return item.url || item.link || ''; }
+  // Tiêu đề hiển thị: ưu tiên tít tiếng Việt tự viết (titleVi), chưa có thì
+  // fallback về tiêu đề gốc tiếng Anh (đợt sửa UX 19/11) — đồng bộ home.js.
+  function newsTitle(item) { return item.titleVi || item.title; }
   function newsItemDate(item) {
     if (!item.publishedAt) return null;
     var d = new Date(item.publishedAt);
@@ -2313,7 +2336,7 @@
     var meta = [item.source || '', date ? formatDate(date) : ''].filter(Boolean).join(' · ');
     return '<article class="news-card">' +
       '<h4><a href="' + escHtml(newsItemUrl(item)) + '" target="_blank" rel="noopener">' +
-      escHtml(item.title || '(không có tiêu đề)') + '</a></h4>' +
+      escHtml(newsTitle(item) || '(không có tiêu đề)') + '</a></h4>' +
       (summary ? '<p class="news-summary">' + escHtml(summary) + '</p>' : '') +
       (item.why ? '<p class="news-why">' + escHtml(item.why) + '</p>' : '') +
       (meta ? '<p class="news-meta">' + escHtml(meta) + '</p>' : '') +
@@ -2327,7 +2350,7 @@
     return '<article class="news-card news-featured">' +
       '<p class="news-featured-tag">Tin nổi bật</p>' +
       '<h3><a href="' + escHtml(newsItemUrl(item)) + '" target="_blank" rel="noopener">' +
-      escHtml(item.title || '(không có tiêu đề)') + '</a></h3>' +
+      escHtml(newsTitle(item) || '(không có tiêu đề)') + '</a></h3>' +
       (summary ? '<p class="news-summary">' + escHtml(summary) + '</p>' : '') +
       (item.why ? '<p class="news-why">' + escHtml(item.why) + '</p>' : '') +
       (meta ? '<p class="news-meta">' + escHtml(meta) + '</p>' : '') +
@@ -2438,7 +2461,7 @@
             return '<div class="rank-row rank-' + (i + 1) + '">' +
               '<div class="rank-num">' + (i + 1) + '</div>' +
               '<div class="rank-body"><h4><a href="' + escHtml(newsItemUrl(item)) +
-              '" target="_blank" rel="noopener">' + escHtml(item.title || '') + '</a></h4>' +
+              '" target="_blank" rel="noopener">' + escHtml(newsTitle(item) || '') + '</a></h4>' +
               (summary ? '<p class="rank-desc">' + escHtml(summary) + '</p>' : '') +
               '<p class="rank-meta">' + escHtml([item.source || '', (function () { var d = newsItemDate(item); return d ? formatDate(d) : ''; })()].filter(Boolean).join(' · ')) + '</p>' +
               '</div></div>';

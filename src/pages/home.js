@@ -75,6 +75,9 @@ function normalizeNewsGroups(data) {
 }
 
 function newsItemUrl(item) { return item.url || item.link || ''; }
+// Tiêu đề hiển thị: ưu tiên tít tiếng Việt tự viết (titleVi), chưa có thì
+// fallback về tiêu đề gốc tiếng Anh (đợt sửa UX 19/11).
+function newsTitle(item) { return item.titleVi || item.title; }
 function newsItemDate(item) {
   if (!item.publishedAt) return null;
   const d = new Date(item.publishedAt);
@@ -96,7 +99,7 @@ function newsCardHtml(item) {
   const meta = [item.source || '', date ? formatDate(date) : ''].filter(Boolean).join(' · ');
   return '<article class="news-card">' +
     '<h4><a href="' + esc(newsItemUrl(item)) + '" target="_blank" rel="noopener">' +
-    esc(item.title || '(không có tiêu đề)') + '</a></h4>' +
+    esc(newsTitle(item) || '(không có tiêu đề)') + '</a></h4>' +
     (summary ? '<p class="news-summary">' + esc(summary) + '</p>' : '') +
     (item.why ? '<p class="news-why">' + esc(item.why) + '</p>' : '') +
     (meta ? '<p class="news-meta">' + esc(meta) + '</p>' : '') +
@@ -110,7 +113,7 @@ function newsFeaturedHtml(item) {
   return '<article class="news-card news-featured">' +
     '<p class="news-featured-tag">Tin nổi bật</p>' +
     '<h3><a href="' + esc(newsItemUrl(item)) + '" target="_blank" rel="noopener">' +
-    esc(item.title || '(không có tiêu đề)') + '</a></h3>' +
+    esc(newsTitle(item) || '(không có tiêu đề)') + '</a></h3>' +
     (summary ? '<p class="news-summary">' + esc(summary) + '</p>' : '') +
     (item.why ? '<p class="news-why">' + esc(item.why) + '</p>' : '') +
     (meta ? '<p class="news-meta">' + esc(meta) + '</p>' : '') +
@@ -126,7 +129,7 @@ function hotRowHtml(item, i) {
   return '<div class="rank-row rank-' + (i + 1) + '">' +
     '<div class="rank-num">' + (i + 1) + '</div>' +
     '<div class="rank-body"><h4><a href="' + esc(newsItemUrl(item)) +
-    '" target="_blank" rel="noopener">' + esc(item.title || '') + '</a></h4>' +
+    '" target="_blank" rel="noopener">' + esc(newsTitle(item) || '') + '</a></h4>' +
     (summary ? '<p class="rank-desc">' + esc(summary) + '</p>' : '') +
     (meta ? '<p class="rank-meta">' + esc(meta) + '</p>' : '') +
     '</div></div>';
@@ -241,7 +244,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
   <section class="hero">
     <div class="hero-inner">
     <p class="hero-eyebrow">Miễn phí — dùng ngay, không cần đăng ký</p>
-    <h1>${tools.length} công cụ miễn&nbsp;phí <span class="hero-rotator" id="hero-rotator" aria-hidden="true" style="color: #1d4ed8">— tính lương</span></h1>
+    <h1 aria-label="${tools.length} công cụ miễn phí">${tools.length} công cụ miễn&nbsp;phí <span class="hero-rotator" id="hero-rotator" aria-hidden="true" style="color: #1d4ed8">— tính lương</span></h1>
     <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt.</p>
     <div class="hero-search-wrap">
       <label class="small muted" for="hero-search">Tìm công cụ</label>

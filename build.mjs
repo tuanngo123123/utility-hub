@@ -304,20 +304,12 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const disclaimerHtml = content && content.finance
     ? `<p class="note tool-disclaimer">${esc(content.disclaimer || 'Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.')}</p>`
     : '';
-  // 3 bước dùng nhanh (đổi giao diện 18/11, phong cách 21st.dev): câu chữ
-  // theo nhóm hành vi của hạng mục, không bịa tính năng — nhóm tra cứu/
-  // hiển thị dùng bước chung có "(nếu có)" vì có công cụ không có nút bấm
-  // (đồng hồ, kết quả xổ số...). hoc-tap dùng bước chung vì có 3 công cụ
-  // luyện tập/trắc nghiệm không nhập số liệu.
-  const CALC_STEPS = ['Nhập số liệu vào các ô trong khung dùng thử', 'Bấm nút chính của công cụ để tính', 'Xem kết quả và thay số liệu để so sánh'];
-  const FILE_STEPS = ['Nhập thông tin hoặc tải file lên trong khung dùng thử', 'Bấm nút chính của công cụ (nếu có)', 'Xem kết quả và tải xuống hoặc sao chép khi cần'];
-  const GENERIC_STEPS = ['Nhập thông tin hoặc chọn mục cần xem trong khung dùng thử', 'Bấm nút chính của công cụ (nếu có)', 'Xem kết quả ngay trên trang'];
-  const steps = ['tai-chinh', 'suc-khoe', 'nha-bep', 'mua-sam'].includes(tool.categorySlug)
-    ? CALC_STEPS
-    : ['van-phong', 'dev-web'].includes(tool.categorySlug)
-      ? FILE_STEPS
-      : GENERIC_STEPS;
-  const stepsHtml = `<section class="tool-steps" aria-label="Cách dùng nhanh">${steps.map((s, i) => `<div class="tool-step"><span class="tool-step-num">${i + 1}</span><p>${esc(s)}</p></div>`).join('')}</section>`;
+  // KHÔNG còn khối "3 bước dùng nhanh" (đợt sửa UX 19/11): khối rập khuôn
+  // chung chung ("Nhập thông tin hoặc chọn mục cần xem…", "Bấm nút chính
+  // của công cụ (nếu có)…") đọc lên chẳng chỉ gì cụ thể cho bất kỳ công cụ
+  // nào — mỗi công cụ đã tự giải thích bằng nhãn/nút của mình. Đừng thêm
+  // lại dạng hướng dẫn chung; công cụ nào thật sự cần hướng dẫn thì viết
+  // hướng dẫn RIÊNG cho công cụ đó (như FAQ trong TOOL_CONTENT).
   // Công cụ liên quan (tối đa 4, cùng hạng mục): toolPageHtml không nhận
   // danh sách công cụ (chữ ký gọi ở main() giữ nguyên) nên đọc meta trực
   // tiếp từ file nguồn trong thư mục hạng mục — định dạng meta 1 dòng
@@ -396,7 +388,6 @@ function toolPageHtml(tool, index, noscriptLinks) {
   });
   </script>
   <script src="/assets/tool-state.js" defer></script>
-  ${stepsHtml}
   ${faqHtml}
   ${disclaimerHtml}
   ${relatedHtml}
@@ -435,7 +426,7 @@ function newsArchiveHtml(date, items) {
   const label = `${d}/${m}/${y}`;
   const cards = items.map((it) => `
     <article class="news-card">
-      <h4><a href="${esc(it.link || '')}" target="_blank" rel="noopener">${esc(it.title || '(không có tiêu đề)')}</a></h4>
+      <h4><a href="${esc(it.link || '')}" target="_blank" rel="noopener">${esc(it.titleVi || it.title || '(không có tiêu đề)')}</a></h4>
       ${it.summary ? `<p class="news-summary">${esc(it.summary)}</p>` : ''}
       ${it.why ? `<p class="news-why">${esc(it.why)}</p>` : ''}
       <p class="news-meta">${esc([NEWS_GROUP_LABELS[it.group] || it.group || '', it.source || ''].filter(Boolean).join(' · '))}</p>

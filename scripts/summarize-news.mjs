@@ -13,8 +13,13 @@
 // toàn văn), kèm link gốc; prompt CẤM ngôn ngữ khuyến nghị đầu tư — và script
 // có lưới lọc stripAdvice() để trống mọi trường lọt cụm gợi ý đầu tư (model mở
 // đôi khi vẫn lọt dù prompt đã cấm: thử thật 18/11 "có thể cân nhắc đầu tư").
-// Mỗi tin còn có trường `why`: 1 câu ngắn nói rõ vì sao tin đáng đọc với người Việt
-// (tác động/lợi ích cụ thể); trang chỉ hiện why khi có nội dung.
+// Mỗi tin còn có trường `why`: 1 SỰ KIỆN CỤ THỂ trong bài (con số, tên,
+// quyết định) — không phải câu bình luận chung chung — và trường `titleVi`:
+// tiêu đề tiếng Việt tự viết (tối đa ~90 ký tự), hiển thị thay tiêu đề
+// tiếng Anh gốc (giữ `title` gốc trong dữ liệu để đối chiếu).
+// Số + đơn vị chuẩn hoá kiểu Việt ở bước hậu xử lý normalizeNumbersVi()
+// ("65 B $" -> "65 tỷ USD") vì model mở hay viết sai dù prompt đã cấm;
+// cụm bình luận sáo rỗng bị chặn bởi BANNED_PHRASES + stripBannedSentences().
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -127,6 +132,16 @@ const VI_DIACRITIC = /[àáảãạăắằẳẵặâấầẩẫậèéẻẽ�
 function looksVietnamese(t) {
   return !t || VI_DIACRITIC.test(t);
 }
+// Kiểm tiếng Việt cho TIÊU ĐỀ (ngắn — có thể không có dấu, vd "Nvidia mua
+// startup"): có dấu HOẶC chứa từ tiếng Việt thông dụng. Tiêu đề tiếng Anh
+// nguyên văn không chứa từ nào trong danh sách này.
+const VI_COMMON_WORDS = new Set('là của và đã cho với trong sau khi lên xuống tăng giảm thêm mới nhất hơn ra mắt đầu tư công ty thị trường giá cổ phiếu lợi nhuận doanh thu sản phẩm công nghệ người dùng triệu tỷ đồng tháng năm ngày trước đang sẽ có không được bị về ngoài từ đến tại theo nhưng vì nếu thì mua bán vượt đạt mất nhận công bố ký kết ra mắt gọi vốn niêm yết phá sản kiện cáo'.split(' '));
+function looksVietnameseTitle(t) {
+  const s = String(t || '').trim();
+  if (!s) return false;
+  if (VI_DIACRITIC.test(s)) return true;
+  return s.toLowerCase().split(/[^a-zà-ỹđ]+/i).some((w) => VI_COMMON_WORDS.has(w));
+}
 const ADVICE_PHRASES = ['nên mua', 'nên bán', 'nên đầu tư', 'nên giữ', 'nên nắm giữ', 'cân nhắc đầu tư', 'cân nhắc mua', 'cân nhắc bán', 'đáng mua', 'đáng đầu tư', 'cơ hội mua', 'khuyến nghị', 'đa dạng hoá danh mục', 'đa dạng hóa danh mục'];
 function stripAdvice(text) {
   const low = String(text || '').toLowerCase();
@@ -169,8 +184,73 @@ function stripEnglishClauses(text) {
   }
   return out;
 }
+// Chuẩn hoá số + đơn vị theo kiểu Việt (đợt sửa UX 19/11 — model mở hay
+// viết "65 B $", "$2.5B", "$10M" dù prompt đã cấm): B/billion -> tỷ,
+// M/million -> triệu, $ -> USD sau số; thập phân dấu phẩy, nghìn dấu chấm.
+// "65 B $" -> "65 tỷ USD"; "$2.5B" -> "2,5 tỷ USD"; "$10M" -> "10 triệu
+// USD"; "$604.000" -> "604.000 USD". KHÔNG đụng "3M" (tên công ty — chỉ
+// chuẩn hoá khi có $ đi kèm hoặc hậu tố B/M đứng sau số có $).
+function fixViNum(s) {
+  const t = String(s);
+  if (t.includes(',') && t.includes('.')) {
+    // Kiểu Anh "1,234.56": bỏ phẩy nghìn, chấm thập phân -> phẩy, thêm chấm nghìn.
+    const parts = t.replace(/,/g, '').split('.');
+    const intPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return parts.length > 1 ? intPart + ',' + parts.slice(1).join('') : intPart;
+  }
+  // Chỉ có chấm: ".000" (3 chữ số) là nghìn — giữ; ".5" (1-2 chữ số) là
+  // thập phân — đổi sang phẩy.
+  return t.replace(/(\d)\.(\d{1,2})(?!\d)/g, '$1,$2');
+}
+const NUM = '(\\d(?:[\\d.,]*\\d)?)';
+function normalizeNumbersVi(text) {
+  let t = String(text || '');
+  if (!t) return t;
+  const unit = (u) => (String(u).toUpperCase() === 'B' ? ' tỷ USD' : ' triệu USD');
+  // $2.5B / $10M / $65B (kèm hậu tố B/M, có thể viết "billion"/"million").
+  t = t.replace(new RegExp('\\$\\s*' + NUM + '\\s*([BM])(?:illion)?\\b', 'gi'),
+    (m, num, u) => fixViNum(num) + unit(u));
+  // 65 B $ / 65B$ (số + B/M + $ ở sau).
+  t = t.replace(new RegExp(NUM + '\\s*([BM])(?:illion)?\\s*\\$', 'gi'),
+    (m, num, u) => fixViNum(num) + unit(u));
+  // 65 B USD / 65 billion USD (số + B/M/billion/million + USD, không có $).
+  t = t.replace(new RegExp(NUM + '\\s*([BM])(?:illion)?\\s+USD\\b', 'gi'),
+    (m, num, u) => fixViNum(num) + unit(u));
+  t = t.replace(new RegExp(NUM + '\\s*billion\\b', 'gi'), (m, num) => fixViNum(num) + ' tỷ USD');
+  t = t.replace(new RegExp(NUM + '\\s*million\\b', 'gi'), (m, num) => fixViNum(num) + ' triệu USD');
+  // $604.000 / $2.5 / $270 triệu (còn lại, không hậu tố B/M — "triệu"/"tỷ"
+  // đi kèm thì giữ lại trước USD: "$270 triệu" -> "270 triệu USD", không
+  // phải "270 USD triệu").
+  t = t.replace(new RegExp('\\$\\s*' + NUM + '(?:\\s+(triệu|tỷ))?', 'g'),
+    (m, num, u) => fixViNum(num) + (u ? ' ' + u + ' USD' : ' USD'));
+  // 604.000$ (số + $ ở sau).
+  t = t.replace(new RegExp(NUM + '\\s*\\$(?:\\s+(triệu|tỷ))?', 'g'),
+    (m, num, u) => fixViNum(num) + (u ? ' ' + u + ' USD' : ' USD'));
+  // "tỷ đô la" / "triệu đô la" / "X đô la" -> USD.
+  t = t.replace(/(\d[\d.,]*)\s*(tỷ|triệu)\s*đô la\b/gi, '$1 $2 USD');
+  t = t.replace(/(\d[\d.,]*)\s*đô la\b/gi, '$1 USD');
+  // Dọn "USD USD" thừa (khi bản gốc đã có USD mà vẫn lọt qua một rule trên).
+  t = t.replace(/\bUSD\s+USD\b/g, 'USD');
+  return t;
+}
+// Cụm bình luận sáo rỗng — model hay nhét vào câu "vì sao đáng đọc" (đã
+// xảy ra thật 18/11: "cho thấy sức mạnh tài chính"). Tin nào còn cụm này
+// thì hỏi lại AI 1 lần với nhắc viết lại bằng sự kiện cụ thể; vẫn còn thì
+// bỏ câu đó (stripBannedSentences) — không bao giờ để lọt vào news.json.
+const BANNED_PHRASES = ['sức ép thị trường', 'sức mạnh tài chính', 'cho thấy sức mạnh', 'đánh dấu bước ngoặt', 'mở ra kỷ nguyên'];
+function hasBannedPhrase(text) {
+  const low = String(text || '').toLowerCase();
+  return BANNED_PHRASES.some((p) => low.includes(p));
+}
+function stripBannedSentences(text) {
+  const t = String(text || '');
+  if (!t || !hasBannedPhrase(t)) return t;
+  const parts = t.split(/(?<=[.!?])\s+/);
+  return parts.filter((p) => !hasBannedPhrase(p)).join(' ').trim();
+}
 const MAX_LEN = 260;
 const WHY_MAX_LEN = 200;
+const TITLE_MAX_LEN = 90;
 const BATCH = 5;
 
 const GROUPS = ['ai', 'chung-khoan', 'crypto'];
@@ -192,23 +272,29 @@ function trimWhy(s) {
   return trimText(s, WHY_MAX_LEN);
 }
 
+// Tiêu đề tiếng Việt: ngắn gọn như tít báo, tối đa ~90 ký tự.
+function trimTitleVi(s) {
+  return trimText(s, TITLE_MAX_LEN);
+}
+
 const SYSTEM_PROMPT = [
   'Bạn tóm tắt tin tức nước ngoài sang tiếng Việt cho mục Điểm báo của một trang tiện ích.',
   'QUY TẮC BẮT BUỘC:',
   '1. Mỗi tin: tóm tắt đúng 1-2 câu, TỐI ĐA 260 ký tự, viết lại bằng lời của mình — KHÔNG dịch toàn văn, KHÔNG chép nguyên câu tiếng Anh. Mọi câu trong tóm tắt đều phải là tiếng Việt có dấu (chỉ tên riêng nước ngoài giữ tiếng Anh theo quy tắc 2); không để lọt mệnh đề tiếng Anh.',
-  '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc. Giữ nguyên tên riêng nước ngoài (người, công ty, sản phẩm) theo bản gốc, KHÔNG phiên âm sang tiếng Việt — ví dụ viết "Donald Trump", "Vladimir Putin", "Jensen Huang", "Nvidia"; CHỈ có Xi Jinping viết là "Tập Cận Bình".',
+  '1b. Tiêu đề tiếng Việt (titleVi): TỰ VIẾT ngắn gọn như tít báo Việt, tối đa ~90 ký tự, đúng nội dung bài gốc — KHÔNG dịch máy từng chữ tiêu đề tiếng Anh, KHÔNG chép nguyên tiêu đề gốc. Giữ tên riêng nước ngoài theo quy tắc 2.',
+  '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc. Chỉ dùng từ đúng nghĩa trong ngữ cảnh bài gốc — KHÔNG dùng cụm bình luận sáo rỗng: "sức ép thị trường", "sức mạnh tài chính", "cho thấy sức mạnh", "đánh dấu bước ngoặt", "mở ra kỷ nguyên". Giữ nguyên tên riêng nước ngoài (người, công ty, sản phẩm) theo bản gốc, KHÔNG phiên âm sang tiếng Việt — ví dụ viết "Donald Trump", "Vladimir Putin", "Jensen Huang", "Nvidia"; CHỈ có Xi Jinping viết là "Tập Cận Bình".',
   '3. TUYỆT ĐỐI KHÔNG dùng ngôn ngữ khuyến nghị đầu tư: không viết "nên mua", "nên bán", "nên đầu tư", "nên giữ", "cân nhắc đầu tư", "cân nhắc mua", "đáng mua", "đáng đầu tư", "cơ hội mua vào", "khuyến nghị", "đa dạng hoá danh mục" hay bất kỳ lời khuyên mua/bán/giữ tài sản nào — áp dụng cho cả tóm tắt lẫn câu "vì sao đáng đọc".',
-  '4. Mỗi tin thêm 1 câu "vì sao tin này đáng đọc" (tối đa 200 ký tự): NGẮN, CỤ THỂ, chỉ nói TÁC ĐỘNG CHUNG của tin (công nghệ thay đổi thế nào, thị trường/đời sống thay đổi thế nào) — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Không viết chung chung kiểu "tin này rất quan trọng".',
-  '4b. TUYỆT ĐỐI KHÔNG nhắc tới Việt Nam trong tóm tắt lẫn câu "vì sao đáng đọc": không viết "Việt Nam", "tại Việt Nam", "ở Việt Nam", "người Việt", "người Việt Nam", "doanh nghiệp Việt Nam", "người tiêu dùng Việt Nam" hay bất kỳ góc nhìn Việt Nam nào — chỉ nói tác động chung, không gắn với một nước cụ thể.',
-  '5. Tiền tệ: ký hiệu $ đặt TRƯỚC số, dùng dấu chấm phân cách nghìn kiểu Việt Nam — viết "$604.000", "$270 triệu"; KHÔNG viết "604,000$", "604.000$" hay "604,000 đô la".',
+  '4. Câu "vì sao đáng đọc" (tối đa 200 ký tự) phải là 1 SỰ KIỆN CỤ THỂ lấy trong bài gốc — một con số, một cái tên, một quyết định — KHÔNG phải câu bình luận chung chung. Không viết kiểu "cho thấy sức mạnh tài chính của…", "đánh dấu bước ngoặt…", "mở ra kỷ nguyên…". Ví dụ tốt: "Nvidia đang nắm cổ phần ở hơn 20 startup AI." — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Không viết chung chung kiểu "tin này rất quan trọng".',
+  '4b. TUYỆT ĐỐI KHÔNG nhắc tới Việt Nam trong tiêu đề, tóm tắt lẫn câu "vì sao đáng đọc": không viết "Việt Nam", "tại Việt Nam", "ở Việt Nam", "người Việt", "người Việt Nam", "doanh nghiệp Việt Nam", "người tiêu dùng Việt Nam" hay bất kỳ góc nhìn Việt Nam nào — chỉ nói tác động chung, không gắn với một nước cụ thể.',
+  '5. Tiền tệ và đơn vị theo kiểu Việt: dùng "tỷ" cho billion, "triệu" cho million — viết "65 tỷ USD", "2,5 tỷ USD", "10 triệu USD", "604.000 USD"; số thập phân dùng dấu phẩy (2,5), nghìn dùng dấu chấm (604.000). KHÔNG viết ký hiệu "$", "B", "M" hay "đô la".',
   '6. Không lặp cùng một từ/cụm từ trong một câu: mỗi câu chỉ dùng mỗi từ quan trọng một lần — ví dụ không viết "ảnh hưởng tới giá XRP, ảnh hưởng tới người dùng"; nếu cần nói hai tác động thì gộp thành một vế ("ảnh hưởng tới giá XRP và tới người dùng") hoặc đổi từ ("tác động tới").',
   '7. Địa danh nước ngoài dùng tên tiếng Việt đã quen thuộc và THỐNG NHẤT trong toàn bộ bản tóm tắt: Thâm Quyến (không viết Shenzhen), Bắc Kinh, Thượng Hải, Quảng Châu, Hồng Kông... — riêng tên người/công ty/sản phẩm vẫn giữ tiếng Anh theo quy tắc 2.',
-  '8. Trả về DUY NHẤT một mảng JSON, mỗi phần tử là một đối tượng {"summary": "<tóm tắt>", "why": "<vì sao đáng đọc>"}, theo ĐÚNG thứ tự tin đầu vào, không thêm chữ nào ngoài JSON.',
+  '8. Trả về DUY NHẤT một mảng JSON, mỗi phần tử là một đối tượng {"titleVi": "<tiêu đề tiếng Việt>", "summary": "<tóm tắt>", "why": "<vì sao đáng đọc>"}, theo ĐÚNG thứ tự tin đầu vào, không thêm chữ nào ngoài JSON.',
 ].join('\n');
 
-async function summarizeBatch(apiKey, batch, allowRepair = true) {
+async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '') {
   const numbered = batch.map((it, i) => `${i + 1}. [${it.source}] ${it.title}${it.description ? ' — ' + it.description : ''}`).join('\n');
-  const userText = `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"summary", "why"}):\n${numbered}`;
+  const userText = `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"titleVi", "summary", "why"}):\n${numbered}${extraNote ? '\n' + extraNote : ''}`;
   const fetchText = async () => {
     try {
       const res = await callPollinations([
@@ -233,16 +319,27 @@ async function summarizeBatch(apiKey, batch, allowRepair = true) {
   const parseOut = (text) => {
     const arr = parseJsonArray(text);
     if (!Array.isArray(arr) || arr.length !== batch.length) throw new Error('Model trả JSON không đúng số lượng');
-    // Chuẩn mới: mỗi phần tử là {summary, why}. Dung sai: chuỗi thuần (dạng cũ)
+    // Chuẩn mới: mỗi phần tử là {titleVi, summary, why}. Dung sai: chuỗi thuần (dạng cũ)
     // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
-    // mất cả loạt tóm tắt. stripAdvice(): trường nào lọt ngôn ngữ gợi ý đầu tư
-    // thì để trống. stripVietnam(): trường nào nhắc Việt Nam thì để trống.
+    // mất cả loạt tóm tắt. Chuỗi lọc (áp cho cả 3 trường): trim -> stripAdvice
+    // (lọt ngôn ngữ gợi ý đầu tư thì để trống) -> stripVietnam (nhắc Việt Nam
+    // thì để trống) -> stripEnglishClauses (lược mệnh đề tiếng Anh) ->
+    // normalizeNumbersVi ("65 B $" -> "65 tỷ USD") -> stripBannedSentences
+    // (bỏ câu chứa cụm bình luận sáo rỗng). Cờ _banned ghi lại tin nào từng
+    // có cụm cấm TRƯỚC khi lọc (để hỏi lại AI viết lại bằng sự kiện cụ thể);
+    // cờ bị gỡ trước khi trả về, không ghi vào news.json.
+    const clean = (s, trimFn) => trimFn(stripBannedSentences(normalizeNumbersVi(stripEnglishClauses(stripVietnam(stripAdvice(trimFn(s)))))));
     return arr.map((el) => {
-      if (typeof el === 'string') return { summary: stripEnglishClauses(stripVietnam(stripAdvice(trimSummary(el)))), why: '' };
+      if (typeof el === 'string') return { titleVi: '', summary: clean(el, trimSummary), why: '', _banned: hasBannedPhrase(el) };
       if (el && typeof el === 'object') {
-        return { summary: stripEnglishClauses(stripVietnam(stripAdvice(trimSummary(el.summary)))), why: stripEnglishClauses(stripVietnam(stripAdvice(trimWhy(el.why)))) };
+        return {
+          titleVi: clean(el.titleVi, trimTitleVi),
+          summary: clean(el.summary, trimSummary),
+          why: clean(el.why, trimWhy),
+          _banned: hasBannedPhrase(el.summary) || hasBannedPhrase(el.why) || hasBannedPhrase(el.titleVi),
+        };
       }
-      return { summary: '', why: '' };
+      return { titleVi: '', summary: '', why: '', _banned: false };
     });
   };
   // Model mở đôi khi trả JSON lỗi (dấu ngoặc thiếu, chuỗi chưa đóng) — thử
@@ -261,30 +358,57 @@ async function summarizeBatch(apiKey, batch, allowRepair = true) {
       throw lastErr;
     }
   }
-  // Sửa từng tin lỗi ngôn ngữ thay vì bỏ cả batch: gom các tin trả không phải
-  // tiếng Việt (hoặc tóm tắt bị lọc thành trống — ví dụ toàn bộ bằng tiếng
-  // Anh nên stripEnglishClauses lược hết), hỏi lại riêng 1 lần (sau 15s, tôn
-  // trọng giới hạn Pollinations); vẫn lỗi thì để trống tin đó, giữ nguyên
-  // các tin tốt. (Thử thật 18/11: batch Nvidia lỗi ngôn ngữ cả 2 lần thử
-  // lại — bỏ cả batch thì mất 4 tin tốt.)
+  // Sửa từng tin lỗi thay vì bỏ cả batch: gom các tin trả không phải tiếng
+  // Việt (hoặc tóm tắt bị lọc thành trống — ví dụ toàn bộ bằng tiếng Anh
+  // nên stripEnglishClauses lược hết), tiêu đề tiếng Việt thiếu/sai, hoặc
+  // từng chứa cụm bình luận sáo rỗng (cờ _banned — câu đó đã bị lược, hỏi
+  // lại để AI viết lại bằng sự kiện cụ thể thay vì mất nội dung); hỏi lại
+  // riêng 1 lần (sau 15s, tôn trọng giới hạn Pollinations), kèm nhắc viết
+  // lại câu sáo rỗng bằng sự kiện cụ thể. Vẫn lỗi thì để trống TỪNG TRƯỜNG
+  // lỗi (giữ lại trường tốt — trước đây để trống cả tin làm mất tóm tắt tốt
+  // chỉ vì why lỗi).
   const badIdx = [];
-  out.forEach((p, k) => { if (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why)) badIdx.push(k); });
+  out.forEach((p, k) => {
+    if (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why) ||
+      !p.titleVi || !looksVietnameseTitle(p.titleVi) || p._banned) badIdx.push(k);
+  });
   if (allowRepair && badIdx.length > 0) {
-    console.warn(`Batch có ${badIdx.length}/${batch.length} tin không phải tiếng Việt — hỏi lại riêng.`);
+    console.warn(`Batch có ${badIdx.length}/${batch.length} tin cần hỏi lại (không phải tiếng Việt / thiếu tít Việt / có cụm sáo rỗng).`);
     await sleep(15000);
     try {
-      const sub = await summarizeBatch(apiKey, badIdx.map((k) => batch[k]), false);
+      const sub = await summarizeBatch(apiKey, badIdx.map((k) => batch[k]), false,
+        'LƯU Ý: bản tóm tắt trước có câu bình luận chung chung (kiểu "cho thấy sức mạnh…", "đánh dấu bước ngoặt…") hoặc tiêu đề chưa phải tiếng Việt. Viết lại các câu đó bằng SỰ KIỆN CỤ THỂ trong bài (con số, tên, quyết định) và viết tiêu đề bằng tiếng Việt.');
       badIdx.forEach((k, j) => {
         const p = sub[j];
-        out[k] = (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why)) ? { summary: '', why: '' } : p;
+        out[k] = {
+          titleVi: (p.titleVi && looksVietnameseTitle(p.titleVi)) ? p.titleVi : '',
+          summary: (!p.summary || !looksVietnamese(p.summary)) ? '' : p.summary,
+          why: (!looksVietnamese(p.why)) ? '' : p.why,
+        };
       });
     } catch (e) {
-      console.warn(`Hỏi lại vẫn lỗi (${e.message || e}) — để trống ${badIdx.length} tin này.`);
-      badIdx.forEach((k) => { out[k] = { summary: '', why: '' }; });
+      console.warn(`Hỏi lại vẫn lỗi (${e.message || e}) — để trống từng trường lỗi của ${badIdx.length} tin này.`);
+      badIdx.forEach((k) => {
+        const p = out[k];
+        out[k] = {
+          titleVi: (p.titleVi && looksVietnameseTitle(p.titleVi)) ? p.titleVi : '',
+          summary: (!p.summary || !looksVietnamese(p.summary)) ? '' : p.summary,
+          why: (!looksVietnamese(p.why)) ? '' : p.why,
+        };
+      });
     }
   } else if (badIdx.length > 0) {
-    badIdx.forEach((k) => { out[k] = { summary: '', why: '' }; });
+    badIdx.forEach((k) => {
+      const p = out[k];
+      out[k] = {
+        titleVi: (p.titleVi && looksVietnameseTitle(p.titleVi)) ? p.titleVi : '',
+        summary: (!p.summary || !looksVietnamese(p.summary)) ? '' : p.summary,
+        why: (!looksVietnamese(p.why)) ? '' : p.why,
+      };
+    });
   }
+  // Gỡ cờ nội bộ trước khi trả về — news.json chỉ chứa titleVi/summary/why.
+  out.forEach((p) => { delete p._banned; });
   return out;
 }
 
@@ -306,13 +430,14 @@ async function main() {
   const groups = { ai: [], 'chung-khoan': [], crypto: [] };
   const base = (it, pair) => ({
     title: it.title,
+    titleVi: pair.titleVi || '',
     summary: pair.summary,
     why: pair.why,
     link: it.link,
     source: it.source,
     publishedAt: it.publishedAt || '',
   });
-  const EMPTY = { summary: '', why: '' };
+  const EMPTY = { titleVi: '', summary: '', why: '' };
 
   const pairs = new Array(items.length).fill(EMPTY);
   let okCount = 0;
@@ -341,7 +466,7 @@ async function main() {
     updatedAt: new Date().toISOString(), summarized: okCount > 0,
     ...(okCount > 0 ? { model: MODEL_USED } : {}), groups,
   }, null, 2) + '\n', 'utf8');
-  console.log(`Đã ghi news.json: ${okCount}/${items.length} tin có tóm tắt.`);
+  console.log(`Đã ghi news.json: ${okCount}/${items.length} tin có tóm tắt, ${pairs.filter((p) => p.titleVi).length}/${items.length} tin có tiêu đề tiếng Việt.`);
 }
 
 await main();

@@ -101,7 +101,15 @@ export function init(root) {
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function refreshSticky() {
     const bar = $('lggn-sticky');
-    if (bar) bar.hidden = !(hasStickyResult && !resultInView && !calcBtnInView && !inputFocused);
+    const visible = hasStickyResult && !resultInView && !calcBtnInView && !inputFocused;
+    if (bar) bar.hidden = !visible;
+    // Đẩy nút Chat AI lên trên thanh khi thanh hiện (đợt sửa UX 19/11):
+    // CSS body.uh-netbar-on .aiw nâng nút lên để không đè chữ "Xem chi
+    // tiết" — trước đây nút tròn 48px đè lên mép phải của thanh vì nội
+    // dung thanh dài hơn chiều rộng thanh chừa lại (right 76px).
+    if (typeof document !== 'undefined' && document.body) {
+      document.body.classList.toggle('uh-netbar-on', visible);
+    }
   }
   function updateSticky(net, gross) {
     $('lggn-sticky-net').textContent = 'Lương Net: ' + fmtVND(net);

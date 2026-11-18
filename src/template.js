@@ -128,6 +128,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
         <a href="/diem-bao/" class="${active('diem-bao') ? 'nav-active' : ''}">Điểm báo</a>
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
+        <button type="button" class="nav-sound" id="nav-sound-toggle" aria-pressed="true">Âm thanh: Bật</button>
       </nav>
       <div class="header-actions">
         <button type="button" class="header-search-btn" id="header-search-btn" aria-label="Tìm kiếm công cụ"><svg class="header-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="header-search-label">Tìm kiếm</span> <kbd>⌘K</kbd></button>

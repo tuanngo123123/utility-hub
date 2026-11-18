@@ -338,6 +338,10 @@ async function fetchNewsRaw() {
         // (Tuấn quyết 18/11: Điểm báo không đăng nội dung về Việt Nam).
         if (NEWS_BLOCKLIST.has(link)) continue;
         if (/viet\s?nam/i.test(title + ' ' + desc)) continue;
+        // Bỏ tin mô tả quá ngắn để tóm tắt (đã xảy ra thật 19/11: tin MIT
+        // Tech Review mô tả chỉ là "nhấp vào hình ảnh" nên tóm tắt rỗng
+        // tuếch mà model không được bịa thêm — lọc ở đây để feed lấy tin khác).
+        if (desc.replace(/\s+/g, ' ').trim().length < 40) continue;
         // Nhóm phân loại lại bằng từ khóa (V4), dự phòng là nhóm theo nguồn RSS.
         items.push({ title, link, source: feed.source, group: classifyNewsGroup(title, desc, feed.group), publishedAt: pub, description: desc });
         n++;

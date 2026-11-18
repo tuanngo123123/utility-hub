@@ -178,12 +178,11 @@ p.error {
 }
 .brand-logo { width: 30px; height: 30px; flex: none; }
 .brand-name > span { color: var(--accent); }
-/* Điện thoại hẹp (≤480px): chỉ hiện logo, ẩn tên chữ — 4 nút header 44px
-   đã chiếm 200px, cộng tên chữ sẽ làm header tràn ngang (đo thật 391px
-   ở 375px). Link vẫn có aria-label "Tiện Ích Hub — trang chủ". */
-@media (max-width: 480px) {
-  .brand-name { display: none; }
-}
+/* Tên web LUÔN hiện, kể cả điện thoại hẹp (đợt sửa UX 19/11): đợt 1 ẩn
+   tên ở ≤480px để hết tràn ngang, nhưng người mới vào chỉ thấy icon "T."
+   thì không biết web tên gì. Chỗ được lấy lại bằng cách dời nút âm thanh
+   khỏi header xuống menu hamburger (dưới 1280px — xem .sound-toggle
+   và .nav-sound dưới đây). Đã đo 0 tràn ngang ở 375px. */
 /* Vùng bấm lên chấm vàng của logo (trứng phục sinh, hướng B đợt 1):
    chấm vàng nằm góc dưới-phải logo (favicon 64px: tâm 48,48 r=6,5 →
    trên logo 30px là góc dưới-phải ~12px). Vùng trong suốt, chỉ JS
@@ -223,6 +222,33 @@ p.error {
 .sound-toggle.sound-off .snd-on { display: none; }
 .sound-toggle.sound-off .snd-off { display: block; }
 .sound-toggle.sound-off { color: var(--muted); }
+/* Nút âm thanh ở header chỉ hiện từ 1280px (nav ngang, header đủ chỗ);
+   dưới 1280px nó dời xuống menu hamburger (mục .nav-sound, cùng khóa
+   uh_gv_sound) để header điện thoại đủ chỗ hiện tên web (đợt sửa UX
+   19/11 — 4 nút 44px + tên chữ làm header tràn 391px ở 375px). */
+@media (max-width: 1279px) {
+  .sound-toggle { display: none; }
+}
+/* Mục âm thanh trong menu hamburger: nút văn bản trông như một mục nav,
+   chỉ hiện khi menu mở dưới 1280px (từ 1280px nav ngang hiện sẵn, nút
+   âm thanh đã ở header nên mục này ẩn). */
+.nav-sound {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nav-sound:hover { background: var(--bg-soft); color: var(--ink); }
+@media (max-width: 1279px) {
+  .site-header.nav-open .site-nav .nav-sound { display: flex; align-items: center; }
+}
 
 .site-nav { display: none; }
 .site-nav a {
@@ -949,19 +975,22 @@ button.chip-cat[aria-pressed="true"]:hover,
   .aiw-full a { display: inline-block; padding: 12px 0; }
   .news-more a { display: inline-block; padding: 12px 0; }
   .tool-faq summary { min-height: 44px; display: flex; align-items: center; }
-  .site-header.nav-open .site-nav a { min-height: 44px; display: flex; align-items: center; }
+  .site-header.nav-open .site-nav a, .site-header.nav-open .site-nav .nav-sound { min-height: 44px; display: flex; align-items: center; }
 }
 
 /* Thanh tóm tắt lương Net dính ở đáy (công cụ lương, đợt sửa UX 18/11):
    hiện khi đã có kết quả mà kết quả đang ngoài màn hình; bấm vào thì
    cuộn xuống kết quả. Ngồi TRÊN thanh nav dưới của điện thoại
-   (bottom 68px), chừa chỗ cho nút Chat AI ở góc phải (right 76px trên
-   điện thoại, 164px trên desktop nơi nút Chat AI là pill ~119px).
+   (bottom 68px). Thanh chiếm gần hết chiều ngang (left 12px, right
+   12px mobile / 24px desktop) — nút Chat AI khi thanh hiện được đẩy
+   LÊN TRÊN thanh (body.uh-netbar-on .aiw, xem dưới) nên thanh không
+   cần chừa chỗ bên phải nữa; đợt 1 chừa right 76px/164px khiến nội
+   dung thanh dài hơn thanh, chữ "Xem chi tiết" tràn ra dưới nút chat.
    z-index 90 — dưới nav dưới (100) và Chat AI (240). */
 .lggn-sticky {
   position: fixed;
   left: 12px;
-  right: 164px;
+  right: 24px;
   bottom: 24px;
   z-index: 90;
   display: flex;
@@ -982,7 +1011,7 @@ button.chip-cat[aria-pressed="true"]:hover,
 .lggn-sticky-gross { color: var(--muted); font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
 .lggn-sticky-hint { margin-left: auto; color: var(--accent); font-size: 0.85rem; flex: none; }
 @media (max-width: 768px) {
-  .lggn-sticky { right: 76px; bottom: 68px; }
+  .lggn-sticky { right: 12px; bottom: 68px; }
   .lggn-sticky-gross { display: none; }
 }
 /* Kết quả lương cuộn tới thì chừa chỗ cho header dính (60px) + lề. */
@@ -1926,41 +1955,6 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 .tool-try .result-hero-value { color: var(--cat-color-dark, var(--accent-dark)); }
 [data-theme="dark"] .tool-try .result { background: color-mix(in srgb, var(--cat-color) 16%, transparent); }
-
-.tool-steps {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 20px;
-  margin: 24px 0;
-}
-@media (min-width: 720px) {
-  .tool-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-.tool-step {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-  min-width: 0;
-}
-.tool-step p { margin: 0; }
-.tool-step-num {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.95rem;
-  line-height: 1;
-}
 
 .tool-related { margin: 48px 0 0; }
 .tool-related > h2 { margin: 0 0 20px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
@@ -3117,4 +3111,14 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
    nút nổi ngồi trên nó + 12px khoảng hở, không đè lên mục nav nào. */
 @media (max-width: 768px) {
   .aiw { right: 16px; bottom: 68px; }
+}
+/* Khi thanh Net dính đang hiện (trang lương, JS gắn
+   body.uh-netbar-on): đẩy nút Chat AI LÊN TRÊN thanh để không đè chữ
+   "Xem chi tiết" (đợt sửa UX 19/11). Thanh cao ~48px: desktop thanh
+   ngồi bottom 24px → nút lên bottom 86px (hở ~14px); mobile thanh
+   ngồi bottom 68px → nút lên bottom 130px. Chỉ đổi vị trí, không đụng
+   hành vi tự ẩn khi cuộn/nhập (.aiw-hidden) hay khung chat đang mở. */
+body.uh-netbar-on .aiw { bottom: 86px; }
+@media (max-width: 768px) {
+  body.uh-netbar-on .aiw { bottom: 130px; }
 }
