@@ -1,197 +1,189 @@
 {
-  "updatedAt": "2026-11-18T08:26:01.005Z",
+  "updatedAt": "2026-11-18T09:11:58.729Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
         "title": "Nvidia’s startup stakes ballooned to $65B, but Huang’s exit puts future deals in doubt",
-        "summary": "Nvidia đã tăng giá trị đầu tư riêng lên $65 B trong 9 tháng qua nhờ các giao dịch mạnh mẽ của Jensen Huang, nhưng việc ông rời đi làm cho các thỏa thuận tương lai trở nên nghi ngờ.",
-        "why": "Giá trị đầu tư tăng cao có thể ảnh hưởng tới giá cổ phiếu Nvidia và giá bán chip, ảnh hưởng tới chi phí công nghệ cho doanh nghiệp Việt Nam.",
+        "summary": "Nvidia’s private investment value rose to $65 B, driven by Jensen Huang’s dealmaking, nhưng sự rời đi của anh ta làm nghi ngờ khả năng tiếp tục các thỏa thuận tương lai.",
+        "why": "Sự tăng trưởng nhanh của giá trị đầu tư cho thấy sức mạnh tài chính của Nvidia, nhưng rủi ro khi lãnh đạo chính thay đổi có thể ảnh hưởng đến chiến lược đầu tư.",
         "link": "https://techcrunch.com/2026/11/17/nvidias-startup-stakes-ballooned-to-65b-but-huangs-exit-puts-future-deals-in-doubt/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 01:44:21 +0000"
       },
       {
         "title": "Nvidia promises that revenue will keep soaring — for now",
-        "summary": "Dù Jensen Huang rời đi, Nvidia dự báo doanh thu sẽ tiếp tục tăng, giữ vững chuỗi doanh thu kỷ lục.",
-        "why": "Doanh thu tăng của Nvidia có thể làm tăng giá cổ phiếu và giá bán chip, ảnh hưởng tới chi phí mua thiết bị và lãi vay ngân hàng cho doanh nghiệp Việt Nam.",
+        "summary": "Nvidia dự báo doanh thu sẽ tiếp tục tăng, mặc dù công ty đang trải qua biến động sau khi Jensen Huang rời vị trí CEO.",
+        "why": "Việc duy trì tăng trưởng doanh thu cho thấy tính ổn định của mô hình kinh doanh và sức hút của sản phẩm AI trong thị trường toàn cầu.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-promises-that-revenue-will-keep-soaring-for-now/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 00:16:50 +0000"
       },
       {
         "title": "Nvidia is abandoning China after Jensen Huang’s ouster",
-        "summary": "CEO tạm thời của Nvidia tuyên bố công ty sẽ ngừng bán chip cho Trung Quốc, đặt câu hỏi về chi phí và tác động kinh doanh.",
-        "why": "Việc ngừng bán chip cho Trung Quốc có thể làm tăng giá bán chip, ảnh hưởng tới chi phí sản xuất và giá thành sản phẩm công nghệ tại Việt Nam.",
+        "summary": "Nvidia tuyên bố ngừng bán chip cho Trung Quốc sau khi Jensen Huang bị loại, theo lời CEO tạm thời.",
+        "why": "Việc ngừng bán chip ảnh hưởng đến chuỗi cung ứng toàn cầu và có thể làm thay đổi chiến lược thị trường của các công nghệ AI.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-is-abandoning-china-after-jensen-huangs-ouster/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 23:37:48 +0000"
       },
       {
         "title": "Nvidia says its open source AI strategy remains intact after Jensen Huang’s exit",
-        "summary": "Nvidia vẫn duy trì chiến lược AI nguồn mở và dự định mua lại Hugging Face, mặc dù Jensen Huang đã rời khỏi vị trí CEO.",
-        "why": "Chiến lược AI nguồn mở và mua lại Hugging Face có thể làm thay đổi giá và tính sẵn có của các công cụ AI, ảnh hưởng tới chi phí và hiệu suất công việc của người dùng Việt Nam.",
+        "summary": "Nvidia khẳng định chiến lược AI mã nguồn mở vẫn được duy trì và sẽ tiếp tục mua Hugging Face, ngay cả khi Jensen Huang rời đi.",
+        "why": "Sự tiếp tục của chiến lược mã nguồn mở thúc đẩy sự phát triển công nghệ AI mở và tăng cường cộng đồng phát triển phần mềm.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-says-its-open-source-ai-strategy-remains-intact-after-jensen-huangs-exit/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 23:04:35 +0000"
       },
       {
         "title": "Nvidia says it doesn’t plan to reappoint Jensen Huang as CEO",
-        "summary": "Nvidia thông báo không dự định bổ nhiệm lại Jensen Huang làm CEO, mặc dù ông đã đề nghị trở lại vị trí cao nhất.",
-        "why": "Việc không bổ nhiệm lại CEO có thể ảnh hưởng tới chiến lược và giá cổ phiếu của Nvidia, ảnh hưởng tới chi phí đầu tư công nghệ cho doanh nghiệp Việt Nam.",
+        "summary": "Nvidia không dự định bổ nhiệm lại Jensen Huang làm CEO, mặc dù anh đã đề nghị trở lại sau khi từ chức.",
+        "why": "Quyết định này thể hiện sự thay đổi lãnh đạo và có thể ảnh hưởng đến định hướng chiến lược dài hạn của công ty.",
         "link": "https://techcrunch.com/2026/11/17/nvidia-says-it-doesnt-plan-to-reappoint-jensen-huang-as-ceo/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 22:42:27 +0000"
       },
       {
         "title": "Amazon and Google will together own nearly 30% of Anthropic after its IPO",
-        "summary": "",
-        "why": "",
+        "summary": "Amazon và Google sẽ sở hữu gần 30% Anthropic sau IPO; Amazon 15% với tùy chọn tăng, Google 14%.",
+        "why": "Sự chia sẻ cổ phần lớn của hai công ty công nghệ dẫn tới ảnh hưởng đáng kể đối với sự phát triển AI mở rộng.",
         "link": "https://techcrunch.com/2026/11/17/amazon-and-google-will-together-own-nearly-30-of-anthropic-after-its-ipo/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 22:29:05 +0000"
       },
       {
         "title": "SEC reportedly investigating Nvidia amid Huang exit",
-        "summary": "",
-        "why": "",
+        "summary": "SEC đang điều tra Nvidia sau khi CEO Jensen Huang rời công ty, khi anh thừa nhận mối quan hệ với một nghi ngờ là điệp viên Trung Quốc.",
+        "why": "Việc điều tra có thể làm thay đổi cách Nvidia quản lý rủi ro an ninh mạng và ảnh hưởng tới thị trường chip.",
         "link": "https://techcrunch.com/2026/11/17/sec-reportedly-investigating-nvidia-amid-huang-exit/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 21:48:07 +0000"
       },
       {
         "title": "Google joins the tech outage trend by announcing it’s not having one",
-        "summary": "",
-        "why": "",
+        "summary": "Google thông báo Gmail hoạt động bình thường giữa các sự cố công nghệ; công ty cho biết dịch vụ không gặp trục trặc.",
+        "why": "Thông tin này làm rõ tầm quan trọng của Gmail đối với người dùng toàn cầu và ảnh hưởng tới niềm tin vào hạ tầng công nghệ.",
         "link": "https://techcrunch.com/2026/11/17/google-joins-the-tech-outage-trend-by-announcing-its-not-having-one/",
         "source": "TechCrunch",
         "publishedAt": "Tue, 17 Nov 2026 21:34:50 +0000"
       },
       {
         "title": "Copilot is \"the new OS for work,\" and now Office runs inside of it",
-        "summary": "",
-        "why": "",
+        "summary": "Copilot được mô tả là “hệ điều hành mới cho công việc”, và Office giờ chạy bên trong nền tảng này.",
+        "why": "Việc tích hợp Office vào Copilot có thể làm thay đổi cách người dùng tương tác với công cụ văn phòng và tăng năng suất làm việc.",
         "link": "https://arstechnica.com/gadgets/2026/11/microsoft-calls-copilot-the-new-os-for-work-at-ignite-keynote/",
         "source": "Ars Technica",
         "publishedAt": "Wed, 18 Nov 2026 00:27:29 +0000"
       },
       {
         "title": "San Diego dumps both Flock cameras and smart streetlights",
-        "summary": "",
-        "why": "",
+        "summary": "San Diego loại bỏ cả camera Flock và đèn đường thông minh.",
+        "why": "Việc loại bỏ thiết bị này phản ánh xu hướng giảm phụ thuộc vào công nghệ giám sát và đèn thông minh trong quản lý đô thị.",
         "link": "https://arstechnica.com/tech-policy/2026/11/san-diego-dumps-both-flock-cameras-and-smart-streetlights/",
         "source": "Ars Technica",
         "publishedAt": "Tue, 17 Nov 2026 23:09:09 +0000"
       },
       {
         "title": "Yet another satellite company is jockeying for a rocket—but this one makes sense",
-        "summary": "Một công ty vệ tinh mới đang cạnh tranh để thuê một tên lửa, nhưng kế hoạch này được đánh giá hợp lý vì công ty đã có mối quan hệ hợp tác với nhà cung cấp tên lửa đã được chứng minh.",
-        "why": "Việc thuê tên lửa có thể giảm chi phí phát hành vệ tinh, ảnh hưởng tới giá dịch vụ truyền thông và dữ liệu cho doanh nghiệp Việt Nam.",
+        "summary": "",
+        "why": "",
         "link": "https://arstechnica.com/space/2026/11/yet-another-satellite-company-is-jockeying-for-a-rocket-but-this-one-makes-sense/",
         "source": "Ars Technica",
         "publishedAt": "Tue, 17 Nov 2026 22:44:46 +0000"
       },
       {
         "title": "Hundreds of websites deliver potent malware cocktail to unsuspecting visitors",
-        "summary": "Hàng trăm trang web đã phát tán một hỗn hợp phần mềm độc hại mạnh mẽ, khiến người dùng không biết đến bị nhiễm và lộ dữ liệu cá nhân.",
-        "why": "Phần mềm độc hại này có thể làm gián đoạn hoạt động doanh nghiệp và làm mất dữ liệu quan trọng, ảnh hưởng tới bảo mật thông tin của người dùng Việt Nam.",
+        "summary": "",
+        "why": "",
         "link": "https://arstechnica.com/security/2026/11/malicious-code-delivered-through-optimizely-hits-visitors-to-hundreds-of-sites/",
         "source": "Ars Technica",
         "publishedAt": "Tue, 17 Nov 2026 22:32:16 +0000"
       },
       {
-        "title": "Roundtables: Inside the Quest for Cognitive Immortality",
-        "summary": "Một buổi thảo luận về “Cognitive Immortality” đã khám phá các phương pháp giữ cho não bộ hoạt động sau khi chết, bao gồm việc chuyển dữ liệu nhận thức vào máy tính.",
-        "why": "Nếu thành công, công nghệ này có thể mở ra cơ hội mới cho ngành công nghiệp chăm sóc sức khỏe và công nghệ thông tin tại Việt Nam.",
-        "link": "https://www.technologyreview.com/2026/11/17/1148049/roundtables-inside-the-quest-for-cognitive-immortality/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Tue, 17 Nov 2026 18:46:47 +0000"
-      },
-      {
         "title": "Hydropower hit record lows in the US Southwest this summer",
-        "summary": "Năng lượng thủy điện ở Tây Nam Hoa Kỳ giảm 28% trong giai đoạn từ tháng 4–8 so với trung bình 10 năm, do lượng nước lưu trữ trong hồ thủy lợi thấp hơn.",
-        "why": "Sự giảm năng lượng thủy điện có thể làm tăng giá điện và chi phí sản xuất điện cho người tiêu dùng Việt Nam, ảnh hưởng tới chi tiêu gia đình và doanh nghiệp.",
+        "summary": "",
+        "why": "",
         "link": "https://www.technologyreview.com/2026/11/17/1148742/hydropower-drought-colorado-river/",
         "source": "MIT Tech Review",
         "publishedAt": "Tue, 17 Nov 2026 17:52:10 +0000"
       },
       {
         "title": "Research Reports",
-        "summary": "Một báo cáo nghiên cứu mới được công bố, cho phép người đọc truy cập thông qua hình ảnh tương ứng.",
-        "why": "Báo cáo này cung cấp dữ liệu quan trọng có thể giúp doanh nghiệp Việt Nam đánh giá xu hướng công nghệ và thị trường trong tương lai.",
+        "summary": "",
+        "why": "",
         "link": "https://www.technologyreview.com/2026/11/17/1148203/research-reports/",
         "source": "MIT Tech Review",
         "publishedAt": "Tue, 17 Nov 2026 14:39:46 +0000"
       },
       {
         "title": "Loop Earplugs Discount Codes: 25% Off",
-        "summary": "Loop Earplugs giảm giá 25% với mã giảm giá, bao gồm Quiet 2 và bộ quà tặng phổ biến để cải thiện giấc ngủ, tập trung và thoải mái.",
-        "why": "Giảm giá này giúp người dùng Việt Nam tiết kiệm chi phí mua tai nghe chống ồn, nâng cao chất lượng giấc ngủ và công việc.",
+        "summary": "",
+        "why": "",
         "link": "https://www.wired.com/story/loop-earplugs-discount-code/",
         "source": "Wired",
         "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
       },
       {
         "title": "Columbia Promo Codes: 15% Off | November 2026",
-        "summary": "Columbia cung cấp mã giảm giá 15% cho áo khoác, trang bị ngoài trời và quần áo, kèm ưu đãi miễn phí vận chuyển và giảm giá cho sinh viên.",
-        "why": "Mã giảm giá giúp người tiêu dùng Việt Nam mua sắm trang phục ngoài trời với chi phí thấp hơn, phù hợp cho các chuyến đi khám phá.",
+        "summary": "Columbia cung cấp mã giảm giá 15% cho áo khoác, trang bị ngoài trời và quần áo trong tháng 11 2026, cùng ưu đãi miễn phí vận chuyển và giảm giá cho sinh viên.",
+        "why": "Mã giảm giá giúp người tiêu dùng tiết kiệm khi mua thiết bị ngoài trời, thúc đẩy nhu cầu du lịch và hoạt động ngoài trời.",
         "link": "https://www.wired.com/story/columbia-promo-code/",
         "source": "Wired",
         "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
       },
       {
         "title": "Walmart Promo Codes: 20% Off for November 2026",
-        "summary": "Walmart cung cấp mã giảm giá 20% và giảm $10 cho các giao dịch, cùng các ưu đãi flash giảm tới 65% trong tháng 11/2026.",
-        "why": "Ưu đãi này giúp người Việt tiết kiệm đáng kể khi mua sắm hàng hoá tiêu dùng và các mặt hàng cần thiết.",
+        "summary": "Walmart ra mắt mã giảm giá 20% và ưu đãi $10 cho các giao dịch flash giảm tới 65% trong tháng 11 2026.",
+        "why": "Ưu đãi giảm giá lớn kích thích tiêu dùng nhanh, thúc đẩy doanh thu bán lẻ và tăng lưu lượng khách hàng trực tuyến.",
         "link": "https://www.wired.com/story/top-walmart-promo-codes/",
         "source": "Wired",
         "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
       },
       {
         "title": "Widespread outages hit banks, air travel, the NSA and Apple, disrupting seemingly everything",
-        "summary": "Các hệ thống ngân hàng, hàng không, NSA và Apple gặp sự cố rộng rãi, làm gián đoạn hầu hết hoạt động công nghệ trong thời đại AI.",
-        "why": "Sự cố có thể làm gián đoạn giao dịch ngân hàng và đặt vé, ảnh hưởng tới chi phí và thời gian di chuyển của người dùng Việt Nam.",
+        "summary": "Sự cố gián đoạn rộng rãi ảnh hưởng tới ngân hàng, ngành hàng không, NSA và Apple, cho thấy rủi ro của hệ thống công nghệ liên kết trong thời đại AI.",
+        "why": "Sự cố cho thấy tầm quan trọng của hạ tầng công nghệ trong hoạt động kinh doanh và an ninh quốc gia.",
         "link": "https://www.cnbc.com/2026/11/17/apple-microsoft-faa-jpmorgan-outages.html",
         "source": "CNBC",
         "publishedAt": "Tue, 17 Nov 2026 22:03:57 GMT"
       },
       {
         "title": "CoreWeave’s stock pops — even as Nvidia talks up a ‘disciplined’ approach to financing",
-        "summary": "Cổ phiếu CoreWeave tăng mạnh trong khi Nvidia nhấn mạnh chiến lược tài chính ‘kỷ luật’, Colette Kress cho biết neoclouds ngày càng quan trọng.",
-        "why": "Sự tăng giá cổ phiếu có thể ảnh hưởng tới giá cổ phiếu công nghệ trong nước và khả năng tiếp cận công nghệ đám mây cho doanh nghiệp Việt Nam.",
+        "summary": "Cổ phiếu CoreWeave tăng mạnh trong khi Nvidia nhấn mạnh chiến lược tài chính kỷ luật; CEO Colette Kress nói neoclouds quan trọng hơn, nhưng công ty sẽ xem xét kỹ lưỡng khách hàng khi tài trợ.",
+        "why": "Tin cho thấy xu hướng đầu tư vào công nghệ đám mây mới và cách các công ty lớn điều chỉnh chiến lược tài chính.",
         "link": "https://www.marketwatch.com/story/coreweaves-stock-pops-even-as-nvidia-talks-up-a-disciplined-approach-to-financing-e7f00876?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Wed, 18 Nov 2026 01:59:00 GMT"
       },
       {
         "title": "Nvidia’s stock rises as blowout numbers help ease CEO transition fears",
-        "summary": "",
-        "why": "",
+        "summary": "Nvidia cổ phiếu tăng khi doanh thu ấn tượng và dự báo $130 tỷ trong quý cho thấy nhu cầu chip vẫn cao.",
+        "why": "Sự tăng trưởng doanh thu cho thấy thị trường chip vẫn mạnh, ảnh hưởng đến công nghệ vi xử lý và AI.",
         "link": "https://www.marketwatch.com/story/nvidias-stock-rises-as-blowout-numbers-help-ease-ceo-transition-fears-2f20d38a?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Wed, 18 Nov 2026 01:28:00 GMT"
       },
       {
         "title": "Google finds self-running AI hacking tool with Russian comments in its files",
-        "summary": "Google phát hiện một công cụ AI tự động tìm và khai thác lỗ hổng phần mềm, không cần sự can thiệp của con người.",
-        "why": "Công cụ này có thể làm thay đổi cách bảo mật phần mềm, ảnh hưởng tới chi phí bảo trì và phát triển phần mềm tại Việt Nam.",
+        "summary": "Google phát hiện công cụ AI tự động khai thác lỗ hổng phần mềm, có ghi chú bằng tiếng Nga trong các tệp tin, không cần sự can thiệp của con người.",
+        "why": "Công nghệ AI tự động phát hiện và khai thác lỗ hổng có thể thay đổi cách bảo mật phần mềm và cách tấn công mạng.",
         "link": "https://www.coindesk.com/tech/2026/11/18/google-finds-self-running-ai-hacking-tool-with-russian-comments-in-its-files",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 07:37:59 +0000"
       },
       {
         "title": "Why Microsoft Thinks Smaller, Cheaper AI Can Beat Claude and GPT",
-        "summary": "Microsoft cho rằng mô hình AI nhỏ gọn, rẻ hơn có thể vượt trội hơn Claude và GPT trong lập trình, an ninh mạng và hình ảnh, nhấn mạnh hiệu suất cao trong một công việc cụ thể.",
-        "why": "Công nghệ AI hiệu quả hơn có thể giảm chi phí và nâng cao năng suất cho doanh nghiệp và cá nhân Việt Nam.",
+        "summary": "Microsoft giới thiệu các mô hình AI nhỏ gọn, giá rẻ trong lập trình, bảo mật và hình ảnh, nhấn mạnh hiệu suất cao trong một công việc cụ thể hơn là đa năng.",
+        "why": "Chiến lược AI tập trung vào hiệu suất cao và giá thành thấp có thể thay đổi cách triển khai công nghệ AI trong các ứng dụng thực tiễn.",
         "link": "https://decrypt.co/383468/why-microsoft-thinks-smaller-cheaper-ai-beat-claude-gpt",
         "source": "Decrypt",
         "publishedAt": "Tue, 17 Nov 2026 23:16:03 +0000"
       },
       {
         "title": "Nvidia Board Shuts Down Jensen Huang Comeback, Launches Search for New CEO",
-        "summary": "Nvidia board đã từ chối đề xuất trở lại của Jensen Huang, bổ nhiệm công ty tìm kiếm CEO mới, ủng hộ CEO tạm thời Colette Kress và tăng cường giám sát xuất khẩu chip sang Trung Quốc.",
-        "why": "Sự thay đổi lãnh đạo và chính sách kiểm soát chip có thể tác động tới giá cổ phiếu Nvidia và ảnh hưởng đến chi phí công nghệ trong nước.",
+        "summary": "Ban điều hành Nvidia từ chối kế hoạch trở lại của Jensen Huang, thuê công ty tìm kiếm CEO mới, ủng hộ CEO tạm thời Colette Kress và tăng cường giám sát xuất khẩu chip tới Trung Quốc.",
+        "why": "Sự thay đổi lãnh đạo và chính sách xuất khẩu chip ảnh hưởng đến ngành công nghiệp bán dẫn và quan hệ thương mại toàn cầu.",
         "link": "https://decrypt.co/383513/nvidia-board-shuts-down-jensen-huang-comeback",
         "source": "Decrypt",
         "publishedAt": "Tue, 17 Nov 2026 22:39:53 +0000"
@@ -200,56 +192,56 @@
     "chung-khoan": [
       {
         "title": "China’s Xi calls for removing trade and investment barriers ahead of his meeting with Trump and Putin",
-        "summary": "Xi Jinping mở hội nghị APEC tại Thâm Quyến, kêu gọi giảm rào cản thương mại và đầu tư, hứa mở rộng tiếp cận thị trường và ngành công nghiệp của Trung Quốc.",
-        "why": "Việc giảm rào cản thương mại có thể ảnh hưởng tới giá cả hàng hóa nhập khẩu và xuất khẩu của Việt Nam, đồng thời mở cơ hội hợp tác kinh tế.",
+        "summary": "Xi Jinping mở hội nghị APEC tại Thâm Quyến, kêu gọi loại bỏ rào cản thương mại và đầu tư, hứa mở rộng tiếp cận thị trường và ngành công nghiệp sản xuất Trung Quốc.",
+        "why": "Việc giảm rào cản thương mại có thể làm tăng lưu lượng thương mại toàn cầu và thúc đẩy hợp tác đầu tư quốc tế.",
         "link": "https://www.cnbc.com/2026/11/18/china-xi-trade-investment-barriers.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 08:00:05 GMT"
       },
       {
         "title": "Iran says army targets U.S. drone and missile sites in Kuwait as Gulf attacks mount",
-        "summary": "Iran tuyên bố quân đội đã tấn công cơ sở drone và tên lửa Mỹ tại căn cứ Ali Al Salem ở Kuwait, tiếp tục leo thang các cuộc tấn công trên vùng Vịnh.",
-        "why": "Tình hình căng thẳng khu vực có thể tác động tới giá dầu và lãi suất, ảnh hưởng tới chi phí hàng hóa và vay vốn tại Việt Nam.",
+        "summary": "Iran tuyên bố quân đội đã tấn công cơ sở drone và tên lửa của Mỹ tại căn cứ Ali Al Salem, Kuwait, tiếp tục chuỗi tấn công lên các quốc gia vùng đồng bằng.",
+        "why": "Tấn công quân sự này làm gia tăng căng thẳng khu vực và có thể ảnh hưởng đến an ninh hàng không và công nghệ phòng thủ.",
         "link": "https://www.cnbc.com/2026/11/18/trump-iran-war-hormuz-oil-.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 05:24:54 GMT"
       },
       {
         "title": "Putin says EU is losing industry, falling behind competition ahead of meeting with Trump, Xi",
-        "summary": "Putin cho rằng EU đang mất ngành công nghiệp, lùi phía sau cạnh tranh trước cuộc họp với Trump và Xi.",
-        "why": "Nhận định này có thể làm thay đổi quan điểm đầu tư và thương mại giữa Việt Nam và EU, ảnh hưởng tới giá cả hàng hóa nhập khẩu.",
+        "summary": "Putin nói EU đang mất ngành công nghiệp, tụt lại phía sau cạnh tranh trước khi gặp Trump, Xi, nhấn mạnh sự bền vững kinh tế của Nga và cơ hội cho các thành viên APEC.",
+        "why": "Tin phản ánh xu hướng chuyển đổi công nghiệp toàn cầu và ảnh hưởng đến chiến lược kinh tế của các quốc gia.",
         "link": "https://www.cnbc.com/2026/11/18/putin-apec-eu-trump-xi-meeting.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 07:17:11 GMT"
       },
       {
         "title": "Democrat Mary Peltola wins Alaska Senate election",
-        "summary": "Mary Peltola, cử tri Đảng Dân chủ, chiến thắng Dan Sullivan của Đảng Cộng hòa trong cuộc bầu cử Thượng nghị viện Alaska.",
-        "why": "Kết quả này làm tăng số lượng thành viên Đảng Dân chủ trong Thượng nghị viện, có thể ảnh hưởng tới luật pháp liên quan tới lãi suất và chi phí vay ngân hàng tại Việt Nam.",
+        "summary": "Mary Peltola thắng cử lên Thượng nghị viện Alaska, đánh bại Dan Sullivan, giúp Đảng Dân chủ đạt đa số 56 thành viên.",
+        "why": "Tin cho thấy sự thay đổi cân bằng quyền lực chính trị và ảnh hưởng đến quyết định chính sách liên bang.",
         "link": "https://www.cnbc.com/2026/11/18/alaska-senate-mary-peltola-wins-election.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 04:18:13 GMT"
       },
       {
         "title": "Senators press acting U.S. Navy Secretary on Iran war costs, sailor health in confirmation hearing",
-        "summary": "Hung Cao, Thủ trưởng tạm thời Hải quân Mỹ, cho biết Hải quân đã ghi nhận và sử dụng vũ khí hết hạn trong chiến tranh Iran, gây áp lực lên kho vũ khí và triển khai tàu.",
-        "why": "Thông tin này có thể làm tăng lo ngại về chi phí bảo trì và nâng cấp tàu thủy, ảnh hưởng tới giá cả hàng hải và chi phí vận chuyển quốc tế.",
+        "summary": "Hung Cao, Thủ tướng Hải quân tạm thời, cho biết Hải quân đã ghi nhận và sử dụng vũ khí hết hạn trong chiến tranh Iran, gây áp lực lên kho vũ khí và triển khai tàu.",
+        "why": "Tin tiết lộ vấn đề an ninh quốc phòng và quản lý tài nguyên quân sự trong bối cảnh căng thẳng khu vực.",
         "link": "https://www.cnbc.com/2026/11/18/us-iran-navy-hormuz-war-cao.html",
         "source": "CNBC",
         "publishedAt": "Wed, 18 Nov 2026 07:24:06 GMT"
       },
       {
         "title": "Medicare Part B premiums rise due higher healthcare spending",
-        "summary": "",
-        "why": "",
+        "summary": "Phí bảo hiểm Medicare Part B tăng 6,50 đô la, lên 209,40 đô la mỗi tháng do chi phí y tế tăng cao.",
+        "why": "Tin phản ánh tác động của chi phí y tế lên chi tiêu và ngân sách cá nhân trên toàn cầu.",
         "link": "https://www.marketwatch.com/story/medicare-part-b-premiums-rise-due-higher-healthcare-spending-f2daba13?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Wed, 18 Nov 2026 01:45:00 GMT"
       },
       {
         "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
-        "summary": "Một người đàn ông 64 tuổi đã nghỉ hưu và khuyên người vợ tiếp tục làm việc, trong khi cô ấy cảm thấy mệt mỏi với lịch trình làm việc sớm và hành trình 50 phút.",
-        "why": "Câu chuyện phản ánh áp lực công việc và chi phí di chuyển, có thể ảnh hưởng tới quyết định nghỉ hưu và chi tiêu của người Việt.",
+        "summary": "Chồng tôi nghỉ hưu 64 tuổi và khuyên tôi nên tiếp tục làm việc; tôi cảm thấy mệt mỏi vì lịch trình buổi sáng và 50 phút đi làm.",
+        "why": "Câu chuyện phản ánh thách thức cân bằng công việc và cuộc sống cá nhân trong môi trường làm việc hiện đại.",
         "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
         "source": "MarketWatch",
         "publishedAt": "Tue, 17 Nov 2026 23:30:00 GMT"
@@ -258,40 +250,40 @@
     "crypto": [
       {
         "title": "Bitcoin ETFs lose $240M as CryptoQuant flags bearish market phase",
-        "summary": "Bitcoin ETFs trải qua dòng rút $240 triệu khi CryptoQuant cảnh báo thị trường đã trở lại giai đoạn giảm giá.",
-        "why": "Sự rút vốn từ các quỹ ETF Bitcoin có thể làm giảm giá Bitcoin, ảnh hưởng tới giá trị tài sản số và lãi suất vay tiền trong lĩnh vực tài chính Việt Nam.",
+        "summary": "ETF Bitcoin mất $240 triệu khi CryptoQuant cảnh báo thị trường trở lại giai đoạn giảm giá.",
+        "why": "Sự rút vốn ảnh hưởng đến thanh khoản và giá Bitcoin, làm thay đổi chiến lược đầu tư toàn cầu.",
         "link": "https://cointelegraph.com/markets/bitcoin-etf-240-million-outflow-bearish-phase?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 08:09:23 +0000"
       },
       {
         "title": "Here’s what happened in crypto today",
-        "summary": "Bản tin cập nhật các sự kiện hàng ngày trong thị trường crypto, bao gồm xu hướng giá Bitcoin, blockchain, DeFi, Web3 và quy định tiền điện tử.",
-        "why": "Thông tin này giúp người đọc nắm bắt nhanh diễn biến thị trường crypto, ảnh hưởng tới quyết định đầu tư và chi tiêu liên quan đến tài sản số tại Việt Nam.",
+        "summary": "Bản tin hàng ngày cập nhật xu hướng và sự kiện ảnh hưởng đến Bitcoin, blockchain, DeFi, Web3 và quy định tiền điện tử.",
+        "why": "Cung cấp dữ liệu thời gian thực giúp người dùng nắm bắt biến động thị trường và công nghệ tiền điện tử.",
         "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 06:00:00 +0000"
       },
       {
         "title": "Ledger hardware implant saga reaches Dubai’s Virgin Megastore",
-        "summary": "Hai chủ sở hữu Ledger báo mất tổng cộng $604.000 tiền điện tử do ví cứng được mua tại cửa hàng Virgin Megastore ở Dubai.",
-        "why": "Số tiền mất có thể làm người dùng Việt Nam cân nhắc bảo mật khi mua ví cứng tại các cửa hàng bán lẻ.",
+        "summary": "Hai chủ sở hữu Ledger mất tổng cộng $604.000 khi mua ví phần cứng tại Virgin Megastore Dubai.",
+        "why": "Sự cố này làm nổi bật rủi ro bảo mật trong việc lưu trữ tiền điện tử và ảnh hưởng tới lòng tin người dùng.",
         "link": "https://cointelegraph.com/news/ledger-hardware-implant-saga-reaches-dubais-virgin-megastore?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Wed, 18 Nov 2026 02:39:52 +0000"
       },
       {
         "title": "Live updates: Bitcoin stuck near $65,000 as popular 'basis trade' returns dry up",
-        "summary": "Bitcoin duy trì gần $65.000 khi giao dịch 'basis trade' giảm, XRP gần $1 và SOL tăng 3%, trong khi báo cáo Talos cho thấy lợi nhuận giao dịch crypto gần bằng lãi trái phiếu chính phủ.",
-        "why": "Biến động giá Bitcoin và XRP có thể tác động tới giá trị tài sản số và quyết định đầu tư của người Việt.",
+        "summary": "Giá Bitcoin dừng lại gần $65.000 khi giao dịch ‘basis trade’ phổ biến giảm, trong khi XRP tiến gần $1 và SOL tăng 3%, báo cáo Talos cho thấy lợi suất giao dịch crypto gần bằng lợi suất trái phiếu chính phủ.",
+        "why": "Sự thay đổi lợi suất của các giao dịch crypto ảnh hưởng đến quyết định đầu tư và sự ổn định của thị trường tiền điện tử.",
         "link": "https://www.coindesk.com/business/2026/11/18/live-updates-bitcoin-stuck-near-usd65-000-as-popular-basis-trade-returns-dry-up",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 07:27:48 +0000"
       },
       {
         "title": "U.S. judge says Ethereum has ‘no terms of use,’ clears MIT brothers of $25 million fraud",
-        "summary": "Thẩm phán liên bang miễn cho anh em Anton và James Peraire-Bueno khỏi tội lừa đảo 25 triệu đô la vì giao dịch với bot Ethereum không vi phạm điều khoản sử dụng.",
-        "why": "Kết luận này làm rõ quy định pháp lý đối với giao dịch tiền điện tử, ảnh hưởng tới người dùng và nhà đầu tư Việt Nam.",
+        "summary": "Thẩm phán liên bang miễn tội Anton và James Peraire-Bueno khi phát hiện giao dịch 2023 của họ với bot giao dịch Ethereum không vi phạm điều khoản sử dụng, chấm dứt vụ án hình sự đầu tiên của chính phủ Mỹ về MEV.",
+        "why": "Việc xác định pháp lý cho giao dịch MEV ảnh hưởng đến quy định và thực hành giao dịch tiền điện tử.",
         "link": "https://www.coindesk.com/policy/2026/11/18/u-s-judge-says-ethereum-has-no-terms-of-use-clears-mit-brothers-of-usd25-million-fraud",
         "source": "CoinDesk",
         "publishedAt": "Wed, 18 Nov 2026 05:30:10 +0000"

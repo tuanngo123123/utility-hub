@@ -133,6 +133,14 @@ function stripAdvice(text) {
   if (ADVICE_PHRASES.some((p) => low.includes(p))) return '';
   return text;
 }
+// Lưới lọc góc Việt Nam (Tuấn quyết 18/11: Điểm báo KHÔNG đăng nội dung
+// về Việt Nam — dễ vi phạm; gốc rễ là prompt rule 4 cũ từng bắt model
+// gắn mọi tin với người đọc Việt Nam nên 27/36 tin lọt góc Việt Nam).
+// Trường nào nhắc Việt Nam thì để trống, giống stripAdvice.
+function stripVietnam(text) {
+  if (/việt nam|vietnam|người việt/i.test(String(text || ''))) return '';
+  return text;
+}
 const MAX_LEN = 260;
 const WHY_MAX_LEN = 200;
 const BATCH = 5;
@@ -162,7 +170,8 @@ const SYSTEM_PROMPT = [
   '1. Mỗi tin: tóm tắt đúng 1-2 câu, TỐI ĐA 260 ký tự, viết lại bằng lời của mình — KHÔNG dịch toàn văn, KHÔNG chép nguyên câu tiếng Anh.',
   '2. Chỉ nêu SỰ KIỆN (ai làm gì, con số nào, khi nào). Không thêm bình luận, không suy đoán, không thêm thông tin ngoài bản gốc. Giữ nguyên tên riêng nước ngoài (người, công ty, sản phẩm) theo bản gốc, KHÔNG phiên âm sang tiếng Việt — ví dụ viết "Donald Trump", "Vladimir Putin", "Jensen Huang", "Nvidia"; CHỈ có Xi Jinping viết là "Tập Cận Bình".',
   '3. TUYỆT ĐỐI KHÔNG dùng ngôn ngữ khuyến nghị đầu tư: không viết "nên mua", "nên bán", "nên đầu tư", "nên giữ", "cân nhắc đầu tư", "cân nhắc mua", "đáng mua", "đáng đầu tư", "cơ hội mua vào", "khuyến nghị", "đa dạng hoá danh mục" hay bất kỳ lời khuyên mua/bán/giữ tài sản nào — áp dụng cho cả tóm tắt lẫn câu "vì sao đáng đọc".',
-  '4. Mỗi tin thêm 1 câu "vì sao tin này đáng đọc" (tối đa 200 ký tự): NGẮN, CỤ THỂ, chỉ nói TÁC ĐỘNG tới người đọc Việt Nam (giá cả, lãi suất, công việc, chi tiêu thay đổi thế nào) — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Ví dụ tin về lãi suất thì nói ảnh hưởng tới lãi vay ngân hàng/lãi tiết kiệm; tin về giá vàng, tỉ giá, chứng khoán thì nói ảnh hưởng tới giá trong nước; tin công nghệ thì nói ảnh hưởng tới người dùng/công việc ở Việt Nam. Không viết chung chung kiểu "tin này rất quan trọng".',
+  '4. Mỗi tin thêm 1 câu "vì sao tin này đáng đọc" (tối đa 200 ký tự): NGẮN, CỤ THỂ, chỉ nói TÁC ĐỘNG CHUNG của tin (công nghệ thay đổi thế nào, thị trường/đời sống thay đổi thế nào) — KHÔNG gợi ý người đọc làm gì, không dùng "cân nhắc", "nên", "có thể mua/bán/đầu tư/giữ". Không viết chung chung kiểu "tin này rất quan trọng".',
+  '4b. TUYỆT ĐỐI KHÔNG nhắc tới Việt Nam trong tóm tắt lẫn câu "vì sao đáng đọc": không viết "Việt Nam", "tại Việt Nam", "ở Việt Nam", "người Việt", "người Việt Nam", "doanh nghiệp Việt Nam", "người tiêu dùng Việt Nam" hay bất kỳ góc nhìn Việt Nam nào — chỉ nói tác động chung, không gắn với một nước cụ thể.',
   '5. Tiền tệ: ký hiệu $ đặt TRƯỚC số, dùng dấu chấm phân cách nghìn kiểu Việt Nam — viết "$604.000", "$270 triệu"; KHÔNG viết "604,000$", "604.000$" hay "604,000 đô la".',
   '6. Không lặp cùng một từ/cụm từ trong một câu: mỗi câu chỉ dùng mỗi từ quan trọng một lần — ví dụ không viết "ảnh hưởng tới giá XRP, ảnh hưởng tới người dùng"; nếu cần nói hai tác động thì gộp thành một vế ("ảnh hưởng tới giá XRP và tới người dùng") hoặc đổi từ ("tác động tới").',
   '7. Địa danh nước ngoài dùng tên tiếng Việt đã quen thuộc và THỐNG NHẤT trong toàn bộ bản tóm tắt: Thâm Quyến (không viết Shenzhen), Bắc Kinh, Thượng Hải, Quảng Châu, Hồng Kông... — riêng tên người/công ty/sản phẩm vẫn giữ tiếng Anh theo quy tắc 2.',
@@ -199,11 +208,11 @@ async function summarizeBatch(apiKey, batch, allowRepair = true) {
     // Chuẩn mới: mỗi phần tử là {summary, why}. Dung sai: chuỗi thuần (dạng cũ)
     // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
     // mất cả loạt tóm tắt. stripAdvice(): trường nào lọt ngôn ngữ gợi ý đầu tư
-    // thì để trống.
+    // thì để trống. stripVietnam(): trường nào nhắc Việt Nam thì để trống.
     return arr.map((el) => {
-      if (typeof el === 'string') return { summary: stripAdvice(trimSummary(el)), why: '' };
+      if (typeof el === 'string') return { summary: stripVietnam(stripAdvice(trimSummary(el))), why: '' };
       if (el && typeof el === 'object') {
-        return { summary: stripAdvice(trimSummary(el.summary)), why: stripAdvice(trimWhy(el.why)) };
+        return { summary: stripVietnam(stripAdvice(trimSummary(el.summary))), why: stripVietnam(stripAdvice(trimWhy(el.why))) };
       }
       return { summary: '', why: '' };
     });

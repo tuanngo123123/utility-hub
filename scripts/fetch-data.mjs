@@ -247,9 +247,18 @@ async function fetchTrending() {
 }
 
 // ---------- 5. Tin RSS (thô, để summarize-news.mjs tóm tắt) ----------
+// Danh sách chặn tin Điểm báo (theo URL): tin đã bị Tuấn cấm đăng thì
+// không bao giờ quay lại dù feed còn đẩy. Ghi rõ lý do + ngày.
+// - roundtables-inside-the-quest-for-cognitive-immortality: Tuấn cấm
+//   18/11 (tóm tắt gắn góc Việt Nam, dễ vi phạm).
+const NEWS_BLOCKLIST = new Set([
+  'https://www.technologyreview.com/2026/11/17/1148049/roundtables-inside-the-quest-for-cognitive-immortality/',
+]);
 // 9 nguồn báo nước ngoài, 36 tin tối đa. CHỈ dùng nguồn nước ngoài —
 // Tuấn quyết 18/11: KHÔNG lấy tin báo Việt Nam (rủi ro pháp lý tổng
 // hợp tin trong nước). Đừng thêm feed báo Việt vào đây.
+// Cùng ngày Tuấn quyết thêm: KHÔNG đăng tin VỀ Việt Nam (kể cả tin
+// nguồn nước ngoài nhắc tới Việt Nam) — dễ vi phạm. Lọc ở dưới.
 const NEWS_FEEDS = [
   { group: 'ai', source: 'TechCrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/', take: 8 },
   { group: 'ai', source: 'Ars Technica', url: 'https://feeds.arstechnica.com/arstechnica/index', take: 4 },
@@ -325,6 +334,10 @@ async function fetchNewsRaw() {
         const pub = stripHtml(/<pubDate>([\s\S]*?)<\/pubDate>/.exec(b)?.[1] || '');
         const desc = stripHtml(/<description>([\s\S]*?)<\/description>/.exec(b)?.[1] || '').slice(0, 500);
         if (!title || !link) continue;
+        // Chặn bền vững: URL trong NEWS_BLOCKLIST + tin nhắc tới Việt Nam
+        // (Tuấn quyết 18/11: Điểm báo không đăng nội dung về Việt Nam).
+        if (NEWS_BLOCKLIST.has(link)) continue;
+        if (/viet\s?nam/i.test(title + ' ' + desc)) continue;
         // Nhóm phân loại lại bằng từ khóa (V4), dự phòng là nhóm theo nguồn RSS.
         items.push({ title, link, source: feed.source, group: classifyNewsGroup(title, desc, feed.group), publishedAt: pub, description: desc });
         n++;
