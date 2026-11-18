@@ -1713,6 +1713,13 @@ button.chip-cat[aria-pressed="true"]:hover,
 .tool-faq summary { cursor: pointer; font-weight: 600; }
 .tool-faq details p { margin: 0.5rem 0 0.25rem; }
 .tool-disclaimer { margin-top: 1.5rem; }
+/* Khối ví dụ tính sẵn (SEO lô 1): viền trái màu hạng mục (biến --cat-color
+   build.mjs gắn inline trên section), nút "Thử với số này" điền số ví dụ
+   vào form. Dòng căn cứ pháp lý dùng chung class .note. */
+.tool-example { margin-top: 2rem; padding: 1rem 1.1rem; border: 1px solid var(--line-soft); border-left: 4px solid var(--cat-color, #0033FF); border-radius: var(--radius-sm); background: var(--surface); }
+.tool-example h2 { font-size: 1.15rem; margin: 0 0 0.5rem; }
+.tool-example p { margin: 0 0 0.75rem; line-height: 1.6; }
+.tool-legal { margin-top: 1rem; }
 
 /* ============================================================
    Class MỚI cho đợt làm lại giao diện 21st.dev (18/11/2026).

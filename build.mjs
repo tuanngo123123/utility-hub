@@ -104,6 +104,20 @@ function versionAssets() {
   console.log(`   - cache-busting: ${versions.map(([u, h]) => `${u}?v=${h}`).join(', ')}`);
 }
 
+// JSON-LD cho schema.org (SEO lô 1, 19/11/2026): sinh tự động trong
+// build từ meta/TOOL_CONTENT/bài hướng dẫn — KHÔNG viết tay từng trang.
+// Escape "<" thành \u003c để chuỗi JSON không bao giờ phá vỡ thẻ script
+// (FAQ/bài viết không chứa HTML nhưng vẫn phòng thủ).
+function jsonLdScript(obj) {
+  return `<script type="application/ld+json">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
+}
+
+// '18/11/2026' -> '2026-11-18' (datePublished cho schema Article).
+function toISODate(vnDate) {
+  const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(vnDate || '');
+  return m ? `${m[3]}-${m[2].padStart(2, '0')}-${m[1].padStart(2, '0')}` : '';
+}
+
 // ---------------------------------------------------------------------------
 // Tìm kiếm thật (worker W11): chỉ mục dist/data/search-index.json
 // ---------------------------------------------------------------------------
@@ -291,14 +305,18 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // init() tự chứa hoàn toàn (không import) nên nhúng được bằng toString().
   // Escape </script> để mã nguồn init không phá vỡ thẻ script.
   const initSrc = tool.initSource.replace(/<\/script/gi, '<\\/script');
-  // Nội dung giới thiệu + FAQ cho 12 công cụ chính (src/tool-content.js).
+  // Nội dung giới thiệu + FAQ cho các công cụ chính (src/tool-content.js).
   // Công cụ không có trong TOOL_CONTENT thì các chuỗi dưới rỗng, trang giữ nguyên.
   const content = TOOL_CONTENT[tool.slug] || null;
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
-  const faqHtml = content && content.faqs.length
+  const faqHtml = content && content.faqs && content.faqs.length
     ? `<section class="tool-faq"><h2>Câu hỏi thường gặp</h2>${content.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>`
+    : '';
+  // Dòng căn cứ pháp lý (SEO lô 1): 1 dòng cho mỗi công cụ tài chính/luật.
+  const legalHtml = content && content.legalBasis
+    ? `<p class="note tool-legal">${esc(content.legalBasis)}</p>`
     : '';
   // Dòng tham khảo khi finance = true; công cụ có disclaimer riêng (điện,
   // nước, BHXH...) thì dùng câu đó thay cho câu mặc định của trang tài chính.
@@ -311,39 +329,62 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // nào — mỗi công cụ đã tự giải thích bằng nhãn/nút của mình. Đừng thêm
   // lại dạng hướng dẫn chung; công cụ nào thật sự cần hướng dẫn thì viết
   // hướng dẫn RIÊNG cho công cụ đó (như FAQ trong TOOL_CONTENT).
-  // Công cụ liên quan (tối đa 4, cùng hạng mục): toolPageHtml không nhận
-  // danh sách công cụ (chữ ký gọi ở main() giữ nguyên) nên đọc meta trực
-  // tiếp từ file nguồn trong thư mục hạng mục — định dạng meta 1 dòng
-  // (id/name/desc/icon) đã kiểm chứng đúng 120/120 file, cache theo hạng
-  // mục để không quét lại mỗi lần gọi. Thẻ liên quan dùng chung toolCard
-  // (src/tool-card.js) để đồng bộ giao diện với catalog.
+  // Công cụ liên quan (tối đa 4): bảng tay theo cụm chủ đề (SEO lô 1)
+  // cho 8 công cụ tiền/lương/thuế — liên kết chéo qua hạng mục (VD lương
+  // gross-net → thuế TNCN, BHXH một lần, lương tháng 13, lương tăng ca).
+  // Công cụ không có trong bảng thì dùng cách cũ: cùng hạng mục, 4 cái
+  // đầu theo tên. toolPageHtml không nhận danh sách công cụ (chữ ký gọi
+  // ở main() giữ nguyên) nên đọc meta trực tiếp từ file nguồn — định dạng
+  // meta 1 dòng (id/name/desc/icon) đã kiểm chứng đúng 120/120 file,
+  // cache toàn cục để không quét lại mỗi lần gọi. Slug trong bảng tay
+  // không tồn tại thì fail build (lỗi của người viết bảng, không giấu).
+  const RELATED_TOOLS = {
+    'luong-gross-net': ['thue-thu-nhap-ca-nhan', 'bhxh-mot-lan', 'luong-thang-13', 'luong-tang-ca'],
+    'thue-thu-nhap-ca-nhan': ['luong-gross-net', 'luong-thang-13', 'bhxh-mot-lan', 'luong-tang-ca'],
+    'bhxh-mot-lan': ['luong-huu', 'tro-cap-thoi-viec-bhtn', 'luong-gross-net', 'thue-thu-nhap-ca-nhan'],
+    'luong-huu': ['bhxh-mot-lan', 'tro-cap-thoi-viec-bhtn', 'luong-gross-net', 'lai-kep'],
+    'tien-dien-bac-thang': ['tien-nuoc-bac-thang', 'phan-tram', 'lai-vay', 'doc-so-thanh-chu'],
+    'lai-vay': ['lai-kep', 'phan-tram', 'luong-gross-net', 'quy-du-phong'],
+    'luong-thang-13': ['thue-thu-nhap-ca-nhan', 'luong-gross-net', 'luong-tang-ca', 'phep-nam'],
+    'tro-cap-thoi-viec-bhtn': ['bhxh-mot-lan', 'luong-huu', 'luong-gross-net', 'thue-thu-nhap-ca-nhan'],
+  };
   const relatedHtml = (() => {
-    const cache = toolPageHtml._relatedCache || (toolPageHtml._relatedCache = new Map());
-    let list = cache.get(tool.categorySlug);
-    if (!list) {
-      list = [];
-      try {
-        const dir = path.join(SRC, 'tools', tool.categorySlug);
+    const cache = toolPageHtml._metaCache || (toolPageHtml._metaCache = (() => {
+      const bySlug = new Map();
+      const toolsDir = path.join(SRC, 'tools');
+      for (const folder of fs.readdirSync(toolsDir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)) {
+        const dir = path.join(toolsDir, folder);
         for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.js')).sort()) {
           const src = fs.readFileSync(path.join(dir, file), 'utf8');
           const id = (src.match(/^\s*id:\s*'([^']+)',/m) || [])[1];
           const name = (src.match(/^\s*name:\s*'([^']+)',/m) || [])[1];
           const desc = (src.match(/^\s*desc:\s*'([^']+)',/m) || [])[1];
           const icon = (src.match(/^\s*icon:\s*'([^']+)',/m) || [])[1] || '';
-          if (id && name && desc) list.push({ id, name, desc, icon });
+          const categorySlug = (src.match(/^\s*categorySlug:\s*'([^']+)',/m) || [])[1] || folder;
+          if (id && name && desc) bySlug.set(id, { id, name, desc, icon, categorySlug });
         }
-        list.sort((a, b) => a.name.localeCompare(b.name, 'vi'));
-      } catch (e) { /* thư mục hạng mục lỗi: bỏ khối liên quan, không fail build */ }
-      cache.set(tool.categorySlug, list);
+      }
+      return bySlug;
+    })());
+    const hand = RELATED_TOOLS[tool.slug];
+    let items;
+    if (hand) {
+      items = hand.map((slug) => {
+        const m = cache.get(slug);
+        if (!m) fail(`RELATED_TOOLS: "${tool.slug}" trỏ tới công cụ không tồn tại: "${slug}".`);
+        return m;
+      }).filter((r) => r.id !== tool.slug);
+    } else {
+      items = [...cache.values()]
+        .filter((r) => r.categorySlug === tool.categorySlug && r.id !== tool.slug)
+        .sort((a, b) => a.name.localeCompare(b.name, 'vi'))
+        .slice(0, 4);
     }
-    // Lọc công cụ hiện tại ở lúc render (KHÔNG lúc cache): cache theo hạng
-    // mục dùng chung cho mọi công cụ trong hạng mục đó.
-    const items = list.filter((r) => r.id !== tool.slug).slice(0, 4);
     if (!items.length) return '';
-    return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: tool.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
+    return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: r.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
   })();
   // Link tới bài hướng dẫn (mục /huong-dan/) ở cuối trang công cụ —
-  // 10 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
+  // 11 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
   // huong-dan-data.js (kiểm tra bằng tay khi thêm bài mới).
   const GUIDE_LINKS = {
     'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
@@ -356,6 +397,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     'tien-nuoc-bac-thang': { url: '/huong-dan/cach-tinh-tien-nuoc-bac-thang-2026/', title: 'Cách tính tiền nước bậc thang 2026' },
     'luong-tang-ca': { url: '/huong-dan/cach-tinh-luong-tang-ca-2026/', title: 'Cách tính lương tăng ca 2026' },
     'luong-huu': { url: '/huong-dan/cach-tinh-luong-huu-bhxh-2026/', title: 'Cách tính lương hưu BHXH 2026' },
+    'luong-thang-13': { url: '/huong-dan/luong-thang-13-thuong-tet-2027/', title: 'Lương tháng 13 & thưởng Tết 2027: có bắt buộc không, tính thuế thế nào' },
   };
   const guide = GUIDE_LINKS[tool.slug];
   const guideHtml = guide
@@ -390,6 +432,35 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const catColor = categoryColor(tool.categorySlug);
   const catColorDark = categoryColorDark(tool.categorySlug);
   const headDescHtml = content ? '' : `<p class="muted">${esc(tool.desc)}</p>`;
+  // Ví dụ tính sẵn + nút "Thử với số này" (SEO lô 1): khối SSR để Google
+  // đọc được, nút điền số ví dụ vào form qua data-uh-example-fill (app.js
+  // xử lý: mở tab nếu cần, điền fills, bấm nút tính chính, cuộn tới kết
+  // quả). Số trong text đã tính bằng máy theo đúng công thức công cụ.
+  const exampleHtml = content && content.example
+    ? `<section class="tool-example" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}"><h2>Ví dụ tính sẵn</h2><p>${esc(content.example.text)}</p><button type="button" class="btn btn-primary" data-uh-example-fill="${esc(JSON.stringify({ fills: content.example.fills || {}, tab: content.example.tab || null }))}">Thử với số này</button></section>`
+    : '';
+  // Schema JSON-LD (SEO lô 1): WebApplication cho mọi trang công cụ +
+  // FAQPage cho công cụ có FAQ. Lưu ý: FAQPage KHÔNG còn cho rich result
+  // trên Google (Google ngừng hiển thị hẳn từ 7/5/2026) — sinh kèm vì rẻ
+  // và vô hại, có thể giúp công cụ trả lời AI hiểu nội dung, không kỳ vọng
+  // nổi bật trên Google.
+  const schemaGraph = [{
+    '@type': 'WebApplication',
+    name: tool.name,
+    url: `${BASE_URL}/cong-cu/${tool.slug}/`,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any',
+    inLanguage: 'vi',
+    description: tool.seoDesc || tool.desc,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'VND' },
+  }];
+  if (content && content.faqs && content.faqs.length) {
+    schemaGraph.push({
+      '@type': 'FAQPage',
+      mainEntity: content.faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+    });
+  }
+  const schemaHead = jsonLdScript({ '@context': 'https://schema.org', '@graph': schemaGraph });
   const body = `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/cong-cu/">← Tất cả công cụ</a></nav>
   <header class="tool-page-head">
@@ -409,6 +480,8 @@ function toolPageHtml(tool, index, noscriptLinks) {
   });
   </script>
   <script src="/assets/tool-state.js" defer></script>
+  ${exampleHtml}
+  ${legalHtml}
   ${faqHtml}
   ${disclaimerHtml}
   ${relatedHtml}
@@ -421,6 +494,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     navActive: 'cong-cu',
     body,
     noscriptLinks,
+    extraHead: schemaHead,
     // Chỉ trang VietQR/WiFi QR cần thư viện qrcode-generator (vẽ mã QR).
     needsQR: tool.slug === 'vietqr-wifi-qr',
     // Thư viện vendor riêng theo trang (pdf.js / pdf-lib cho các công cụ PDF).
@@ -766,7 +840,7 @@ async function main() {
   }
   console.log(`   - Sinh viên: ${SINH_VIEN_TEMPLATES.length} mẫu, ${SINH_VIEN_TEMPLATES.length + 1} trang`);
 
-  // Trang Hướng dẫn: trang mục + 12 bài viết gốc tự viết (đều vào
+  // Trang Hướng dẫn: trang mục + 13 bài viết gốc tự viết (đều vào
   // sitemap). Dữ liệu từ src/pages/huong-dan-data.js. Bài viết KHÔNG
   // phải tin tức tổng hợp (ranh giới pháp lý: không đăng lại bài báo,
   // không bình luận độc giả).
@@ -789,9 +863,9 @@ async function main() {
   addPage(
     'huong-dan/index.html',
     shell({
-      title: `Hướng dẫn — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, phạt nguội | ${SITE_NAME}`,
-      desc: 'Hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
-      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
+      title: `Hướng dẫn — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, lương tháng 13, phạt nguội | ${SITE_NAME}`,
+      desc: 'Hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, lương tháng 13 và thưởng Tết, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
+      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, lương tháng 13, thưởng Tết 2027, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
       canonical: `${BASE_URL}/huong-dan/`,
       navActive: 'huong-dan',
       body: huongDanPage.body({ articles: HUONG_DAN_ARTICLES }),
@@ -800,6 +874,24 @@ async function main() {
     `${BASE_URL}/huong-dan/`
   );
   for (const a of HUONG_DAN_ARTICLES) {
+    // Schema Article (SEO lô 1): sinh tự động từ dữ liệu bài — headline,
+    // ngày đăng (đổi sang ISO), tác giả/nhà xuất bản là Tiện Ích Hub.
+    const articleSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: a.title,
+      description: a.desc,
+      datePublished: toISODate(a.date),
+      inLanguage: 'vi',
+      author: { '@type': 'Organization', name: SITE_NAME, url: BASE_URL },
+      publisher: {
+        '@type': 'Organization',
+        name: SITE_NAME,
+        url: BASE_URL,
+        logo: { '@type': 'ImageObject', url: `${BASE_URL}/assets/favicon-192.png` },
+      },
+      mainEntityOfPage: `${BASE_URL}/huong-dan/${a.slug}/`,
+    };
     addPage(
       `huong-dan/${a.slug}/index.html`,
       shell({
@@ -810,6 +902,7 @@ async function main() {
         navActive: 'huong-dan',
         body: huongDanPage.detailBody({ article: a, articles: HUONG_DAN_ARTICLES }),
         noscriptLinks,
+        extraHead: jsonLdScript(articleSchema),
       }),
       `${BASE_URL}/huong-dan/${a.slug}/`
     );

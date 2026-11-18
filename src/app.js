@@ -492,6 +492,7 @@
     setupTabs();
     setupCopyButtons();
     setupPrintButtons();
+    setupExampleFill();
     initHomNayTitle();
     initCrypto();
     initGold();
@@ -506,6 +507,36 @@
     initSupport();
     initAiChatWidget();
   });
+
+  // Nút "Thử với số này" trong khối ví dụ tính sẵn (SEO lô 1): build.mjs
+  // sinh nút kèm data-uh-example-fill='{"fills": {id: giá trị}, "tab":
+  // "#selector-tab" hoặc null}'. Bấm nút thì mở tab (nếu có), điền số
+  // ví dụ vào form công cụ bằng fillExample (gửi cả sự kiện input/change
+  // để tool-state đồng bộ URL), bấm nút tính chính rồi cuộn tới kết quả.
+  // withBusy chạy tính sau 1 nhịp vẽ nên đợi 500ms mới cuộn.
+  function setupExampleFill() {
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-uh-example-fill]') : null;
+      if (!btn) return;
+      var data;
+      try { data = JSON.parse(btn.getAttribute('data-uh-example-fill')); } catch (err) { return; }
+      var root = document.getElementById('tool-root');
+      if (!root) return;
+      if (data.tab) {
+        var tab = root.querySelector(data.tab);
+        if (tab) tab.click();
+      }
+      var calcBtn = root.querySelector('.tool-panel .btn-primary');
+      fillExample(root, data.fills || {}, calcBtn);
+      setTimeout(function () {
+        var res = root.querySelector('.result');
+        if (res) {
+          var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          res.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        }
+      }, 500);
+    });
+  }
 
   /* Nav mobile */
   function setupNav() {

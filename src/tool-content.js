@@ -1,4 +1,14 @@
-// Nội dung giới thiệu + FAQ cho 13 công cụ chính của Tiện Ích Hub.
+// Nội dung giới thiệu + FAQ cho các công cụ chính của Tiện Ích Hub
+// (15 mục: 13 mục có FAQ, 2 mục thuế TNCN + lương hưu chỉ có intro/
+// legalBasis/example, chưa có FAQ).
+//
+// Ngoài intro/finance/disclaimer/faqs, mục SEO lô 1 (19/11/2026) có thêm:
+//  - legalBasis: dòng "Cập nhật theo quy định áp dụng từ…" (căn cứ pháp
+//    lý đã kiểm chứng trong code/bài hướng dẫn — không bịa số hiệu văn bản).
+//  - example: { text, fills, tab? } — ví dụ đã tính sẵn BẰNG MÁY theo
+//    đúng công thức của công cụ (text hiển thị + nút "Thử với số này"
+//    điền fills vào form; tab là selector tab cần mở trước khi điền).
+//    Mọi con số trong text phải khớp kết quả công cụ tính ra với fills đó.
 //
 // build.mjs nối dây (xem TOOL-CONTENT-WIRING.md): hiện intro phía trên khung
 // công cụ, FAQ phía dưới, và dòng tham khảo khi finance = true.
@@ -14,6 +24,12 @@ export const TOOL_CONTENT = {
   "luong-gross-net": {
     intro: "Tính lương net từ lương gross theo luật thuế và bảo hiểm 2026: bảo hiểm 10,5%, giảm trừ bản thân 15,5 triệu đồng, biểu thuế thu nhập cá nhân 5 bậc. Nhập lương gross, số người phụ thuộc và vùng lương tối thiểu để biết lương thực nhận và từng khoản khấu trừ.",
     finance: true,
+    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng) và Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000đ từ 01/7/2026).",
+    example: {
+      text: "Lương Gross 30.000.000đ, đóng bảo hiểm trên toàn bộ lương, 0 người phụ thuộc: bảo hiểm 3.150.000đ, thu nhập tính thuế 11.350.000đ, thuế TNCN 635.000đ → lương Net 26.215.000đ/tháng.",
+      fills: { 'lggn-salary': '30.000.000', 'lggn-ins': '30.000.000', 'lggn-dep': '0' },
+      tab: '#lggn-tab-g2n',
+    },
     faqs: [
       {
         q: "Lương 15 triệu đóng BHXH bao nhiêu?",
@@ -37,9 +53,25 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "thue-thu-nhap-ca-nhan": {
+    intro: "Tính thuế thu nhập cá nhân 2026 từ lương theo biểu lũy tiến 5 bậc: nhập lương Gross, lương đóng bảo hiểm và số người phụ thuộc để xem thu nhập tính thuế, thuế từng bậc và thuế cả năm.",
+    finance: true,
+    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng) và Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000đ từ 01/7/2026).",
+    example: {
+      text: "Lương Gross 45.000.000đ, đóng bảo hiểm trên toàn bộ lương, 1 người phụ thuộc: bảo hiểm 4.725.000đ, thu nhập tính thuế 18.575.000đ → thuế TNCN 1.357.500đ/tháng (cả năm 16.290.000đ).",
+      fills: { 'tncn-gross': '45.000.000', 'tncn-ins': '45.000.000', 'tncn-dep': '1' },
+      tab: '#tncn-tab-salary',
+    },
+    faqs: [],
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,
+    legalBasis: "Cập nhật theo Điều 70 Luật BHXH 41/2024/QH15, hiệu lực 01/7/2025.",
+    example: {
+      text: "Mức bình quân 10.000.000đ, đóng 5 năm 3 tháng trước 2014 và 8 năm từ 2014: phần trước 2014 là 75.000.000đ (1,5 × 10.000.000 × 5 năm), phần từ 2014 là 170.000.000đ (2 × 10.000.000 × 8,5 năm — 3 tháng lẻ chuyển sang) → rút một lần 245.000.000đ.",
+      fills: { 'bhxh-avg': '10.000.000', 'bhxh-y1': '5', 'bhxh-m1': '3', 'bhxh-y2': '8', 'bhxh-m2': '0', 'bhxh-joined': 'before', 'bhxh-paid': '' },
+    },
     disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan BHXH — mức thực tế do cơ quan BHXH xác định theo hồ sơ đóng của bạn.",
     faqs: [
       {
@@ -67,6 +99,11 @@ export const TOOL_CONTENT = {
   "tien-dien-bac-thang": {
     intro: "Tính tiền điện sinh hoạt theo biểu giá bậc thang 5 bậc mới nhất (Quyết định 2892/QĐ-BCT, áp dụng từ 01/11/2026), đã gồm VAT 8%. Nhập số kWh tiêu thụ trong tháng để xem tiền từng bậc và tổng thanh toán.",
     finance: true,
+    legalBasis: "Cập nhật theo Quyết định 2892/QĐ-BCT, áp dụng từ 01/11/2026 (VAT 8%).",
+    example: {
+      text: "Dùng 500 kWh trong tháng: 100 kWh × 1.901đ + 100 kWh × 2.289đ + 200 kWh × 2.894đ + 100 kWh × 3.456đ = 1.343.400đ chưa thuế, cộng VAT 8% (107.472đ) → tổng thanh toán 1.450.872đ.",
+      fills: { 'tdbt-kwh': '500', 'tdbt-vat': '8' },
+    },
     disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan điện lực (EVN) — số tiền thực tế theo hóa đơn tiền điện của EVN.",
     faqs: [
       {
@@ -90,6 +127,11 @@ export const TOOL_CONTENT = {
   "lai-vay": {
     intro: "Tính lãi vay và lịch trả nợ hàng tháng theo hai cách: trả đều mỗi tháng hoặc dư nợ giảm dần. Nhập số tiền vay, lãi suất năm và kỳ hạn để xem tiền trả từng tháng, tổng lãi và bảng lịch trả nợ chi tiết.",
     finance: true,
+    legalBasis: "Cách tính theo chuẩn ngân hàng: lãi tính trên dư nợ thực tế mỗi tháng — trả đều mỗi tháng hoặc dư nợ giảm dần (gốc chia đều, lãi giảm dần).",
+    example: {
+      text: "Vay 100.000.000đ, lãi suất 12%/năm, kỳ hạn 12 tháng, trả đều mỗi tháng: trả 8.884.879đ/tháng, tổng lãi 6.618.546đ, tổng phải trả 106.618.546đ.",
+      fills: { 'lv-principal': '100.000.000', 'lv-rate': '12', 'lv-months': '12', 'lv-method': 'annuity' },
+    },
     faqs: [
       {
         q: "Vay 100 triệu lãi 12% trả bao nhiêu mỗi tháng?",
@@ -242,9 +284,24 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "luong-huu": {
+    intro: "Ước tính lương hưu hằng tháng theo Luật BHXH 2024: nhập giới tính, thời gian đóng và mức bình quân tiền lương đóng BHXH để xem tỷ lệ hưởng, lương hưu mỗi tháng và trợ cấp một lần (nếu đóng vượt 30/35 năm).",
+    finance: true,
+    legalBasis: "Cập nhật theo Điều 66, 68 Luật BHXH 41/2024/QH15 (hiệu lực 01/7/2025), Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, nghỉ hưu trước tuổi) và Nghị định 161/2026/NĐ-CP (trần đóng 50.600.000đ).",
+    example: {
+      text: "Nữ, đóng BHXH 28 năm, mức bình quân 12.000.000đ, nghỉ đúng tuổi: tỷ lệ hưởng 71% (45% + 2% × 13 năm trên 15 năm) → lương hưu 8.520.000đ/tháng.",
+      fills: { 'lh-gender': 'nu', 'lh-years': '28', 'lh-months': '0', 'lh-avg': '12.000.000', 'lh-early-y': '0', 'lh-early-m': '0', 'lh-post': '0' },
+    },
+    faqs: [],
+  },
   "tro-cap-thoi-viec-bhtn": {
     intro: "Tính trợ cấp thất nghiệp (BHTN) và trợ cấp thôi việc: mức hưởng hàng tháng bằng 60% lương bình quân đóng BHTN 6 tháng gần nhất, cộng số tháng được hưởng theo thời gian đã đóng. Nhập lương và số tháng đóng để ước tính.",
     finance: true,
+    legalBasis: "Cập nhật theo Điều 39 Luật Việc làm 74/2025/QH15 (hiệu lực 01/01/2026) và Nghị định 293/2025/NĐ-CP (lương tối thiểu vùng 2026).",
+    example: {
+      text: "Lương bình quân đóng BHTN 12.000.000đ, đã đóng 24 tháng, Vùng I: trợ cấp thất nghiệp 7.200.000đ/tháng (60% lương, dưới trần 26.550.000đ), được hưởng 3 tháng → tổng 21.600.000đ.",
+      fills: { 'tc-salary': '12000000', 'tc-months': '24', 'tc-region': 'I', 'tc-pre2009': '0' },
+    },
     faqs: [
       {
         q: "Đóng BHTN 2 năm được hưởng mấy tháng trợ cấp?",
@@ -289,6 +346,11 @@ export const TOOL_CONTENT = {
   "luong-thang-13": {
     intro: "Tính lương tháng 13 và thuế thu nhập cá nhân phải nộp trên khoản thưởng: thưởng tính theo tỷ lệ tháng làm việc trong năm, thuế tính theo biểu thuế lũy tiến 5 bậc năm 2026 trên thu nhập của tháng nhận thưởng.",
     finance: true,
+    legalBasis: "Thưởng tháng 13 theo thỏa thuận hoặc quy chế công ty (Điều 104 Bộ luật Lao động 2019 — thưởng không bắt buộc); thuế TNCN theo biểu lũy tiến 5 bậc năm 2026 (Luật 109/2025/QH15), giảm trừ bản thân 15,5 triệu đồng.",
+    example: {
+      text: "Lương tháng 15.000.000đ, làm đủ 12 tháng, 0 người phụ thuộc: thưởng tháng 13 là 15.000.000đ; thu nhập tính thuế tháng nhận thưởng 14.500.000đ nên thuế TNCN trên khoản thưởng là 950.000đ → thực nhận 14.050.000đ.",
+      fills: { 'lt13-salary': '15000000', 'lt13-months': '12', 'lt13-dependents': '0', 'lt13-insurance': '0' },
+    },
     faqs: [
       {
         q: "Lương tháng 13 là gì?",

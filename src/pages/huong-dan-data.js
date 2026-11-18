@@ -714,4 +714,66 @@ export const ARTICLES = [
 <li><strong>Tra cứu chính thức luôn miễn phí.</strong> Trang nào đòi tiền để tra cứu phạt nguội thì không phải trang chính thức.</li>
 </ul>`,
   },
+  {
+    slug: 'luong-thang-13-thuong-tet-2027',
+    title: 'Lương tháng 13 & thưởng Tết 2027: có bắt buộc không, tính thuế thế nào',
+    desc: 'Thưởng Tết không bắt buộc theo Điều 104 Bộ luật Lao động 2019 — ví dụ lương 15 triệu, tháng 13 thực nhận 14.050.000đ sau thuế.',
+    date: '19/11/2026',
+    cta: {
+      url: '/cong-cu/luong-thang-13/',
+      label: 'Tính thưởng tháng 13 của bạn →',
+      text: 'Nhập lương tháng, số tháng làm việc và người phụ thuộc để xem thưởng tháng 13 và thuế TNCN phải nộp trên khoản đó.',
+    },
+    sources: 'Điều 104 Bộ luật Lao động 2019 (quy định về thưởng); Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh 15,5 triệu/6,2 triệu đồng); Thông báo 11483/TB-BNV (lịch nghỉ Tết Nguyên đán 2027).',
+    body: `
+<p>Cuối năm là lúc câu hỏi "năm nay có thưởng Tết không" xuất hiện ở hầu hết văn phòng. Có người chắc chắn nhận một tháng lương, có người chỉ được vài triệu, có người không có gì — và không ít người thắc mắc vì sao tiền thưởng thực nhận lại thấp hơn con số công ty công bố. Bài này giải thích lương tháng 13 và thưởng Tết theo đúng quy định hiện hành, kèm 2 ví dụ tính sẵn cả thuế.</p>
+<nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
+<li><a href="#thuong-tet-bat-buoc">Thưởng Tết có bắt buộc không</a></li>
+<li><a href="#thang-13-la-gi">Lương tháng 13 có phải là thưởng Tết không</a></li>
+<li><a href="#tinh-the-nao">Thưởng tháng 13 tính thế nào</a></li>
+<li><a href="#thue-tncn">Thuế TNCN trên tiền thưởng</a></li>
+<li><a href="#vi-du-15-trieu">Ví dụ 1 — Lương 15 triệu, làm đủ 12 tháng</a></li>
+<li><a href="#vi-du-25-trieu">Ví dụ 2 — Lương 25 triệu, 1 người phụ thuộc</a></li>
+<li><a href="#khi-nao-nhan">Khi nào nhận thưởng & Tết 2027</a></li>
+<li><a href="#luu-y">Mấy lưu ý</a></li>
+</ul></nav>
+<h2 id="thuong-tet-bat-buoc">Thưởng Tết có bắt buộc không</h2>
+<p><strong>Không.</strong> Theo Điều 104 Bộ luật Lao động 2019, thưởng là khoản tiền, tài sản hoặc các hình thức khác mà người sử dụng lao động thưởng cho người lao động căn cứ vào kết quả sản xuất, kinh doanh và mức độ hoàn thành công việc. Quy chế thưởng do doanh nghiệp tự quyết định và công bố công khai tại nơi làm việc (sau khi tham khảo ý kiến tổ chức đại diện người lao động, nếu có). Luật không bắt doanh nghiệp phải thưởng Tết, và cũng không quy định mức thưởng tối thiểu.</p>
+<p>Nhưng có một điểm nhiều người bỏ sót: nếu hợp đồng lao động, quy chế công ty hoặc thỏa ước lao động tập thể đã ghi rõ mức thưởng (ví dụ "thưởng Tết 1 tháng lương cho người làm đủ 12 tháng"), doanh nghiệp phải trả theo cam kết đó — đã hứa thì phải giữ. Muốn biết mình có chắc được thưởng không, đọc lại hợp đồng và quy chế thưởng của công ty, đừng chỉ nghe nói miệng.</p>
+<h2 id="thang-13-la-gi">Lương tháng 13 có phải là thưởng Tết không</h2>
+<p>Pháp luật không có khái niệm "lương tháng 13" — đây là cách gọi quen thuộc cho một khoản thưởng cuối năm, thường bằng một tháng lương cho người làm đủ 12 tháng trong năm. Thực tế mỗi công ty gọi một kiểu: có nơi trả lương tháng 13 riêng và thưởng Tết riêng (theo hiệu quả kinh doanh), có nơi gộp cả hai thành một khoản duy nhất, có nơi chỉ có một trong hai. Vì vậy "tháng 13" và "thưởng Tết" có thể là một hoặc hai khoản khác nhau — xem quy chế công ty mới biết chính xác.</p>
+<p>Điểm chung: cả hai đều là thưởng theo Điều 104, nghĩa là không bắt buộc, mức do doanh nghiệp quyết định. Và cả hai đều chịu thuế thu nhập cá nhân (xem mục dưới).</p>
+<h2 id="tinh-the-nao">Thưởng tháng 13 tính thế nào</h2>
+<p>Cách tính phổ biến nhất: làm đủ 12 tháng thì thưởng 1 tháng lương; làm chưa đủ năm thì tính theo tỷ lệ tháng làm việc. Ví dụ lương 15 triệu, làm 6 tháng thì thưởng 7.500.000đ. Lương dùng để tính thưởng thường là lương tháng hiện tại, nhưng một số công ty dùng lương bình quân cả năm hoặc lương cơ bản trong hợp đồng — quy chế công ty là chuẩn cuối cùng.</p>
+<p>Một số công ty đặt điều kiện thêm: phải làm đủ số tháng tối thiểu (ví dụ 3 hoặc 6 tháng) mới được thưởng, hoặc thưởng theo đánh giá hiệu quả công việc thay vì cố định một tháng lương. Nếu bạn mới vào làm giữa năm, hỏi nhân sự về cách tính của công ty mình thay vì mặc định sẽ nhận đủ một tháng lương.</p>
+<h2 id="thue-tncn">Thuế TNCN trên tiền thưởng</h2>
+<p>Tiền thưởng Tết và lương tháng 13 đều tính vào thu nhập chịu thuế của tháng nhận thưởng. Cách tính: cộng thưởng vào lương tháng đó, trừ bảo hiểm bắt buộc và giảm trừ gia cảnh (bản thân 15,5 triệu đồng, mỗi người phụ thuộc 6,2 triệu đồng), phần còn lại áp biểu thuế lũy tiến 5 bậc năm 2026 (5% / 10% / 20% / 30% / 35% theo Luật Thuế TNCN 109/2025/QH15).</p>
+<p>Lưu ý quan trọng: thuế trên khoản thưởng là phần thuế <strong>tăng thêm</strong> do có thưởng, không phải thuế của cả tháng. Lương tháng đó vốn đã chịu thuế riêng rồi — khoản thưởng chỉ làm thu nhập tính thuế của tháng đó cao lên, và bạn chỉ nộp thêm phần chênh lệch. Hai ví dụ dưới đây làm rõ cách tính này.</p>
+<p>Và một tin tốt: tiền thưởng không phải đóng BHXH. Thưởng theo Điều 104 ghi thành mục riêng trong hợp đồng lao động, không tính vào lương đóng bảo hiểm xã hội — bạn chỉ bị trừ thuế TNCN trên khoản thưởng, không bị trừ thêm bảo hiểm.</p>
+<h2 id="vi-du-15-trieu">Ví dụ 1 — Lương 15 triệu, làm đủ 12 tháng</h2>
+<p>0 người phụ thuộc, chưa tính bảo hiểm tháng nhận thưởng.</p>
+<ol>
+<li><strong>Thưởng tháng 13:</strong> 15.000.000đ (đủ 12 tháng).</li>
+<li><strong>Thu nhập tính thuế tháng nhận thưởng:</strong> 15.000.000 (lương) + 15.000.000 (thưởng) − 15.500.000 (giảm trừ bản thân) = 14.500.000đ.</li>
+<li><strong>Thuế tháng nhận thưởng:</strong> 10.000.000 × 5% + 4.500.000 × 10% = 500.000 + 450.000 = 950.000đ. Thuế nếu không có thưởng là 0đ (lương 15 triệu trừ giảm trừ 15,5 triệu đã âm), nên thuế do thưởng gây ra là 950.000đ.</li>
+<li><strong>Thực nhận:</strong> 15.000.000 − 950.000 = <strong>14.050.000đ</strong>.</li>
+</ol>
+<h2 id="vi-du-25-trieu">Ví dụ 2 — Lương 25 triệu, 1 người phụ thuộc</h2>
+<p>Bảo hiểm bắt buộc tháng nhận thưởng 2.625.000đ.</p>
+<ol>
+<li><strong>Thưởng tháng 13:</strong> 25.000.000đ (đủ 12 tháng).</li>
+<li><strong>Thu nhập tính thuế tháng nhận thưởng:</strong> 25.000.000 + 25.000.000 − 15.500.000 − 6.200.000 − 2.625.000 = 25.675.000đ.</li>
+<li><strong>Thuế tháng nhận thưởng:</strong> 10.000.000 × 5% + 15.675.000 × 10% = 500.000 + 1.567.500 = 2.067.500đ. Thuế nếu không có thưởng: thu nhập tính thuế 675.000đ × 5% = 33.750đ. Thuế do thưởng gây ra: 2.067.500 − 33.750 = 2.033.750đ.</li>
+<li><strong>Thực nhận:</strong> 25.000.000 − 2.033.750 = <strong>22.966.250đ</strong>.</li>
+</ol>
+<h2 id="khi-nao-nhan">Khi nào nhận thưởng & Tết 2027</h2>
+<p>Hầu hết công ty chi thưởng Tết trước kỳ nghỉ Tết, thường trong tháng 1 hoặc đầu tháng 2. Tết Nguyên đán Đinh Mùi 2027: mùng 1 là thứ Bảy 6/2/2027, lịch nghỉ chính thức từ 4/2 đến 10/2/2027. Ngày chi thưởng cụ thể tùy từng công ty — hỏi bộ phận nhân sự để biết lịch chi và cách nhận (chuyển khoản cùng kỳ lương hay chi riêng).</p>
+<h2 id="luu-y">Mấy lưu ý</h2>
+<ul>
+<li><strong>Thuế khấu trừ trên thưởng chỉ là tạm tính theo tháng.</strong> Cuối năm quyết toán theo thu nhập thực tế cả năm — có thể được hoàn thuế nếu đã khấu trừ thừa, hoặc phải nộp thêm nếu thu nhập năm cao hơn.</li>
+<li><strong>Thưởng không đóng BHXH, nhưng vẫn tính vào thu nhập chịu thuế</strong> khi quyết toán năm.</li>
+<li><strong>Công ty phải công bố công khai quy chế thưởng tại nơi làm việc</strong> — nếu công ty bạn không công bố, bạn có quyền hỏi.</li>
+<li>Kết quả trong bài chỉ mang tính tham khảo theo quy định chung — trường hợp cụ thể đối chiếu với cơ quan thuế hoặc bộ phận nhân sự của công ty bạn.</li>
+</ul>`,
+  },
 ];
