@@ -123,10 +123,12 @@ function hotRowHtml(item, i) {
 // Hàng xếp hạng GitHub kiểu Product Hunt: số thứ hạng lớn + tên + mô tả +
 // meta, nút pill ★ số sao ở cuối hàng bên phải (điểm xếp hạng trực quan).
 // Số sao CHỈ hiện trong pill (không lặp lại trong meta).
+// Dòng mô tả ưu tiên `purpose` (tiếng Việt, do summarize-trending.mjs viết),
+// chưa có thì fallback về mô tả tiếng Anh gốc — đồng bộ với app.js initTrending.
 function trendingRowHtml(item, i) {
   const rank = i + 1;
   const name = item.fullName || item.name || '';
-  const desc = item.desc || item.description || '';
+  const desc = item.purpose || item.desc || item.description || '';
   const meta = [];
   if (item.language) meta.push(item.language);
   if (item.forks != null) meta.push('Fork ' + Number(item.forks).toLocaleString('en-US'));

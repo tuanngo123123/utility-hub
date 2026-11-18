@@ -1856,7 +1856,9 @@
       el.innerHTML = items.slice(0, 6).map(function (item, i) {
         var rank = i + 1;
         var name = item.fullName || item.name || '';
-        var desc = item.desc || item.description || '';
+        // Dòng mô tả ưu tiên `purpose` (tiếng Việt), chưa có thì fallback về
+        // mô tả tiếng Anh gốc — đồng bộ với home.js trendingRowHtml.
+        var desc = item.purpose || item.desc || item.description || '';
         // Số sao CHỈ hiện trong pill ★ bên phải (kiểu Product Hunt),
         // không lặp lại trong meta — đồng bộ với home.js trendingRowHtml.
         var meta = [];
