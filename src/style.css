@@ -2102,7 +2102,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 
 /* In mẫu: chỉ in nội dung mẫu, ẩn header/footer/nav/nút. */
 @media print {
-  .site-header, .site-footer, .bottom-nav, .skip-link,
+  .site-header, .site-footer, .bottom-nav, .skip-link, .aiw,
   .breadcrumb, .sv-actions, .sv-related, .noscript-notice { display: none !important; }
   body { background: #fff; color: #000; font-size: 12pt; }
   .wrap { max-width: 100%; padding: 0; }
@@ -2122,4 +2122,139 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   .cv-print-only .tool-page-head,
   .cv-print-only > p.muted { display: none !important; }
   a { color: #000; text-decoration: none; }
+}
+
+/* ---------- Nút chat AI nổi (bong bóng Messenger, mọi trang) ---------- */
+/* z-index 240: trên header + nav dưới (100) và toast (200), dưới modal
+   tìm kiếm ⌘K (250) để mở tìm kiếm thì widget không đè lên. */
+.aiw {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 240;
+}
+.aiw[hidden] { display: none; }
+.aiw-fab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-left: auto;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.aiw-fab:hover { background: var(--accent-hover); }
+.aiw-fab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.aiw-panel {
+  position: absolute;
+  right: 0;
+  bottom: 68px;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  max-width: calc(100vw - 32px);
+  height: 500px;
+  max-height: calc(100vh - 160px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.aiw-panel[hidden] { display: none; }
+.aiw-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--accent-soft);
+}
+.aiw-head h2 { margin: 0; font-size: 1rem; color: var(--accent-dark); }
+.aiw-close {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.aiw-close:hover { background: var(--bg-soft); color: var(--ink); }
+.aiw-quota { margin: 10px 14px 0; color: var(--muted); font-size: 0.85rem; }
+.aiw-log {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding: 12px 14px;
+}
+.aiw-msg {
+  max-width: 88%;
+  padding: 8px 11px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  color: var(--ink);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+.aiw-msg-user { align-self: flex-end; background: var(--accent-soft); border-color: transparent; }
+.aiw-msg-ai { align-self: flex-start; }
+.aiw-msg-error { background: var(--bad-soft); border-color: transparent; }
+.aiw-msg-typing { color: var(--muted); }
+.aiw-msg code {
+  background: var(--bg-soft);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: 0.85em;
+}
+.aiw-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0 14px 10px;
+}
+.aiw-suggest .chip { font-size: 0.82rem; padding: 6px 10px; }
+.aiw-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 0 14px 10px;
+}
+.aiw-input-row input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92rem;
+}
+.aiw-input-row input:focus { outline: 2px solid var(--focus); outline-offset: -1px; }
+.aiw-input-row input:disabled { opacity: 0.6; }
+.aiw-input-row .btn { flex: none; }
+.aiw-full { margin: 0 14px 12px; font-size: 0.85rem; text-align: right; }
+.aiw-full a { color: var(--accent); text-decoration: none; }
+.aiw-full a:hover { text-decoration: underline; }
+
+/* Điện thoại: nav dưới cao tối thiểu 56px (body padding-bottom 64px) —
+   nút nổi ngồi trên nó + 12px khoảng hở, không đè lên mục nav nào. */
+@media (max-width: 768px) {
+  .aiw { right: 16px; bottom: 68px; }
 }

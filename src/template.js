@@ -66,6 +66,32 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
       ${noscriptLinks ? `<nav class="noscript-links" aria-label="Danh sách công cụ">\n      ${noscriptLinks}\n      </nav>` : ''}
     </div>
   </noscript>`;
+  // Nút chat AI nổi (bong bóng Messenger): có ở mọi trang TRỪ trang
+  // công cụ Trò chuyện AI (tránh 2 khung chat cùng lúc). app.js cũng
+  // kiểm tra pathname khi khởi tạo (phòng khi điều hướng không qua build).
+  // hidden mặc định: chỉ hiện khi JS chạy (không JS thì nút chết).
+  const chatWidget = /\/cong-cu\/tro-chuyen-ai\//.test(canonical || '') ? '' : `
+  <div class="aiw" id="aiw" hidden>
+    <button type="button" class="aiw-fab" id="aiw-fab" aria-label="Chat với AI" aria-expanded="false" aria-controls="aiw-panel">💬</button>
+    <section class="aiw-panel" id="aiw-panel" aria-label="Trò chuyện AI" hidden>
+      <header class="aiw-head">
+        <h2>Trò chuyện AI</h2>
+        <button type="button" class="aiw-close" id="aiw-close" aria-label="Đóng khung chat">✕</button>
+      </header>
+      <p class="aiw-quota" id="aiw-quota"></p>
+      <div class="aiw-log" id="aiw-log" aria-live="polite"></div>
+      <div class="aiw-suggest" id="aiw-suggest">
+        <button type="button" class="chip" data-q="Giải thích lãi kép thật đơn giản, ví dụ cụ thể">Lãi kép là gì?</button>
+        <button type="button" class="chip" data-q="Viết giúp tôi email xin nghỉ phép 2 ngày, lịch sự, ngắn gọn">Viết email xin nghỉ phép</button>
+        <button type="button" class="chip" data-q="Cho tôi 3 ý tưởng tiết kiệm tiền mỗi tháng cho người đi làm">3 ý tưởng tiết kiệm tiền</button>
+      </div>
+      <div class="aiw-input-row">
+        <input id="aiw-input" type="text" maxlength="500" placeholder="Nhập câu hỏi…" autocomplete="off">
+        <button type="button" class="btn btn-primary" id="aiw-send">Gửi</button>
+      </div>
+      <p class="aiw-full"><a href="/cong-cu/tro-chuyen-ai/">Mở trang chat đầy đủ →</a></p>
+    </section>
+  </div>`;
   return `<!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -159,6 +185,7 @@ ${body}
     <a href="/diem-bao/" class="${navActive === 'diem-bao' ? 'bottom-nav-active' : ''}">Điểm báo</a>
     <a href="/ung-ho/" class="${navActive === 'ung-ho' ? 'bottom-nav-active' : ''}">Ủng hộ</a>
   </nav>
+${chatWidget}
   <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).
        (Chính sách bảo mật mục 11 đã mô tả dịch vụ này: không cookie, không thu thập
        thông tin nhận dạng cá nhân.) -->

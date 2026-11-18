@@ -493,6 +493,7 @@
     initTrending();
     initRail();
     initSupport();
+    initAiChatWidget();
   });
 
   /* Nav mobile */
@@ -522,6 +523,231 @@
       try { localStorage.setItem('uh-theme', dark ? 'dark' : 'light'); } catch (e) { /* bỏ qua */ }
       btn.textContent = dark ? '☀️' : '🌙';
     });
+  }
+
+  /* ---------------- Nút chat AI nổi (bong bóng Messenger) ----------------
+     Bản thu nhỏ của công cụ Trò chuyện AI (src/tools/hoc-tap/
+     tro-chuyen-ai.js): CÙNG endpoint Pollinations, CÙNG system prompt,
+     CÙNG key quota localStorage 'uh_ai_chat_quota' nên 20 lượt/ngày
+     dùng chung giữa widget và trang chat đầy đủ. Lịch sử chat lưu
+     sessionStorage (tối đa 20 tin) để chuyển trang không mất đoạn chat.
+     Không hiện trên chính trang /cong-cu/tro-chuyen-ai/ (template.js
+     đã không render ở đó; đây là lớp phòng thủ thứ hai). */
+  function initAiChatWidget() {
+    var wrap = document.getElementById('aiw');
+    if (!wrap) return;
+    if (/^\/cong-cu\/tro-chuyen-ai\//.test(window.location.pathname || '')) {
+      wrap.remove();
+      return;
+    }
+    var fab = document.getElementById('aiw-fab');
+    var panel = document.getElementById('aiw-panel');
+    var log = document.getElementById('aiw-log');
+    var input = document.getElementById('aiw-input');
+    var sendBtn = document.getElementById('aiw-send');
+    var closeBtn = document.getElementById('aiw-close');
+    var quotaEl = document.getElementById('aiw-quota');
+    if (!fab || !panel || !log || !input || !sendBtn || !closeBtn || !quotaEl) return;
+
+    var URL = 'https://text.pollinations.ai/openai/v1/chat/completions';
+    var MODEL = 'openai';
+    var SYSTEM = 'Bạn là trợ lý AI thân thiện của trang web Tiện Ích Hub (tienichhub.io.vn). Trả lời bằng tiếng Việt, trừ khi người dùng hỏi bằng ngôn ngữ khác. Trả lời ngắn gọn, rõ ràng, dễ hiểu. Không bịa số liệu, ngày tháng hay thông tin không chắc chắn — nếu không biết thì nói là không biết. Không tự nhận mình là ChatGPT hay mô hình của công ty khác.';
+    var MAX_PER_DAY = 20;
+    var MAX_LEN = 500;
+    var MAX_CTX = 6;
+    var TIMEOUT_MS = 60000;
+    var KEY = 'uh_ai_chat_quota';
+    var HISTORY_KEY = 'uh_ai_chat_history';
+    var MAX_HISTORY = 20;
+    var WELCOME = 'Chào bạn! Tôi là trợ lý AI của Tiện Ích Hub. Hỏi tôi bất cứ điều gì nhé!';
+
+    var history = [];
+    var busy = false;
+
+    function today() {
+      var d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    function loadQuota() {
+      try {
+        var raw = localStorage.getItem(KEY);
+        if (!raw) return { date: today(), count: 0 };
+        var q = JSON.parse(raw);
+        if (q.date !== today()) return { date: today(), count: 0 };
+        return q;
+      } catch (e) { return { date: today(), count: 0 }; }
+    }
+
+    function saveQuota(q) {
+      try { localStorage.setItem(KEY, JSON.stringify(q)); } catch (e) { /* localStorage không khả dụng */ }
+    }
+
+    function remaining() {
+      return Math.max(0, MAX_PER_DAY - loadQuota().count);
+    }
+
+    function loadHistory() {
+      try {
+        var raw = sessionStorage.getItem(HISTORY_KEY);
+        if (!raw) return [];
+        var arr = JSON.parse(raw);
+        if (!Array.isArray(arr)) return [];
+        return arr.filter(function (m) {
+          return m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string';
+        }).slice(-MAX_HISTORY);
+      } catch (e) { return []; }
+    }
+
+    function saveHistory() {
+      try {
+        sessionStorage.setItem(HISTORY_KEY, JSON.stringify(history.slice(-MAX_HISTORY)));
+      } catch (e) { /* sessionStorage không khả dụng */ }
+    }
+
+    function escHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // Render Markdown-lite (copy từ công cụ Trò chuyện AI): escape HTML
+    // trước rồi mới đổi **đậm**, *nghiêng*, `code`, đầu dòng "- " thành •.
+    function mdLite(s) {
+      var t = escHtml(s);
+      t = t.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+      t = t.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+      t = t.replace(/(^|[\s(])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+      t = t.replace(/^[-*] (.+)$/gm, '• $1');
+      return t;
+    }
+
+    function bubble(role, text, kind) {
+      var div = document.createElement('div');
+      // role 'assistant' (tin khôi phục từ sessionStorage) cũng là tin AI:
+      // chỉ tin người dùng mới không render Markdown.
+      var isUser = role === 'user';
+      div.className = 'aiw-msg' + (isUser ? ' aiw-msg-user' : ' aiw-msg-ai') + (kind ? ' aiw-msg-' + kind : '');
+      div.innerHTML = (!isUser && !kind) ? mdLite(text) : escHtml(text);
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+      return div;
+    }
+
+    function updateQuotaUI() {
+      var left = remaining();
+      quotaEl.textContent = 'Còn ' + left + '/' + MAX_PER_DAY + ' lượt hôm nay.';
+      var out = left <= 0;
+      input.disabled = out || busy;
+      sendBtn.disabled = out || busy;
+      if (out) input.placeholder = 'Hôm nay bạn đã hết lượt chat miễn phí, mai quay lại nhé.';
+      else input.placeholder = 'Nhập câu hỏi…';
+    }
+
+    function setBusy(v) {
+      busy = v;
+      updateQuotaUI();
+    }
+
+    function openPanel() {
+      panel.hidden = false;
+      wrap.classList.add('aiw-open');
+      fab.setAttribute('aria-expanded', 'true');
+      updateQuotaUI();
+      input.focus();
+    }
+
+    function closePanel() {
+      panel.hidden = true;
+      wrap.classList.remove('aiw-open');
+      fab.setAttribute('aria-expanded', 'false');
+    }
+
+    function send(text) {
+      var msg = (text || '').trim();
+      if (!msg || busy) return;
+      if (msg.length > MAX_LEN) {
+        bubble('ai', 'Câu hỏi dài quá 500 ký tự rồi, bạn rút ngắn lại nhé.', 'error');
+        return;
+      }
+      if (remaining() <= 0) {
+        bubble('ai', 'Hôm nay bạn đã hết 20 lượt chat miễn phí, mai quay lại nhé.', 'error');
+        updateQuotaUI();
+        return;
+      }
+      bubble('user', msg);
+      history.push({ role: 'user', content: msg });
+      saveHistory();
+      input.value = '';
+      setBusy(true);
+      var typing = bubble('ai', 'AI đang trả lời…', 'typing');
+      var messages = [{ role: 'system', content: SYSTEM }].concat(history.slice(-MAX_CTX));
+      // AbortSignal.timeout() không có trên trình duyệt cũ — không có thì
+      // bỏ timeout chứ không để lỗi văng ra ngoài làm kẹt trạng thái bận.
+      var signal = (typeof AbortSignal !== 'undefined' && AbortSignal.timeout)
+        ? AbortSignal.timeout(TIMEOUT_MS)
+        : undefined;
+      fetch(URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: MODEL, messages: messages, temperature: 0.3, max_tokens: 1024 }),
+        signal: signal
+      }).then(function (res) {
+        if (!res.ok) throw new Error((res.status === 429 || res.status === 503) ? 'busy' : 'other');
+        return res.json();
+      }).then(function (data) {
+        var reply = data && data.choices && data.choices[0] && data.choices[0].message
+          ? (data.choices[0].message.content || '').trim()
+          : '';
+        if (!reply) throw new Error('other');
+        typing.remove();
+        setBusy(false);
+        bubble('ai', reply);
+        history.push({ role: 'assistant', content: reply });
+        saveHistory();
+        var q = loadQuota();
+        q.count += 1;
+        saveQuota(q);
+        updateQuotaUI();
+      }).catch(function (e) {
+        typing.remove();
+        setBusy(false);
+        // Lần gửi lỗi không tính vào lượt chat.
+        history.pop();
+        saveHistory();
+        var kind = (e && e.message) || '';
+        var text = kind === 'busy'
+          ? 'AI đang bận, thử lại sau ít giây nhé.'
+          : kind === 'other'
+            ? 'AI trả lời lỗi, thử lại sau ít giây nhé.'
+            : 'Không kết nối được, kiểm tra mạng rồi thử lại nhé.';
+        bubble('ai', text, 'error');
+      });
+    }
+
+    fab.addEventListener('click', function () {
+      if (panel.hidden) openPanel();
+      else closePanel();
+    });
+    closeBtn.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) closePanel();
+    });
+    sendBtn.addEventListener('click', function () { send(input.value); });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); send(input.value); }
+    });
+    wrap.querySelectorAll('#aiw-suggest .chip').forEach(function (btn) {
+      btn.addEventListener('click', function () { send(btn.getAttribute('data-q')); });
+    });
+
+    // Khôi phục đoạn chat đang dở (chuyển trang trong cùng phiên).
+    history = loadHistory();
+    if (history.length > 0) {
+      history.forEach(function (m) { bubble(m.role, m.content); });
+    } else {
+      bubble('ai', WELCOME);
+    }
+    updateQuotaUI();
+    wrap.hidden = false;
   }
 
   /* ---------------- Tìm kiếm thật: chỉ mục /data/search-index.json ---------------- */
