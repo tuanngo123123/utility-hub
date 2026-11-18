@@ -29,14 +29,6 @@
       "purpose": "Trải nghiệm thế giới dưới nước trong trình duyệt, sinh ra bằng WebGPU"
     },
     {
-      "name": "gylive/google-ultra",
-      "url": "https://github.com/gylive/google-ultra",
-      "description": "",
-      "stars": 2027,
-      "language": "Python",
-      "purpose": "Kích hoạt gói Google One AI Ultra 20TB dùng thử 12 tháng qua Play Billing"
-    },
-    {
       "name": "Immortal-Protocols/lastbook",
       "url": "https://github.com/Immortal-Protocols/lastbook",
       "description": "Offline knowledge AI, maps and videos for survival and rebuilding",

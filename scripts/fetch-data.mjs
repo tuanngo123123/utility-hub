@@ -209,21 +209,29 @@ async function fetchLottery() {
 }
 
 // ---------- 4. Trending GitHub ----------
+// Repo bị loại khỏi bảng Xu hướng theo quyết định của Tuấn (18/11/2026):
+// gylive/google-ultra khai thác gói dùng thử ẩn của Google, README của
+// chính repo ghi "có thể vi phạm điều khoản Google". Lấy dư (10) rồi lọc
+// để bảng vẫn đủ 6 repo sau khi loại.
+const TRENDING_BLOCKLIST = new Set(['gylive/google-ultra']);
 async function fetchTrending() {
   try {
     const since = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
     const j = await fetchJson(
-      `https://api.github.com/search/repositories?q=created:%3E${since}&sort=stars&order=desc&per_page=6`,
+      `https://api.github.com/search/repositories?q=created:%3E${since}&sort=stars&order=desc&per_page=10`,
       { Accept: 'application/vnd.github+json' },
     );
     if (!Array.isArray(j.items)) throw new Error('payload GitHub không hợp lệ');
-    const items = j.items.map((r) => ({
-      name: r.full_name,
-      url: r.html_url,
-      description: r.description || '',
-      stars: r.stargazers_count,
-      language: r.language || '',
-    }));
+    const items = j.items
+      .filter((r) => !TRENDING_BLOCKLIST.has(String(r.full_name).toLowerCase()))
+      .slice(0, 6)
+      .map((r) => ({
+        name: r.full_name,
+        url: r.html_url,
+        description: r.description || '',
+        stars: r.stargazers_count,
+        language: r.language || '',
+      }));
     await save('trending.json', {
       updatedAt: nowIso(),
       source: 'api.github.com',
