@@ -1068,15 +1068,13 @@ button.chip-cat[aria-pressed="true"]:hover,
   .site-header.nav-open .site-nav a, .site-header.nav-open .site-nav .nav-sound { min-height: 44px; display: flex; align-items: center; }
 }
 
-/* Thanh tóm tắt lương Net dính ở đáy (công cụ lương, đợt sửa UX 18/11):
-   hiện khi đã có kết quả mà kết quả đang ngoài màn hình; bấm vào thì
-   cuộn xuống kết quả. Ngồi TRÊN thanh nav dưới của điện thoại
-   (bottom 68px). Thanh chiếm gần hết chiều ngang (left 12px, right
-   12px mobile / 24px desktop) — nút Chat AI khi thanh hiện được đẩy
-   LÊN TRÊN thanh (body.uh-netbar-on .aiw, xem dưới) nên thanh không
-   cần chừa chỗ bên phải nữa; đợt 1 chừa right 76px/164px khiến nội
-   dung thanh dài hơn thanh, chữ "Xem chi tiết" tràn ra dưới nút chat.
-   z-index 90 — dưới nav dưới (100) và Chat AI (240). */
+/* Thanh tóm tắt lương Net dính ở đáy (công cụ lương, đợt sửa UX 18/11 +
+   MẪU 2): hiện khi đã có kết quả mà thẻ kết quả đã cuộn khuất; gồm số
+   Net + nút Chép + nút Chi tiết (cuộn lên kết quả). Ngồi TRÊN thanh
+   nav dưới của điện thoại (bottom 68px). Thanh cao ~60px (nút 44px +
+   padding 8px) — nút Chat AI khi thanh hiện được đẩy LÊN TRÊN thanh
+   (body.uh-netbar-on .aiw, xem dưới). z-index 90 — dưới nav dưới (100)
+   và Chat AI (240). */
 .lggn-sticky {
   position: fixed;
   left: 12px;
@@ -1086,23 +1084,18 @@ button.chip-cat[aria-pressed="true"]:hover,
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 14px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-btn);
+  padding: 8px 8px 8px 14px;
+  background: #fff;
+  border: 1px solid #DCE1EA;
+  border-radius: 14px;
   box-shadow: var(--shadow);
-  font: inherit;
-  font-weight: 700;
-  text-align: left;
-  cursor: pointer;
 }
 .lggn-sticky[hidden] { display: none; }
-.lggn-sticky-net { color: var(--accent-dark); white-space: nowrap; }
-.lggn-sticky-gross { color: var(--muted); font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
-.lggn-sticky-hint { margin-left: auto; color: var(--accent); font-size: 0.85rem; flex: none; }
+.lggn-sticky-net { color: #1747E6; font-weight: 800; white-space: nowrap; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.lggn-sticky-btn { flex: none; min-height: 44px; padding: 8px 14px; border: 1px solid #C5CDDA; border-radius: 12px; background: #fff; color: #0F172A; font: inherit; font-weight: 700; cursor: pointer; }
+.lggn-sticky-btn-primary { background: #1747E6; border-color: #1747E6; color: #fff; }
 @media (max-width: 768px) {
   .lggn-sticky { right: 12px; bottom: 68px; }
-  .lggn-sticky-gross { display: none; }
 }
 /* Kết quả lương cuộn tới thì chừa chỗ cho header dính (60px) + lề. */
 #lggn-out { scroll-margin-top: 76px; }
@@ -3210,14 +3203,15 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   .aiw { right: 16px; bottom: 68px; }
 }
 /* Khi thanh Net dính đang hiện (trang lương, JS gắn
-   body.uh-netbar-on): đẩy nút Chat AI LÊN TRÊN thanh để không đè chữ
-   "Xem chi tiết" (đợt sửa UX 19/11). Thanh cao ~48px: desktop thanh
-   ngồi bottom 24px → nút lên bottom 86px (hở ~14px); mobile thanh
-   ngồi bottom 68px → nút lên bottom 130px. Chỉ đổi vị trí, không đụng
-   hành vi tự ẩn khi cuộn/nhập (.aiw-hidden) hay khung chat đang mở. */
-body.uh-netbar-on .aiw { bottom: 86px; }
+   body.uh-netbar-on): đẩy nút Chat AI LÊN TRÊN thanh để không đè lên
+   thanh (đợt sửa UX 19/11). Thanh cao ~60px (MẪU 2: nút 44px +
+   padding): desktop thanh ngồi bottom 24px → nút lên bottom 100px
+   (hở ~16px); mobile thanh ngồi bottom 68px → nút lên bottom 144px.
+   Chỉ đổi vị trí, không đụng hành vi tự ẩn khi cuộn/nhập (.aiw-hidden)
+   hay khung chat đang mở. */
+body.uh-netbar-on .aiw { bottom: 100px; }
 @media (max-width: 768px) {
-  body.uh-netbar-on .aiw { bottom: 130px; }
+  body.uh-netbar-on .aiw { bottom: 144px; }
 }
 
 /* ==========================================================================
@@ -4128,4 +4122,293 @@ body.gv-teach .gv-points-row { margin: 12px 0 4px; }
 @media (prefers-reduced-motion: reduce) {
   .gv-app-tab, .gv-app .btn, .lh-star, .lh-absent, .lh-pt-btn, .lh-del,
   .gv-drawer, .gv-mode-btn, .gv-merge-btn { transition: none; }
+}
+
+/* ============================================================
+   Trang công cụ chuẩn — MẪU 2 (Claude gửi 01:48 19/11/2026)
+   Thí điểm: trang Lương Gross⇄Net (class .m2-page do build.mjs
+   gắn khi slug = 'luong-gross-net'); nhân khuôn cho các công cụ
+   khác sau khi Claude duyệt bản thí điểm.
+   Bộ token chung: phông Be Vietnam Pro; màu chính #1747E6
+   (đậm #0E2FA8 khi ấn/hover); nhấn #F59E0B; chữ #0F172A,
+   chữ phụ #475569, chữ mờ #64748B; nền trang #F6F7FB, thẻ
+   #FFFFFF, viền #DCE1EA, viền ô nhập #C5CDDA; bo thẻ 20px,
+   ô nhập/nút 12–14px; focus viền 3px #F59E0B; vùng bấm ≥44px.
+   Màu cố định, không theo chế độ tối (như .gv-app MẪU 1).
+   ============================================================ */
+.m2-page {
+  --m2-primary: #1747E6;
+  --m2-primary-dark: #0E2FA8;
+  --m2-accent: #F59E0B;
+  --m2-ink: #0F172A;
+  --m2-muted: #475569;
+  --m2-faint: #64748B;
+  --m2-bg: #F6F7FB;
+  --m2-surface: #FFFFFF;
+  --m2-line: #DCE1EA;
+  --m2-line-input: #C5CDDA;
+  max-width: 1120px;
+  margin: 0 auto;
+  font-family: 'Be Vietnam Pro', 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--m2-ink);
+}
+/* Nền trang theo token (chỉ chế độ sáng; chế độ tối giữ nền tối). */
+html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
+.m2-page :focus-visible { outline: 3px solid var(--m2-accent); outline-offset: 2px; }
+
+/* Đầu trang: H1 34px + 1 dòng mô tả ngắn + dòng căn cứ pháp lý.
+   Không còn nhãn hạng mục, không còn đoạn mô tả dài ở đầu. */
+.m2-page .tool-page-head h1 { font-size: 34px; line-height: 1.2; }
+.m2-head-desc { color: var(--m2-muted); font-size: 1.05rem; margin: 0 0 8px; }
+.m2-head-legal { color: var(--m2-faint); font-size: 0.9rem; margin: 0 0 4px; }
+
+/* Khung chung của trang công cụ (tool-try + tool-panel) bỏ viền/nền
+   riêng — 2 thẻ MẪU 2 tự mang hình thức của chúng. */
+.m2-page .tool-try { background: transparent; border: none; box-shadow: none; padding: 0; margin: 24px 0; }
+.m2-tool { background: transparent; border: none; box-shadow: none; padding: 0; margin: 0; }
+
+/* 2 thẻ cạnh nhau: trái nhập, phải kết quả dính khi cuộn. */
+.m2-layout { display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 24px; align-items: start; }
+.m2-input-card {
+  background: var(--m2-surface);
+  border: 1px solid var(--m2-line);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+.m2-result-card {
+  background: var(--m2-surface);
+  border: 1px solid var(--m2-line);
+  border-radius: 20px;
+  padding: 24px;
+  min-width: 0;
+  /* Dính khi cuộn: header site dính cao 60px nên top = 60 + 24 hở
+     theo bản mẫu (bản mẫu vẽ 24px không tính header dính của site). */
+  position: sticky;
+  top: 84px;
+}
+.m2-input-top > * + *, .m2-input-bottom > * + * { margin-top: 16px; }
+.m2-page .field { margin-bottom: 0; }
+.m2-page .field label { color: var(--m2-ink); }
+.m2-page .field .hint { color: var(--m2-faint); }
+.m2-optional { font-weight: 500; color: var(--m2-faint); }
+
+/* Công tắc Gross→Net | Net→Gross chia đều 2 nửa. */
+.m2-toggle { display: flex; gap: 4px; background: var(--m2-bg); border: 1px solid var(--m2-line); border-radius: 14px; padding: 4px; }
+.m2-toggle-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--m2-ink);
+  font: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 8px;
+  white-space: nowrap;
+}
+.m2-toggle-btn.m2-toggle-active { background: var(--m2-primary); color: #fff; }
+.m2-toggle-btn:not(.m2-toggle-active):hover { background: var(--m2-surface); }
+.m2-toggle-btn.m2-toggle-active:hover { background: var(--m2-primary-dark); }
+
+/* Ô tiền: lương chính cao 56px, chữ 22px đậm, viền xanh 2px; ô bảo
+   hiểm cùng chiều cao, viền xám theo token. ₫ nằm trong ô (dùng
+   sẵn .input-unit/.unit của khung). Selector cần 3 class để thắng
+   luật gốc .field input[type="text"] (0,2,1). Focus theo token:
+   viền 3px #F59E0B (ghi đè luật focus xanh của khung). */
+.m2-page .field input.m2-salary {
+  height: 56px;
+  font-size: 22px;
+  font-weight: 700;
+  border: 2px solid var(--m2-primary);
+  border-radius: 12px;
+  color: var(--m2-ink);
+  background: var(--m2-surface);
+  width: 100%;
+  padding: 0 56px 0 16px;
+}
+.m2-page .field input.m2-money {
+  height: 56px;
+  font-size: 20px;
+  font-weight: 600;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  color: var(--m2-ink);
+  background: var(--m2-surface);
+  width: 100%;
+  padding: 0 56px 0 16px;
+}
+.m2-page .field input.m2-salary:focus,
+.m2-page .field input.m2-money:focus,
+.m2-page .field select.m2-select:focus,
+.m2-page .field input.m2-step-num:focus {
+  border-color: var(--m2-primary);
+  box-shadow: none;
+  outline: 3px solid var(--m2-accent);
+  outline-offset: 2px;
+}
+.m2-page .input-unit .unit { color: var(--m2-faint); }
+
+/* Nút chọn nhanh mức lương. */
+.m2-quick { display: flex; flex-wrap: wrap; gap: 8px; }
+.m2-quick-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding: 8px 4px;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  background: var(--m2-surface);
+  color: var(--m2-primary);
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.m2-quick-btn:hover { border-color: var(--m2-primary); background: #EEF2FF; }
+
+/* Hàng 2 cột: Vùng + Người phụ thuộc. */
+.m2-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.m2-page .field select.m2-select {
+  height: 48px;
+  width: 100%;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  background: var(--m2-surface);
+  color: var(--m2-ink);
+  font: inherit;
+  font-size: 1rem;
+  padding: 0 12px;
+}
+.m2-stepper { display: flex; align-items: stretch; gap: 8px; }
+.m2-step-btn {
+  flex: none;
+  width: 48px;
+  min-height: 48px;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  background: var(--m2-surface);
+  color: var(--m2-primary);
+  font: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+.m2-step-btn:hover { border-color: var(--m2-primary); background: #EEF2FF; }
+.m2-page .field input.m2-step-num {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 48px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  background: var(--m2-surface);
+  color: var(--m2-ink);
+}
+
+/* Thẻ kết quả: khối .result của khung bỏ nền/viền riêng (thẻ đã có),
+   số Net 44px đậm màu chính. */
+.m2-page .tool-try .result { background: transparent; border: none; padding: 0; margin-top: 0; box-shadow: none; }
+.m2-result-label { font-weight: 700; color: var(--m2-muted); margin: 0 0 4px; font-size: 1rem; }
+.m2-result-value { font-size: 44px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--m2-primary); overflow-wrap: break-word; }
+.m2-result-pct { color: var(--m2-faint); margin: 4px 0 16px; }
+.m2-result-rows { border-top: 1px solid var(--m2-line); margin-bottom: 16px; }
+.m2-result-rows .result-row { padding: 10px 0; border-bottom: 1px solid var(--m2-line); }
+.m2-result-rows .result-row + .result-row { border-top: none; }
+.m2-result-empty { text-align: center; color: var(--m2-faint); padding: 32px 0; }
+.m2-result-empty p { margin: 0; }
+
+/* Bảng 6 bước (mặc định thu gọn). */
+.m2-steps-toggle {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  background: var(--m2-surface);
+  color: var(--m2-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 10px 12px;
+}
+.m2-steps-toggle:hover { border-color: var(--m2-primary); background: #EEF2FF; }
+.m2-steps { margin-top: 12px; }
+.m2-steps-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.m2-steps-table td { padding: 8px 0; border-bottom: 1px solid var(--m2-line); vertical-align: top; }
+.m2-steps-table tr:last-child td { border-bottom: none; font-weight: 700; }
+.m2-steps-table td:last-child { text-align: right; font-weight: 700; white-space: nowrap; padding-left: 12px; }
+.m2-steps-table .m2-steps-no { color: var(--m2-faint); width: 24px; font-weight: 700; }
+.m2-steps-table small { display: block; color: var(--m2-faint); font-weight: 400; font-size: 0.85rem; line-height: 1.5; }
+
+/* Hàng 3 nút dưới kết quả: Chép | Chia sẻ Zalo | Tải ảnh. */
+.m2-result-actions { display: flex; gap: 8px; margin-top: 16px; }
+.m2-action-btn {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;
+  padding: 10px 4px;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.m2-action-btn-copy, .m2-action-btn-download { border: 1px solid var(--m2-line-input); background: var(--m2-surface); color: var(--m2-ink); }
+.m2-action-btn-copy:hover, .m2-action-btn-download:hover { border-color: var(--m2-primary); }
+.m2-action-btn-share { border: 1px solid var(--m2-primary); background: var(--m2-primary); color: #fff; }
+.m2-action-btn-share:hover { background: var(--m2-primary-dark); border-color: var(--m2-primary-dark); }
+
+/* Link chữ "Điền vào công cụ ↑" trong khối ví dụ (thay nút "Thử với
+   số này" theo quyết định 02:06 19/11) — vẫn giữ vùng bấm 44px. */
+.m2-example-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--m2-primary);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Điện thoại + máy tính bảng hẹp (<960px): xếp 1 cột — công tắc, ô
+   Lương Gross, ngay dưới là thẻ kết quả, rồi Vùng + Người phụ thuộc.
+   Thẻ nhập dùng display:contents để 2 nửa của nó kẹp lấy thẻ kết quả;
+   mỗi nửa tự mang hình thức thẻ ở cỡ này. */
+@media (max-width: 959px) {
+  .m2-layout { display: flex; flex-direction: column; gap: 16px; }
+  .m2-input-card { display: contents; }
+  .m2-input-top, .m2-input-bottom {
+    background: var(--m2-surface);
+    border: 1px solid var(--m2-line);
+    border-radius: 20px;
+    padding: 20px;
+  }
+  .m2-input-top { order: 1; }
+  .m2-result-card { order: 2; position: static; }
+  .m2-input-bottom { order: 3; }
+}
+@media (max-width: 640px) {
+  .m2-page .tool-page-head h1 { font-size: 26px; }
+  .m2-result-value { font-size: 34px; }
+}
+@media (max-width: 480px) {
+  .m2-row2 { grid-template-columns: 1fr; }
+  .m2-input-top, .m2-input-bottom { padding: 16px; }
+  .m2-result-card { padding: 20px; }
 }

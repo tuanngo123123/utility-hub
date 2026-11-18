@@ -21,6 +21,8 @@
 //     lên đầu panel.
 //     (Trước 18/11 nút này xóa trắng input về rỗng, dù chú thích ghi
 //     "về mặc định"; nay sửa cho khớp chú thích — worker C.)
+//     Panel mang data-uh-no-reset (MẪU 2, vd Lương Gross⇄Net) thì
+//     KHÔNG chèn nút Đặt lại.
 // An toàn: không có .tool-panel thì không làm gì. Chỉ tác động lên
 // input/select/textarea/button có sẵn trong panel; không ép bấm nút khi
 // panel không có .btn-primary (Pomodoro/bấm giờ/quay số... không bị đụng).
@@ -179,6 +181,9 @@
   }
 
   function addResetButton(panel) {
+    // MẪU 2: trang không có nút "Đặt lại" (vd Lương Gross⇄Net) đánh dấu
+    // data-uh-no-reset trên panel để khung không tự chèn nút.
+    if (panel.hasAttribute('data-uh-no-reset')) return;
     if (panel.querySelector('[data-uh-reset]')) return;
     var btn = document.createElement('button');
     btn.type = 'button';

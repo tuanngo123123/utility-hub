@@ -308,6 +308,11 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // Nội dung giới thiệu + FAQ cho các công cụ chính (src/tool-content.js).
   // Công cụ không có trong TOOL_CONTENT thì các chuỗi dưới rỗng, trang giữ nguyên.
   const content = TOOL_CONTENT[tool.slug] || null;
+  // MẪU 2 (19/11, thí điểm trang Lương Gross⇄Net — nhân khuôn sau khi
+  // Claude duyệt): đầu trang chỉ có link về hạng mục, H1, 1 dòng mô tả
+  // ngắn + dòng căn cứ pháp lý; intro (mô tả dài) chuyển xuống dưới
+  // công cụ; ví dụ dùng link chữ "Điền vào công cụ ↑" thay nút to.
+  const isM2 = tool.slug === 'luong-gross-net';
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -315,7 +320,8 @@ function toolPageHtml(tool, index, noscriptLinks) {
     ? `<section class="tool-faq"><h2>Câu hỏi thường gặp</h2>${content.faqs.map((f) => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>`
     : '';
   // Dòng căn cứ pháp lý (SEO lô 1): 1 dòng cho mỗi công cụ tài chính/luật.
-  const legalHtml = content && content.legalBasis
+  // MẪU 2: dòng này chuyển lên đầu trang (dưới H1) nên không lặp lại ở dưới.
+  const legalHtml = content && content.legalBasis && !isM2
     ? `<p class="note tool-legal">${esc(content.legalBasis)}</p>`
     : '';
   // Dòng tham khảo khi finance = true; công cụ có disclaimer riêng (điện,
@@ -440,13 +446,25 @@ function toolPageHtml(tool, index, noscriptLinks) {
     : '';
   const catColor = categoryColor(tool.categorySlug);
   const catColorDark = categoryColorDark(tool.categorySlug);
-  const headDescHtml = content ? '' : `<p class="muted">${esc(tool.desc)}</p>`;
+  // MẪU 2: đầu trang luôn có dòng mô tả ngắn (tool.desc) + dòng căn cứ
+  // pháp lý lấy nguyên văn legalBasis của trang (không bịa ngày mới —
+  // ngày duy nhất trang ghi là 01/7/2026 của trần BHXH, nằm trong câu
+  // đó đúng ngữ cảnh). Trang thường giữ luật cũ (có intro thì bỏ desc).
+  const headDescHtml = isM2
+    ? `<p class="m2-head-desc">${esc(tool.desc)}</p>${content && content.legalBasis ? `<p class="m2-head-legal">${esc(content.legalBasis)}</p>` : ''}`
+    : (content ? '' : `<p class="muted">${esc(tool.desc)}</p>`);
   // Ví dụ tính sẵn + nút "Thử với số này" (SEO lô 1): khối SSR để Google
   // đọc được, nút điền số ví dụ vào form qua data-uh-example-fill (app.js
   // xử lý: mở tab nếu cần, điền fills, bấm nút tính chính, cuộn tới kết
   // quả). Số trong text đã tính bằng máy theo đúng công thức công cụ.
+  // MẪU 2 (quyết định 02:06 19/11): nút to đổi thành link chữ nhỏ
+  // "Điền vào công cụ ↑" — cùng data-uh-example-fill nên app.js xử lý
+  // y hệt (trang này không còn nút tính chính nên calcBtn = null, tính
+  // trực tiếp khi điền sẽ tự chạy qua liveCalc).
   const exampleHtml = content && content.example
-    ? `<section class="tool-example" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}"><h2>Ví dụ tính sẵn</h2><p>${esc(content.example.text)}</p><button type="button" class="btn btn-primary" data-uh-example-fill="${esc(JSON.stringify({ fills: content.example.fills || {}, tab: content.example.tab || null }))}">Thử với số này</button></section>`
+    ? (isM2
+      ? `<section class="tool-example" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}"><h2>Ví dụ tính sẵn</h2><p>${esc(content.example.text)}</p><button type="button" class="m2-example-link" data-uh-example-fill="${esc(JSON.stringify({ fills: content.example.fills || {}, tab: content.example.tab || null }))}">Điền vào công cụ ↑</button></section>`
+      : `<section class="tool-example" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}"><h2>Ví dụ tính sẵn</h2><p>${esc(content.example.text)}</p><button type="button" class="btn btn-primary" data-uh-example-fill="${esc(JSON.stringify({ fills: content.example.fills || {}, tab: content.example.tab || null }))}">Thử với số này</button></section>`)
     : '';
   // Schema JSON-LD (SEO lô 1): WebApplication cho mọi trang công cụ +
   // FAQPage cho công cụ có FAQ. Lưu ý: FAQPage KHÔNG còn cho rich result
@@ -470,14 +488,14 @@ function toolPageHtml(tool, index, noscriptLinks) {
     });
   }
   const schemaHead = jsonLdScript({ '@context': 'https://schema.org', '@graph': schemaGraph });
-  const body = `
-  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/cong-cu/">← Tất cả công cụ</a></nav>
+  const bodyInner = `
+  <nav class="breadcrumb" aria-label="Đường dẫn">${isM2 ? `<a href="/cong-cu/?cat=tai-chinh">← Tài chính</a>` : `<a href="/cong-cu/">← Tất cả công cụ</a>`}</nav>
   <header class="tool-page-head">
     <h1>${esc(tool.name)}</h1>
     ${headDescHtml}
-    <span class="chip chip-cat" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">${esc(tool.categoryLabel)}</span>
+    ${isM2 ? '' : `<span class="chip chip-cat" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">${esc(tool.categoryLabel)}</span>`}
   </header>
-  ${introHtml}
+  ${isM2 ? '' : introHtml}
   ${gvAppHtml}
   <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
@@ -489,12 +507,14 @@ function toolPageHtml(tool, index, noscriptLinks) {
   });
   </script>
   <script src="/assets/tool-state.js" defer></script>
+  ${isM2 ? introHtml : ''}
   ${exampleHtml}
   ${legalHtml}
   ${faqHtml}
   ${disclaimerHtml}
   ${relatedHtml}
   ${guideHtml}`;
+  const body = isM2 ? `<div class="m2-page">${bodyInner}</div>` : bodyInner;
   return shell({
     title: `${tool.seoTitle || tool.name} | ${SITE_NAME}`,
     desc: tool.seoDesc || tool.desc,

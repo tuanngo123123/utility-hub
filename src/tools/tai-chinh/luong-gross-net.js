@@ -1,4 +1,8 @@
 // Tính lương Gross ⇄ Net — luật mới 2026 (NĐ 161/2026, NQ 110/2025, Luật 109/2025).
+// Bố cục MẪU 2 (trang công cụ chuẩn, Claude gửi 01:48 19/11/2026): 2 thẻ
+// cạnh nhau — trái nhập, phải kết quả dính khi cuộn; không còn nút Tính
+// lương / Đặt lại / Điền ví dụ (mở trang đã tính sẵn 30.000.000).
+// Công thức giữ nguyên tuyệt đối — chỉ đổi bố cục.
 export const meta = {
   id: 'luong-gross-net',
   name: 'Tính lương Gross ⇄ Net',
@@ -13,50 +17,65 @@ export const meta = {
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head">
-    <div class="tabs tabs-fill">
-      <button type="button" class="tab tab-active" id="lggn-tab-g2n">Gross → Net</button>
-      <button type="button" class="tab" id="lggn-tab-n2g">Net → Gross</button>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="m2-toggle" role="group" aria-label="Chiều đổi lương">
+          <button type="button" class="m2-toggle-btn m2-toggle-active" id="lggn-tab-g2n">Gross → Net</button>
+          <button type="button" class="m2-toggle-btn" id="lggn-tab-n2g">Net → Gross</button>
+        </div>
+        <div class="field m2-field">
+          <label for="lggn-salary">Lương <span id="lggn-salary-label">Gross</span> mỗi tháng</label>
+          <span class="input-unit"><input id="lggn-salary" class="m2-salary" type="text" inputmode="decimal" value="30.000.000" placeholder="VD: 30.000.000"><span class="unit">₫</span></span>
+        </div>
+        <div class="m2-quick" aria-label="Chọn nhanh mức lương">
+          <button type="button" class="m2-quick-btn" data-lggn-quick="10000000">10 triệu</button>
+          <button type="button" class="m2-quick-btn" data-lggn-quick="15000000">15 triệu</button>
+          <button type="button" class="m2-quick-btn" data-lggn-quick="20000000">20 triệu</button>
+          <button type="button" class="m2-quick-btn" data-lggn-quick="30000000">30 triệu</button>
+        </div>
+      </div>
+      <div class="m2-input-bottom">
+        <div class="m2-row2">
+          <div class="field m2-field">
+            <label for="lggn-region">Vùng lương tối thiểu</label>
+            <select id="lggn-region" class="m2-select">
+              <option value="106200000">Vùng I</option>
+              <option value="94600000">Vùng II</option>
+              <option value="82800000">Vùng III</option>
+              <option value="74000000">Vùng IV</option>
+            </select>
+            <p class="hint" id="lggn-region-hint">Trần đóng BHTN vùng này: 106.200.000₫/tháng.</p>
+          </div>
+          <div class="field m2-field">
+            <label id="lggn-dep-label">Người phụ thuộc</label>
+            <div class="m2-stepper" role="group" aria-labelledby="lggn-dep-label">
+              <button type="button" class="m2-step-btn" id="lggn-dep-minus" aria-label="Giảm một người phụ thuộc">−</button>
+              <input id="lggn-dep" class="m2-step-num" type="text" inputmode="none" readonly value="0" aria-label="Số người phụ thuộc">
+              <button type="button" class="m2-step-btn" id="lggn-dep-plus" aria-label="Thêm một người phụ thuộc">+</button>
+            </div>
+            <p class="hint">Giảm trừ 6.200.000₫/người/tháng.</p>
+          </div>
+        </div>
+        <div class="field m2-field">
+          <label for="lggn-ins">Lương đóng bảo hiểm <span class="m2-optional">(không bắt buộc)</span></label>
+          <span class="input-unit"><input id="lggn-ins" class="m2-money" type="text" inputmode="decimal" value="" placeholder="Bằng lương Gross"><span class="unit">₫</span></span>
+          <p class="hint">Để trống nếu công ty đóng bảo hiểm trên toàn bộ lương.</p>
+        </div>
+      </div>
+    </div>
+    <div class="m2-result-card" id="lggn-result-card">
+      <div id="lggn-out"></div>
     </div>
   </div>
-  <div class="grid-2">
-    <div class="field">
-      <label for="lggn-salary">Lương <span id="lggn-salary-label">Gross</span> mỗi tháng</label>
-      <span class="input-unit"><input id="lggn-salary" type="text" inputmode="decimal" value="30.000.000" placeholder="VD: 30.000.000"><span class="unit">₫</span></span>
-    </div>
-    <div class="field">
-      <label for="lggn-ins">Lương đóng bảo hiểm mỗi tháng</label>
-      <span class="input-unit"><input id="lggn-ins" type="text" inputmode="decimal" value="30.000.000" placeholder="Mặc định = lương Gross"><span class="unit">₫</span></span>
-      <p class="hint">Để trống hoặc bằng lương Gross nếu công ty đóng bảo hiểm trên toàn bộ lương.</p>
-    </div>
-    <div class="field">
-      <label for="lggn-region">Vùng lương tối thiểu (tính trần BHTN)</label>
-      <select id="lggn-region">
-        <option value="106200000">Vùng I — trần BHTN 106.200.000₫</option>
-        <option value="94600000">Vùng II — trần BHTN 94.600.000₫</option>
-        <option value="82800000">Vùng III — trần BHTN 82.800.000₫</option>
-        <option value="74000000">Vùng IV — trần BHTN 74.000.000₫</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="lggn-dep">Số người phụ thuộc</label>
-      <input id="lggn-dep" type="number" min="0" step="1" value="0">
-      <p class="hint">Mỗi người phụ thuộc giảm trừ 6.200.000₫/tháng.</p>
-    </div>
-  </div>
-  <div class="btn-row">
-    <button type="button" class="btn btn-primary" id="lggn-calc">Tính lương</button>
-    <button type="button" class="btn btn-ghost" id="lggn-example">Điền ví dụ</button>
-  </div>
-  <div id="lggn-out"></div>
   <p class="note">Căn cứ: NĐ 161/2026/NĐ-CP (trần BHXH/BHYT 50.600.000₫ từ 01/7/2026); NQ 110/2025/UBTVQH15 (giảm trừ bản thân 15.500.000₫, phụ thuộc 6.200.000₫); Luật Thuế TNCN 109/2025/QH15 (biểu thuế 5 bậc: 5% / 10% / 20% / 30% / 35%). Người lao động đóng BHXH 8% + BHYT 1,5% + BHTN 1% = 10,5%.</p>
 </div>
-<button type="button" class="lggn-sticky" id="lggn-sticky" hidden>
+<div class="lggn-sticky" id="lggn-sticky" hidden>
   <span class="lggn-sticky-net" id="lggn-sticky-net"></span>
-  <span class="lggn-sticky-gross" id="lggn-sticky-gross"></span>
-  <span class="lggn-sticky-hint">Xem chi tiết ↑</span>
-</button>`;
+  <button type="button" class="lggn-sticky-btn" id="lggn-sticky-copy">Chép</button>
+  <button type="button" class="lggn-sticky-btn lggn-sticky-btn-primary" id="lggn-sticky-detail">Chi tiết</button>
+</div>`;
 }
 
 export function init(root) {
@@ -70,11 +89,8 @@ export function init(root) {
   const markErr = U.markFieldError || function (el, msg) { $('lggn-out').innerHTML = '<p class="error">' + msg + '</p>'; };
   const clearErrs = U.clearFieldErrors || function () {};
   const focusEl = U.focusField || function (el) { if (el) el.focus(); };
-  const withBusy = U.withBusy || function (btn, fn) { fn(); };
-  const fillEx = U.fillExample || function (rootEl, values, btn) { Object.keys(values).forEach(function (id) { const el = rootEl.querySelector('#' + id); if (el) el.value = values[id]; }); if (btn) btn.click(); };
-  const bindCopy = U.bindCopyButtons || function () {};
-  const escAttr = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 
+  // --- Công thức (giữ nguyên tuyệt đối, đã kiểm chứng) ---
   const CAP_BHXH = 50600000;
   const DEDUCT_SELF = 15500000;
   const DEDUCT_DEP = 6200000;
@@ -85,28 +101,36 @@ export function init(root) {
     { upTo: 100000000, rate: 0.30 },
     { upTo: Infinity, rate: 0.35 },
   ];
+  const REGION_CAPS = {
+    '106200000': '106.200.000₫',
+    '94600000': '94.600.000₫',
+    '82800000': '82.800.000₫',
+    '74000000': '74.000.000₫',
+  };
 
   let direction = 'g2n';
+  let lastResult = null;
+  let lastCopyText = '';
+  let stepsOpen = false;
 
-  // --- Thanh tóm tắt Net dính ở đáy + tự cuộn kết quả (đợt sửa UX 18/11) ---
-  // Thanh hiện khi đã có kết quả mà kết quả đang ngoài màn hình; bấm vào
-  // thì cuộn xuống kết quả. Ẩn khi đổi tab, khi lỗi, khi Đặt lại, khi nút
-  // "Tính lương" đang trong màn hình (để thanh không đè lên nút khi người
-  // dùng cuộn tới chỗ bấm tính), và khi đang nhập vào ô trong công cụ
-  // (để thanh không che ô đang gõ).
+  // --- Thanh tóm tắt Net dính ở đáy (đợt sửa UX 18/11 + MẪU 2) ---
+  // Thanh hiện khi đã có kết quả mà thẻ kết quả đã cuộn khuất; gồm số
+  // Net + nút Chép + nút Chi tiết (cuộn lên kết quả). Ẩn khi lỗi, khi
+  // đang nhập vào ô trong công cụ (để thanh không che ô đang gõ).
   let hasStickyResult = false;
   let resultInView = true;
-  let calcBtnInView = false;
   let inputFocused = false;
+  // Trang dài thêm bao nhiêu khi thanh hiện (đo thật — trên điện thoại
+  // padding mới 130px THAY padding 64px của nav dưới nên trang chỉ dài
+  // thêm 66px, không phải 130px; dùng số này cho nhịp kéo nốt ở dưới).
+  let lastBarGrowth = 0;
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function refreshSticky() {
     const bar = $('lggn-sticky');
-    const visible = hasStickyResult && !resultInView && !calcBtnInView && !inputFocused;
+    const visible = hasStickyResult && !resultInView && !inputFocused;
     if (bar) bar.hidden = !visible;
     // Đẩy nút Chat AI lên trên thanh khi thanh hiện (đợt sửa UX 19/11):
-    // CSS body.uh-netbar-on .aiw nâng nút lên để không đè chữ "Xem chi
-    // tiết" — trước đây nút tròn 48px đè lên mép phải của thanh vì nội
-    // dung thanh dài hơn chiều rộng thanh chừa lại (right 76px).
+    // CSS body.uh-netbar-on .aiw nâng nút lên để không đè lên thanh.
     if (typeof document !== 'undefined' && document.body) {
       document.body.classList.toggle('uh-netbar-on', visible);
       // Chừa khoảng trống dưới trang khi thanh hiện để footer không bị
@@ -125,19 +149,25 @@ export function init(root) {
       // Nếu người dùng đang ở tận cuối trang mà thanh vừa hiện (vd bấm
       // phím End nhảy xuống đáy khi thanh đang ẩn): padding mới làm trang
       // dài thêm, giữ người dùng ở đáy mới để footer lộ đủ ngay, khỏi
-      // phải cuộn thêm một nhịp nữa mới thấy hết footer.
+      // phải cuộn thêm một nhịp nữa mới thấy hết footer. Dung sai 10px
+      // (không phải 2px): nhịp cuộn mượt tới kết quả có thể còn dư vài
+      // px khi người dùng nhảy xuống đáy, thiếu 3px cũng đủ làm lỡ nhịp.
       const de = document.documentElement;
       const wasAtBottom = typeof window !== 'undefined' &&
-        (window.scrollY + window.innerHeight >= de.scrollHeight - 2);
-      document.body.style.paddingBottom = gap > 0 ? gap + 'px' : '';
+        (window.scrollY + window.innerHeight >= de.scrollHeight - 10);
+      const newPad = gap > 0 ? gap + 'px' : '';
+      if (document.body.style.paddingBottom !== newPad) {
+        const oldH = de.scrollHeight;
+        document.body.style.paddingBottom = newPad;
+        lastBarGrowth = Math.max(0, de.scrollHeight - oldH);
+      }
       if (gap > 0 && wasAtBottom && typeof window !== 'undefined') {
         window.scrollTo(0, de.scrollHeight);
       }
     }
   }
-  function updateSticky(net, gross) {
-    $('lggn-sticky-net').textContent = 'Lương Net: ' + fmtVND(net);
-    $('lggn-sticky-gross').textContent = 'Gross ' + fmtVND(gross);
+  function updateSticky(label, value) {
+    $('lggn-sticky-net').textContent = label + ' ' + fmtVND(value);
     hasStickyResult = true;
     refreshSticky();
   }
@@ -174,47 +204,97 @@ export function init(root) {
     const taxable = Math.max(0, gross - insurance - DEDUCT_SELF - deps * DEDUCT_DEP);
     const { tax, rows } = taxByBrackets(taxable);
     const net = gross - insurance - tax;
-    return { gross, bhxh, bhyt, bhtn, insurance, taxable, tax, taxRows: rows, net, bhxhBase, bhtnBase };
+    return { gross, bhxh, bhyt, bhtn, insurance, taxable, tax, taxRows: rows, net, bhxhBase, bhtnBase, insSalary, deps };
+  }
+
+  function pctOfGross(r) {
+    if (!(r.gross > 0)) return '';
+    return (r.net / r.gross * 100).toLocaleString('vi-VN', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  }
+
+  // 6 bước tính — mọi số lấy từ kết quả thật (r), không hard-code.
+  // Khoảng trắng trước ₫ trong dòng phụ dùng khoảng trắng không ngắt
+  // (\u00A0) để "450.000 ₫" không bị tách đôi khi xuống dòng.
+  function stepsRows(r) {
+    const depAmount = r.deps * DEDUCT_DEP;
+    const nb = s => s.replace(/ ₫/g, ' ₫');
+    const taxDetail = r.taxRows.length
+      ? r.taxRows.map(x => nb(fmtVND(x.base)) + ' × ' + x.rate + '% = ' + nb(fmtVND(x.tax))).join('; ')
+      : 'Thu nhập tính thuế bằng 0 nên không phải nộp thuế.';
+    let insSub = 'BHXH ' + nb(fmtVND(r.bhxh)) + ' · BHYT ' + nb(fmtVND(r.bhyt)) + ' · BHTN ' + nb(fmtVND(r.bhtn));
+    if (r.bhxhBase < r.insSalary) insSub += ' · BHXH/BHYT tính trên trần 50.600.000₫';
+    if (r.bhtnBase < r.insSalary) insSub += ' · BHTN tính trên trần vùng ' + nb(fmtVND(r.bhtnBase));
+    return [
+      { label: 'Lương Gross', sub: '', amount: fmtVND(r.gross) },
+      { label: 'Bảo hiểm (BHXH 8% + BHYT 1,5% + BHTN 1%)', sub: insSub, amount: '− ' + fmtVND(r.insurance) },
+      { label: 'Giảm trừ bản thân', sub: '', amount: '− ' + fmtVND(DEDUCT_SELF) },
+      { label: 'Giảm trừ ' + r.deps + ' người phụ thuộc', sub: '6.200.000₫/người/tháng', amount: '− ' + fmtVND(depAmount) },
+      { label: 'Thu nhập tính thuế ' + fmtVND(r.taxable) + ' → thuế TNCN', sub: taxDetail, amount: '− ' + fmtVND(r.tax) },
+      { label: 'Lương Net thực nhận', sub: '', amount: fmtVND(r.net) },
+    ];
   }
 
   function render(r) {
-    const taxRows = r.taxRows.length
-      ? r.taxRows.map(x => `<tr><td>Thuế bậc ${x.label} (${x.rate}%)</td><td>${fmtVND(x.base)}</td><td>${fmtVND(x.tax)}</td></tr>`).join('')
-      : '<tr><td colspan="3">Không phải nộp thuế (thu nhập tính thuế bằng 0).</td></tr>';
-    const copyText = 'Lương Gross: ' + fmtVND(r.gross)
+    lastResult = r;
+    lastCopyText = 'Lương Gross: ' + fmtVND(r.gross)
       + ' · BHXH 8%: ' + fmtVND(r.bhxh)
       + ' · BHYT 1,5%: ' + fmtVND(r.bhyt)
       + ' · BHTN 1%: ' + fmtVND(r.bhtn)
       + ' · Thuế TNCN: ' + fmtVND(r.tax)
       + ' · Lương Net: ' + fmtVND(r.net);
+    const heroLabel = direction === 'g2n' ? 'Lương thực nhận (Net)' : 'Lương Gross tương ứng';
+    const heroValue = direction === 'g2n' ? r.net : r.gross;
+    const pct = pctOfGross(r);
+    const pctLine = direction === 'g2n'
+      ? 'Bằng ' + pct + '% lương Gross'
+      : 'Lương Net bằng ' + pct + '% lương Gross';
+    const steps = stepsRows(r).map((s, i) => `<tr><td class="m2-steps-no">${i + 1}</td><td>${s.label}${s.sub ? `<small>${s.sub}</small>` : ''}</td><td>${s.amount}</td></tr>`).join('');
     $('lggn-out').innerHTML = `
-<div class="result">
-  <div class="result-hero">
-    <p class="result-hero-label">Lương Net thực nhận mỗi tháng</p>
-    <div class="result-hero-value">${fmtVND(r.net)}</div>
-    <p class="result-hero-sub">Gross ${fmtVND(r.gross)} − bảo hiểm ${fmtVND(r.insurance)} − thuế ${fmtVND(r.tax)}</p>
+<div class="result m2-result">
+  <p class="m2-result-label">${heroLabel}</p>
+  <div class="m2-result-value">${fmtVND(heroValue)}</div>
+  <p class="m2-result-pct">${pctLine}</p>
+  <div class="m2-result-rows">
+    <div class="result-row"><span>Bảo hiểm (10,5%)</span><strong>− ${fmtVND(r.insurance)}</strong></div>
+    <div class="result-row"><span>Thuế TNCN</span><strong>− ${fmtVND(r.tax)}</strong></div>
+    <div class="result-row"><span>Thu nhập tính thuế</span><strong>${fmtVND(r.taxable)}</strong></div>
   </div>
-  <div class="result-row"><span>Lương Gross</span><strong>${fmtVND(r.gross)}</strong></div>
-  <div class="result-row"><span>BHXH 8% (trên ${fmtVND(r.bhxhBase)})</span><strong>− ${fmtVND(r.bhxh)}</strong></div>
-  <div class="result-row"><span>BHYT 1,5% (trên ${fmtVND(r.bhxhBase)})</span><strong>− ${fmtVND(r.bhyt)}</strong></div>
-  <div class="result-row"><span>BHTN 1% (trên ${fmtVND(r.bhtnBase)})</span><strong>− ${fmtVND(r.bhtn)}</strong></div>
-  <div class="result-row"><span>Tổng bảo hiểm (10,5%)</span><strong>− ${fmtVND(r.insurance)}</strong></div>
-  <div class="result-row"><span>Thu nhập tính thuế</span><strong>${fmtVND(r.taxable)}</strong></div>
-  <div class="result-row"><span>Thuế TNCN</span><strong>− ${fmtVND(r.tax)}</strong></div>
-  <div class="result-row"><span>Lương Net (thực nhận)</span><strong>${fmtVND(r.net)}</strong></div>
-  <div class="result-actions"><button type="button" class="btn btn-ghost copy-btn" data-copy="${escAttr(copyText)}" data-copy-msg="Đã chép kết quả lương">Chép kết quả</button></div>
-</div>
-<table class="tbl">
-  <thead><tr><th>Khoản thuế theo bậc</th><th>Thu nhập tính thuế</th><th>Tiền thuế</th></tr></thead>
-  <tbody>${taxRows}</tbody>
-</table>`;
-    bindCopy($('lggn-out'));
-    updateSticky(r.net, r.gross);
+  <button type="button" class="m2-steps-toggle" id="lggn-steps-toggle" aria-expanded="${stepsOpen ? 'true' : 'false'}">${stepsOpen ? 'Ẩn cách tính từng bước' : 'Xem cách tính từng bước'}</button>
+  <div class="m2-steps" id="lggn-steps"${stepsOpen ? '' : ' hidden'}>
+    <table class="m2-steps-table"><tbody>${steps}</tbody></table>
+  </div>
+  <div class="m2-result-actions">
+    <button type="button" class="m2-action-btn m2-action-btn-copy" id="lggn-copy">Chép</button>
+    <button type="button" class="m2-action-btn m2-action-btn-share" id="lggn-share">Chia sẻ Zalo</button>
+    <button type="button" class="m2-action-btn m2-action-btn-download" id="lggn-download">Tải ảnh</button>
+  </div>
+</div>`;
+    const stepsBtn = $('lggn-steps-toggle');
+    if (stepsBtn) stepsBtn.addEventListener('click', function () {
+      stepsOpen = !stepsOpen;
+      const box = $('lggn-steps');
+      if (box) box.hidden = !stepsOpen;
+      stepsBtn.setAttribute('aria-expanded', stepsOpen ? 'true' : 'false');
+      stepsBtn.textContent = stepsOpen ? 'Ẩn cách tính từng bước' : 'Xem cách tính từng bước';
+    });
+    const copyBtn = $('lggn-copy');
+    if (copyBtn) copyBtn.addEventListener('click', copyResult);
+    const shareBtn = $('lggn-share');
+    if (shareBtn) shareBtn.addEventListener('click', shareResult);
+    const dlBtn = $('lggn-download');
+    if (dlBtn) dlBtn.addEventListener('click', downloadImage);
+    updateSticky(direction === 'g2n' ? 'Net' : 'Gross', heroValue);
   }
 
-  // silent = true khi tính ngầm lúc gõ: không hiện thông báo "Đã quy đổi"
-  // (tránh spam toast mỗi lần gõ ở chiều Net → Gross).
-  function calc(silent) {
+  function renderEmpty() {
+    lastResult = null;
+    lastCopyText = '';
+    $('lggn-out').innerHTML = '<div class="m2-result-empty"><p>Nhập lương để xem kết quả tính.</p></div>';
+  }
+
+  // showErrors = true: hiện lỗi dưới ô + cướp focus (lúc mở trang);
+  // false: lặng lẽ hiện khung trống (lúc gõ / đổi tab — không spam lỗi).
+  function tryRender(showErrors) {
     clearErrs(root);
     hideSticky();
     const salary = parseNum($('lggn-salary').value);
@@ -223,16 +303,20 @@ export function init(root) {
     const deps = Math.max(0, parseInt($('lggn-dep').value, 10) || 0);
     const salaryName = direction === 'g2n' ? 'Gross' : 'Net';
     if (!(salary > 0)) {
-      markErr($('lggn-salary'), 'Ô Lương ' + salaryName + ' chưa có số — nhập số lớn hơn 0, ví dụ 30.000.000.');
-      focusEl($('lggn-salary'));
-      $('lggn-out').innerHTML = '';
-      return;
+      if (showErrors) {
+        markErr($('lggn-salary'), 'Ô Lương ' + salaryName + ' chưa có số — nhập số lớn hơn 0, ví dụ 30.000.000.');
+        focusEl($('lggn-salary'));
+      }
+      renderEmpty();
+      return false;
     }
     if (insRaw !== '' && !(parseNum(insRaw) > 0)) {
-      markErr($('lggn-ins'), 'Ô Lương đóng bảo hiểm chưa đúng — để trống (mặc định bằng lương ' + salaryName + ') hoặc nhập số lớn hơn 0.');
-      focusEl($('lggn-ins'));
-      $('lggn-out').innerHTML = '';
-      return;
+      if (showErrors) {
+        markErr($('lggn-ins'), 'Ô Lương đóng bảo hiểm chưa đúng — để trống (mặc định bằng lương ' + salaryName + ') hoặc nhập số lớn hơn 0.');
+        focusEl($('lggn-ins'));
+      }
+      renderEmpty();
+      return false;
     }
     if (direction === 'g2n') {
       const insSalary = insRaw === '' ? salary : parseNum(insRaw);
@@ -251,40 +335,129 @@ export function init(root) {
         if (r.net < targetNet) lo = mid; else hi = mid;
       }
       render(best);
-      if (!silent) toast('Đã quy đổi Net → Gross');
+    }
+    return true;
+  }
+
+  // --- Chép / Chia sẻ / Tải ảnh kết quả (MẪU 2) ---
+  function copyResult() {
+    if (!lastCopyText) return;
+    function done(ok) { if (ok) toast('Đã chép kết quả lương'); }
+    if (U.copyText) {
+      const p = U.copyText(lastCopyText);
+      if (p && p.then) p.then(done);
+      else done(!!p);
+    } else if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(lastCopyText).then(function () { done(true); }).catch(function () { done(false); });
+    }
+  }
+  function shareResult() {
+    if (!lastCopyText) return;
+    const url = window.location.href;
+    // Web Share API (điện thoại: mở bảng chia sẻ của máy, có Zalo nếu
+    // đã cài); máy tính không có API thì mở link chia sẻ Zalo với URL
+    // trang hiện tại (URL đã chứa số đang tính nhờ tool-state).
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      navigator.share({ title: 'Tính lương Gross ⇄ Net', text: lastCopyText, url: url }).catch(function () { /* người dùng hủy chia sẻ */ });
+    } else if (typeof window !== 'undefined') {
+      window.open('https://zalo.me/share?url=' + encodeURIComponent(url), '_blank', 'noopener');
+    }
+  }
+  function downloadImage() {
+    if (!lastResult) return;
+    const r = lastResult;
+    const W = 880, H = 640;
+    function draw() {
+      const c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      const x = c.getContext('2d');
+      if (!x) return;
+      x.fillStyle = '#FFFFFF';
+      x.fillRect(0, 0, W, H);
+      x.fillStyle = '#1747E6';
+      x.fillRect(0, 0, W, 12);
+      x.textBaseline = 'alphabetic';
+      x.textAlign = 'left';
+      x.fillStyle = '#64748B';
+      x.font = '700 20px "Be Vietnam Pro", sans-serif';
+      x.fillText('TÍNH LƯƠNG GROSS – NET', 48, 58);
+      const heroLabel = direction === 'g2n' ? 'Lương thực nhận (Net)' : 'Lương Gross tương ứng';
+      const heroValue = direction === 'g2n' ? r.net : r.gross;
+      x.fillStyle = '#475569';
+      x.font = '600 22px "Be Vietnam Pro", sans-serif';
+      x.fillText(heroLabel, 48, 112);
+      x.fillStyle = '#1747E6';
+      x.font = '800 56px "Be Vietnam Pro", sans-serif';
+      x.fillText(fmtVND(heroValue), 48, 178);
+      x.fillStyle = '#64748B';
+      x.font = '400 20px "Be Vietnam Pro", sans-serif';
+      const p = pctOfGross(r);
+      x.fillText(direction === 'g2n' ? 'Bằng ' + p + '% lương Gross' : 'Lương Net bằng ' + p + '% lương Gross', 48, 214);
+      x.strokeStyle = '#DCE1EA';
+      x.lineWidth = 1;
+      x.beginPath(); x.moveTo(48, 244); x.lineTo(W - 48, 244); x.stroke();
+      const rows = [
+        ['Lương Gross', fmtVND(r.gross), false],
+        ['Bảo hiểm (10,5%)', '− ' + fmtVND(r.insurance), false],
+        ['Thu nhập tính thuế', fmtVND(r.taxable), false],
+        ['Thuế TNCN', '− ' + fmtVND(r.tax), false],
+        ['Lương Net thực nhận', fmtVND(r.net), true],
+      ];
+      let y = 292;
+      rows.forEach(function (row) {
+        x.fillStyle = '#0F172A';
+        x.font = (row[2] ? '800' : '600') + ' 20px "Be Vietnam Pro", sans-serif';
+        x.textAlign = 'left';
+        x.fillText(row[0], 48, y);
+        x.fillStyle = row[2] ? '#1747E6' : '#0F172A';
+        x.textAlign = 'right';
+        x.fillText(row[1], W - 48, y);
+        y += 48;
+      });
+      x.strokeStyle = '#DCE1EA';
+      x.beginPath(); x.moveTo(48, y - 8); x.lineTo(W - 48, y - 8); x.stroke();
+      x.fillStyle = '#64748B';
+      x.font = '400 16px "Be Vietnam Pro", sans-serif';
+      x.textAlign = 'left';
+      x.fillText('tienichhub.io.vn  ·  Kết quả chỉ mang tính tham khảo', 48, y + 36);
+      if (c.toBlob) {
+        c.toBlob(function (blob) {
+          if (!blob) return;
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'luong-gross-net.png';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+          toast('Đã tải ảnh kết quả');
+        }, 'image/png');
+      }
+    }
+    // Đợi phông Be Vietnam Pro tải xong để chữ trong ảnh đúng phông;
+    // lỗi thì vẽ luôn bằng phông dự phòng.
+    if (typeof document !== 'undefined' && document.fonts && document.fonts.load) {
+      Promise.all([
+        document.fonts.load('700 20px "Be Vietnam Pro"'),
+        document.fonts.load('800 56px "Be Vietnam Pro"'),
+      ]).then(draw).catch(draw);
+    } else {
+      draw();
     }
   }
 
-  $('lggn-tab-g2n').addEventListener('click', () => {
-    direction = 'g2n';
-    $('lggn-tab-g2n').classList.add('tab-active');
-    $('lggn-tab-n2g').classList.remove('tab-active');
-    $('lggn-salary-label').textContent = 'Gross';
+  // --- Công tắc chiều Gross ⇄ Net: đổi chiều là tính lại ngay với số
+  // đang có (không xóa kết quả như bản cũ — bản cũ xóa vì còn nút Tính).
+  function setDirection(dir) {
+    direction = dir;
+    $('lggn-tab-g2n').classList.toggle('m2-toggle-active', dir === 'g2n');
+    $('lggn-tab-n2g').classList.toggle('m2-toggle-active', dir === 'n2g');
+    $('lggn-salary-label').textContent = dir === 'g2n' ? 'Gross' : 'Net';
     clearErrs(root);
-    $('lggn-out').innerHTML = '';
-    hideSticky();
-  });
-  $('lggn-tab-n2g').addEventListener('click', () => {
-    direction = 'n2g';
-    $('lggn-tab-n2g').classList.add('tab-active');
-    $('lggn-tab-g2n').classList.remove('tab-active');
-    $('lggn-salary-label').textContent = 'Net';
-    clearErrs(root);
-    $('lggn-out').innerHTML = '';
-    hideSticky();
-  });
-  // Bấm "Tính lương" xong thì tự cuộn xuống kết quả (trước đây kết quả
-  // nằm dưới màn hình trên điện thoại). withBusy chạy bất đồng bộ nên
-  // phải cuộn trong callback, sau khi calc() đã render xong.
-  function runCalc() {
-    withBusy($('lggn-calc'), function () {
-      calc();
-      if ($('lggn-out').querySelector('.result')) scrollToResult();
-    });
+    tryRender(false);
   }
-  $('lggn-calc').addEventListener('click', runCalc);
-  $('lggn-salary').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
-  $('lggn-ins').addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(); });
+  $('lggn-tab-g2n').addEventListener('click', function () { setDirection('g2n'); });
+  $('lggn-tab-n2g').addEventListener('click', function () { setDirection('n2g'); });
+
   // Tự thêm dấu chấm phân cách nghìn khi gõ và khi rời ô (gõ 45000000 →
   // 45.000.000), áp cho cả hai ô tiền để nhất quán.
   function bindMoneyFormat(el) {
@@ -305,65 +478,95 @@ export function init(root) {
   }
   bindMoneyFormat($('lggn-salary'));
   bindMoneyFormat($('lggn-ins'));
-  // Ví dụ: lương 45 triệu, 1 người phụ thuộc — thấy rõ cả bảo hiểm lẫn thuế theo bậc.
-  $('lggn-example').addEventListener('click', () => {
-    fillEx(root, { 'lggn-salary': '45.000.000', 'lggn-ins': '45.000.000', 'lggn-dep': '1' }, $('lggn-calc'));
+
+  // Nút chọn nhanh mức lương: điền số rồi tính trực tiếp (qua liveCalc).
+  root.querySelectorAll('[data-lggn-quick]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const el = $('lggn-salary');
+      el.value = fmtNum(parseInt(btn.getAttribute('data-lggn-quick'), 10));
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
   });
-  // Tính luôn khi gõ (đợt sửa UX 18/11): chỉ tính khi lương đã có số > 0
-  // và lương đóng bảo hiểm (nếu có) cũng hợp lệ; chưa hợp lệ thì xóa kết
-  // quả lặng lẽ, không hiện lỗi, không cướp focus. Đợi 400ms sau lần gõ
-  // cuối để khỏi tính giữa chừng.
+
+  // Người phụ thuộc dạng − số + (không dùng ô gõ): ô số chỉ đọc, hai
+  // nút tăng/giảm gửi sự kiện input/change để liveCalc + tool-state
+  // (đồng bộ URL) chạy như khi gõ tay. fillExample của khung ví dụ vẫn
+  // điền được vì nó đặt el.value trực tiếp.
+  function setDeps(n) {
+    const el = $('lggn-dep');
+    el.value = String(Math.max(0, Math.floor(n) || 0));
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+  $('lggn-dep-minus').addEventListener('click', function () { setDeps(parseInt($('lggn-dep').value, 10) - 1); });
+  $('lggn-dep-plus').addEventListener('click', function () { setDeps(parseInt($('lggn-dep').value, 10) + 1); });
+
+  // Dòng gợi ý trần BHTN theo vùng đang chọn (tên vùng trong ô chọn rút
+  // gọn còn "Vùng I…" cho vừa hàng 2 cột — trần ghi ở đây để khỏi mất
+  // thông tin so với bản cũ).
+  function updateRegionHint() {
+    const cap = REGION_CAPS[$('lggn-region').value] || '';
+    const hint = $('lggn-region-hint');
+    if (hint) hint.textContent = cap ? 'Trần đóng BHTN vùng này: ' + cap + '/tháng.' : '';
+  }
+  $('lggn-region').addEventListener('change', updateRegionHint);
+
+  // Tính trực tiếp khi gõ (đợt sửa UX 18/11): chỉ tính khi lương đã có
+  // số > 0 và lương đóng bảo hiểm (nếu có) cũng hợp lệ; chưa hợp lệ thì
+  // hiện khung trống lặng lẽ, không hiện lỗi, không cướp focus. Đợi
+  // 400ms sau lần gõ cuối để khỏi tính giữa chừng. Nghe cả 'change' để
+  // tool-state.js điền từ URL (nó chỉ gửi 'change') cũng tính lại được
+  // — bản cũ dựa vào nút Tính để bấm lại, nay không còn nút đó.
   let liveTimer = null;
   function liveCalc() {
     if (liveTimer) clearTimeout(liveTimer);
-    liveTimer = setTimeout(function () {
-      const salary = parseNum($('lggn-salary').value);
-      const insRaw = $('lggn-ins').value.trim();
-      if (salary > 0 && (insRaw === '' || parseNum(insRaw) > 0)) calc(true);
-      else { $('lggn-out').innerHTML = ''; hideSticky(); }
-    }, 400);
+    liveTimer = setTimeout(function () { tryRender(false); }, 400);
   }
-  ['lggn-salary', 'lggn-ins', 'lggn-dep'].forEach(function (id) {
+  ['lggn-salary', 'lggn-ins', 'lggn-dep', 'lggn-region'].forEach(function (id) {
     const el = $(id);
-    if (el) el.addEventListener('input', liveCalc);
+    if (!el) return;
+    el.addEventListener('input', liveCalc);
+    el.addEventListener('change', liveCalc);
   });
-  $('lggn-region').addEventListener('change', liveCalc);
-  // Theo dõi kết quả và nút "Tính lương" có trong màn hình không để
-  // ẩn/hiện thanh tóm tắt (xem refreshSticky).
+
+  // Thanh tóm tắt: bấm Chép thì chép kết quả, bấm Chi tiết thì cuộn lên
+  // thẻ kết quả.
+  $('lggn-sticky-copy').addEventListener('click', copyResult);
+  $('lggn-sticky-detail').addEventListener('click', scrollToResult);
+
+  // Theo dõi thẻ kết quả có trong màn hình không để ẩn/hiện thanh tóm
+  // tắt (xem refreshSticky).
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(function (entries) {
       resultInView = entries[0].isIntersecting;
       refreshSticky();
     }, { threshold: 0.1 });
     io.observe($('lggn-out'));
-    const ioBtn = new IntersectionObserver(function (entries) {
-      calcBtnInView = entries[0].isIntersecting;
-      refreshSticky();
-    }, { threshold: 0.5 });
-    ioBtn.observe($('lggn-calc'));
   } else {
     resultInView = false; // không có IO: hiện thanh khi có kết quả
   }
-  $('lggn-sticky').addEventListener('click', scrollToResult);
   // Đổi kích thước màn hình (xoay điện thoại, đổi cỡ cửa sổ) làm chiều
   // cao/khoảng hở của thanh đổi — đo lại khoảng trống dưới trang.
   if (typeof window !== 'undefined') window.addEventListener('resize', refreshSticky);
   // Kéo nốt tới đáy thật sau khi cuộn dừng: khi thanh hiện giữa lúc đang
   // cuộn (vd bấm phím End — trình duyệt cuộn có quán tính ~200ms, thanh
-  // hiện giữa chừng nên đích cuộn vẫn là đáy cũ, thiếu đúng khoảng trống
-  // vừa thêm), chờ cuộn dừng 150ms rồi kéo nốt tới đáy thật để footer lộ
-  // đủ. Chỉ kéo khi thiếu đúng ~chiều cao khoảng trống (người dùng dừng
-  // ở đáy cũ); không kéo khi họ chỉ cuộn lên vài px để đọc lại footer.
+  // hiện giữa chừng nên đích cuộn vẫn là đáy cũ, thiếu đúng khoảng trang
+  // dài thêm khi thanh hiện), chờ cuộn dừng 150ms rồi kéo nốt tới đáy
+  // thật để footer lộ đủ. Chỉ kéo khi thiếu đúng ~khoảng dài thêm đó
+  // (người dùng dừng ở đáy cũ); không kéo khi họ chỉ cuộn lên vài px để
+  // đọc lại footer. So với lastBarGrowth (độ dài thêm ĐO THẬT) chứ không
+  // so với gap — trên điện thoại padding mới thay padding cũ nên trang
+  // chỉ dài thêm 66px trong khi gap là 130px.
   let scrollEndTimer = null;
   if (typeof window !== 'undefined') window.addEventListener('scroll', function () {
     if (scrollEndTimer) clearTimeout(scrollEndTimer);
     scrollEndTimer = setTimeout(function () {
       const bar = $('lggn-sticky');
       if (!bar || bar.hidden) return;
-      const gap = Math.ceil(window.innerHeight - bar.getBoundingClientRect().top);
       const de = document.documentElement;
       const shortfall = (de.scrollHeight - window.innerHeight) - window.scrollY;
-      if (shortfall > 0 && Math.abs(shortfall - gap) <= 4) {
+      if (shortfall > 0 && Math.abs(shortfall - lastBarGrowth) <= 4) {
         window.scrollTo(0, de.scrollHeight);
       }
     }, 150);
@@ -383,12 +586,7 @@ export function init(root) {
     inputFocused = false;
     refreshSticky();
   });
-  // Nút "Đặt lại" của khung (tool-state.js chèn sau .btn-primary, có thể
-  // chèn sau khi init chạy nên phải nghe bằng ủy quyền): ẩn thanh tóm tắt.
-  root.addEventListener('click', function (e) {
-    const btn = e.target && e.target.closest ? e.target.closest('[data-uh-reset]') : null;
-    if (btn) hideSticky();
-  });
   // Tính ngay với số mặc định để mở trang đã thấy kết quả.
-  calc();
+  updateRegionHint();
+  tryRender(true);
 }
