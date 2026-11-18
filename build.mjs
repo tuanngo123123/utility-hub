@@ -347,13 +347,18 @@ function toolPageHtml(tool, index, noscriptLinks) {
     return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: tool.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
   })();
   // Link tới bài hướng dẫn (mục /huong-dan/) ở cuối trang công cụ —
-  // chỉ 4 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
+  // 9 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
   // huong-dan-data.js (kiểm tra bằng tay khi thêm bài mới).
   const GUIDE_LINKS = {
     'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
     'tien-dien-bac-thang': { url: '/huong-dan/cach-tinh-tien-dien-bac-thang-2026/', title: 'Cách tính tiền điện bậc thang 2026' },
     'le-phi-mon-bai': { url: '/huong-dan/le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien/', title: 'Lệ phí môn bài 2026: hộ kinh doanh được miễn' },
     'bhxh-mot-lan': { url: '/huong-dan/cach-tinh-bhxh-mot-lan-2026/', title: 'Cách tính BHXH một lần 2026' },
+    'lai-vay': { url: '/huong-dan/cach-tinh-lai-vay-tra-gop-du-no-giam-dan/', title: 'Cách tính lãi vay trả góp theo dư nợ giảm dần' },
+    'lai-kep': { url: '/huong-dan/cach-tinh-lai-suat-tiet-kiem-ngan-hang/', title: 'Cách tính lãi suất tiết kiệm ngân hàng' },
+    'thue-thu-nhap-ca-nhan': { url: '/huong-dan/cach-tinh-thue-thu-nhap-ca-nhan-2026/', title: 'Cách tính thuế thu nhập cá nhân 2026' },
+    'tien-nuoc-bac-thang': { url: '/huong-dan/cach-tinh-tien-nuoc-bac-thang-2026/', title: 'Cách tính tiền nước bậc thang 2026' },
+    'luong-tang-ca': { url: '/huong-dan/cach-tinh-luong-tang-ca-2026/', title: 'Cách tính lương tăng ca 2026' },
   };
   const guide = GUIDE_LINKS[tool.slug];
   const guideHtml = guide
@@ -758,9 +763,9 @@ async function main() {
   addPage(
     'huong-dan/index.html',
     shell({
-      title: `Hướng dẫn — Cách tính lương, tiền điện, BHXH một lần, lệ phí môn bài | ${SITE_NAME}`,
-      desc: 'Hướng dẫn cách tính lương Gross–Net, tiền điện bậc thang, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
-      keywords: 'hướng dẫn, cách tính lương gross net, cách tính tiền điện, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
+      title: `Hướng dẫn — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước | ${SITE_NAME}`,
+      desc: 'Hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
+      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
       canonical: `${BASE_URL}/huong-dan/`,
       navActive: 'huong-dan',
       body: huongDanPage.body({ articles: HUONG_DAN_ARTICLES }),
@@ -812,6 +817,15 @@ async function main() {
   copyFile('fonts/Inter-var-vietnamese.woff2', 'assets/fonts/Inter-var-vietnamese.woff2');
   copyFile('fonts/LICENSE.txt', 'assets/fonts/LICENSE.txt');
   copyFile('app.js', 'assets/app.js');
+  // Logo + favicon (18/11): file thật để Google đọc được (data URI thì
+  // kết quả tìm kiếm chỉ hiện quả cầu mặc định). favicon.ico ở gốc để
+  // trình duyệt tự tìm; SVG/PNG để tham chiếu tường minh.
+  copyFile('logo/favicon.svg', 'favicon.svg');
+  copyFile('logo/favicon.ico', 'favicon.ico');
+  copyFile('logo/apple-touch-icon.png', 'apple-touch-icon.png');
+  copyFile('logo/favicon-48.png', 'assets/favicon-48.png');
+  copyFile('logo/favicon-192.png', 'assets/favicon-192.png');
+  copyFile('logo/og-image.png', 'assets/og-image.png');
   copyFile('tool-state.js', 'assets/tool-state.js');
   // Rail video trang chủ (18/11, theo cơ chế 21st.dev): 8 clip mp4 + 8
   // poster jpg trong src/rail/. Thiếu file nào thì build dừng ngay để

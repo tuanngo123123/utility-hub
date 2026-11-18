@@ -37,9 +37,13 @@ const FOOTER_TOOLS = [
   { slug: 'doi-don-vi-nhanh', name: 'Đổi đơn vị nhanh' },
 ];
 
-// Favicon nội tuyến (SVG data URI) — không cần file riêng.
-const FAVICON =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230033FF'/%3E%3Ctext x='32' y='45' font-size='32' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3ETH%3C/text%3E%3C/svg%3E";
+// Favicon là FILE thật (src/logo/) — Google Search không đọc được favicon
+// dạng data URI nên trước đây kết quả tìm kiếm chỉ hiện quả cầu mặc định.
+// build.mjs copy các file này ra dist (gốc + assets/).
+const FAVICON_LINKS = `<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">`;
+const OG_IMAGE = 'https://tienichhub.io.vn/assets/og-image.png';
 
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
@@ -72,9 +76,10 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <meta property="og:title" content="${title}">
   <meta property="og:description" content="${desc}">
   <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${OG_IMAGE}">
   <meta property="og:locale" content="vi_VN">
   <meta name="theme-color" content="#0033FF">
-  <link rel="icon" href="${FAVICON}">
+  ${FAVICON_LINKS}
   ${THEME_BOOT}
   <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}
   <script src="/assets/app.js" defer></script>
@@ -84,7 +89,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <a class="skip-link" href="#main-content">Bỏ qua tới nội dung chính</a>
   <header class="site-header" id="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="/">Tiện Ích <span>Hub</span></a>
+      <a class="brand" href="/"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30">Tiện Ích <span>Hub</span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
         <a href="/" class="${active('home') ? 'nav-active' : ''}">Trang chủ</a>
         <a href="/cong-cu/" class="${active('cong-cu') ? 'nav-active' : ''}">Công cụ</a>
