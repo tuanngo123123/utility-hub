@@ -1951,6 +1951,17 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .preview-frame .field .hint { color: #9db8d2; }
 .preview-frame .input-unit .unit { color: #9db8d2; }
 
+/* Thu gọn khung xem trước (Tuấn chốt 18/11): chỉ giữ số Net lớn ở đầu,
+   ẩn 8 dòng chi tiết + bảng thuế theo bậc để bảng xếp hạng lên cao hơn.
+   Xem đủ chi tiết ở trang công cụ thật. */
+.preview-frame .result-row { display: none; }
+.preview-frame .tbl { display: none; }
+/* Thu thêm: ẩn dòng gợi ý dưới ô nhập (trang công cụ thật vẫn có đủ)
+   và nút Chép kết quả (xem trước chỉ để thử + dẫn tới trang thật).
+   Lỗi nhập vẫn hiện bình thường vì dùng .field-msg riêng. */
+.preview-frame .field .hint { display: none; }
+.preview-frame .result-actions { display: none; }
+
 /* Tab Gross → Net / Net → Gross trên nền tối. */
 .preview-frame .tab {
   background: transparent;
