@@ -17,23 +17,34 @@ const DATA_DIR = join(ROOT, 'src', 'data');
 // Model chính + dự phòng: Google có thể ngừng cấp model cũ cho key mới
 // (gemini-2.5-flash trả 404 với key tạo 18/11/2026) — gặp 404 thì thử model sau.
 // Model mới cũng hay quá tải (503) nên mỗi model được thử lại 1 lần sau 15s.
-const MODELS = ['gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-flash-latest'];
+// 3.5-flash đứng đầu vì kiểm trực tiếp 18/11: model duy nhất trả 200
+// (3.8 treo 90s không trả, 3.7/3.6/flash-latest đều 503 quá tải).
+const MODELS = ['gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-3.7-flash', 'gemini-flash-latest'];
 let MODEL_USED = MODELS[0];
 const apiUrl = (m) => `https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// Gọi Gemini: thử từng model; lỗi 503/429 (quá tải) thì chờ 15s thử lại
-// 1 lần rồi mới sang model sau; lỗi 404 (model bị gỡ) sang model sau ngay.
+// Gọi Gemini: thử từng model; lỗi 503/429 (quá tải) hoặc lỗi mạng/timeout
+// thì chờ 15s thử lại 1 lần rồi mới sang model sau; lỗi 404 (model bị gỡ)
+// sang model sau ngay. Timeout 120s vì model mới trả chậm (2 tin đã ~40s).
 async function callGemini(apiKey, body) {
   let lastErr = '';
   for (const m of MODELS) {
     for (let attempt = 1; attempt <= 2; attempt++) {
-      const res = await fetch(apiUrl(m), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(60000),
-      });
+      let res;
+      try {
+        res = await fetch(apiUrl(m), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(120000),
+        });
+      } catch (e) {
+        lastErr = `Gemini lỗi mạng/timeout (${m}): ${e.message || e}`;
+        if (attempt < 2) { console.warn(`${lastErr} — chờ 15s thử lại.`); await sleep(15000); continue; }
+        console.warn(`Model ${m} vẫn lỗi mạng — thử model sau.`);
+        break;
+      }
       if (res.ok) { MODEL_USED = m; return res; }
       lastErr = `Gemini HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`;
       if (res.status === 404) { console.warn(`Model ${m} không dùng được (404) — thử model sau.`); break; }
