@@ -8,7 +8,7 @@ export const meta = {
   name: 'Chia nhóm ngẫu nhiên',
   category: 'Giáo viên',
   categorySlug: 'giao-vien',
-  desc: 'Chia lớp thành nhóm ngẫu nhiên: theo số bạn mỗi nhóm hoặc số nhóm, các nhóm lệch nhau tối đa 1 bạn, mỗi nhóm một màu riêng kèm vai trò từng bạn, sao chép và tải kết quả về.',
+  desc: 'Chia lớp thành nhóm ngẫu nhiên: theo số bạn mỗi nhóm hoặc số nhóm, các nhóm lệch nhau tối đa 1 bạn, mỗi nhóm một màu riêng kèm vai trò từng bạn, nạp được lớp đã lưu, sao chép và tải kết quả về.',
   keywords: 'chia nhóm ngẫu nhiên, chia nhóm học sinh, chia đội, chia nhóm lớp học',
   icon: '👥',
   seoTitle: 'Chia nhóm ngẫu nhiên — đều người, có vai trò, tải kết quả về',
@@ -19,6 +19,13 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><div><h2>Chia nhóm ngẫu nhiên</h2><p class="muted">Dán danh sách lớp, chọn cách chia — các nhóm được xáo trộn và chia đều, lệch nhau tối đa 1 bạn, mỗi bạn có một vai trò.</p></div></div>
+  <div class="field"><label for="cn-class-load">Nạp từ lớp đã lưu <span class="muted">(lưu lớp trong công cụ Gọi tên)</span></label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <select id="cn-class-load" style="flex:1;min-width:140px"><option value="">— Chọn lớp đã lưu —</option></select>
+      <button type="button" class="btn" id="cn-class-load-btn">Nạp lớp</button>
+    </div>
+  </div>
+  <p class="note" id="cn-class-msg" style="display:none"></p>
   <div class="field"><label for="cn-names">Danh sách lớp (mỗi bạn một dòng)</label><textarea id="cn-names" rows="6" placeholder="Mai&#10;Nam&#10;Phương&#10;Tuấn">Mai
 Nam
 Phương
@@ -61,14 +68,33 @@ export function init(root) {
   function tick() { const s = gvSound(); if (s) s.tick(); }
   function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
-  function nameList() {
+  // Tách danh sách tên — xử lý cả khi dán từ Excel: dòng có tab thì lấy
+  // phần sau tab cuối (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
+  // "An"), bỏ dòng tiêu đề. Dùng helper dùng chung khi có, dự phòng
+  // bằng logic giống hệt khi app.js chưa nạp.
+  function parseNames(text) {
+    const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+    if (helper) return helper.parse(text);
     const seen = {};
     const out = [];
-    $('cn-names').value.split(/\n+/).forEach(s => {
-      const t = s.trim();
-      if (t && !seen[t]) { seen[t] = true; out.push(t); }
+    String(text == null ? '' : text).split(/\n+/).forEach(line => {
+      let t = String(line).trim();
+      if (!t) return;
+      if (t.indexOf('\t') !== -1) {
+        const parts = t.split('\t');
+        t = parts[parts.length - 1].trim();
+        if (!t) return;
+      }
+      t = t.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
+      if (!t) return;
+      if (/^(họ\s*(và\s*)?tên|họ tên học sinh|tên học sinh|tên|stt)$/i.test(t)) return;
+      if (!seen[t]) { seen[t] = true; out.push(t); }
     });
     return out;
+  }
+
+  function nameList() {
+    return parseNames($('cn-names').value);
   }
 
   function download(filename, text) {
@@ -235,6 +261,40 @@ export function init(root) {
   });
   $('cn-divide').addEventListener('click', divide);
   $('cn-stage').addEventListener('click', openStage);
+
+  // Nạp lớp đã lưu (lưu trong công cụ Gọi tên, khóa 'uh_gv_lop').
+  (function initClassLoad() {
+    const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+    const sel = $('cn-class-load');
+    const msg = $('cn-class-msg');
+    if (!helper) return;
+    const map = helper.list();
+    Object.keys(map).sort().forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n;
+      opt.textContent = n + ' (' + map[n].length + ' bạn)';
+      sel.appendChild(opt);
+    });
+    $('cn-class-load-btn').addEventListener('click', () => {
+      const name = sel.value;
+      if (!name) {
+        msg.textContent = 'Chọn một lớp đã lưu trước đã nhé (lưu lớp trong công cụ Gọi tên).';
+        msg.style.display = '';
+        return;
+      }
+      const names = helper.get(name);
+      if (!names.length) {
+        msg.textContent = 'Lớp này không còn tên nào.';
+        msg.style.display = '';
+        return;
+      }
+      $('cn-names').value = names.join('\n');
+      groups = [];
+      $('cn-out').hidden = true;
+      msg.textContent = 'Đã nạp lớp ' + name + ' (' + names.length + ' bạn) — bấm "Chia nhóm" để chia.';
+      msg.style.display = '';
+    });
+  })();
 
   (function initSoundBtn() {
     const btn = $('cn-sound');

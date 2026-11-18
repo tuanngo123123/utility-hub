@@ -2832,13 +2832,27 @@
     var gain = ctx.createGain();
     osc.type = type || 'sine';
     osc.frequency.setValueAtTime(freq, t0);
+    // Âm lượng chung cho cả web (thanh chỉnh trong công cụ Âm thanh lớp
+    // học, khóa 'uh_gv_vol' 0–100, mặc định 80). Đọc mỗi lần phát để
+    // thanh chỉnh có hiệu lực ngay mà không cần tải lại trang.
+    var v = (vol || 0.15) * gvVolume();
     gain.gain.setValueAtTime(0.0001, t0);
-    gain.gain.exponentialRampToValueAtTime(vol || 0.15, t0 + 0.01);
+    gain.gain.exponentialRampToValueAtTime(Math.max(v, 0.0002), t0 + 0.01);
     gain.gain.exponentialRampToValueAtTime(0.0001, t0 + (dur || 0.15));
     osc.connect(gain);
     gain.connect(ctx.destination);
     osc.start(t0);
     osc.stop(t0 + (dur || 0.15) + 0.05);
+  }
+
+  function gvVolume() {
+    try {
+      var raw = localStorage.getItem('uh_gv_vol');
+      if (raw === null || raw === '') return 0.8;
+      var n = parseInt(raw, 10);
+      if (isNaN(n)) return 0.8;
+      return Math.max(0, Math.min(100, n)) / 100;
+    } catch (e) { return 0.8; }
   }
 
   function gvTick() {
@@ -2867,16 +2881,100 @@
     gvTone(1318.5, 0.09, 0.18, 'sine', 0.08);
   }
 
+  /* Chuông hết giờ cho đếm ngược lớp học: 3 tiếng chuông ngân dài. */
+  function gvBell() {
+    if (!gvSoundEnabled()) return;
+    gvTone(659.25, 0, 0.9, 'sine', 0.2);
+    gvTone(659.25, 0.7, 0.9, 'sine', 0.2);
+    gvTone(659.25, 1.4, 1.2, 'sine', 0.2);
+  }
+
   if (typeof window !== 'undefined') {
     window.UhGvSound = {
       tick: gvTick,
       fanfare: gvFanfare,
       ting: gvTing,
+      bell: gvBell,
+      volume: gvVolume,
       enabled: gvSoundEnabled,
       toggle: function () {
         var v = !gvSoundEnabled();
         gvSetSoundEnabled(v);
         return v;
+      }
+    };
+  }
+
+  /* ---------------- Danh sách lớp lưu sẵn (UhGvClasses) ----------------
+     Nền tảng dùng chung cho mục Giáo viên: giáo viên lưu danh sách từng
+     lớp 1 lần (vd "6A", "7B"), các công cụ Gọi tên / Chia nhóm / Điểm
+     danh / Bốc câu hỏi đều đọc chung — không dán lại mỗi buổi.
+     1 key localStorage 'uh_gv_lop' dạng { "6A": [...tên], "7B": [...] }.
+     parse() xử lý cả trường hợp dán từ Excel: dòng có tab thì lấy phần
+     sau tab cuối cùng (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
+     "An"), bỏ dòng tiêu đề ("Họ tên"). An toàn khi chạy dưới Node. */
+  var GV_CLASS_KEY = 'uh_gv_lop';
+
+  function gvParseNames(text) {
+    var seen = {};
+    var out = [];
+    String(text == null ? '' : text).split(/\n+/).forEach(function (line) {
+      var t = String(line).trim();
+      if (!t) return;
+      // Dán từ Excel: "1 [tab] Nguyễn Văn A" → lấy sau tab cuối.
+      if (t.indexOf('\t') !== -1) {
+        var parts = t.split('\t');
+        t = parts[parts.length - 1].trim();
+        if (!t) return;
+      }
+      // Bỏ số thứ tự đầu dòng: "1. An", "1) An", "1 - An", "1 An".
+      t = t.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
+      if (!t) return;
+      // Bỏ dòng tiêu đề cột khi dán cả bảng Excel.
+      if (/^(họ\s*(và\s*)?tên|họ tên học sinh|tên học sinh|tên|stt)$/i.test(t)) return;
+      if (!seen[t]) { seen[t] = true; out.push(t); }
+    });
+    return out;
+  }
+
+  function gvLoadClasses() {
+    try {
+      var raw = localStorage.getItem(GV_CLASS_KEY);
+      if (!raw) return {};
+      var data = JSON.parse(raw);
+      if (!data || typeof data !== 'object' || Array.isArray(data)) return {};
+      var clean = {};
+      Object.keys(data).forEach(function (k) {
+        if (!Array.isArray(data[k])) return;
+        var names = data[k].filter(function (n) { return typeof n === 'string' && n.trim(); });
+        if (k.trim() && names.length) clean[k.trim()] = names;
+      });
+      return clean;
+    } catch (e) { return {}; }
+  }
+
+  function gvSaveClasses(map) {
+    try { localStorage.setItem(GV_CLASS_KEY, JSON.stringify(map)); return true; }
+    catch (e) { return false; }
+  }
+
+  if (typeof window !== 'undefined') {
+    window.UhGvClasses = {
+      parse: gvParseNames,
+      list: gvLoadClasses,
+      get: function (name) {
+        var map = gvLoadClasses();
+        return map[name] ? map[name].slice() : [];
+      },
+      save: function (name, names) {
+        var map = gvLoadClasses();
+        map[String(name).trim()] = names.slice();
+        return gvSaveClasses(map);
+      },
+      remove: function (name) {
+        var map = gvLoadClasses();
+        delete map[name];
+        return gvSaveClasses(map);
       }
     };
   }

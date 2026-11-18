@@ -848,14 +848,14 @@ async function main() {
   );
   console.log(`   - Học miễn phí: ${hocMienPhiCount} repo, 1 trang`);
 
-  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 6 công cụ hạng mục
+  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 10 công cụ hạng mục
   // giao-vien (danh sách trong src/pages/giao-vien.js).
   addPage(
     'giao-vien/index.html',
     shell({
       title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm | ${SITE_NAME}`,
-      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp — chạy ngay trên trình duyệt, không cần đăng ký.',
-      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc',
+      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi — chạy ngay trên trình duyệt, không cần đăng ký.',
+      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh',
       canonical: `${BASE_URL}/giao-vien/`,
       navActive: 'giao-vien',
       body: giaoVienPage.body(),
@@ -863,7 +863,7 @@ async function main() {
     }),
     `${BASE_URL}/giao-vien/`
   );
-  console.log('   - Giáo viên: 6 công cụ, 1 trang');
+  console.log('   - Giáo viên: 10 công cụ, 1 trang');
 
   // Trang mục Điểm báo (/diem-bao/) + trang lưu trữ theo ngày (mới nhất
   // trước). Trang mục vào sitemap như mọi trang khác (qua addPage).

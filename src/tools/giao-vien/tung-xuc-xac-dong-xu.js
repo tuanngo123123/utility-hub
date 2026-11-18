@@ -68,6 +68,7 @@ export function init(root) {
   let tails = 0;
   let tab = 'dice';
   let lastDice = null;
+  let prevDice = null;
   let lastCoin = null;
   let stageOpen = false;
   let stageEl = null;
@@ -111,6 +112,11 @@ export function init(root) {
     for (let i = 0; i < n; i++) vals.push(1 + Math.floor(Math.random() * 6));
     renderDice(vals, false);
     $('xx-total').textContent = 'Tổng: —';
+    // Đổi số viên thì lịch sử cũ không còn đúng nữa — đặt lại.
+    lastDice = null;
+    prevDice = null;
+    $('xx-prev').textContent = 'Lần trước: chưa tung';
+    updateStage();
   });
 
   function rollDice() {
@@ -132,7 +138,14 @@ export function init(root) {
         for (let i = 0; i < n; i++) final.push(1 + Math.floor(Math.random() * 6));
         renderDice(final, false);
         const total = final.reduce((a, b) => a + b, 0);
-        if (lastDice) $('xx-prev').textContent = 'Lần trước: ' + lastDice.total + ' (' + lastDice.vals.join(' + ') + ')';
+        // Dòng "Lần trước" phải cập nhật ngay từ lần tung đầu tiên
+        // (trước đây chỉ cập nhật từ lần thứ 2 vì lastDice ban đầu null).
+        if (prevDice) {
+          $('xx-prev').textContent = 'Lần trước: ' + prevDice.total + ' (' + prevDice.vals.join(' + ') + ')';
+        } else {
+          $('xx-prev').textContent = 'Vừa tung: ' + total + ' (' + final.join(' + ') + ')';
+        }
+        prevDice = { total: total, vals: final };
         lastDice = { total: total, vals: final };
         const totalEl = $('xx-total');
         totalEl.textContent = 'Tổng: ' + total + (n > 1 ? '  (' + final.join(' + ') + ')' : '');

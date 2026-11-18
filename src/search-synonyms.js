@@ -204,7 +204,7 @@ export const SYNONYMS = {
   'từ vựng': ['hoc-tu-vung-tieng-anh'],
 
   // Giáo viên / lớp học
-  'giáo viên': ['goi-ten-ngau-nhien', 'chia-nhom-ngau-nhien', 'bang-diem-lop', 'boc-tham-so', 'tung-xuc-xac-dong-xu', 'am-thanh-lop-hoc'],
+  'giáo viên': ['goi-ten-ngau-nhien', 'chia-nhom-ngau-nhien', 'bang-diem-lop', 'boc-tham-so', 'tung-xuc-xac-dong-xu', 'am-thanh-lop-hoc', 'dem-nguoc-lop-hoc', 'do-do-on-lop-hoc', 'diem-danh', 'boc-cau-hoi'],
   'gọi tên': ['goi-ten-ngau-nhien'],
   'gọi tên học sinh': ['goi-ten-ngau-nhien'],
   'gọi bài': ['goi-ten-ngau-nhien'],
@@ -227,6 +227,20 @@ export const SYNONYMS = {
   'bảng điểm': ['bang-diem-lop'],
   'điểm thi đua': ['bang-diem-lop'],
   'cộng điểm': ['bang-diem-lop'],
+  'đếm ngược lớp học': ['dem-nguoc-lop-hoc'],
+  'đếm ngược': ['dem-nguoc-lop-hoc', 'bam-gio-dem-nguoc'],
+  'hẹn giờ dạy học': ['dem-nguoc-lop-hoc'],
+  'timer lớp học': ['dem-nguoc-lop-hoc'],
+  'đo độ ồn': ['do-do-on-lop-hoc'],
+  'đo ồn lớp học': ['do-do-on-lop-hoc'],
+  'bóng nảy': ['do-do-on-lop-hoc'],
+  'điểm danh': ['diem-danh', 'goi-ten-ngau-nhien'],
+  'điểm danh lớp': ['diem-danh'],
+  'điểm danh học sinh': ['diem-danh'],
+  'bốc câu hỏi': ['boc-cau-hoi'],
+  'câu hỏi ôn tập': ['boc-cau-hoi'],
+  'kiểm tra bài cũ': ['boc-cau-hoi'],
+  'ôn tập': ['boc-cau-hoi'],
 
   // Đời sống / thời gian
   'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],

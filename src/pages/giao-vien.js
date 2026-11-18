@@ -36,13 +36,33 @@ const TOOLS = [
     name: 'Âm thanh lớp học',
     desc: 'Chuông bắt đầu, kèn chiến thắng, tín hiệu chú ý, gõ nhịp suy nghĩ, chuông kết thúc, ting cộng điểm — phát ngay trên trình duyệt, không cần file.',
   },
+  {
+    id: 'dem-nguoc-lop-hoc',
+    name: 'Đếm ngược lớp học',
+    desc: 'Đếm ngược màn hình lớn cho giờ học: preset 30 giây đến 15 phút, hiển thị số lớn, vòng tròn hoặc bảng LED, chuông khi hết giờ, bíp 5 giây cuối, có bấm giờ.',
+  },
+  {
+    id: 'do-do-on-lop-hoc',
+    name: 'Đo độ ồn lớp học',
+    desc: 'Bóng nảy theo độ ồn của lớp, thanh mức ồn và đèn giao thông Xanh/Vàng/Đỏ theo ngưỡng chỉnh được. Chỉ đo độ to, không ghi âm, âm thanh không rời khỏi máy.',
+  },
+  {
+    id: 'diem-danh',
+    name: 'Điểm danh nhanh',
+    desc: 'Chọn lớp đã lưu, bấm vào tên để đánh dấu Vắng / Muộn, tổng kết có mặt — vắng — muộn ngay, tải file điểm danh theo ngày về máy.',
+  },
+  {
+    id: 'boc-cau-hoi',
+    name: 'Bốc câu hỏi ôn tập',
+    desc: 'Bốc câu hỏi ôn tập, kiểm tra bài cũ không lặp lại, hiện đáp án khi cần, lưu nhiều bộ câu hỏi theo tên, bốc kèm tên bạn trả lời.',
+  },
 ];
 
 export function body() {
   return `
   <header class="tool-page-head">
     <h1>Giáo viên</h1>
-    <p class="muted">Công cụ miễn phí cho giờ học: gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, ghi điểm thi đua, âm thanh lớp học — tất cả chạy ngay trên trình duyệt, không cần đăng ký, không cần cài đặt. Mở lên là dùng được ngay trước lớp.</p>
+    <p class="muted">Công cụ miễn phí cho giờ học: gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, ghi điểm thi đua, âm thanh lớp học, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi — tất cả chạy ngay trên trình duyệt, không cần đăng ký, không cần cài đặt. Mở lên là dùng được ngay trước lớp. Lưu danh sách từng lớp một lần trong công cụ Gọi tên, các công cụ khác đều dùng chung.</p>
   </header>
 
   <section class="section" aria-label="Công cụ cho giáo viên">
@@ -56,6 +76,6 @@ ${TOOLS.map((t) => `      <article class="sv-card">
   </section>
 
   <section class="section" aria-label="Ghi chú">
-    <p class="note">Bảng điểm lớp được lưu trên trình duyệt của bạn (không gửi lên máy chủ nào) — đổi máy hoặc xóa dữ liệu trình duyệt thì điểm sẽ mất, nhớ tải bảng điểm về (.csv) để giữ lại. Các công cụ khác không lưu gì cả.</p>
+    <p class="note">Bảng điểm lớp, danh sách lớp đã lưu, điểm danh và bộ câu hỏi được lưu trên trình duyệt của bạn (không gửi lên máy chủ nào) — đổi máy hoặc xóa dữ liệu trình duyệt thì sẽ mất, nhớ tải về để giữ lại. Các công cụ khác không lưu gì cả.</p>
   </section>`;
 }

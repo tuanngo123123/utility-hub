@@ -25,8 +25,13 @@ export function body() {
     <button type="button" class="gv-snd" data-sound="win"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><strong>Kèn chiến thắng</strong><span>Ăn mừng đội thắng</span></button>
     <button type="button" class="gv-snd" data-sound="attention"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><strong>Tín hiệu chú ý</strong><span>Cả lớp nghe này</span></button>
     <button type="button" class="gv-snd" data-sound="think"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><strong>Gõ nhịp suy nghĩ</strong><span>Cho thời gian nghĩ</span></button>
-    <button type="button" class="gv-snd" data-sound="end"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><line x1="4" y1="4" x2="20" y2="20" opacity="0"/></svg><strong>Chuông kết thúc</strong><span>Hết giờ làm bài</span></button>
+    <button type="button" class="gv-snd" data-sound="end"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg><strong>Chuông kết thúc</strong><span>Hết giờ làm bài</span></button>
     <button type="button" class="gv-snd" data-sound="point"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg><strong>Ting cộng điểm</strong><span>Cộng điểm đúng lúc</span></button>
+  </div>
+  <div class="gv-vol-row">
+    <label for="at-vol">Âm lượng</label>
+    <input type="range" id="at-vol" min="0" max="100" value="80" step="5">
+    <span class="gv-vol-val" id="at-vol-val">80%</span>
   </div>
   <div class="btn-row" style="margin-top:14px">
     <!-- data-uh-reset: công cụ không có ô nhập nên không cần nút Đặt lại của khung; thuộc tính này ngăn khung tự chèn nút thừa. -->
@@ -39,7 +44,24 @@ export function body() {
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
   const KEY = 'uh_gv_sound';
+  const VOL_KEY = 'uh_gv_vol';
   let ctx = null;
+
+  // Âm lượng chung cho cả web (cùng khóa với helper UhGvSound trong
+  // app.js): 0–100, mặc định 80. Thanh trượt ở đây chỉnh cho cả âm
+  // thanh của các công cụ giáo viên khác.
+  function volume() {
+    try {
+      const raw = localStorage.getItem(VOL_KEY);
+      if (raw === null || raw === '') return 0.8;
+      const n = parseInt(raw, 10);
+      return isNaN(n) ? 0.8 : Math.max(0, Math.min(100, n)) / 100;
+    } catch (e) { return 0.8; }
+  }
+
+  function setVolume(pct) {
+    try { localStorage.setItem(VOL_KEY, String(pct)); } catch (e) { /* bỏ qua */ }
+  }
 
   // Mỗi âm là một danh sách nốt [tần số, trễ giây, dài giây, dạng sóng, độ to].
   const SOUNDS = {
@@ -79,6 +101,7 @@ export function init(root) {
     if (!notes) return;
     const c = audioCtx();
     if (!c) return;
+    const vol = volume();
     notes.forEach(n => {
       const t0 = c.currentTime + n[1];
       const osc = c.createOscillator();
@@ -86,7 +109,7 @@ export function init(root) {
       osc.type = n[3];
       osc.frequency.setValueAtTime(n[0], t0);
       gain.gain.setValueAtTime(0.0001, t0);
-      gain.gain.exponentialRampToValueAtTime(n[4], t0 + 0.01);
+      gain.gain.exponentialRampToValueAtTime(Math.max(n[4] * vol, 0.0002), t0 + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, t0 + n[2]);
       osc.connect(gain);
       gain.connect(c.destination);
@@ -123,6 +146,20 @@ export function init(root) {
     paintToggle();
     if (enabled()) setMsg('');
   });
+
+  // Thanh chỉnh âm lượng: đọc giá trị đã lưu, thay đổi có hiệu lực ngay.
+  (function initVolume() {
+    const slider = $('at-vol');
+    const label = $('at-vol-val');
+    const pct = Math.round(volume() * 100);
+    slider.value = String(pct);
+    label.textContent = pct + '%';
+    slider.addEventListener('input', () => {
+      const v = parseInt(slider.value, 10) || 0;
+      setVolume(v);
+      label.textContent = v + '%';
+    });
+  })();
 
   paintToggle();
 }

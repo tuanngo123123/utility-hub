@@ -8,11 +8,11 @@ export const meta = {
   name: 'Gọi tên ngẫu nhiên',
   category: 'Giáo viên',
   categorySlug: 'giao-vien',
-  desc: 'Gọi tên học sinh ngẫu nhiên bằng vòng quay hoặc chạy tên: không gọi lại người đã gọi, gọi 1–5 bạn mỗi lần, cộng điểm sang bảng điểm, tải danh sách đã gọi về máy.',
-  keywords: 'gọi tên ngẫu nhiên, gọi tên học sinh, chọn tên ngẫu nhiên, gọi bài, điểm danh lớp, vòng quay tên',
+  desc: 'Gọi tên học sinh ngẫu nhiên bằng vòng quay hoặc chạy tên: không gọi lại người đã gọi, gọi 1–5 bạn mỗi lần, cộng điểm sang bảng điểm, lưu được nhiều lớp dùng chung cho cả mục Giáo viên, tải danh sách đã gọi về máy.',
+  keywords: 'gọi tên ngẫu nhiên, gọi tên học sinh, chọn tên ngẫu nhiên, gọi bài, điểm danh lớp, vòng quay tên, lưu danh sách lớp',
   icon: '🎯',
   seoTitle: 'Gọi tên ngẫu nhiên trong lớp — vòng quay, không gọi lại người đã gọi',
-  seoDesc: 'Dán danh sách lớp, bấm gọi tên — vòng quay giảm tốc rồi dừng ở bạn được gọi, không gọi lại người đã gọi cho tới khi hết danh sách. Miễn phí, chạy ngay trên trình duyệt.',
+  seoDesc: 'Dán danh sách lớp, bấm gọi tên — vòng quay giảm tốc rồi dừng ở bạn được gọi, không gọi lại người đã gọi cho tới khi hết danh sách. Lưu được nhiều lớp, dùng chung cho cả mục Giáo viên. Miễn phí, chạy ngay trên trình duyệt.',
 };
 
 export function body() {
@@ -23,6 +23,7 @@ export function body() {
     <button type="button" class="tab tab-active" id="gt-tab-wheel">Vòng quay</button>
     <button type="button" class="tab" id="gt-tab-text">Chạy tên</button>
   </div>
+  <p class="note" id="gt-big-hint" style="display:none">Lớp đông (trên 24 bạn) nên dùng chế độ chữ để đọc rõ tên — vòng quay vẫn chọn được tay ở trên, nhưng chữ trên vòng sẽ nhỏ.</p>
   <div id="gt-pane-wheel">
     <div class="gv-wheel-wrap" id="gt-wheel-wrap">
       <div class="gv-wheel-pointer" aria-hidden="true"></div>
@@ -57,6 +58,31 @@ Hương
 Đức
 Linh
 Khoa</textarea></div>
+  <div class="gv-class-box" id="gt-class-box">
+    <h3>Lớp đã lưu</h3>
+    <p class="muted">Lưu danh sách từng lớp một lần — Gọi tên, Chia nhóm, Điểm danh và Bốc câu hỏi đều dùng chung, không cần dán lại mỗi buổi. Dán từ Excel cũng được: cột số thứ tự sẽ tự bỏ.</p>
+    <div class="field"><label for="gt-class-load">Nạp lớp đã lưu</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <select id="gt-class-load" style="flex:1;min-width:140px"><option value="">— Chọn lớp đã lưu —</option></select>
+        <button type="button" class="btn" id="gt-class-load-btn">Nạp lớp</button>
+        <button type="button" class="btn btn-ghost" id="gt-class-del-btn">Xóa lớp</button>
+      </div>
+    </div>
+    <div class="field"><label for="gt-class-name">Lưu danh sách trên thành lớp mới</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input id="gt-class-name" type="text" placeholder="Ví dụ: 6A" autocomplete="off" style="flex:1;min-width:120px">
+        <button type="button" class="btn" id="gt-class-save-btn">Lưu lớp</button>
+      </div>
+    </div>
+    <div class="field"><label>Xuất / nhập lớp (.txt, mỗi bạn một dòng)</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button type="button" class="btn gv-dl" id="gt-class-export-btn">Tải lớp đã chọn (.txt)</button>
+        <label class="btn" for="gt-class-import" style="cursor:pointer">Nhập lớp từ file .txt</label>
+        <input id="gt-class-import" type="file" accept=".txt,text/plain" style="position:absolute;width:1px;height:1px;opacity:0">
+      </div>
+    </div>
+    <p class="note" id="gt-class-msg" style="display:none"></p>
+  </div>
   <div class="field"><label for="gt-count">Số bạn gọi mỗi lần</label><select id="gt-count"><option value="1" selected>1 bạn</option><option value="2">2 bạn</option><option value="3">3 bạn</option><option value="4">4 bạn</option><option value="5">5 bạn</option></select></div>
 </div>`;
 }
@@ -87,14 +113,33 @@ export function init(root) {
   function tick() { const s = gvSound(); if (s) s.tick(); }
   function fanfare() { const s = gvSound(); if (s) s.fanfare(); }
 
-  function nameList() {
+  // Tách danh sách tên — xử lý cả khi dán từ Excel: dòng có tab thì lấy
+  // phần sau tab cuối (bỏ cột STT), bỏ số thứ tự đầu dòng ("1. An" →
+  // "An"), bỏ dòng tiêu đề. Dùng helper dùng chung khi có, dự phòng
+  // bằng logic giống hệt khi app.js chưa nạp.
+  function parseNames(text) {
+    const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+    if (helper) return helper.parse(text);
     const seen = {};
     const out = [];
-    $('gt-names').value.split(/\n+/).forEach(s => {
-      const t = s.trim();
-      if (t && !seen[t]) { seen[t] = true; out.push(t); }
+    String(text == null ? '' : text).split(/\n+/).forEach(line => {
+      let t = String(line).trim();
+      if (!t) return;
+      if (t.indexOf('\t') !== -1) {
+        const parts = t.split('\t');
+        t = parts[parts.length - 1].trim();
+        if (!t) return;
+      }
+      t = t.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim();
+      if (!t) return;
+      if (/^(họ\s*(và\s*)?tên|họ tên học sinh|tên học sinh|tên|stt)$/i.test(t)) return;
+      if (!seen[t]) { seen[t] = true; out.push(t); }
     });
     return out;
+  }
+
+  function nameList() {
+    return parseNames($('gt-names').value);
   }
 
   function remainingNames() {
@@ -173,9 +218,15 @@ export function init(root) {
     el.innerHTML = parts.join('');
   }
 
+  // Chế độ chạy tên: khi đã có bạn được gọi thì chỉ hiện khối lớn (thẻ
+  // người thắng), ẩn hộp chạy tên để không trùng 2 khối "Bạn được gọi".
+  function syncHero() {
+    $('gt-hero').style.display = (mode === 'text' && roundPicks.length) ? 'none' : '';
+  }
+
   function renderWinner() {
     const w = $('gt-winner');
-    if (!roundPicks.length) { w.style.display = 'none'; w.innerHTML = ''; return; }
+    if (!roundPicks.length) { w.style.display = 'none'; w.innerHTML = ''; syncHero(); return; }
     const cls = roundPicks.length > 1 ? 'gv-winner-name gv-winner-name-sm' : 'gv-winner-name';
     let html = '<p class="gv-hero-label">Bạn được gọi</p>';
     roundPicks.forEach(p => {
@@ -191,6 +242,7 @@ export function init(root) {
     w.classList.remove('gv-pop');
     void w.offsetWidth;
     w.classList.add('gv-pop');
+    syncHero();
   }
 
   function addPoint(name, btn) {
@@ -308,7 +360,9 @@ export function init(root) {
     updateStatus();
     updateStage();
     fanfare();
-    confetti($('gt-wheel-wrap'));
+    // Pháo giấy rơi trên khung đang hiện (vòng quay hoặc thẻ người thắng
+    // ở chế độ chạy tên — khung vòng quay đang ẩn thì không thấy gì).
+    confetti(mode === 'text' ? $('gt-winner') : $('gt-wheel-wrap'));
     const left = remainingNames().length;
     $('gt-wheel-sub').textContent = left > 0
       ? 'Còn ' + left + ' bạn chưa được gọi'
@@ -341,8 +395,8 @@ export function init(root) {
         clearInterval(timer);
         big.classList.remove('gv-cycling');
         picks.forEach(p => announcePick(p));
-        big.innerHTML = picks.map(p => '<div class="' + (picks.length > 1 ? 'gv-big gv-big-sm' : 'gv-big') + '">' + esc(p) + '</div>').join('');
-        confetti($('gt-hero'));
+        // Hộp chạy tên đã ẩn sau khi công bố (chỉ giữ thẻ người thắng
+        // khổng lồ) nên không cần ghi tên vào hộp nữa.
         busy = false;
         $('gt-call').disabled = false;
         onDone();
@@ -373,6 +427,7 @@ export function init(root) {
     const picks = shuffled.slice(0, count);
     roundPicks = [];
     $('gt-winner').style.display = 'none';
+    syncHero();
     if (mode === 'text') {
       callTextMode(picks, () => {});
       return;
@@ -410,6 +465,7 @@ export function init(root) {
     $('gt-winner').innerHTML = '';
     updateStatus();
     updateStage();
+    syncHero();
     drawWheel();
   }
 
@@ -419,7 +475,17 @@ export function init(root) {
     $('gt-tab-text').classList.toggle('tab-active', m === 'text');
     $('gt-pane-wheel').style.display = m === 'wheel' ? '' : 'none';
     $('gt-pane-text').style.display = m === 'text' ? '' : 'none';
+    syncHero();
     if (m === 'wheel') drawWheel();
+  }
+
+  // Lớp đông (trên 24 bạn): vòng quay không đọc được tên nên tự động
+  // mở ở chế độ chạy tên + hiện gợi ý; giáo viên vẫn chọn vòng quay
+  // được tay nếu muốn (gợi ý vẫn hiện khi danh sách còn đông).
+  function checkBigClass() {
+    const big = nameList().length > 24;
+    $('gt-big-hint').style.display = big ? '' : 'none';
+    if (big && mode === 'wheel') setMode('text');
   }
 
   $('gt-tab-wheel').addEventListener('click', () => setMode('wheel'));
@@ -427,7 +493,7 @@ export function init(root) {
   $('gt-call').addEventListener('click', call);
   $('gt-stage').addEventListener('click', openStage);
   $('gt-reset').addEventListener('click', resetAll);
-  $('gt-names').addEventListener('input', resetAll);
+  $('gt-names').addEventListener('input', () => { resetAll(); checkBigClass(); });
 
   $('gt-download').addEventListener('click', () => {
     const list = nameList();
@@ -447,5 +513,119 @@ export function init(root) {
     paint();
   })();
 
+  // Quản lý lớp lưu sẵn (dùng chung cho cả mục Giáo viên qua helper
+  // window.UhGvClasses trong app.js, khóa localStorage 'uh_gv_lop').
+  function gvClasses() {
+    return (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+  }
+
+  function classMsg(text) {
+    const el = $('gt-class-msg');
+    el.textContent = text;
+    el.style.display = text ? '' : 'none';
+  }
+
+  function refreshClassSelect() {
+    const sel = $('gt-class-load');
+    const helper = gvClasses();
+    const map = helper ? helper.list() : {};
+    const names = Object.keys(map).sort();
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">— Chọn lớp đã lưu —</option>'
+      + names.map(n => '<option value="' + esc(n) + '">' + esc(n) + ' (' + map[n].length + ' bạn)</option>').join('');
+    if (cur && map[cur]) sel.value = cur;
+    $('gt-class-export-btn').disabled = !sel.value;
+  }
+
+  $('gt-class-load').addEventListener('change', () => {
+    $('gt-class-export-btn').disabled = !$('gt-class-load').value;
+  });
+
+  $('gt-class-load-btn').addEventListener('click', () => {
+    const helper = gvClasses();
+    const name = $('gt-class-load').value;
+    if (!helper || !name) { classMsg('Chọn một lớp đã lưu trước đã nhé.'); return; }
+    const names = helper.get(name);
+    if (!names.length) { classMsg('Lớp này không còn tên nào.'); return; }
+    $('gt-names').value = names.join('\n');
+    resetAll();
+    checkBigClass();
+    classMsg('Đã nạp lớp ' + name + ' (' + names.length + ' bạn).');
+  });
+
+  $('gt-class-save-btn').addEventListener('click', () => {
+    const helper = gvClasses();
+    const name = $('gt-class-name').value.trim();
+    const names = nameList();
+    if (!name) { classMsg('Gõ tên lớp trước đã nhé (ví dụ: 6A).'); return; }
+    if (!names.length) { classMsg('Danh sách đang trống — dán tên các bạn vào ô trên trước đã nhé.'); return; }
+    if (!helper) { classMsg('Trình duyệt chưa nạp xong phần lưu lớp — tải lại trang rồi thử lại nhé.'); return; }
+    const existed = !!helper.list()[name];
+    helper.save(name, names);
+    refreshClassSelect();
+    $('gt-class-load').value = name;
+    $('gt-class-export-btn').disabled = false;
+    classMsg(existed
+      ? 'Đã cập nhật lớp ' + name + ' (' + names.length + ' bạn).'
+      : 'Đã lưu lớp ' + name + ' (' + names.length + ' bạn) — Chia nhóm, Điểm danh và Bốc câu hỏi cũng dùng được lớp này.');
+  });
+
+  let delArmed = false;
+  let delTimer = null;
+  $('gt-class-del-btn').addEventListener('click', () => {
+    const helper = gvClasses();
+    const name = $('gt-class-load').value;
+    const btn = $('gt-class-del-btn');
+    if (!helper || !name) { classMsg('Chọn một lớp đã lưu trước đã nhé.'); return; }
+    if (!delArmed) {
+      delArmed = true;
+      btn.textContent = 'Bấm lại để xóa ' + name;
+      delTimer = setTimeout(() => {
+        delArmed = false;
+        btn.textContent = 'Xóa lớp';
+      }, 3000);
+      return;
+    }
+    clearTimeout(delTimer);
+    delArmed = false;
+    btn.textContent = 'Xóa lớp';
+    helper.remove(name);
+    refreshClassSelect();
+    classMsg('Đã xóa lớp ' + name + '.');
+  });
+
+  $('gt-class-export-btn').addEventListener('click', () => {
+    const helper = gvClasses();
+    const name = $('gt-class-load').value;
+    if (!helper || !name) { classMsg('Chọn một lớp đã lưu trước đã nhé.'); return; }
+    const names = helper.get(name);
+    download('lop-' + name + '.txt', names.join('\n') + '\n');
+    classMsg('Đã tải danh sách lớp ' + name + ' (' + names.length + ' bạn).');
+  });
+
+  $('gt-class-import').addEventListener('change', (ev) => {
+    const file = ev.target.files && ev.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const names = parseNames(reader.result);
+      if (!names.length) { classMsg('File không có tên nào đọc được — mỗi bạn một dòng nhé.'); return; }
+      const helper = gvClasses();
+      if (!helper) { classMsg('Trình duyệt chưa nạp xong phần lưu lớp — tải lại trang rồi thử lại nhé.'); return; }
+      const fromInput = $('gt-class-name').value.trim();
+      const fromFile = file.name.replace(/\.txt$/i, '').replace(/^lop-/i, '');
+      const name = fromInput || fromFile || 'Lớp mới';
+      helper.save(name, names);
+      refreshClassSelect();
+      $('gt-class-load').value = name;
+      $('gt-class-export-btn').disabled = false;
+      classMsg('Đã nhập lớp ' + name + ' (' + names.length + ' bạn) từ file.');
+    };
+    reader.readAsText(file);
+    ev.target.value = '';
+  });
+
+  refreshClassSelect();
   drawWheel();
+  checkBigClass();
 }
