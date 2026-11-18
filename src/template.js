@@ -117,7 +117,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <a class="skip-link" href="#main-content">Bỏ qua tới nội dung chính</a>
   <header class="site-header" id="site-header">
     <div class="wrap header-inner">
-      <a class="brand" href="/"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30">Tiện Ích <span>Hub</span></a>
+      <a class="brand" href="/"><span class="brand-logo-wrap"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30"><span class="brand-dot" aria-hidden="true"></span></span>Tiện Ích <span>Hub</span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
         <a href="/" class="${active('home') ? 'nav-active' : ''}">Trang chủ</a>
         <a href="/cong-cu/" class="${active('cong-cu') ? 'nav-active' : ''}">Công cụ</a>
@@ -130,8 +130,9 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
       </nav>
       <div class="header-actions">
-        <button type="button" class="header-search-btn" id="header-search-btn" aria-label="Tìm kiếm công cụ">Tìm kiếm <kbd>⌘K</kbd></button>
+        <button type="button" class="header-search-btn" id="header-search-btn" aria-label="Tìm kiếm công cụ"><svg class="header-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="header-search-label">Tìm kiếm</span> <kbd>⌘K</kbd></button>
         <a class="btn btn-primary btn-header-cta" href="/cong-cu/">Dùng ngay</a>
+        <button type="button" class="sound-toggle" id="sound-toggle" aria-label="Bật/tắt âm thanh" aria-pressed="true"><svg class="snd-on" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg><svg class="snd-off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/><path d="M22 9l-6 6"/><path d="M16 9l6 6"/></svg></button>
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi giao diện sáng/tối">🌙</button>
         <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">☰</button>
       </div>

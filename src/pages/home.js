@@ -1,9 +1,13 @@
 // Trang chủ — KHÔI PHỤC BỐ CỤC TRƯỚC ĐỢT 1 (Tuấn yêu cầu 18/11, thấy bản
 // cũ đẹp hơn bản wave 1), phủ giao diện mới kiểu web nước ngoài
 // (iLovePDF + TinyWow + Product Hunt).
-// Thứ tự: hero (tìm kiếm) + BẢNG XẾP HẠNG nằm trong vùng hero ở đầu trang
-// → dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) →
-// Điểm báo (mục chính) → lưới đủ 120 công cụ → banner Ủng hộ.
+// Thứ tự (hướng B đợt 1, 18/11): hero (H1 có từ xoay + tìm kiếm làm tâm
+// điểm + 1 nút CTA) → rail Công cụ nổi bật → hàng mục nổi bật gọn
+// (Sinh viên / Hướng dẫn / Học miễn phí / Giáo viên) → dải dữ liệu hôm
+// nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) → Điểm báo (mục
+// chính) → lưới đủ công cụ (+ nút xúc xắc "Thử công cụ ngẫu nhiên") →
+// Bảng xếp hạng (đã dời xuống dưới lưới công cụ — trước đây nằm trong
+// vùng hero, chiếm màn hình đầu tiên) → banner Ủng hộ.
 // KHÔNG còn khối "Hôm nay" riêng, hàng "công cụ hay dùng" riêng, thẻ hạng
 // mục riêng như wave 1 (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
 // SSR (worker W11): Điểm báo (tin nổi bật + cụm tin theo chủ đề) và bảng
@@ -15,7 +19,7 @@
 // tải có skeleton (xám mờ) thay bằng nội dung khi tải xong.
 // Lưới công cụ render sẵn lúc build từ danh sách build.mjs quét được.
 import { toolCard, esc } from '../tool-card.js';
-import { CATEGORIES, categoryLabel } from '../categories.js';
+import { CATEGORIES, categoryLabel, categoryColor, categoryColorDark } from '../categories.js';
 
 // Dải dữ liệu hôm nay: nhãn + vùng dữ liệu (app.js điền lúc chạy) + link
 // chi tiết. id crypto-strip / gold-content… giữ nguyên như trước, chỉ đặt
@@ -152,15 +156,17 @@ function trendingRowHtml(item, i) {
 export function body({ tools = [], categories = [], news = null, trending = null } = {}) {
   const cats = categories.length ? categories : CATEGORIES;
 
-  // Lưới đầy đủ 120 công cụ + chip lọc riêng cho trang chủ.
+  // Lưới đầy đủ công cụ + chip lọc riêng cho trang chủ.
+  // Chip hạng mục tô màu hạng mục (hướng B): biến --cat-color đặt inline
+  // theo từng chip; chip "Tất cả" giữ xanh mặc định của web.
   const homeChips = [`<button type="button" class="chip chip-active" data-home-filter="all" aria-pressed="true">Tất cả</button>`]
-    .concat(cats.map((c) => `<button type="button" class="chip" data-home-filter="${c.slug}" aria-pressed="false">${esc(c.label)}</button>`))
+    .concat(cats.map((c) => `<button type="button" class="chip chip-cat" data-home-filter="${c.slug}" aria-pressed="false" style="--cat-color: ${esc(categoryColor(c.slug))}; --cat-color-dark: ${esc(categoryColorDark(c.slug))}">${esc(c.label)}</button>`))
     .join('\n      ');
   const allGrid = tools.length
     ? `<div class="grid-3" id="home-tool-grid">
 ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
 </div>
-<p id="home-tool-empty" class="muted" hidden>Không tìm thấy công cụ nào trong hạng mục này.</p>`
+<div id="home-tool-empty" class="empty-state" hidden><div data-mascot="empty" aria-hidden="true"></div><p><strong>Không tìm thấy công cụ nào trong hạng mục này.</strong></p><p class="muted">Thử tìm: <a href="/cong-cu/luong-gross-net/">tính lương net</a> hoặc bấm <a href="/cong-cu/">xem tất cả công cụ</a>.</p></div>`
     : `<p class="muted">Chưa có công cụ nào — đang cập nhật.</p>`;
 
   // (SSR) Điểm báo + bảng xếp hạng render sẵn từ JSON lúc build.
@@ -232,16 +238,15 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
   <section class="hero">
     <div class="hero-inner">
     <p class="hero-eyebrow">Miễn phí — dùng ngay, không cần đăng ký</p>
-    <h1>${tools.length} công cụ miễn phí, dùng ngay.</h1>
+    <h1>${tools.length} công cụ miễn&nbsp;phí — <span class="hero-rotator" id="hero-rotator" style="color: #1d4ed8">tính lương</span></h1>
     <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt.</p>
-    <div class="hero-cta-row">
-      <a class="btn btn-primary" href="/cong-cu/">Chọn công cụ, dùng ngay</a>
-      <a class="btn btn-ghost" href="/cong-cu/">Xem tất cả công cụ</a>
-    </div>
     <div class="hero-search-wrap">
       <label class="small muted" for="hero-search">Tìm công cụ</label>
       <input type="search" id="hero-search" class="hero-search" placeholder="Tìm công cụ… ví dụ: tính lương net" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="hero-search-results">
       <div id="hero-search-results" class="hero-search-results" role="listbox" hidden></div>
+    </div>
+    <div class="hero-cta-row">
+      <a class="btn btn-primary" href="/cong-cu/">Chọn công cụ, dùng ngay</a>
     </div>
     <div class="hero-chips hero-popular" aria-label="Từ khóa gợi ý">
       <a class="chip" href="/cong-cu/luong-gross-net/">Tính lương net</a>
@@ -250,15 +255,6 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
       <a class="chip" href="/cong-cu/lich-am/">Lịch âm</a>
     </div>
     <div data-mascot="hero" aria-hidden="true"></div>
-    <div class="hero-ranking" id="ranking" aria-label="Bảng xếp hạng">
-      <h2>Bảng xếp hạng</h2>
-      <div class="tabs" role="tablist">
-        <button type="button" class="tab tab-active" data-tab-target="rank-github" role="tab">Xu hướng GitHub</button>
-        <button type="button" class="tab" data-tab-target="rank-hot" role="tab">Tin hot</button>
-      </div>
-      <div class="tab-panel" data-tab-panel="rank-github" id="rank-github"${trendingItems.length ? trendingAttrs : ''}>${trendingItems.length ? githubHtml : '<p class="muted">Đang tải…</p>'}</div>
-      <div class="tab-panel" data-tab-panel="rank-hot" id="rank-hot"${allNewsItems.length ? newsAttrs : ''} hidden>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
-    </div>
     </div>
   </section>
 
@@ -270,44 +266,27 @@ ${railHtml}
     </div>
   </section>
 
-  <section class="sv-promo" aria-label="Dành cho sinh viên">
-    <div class="sv-promo-inner">
-      <div>
-        <h2>Dành cho sinh viên</h2>
-        <p class="muted">Khóa học miễn phí, mẫu CV/báo cáo, ưu đãi phần mềm — gom một chỗ, chỉ link nguồn chính thức.</p>
-      </div>
-      <a class="btn btn-primary" href="/sinh-vien/">Xem ngay →</a>
-    </div>
-  </section>
-
-  <section class="sv-promo" aria-label="Hướng dẫn">
-    <div class="sv-promo-inner">
-      <div>
-        <h2>Hướng dẫn</h2>
-        <p class="muted">Cách tính lương Gross–Net, tiền điện bậc thang, BHXH một lần, lệ phí môn bài 2026 — viết ngắn gọn, số liệu theo quy định hiện hành, kèm ví dụ tính sẵn.</p>
-      </div>
-      <a class="btn btn-primary" href="/huong-dan/">Đọc hướng dẫn →</a>
-    </div>
-  </section>
-
-  <section class="sv-promo" aria-label="Học miễn phí">
-    <div class="sv-promo-inner">
-      <div>
-        <h2>Học miễn phí</h2>
-        <p class="muted">Repo GitHub học tiếng Anh, lập trình, thiết kế miễn phí — mô tả tiếng Việt, kèm số sao và link gốc.</p>
-      </div>
-      <a class="btn btn-primary" href="/hoc-mien-phi/">Xem kho học →</a>
-    </div>
-  </section>
-
-  <section class="sv-promo" aria-label="Giáo viên">
-    <div class="sv-promo-inner">
-      <div>
-        <h2>Giáo viên</h2>
-        <p class="muted">Gọi tên, chia nhóm, tung xúc xắc, bốc thăm số, bảng điểm thi đua — công cụ miễn phí cho giờ học, mở lên là dùng ngay trước lớp.</p>
-      </div>
-      <a class="btn btn-primary" href="/giao-vien/">Xem công cụ →</a>
-    </div>
+  <section class="promo-row" aria-label="Các mục nổi bật">
+    <a class="promo-card" href="/sinh-vien/" style="--promo-color: #2563eb; --promo-color-dark: #1d4ed8">
+      <h2>Dành cho sinh viên</h2>
+      <p>Khóa học miễn phí, mẫu CV/báo cáo, ưu đãi phần mềm — gom một chỗ.</p>
+      <span class="promo-link">Xem ngay →</span>
+    </a>
+    <a class="promo-card" href="/huong-dan/" style="--promo-color: #6a5ae0; --promo-color-dark: #5546c0">
+      <h2>Hướng dẫn</h2>
+      <p>Cách tính lương, tiền điện, BHXH… viết ngắn gọn, kèm ví dụ tính sẵn.</p>
+      <span class="promo-link">Đọc hướng dẫn →</span>
+    </a>
+    <a class="promo-card" href="/hoc-mien-phi/" style="--promo-color: #d81b60; --promo-color-dark: #be185d">
+      <h2>Học miễn phí</h2>
+      <p>Repo GitHub học tiếng Anh, lập trình, thiết kế — mô tả tiếng Việt.</p>
+      <span class="promo-link">Xem kho học →</span>
+    </a>
+    <a class="promo-card" href="/giao-vien/" style="--promo-color: #0d9488; --promo-color-dark: #0f766e">
+      <h2>Giáo viên</h2>
+      <p>Gọi tên, chia nhóm, bốc thăm, bảng điểm — mở lên là dùng ngay trước lớp.</p>
+      <span class="promo-link">Xem công cụ →</span>
+    </a>
   </section>
 
   <section class="section section-strips" aria-label="Dữ liệu hôm nay">
@@ -338,10 +317,23 @@ ${railHtml}
   <section class="section" aria-label="Tất cả công cụ">
     <h2>Tất cả công cụ</h2>
     <p class="muted" id="home-tool-count">${tools.length} công cụ — miễn phí, chạy ngay trên trình duyệt, không cần đăng nhập.</p>
+    <p><button type="button" class="btn dice-btn" id="dice-home"><svg class="dice-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/></svg><span class="dice-label">Thử công cụ ngẫu nhiên</span></button></p>
     <div class="chip-row" role="group" aria-label="Lọc theo hạng mục">
       ${homeChips}
     </div>
     ${allGrid}
+  </section>
+
+  <section class="section section-ranking" aria-label="Bảng xếp hạng">
+    <div class="hero-ranking" id="ranking">
+      <h2>Bảng xếp hạng</h2>
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab tab-active" data-tab-target="rank-github" role="tab">Xu hướng GitHub</button>
+        <button type="button" class="tab" data-tab-target="rank-hot" role="tab">Tin hot</button>
+      </div>
+      <div class="tab-panel" data-tab-panel="rank-github" id="rank-github"${trendingItems.length ? trendingAttrs : ''}>${trendingItems.length ? githubHtml : '<p class="muted">Đang tải…</p>'}</div>
+      <div class="tab-panel" data-tab-panel="rank-hot" id="rank-hot"${allNewsItems.length ? newsAttrs : ''} hidden>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
+    </div>
   </section>
 
   <section class="support-banner" aria-label="Ủng hộ trang web">

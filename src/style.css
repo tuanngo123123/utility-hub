@@ -178,10 +178,24 @@ p.error {
 }
 .brand-logo { width: 30px; height: 30px; flex: none; }
 .brand span { color: var(--accent); }
+/* Vùng bấm lên chấm vàng của logo (trứng phục sinh, hướng B đợt 1):
+   chấm vàng nằm góc dưới-phải logo (favicon 64px: tâm 48,48 r=6,5 →
+   trên logo 30px là góc dưới-phải ~12px). Vùng trong suốt, chỉ JS
+   nghe bấm (5 lần trong 2,5s); bấm chỗ khác của logo vẫn về trang chủ. */
+.brand-logo-wrap { position: relative; display: inline-flex; flex: none; line-height: 0; }
+.brand-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+}
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
 
 .theme-toggle,
+.sound-toggle,
 .nav-toggle {
   border: 1px solid var(--line);
   background: var(--surface);
@@ -193,7 +207,16 @@ p.error {
   cursor: pointer;
 }
 .theme-toggle:hover,
+.sound-toggle:hover,
 .nav-toggle:hover { background: var(--bg-soft); }
+/* Nút âm thanh (hướng B đợt 1): icon loa SVG; trạng thái tắt hiện loa
+   gạch chéo (JS gắn class .sound-off + đổi aria-label). */
+.sound-toggle { display: inline-flex; align-items: center; justify-content: center; padding: 7px; }
+.sound-toggle svg { display: block; }
+.sound-toggle .snd-off { display: none; }
+.sound-toggle.sound-off .snd-on { display: none; }
+.sound-toggle.sound-off .snd-off { display: block; }
+.sound-toggle.sound-off { color: var(--muted); }
 
 .site-nav { display: none; }
 .site-nav a {
@@ -224,21 +247,40 @@ p.error {
   gap: 4px;
 }
 
-/* Nav ngang chỉ hiện từ 1360px trở lên — đo thật 18/11: 9 mục nav +
-   ô tìm kiếm + nút "Dùng ngay" cần ~1370px chiều rộng nội dung; đệm
-   ngang của link nav thu từ 12px xuống 8px + khoảng cách header thu
-   từ 12px xuống 8px + khoảng cách nút bấm thu từ 8px xuống 6px (chỉ
-   ở bản ngang) để vừa khung 1340px, không tràn; nút "Dùng ngay" giữ
-   1 dòng (không để tự xuống dòng khi chật).
-   .wrap trang chỉ 1200px nên header dùng .wrap rộng riêng 1340px
-   (xem dưới). Dưới 1360px dùng menu hamburger (đã có sẵn). */
-@media (min-width: 1360px) {
+/* Nút Tìm kiếm header mặc định chỉ hiện icon kính lúp (nhãn chữ + ⌘K
+   chỉ hiện từ 1440px — xem media query dưới): tiết kiệm chỗ cho nav
+   9 mục + nút âm thanh mới, và khỏi tràn header trên mobile.
+   QUY TẮC NÀY PHẢI ĐỨNG TRƯỚC media query 1440px (cùng độ ưu tiên,
+   quy tắc viết sau thắng — đặt sau thì nhãn không bao giờ hiện lại). */
+.header-search-btn .header-search-label,
+.header-search-btn kbd { display: none; }
+.header-search-icon { display: block; }
+
+/* Nav ngang hiện từ 1280px trở lên (hướng B đợt 1 — trước đây 1360px,
+   laptop 1280px chỉ thấy hamburger + khoảng trống giữa header). Để vừa
+   9 mục nav + tìm kiếm + nút "Dùng ngay" + 3 nút tròn trong khung
+   1280px: đệm link nav thu xuống 6px, chữ nav 0,95rem, khoảng cách thu
+   gọn; nút Tìm kiếm chỉ hiện icon kính lúp ở mọi chiều rộng dưới
+   1440px (bấm vẫn mở modal tìm kiếm như cũ — cả trên mobile, vì nút
+   âm thanh mới thêm làm header mobile tràn 8px ở 390px). Từ 1440px
+   trở lên mọi thứ hiện đủ, đệm nav về 8px như cũ. .wrap trang chỉ
+   1200px nên header dùng .wrap rộng riêng 1340px (xem dưới). Dưới
+   1280px dùng menu hamburger (đã có sẵn). Đã đo 0 tràn ngang ở
+   390/1280/1360/1440 (Playwright). */
+@media (min-width: 1280px) {
   .nav-toggle { display: none; }
-  .site-nav { display: flex; gap: 4px; align-items: center; }
-  .site-nav a { padding: 8px 8px; }
+  .site-nav { display: flex; gap: 2px; align-items: center; }
+  .site-nav a { padding: 8px 6px; font-size: 0.95rem; }
   .header-inner { gap: 8px; }
   .header-actions { gap: 6px; }
   .btn-header-cta { white-space: nowrap; }
+}
+@media (min-width: 1440px) {
+  .site-nav { gap: 4px; }
+  .site-nav a { padding: 8px 8px; font-size: 1rem; }
+  .header-search-btn .header-search-label,
+  .header-search-btn kbd { display: inline; }
+  .header-search-btn .header-search-icon { display: none; }
 }
 
 /* Header rộng hơn nội dung trang để đủ chỗ cho 9 mục nav — chỉ
@@ -319,7 +361,19 @@ p.error {
   .hero h1.h1-chars .h1-char {
     animation: none;
   }
+  .hero-rotator { transition: none; }
 }
+
+/* Từ xoay trong H1 (hướng B đợt 1, ý 8 báo cáo sáng tạo): từ sau dấu
+   "—" đổi mỗi 2,5s (JS), màu đổi theo hạng mục tương ứng (bản đậm, đã
+   đo tương phản ≥ 4,5:1). Inline-block + nowrap để từ không tự gãy;
+   hiệu ứng trượt chỉ chạm transform/opacity. */
+.hero-rotator {
+  display: inline-block;
+  white-space: nowrap;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+.hero-rotator.rot-out { transform: translateY(-0.35em); opacity: 0; }
 .hero-sub { color: var(--muted); font-size: 1.05rem; margin: 0 auto 24px; max-width: 60ch; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 @media (min-width: 720px) {
@@ -559,6 +613,41 @@ button.chip[aria-pressed="true"] { background: var(--accent); border-color: var(
 .chip-active:hover,
 button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
 
+/* Chip hạng mục tô màu hạng mục (hướng B): biến --cat-color /
+   --cat-color-dark đặt inline theo từng chip (home.js, cong-cu.js,
+   trang công cụ). Chưa chọn: nền tint 12% + chữ đậm (tương phản ≥ 4,5:1
+   đã đo ở cả 12 hạng mục); đang chọn: nền đặc màu đậm + chữ trắng.
+   color-mix có dòng dự phòng phía trước cho trình duyệt cũ (hiện nền
+   xanh nhạt như cũ). Chế độ tối: viền màu + chữ sáng (không nền tint,
+   để giữ tương phản trên nền tối). */
+.chip-cat {
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--cat-color) 12%, white);
+  border-color: color-mix(in srgb, var(--cat-color) 35%, white);
+  color: var(--cat-color-dark);
+}
+button.chip-cat:hover { background: color-mix(in srgb, var(--cat-color) 20%, white); }
+button.chip-cat[aria-pressed="true"],
+.chip-cat.chip-active {
+  background: var(--cat-color-dark);
+  border-color: var(--cat-color-dark);
+  color: #fff;
+}
+button.chip-cat[aria-pressed="true"]:hover,
+.chip-cat.chip-active:hover { background: var(--cat-color-dark); border-color: var(--cat-color-dark); filter: brightness(1.1); }
+[data-theme="dark"] .chip-cat {
+  background: transparent;
+  border-color: color-mix(in srgb, var(--cat-color) 55%, transparent);
+  color: color-mix(in srgb, var(--cat-color) 60%, white);
+}
+[data-theme="dark"] button.chip-cat:hover { background: color-mix(in srgb, var(--cat-color) 18%, transparent); }
+[data-theme="dark"] button.chip-cat[aria-pressed="true"],
+[data-theme="dark"] .chip-cat.chip-active {
+  background: var(--cat-color-dark);
+  border-color: var(--cat-color-dark);
+  color: #fff;
+}
+
 /* ---------- Thẻ công cụ (vòng 2: dải hình minh họa đầu thẻ kiểu gallery
    21st.dev, bo 12px, viền 1px, KHÔNG bóng đổ) ---------- */
 
@@ -569,6 +658,8 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   gap: 10px;
   background: var(--surface);
   border: 1px solid var(--line);
+  /* Hướng B: viền trái 4px màu hạng mục (--cat-color đặt inline trên thẻ). */
+  border-left: 4px solid var(--cat-color, var(--line));
   border-radius: 12px;
   box-shadow: none;
   overflow: hidden;
@@ -583,6 +674,7 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 .catalog-card.is-touched {
   transform: translateY(-3px);
   border-color: var(--accent);
+  border-left-color: var(--cat-color, var(--accent));
   /* Bóng mềm theo token bóng thẻ của 21st.dev (bản sáng). */
   box-shadow: 0 48px 72px -12px rgba(0, 0, 0, 0.05), 0 32px 44px -12px rgba(0, 0, 0, 0.08);
 }
@@ -597,6 +689,7 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
    21st.dev). Khối .card-icon cũ đã bỏ cùng markup (vòng 2). */
 .card-art {
   display: block;
+  position: relative;
   margin: -24px -24px 0;
   flex: none;
 }
@@ -605,15 +698,82 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   width: 100%;
   height: auto;
 }
+
+/* Mini-demo "thẻ sống" (hướng B đợt 1, ý 9 báo cáo sáng tạo): viên thuốc
+   nhỏ góc dưới-phải dải hình, chỉ hiện khi rê chuột vào thẻ (desktop),
+   focus vào thẻ, hoặc khi thẻ lăn vào màn hình (mobile, app.js gắn
+   .demo-on ~1,3s). Nội dung demo theo nhóm công cụ (tool-card.js):
+   calc = 3 cột mọc lên, code = lưới ô vẽ dần, file = thanh co lại,
+   play = 3 chấm nảy. Chỉ transform/opacity; tắt hẳn khi reduced-motion. */
+.card-demo {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+.catalog-card:hover .card-demo,
+.catalog-card:focus-within .card-demo,
+.catalog-card.demo-on .card-demo { opacity: 1; transform: translateY(0); }
+.demo-bars { display: inline-flex; align-items: flex-end; gap: 3px; height: 14px; }
+.demo-bars i { display: block; width: 5px; background: var(--cat-color); border-radius: 2px; transform: scaleY(0); transform-origin: bottom; }
+.demo-bars i:nth-child(1) { height: 7px; }
+.demo-bars i:nth-child(2) { height: 12px; }
+.demo-bars i:nth-child(3) { height: 9px; }
+.catalog-card:hover .demo-bars i,
+.catalog-card.demo-on .demo-bars i { animation: demo-grow 0.45s ease forwards; }
+.catalog-card:hover .demo-bars i:nth-child(2),
+.catalog-card.demo-on .demo-bars i:nth-child(2) { animation-delay: 0.08s; }
+.catalog-card:hover .demo-bars i:nth-child(3),
+.catalog-card.demo-on .demo-bars i:nth-child(3) { animation-delay: 0.16s; }
+@keyframes demo-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.demo-grid { display: grid; grid-template-columns: repeat(3, 6px); gap: 2px; }
+.demo-grid i { width: 6px; height: 6px; border-radius: 1.5px; background: var(--cat-color); opacity: 0.15; }
+.catalog-card:hover .demo-grid i,
+.catalog-card.demo-on .demo-grid i { animation: demo-fill 0.3s ease forwards; }
+.demo-grid i:nth-child(3n+2) { animation-delay: 0.1s; }
+.demo-grid i:nth-child(3n) { animation-delay: 0.2s; }
+@keyframes demo-fill { to { opacity: 1; } }
+.demo-shrink { display: block; width: 34px; height: 8px; border-radius: 4px; background: color-mix(in srgb, var(--cat-color) 25%, white); overflow: hidden; }
+.demo-shrink i { display: block; height: 100%; width: 100%; border-radius: 4px; background: var(--cat-color); transform-origin: left; }
+.catalog-card:hover .demo-shrink i,
+.catalog-card.demo-on .demo-shrink i { animation: demo-shrink 0.7s ease forwards; }
+@keyframes demo-shrink { from { transform: scaleX(1); } to { transform: scaleX(0.32); } }
+.demo-dots { display: inline-flex; gap: 4px; }
+.demo-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--cat-color); }
+.catalog-card:hover .demo-dots i,
+.catalog-card.demo-on .demo-dots i { animation: demo-bounce 0.6s ease 2; }
+.demo-dots i:nth-child(2) { animation-delay: 0.1s; }
+.demo-dots i:nth-child(3) { animation-delay: 0.2s; }
+@keyframes demo-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) {
+  .card-demo { display: none; }
+}
 .card-title { margin: 0; font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
 .card-desc { margin: 0; color: var(--muted); font-size: 0.875rem; flex: 1 1 auto; overflow-wrap: break-word; }
 .card-cat {
   align-self: flex-start;
   border: none;
   background: var(--accent-soft);
-  color: var(--accent-dark);
+  background: color-mix(in srgb, var(--cat-color) 12%, white);
+  color: var(--cat-color-dark);
   font-size: 0.8rem;
   padding: 4px 10px;
+}
+[data-theme="dark"] .card-cat {
+  background: color-mix(in srgb, var(--cat-color) 22%, transparent);
+  color: color-mix(in srgb, var(--cat-color) 60%, white);
 }
 
 /* ---------- Trang công cụ ---------- */
@@ -735,6 +895,13 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
    ghi đè thành nền nhạt + chữ trắng khó đọc). */
 .tab-active:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
 .tab-panel[hidden] { display: none; }
+@media (max-width: 640px) {
+  /* Điện thoại: tab cuộn ngang thay vì xếp dọc (hướng B đợt 1) — tab xếp
+     dọc tốn chiều cao, nhất là tab "Gross → Net / Net → Gross" trong
+     công cụ. Áp cho cả tab trang chủ (xếp hạng, Điểm báo). */
+  .tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .tab { flex: none; }
+}
 
 /* Thống kê nhanh trong công cụ */
 .stat {
@@ -893,7 +1060,9 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 
 /* ---------- Bảng xếp hạng (kiểu Product Hunt: hàng ngang, không bóng đổ) ---------- */
 
-/* Bảng xếp hạng nằm trong vùng hero: panel trắng nổi bật ở đầu trang. */
+/* Bảng xếp hạng (hướng B đợt 1 đã dời xuống dưới lưới công cụ — trước
+   đây nằm trong vùng hero, chiếm màn hình đầu tiên): panel trắng nổi bật.
+   Class giữ tên .hero-ranking để khỏi đụng JS/CSS cũ, chỉ đổi vị trí. */
 .hero-ranking {
   margin-top: 28px;
   background: var(--surface);
@@ -903,6 +1072,7 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   padding: 20px 24px;
   text-align: left;
 }
+.section-ranking .hero-ranking { margin-top: 0; }
 .hero-ranking h2 { margin: 0 0 12px; font-size: 1.4rem; }
 /* Tiêu đề Bảng xếp hạng không gãy giữa cụm từ trên màn hình hẹp. */
 #ranking h2 { white-space: nowrap; }
@@ -1104,17 +1274,17 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 
 /* ---------- Hero: ô tìm kiếm lớn + chip gợi ý ---------- */
 
-.hero-search-wrap { position: relative; max-width: 640px; margin: 0 auto 12px; text-align: left; }
+.hero-search-wrap { position: relative; max-width: 640px; margin: 0 auto 20px; text-align: left; }
 .hero-search {
   width: 100%;
   padding: 16px 20px;
   font: inherit;
   font-size: 1.05rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  border: 2px solid var(--line);
+  border-radius: 12px;
   background: var(--surface);
   color: var(--ink);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 8px 24px rgba(0, 51, 255, 0.08);
 }
 .hero-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 51, 255, 0.15); outline: none; }
 .hero-search-results {
@@ -1317,6 +1487,49 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
   100% { transform: translateY(0); }
 }
 
+/* Trứng phục sinh (hướng B đợt 1, ý 14): bấm chấm vàng logo 5 lần →
+   blob nhảy múa giữa màn hình 3 giây + pháo giấy mini 1 đợt ngắn
+   (JS tạo .egg-blob + .egg-confetti rồi tự xóa). Chỉ transform/opacity;
+   reduced-motion: blob hiện tĩnh, không pháo giấy (JS đã rẽ nhánh). */
+.egg-blob {
+  position: fixed;
+  left: 50%;
+  bottom: 18vh;
+  z-index: 300;
+  width: 110px;
+  height: 110px;
+  margin-left: -55px;
+  pointer-events: none;
+}
+.egg-blob svg { width: 100%; height: 100%; }
+.egg-blob.egg-dance { animation: egg-dance 0.6s ease-in-out 5; }
+@keyframes egg-dance {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-22px) rotate(4deg); }
+}
+.egg-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 299;
+  pointer-events: none;
+  overflow: hidden;
+}
+.egg-confetti i {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  animation: egg-fall 1.4s ease-in forwards;
+}
+@keyframes egg-fall {
+  to { transform: translateY(105vh) rotate(540deg); opacity: 0.6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .egg-blob.egg-dance { animation: none; }
+  .egg-confetti { display: none; }
+}
+
 @media (max-width: 600px) {
   .wrap { padding: 0 16px; }
 
@@ -1410,12 +1623,14 @@ button.chip[aria-pressed="true"]:hover { background: var(--accent-hover); border
 }
 a.hero-eyebrow:hover { filter: brightness(1.05); }
 
+/* Hero đợt 1 chỉ còn 1 nút CTA ("Chọn công cụ, dùng ngay") đặt DƯỚI ô
+   tìm kiếm — ô tìm kiếm là điểm nhấn chính của hero. */
 .hero-cta-row {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   justify-content: center;
-  margin: 24px 0 0;
+  margin: 0;
 }
 
 .hero-popular {
@@ -1424,7 +1639,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   gap: 8px;
   align-items: center;
   justify-content: center;
-  margin: 24px 0 0;
+  margin: 20px 0 0;
   color: var(--muted);
   font-size: 0.875rem;
 }
@@ -1460,7 +1675,8 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   color: var(--muted);
 }
 @media (max-width: 720px) {
-  .header-search-btn kbd { display: none; }
+  /* kbd + nhãn đã ẩn mặc định ở mọi chiều rộng (xem khối nav trên);
+     chỉ thu đệm nút icon cho gọn trên mobile. */
   .header-search-btn { padding: 8px 10px; }
 }
 
@@ -1569,27 +1785,17 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   background: var(--bg-soft);
 }
 
-/* ----- Huy hiệu + nút "Dùng ngay" trên thẻ công cụ ----- */
-
-.card-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  background: var(--bg-soft);
-  color: var(--muted);
-  font-size: 0.75rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
+/* ----- Nút "Dùng ngay" trên thẻ công cụ ----- */
+/* Badge "Miễn phí" đã bỏ (hướng B đợt 1 — cả 129 công cụ đều miễn phí).
+   .card-badge-new giữ lại cho đợt 2 (badge "Mới" vàng, cần trường isNew). */
 .card-badge-new {
   background: var(--accent);
   color: #fff;
 }
 
-/* Nút "Dùng ngay": ẩn mặc định, hiện khi hover/focus thẻ (kiểu 21st.dev
-   hiện nút Copy/Open khi hover preview). Trên cảm ứng luôn hiện. */
+/* Nút "Dùng ngay": LUÔN HIỆN (hướng B đợt 1 — trước đây ẩn tới khi
+   hover nên thẻ trông tĩnh, không mời bấm). Nằm góc dưới-phải thẻ, đối
+   diện chip hạng mục ở góc dưới-trái. */
 .card-cta {
   position: absolute;
   right: 16px;
@@ -1607,29 +1813,18 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(4px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease,
-    background-color 0.2s ease, border-color 0.2s ease;
-}
-.catalog-card:hover .card-cta,
-.catalog-card:focus-within .card-cta,
-.catalog-card.is-touched .card-cta {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 .card-cta:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
-@media (hover: none) {
-  .card-cta { opacity: 1; visibility: visible; transform: none; }
-}
 
 /* ----- Trang chi tiết công cụ: khung thử + 3 bước + liên quan ----- */
 
 .tool-try {
   background: var(--surface);
   border: 1px solid var(--line);
+  /* Hướng B: viền trên dày 4px màu hạng mục (--cat-color đặt inline ở
+     build.mjs). Nút hành động trong khung vẫn xanh #0033FF duy nhất. */
+  border-top: 4px solid var(--cat-color, var(--accent));
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   padding: 28px;
@@ -1637,6 +1832,15 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 }
 .tool-try > :first-child { margin-top: 0; }
 .tool-try > :last-child { margin-bottom: 0; }
+/* Hộp kết quả nhuộm nhạt màu hạng mục thay vì lúc nào cũng xanh dương;
+   con số chính dùng màu đậm của hạng mục. Chế độ tối dùng tint trong
+   suốt trên nền tối để không bị chói. */
+.tool-try .result {
+  background: var(--accent-soft);
+  background: color-mix(in srgb, var(--cat-color) 8%, white);
+}
+.tool-try .result-hero-value { color: var(--cat-color-dark, var(--accent-dark)); }
+[data-theme="dark"] .tool-try .result { background: color-mix(in srgb, var(--cat-color) 16%, transparent); }
 
 .tool-steps {
   display: grid;
@@ -2405,6 +2609,64 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .sv-promo h2 { margin: 0 0 4px; }
 .sv-promo p { margin: 0; }
 
+/* Hàng mục nổi bật gọn (hướng B đợt 1): 4 thẻ nhỏ trong 1 hàng thay vì
+   4 dải .sv-promo full-width giống nhau xếp chồng trên trang chủ. Mỗi
+   thẻ 1 màu riêng (--promo-color cho viền trên, --promo-color-dark cho
+   link — bản đậm đã đo tương phản ≥ 4,5:1). */
+.promo-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+@media (min-width: 640px) {
+  .promo-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 960px) {
+  .promo-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+.promo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--promo-color, var(--accent));
+  border-radius: var(--radius);
+  padding: 20px;
+  text-decoration: none;
+  color: var(--ink);
+  min-width: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.promo-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.promo-card h2 { margin: 0; font-size: 1.1rem; }
+.promo-card p { margin: 0; color: var(--muted); font-size: 0.9rem; flex: 1 1 auto; }
+.promo-link { font-weight: 700; color: var(--promo-color-dark, var(--accent-dark)); font-size: 0.9rem; }
+
+/* Trạng thái trống có linh vật + gợi ý cụ thể (hướng B đợt 1) thay vì
+   1 dòng chữ xám — dùng cho #home-tool-empty và #tool-empty. Linh vật
+   do initMascot chèn vào [data-mascot="empty"], 72px, căn giữa. */
+.empty-state { text-align: center; padding: 32px 16px; }
+.empty-state .mascot { width: 72px; height: 72px; margin-bottom: 8px; }
+.empty-state p { margin: 4px 0; }
+
+/* Nút xúc xắc "Thử công cụ ngẫu nhiên" (hướng B đợt 1, ý 15): bấm thì
+   icon lắc 0,5s (JS gắn .dice-rolling rồi mở công cụ). */
+.dice-btn { display: inline-flex; align-items: center; gap: 8px; }
+.dice-icon { flex: none; }
+.dice-btn.dice-rolling .dice-icon { animation: dice-shake 0.5s ease; }
+@keyframes dice-shake {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-18deg) translateY(-2px); }
+  40% { transform: rotate(14deg); }
+  60% { transform: rotate(-10deg) translateY(-1px); }
+  80% { transform: rotate(6deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dice-btn.dice-rolling .dice-icon { animation: none; }
+}
+
 /* Trang mẫu: văn bản dễ đọc, giới hạn chiều rộng như trang công cụ. */
 .sv-doc { max-width: 72ch; }
 .sv-doc h2 { margin: 28px 0 10px; }
@@ -2513,6 +2775,11 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .aiw-fab:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .aiw-fab svg { flex: none; }
 .aiw-fab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* Trang công cụ: nút Chat AI thu gọn thành hình tròn chỉ có icon
+   (hướng B đợt 1) — nút pill chữ "Chat AI" che mép phải ô nhập liệu
+   trên mobile. JS gắn class .aiw-compact khi trang có .tool-try. */
+.aiw-compact .aiw-fab { width: 48px; height: 48px; padding: 0; justify-content: center; }
+.aiw-compact .aiw-fab span { display: none; }
 .aiw-panel {
   position: absolute;
   right: 0;

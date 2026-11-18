@@ -17,7 +17,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { shell } from './src/template.js';
-import { CATEGORIES, categoryLabel, isCategorySlug } from './src/categories.js';
+import { CATEGORIES, categoryLabel, categoryColor, categoryColorDark, isCategorySlug } from './src/categories.js';
 import { esc, keywordsText, toolCard } from './src/tool-card.js';
 import { TOOL_CONTENT } from './src/tool-content.js';
 import { SYNONYMS } from './src/search-synonyms.js';
@@ -368,15 +368,25 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const guideHtml = guide
     ? `<section class="tool-guide" aria-label="Đọc hướng dẫn"><h2>Đọc hướng dẫn</h2><p>Muốn hiểu cách tính từng bước, kèm ví dụ tính sẵn? Đọc bài <a href="${guide.url}">${esc(guide.title)} →</a></p></section>`
     : '';
+  // Hướng B đợt 1: (1) CHỈ GIỮ 1 đoạn mô tả dưới H1 — công cụ có intro
+  // (TOOL_CONTENT) thì bỏ dòng desc ngắn (2 đoạn lặp lại cùng thông tin,
+  // vd trang Tính lương cùng nói "bảo hiểm 10,5%, giảm trừ 15,5 triệu");
+  // công cụ không có intro thì giữ desc. Meta description (SEO) không đổi.
+  // (2) Chip hạng mục + khung dùng thử mang màu hạng mục qua biến CSS
+  // --cat-color/--cat-color-dark (CSS dùng cho chip, viền trên khung,
+  // hộp kết quả nhuộm nhạt). Nút hành động vẫn xanh #0033FF duy nhất.
+  const catColor = categoryColor(tool.categorySlug);
+  const catColorDark = categoryColorDark(tool.categorySlug);
+  const headDescHtml = content ? '' : `<p class="muted">${esc(tool.desc)}</p>`;
   const body = `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/cong-cu/">← Tất cả công cụ</a></nav>
   <header class="tool-page-head">
     <h1>${esc(tool.name)}</h1>
-    <p class="muted">${esc(tool.desc)}</p>
-    <span class="chip">${esc(tool.categoryLabel)}</span>
+    ${headDescHtml}
+    <span class="chip chip-cat" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">${esc(tool.categoryLabel)}</span>
   </header>
   ${introHtml}
-  <div class="tool-try">
+  <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
   </div>
   <script>
