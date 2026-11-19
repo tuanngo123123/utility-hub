@@ -250,6 +250,47 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "tao-bao-gia-nhanh": {
+    intro: "Soạn báo giá trong 1 phút: nhập tên người bán, khách hàng, bảng hạng mục (tên hàng hóa/dịch vụ, số lượng, đơn giá), chiết khấu và thuế GTGT — công cụ tính ngay tạm tính, chiết khấu, VAT và tổng cộng, đọc số tiền bằng chữ, rồi tải file PDF trình bày sẵn để gửi khách hoặc in ra.",
+    finance: true,
+    legalBasis: "Thuế GTGT 10% là mức thông thường theo Luật Thuế GTGT 48/2024/QH15; mức giảm 8% áp dụng đến 31/12/2026 theo Nghị quyết 204/2025/QH15 và Nghị định 174/2025/NĐ-CP, từ 01/01/2027 về 10% nếu không được gia hạn. Báo giá không phải hóa đơn GTGT — hóa đơn điện tử thực hiện theo Nghị định 123/2020/NĐ-CP.",
+    updatedAt: "20/11/2026",
+    disclaimer: "Kết quả chỉ để tham khảo — đối chiếu hợp đồng thực tế và hỏi kế toán trước khi giao dịch, nhất là khi áp dụng mức VAT 8% vì không phải mặt hàng, dịch vụ nào cũng được giảm.",
+    example: {
+      text: "Ví dụ: 2 bàn làm việc gỗ × 1.250.000₫ + 2 ghế văn phòng × 750.000₫ = tạm tính 4.000.000₫; không chiết khấu; thuế GTGT 10% = 400.000₫; tổng cộng 4.400.000₫ (Bốn triệu bốn trăm nghìn đồng).",
+      fills: { "bg-seller": "Công ty TNHH An Phát", "bg-contact": "12 Lê Lợi, Quận 1, TP. Hồ Chí Minh", "bg-customer": "Anh Nguyễn Văn Bình", "bg-item-0-name": "Bàn làm việc gỗ", "bg-item-0-qty": "2", "bg-item-0-price": "1.250.000", "bg-item-1-name": "Ghế văn phòng", "bg-item-1-qty": "2", "bg-item-1-price": "750.000", "bg-discount-type": "none", "bg-vat": "0.1", "bg-note": "Báo giá có hiệu lực 15 ngày kể từ ngày báo giá." }
+    },
+    faqs: [
+      {
+        q: "Thuế GTGT tính thế nào trong báo giá?",
+        a: "Công cụ có 3 mức: 10% (mức thông thường), 8% (mức giảm áp dụng đến 31/12/2026 theo Nghị quyết 204/2025/QH15, từ 01/01/2027 về 10% nếu không được gia hạn) và 0% (không chịu thuế). Thuế GTGT tính trên số tiền sau chiết khấu. Lưu ý không phải mặt hàng, dịch vụ nào cũng được giảm 8% — viễn thông, tài chính, ngân hàng, chứng khoán, bảo hiểm, kinh doanh bất động sản, khai khoáng và một số nhóm khác vẫn chịu 10%; hỏi kế toán của bạn trước khi chọn 8%."
+      },
+      {
+        q: "Chiết khấu tính trước hay sau thuế GTGT?",
+        a: "Chiết khấu tính trước, thuế GTGT tính trên số tiền sau chiết khấu — đây là cách tính đúng theo quy định về giá tính thuế (giá bán đã trừ chiết khấu). Ví dụ tạm tính 3.000.000₫, chiết khấu 10% = 300.000₫, còn 2.700.000₫, thuế GTGT 8% = 216.000₫, tổng cộng 2.916.000₫. Chiết khấu tối đa 100% (theo %) hoặc bằng tạm tính (theo số tiền) — công cụ tự chặn để tổng cộng không âm."
+      },
+      {
+        q: "Báo giá khác hóa đơn GTGT thế nào?",
+        a: "Báo giá là văn bản thỏa thuận giá trước giao dịch — cho khách biết bạn bán gì, giá bao nhiêu, điều kiện ra sao; nó không có giá trị kê khai thuế và không thay thế hóa đơn. Hóa đơn GTGT là chứng từ thuế, phải xuất qua hệ thống hóa đơn điện tử theo Nghị định 123/2020/NĐ-CP khi bán hàng, cung cấp dịch vụ. File PDF của công cụ ghi rõ 'Đây là báo giá, không phải hóa đơn GTGT' ở cuối trang để tránh nhầm lẫn."
+      },
+      {
+        q: "File PDF tải về có sửa được không?",
+        a: "Không sửa trực tiếp được: file PDF chứa hình ảnh trang báo giá nên chữ trong đó không chọn hay cọp được văn bản (công cụ vẽ báo giá lên ảnh để chữ tiếng Việt hiện đúng mọi máy). Muốn sửa, sửa trong công cụ rồi bấm Tải file PDF lại — chỉ mất vài giây. Nếu cần cọp nội dung (dán vào Zalo, email), dùng nút Chép: bản văn bản đầy đủ hạng mục, các dòng tiền và tiền bằng chữ."
+      },
+      {
+        q: "Báo giá nhiều hạng mục thì file PDF ra sao?",
+        a: "Công cụ tự chia nhiều trang khổ A4: bảng hạng mục chảy sang trang sau, trang cuối có bảng tổng tiền, dòng tiền bằng chữ, ghi chú và 2 chỗ ký tên (người lập báo giá và khách hàng). Mỗi trang đều ghi 'Đây là báo giá, không phải hóa đơn GTGT' và số trang ở cuối. Tối đa 50 hạng mục mỗi báo giá."
+      },
+      {
+        q: "Số lượng lẻ tính thế nào?",
+        a: "Số lượng nhập được số lẻ, ví dụ 2,5 giờ công hoặc 1,5 kg — gõ dấu phẩy như cách viết Việt Nam. Thành tiền mỗi dòng làm tròn đến đồng (1,5 × 999₫ = 1.499₫). Dòng 0₫ (hàng tặng kèm, dịch vụ miễn phí) vẫn hiện trong bảng để khách thấy rõ, nhưng không làm tăng tổng tiền."
+      },
+      {
+        q: "Báo giá có được lưu lại không?",
+        a: "Có — bản nháp tự lưu trên trình duyệt này, đóng trang mở lại vẫn còn nguyên để sửa tiếp. Nhưng bản nháp chỉ nằm trên máy và trình duyệt bạn đang dùng; đổi máy, đổi trình duyệt hoặc xóa dữ liệu trình duyệt thì mất. Cần giữ bản cố định thì tải file PDF về hoặc chép bản văn bản lưu vào máy."
+      }
+    ]
+  },
   "tron-de-trac-nghiem": {
     intro: "Trộn đề trắc nghiệm thành nhiều mã đề khác nhau để chống quay cóp: dán đề gốc hoặc tải file Word, đánh dấu đáp án đúng bằng *, chọn số mã đề rồi nhận đề đã trộn kèm bảng đáp án để in và chấm.",
     faqs: [

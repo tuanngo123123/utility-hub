@@ -4981,3 +4981,34 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 @media (max-width: 600px) {
   .wrap { padding: 0 16px; }
 }
+
+/* ---------- Tạo báo giá nhanh xuất PDF (.bg-*, 20/11) ---------- */
+/* Bảng hạng mục: mỗi dòng là một thẻ — ô tên full chiều rộng, hàng
+   dưới gồm số lượng + đơn giá + thành tiền tự tính + nút xóa. Ô
+   nhập theo mẫu .mt-input (viền 1px, bo 12px, cao tối thiểu 44px,
+   focus viền cam 3px). Trên điện thoại hẹp, hàng dưới xuống 2 hàng
+   để ô đơn giá không bị bóp. */
+.bg-section-label { display: block; font-weight: 600; margin-bottom: 8px; }
+.bg-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 10px; }
+.bg-item { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--bg); }
+/* Selector 3 class để thắng luật chung .field input[type="text"] (độ ưu
+   tiên 0,2,1) — nếu không ô số lượng bị kéo rộng 100% và focus mất
+   viền cam theo mẫu .mt-input. */
+.bg-item input.bg-item-name { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); font: inherit; font-size: 1rem; min-height: 44px; }
+.bg-item-row { display: flex; align-items: flex-end; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.bg-item .bg-item-field { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; font-weight: 400; color: var(--muted); margin-bottom: 0; }
+.bg-item .bg-item-field input { padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); color: var(--text); font: inherit; font-size: 1rem; min-height: 44px; }
+.bg-item .bg-item-field input.bg-item-qty { width: 96px; }
+.bg-item-field-price { flex: 1 1 160px; }
+.bg-item-field-price .input-unit { width: 100%; }
+.bg-item-amount { font-weight: 700; color: var(--ink); white-space: nowrap; padding-bottom: 10px; min-width: 120px; text-align: right; }
+.bg-item-del { flex: none; width: 44px; min-height: 44px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-soft); color: var(--muted); font-size: 1rem; cursor: pointer; }
+.bg-item-del:hover { color: #DC2626; border-color: #FCA5A5; }
+.bg-item-del:disabled { opacity: 0.35; cursor: default; }
+.bg-item input.bg-item-name:focus, .bg-item .bg-item-field input:focus, .bg-item-del:focus { outline: 3px solid #F59E0B; outline-offset: 0; border-color: var(--line); box-shadow: none; }
+.bg-input-error { border-color: #DC2626 !important; }
+.bg-pdf-btn { width: 100%; margin-top: 12px; }
+.bg-pdf-hint { margin-top: 8px; }
+@media (max-width: 600px) {
+  .bg-item-amount { min-width: 0; }
+}

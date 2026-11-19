@@ -1,5 +1,5 @@
 export const meta = {
-  slug: 'thue-ho-kinh-doanh',
+  id: 'thue-ho-kinh-doanh',
   name: 'Tính thuế hộ kinh doanh + bán hàng online',
   desc: 'Tính thuế GTGT và thuế TNCN hộ kinh doanh năm 2026 theo phương pháp kê khai — cả bán qua sàn thương mại điện tử, sàn đã khấu trừ bao nhiêu, còn phải nộp thêm hay được hoàn.',
   seoTitle: 'Tính thuế hộ kinh doanh 2026 — bán hàng online, sàn TMĐT khấu trừ bao nhiêu',
