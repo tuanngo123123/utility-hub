@@ -98,6 +98,35 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "diem-xet-tuyen-dai-hoc": {
+    intro: "Tính điểm xét tuyển đại học theo Quy chế tuyển sinh 2026: nhập điểm 3 môn thi tốt nghiệp THPT hoặc điểm trung bình 6 học kỳ, chọn khu vực và đối tượng ưu tiên để biết điểm xét tuyển sau khi cộng ưu tiên — kèm công thức giảm dần từ 22,5 điểm và bảng tính từng bước.",
+    finance: true,
+    legalBasis: "Cập nhật theo Quy chế tuyển sinh các ngành đào tạo trình độ đại học và ngành Giáo dục Mầm non trình độ cao đẳng ban hành kèm theo Thông tư 06/2026/TT-BGDĐT ngày 15/02/2026 (Điều 6 — phương thức xét tuyển, xét học bạ 6 học kỳ; Điều 7 — điểm ưu tiên khu vực và đối tượng, công thức giảm dần từ 22,5 điểm).",
+    updatedAt: "20/11/2026",
+    disclaimer: "Kết quả chỉ để tham khảo — điểm trúng tuyển và cách tính riêng (điểm thưởng, quy đổi chứng chỉ, môn nhân hệ số) theo đề án tuyển sinh của từng trường.",
+    faqs: [
+      {
+        q: "Điểm ưu tiên khu vực được cộng bao nhiêu?",
+        a: "Khu vực 1 (KV1) cộng 0,75 điểm; khu vực 2 nông thôn (KV2-NT) 0,5 điểm; khu vực 2 (KV2) 0,25 điểm; khu vực 3 (KV3) không cộng (Điều 7 Quy chế tuyển sinh, Thông tư 06/2026). Khu vực của bạn theo trường bạn học lâu nhất cấp THPT, và chỉ được hưởng trong năm tốt nghiệp THPT và một năm kế tiếp — thi lại từ năm thứ ba trở đi thì không còn ưu tiên khu vực."
+      },
+      {
+        q: "Tại sao tổng điểm cao lại được cộng ít điểm ưu tiên hơn?",
+        a: "Từ tổng điểm 22,5 trở lên, điểm ưu tiên giảm dần theo công thức: điểm ưu tiên thực tế = [(30 − tổng điểm) ÷ 7,5] × mức ưu tiên ban đầu (khoản 4 Điều 7). Ví dụ thí sinh KV1 (0,75 điểm): tổng 24 điểm được cộng 0,6; tổng 27 điểm còn 0,3; tổng 29 điểm còn 0,1; tổng 30 điểm thì không còn điểm ưu tiên. Tổng điểm đúng 22,5 thì hệ số bằng 1 nên vẫn cộng đủ."
+      },
+      {
+        q: "Ưu tiên đối tượng UT1, UT2 là những ai?",
+        a: "Nhóm UT1 (đối tượng 01 đến 03) được cộng 2,0 điểm; nhóm UT2 (đối tượng 04 đến 06) được cộng 1,0 điểm, theo Phụ lục II của Quy chế tuyển sinh. Thuộc nhiều diện đối tượng thì chỉ hưởng mức cao nhất, nhưng ưu tiên khu vực và ưu tiên đối tượng được cộng cả hai rồi mới áp công thức giảm dần. Ví dụ tổng 24 điểm, KV2-NT (0,5) + UT2 (1,0): ưu tiên ban đầu 1,5, thực tế 1,2, điểm xét tuyển 25,2."
+      },
+      {
+        q: "Xét học bạ năm 2026 tính thế nào?",
+        a: "Tổ hợp xét học bạ dùng điểm trung bình chung kết quả học tập cả năm các lớp 10, 11, 12 (6 học kỳ) của tối thiểu 3 môn học, thang 30; bắt buộc có môn Toán hoặc Ngữ văn với trọng số tính điểm xét tối thiểu 1/3 (khoản 5 Điều 6). Ngoài ra, để đủ điều kiện xét tuyển, tổng điểm 3 môn thi tốt nghiệp THPT của bạn phải đạt từ 15 điểm trở lên (khoản 3 Điều 6, áp dụng với thí sinh thi tốt nghiệp từ năm 2026)."
+      },
+      {
+        q: "Điểm cộng thêm tối đa 3 điểm là gì?",
+        a: "Điểm thưởng, điểm khuyến khích do từng trường quy định trong đề án tuyển sinh — ví dụ điểm chứng chỉ ngoại ngữ, giải thưởng học sinh giỏi — cộng tối đa 3 điểm theo thang 30. Khác với điểm ưu tiên, điểm cộng thêm không bị giảm dần khi tổng điểm cao. Bạn chỉ điền ô này khi trường bạn xét tuyển có quy định điểm thưởng và bạn đủ điều kiện nhận."
+      }
+    ]
+  },
   "tron-de-trac-nghiem": {
     intro: "Trộn đề trắc nghiệm thành nhiều mã đề khác nhau để chống quay cóp: dán đề gốc hoặc tải file Word, đánh dấu đáp án đúng bằng *, chọn số mã đề rồi nhận đề đã trộn kèm bảng đáp án để in và chấm.",
     faqs: [

@@ -315,7 +315,7 @@ const TOOL_VENDOR_SCRIPTS = {
 const M2_SLUGS = new Set([
   'luong-gross-net', 'thue-thu-nhap-ca-nhan', 'bhxh-mot-lan', 'luong-huu',
   'tien-dien-bac-thang', 'lai-vay', 'luong-thang-13', 'tro-cap-thoi-viec-bhtn',
-  'quyet-toan-thue-tncn-2026',
+  'quyet-toan-thue-tncn-2026', 'diem-xet-tuyen-dai-hoc',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;
@@ -445,6 +445,23 @@ function getAnhTheLogicSrc() {
   return anhTheLogicSrc;
 }
 
+// Điểm xét tuyển đại học (20/11): điểm ưu tiên + công thức giảm dần
+// src/diem-dh-logic.js được chèn nguyên văn vào trang công cụ (trừ
+// dòng export cuối) để init() gọi qua window.UH_DIEMDH — cùng mẫu
+// SODIEM/NHANXET/MATRAN ở trên.
+// Bộ kiểm scripts/test-diem-dh.mjs kiểm cùng file này.
+const DIEMDH_SLUGS = new Set(['diem-xet-tuyen-dai-hoc']);
+const DIEMDH_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let diemDhLogicSrc = null;
+function getDiemDhLogicSrc() {
+  if (diemDhLogicSrc !== null) return diemDhLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'diem-dh-logic.js'), 'utf8');
+  const stripped = src.replace(DIEMDH_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('diem-dh-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  diemDhLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return diemDhLogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -511,6 +528,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isLopHoc3 = LOPHOC3_SLUGS.has(tool.slug);
   const isChuyenMa = CHUYENMA_SLUGS.has(tool.slug);
   const isAnhThe = ANHTHE_SLUGS.has(tool.slug);
+  const isDiemDh = DIEMDH_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -552,6 +570,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     'lai-vay': ['lai-kep', 'phan-tram', 'luong-gross-net', 'quy-du-phong'],
     'luong-thang-13': ['thue-thu-nhap-ca-nhan', 'luong-gross-net', 'luong-tang-ca', 'phep-nam'],
     'tro-cap-thoi-viec-bhtn': ['bhxh-mot-lan', 'luong-huu', 'luong-gross-net', 'thue-thu-nhap-ca-nhan'],
+    'diem-xet-tuyen-dai-hoc': ['tinh-diem-thi-thpt', 'gpa-tin-chi', 'quy-doi-diem', 'tinh-diem-ielts'],
   };
   const relatedHtml = (() => {
     const cache = toolPageHtml._metaCache || (toolPageHtml._metaCache = (() => {
@@ -719,6 +738,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isLopHoc3 ? `<script>\n${getLopHoc3LogicSrc()}\n</script>` : ''}
   ${isChuyenMa ? `<script>\n${getChuyenMaLogicSrc()}\n</script>` : ''}
   ${isAnhThe ? `<script>\n${getAnhTheLogicSrc()}\n</script>` : ''}
+  ${isDiemDh ? `<script>\n${getDiemDhLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');
