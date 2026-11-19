@@ -92,6 +92,12 @@ const GRADING = [
     desc: 'Chọn môn, mức và phẩm chất — nhận lời nhận xét cụ thể để ghép cho học bạ.',
     icon: 'keyboard', bg: '#FEF3C7', fg: '#B45309',
   },
+  {
+    id: 'ma-tran-va-ban-dac-ta-de-kiem-tra',
+    name: 'Ma trận và bản đặc tả đề kiểm tra',
+    desc: 'Nhập số câu theo chủ đề × mức độ, kiểm tổng 10 điểm, tự sinh bản đặc tả từng câu.',
+    icon: 'grid', bg: '#CCFBF1', fg: '#0D9488',
+  },
 ];
 
 function rowCard(t) {

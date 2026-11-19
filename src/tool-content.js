@@ -185,6 +185,37 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "ma-tran-va-ban-dac-ta-de-kiem-tra": {
+    intro: "Lập ma trận đề kiểm tra theo chủ đề × mức độ (Nhận biết, Thông hiểu, Vận dụng, Vận dụng cao): nhập số câu trắc nghiệm và tự luận từng ô, công cụ tính điểm từng ô, tổng điểm, tỷ lệ % theo mức độ, kiểm tổng đủ 10 điểm và tự sinh bản đặc tả từng câu (chủ đề, mức độ, dạng câu, điểm, yêu cầu cần đạt). Chép, in hoặc tải Excel 2 trang.",
+    legalBasis: "Ma trận và bản đặc tả đề kiểm tra theo hướng dẫn xây dựng ma trận, đặc tả đề kiểm tra định kỳ của Bộ Giáo dục và Đào tạo (Công văn 5512/BGDĐT-GDTrH về xây dựng và tổ chức thực hiện kế hoạch giáo dục; Công văn 7991/BGDĐT-GDTrH ngày 17/12/2024 hướng dẫn THCS, THPT gộp còn 3 mức Biết, Hiểu, Vận dụng).",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "Ma trận đề kiểm tra là gì, đọc thế nào?",
+        a: "Ma trận là bảng 2 chiều mô tả cấu trúc của đề kiểm tra: hàng là chủ đề (bài, chương), cột là mức độ nhận thức (Nhận biết, Thông hiểu, Vận dụng, Vận dụng cao). Mỗi ô ghi số câu và số điểm của chủ đề đó ở mức độ đó. Đọc hàng ngang thấy chủ đề nào nặng nhất; đọc cột dọc thấy đề nghiêng về mức độ nào; hàng và cột tổng cho thấy tổng số câu, tổng điểm (10 điểm) và tỷ lệ %."
+      },
+      {
+        q: "Bản đặc tả khác ma trận ở chỗ nào?",
+        a: "Ma trận cho thấy cấu trúc chung của đề (bao nhiêu câu, bao nhiêu điểm ở đâu). Bản đặc tả đi sâu từng câu: Câu 1 thuộc chủ đề nào, mức độ nào, dạng trắc nghiệm hay tự luận, bao nhiêu điểm, và yêu cầu cần đạt là gì (học sinh phải làm được gì để trả lời đúng câu đó). Công cụ tự sinh bản đặc tả từ ma trận, giáo viên chỉ cần gõ yêu cầu cần đạt cho từng câu."
+      },
+      {
+        q: "Yêu cầu cần đạt viết thế nào cho đúng?",
+        a: "Viết bằng động từ đo được, gắn với mức độ của câu: Nhận biết dùng 'nhận biết được, nêu được, kể được'; Thông hiểu dùng 'giải thích được, so sánh được, phân biệt được'; Vận dụng dùng 'tính được, vận dụng được, giải quyết được'. Ví dụ: câu Nhận biết về số hữu tỉ thì ghi 'Nhận biết được số hữu tỉ.' Tránh động từ mơ hồ như 'hiểu' hay 'nắm được' vì khó đo khi chấm bài."
+      },
+      {
+        q: "Đề của trường tôi dùng 3 mức Biết, Hiểu, Vận dụng thì sao?",
+        a: "Công văn 7991/BGDĐT-GDTrH (17/12/2024) hướng dẫn THCS, THPT xây dựng ma trận, đặc tả theo 3 mức Biết, Hiểu, Vận dụng. Công cụ giữ 4 mức quen thuộc (thêm Vận dụng cao) vì nhiều trường vẫn dùng — giáo viên theo hướng dẫn mới thì gộp số câu Vận dụng cao vào cột Vận dụng, để cột Vận dụng cao bằng 0, ma trận vẫn tính đúng tổng 10 điểm."
+      },
+      {
+        q: "Tổng điểm lệch 10 thì sửa thế nào?",
+        a: "Công cụ báo đỏ rõ số lệch ('thiếu 0,25 điểm' hoặc 'thừa 1 điểm') ngay dưới bảng ma trận. Để sửa: thêm hoặc bớt 1 câu trắc nghiệm (thay đổi đúng bằng điểm mỗi câu trắc nghiệm), hoặc đổi điểm mỗi câu tự luận ở một ô. Mẹo hay dùng: chỉnh số câu trắc nghiệm trước vì mỗi câu chỉ 0,25 điểm nên dễ khớp đúng 10."
+      },
+      {
+        q: "Ma trận đã làm lưu ở đâu, có mất khi tắt trình duyệt không?",
+        a: "Ma trận, bản đặc tả và yêu cầu cần đạt đã gõ lưu trên trình duyệt của chính bạn (không gửi lên máy chủ), tắt trình duyệt rồi mở lại vẫn còn. Muốn lưu ra ngoài thì bấm 'Tải Excel (.xlsx)' để có file 2 trang (Ma trận + Đặc tả), hoặc 'Chép ma trận' / 'Chép bản đặc tả' rồi dán vào Excel hoặc Word."
+      }
+    ]
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,

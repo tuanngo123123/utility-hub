@@ -377,6 +377,23 @@ function getNhanXetLogicSrc() {
   return nhanXetLogicSrc;
 }
 
+// Ma trận và bản đặc tả đề kiểm tra (20/11): logic tính ma trận +
+// sinh đặc tả src/ma-tran-logic.js được chèn nguyên văn vào trang
+// công cụ (trừ dòng export cuối) để init() gọi qua window.UH_MATRAN
+// — cùng mẫu SODIEM/NHANXET ở trên.
+// Bộ kiểm scripts/test-ma-tran.mjs kiểm cùng file này.
+const MATRAN_SLUGS = new Set(['ma-tran-va-ban-dac-ta-de-kiem-tra']);
+const MATRAN_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let maTranLogicSrc = null;
+function getMaTranLogicSrc() {
+  if (maTranLogicSrc !== null) return maTranLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'ma-tran-logic.js'), 'utf8');
+  const stripped = src.replace(MATRAN_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('ma-tran-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  maTranLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return maTranLogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -439,6 +456,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isTronDe = TRONDE_SLUGS.has(tool.slug);
   const isSoDiem = SODIEM_SLUGS.has(tool.slug);
   const isNhanXet = NHANXET_SLUGS.has(tool.slug);
+  const isMaTran = MATRAN_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -643,6 +661,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isTronDe ? `<script>\n${getTronDeLogicSrc()}\n</script>` : ''}
   ${isSoDiem ? `<script>\n${getSoDiemLogicSrc()}\n</script>` : ''}
   ${isNhanXet ? `<script>\n${getNhanXetLogicSrc()}\n</script>` : ''}
+  ${isMaTran ? `<script>\n${getMaTranLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');
@@ -1195,14 +1214,14 @@ async function main() {
   );
   console.log('   - Giới thiệu: 1 trang');
 
-  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 13 công cụ hạng mục
+  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 14 công cụ hạng mục
   // giao-vien (danh sách trong src/pages/giao-vien.js).
   addPage(
     'giao-vien/index.html',
     shell({
-      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm, trộn đề, sổ điểm, nhận xét | ${SITE_NAME}`,
-      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi, trộn đề trắc nghiệm, sổ điểm lớp theo TT22, gợi ý lời nhận xét học sinh — chạy ngay trên trình duyệt, không cần đăng ký.',
-      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh, trộn đề trắc nghiệm, sổ điểm lớp TT22, nhận xét học sinh, lời nhận xét học bạ',
+      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm, trộn đề, sổ điểm, nhận xét, ma trận đề | ${SITE_NAME}`,
+      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi, trộn đề trắc nghiệm, sổ điểm lớp theo TT22, gợi ý lời nhận xét học sinh, ma trận và bản đặc tả đề kiểm tra — chạy ngay trên trình duyệt, không cần đăng ký.',
+      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh, trộn đề trắc nghiệm, sổ điểm lớp TT22, nhận xét học sinh, lời nhận xét học bạ, ma trận đề kiểm tra, bản đặc tả đề',
       canonical: `${BASE_URL}/giao-vien/`,
       navActive: 'giao-vien',
       body: giaoVienPage.body(),
@@ -1210,7 +1229,7 @@ async function main() {
     }),
     `${BASE_URL}/giao-vien/`
   );
-  console.log('   - Giáo viên: 13 công cụ, 1 trang');
+  console.log('   - Giáo viên: 14 công cụ, 1 trang');
 
   // Trang Bàn giáo viên: 1 trang ứng dụng gom cả 10 công cụ Giáo viên
   // + quản lý lớp học (KHÔNG phải công cụ mới — không tính vào số
