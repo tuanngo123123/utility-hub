@@ -783,6 +783,17 @@ function toolPageHtml(tool, index, noscriptLinks) {
       <button type="button" class="btn btn-primary" data-uh-report-send>Soạn email</button>
     </div>
   </dialog>`;
+  // Hàng chia sẻ dưới khung công cụ (giai đoạn kéo người dùng, 20/11):
+  // "Chép liên kết" chép URL trang hiện tại (URL đã chứa số liệu đang
+  // nhập nhờ tool-state đồng bộ) + "Chia sẻ Zalo" (Web Share API trên
+  // điện thoại, link zalo.me/share trên máy tính — handler trong
+  // src/tool-state.js). Chỉ trang KHÔNG phải MẪU 2 — công cụ MẪU 2 đã
+  // có Chép/Chia sẻ Zalo trong thẻ kết quả, thêm nữa là trùng nút.
+  const shareHtml = isM2 ? '' : `<div class="uh-share-row" data-uh-share-row>
+  <span class="uh-share-label">Chia sẻ công cụ này:</span>
+  <button type="button" class="btn btn-primary uh-share-btn" data-uh-share-copy>Chép liên kết</button>
+  <button type="button" class="btn uh-share-btn" data-uh-share-zalo>Chia sẻ Zalo</button>
+</div>`;
   // Dòng Ủng hộ dưới kết quả MỌI công cụ (Tuấn chốt 19/11): chữ
   // 14px, nhẹ, không popup, không che nội dung. Chèn một lần ở đây
   // (ngay sau khung công cụ) nên cả trang MẪU 2 cũng có.
@@ -799,6 +810,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
   </div>
+  ${shareHtml}
   ${donateHtml}
   ${reportHtml}
   ${isM2 ? `<script>\n${getM2FormulasSrc()}\n</script>` : ''}

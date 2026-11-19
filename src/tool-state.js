@@ -29,6 +29,11 @@
 //     tự điền sẵn; số liệu đã nhập CHỈ gửi khi người dùng chọn ô
 //     "Gửi kèm số liệu tôi đã nhập". Không có nút thì bỏ qua (trang
 //     bài viết nhúng công cụ không có nút này).
+//  5. Hàng chia sẻ khung (giai đoạn kéo người dùng, 20/11): nút "Chép
+//     liên kết" + "Chia sẻ Zalo" do build sinh dưới khung công cụ trên
+//     trang KHÔNG phải MẪU 2 (MẪU 2 đã có nút riêng trong thẻ kết quả).
+//     Chép URL hiện tại (đã chứa số liệu đang nhập nhờ mục 2); chia sẻ
+//     dùng Web Share API nếu có, không thì mở link zalo.me/share.
 // An toàn: không có .tool-panel thì không làm gì (trừ hộp thoại Báo
 // sai, chạy độc lập vì có công cụ không dùng .tool-panel). Chỉ tác động lên
 // input/select/textarea/button có sẵn trong panel; không ép bấm nút khi
@@ -238,9 +243,70 @@
 
   function init() {
     setupReport();
+    setupShareRow();
     var panels = document.querySelectorAll('.tool-panel');
     if (!panels || panels.length === 0) return;
     for (var i = 0; i < panels.length; i++) setupPanel(panels[i]);
+  }
+
+  // Hàng chia sẻ khung (xem chú thích đầu file, mục 5): "Chép liên kết"
+  // chép URL hiện tại (đã chứa số liệu đang nhập nhờ đồng bộ URL);
+  // "Chia sẻ Zalo" dùng Web Share API nếu có (điện thoại: mở bảng chia
+  // sẻ của máy, có Zalo nếu đã cài), không thì mở link zalo.me/share.
+  // Hàng này chỉ có trên trang công cụ KHÔNG phải MẪU 2 (build sinh) —
+  // không có hàng thì bỏ qua. Dùng window.UH.copyText/UH.toast khi có
+  // (app.js nạp trước file này), không thì tự chép + đổi chữ nút.
+  function setupShareRow() {
+    var row = document.querySelector('[data-uh-share-row]');
+    if (!row) return;
+    var copyBtn = row.querySelector('[data-uh-share-copy]');
+    var zaloBtn = row.querySelector('[data-uh-share-zalo]');
+    function flash(btn, text) {
+      if (!btn) return;
+      var old = btn.textContent;
+      btn.textContent = text;
+      setTimeout(function () { btn.textContent = old; }, 2000);
+    }
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      var url = window.location.href;
+      var uh = (typeof window !== 'undefined') ? window.UH : null;
+      function done(ok) {
+        if (ok) {
+          if (uh && uh.toast) uh.toast('Đã chép liên kết');
+          else flash(copyBtn, 'Đã chép');
+        } else if (uh && uh.toast) {
+          uh.toast('Không chép được — hãy chép tay');
+        } else {
+          flash(copyBtn, 'Không chép được');
+        }
+      }
+      if (uh && uh.copyText) {
+        uh.copyText(url).then(done);
+      } else if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+      } else {
+        // Dự phòng khi không có Clipboard API: ô textarea tạm.
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { /* bỏ qua */ }
+        document.body.removeChild(ta);
+        done(ok);
+      }
+    });
+    if (zaloBtn) zaloBtn.addEventListener('click', function () {
+      var url = window.location.href;
+      var title = document.title || '';
+      if (typeof navigator !== 'undefined' && navigator.share) {
+        navigator.share({ title: title, text: title, url: url }).catch(function () { /* người dùng hủy chia sẻ */ });
+      } else if (typeof window !== 'undefined') {
+        window.open('https://zalo.me/share?url=' + encodeURIComponent(url), '_blank', 'noopener');
+      }
+    });
   }
 
   // Hộp thoại "Báo sai số liệu" (xem chú thích đầu file, mục 4).

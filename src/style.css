@@ -4893,6 +4893,17 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 /* Dòng Ủng hộ dưới kết quả mọi công cụ (Tuấn chốt 19/11): 14px,
    nhẹ, không popup, không che nội dung. */
 .uh-donate-line { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--muted); }
+
+/* Hàng chia sẻ khung dưới công cụ (giai đoạn kéo người dùng, 20/11):
+   chỉ trang KHÔNG phải MẪU 2 (MẪU 2 đã có nút riêng trong thẻ kết quả).
+   Dùng .btn chung (biến toàn cục), không dùng .m2-action-btn vì biến
+   --m2-* chỉ có trong .m2-page. */
+.uh-share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 0; }
+.uh-share-label { font-size: 14px; color: var(--muted); margin-right: 4px; }
+.uh-share-row .uh-share-btn { padding: 10px 16px; min-height: 44px; }
+@media (max-width: 480px) {
+  .uh-share-row .uh-share-btn { flex: 1 1 auto; }
+}
 .uh-donate-line a { color: #92400E; font-weight: 700; text-decoration: none; }
 .uh-donate-line a:hover { text-decoration: underline; }
 [data-theme="dark"] .uh-donate-line a { color: #FBBF24; }
