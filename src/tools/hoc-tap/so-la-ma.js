@@ -24,7 +24,7 @@ export function body() {
     <div class="grid-2">
       <div class="field">
         <label for="lm-num">Số Ả Rập (1–3999)</label>
-        <input id="lm-num" type="number" min="1" max="3999" step="1" value="2026" placeholder="VD: 2026">
+        <input id="lm-num" type="number" min="1" max="3999" step="1" value="2026" placeholder="Ví dụ: 2026">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="lm-calc-1">Đổi sang số La Mã</button>
@@ -34,7 +34,7 @@ export function body() {
     <div class="grid-2">
       <div class="field">
         <label for="lm-roman">Số La Mã</label>
-        <input id="lm-roman" type="text" value="XIV" placeholder="VD: XIV">
+        <input id="lm-roman" type="text" value="XIV" placeholder="Ví dụ: XIV">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="lm-calc-2">Đổi sang số Ả Rập</button>

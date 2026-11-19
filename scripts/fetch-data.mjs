@@ -211,19 +211,43 @@ async function fetchLottery() {
 // ---------- 4. Trending GitHub ----------
 // Repo bị loại khỏi bảng Xu hướng theo quyết định của Tuấn (18/11/2026):
 // gylive/google-ultra khai thác gói dùng thử ẩn của Google, README của
-// chính repo ghi "có thể vi phạm điều khoản Google". Lấy dư (10) rồi lọc
-// để bảng vẫn đủ 6 repo sau khi loại.
-const TRENDING_BLOCKLIST = new Set(['gylive/google-ultra']);
+// chính repo ghi "có thể vi phạm điều khoản Google". Thêm 19/11/2026:
+// duwqijlk/muse-protocol (lách đăng ký/mã mời muse.ai) và hut-hzf/ung220z-tool
+// (can thiệp modem nhà mạng) — cả hai từng tự hiện trên trang chủ qua dữ
+// liệu thô, nên trang chủ đã gỡ khối trending và trang Trending chỉ hiện
+// repo đã có mô tả tiếng Việt (xem src/tools/github/github-trending.js).
+// Lấy dư (20) rồi lọc để bảng vẫn đủ 6 repo sau khi loại.
+const TRENDING_BLOCKLIST = new Set([
+  'gylive/google-ultra',
+  'duwqijlk/muse-protocol',
+  'hut-hzf/ung220z-tool',
+]);
+// Từ khóa chặn theo tên/mô tả repo — đồng bộ với bản sao trong
+// src/tools/github/github-trending.js (giữ đồng bộ khi sửa một bên).
+const TRENDING_BLOCK_KEYWORDS = [
+  /\bcrack\b/i, /\bbypass\b/i, /\bkeygen\b/i, /\bhack\b/i, /\bhacking\b/i,
+  /\bstealer\b/i, /\bphishing\b/i, /\bmalware\b/i, /\bransomware\b/i,
+  /\bbotnet\b/i, /\bddos\b/i, /invite[- ]code/i, /free[- ]trial/i,
+  /activation[- ]bypass/i, /license[- ]bypass/i, /carrier[- ]unlock/i,
+  /modem[- ]unlock/i, /imei[- ]unlock/i, /frp[- ]bypass/i,
+  /mã mời/i, /bẻ khóa/i, /phá khóa/i, /lách đăng ký/i,
+  /邀请码/, /破解/, /绕过/, /激活码/, /盗版/, /注册机/,
+];
+function trendingBlocked(r) {
+  if (TRENDING_BLOCKLIST.has(String(r.full_name).toLowerCase())) return true;
+  const hay = [r.full_name, r.name, r.description].filter(Boolean).join(' ');
+  return TRENDING_BLOCK_KEYWORDS.some((re) => re.test(hay));
+}
 async function fetchTrending() {
   try {
     const since = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
     const j = await fetchJson(
-      `https://api.github.com/search/repositories?q=created:%3E${since}&sort=stars&order=desc&per_page=10`,
+      `https://api.github.com/search/repositories?q=created:%3E${since}&sort=stars&order=desc&per_page=20`,
       { Accept: 'application/vnd.github+json' },
     );
     if (!Array.isArray(j.items)) throw new Error('payload GitHub không hợp lệ');
     const items = j.items
-      .filter((r) => !TRENDING_BLOCKLIST.has(String(r.full_name).toLowerCase()))
+      .filter((r) => !trendingBlocked(r))
       .slice(0, 6)
       .map((r) => ({
         name: r.full_name,

@@ -4,7 +4,7 @@ export const meta = {
   name: 'Quỹ dự phòng khẩn cấp',
   category: 'Tài chính',
   categorySlug: 'tai-chinh',
-  desc: 'Tính quỹ dự phòng khẩn cấp cần có theo chi tiêu thiết yếu hàng tháng và số tháng muốn dự phòng (3/6/12), kèm kế hoạch để dành mỗi tháng.',
+  desc: 'Tính quỹ dự phòng khẩn cấp cần có theo chi tiêu thiết yếu hằng tháng và số tháng muốn dự phòng (3/6/12), kèm kế hoạch để dành mỗi tháng.',
   keywords: 'quỹ dự phòng, quỹ khẩn cấp, emergency fund, tiết kiệm dự phòng, chi tiêu thiết yếu',
   icon: '🛟',
   seoTitle: 'Quỹ dự phòng khẩn cấp — cần để dành bao nhiêu & trong bao lâu',
@@ -17,12 +17,12 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="qdp-expense">Chi tiêu thiết yếu mỗi tháng (₫)</label>
-      <input id="qdp-expense" type="text" inputmode="decimal" value="8.000.000" placeholder="VD: 8.000.000">
+      <input id="qdp-expense" type="text" inputmode="decimal" value="8.000.000" placeholder="Ví dụ: 8.000.000">
       <p class="muted">Chỉ tính khoản bắt buộc: ăn uống, nhà ở, đi lại, hóa đơn, bảo hiểm.</p>
     </div>
     <div class="field">
       <label for="qdp-have">Số tiền đã có trong quỹ (₫)</label>
-      <input id="qdp-have" type="text" inputmode="decimal" value="0" placeholder="VD: 0">
+      <input id="qdp-have" type="text" inputmode="decimal" value="0" placeholder="Ví dụ: 0">
     </div>
     <div class="field">
       <label for="qdp-months">Số tháng muốn dự phòng</label>

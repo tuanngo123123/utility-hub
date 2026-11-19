@@ -8,7 +8,7 @@ export const meta = {
   name: 'Tính lãi vay & lịch trả nợ',
   category: 'Tài chính',
   categorySlug: 'tai-chinh',
-  desc: 'Tính tiền trả hàng tháng, tổng lãi và bảng lịch trả nợ chi tiết từng tháng theo hai cách: trả đều (annuity) hoặc dư nợ giảm dần.',
+  desc: 'Tính tiền trả hằng tháng, tổng lãi và bảng lịch trả nợ chi tiết từng tháng theo hai cách: trả đều (annuity) hoặc dư nợ giảm dần.',
   keywords: 'tính lãi vay, lịch trả nợ, vay trả góp, annuity, dư nợ giảm dần, lãi suất vay',
   icon: '🏦',
   seoTitle: 'Tính lãi vay & lịch trả nợ — trả đều hoặc dư nợ giảm dần',
@@ -23,7 +23,7 @@ export function body() {
       <div class="m2-input-top">
         <div class="field m2-field">
           <label for="lv-principal">Số tiền vay</label>
-          <span class="input-unit"><input id="lv-principal" class="m2-salary" type="text" inputmode="decimal" value="100.000.000" placeholder="VD: 100.000.000"><span class="unit">₫</span></span>
+          <span class="input-unit"><input id="lv-principal" class="m2-salary" type="text" inputmode="decimal" value="100.000.000" placeholder="Ví dụ: 100.000.000"><span class="unit">₫</span></span>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh số tiền vay">
           <button type="button" class="m2-quick-btn" data-lv-quick="50000000">50 triệu</button>
@@ -35,7 +35,7 @@ export function body() {
         <div class="m2-row2">
           <div class="field m2-field">
             <label for="lv-rate">Lãi suất</label>
-            <span class="input-unit"><input id="lv-rate" class="m2-num" type="text" inputmode="decimal" value="12" placeholder="VD: 12"><span class="unit">%/năm</span></span>
+            <span class="input-unit"><input id="lv-rate" class="m2-num" type="text" inputmode="decimal" value="12" placeholder="Ví dụ: 12"><span class="unit">%/năm</span></span>
             <p class="hint">Lãi suất vay ngân hàng thường 8–15%/năm.</p>
           </div>
           <div class="field m2-field">

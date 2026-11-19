@@ -28,7 +28,7 @@ export function body() {
         <div id="tncn-panel-salary-top">
           <div class="field m2-field">
             <label for="tncn-gross">Lương Gross mỗi tháng</label>
-            <span class="input-unit"><input id="tncn-gross" class="m2-salary" type="text" inputmode="decimal" value="45.000.000" placeholder="VD: 45.000.000"><span class="unit">₫</span></span>
+            <span class="input-unit"><input id="tncn-gross" class="m2-salary" type="text" inputmode="decimal" value="45.000.000" placeholder="Ví dụ: 45.000.000"><span class="unit">₫</span></span>
           </div>
           <div class="m2-quick" aria-label="Chọn nhanh mức lương">
             <button type="button" class="m2-quick-btn" data-tncn-quick="15000000">15 triệu</button>
@@ -39,7 +39,7 @@ export function body() {
         <div id="tncn-panel-taxable-top" hidden>
           <div class="field m2-field">
             <label for="tncn-taxable">Thu nhập tính thuế mỗi tháng</label>
-            <span class="input-unit"><input id="tncn-taxable" class="m2-salary" type="text" inputmode="decimal" value="18.575.000" placeholder="VD: 18.575.000"><span class="unit">₫</span></span>
+            <span class="input-unit"><input id="tncn-taxable" class="m2-salary" type="text" inputmode="decimal" value="18.575.000" placeholder="Ví dụ: 18.575.000"><span class="unit">₫</span></span>
             <p class="hint">Thu nhập tính thuế = lương Gross − bảo hiểm bắt buộc − giảm trừ bản thân (15,5 triệu) − giảm trừ người phụ thuộc (6,2 triệu/người). Dùng ô này khi bạn đã tự tính được thu nhập tính thuế.</p>
           </div>
         </div>

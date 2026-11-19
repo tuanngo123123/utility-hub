@@ -169,12 +169,12 @@
       "lang": "JavaScript",
       "prompt": "Viết hàm JavaScript async lấy tỷ giá USD sang VND từ API miễn phí open.er-api.com, có kiểm tra lỗi HTTP.",
       "relatedTool": {
-        "name": "Đổi ngoại tệ (tỉ giá tự nhập)",
+        "name": "Đổi ngoại tệ (tỷ giá tự nhập)",
         "slug": "ngoai-te-ty-gia"
       },
       "title": "Lấy tỷ giá từ open.er-api.com",
       "topic": "tai-chinh",
-      "code": "// Lấy tỷ giá USD → VND từ open.er-api.com (API miễn phí, không cần key).\n// Trang này dùng chính nguồn này cho thẻ Tỷ giá trên trang chủ.\nasync function layTyGiaVND() {\n  const res = await fetch('https://open.er-api.com/v6/latest/USD');\n  if (!res.ok) throw new Error('Không lấy được tỷ giá (HTTP ' + res.status + ')');\n  const data = await res.json();\n  return data.rates.VND; // VD: 26200 → 1 USD = 26.200 ₫\n}\n\n// Ví dụ:\n// layTyGiaVND().then((rate) => console.log('1 USD =', rate, 'VND'));"
+      "code": "// Lấy tỷ giá USD → VND từ open.er-api.com (API miễn phí, không cần key).\n// Trang này dùng chính nguồn này cho thẻ Tỷ giá trên trang chủ.\nasync function layTyGiaVND() {\n  const res = await fetch('https://open.er-api.com/v6/latest/USD');\n  if (!res.ok) throw new Error('Không lấy được tỷ giá (HTTP ' + res.status + ')');\n  const data = await res.json();\n  return data.rates.VND; // Ví dụ: 26200 → 1 USD = 26.200 ₫\n}\n\n// Ví dụ:\n// layTyGiaVND().then((rate) => console.log('1 USD =', rate, 'VND'));"
     },
     {
       "desc": "Giải mã phần payload của JWT trong trình duyệt (không kiểm tra chữ ký — chỉ để đọc hiển thị).",

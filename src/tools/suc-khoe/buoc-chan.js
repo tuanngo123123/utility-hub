@@ -20,15 +20,15 @@ export function body() {
   <div class="grid-3">
     <div class="field">
       <label for="bc-steps">Số bước chân</label>
-      <input id="bc-steps" type="number" min="0" step="1" value="10000" placeholder="VD: 10000">
+      <input id="bc-steps" type="number" min="0" step="1" value="10000" placeholder="Ví dụ: 10000">
     </div>
     <div class="field">
       <label for="bc-h">Chiều cao (cm)</label>
-      <input id="bc-h" type="number" min="50" max="250" step="0.1" value="170" placeholder="VD: 170">
+      <input id="bc-h" type="number" min="50" max="250" step="0.1" value="170" placeholder="Ví dụ: 170">
     </div>
     <div class="field">
       <label for="bc-w">Cân nặng (kg) — để ước tính calo</label>
-      <input id="bc-w" type="number" min="1" max="500" step="0.1" value="70" placeholder="VD: 70">
+      <input id="bc-w" type="number" min="1" max="500" step="0.1" value="70" placeholder="Ví dụ: 70">
     </div>
   </div>
   <button type="button" class="btn btn-primary" id="bc-calc">Đổi sang km</button>

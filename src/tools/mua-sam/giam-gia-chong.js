@@ -42,7 +42,7 @@ export function init(root) {
     var div = document.createElement('div');
     div.className = 'grid-2';
     div.setAttribute('data-gg-row', '');
-    div.innerHTML = '<div class="field"><input type="number" data-gg-pct min="0" max="100" step="0.5" placeholder="VD: 30" value="' + (val == null ? '' : val) + '"></div>'
+    div.innerHTML = '<div class="field"><input type="number" data-gg-pct min="0" max="100" step="0.5" placeholder="Ví dụ: 30" value="' + (val == null ? '' : val) + '"></div>'
       + '<button class="btn btn-ghost" data-gg-xoa type="button">Xóa</button>';
     div.querySelector('[data-gg-xoa]').addEventListener('click', function () { div.remove(); });
     rowsEl.appendChild(div);
@@ -89,7 +89,7 @@ export function init(root) {
     out.innerHTML = '<table class="tbl"><thead><tr><th>Lần giảm</th><th>Giá trước</th><th>Giá sau</th></tr></thead><tbody>' + rows + '</tbody></table>'
       + '<div class="result-row"><span>Giá cuối phải trả</span><strong>' + fmtVND(current) + '</strong></div>'
       + '<div class="result-row"><span>Tổng số tiền đã giảm</span><strong>' + fmtVND(saved) + '</strong></div>'
-      + '<div class="result-row"><span>Tỉ lệ giảm thực tế</span><strong>' + fmtNum(effective) + '%</strong></div>'
+      + '<div class="result-row"><span>Tỷ lệ giảm thực tế</span><strong>' + fmtNum(effective) + '%</strong></div>'
       + (sumPct !== effective ? '<p class="note">Lưu ý: cộng dồn các mức giảm được ' + fmtNum(sumPct) + '% nhưng thực tế chỉ giảm ' + fmtNum(effective) + '% — vì mỗi lần giảm tính trên giá đã giảm trước đó.</p>' : '');
   });
 }

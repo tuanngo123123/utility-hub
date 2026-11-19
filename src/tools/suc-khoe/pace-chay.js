@@ -24,7 +24,7 @@ export function body() {
     <div class="grid-2">
       <div class="field">
         <label for="pace-dist">Cự ly (km)</label>
-        <input id="pace-dist" type="number" min="0.1" step="0.1" value="5" placeholder="VD: 5">
+        <input id="pace-dist" type="number" min="0.1" step="0.1" value="5" placeholder="Ví dụ: 5">
       </div>
       <div class="field">
         <label>Thời gian hoàn thành</label>
@@ -49,7 +49,7 @@ export function body() {
       </div>
       <div class="field">
         <label for="pace-dist2">Cự ly (km)</label>
-        <input id="pace-dist2" type="number" min="0.1" step="0.1" value="10" placeholder="VD: 10">
+        <input id="pace-dist2" type="number" min="0.1" step="0.1" value="10" placeholder="Ví dụ: 10">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="pace-calc-2">Tính thời gian</button>

@@ -22,7 +22,7 @@ export function body() {
       <div class="m2-input-top">
         <div class="field m2-field">
           <label for="lt13-salary">Lương tháng hiện tại</label>
-          <span class="input-unit"><input id="lt13-salary" class="m2-salary" type="text" inputmode="decimal" value="15.000.000" placeholder="VD: 15.000.000"><span class="unit">₫</span></span>
+          <span class="input-unit"><input id="lt13-salary" class="m2-salary" type="text" inputmode="decimal" value="15.000.000" placeholder="Ví dụ: 15.000.000"><span class="unit">₫</span></span>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh mức lương">
           <button type="button" class="m2-quick-btn" data-lt13-quick="10000000">10 triệu</button>
@@ -38,8 +38,8 @@ export function body() {
         <p class="hint">Giảm trừ 6.200.000₫/người phụ thuộc/tháng.</p>
         <div class="field m2-field">
           <label for="lt13-insurance">Bảo hiểm bắt buộc đóng trong tháng nhận thưởng</label>
-          <span class="input-unit"><input id="lt13-insurance" class="m2-money" type="text" inputmode="decimal" value="0" placeholder="VD: 1.575.000"><span class="unit">₫</span></span>
-          <p class="hint">Nhập 0 nếu tháng nhận thưởng không đóng bảo hiểm (ví dụ đã nghỉ việc).</p>
+          <span class="input-unit"><input id="lt13-insurance" class="m2-money" type="text" inputmode="decimal" value="" placeholder="Ví dụ: 1.575.000"><span class="unit">₫</span></span>
+          <p class="hint">Để trống thì tự tính 10,5% lương. Nhập 0 nếu tháng nhận thưởng không đóng bảo hiểm (ví dụ đã nghỉ việc); nhập số khác nếu lương đóng bảo hiểm khác lương gross.</p>
         </div>
       </div>
     </div>
@@ -127,7 +127,11 @@ export function init(root) {
     const salary = parseNum($('lt13-salary').value);
     const months = Math.min(12, Math.max(0, Math.floor(parseNum($('lt13-months').value))));
     const dependents = Math.max(0, Math.floor(parseNum($('lt13-dependents').value)));
-    const insurance = Math.max(0, parseNum($('lt13-insurance').value));
+    // Ô bảo hiểm để trống thì tự lấy 10,5% lương (theo mẫu Gross-Net: trống =
+    // tính theo lương); người dùng vẫn sửa tay khi lương đóng bảo hiểm khác
+    // lương gross, hoặc nhập 0 khi tháng nhận thưởng không đóng bảo hiểm.
+    const insRaw = $('lt13-insurance').value.trim();
+    const insurance = insRaw === '' ? Math.round(salary * 0.105) : Math.max(0, parseNum(insRaw));
     if (!(salary > 0)) {
       if (showErrors) {
         markErr($('lt13-salary'), 'Ô Lương tháng chưa có số — nhập số lớn hơn 0, ví dụ 15.000.000.');

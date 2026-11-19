@@ -22,7 +22,7 @@ export function body() {
       <div class="m2-input-top">
         <div class="field m2-field">
           <label for="tdbt-kwh">Số kWh tiêu thụ trong tháng</label>
-          <span class="input-unit"><input id="tdbt-kwh" class="m2-salary" type="text" inputmode="decimal" value="250" placeholder="VD: 250"><span class="unit">kWh</span></span>
+          <span class="input-unit"><input id="tdbt-kwh" class="m2-salary" type="text" inputmode="decimal" value="250" placeholder="Ví dụ: 250"><span class="unit">kWh</span></span>
           <p class="hint">Xem số kWh trên hóa đơn tiền điện hoặc công tơ tháng này.</p>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh mức tiêu thụ">

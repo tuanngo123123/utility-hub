@@ -12,7 +12,7 @@
      xếp hạng với ô tìm kiếm hero, kết quả nhóm theo hạng mục
    - Tabs chung (chỉ các .tab có data-tab-target — không can thiệp tab riêng
      bên trong công cụ)
-   - Trang chủ: dải dữ liệu hôm nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi),
+   - Trang chủ: dải dữ liệu hôm nay (crypto, vàng, tỷ giá, xổ số, lịch âm, tử vi),
      Điểm báo (tin nổi bật + tab chủ đề) + xếp hạng — SSR lúc build, JS chỉ
      render lại khi JSON mới hơn SSR, lỗi thì giữ SSR + nút thử lại
    - Trang Ủng hộ: mã VietQR + tải PNG + chép số tài khoản
@@ -104,7 +104,7 @@
   //   62 { 08 nội dung } (chỉ khi có memo; memo PHẢI bỏ dấu, viết hoa)
   //   63 CRC16-CCITT-FALSE (poly 0x1021, init 0xFFFF)
   // CHỈ CÓ 1 BIN trong payload — không có chuỗi cố định nào khác.
-  // Test vector (xem /tmp/test-uh.cjs): BIN 970414, TK 883866666, 50000đ,
+  // Test vector (xem /tmp/test-uh.cjs): BIN 970414, TK 883866666, 50000₫,
   // không memo -> ...630494B2; tĩnh (không số tiền) -> ...6304A99A.
   // Chấp nhận cả 2 cách gọi (tương thích công cụ đã viết):
   //   vietqrPayload({ bin, account, amount, memo })
@@ -273,7 +273,7 @@
 
   // Đánh dấu một ô nhập sai: viền đỏ (.field-error) + dòng chữ đỏ
   // (.field-msg, role=alert) ngay dưới ô. msg phải nêu rõ ô nào sai +
-  // cần nhập thế nào, VD: "Ô Số kWh chưa đúng — nhập số từ 0 trở lên,
+  // cần nhập thế nào, Ví dụ: "Ô Số kWh chưa đúng — nhập số từ 0 trở lên,
   // ví dụ 250." Trả về el (hoặc null nếu không có el).
   function markFieldError(el, msg) {
     if (!el || typeof document === 'undefined') return null;
@@ -843,7 +843,6 @@
     initHoroscope();
     initFearGreed();
     initNewsAndHot();
-    initTrending();
     initRail();
     initSupport();
     initAiChatWidget();
@@ -2020,7 +2019,7 @@
     modal.hidden = true;
     modal.innerHTML =
       '<div class="search-modal-box">' +
-        '<input type="search" class="search-modal-input" id="search-modal-input" placeholder="Tìm công cụ… VD: lương, tiền điện, BMI" autocomplete="off" aria-label="Tìm công cụ" role="combobox" aria-expanded="false" aria-controls="search-modal-results">' +
+        '<input type="search" class="search-modal-input" id="search-modal-input" placeholder="Tìm công cụ… Ví dụ: lương, tiền điện, BMI" autocomplete="off" aria-label="Tìm công cụ" role="combobox" aria-expanded="false" aria-controls="search-modal-results">' +
         '<button type="button" class="search-modal-close" aria-label="Đóng tìm kiếm">✕</button>' +
         '<div id="search-modal-results" role="listbox" aria-label="Kết quả tìm kiếm"></div>' +
         '<p class="search-modal-hint">↑↓ chọn · Enter mở · Esc đóng</p>' +
@@ -2417,7 +2416,7 @@
     load();
   }
 
-  /* ---------------- Thẻ Tỉ giá: /data/fx.json (snapshot, làm mới mỗi 30 phút).
+  /* ---------------- Thẻ Tỷ giá: /data/fx.json (snapshot, làm mới mỗi 30 phút).
      Hiện "1 USD = … VND". ---------------- */
   function initFx() {
     var box = $('#fx-content');
@@ -2432,7 +2431,7 @@
         '<p class="muted small today-source">Nguồn: ' + escHtml(source || 'open.er-api.com') + timeHtml + '</p>';
     }
     function load() {
-      box.innerHTML = '<p class="muted">Đang tải tỉ giá…</p>';
+      box.innerHTML = '<p class="muted">Đang tải tỷ giá…</p>';
       fetch('/data/fx.json', { cache: 'no-store' })
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
@@ -2441,7 +2440,7 @@
           render(Number(rate), data.timeLastUpdateUtc || data.updatedAt, data.source);
         })
         .catch(function () {
-          box.innerHTML = todayErrorHtml('fx-retry', 'tỉ giá');
+          box.innerHTML = todayErrorHtml('fx-retry', 'tỷ giá');
           var retry = $('#fx-retry');
           if (retry) retry.addEventListener('click', load);
         });
@@ -2890,69 +2889,6 @@
     }
     load();
   }
-
-  /* ---------------- Trang chủ: Xu hướng GitHub ---------------- */
-
-  function initTrending() {
-    var el = $('#rank-github');
-    if (!el) return;
-
-    function render(data) {
-      var items = (data && Array.isArray(data.items)) ? data.items : [];
-      if (!items.length) {
-        el.innerHTML = '<p class="muted">Chưa có dữ liệu — dữ liệu làm mới hằng ngày.</p>';
-        return;
-      }
-      el.innerHTML = items.slice(0, 6).map(function (item, i) {
-        var rank = i + 1;
-        var name = item.fullName || item.name || '';
-        // Dòng mô tả ưu tiên `purpose` (tiếng Việt), chưa có thì fallback về
-        // mô tả tiếng Anh gốc — đồng bộ với home.js trendingRowHtml.
-        var desc = item.purpose || item.desc || item.description || '';
-        // Số sao CHỈ hiện trong pill ★ bên phải (kiểu Product Hunt),
-        // không lặp lại trong meta — đồng bộ với home.js trendingRowHtml.
-        var meta = [];
-        if (item.language) meta.push(item.language);
-        if (item.forks != null) meta.push('Fork ' + Number(item.forks).toLocaleString('en-US'));
-        var starsPill = item.stars != null
-          ? '<span class="rank-pill">★ ' + Number(item.stars).toLocaleString('en-US') + '</span>' : '';
-        return '<div class="rank-row rank-' + rank + '">' +
-          '<div class="rank-num">' + rank + '</div>' +
-          '<div class="rank-body"><h4><a href="' + escHtml(item.url || '#') +
-          '" target="_blank" rel="noopener">' + escHtml(name) + '</a>' +
-          (rank === 1 ? '<span class="hot-chip">Hot</span>' : '') + '</h4>' +
-          (desc ? '<p class="rank-desc">' + escHtml(desc) + '</p>' : '') +
-          (meta.length ? '<p class="rank-meta">' + escHtml(meta.join(' · ')) + '</p>' : '') +
-          '</div>' + starsPill + '</div>';
-      }).join('');
-      // Ghi dấu nội dung mới để lần thử lại sau không render thừa.
-      if (data.updatedAt) {
-        el.setAttribute('data-ssr', '1');
-        el.setAttribute('data-updated-at', data.updatedAt);
-      }
-    }
-
-    function load() {
-      fetch('/data/trending.json', { cache: 'no-store' })
-        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-        .then(function (data) {
-          var fresh = Date.parse((data && data.updatedAt) || '') || 0;
-          // JSON không mới hơn SSR thì giữ SSR; không có updatedAt thì render.
-          if (fresh > 0 && fresh <= ssrTime(el)) return;
-          render(data);
-        })
-        .catch(function () {
-          // Giữ SSR + nút thử lại nhỏ; không có SSR thì hiện lỗi chuẩn.
-          if (el.getAttribute('data-ssr') === '1') {
-            appendSsrRetry(el, 'Không tải được dữ liệu mới — đang hiển thị dữ liệu đã lưu.', load);
-          } else {
-            renderFetchError(el, load);
-          }
-        });
-    }
-    load();
-  }
-
   /* ---------------- Rail video "Công cụ nổi bật" (trang chủ) ----------------
      Cơ chế đúng như trang chủ 21st.dev (đã đọc từ code JS của họ + Claude
      xác nhận 18/11/2026):

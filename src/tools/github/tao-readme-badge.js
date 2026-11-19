@@ -16,17 +16,17 @@ export function body() {
 <div class="tool-panel">
   <div class="tool-head"><span>📝</span><div><h2>Tạo README & badge</h2><p class="muted">Điền thông tin dự án để sinh README.md mẫu có badge, cài đặt và hướng dẫn sử dụng.</p></div></div>
   <div class="grid-2">
-    <div class="field"><label for="trb-name">Tên dự án</label><input id="trb-name" type="text" placeholder="VD: tien-ich-hub" value="du-an-cua-toi"></div>
-    <div class="field"><label for="trb-owner">Tên GitHub (owner, để làm badge)</label><input id="trb-owner" type="text" placeholder="VD: nguyenan"></div>
+    <div class="field"><label for="trb-name">Tên dự án</label><input id="trb-name" type="text" placeholder="Ví dụ: tien-ich-hub" value="du-an-cua-toi"></div>
+    <div class="field"><label for="trb-owner">Tên GitHub (owner, để làm badge)</label><input id="trb-owner" type="text" placeholder="Ví dụ: nguyenan"></div>
     <div class="field"><label for="trb-license">Giấy phép</label><select id="trb-license"><option value="MIT">MIT</option><option value="Apache-2.0">Apache 2.0</option><option value="GPL-3.0">GPL 3.0</option><option value="BSD-3-Clause">BSD 3-Clause</option><option value="">Không ghi giấy phép</option></select></div>
-    <div class="field"><label for="trb-lang">Ngôn ngữ chính</label><input id="trb-lang" type="text" placeholder="VD: JavaScript" value="JavaScript"></div>
+    <div class="field"><label for="trb-lang">Ngôn ngữ chính</label><input id="trb-lang" type="text" placeholder="Ví dụ: JavaScript" value="JavaScript"></div>
   </div>
-  <div class="field"><label for="trb-desc">Mô tả ngắn (1–2 câu)</label><textarea id="trb-desc" rows="2" placeholder="VD: Bộ công cụ tiện ích trực tuyến chạy hoàn toàn trên trình duyệt."></textarea></div>
+  <div class="field"><label for="trb-desc">Mô tả ngắn (1–2 câu)</label><textarea id="trb-desc" rows="2" placeholder="Ví dụ: Bộ công cụ tiện ích trực tuyến chạy hoàn toàn trên trình duyệt."></textarea></div>
   <div class="field"><label for="trb-features">Tính năng chính (mỗi tính năng một dòng)</label><textarea id="trb-features" rows="4" placeholder="Chạy hoàn toàn trên trình duyệt&#10;Không cần đăng nhập&#10;Giao diện tiếng Việt">Chạy hoàn toàn trên trình duyệt
 Không cần đăng nhập
 Giao diện tiếng Việt</textarea></div>
-  <div class="field"><label for="trb-install">Lệnh cài đặt (tùy chọn)</label><input id="trb-install" type="text" placeholder="VD: npm install" value="npm install"></div>
-  <div class="field"><label for="trb-usage">Lệnh chạy / sử dụng (tùy chọn)</label><input id="trb-usage" type="text" placeholder="VD: npm start" value="npm start"></div>
+  <div class="field"><label for="trb-install">Lệnh cài đặt (tùy chọn)</label><input id="trb-install" type="text" placeholder="Ví dụ: npm install" value="npm install"></div>
+  <div class="field"><label for="trb-usage">Lệnh chạy / sử dụng (tùy chọn)</label><input id="trb-usage" type="text" placeholder="Ví dụ: npm start" value="npm start"></div>
   <button type="button" class="btn btn-primary" id="trb-go">Sinh README.md</button>
   <div id="trb-out"></div>
 </div>`;

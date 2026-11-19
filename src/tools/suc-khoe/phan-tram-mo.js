@@ -27,19 +27,19 @@ export function body() {
     </div>
     <div class="field">
       <label for="mo-h">Chiều cao (cm)</label>
-      <input id="mo-h" type="number" min="50" max="250" step="0.1" value="175" placeholder="VD: 175">
+      <input id="mo-h" type="number" min="50" max="250" step="0.1" value="175" placeholder="Ví dụ: 175">
     </div>
     <div class="field">
       <label for="mo-neck">Vòng cổ (cm)</label>
-      <input id="mo-neck" type="number" min="10" max="100" step="0.1" value="38" placeholder="VD: 38">
+      <input id="mo-neck" type="number" min="10" max="100" step="0.1" value="38" placeholder="Ví dụ: 38">
     </div>
     <div class="field">
       <label for="mo-waist">Vòng eo (cm)</label>
-      <input id="mo-waist" type="number" min="30" max="250" step="0.1" value="85" placeholder="VD: 85">
+      <input id="mo-waist" type="number" min="30" max="250" step="0.1" value="85" placeholder="Ví dụ: 85">
     </div>
     <div class="field" id="mo-hip-wrap" hidden>
       <label for="mo-hip">Vòng hông (cm)</label>
-      <input id="mo-hip" type="number" min="30" max="250" step="0.1" value="95" placeholder="VD: 95">
+      <input id="mo-hip" type="number" min="30" max="250" step="0.1" value="95" placeholder="Ví dụ: 95">
     </div>
   </div>
   <button type="button" class="btn btn-primary" id="mo-calc">Tính % mỡ cơ thể</button>

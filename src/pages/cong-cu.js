@@ -49,7 +49,7 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
     <h1 class="page-title">Tất cả công cụ</h1>
     <p class="muted" id="tool-count">${tools.length} công cụ — miễn phí, chạy ngay trên trình duyệt, không cần đăng nhập.</p>
     <label class="small muted" for="tool-search">Tìm công cụ</label>
-    <input type="search" id="tool-search" class="search-input search-input-large" placeholder="VD: tính phần trăm, đổi đơn vị, BMI… (gõ không dấu cũng được)" autocomplete="off">
+    <input type="search" id="tool-search" class="search-input search-input-large" placeholder="Ví dụ: tính phần trăm, đổi đơn vị, BMI… (gõ không dấu cũng được)" autocomplete="off">
     <div class="hero-chips" aria-label="Từ khóa hay tìm">
       <a class="chip" href="/cong-cu/?q=t%C3%ADnh%20l%C6%B0%C6%A1ng%20net">Tính lương net</a>
       <a class="chip" href="/cong-cu/?q=ti%E1%BB%81n%20%C4%91i%E1%BB%87n">Tiền điện</a>

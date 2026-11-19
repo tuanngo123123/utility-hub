@@ -1,22 +1,22 @@
-// Quiz tính cách 8 câu — mỗi câu 4 lựa chọn, chấm theo 4 nhóm tính cách:
+// Trắc nghiệm tính cách 8 câu — mỗi câu 4 lựa chọn, chấm theo 4 nhóm tính cách:
 // Nhà Lãnh Đạo, Người Sáng Tạo, Người Hòa Giải, Người Phân Tích.
 // Kết quả kèm điểm từng nhóm + nút chép/chia sẻ. Chỉ mang tính giải trí.
 export const meta = {
   id: 'quiz-tinh-cach',
-  name: 'Quiz tính cách 8 câu',
+  name: 'Trắc nghiệm tính cách 8 câu',
   category: 'Hằng ngày',
   categorySlug: 'hang-ngay',
   desc: 'Trắc nghiệm vui 8 câu hỏi, khám phá bạn thuộc nhóm tính cách nào: Nhà Lãnh Đạo, Người Sáng Tạo, Người Hòa Giải hay Người Phân Tích.',
   keywords: 'quiz tính cách, trắc nghiệm tính cách, khám phá bản thân, quiz vui',
   icon: '🧩',
-  seoTitle: 'Quiz tính cách 8 câu — Bạn thuộc nhóm tính cách nào? | Tiện Ích Hub',
-  seoDesc: 'Làm quiz vui 8 câu hỏi để khám phá nhóm tính cách của bạn: Nhà Lãnh Đạo, Người Sáng Tạo, Người Hòa Giải hay Người Phân Tích.',
+  seoTitle: 'Trắc nghiệm tính cách 8 câu — Bạn thuộc nhóm tính cách nào? | Tiện Ích Hub',
+  seoDesc: 'Làm trắc nghiệm vui 8 câu hỏi để khám phá nhóm tính cách của bạn: Nhà Lãnh Đạo, Người Sáng Tạo, Người Hòa Giải hay Người Phân Tích.',
 };
 
 export function body() {
   return `
   <div class="tool-panel">
-    <div class="tool-head"><h2>🧩 Quiz tính cách 8 câu</h2><p class="muted">Chọn đáp án đúng với bạn nhất — không có đáp án đúng hay sai, chỉ có đáp án giống bạn nhất!</p></div>
+    <div class="tool-head"><h2>🧩 Trắc nghiệm tính cách 8 câu</h2><p class="muted">Chọn đáp án đúng với bạn nhất — không có đáp án đúng hay sai, chỉ có đáp án giống bạn nhất!</p></div>
     <div id="qc-quiz"></div>
     <div id="qc-out" class="result"></div>
     <p class="note">Quiz vui, chỉ mang tính giải trí — không phải công cụ đánh giá tâm lý chuyên môn.</p>
@@ -134,7 +134,7 @@ export function init(root) {
       + '<button id="qc-again" class="btn btn-ghost" type="button">Làm lại</button>'
       + '<p id="qc-msg" class="muted"></p>';
     out.innerHTML = h;
-    lastShareText = 'Quiz tính cách: Mình thuộc nhóm ' + g.name + '! (Lãnh đạo ' + scores.L + '/8, Sáng tạo ' + scores.C + '/8, Hòa giải ' + scores.H + '/8, Phân tích ' + scores.A + '/8). Làm quiz tại Tiện Ích Hub.';
+    lastShareText = 'Trắc nghiệm tính cách: Mình thuộc nhóm ' + g.name + '! (Lãnh đạo ' + scores.L + '/8, Sáng tạo ' + scores.C + '/8, Hòa giải ' + scores.H + '/8, Phân tích ' + scores.A + '/8). Làm trắc nghiệm tại Tiện Ích Hub.';
     $('qc-copy').addEventListener('click', async () => {
       const msgEl = $('qc-msg');
       try { await navigator.clipboard.writeText(lastShareText); msgEl.textContent = 'Đã chép kết quả!'; }
@@ -143,7 +143,7 @@ export function init(root) {
     $('qc-share').addEventListener('click', async () => {
       const msgEl = $('qc-msg');
       if (navigator.share) {
-        try { await navigator.share({ title: 'Quiz tính cách', text: lastShareText }); msgEl.textContent = ''; }
+        try { await navigator.share({ title: 'Trắc nghiệm tính cách', text: lastShareText }); msgEl.textContent = ''; }
         catch (e) { /* người dùng hủy */ }
       } else {
         try { await navigator.clipboard.writeText(lastShareText); msgEl.textContent = 'Máy này không có chia sẻ nhanh — đã chép kết quả để bạn dán!'; }

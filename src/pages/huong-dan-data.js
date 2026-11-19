@@ -12,14 +12,14 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-luong-gross-net-2026',
     title: 'Cách tính lương Gross sang Net 2026',
-    desc: 'Gross trừ bảo hiểm 10,5% rồi tính thuế TNCN 5 bậc — kèm 2 ví dụ tính sẵn: Gross 30 triệu → Net 26.215.000đ.',
+    desc: 'Gross trừ bảo hiểm 10,5% rồi tính thuế TNCN 5 bậc — kèm 2 ví dụ tính sẵn: Gross 30 triệu → Net 26.215.000₫.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/luong-gross-net/',
       label: 'Tính lương Gross – Net ngay →',
       text: 'Không cần tính tay — nhập lương Gross vào công cụ để ra lương Net ngay, đổi được cả chiều Net sang Gross.',
     },
-    sources: 'Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh); Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000đ từ 01/7/2026).',
+    sources: 'Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh); Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000₫ từ 01/7/2026).',
     body: `
 <p>Khi đi làm, con số ghi trong hợp đồng thường là lương Gross — lương trước khi trừ bảo hiểm và thuế. Số tiền thực nhận vào tài khoản là lương Net, luôn thấp hơn Gross. Bài này hướng dẫn cách tính lương Net từ lương Gross theo quy định 2026, kèm 2 ví dụ tính sẵn để bạn đối chiếu với bảng lương của mình.</p>
 <nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
@@ -41,10 +41,10 @@ export const ARTICLES = [
 <li><strong>BHYT: 1,5%</strong> — bảo hiểm y tế.</li>
 <li><strong>BHTN: 1%</strong> — bảo hiểm thất nghiệp.</li>
 </ul>
-<p>Tổng cộng <strong>10,5% lương Gross</strong>. Ví dụ lương Gross 30 triệu đồng thì bảo hiểm là 3.150.000đ. Lưu ý: BHXH và BHYT có trần đóng là 50.600.000đ/tháng — lương cao hơn trần thì phần vượt trần không phải đóng BHXH/BHYT nữa. BHTN có trần riêng theo vùng lương tối thiểu.</p>
+<p>Tổng cộng <strong>10,5% lương Gross</strong>. Ví dụ lương Gross 30 triệu đồng thì bảo hiểm là 3.150.000₫. Lưu ý: BHXH và BHYT có trần đóng là 50.600.000₫/tháng — lương cao hơn trần thì phần vượt trần không phải đóng BHXH/BHYT nữa. BHTN có trần riêng theo vùng lương tối thiểu.</p>
 <h2 id="thue-tncn">Thuế thu nhập cá nhân tính thế nào</h2>
 <p>Thuế TNCN không tính trên toàn bộ lương Gross mà tính trên <strong>thu nhập tính thuế</strong> — phần còn lại sau khi trừ bảo hiểm và các khoản giảm trừ:</p>
-<p><strong>Thu nhập tính thuế = Lương Gross − Bảo hiểm (10,5%) − Giảm trừ bản thân 15.500.000đ − 6.200.000đ × số người phụ thuộc</strong></p>
+<p><strong>Thu nhập tính thuế = Lương Gross − Bảo hiểm (10,5%) − Giảm trừ bản thân 15.500.000₫ − 6.200.000₫ × số người phụ thuộc</strong></p>
 <p>Từ kỳ tính thuế 2026, mức giảm trừ bản thân là 15,5 triệu đồng/tháng và mỗi người phụ thuộc được giảm trừ 6,2 triệu đồng/tháng. Thu nhập tính thuế sau đó áp biểu thuế lũy tiến từng phần 5 bậc:</p>
 <table class="tbl">
 <tr><th>Bậc</th><th>Thu nhập tính thuế/tháng</th><th>Thuế suất</th></tr>
@@ -54,20 +54,20 @@ export const ARTICLES = [
 <tr><td>4</td><td>Trên 60 đến 100 triệu đồng</td><td>30%</td></tr>
 <tr><td>5</td><td>Trên 100 triệu đồng</td><td>35%</td></tr>
 </table>
-<p><strong>Lũy tiến từng phần</strong> nghĩa là mỗi phần thu nhập chỉ chịu thuế suất của bậc chứa nó, không phải toàn bộ thu nhập chịu mức cao nhất. Ví dụ thu nhập tính thuế 11.350.000đ thì 10 triệu đầu chịu 5%, chỉ 1.350.000đ còn lại chịu 10%.</p>
+<p><strong>Lũy tiến từng phần</strong> nghĩa là mỗi phần thu nhập chỉ chịu thuế suất của bậc chứa nó, không phải toàn bộ thu nhập chịu mức cao nhất. Ví dụ thu nhập tính thuế 11.350.000₫ thì 10 triệu đầu chịu 5%, chỉ 1.350.000₫ còn lại chịu 10%.</p>
 <h2 id="vi-du-30-trieu">Ví dụ 1 — Lương Gross 30 triệu, không người phụ thuộc</h2>
 <ol>
-<li><strong>Bảo hiểm:</strong> 30.000.000đ × 10,5% = 3.150.000đ.</li>
-<li><strong>Thu nhập tính thuế:</strong> 30.000.000 − 3.150.000 − 15.500.000 = 11.350.000đ.</li>
-<li><strong>Thuế TNCN:</strong> 10.000.000 × 5% = 500.000đ; 1.350.000 × 10% = 135.000đ. Tổng thuế: 635.000đ.</li>
-<li><strong>Lương Net:</strong> 30.000.000 − 3.150.000 − 635.000 = <strong>26.215.000đ</strong>.</li>
+<li><strong>Bảo hiểm:</strong> 30.000.000₫ × 10,5% = 3.150.000₫.</li>
+<li><strong>Thu nhập tính thuế:</strong> 30.000.000 − 3.150.000 − 15.500.000 = 11.350.000₫.</li>
+<li><strong>Thuế TNCN:</strong> 10.000.000 × 5% = 500.000₫; 1.350.000 × 10% = 135.000₫. Tổng thuế: 635.000₫.</li>
+<li><strong>Lương Net:</strong> 30.000.000 − 3.150.000 − 635.000 = <strong>26.215.000₫</strong>.</li>
 </ol>
 <h2 id="vi-du-45-trieu">Ví dụ 2 — Lương Gross 45 triệu, 1 người phụ thuộc</h2>
 <ol>
-<li><strong>Bảo hiểm:</strong> 45.000.000đ × 10,5% = 4.725.000đ.</li>
-<li><strong>Thu nhập tính thuế:</strong> 45.000.000 − 4.725.000 − 15.500.000 − 6.200.000 = 18.575.000đ.</li>
-<li><strong>Thuế TNCN:</strong> 10.000.000 × 5% = 500.000đ; 8.575.000 × 10% = 857.500đ. Tổng thuế: 1.357.500đ.</li>
-<li><strong>Lương Net:</strong> 45.000.000 − 4.725.000 − 1.357.500 = <strong>38.917.500đ</strong>.</li>
+<li><strong>Bảo hiểm:</strong> 45.000.000₫ × 10,5% = 4.725.000₫.</li>
+<li><strong>Thu nhập tính thuế:</strong> 45.000.000 − 4.725.000 − 15.500.000 − 6.200.000 = 18.575.000₫.</li>
+<li><strong>Thuế TNCN:</strong> 10.000.000 × 5% = 500.000₫; 8.575.000 × 10% = 857.500₫. Tổng thuế: 1.357.500₫.</li>
+<li><strong>Lương Net:</strong> 45.000.000 − 4.725.000 − 1.357.500 = <strong>38.917.500₫</strong>.</li>
 </ol>
 <h2 id="luu-y">Mấy lưu ý khi đối chiếu với bảng lương</h2>
 <ul>
@@ -80,7 +80,7 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-tien-dien-bac-thang-2026',
     title: 'Cách tính tiền điện bậc thang 2026',
-    desc: 'Biểu giá 5 bậc từ 01/11/2026 (QĐ 2892/QĐ-BCT) + VAT 8% — ví dụ 350 kWh hết 921.348đ.',
+    desc: 'Biểu giá 5 bậc từ 01/11/2026 (QĐ 2892/QĐ-BCT) + VAT 8% — ví dụ 350 kWh hết 921.348₫.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/tien-dien-bac-thang/',
@@ -116,40 +116,40 @@ export const ARTICLES = [
 </ol>
 <h2 id="vi-du-350">Ví dụ 1 — Dùng 350 kWh</h2>
 <ol>
-<li>100 kWh đầu × 1.901đ = 190.100đ (bậc 1).</li>
-<li>100 kWh tiếp × 2.289đ = 228.900đ (bậc 2).</li>
-<li>150 kWh còn lại × 2.894đ = 434.100đ (bậc 3).</li>
-<li>Tiền chưa VAT: 190.100 + 228.900 + 434.100 = 853.100đ.</li>
-<li>VAT 8%: 853.100 × 8% = 68.248đ.</li>
-<li><strong>Tổng tiền điện: 853.100 + 68.248 = 921.348đ.</strong></li>
+<li>100 kWh đầu × 1.901₫ = 190.100₫ (bậc 1).</li>
+<li>100 kWh tiếp × 2.289₫ = 228.900₫ (bậc 2).</li>
+<li>150 kWh còn lại × 2.894₫ = 434.100₫ (bậc 3).</li>
+<li>Tiền chưa VAT: 190.100 + 228.900 + 434.100 = 853.100₫.</li>
+<li>VAT 8%: 853.100 × 8% = 68.248₫.</li>
+<li><strong>Tổng tiền điện: 853.100 + 68.248 = 921.348₫.</strong></li>
 </ol>
 <h2 id="vi-du-500">Ví dụ 2 — Dùng 500 kWh</h2>
 <ol>
-<li>100 kWh × 1.901đ = 190.100đ (bậc 1).</li>
-<li>100 kWh × 2.289đ = 228.900đ (bậc 2).</li>
-<li>200 kWh × 2.894đ = 578.800đ (bậc 3).</li>
-<li>100 kWh còn lại × 3.456đ = 345.600đ (bậc 4).</li>
-<li>Tiền chưa VAT: 190.100 + 228.900 + 578.800 + 345.600 = 1.343.400đ.</li>
-<li>VAT 8%: 1.343.400 × 8% = 107.472đ.</li>
-<li><strong>Tổng tiền điện: 1.343.400 + 107.472 = 1.450.872đ.</strong></li>
+<li>100 kWh × 1.901₫ = 190.100₫ (bậc 1).</li>
+<li>100 kWh × 2.289₫ = 228.900₫ (bậc 2).</li>
+<li>200 kWh × 2.894₫ = 578.800₫ (bậc 3).</li>
+<li>100 kWh còn lại × 3.456₫ = 345.600₫ (bậc 4).</li>
+<li>Tiền chưa VAT: 190.100 + 228.900 + 578.800 + 345.600 = 1.343.400₫.</li>
+<li>VAT 8%: 1.343.400 × 8% = 107.472₫.</li>
+<li><strong>Tổng tiền điện: 1.343.400 + 107.472 = 1.450.872₫.</strong></li>
 </ol>
 <h2 id="doc-hoa-don">Đọc hóa đơn tiền điện thế nào</h2>
 <p>Hóa đơn tiền điện hằng tháng ghi đủ các số liệu để bạn tự đối chiếu: chỉ số công tơ đầu kỳ và cuối kỳ, điện năng tiêu thụ trong tháng (kWh), bảng tiền điện chia theo từng bậc, tiền VAT và tổng số tiền phải trả. Cách đối chiếu nhanh nhất là lấy số kWh trên hóa đơn nhập vào công cụ tính tiền điện — nếu kết quả khớp với hóa đơn thì số tiền đúng.</p>
 <p>Nếu một tháng tiền điện tăng đột biến, kiểm tra số kWh trước: thường nguyên nhân là dùng nhiều hơn (trời nắng nóng phải bật điều hòa nhiều, nhà thêm thiết bị mới) chứ không phải giá điện thay đổi. Giá điện chỉ thay đổi khi có quyết định điều chỉnh mới của cơ quan có thẩm quyền.</p>
 <h2 id="vi-sao-cang-dat">Vì sao dùng càng nhiều, mỗi kWh thêm càng đắt</h2>
-<p>Vì giá tính lũy tiến nên <strong>mỗi kWh thêm vào có giá bằng bậc cao nhất mà hộ bạn đang dùng tới</strong>. Hộ dùng 350 kWh đang ở bậc 3: mỗi kWh thêm tốn 2.894đ + VAT, tức khoảng 3.126đ. Hộ dùng trên 700 kWh: mỗi kWh thêm ở bậc 5, tốn 3.844đ + VAT, tức khoảng 4.152đ — đắt hơn gần một phần ba so với bậc 3.</p>
-<p>Tính bình quân: 350 kWh hết 921.348đ, tức khoảng 2.632đ/kWh; 500 kWh hết 1.450.872đ, tức khoảng 2.902đ/kWh. Dùng thêm 150 kWh (từ 350 lên 500) làm tiền điện tăng 529.524đ — phần điện thêm này có giá bình quân khoảng 3.530đ/kWh, cao hơn hẳn giá bình quân chung.</p>
+<p>Vì giá tính lũy tiến nên <strong>mỗi kWh thêm vào có giá bằng bậc cao nhất mà hộ bạn đang dùng tới</strong>. Hộ dùng 350 kWh đang ở bậc 3: mỗi kWh thêm tốn 2.894₫ + VAT, tức khoảng 3.126₫. Hộ dùng trên 700 kWh: mỗi kWh thêm ở bậc 5, tốn 3.844₫ + VAT, tức khoảng 4.152₫ — đắt hơn gần một phần ba so với bậc 3.</p>
+<p>Tính bình quân: 350 kWh hết 921.348₫, tức khoảng 2.632₫/kWh; 500 kWh hết 1.450.872₫, tức khoảng 2.902₫/kWh. Dùng thêm 150 kWh (từ 350 lên 500) làm tiền điện tăng 529.524₫ — phần điện thêm này có giá bình quân khoảng 3.530₫/kWh, cao hơn hẳn giá bình quân chung.</p>
 <p>Muốn giảm tiền điện, cách hiệu quả nhất là giảm số kWh ở các bậc cao — tức giảm tổng lượng dùng. Tắt thiết bị khi không dùng, để điều hòa ở 26–27°C và hạn chế dùng nhiều thiết bị công suất lớn cùng lúc là những cách đơn giản nhất, không tốn thêm chi phí.</p>`,
   },
   {
     slug: 'le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien',
-    title: 'Lệ phí môn bài 2026: hộ kinh doanh được miễn',
-    desc: 'Lệ phí môn bài bãi bỏ hoàn toàn từ 01/01/2026 — hộ kinh doanh nộp 0đ, không phải khai. Năm 2025 vẫn nộp, hạn 30/01/2026.',
+    title: 'Lệ phí môn bài bãi bỏ từ 2026: ai còn phải nộp?',
+    desc: 'Lệ phí môn bài bãi bỏ hoàn toàn từ 01/01/2026 — hộ kinh doanh nộp 0₫, không phải khai. Năm 2025 vẫn nộp, hạn 30/01/2026.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/le-phi-mon-bai/',
       label: 'Kiểm tra lệ phí môn bài →',
-      text: 'Chọn năm 2026 để thấy mức 0đ, hoặc chọn năm 2025 để tính mức cũ phải nộp.',
+      text: 'Chọn năm 2026 để thấy mức 0₫, hoặc chọn năm 2025 để tính mức cũ phải nộp.',
     },
     sources: 'Khoản 7 Điều 10 Nghị quyết 198/2025/QH15; Nghị định 362/2025/NĐ-CP (bãi bỏ NĐ 139/2016 và NĐ 22/2020, hiệu lực 01/01/2026); Công văn hỏa tốc 645/CT-CS của Cục Thuế. Mức cũ năm 2025: Điều 4 NĐ 139/2016/NĐ-CP (sửa đổi bởi NĐ 22/2020/NĐ-CP); hạn nộp 30/01/2026 theo NĐ 126/2020/NĐ-CP.',
     body: `
@@ -163,7 +163,7 @@ export const ARTICLES = [
 <h2 id="bai-bo-tu-2026">Bãi bỏ hoàn toàn từ 01/01/2026</h2>
 <p>Căn cứ khoản 7 Điều 10 Nghị quyết 198/2025/QH15 và Nghị định 362/2025/NĐ-CP, lệ phí môn bài được bãi bỏ hoàn toàn từ ngày 01/01/2026. Cụ thể:</p>
 <ul>
-<li><strong>Không phải nộp tiền:</strong> lệ phí môn bài năm 2026 trở đi là 0đ cho mọi đối tượng — hộ kinh doanh, cá nhân kinh doanh, doanh nghiệp, chi nhánh.</li>
+<li><strong>Không phải nộp tiền:</strong> lệ phí môn bài năm 2026 trở đi là 0₫ cho mọi đối tượng — hộ kinh doanh, cá nhân kinh doanh, doanh nghiệp, chi nhánh.</li>
 <li><strong>Không phải nộp tờ khai:</strong> người nộp thuế cũng không phải nộp tờ khai lệ phí môn bài nữa (Công văn hỏa tốc 645/CT-CS của Cục Thuế).</li>
 <li><strong>Không cần làm đơn xin miễn:</strong> việc bãi bỏ áp dụng chung cho mọi người nộp thuế theo quy định của pháp luật, không cần đăng ký hay làm thủ tục gì thêm.</li>
 </ul>
@@ -176,19 +176,19 @@ export const ARTICLES = [
 <p><strong>Hộ kinh doanh, cá nhân kinh doanh</strong> — theo doanh thu năm trước liền kề:</p>
 <table class="tbl">
 <tr><th>Doanh thu năm trước</th><th>Lệ phí năm 2025</th></tr>
-<tr><td>Trên 500 triệu đồng</td><td>1.000.000đ/năm</td></tr>
-<tr><td>Trên 300 đến 500 triệu đồng</td><td>500.000đ/năm</td></tr>
-<tr><td>Trên 100 đến 300 triệu đồng</td><td>300.000đ/năm</td></tr>
-<tr><td>Từ 100 triệu đồng trở xuống</td><td>Miễn (0đ)</td></tr>
+<tr><td>Trên 500 triệu đồng</td><td>1.000.000₫/năm</td></tr>
+<tr><td>Trên 300 đến 500 triệu đồng</td><td>500.000₫/năm</td></tr>
+<tr><td>Trên 100 đến 300 triệu đồng</td><td>300.000₫/năm</td></tr>
+<tr><td>Từ 100 triệu đồng trở xuống</td><td>Miễn (0₫)</td></tr>
 </table>
 <p><strong>Doanh nghiệp</strong> — theo vốn điều lệ hoặc vốn đầu tư:</p>
 <table class="tbl">
 <tr><th>Đối tượng</th><th>Lệ phí năm 2025</th></tr>
-<tr><td>Vốn điều lệ trên 10 tỷ đồng</td><td>3.000.000đ/năm</td></tr>
-<tr><td>Vốn điều lệ từ 10 tỷ đồng trở xuống</td><td>2.000.000đ/năm</td></tr>
-<tr><td>Chi nhánh, văn phòng đại diện, địa điểm kinh doanh</td><td>1.000.000đ/năm</td></tr>
+<tr><td>Vốn điều lệ trên 10 tỷ đồng</td><td>3.000.000₫/năm</td></tr>
+<tr><td>Vốn điều lệ từ 10 tỷ đồng trở xuống</td><td>2.000.000₫/năm</td></tr>
+<tr><td>Chi nhánh, văn phòng đại diện, địa điểm kinh doanh</td><td>1.000.000₫/năm</td></tr>
 </table>
-<p><strong>Ra hoạt động trong 6 tháng cuối năm 2025 chỉ nộp 50% mức cả năm:</strong> hộ kinh doanh hoặc doanh nghiệp bắt đầu hoạt động từ tháng 7 đến tháng 12 năm 2025 thì mức phải nộp là một nửa mức trong bảng trên — ví dụ hộ doanh thu 420 triệu đồng thì nộp 250.000đ thay vì 500.000đ. Quy định này không áp dụng khi đã được miễn lệ phí trong năm đầu thành lập.</p>
+<p><strong>Ra hoạt động trong 6 tháng cuối năm 2025 chỉ nộp 50% mức cả năm</strong> — nhưng chỉ với đối tượng không thuộc diện miễn năm đầu. Ví dụ doanh nghiệp đã hoạt động lâu năm mở thêm địa điểm kinh doanh từ tháng 7 đến tháng 12/2025 thì địa điểm mới nộp 500.000₫ thay vì 1.000.000₫. Hộ kinh doanh mới thành lập trong 6 tháng cuối 2025 thì không nộp gì cả — được miễn lệ phí trong năm đầu thành lập (xem ngay dưới).</p>
 <p>Một lưu ý cho năm 2025 trở về trước: hộ kinh doanh và doanh nghiệp mới thành lập được miễn lệ phí môn bài trong năm đầu tiên thành lập. Từ năm 2026 thì quy định này không còn ý nghĩa nữa vì lệ phí đã bãi bỏ với tất cả mọi người.</p>
 <h2 id="ho-moi-2026">Hộ mới thành lập năm 2026 thì sao</h2>
 <p>Hộ kinh doanh mới thành lập trong năm 2026 không phải nộp lệ phí môn bài và không phải khai lệ phí môn bài. Bạn chỉ cần thực hiện các nghĩa vụ thuế khác theo quy định (nếu có) như đăng ký thuế, kê khai và nộp thuế giá trị gia tăng, thuế thu nhập cá nhân tùy theo phương pháp tính thuế của hộ mình. Nghĩa vụ cụ thể của từng hộ đối chiếu với cơ quan thuế quản lý trực tiếp.</p>`,
@@ -231,11 +231,11 @@ export const ARTICLES = [
 </ul>
 <p>Cách tính tháng lẻ: tháng lẻ trước năm 2014 được chuyển sang giai đoạn từ năm 2014 để tính; tháng lẻ từ 1 đến 6 tháng tính là nửa năm, từ 7 đến 11 tháng tính là 1 năm. Trường hợp đóng chưa đủ 1 năm: mức hưởng bằng số tiền đã đóng vào quỹ hưu trí – tử tuất, nhưng không quá 2 tháng mức bình quân.</p>
 <h2 id="vi-du">Ví dụ tính sẵn</h2>
-<p>Bạn đóng BHXH 5 năm trước năm 2014 và 8 năm từ năm 2014 trở đi, mức bình quân tiền lương tháng đóng BHXH là 8.000.000đ:</p>
+<p>Bạn đóng BHXH 5 năm trước năm 2014 và 8 năm từ năm 2014 trở đi, mức bình quân tiền lương tháng đóng BHXH là 8.000.000₫:</p>
 <ol>
 <li><strong>Giai đoạn trước 2014:</strong> 5 năm × 1,5 tháng = 7,5 tháng.</li>
 <li><strong>Giai đoạn từ 2014:</strong> 8 năm × 2 tháng = 16 tháng.</li>
-<li><strong>Tổng:</strong> 7,5 + 16 = 23,5 tháng × 8.000.000đ = <strong>188.000.000đ</strong>.</li>
+<li><strong>Tổng:</strong> 7,5 + 16 = 23,5 tháng × 8.000.000₫ = <strong>188.000.000₫</strong>.</li>
 </ol>
 <h2 id="luu-y">Mấy lưu ý trước khi rút</h2>
 <ul>
@@ -307,7 +307,7 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-lai-vay-tra-gop-du-no-giam-dan',
     title: 'Cách tính lãi vay trả góp theo dư nợ giảm dần',
-    desc: 'Gốc chia đều mỗi tháng, lãi tính trên dư nợ còn lại — ví dụ vay 100 triệu, 12%/năm, 12 tháng: tháng đầu 9.333.333đ, tổng lãi 6.500.000đ.',
+    desc: 'Gốc chia đều mỗi tháng, lãi tính trên dư nợ còn lại — ví dụ vay 100 triệu, 12%/năm, 12 tháng: tháng đầu 9.333.333₫, tổng lãi 6.500.000₫.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/lai-vay/',
@@ -327,7 +327,7 @@ export const ARTICLES = [
 </ul></nav>
 <h2 id="du-no-giam-dan-la-gi">Dư nợ giảm dần là gì</h2>
 <p>Với cách này, số tiền gốc bạn vay được chia đều cho tất cả các tháng. Mỗi tháng bạn trả một phần gốc cố định cộng với tiền lãi tính trên dư nợ còn lại đầu tháng đó. Vì dư nợ giảm dần nên tiền lãi cũng giảm dần — tháng đầu trả nhiều nhất, tháng cuối trả ít nhất.</p>
-<p>Ví dụ vay 100 triệu đồng trong 12 tháng: mỗi tháng trả gốc 100.000.000 ÷ 12 = 8.333.333đ. Tiền lãi tháng đầu tính trên 100 triệu, tháng thứ hai tính trên số còn lại sau khi đã trả tháng đầu, cứ thế cho tới tháng cuối.</p>
+<p>Ví dụ vay 100 triệu đồng trong 12 tháng: mỗi tháng trả gốc 100.000.000 ÷ 12 = 8.333.333₫. Tiền lãi tháng đầu tính trên 100 triệu, tháng thứ hai tính trên số còn lại sau khi đã trả tháng đầu, cứ thế cho tới tháng cuối.</p>
 <h2 id="cong-thuc">Công thức tính từng tháng</h2>
 <p>Ba công thức cần nhớ:</p>
 <ul>
@@ -337,25 +337,25 @@ export const ARTICLES = [
 </ul>
 <p>Lãi suất ngân hàng thường công bố theo năm, nên khi tính theo tháng phải chia cho 12. Lãi suất 12%/năm tương đương 1%/tháng.</p>
 <h2 id="vi-du-100-trieu">Ví dụ — Vay 100 triệu, 12%/năm, 12 tháng</h2>
-<p>Vay 100.000.000đ, lãi suất 12%/năm (1%/tháng), trả trong 12 tháng theo dư nợ giảm dần:</p>
+<p>Vay 100.000.000₫, lãi suất 12%/năm (1%/tháng), trả trong 12 tháng theo dư nợ giảm dần:</p>
 <ol>
-<li><strong>Tiền gốc mỗi tháng:</strong> 100.000.000 ÷ 12 = 8.333.333đ.</li>
-<li><strong>Tháng 1:</strong> lãi = 100.000.000 × 1% = 1.000.000đ. Trả 8.333.333 + 1.000.000 = <strong>9.333.333đ</strong>. Dư nợ còn 91.666.667đ.</li>
-<li><strong>Tháng 2:</strong> lãi = 91.666.667 × 1% = 916.667đ. Trả 8.333.333 + 916.667 = <strong>9.250.000đ</strong>.</li>
-<li><strong>Tháng 12 (tháng cuối):</strong> dư nợ còn 8.333.333đ, lãi = 83.333đ. Trả 8.333.333 + 83.333 = <strong>8.416.667đ</strong>.</li>
-<li><strong>Tổng tiền lãi cả khoản vay: 6.500.000đ. Tổng phải trả: 106.500.000đ.</strong></li>
+<li><strong>Tiền gốc mỗi tháng:</strong> 100.000.000 ÷ 12 = 8.333.333₫.</li>
+<li><strong>Tháng 1:</strong> lãi = 100.000.000 × 1% = 1.000.000₫. Trả 8.333.333 + 1.000.000 = <strong>9.333.333₫</strong>. Dư nợ còn 91.666.667₫.</li>
+<li><strong>Tháng 2:</strong> lãi = 91.666.667 × 1% = 916.667₫. Trả 8.333.333 + 916.667 = <strong>9.250.000₫</strong>.</li>
+<li><strong>Tháng 12 (tháng cuối):</strong> dư nợ còn 8.333.333₫, lãi = 83.333₫. Trả 8.333.333 + 83.333 = <strong>8.416.667₫</strong>.</li>
+<li><strong>Tổng tiền lãi cả khoản vay: 6.500.000₫. Tổng phải trả: 106.500.000₫.</strong></li>
 </ol>
-<p>Tháng đầu trả nhiều nhất (9.333.333đ), mỗi tháng sau giảm khoảng 83.333đ, tới tháng cuối chỉ còn 8.416.667đ. Mức giảm mỗi tháng bằng đúng tiền lãi của một phần gốc (8.333.333đ × 1% = 83.333đ).</p>
+<p>Tháng đầu trả nhiều nhất (9.333.333₫), mỗi tháng sau giảm khoảng 83.333₫, tới tháng cuối chỉ còn 8.416.667₫. Mức giảm mỗi tháng bằng đúng tiền lãi của một phần gốc (8.333.333₫ × 1% = 83.333₫).</p>
 <h2 id="so-sanh-tra-deu">So sánh với trả đều mỗi tháng</h2>
 <p>Ngoài dư nợ giảm dần, ngân hàng còn cho chọn cách <strong>trả đều (annuity)</strong>: mỗi tháng trả một khoản bằng nhau, trong đó phần gốc tăng dần và phần lãi giảm dần. Cùng khoản vay 100 triệu, 12%/năm, 12 tháng:</p>
 <table class="tbl">
 <tr><th></th><th>Dư nợ giảm dần</th><th>Trả đều mỗi tháng</th></tr>
-<tr><td>Tháng đầu</td><td>9.333.333đ</td><td>8.884.879đ</td></tr>
-<tr><td>Tháng cuối</td><td>8.416.667đ</td><td>8.884.879đ</td></tr>
-<tr><td>Tổng tiền lãi</td><td>6.500.000đ</td><td>6.618.546đ</td></tr>
-<tr><td>Tổng phải trả</td><td>106.500.000đ</td><td>106.618.546đ</td></tr>
+<tr><td>Tháng đầu</td><td>9.333.333₫</td><td>8.884.879₫</td></tr>
+<tr><td>Tháng cuối</td><td>8.416.667₫</td><td>8.884.879₫</td></tr>
+<tr><td>Tổng tiền lãi</td><td>6.500.000₫</td><td>6.618.546₫</td></tr>
+<tr><td>Tổng phải trả</td><td>106.500.000₫</td><td>106.618.546₫</td></tr>
 </table>
-<p>Dư nợ giảm dần rẻ hơn 118.546đ tiền lãi, nhưng tháng đầu phải trả nhiều hơn gần 450.000đ. Khoản vay càng dài, chênh lệch tiền lãi càng lớn — với khoản vay nhiều năm, dư nợ giảm dần thường tiết kiệm được một khoản đáng kể.</p>
+<p>Dư nợ giảm dần rẻ hơn 118.546₫ tiền lãi, nhưng tháng đầu phải trả nhiều hơn gần 450.000₫. Khoản vay càng dài, chênh lệch tiền lãi càng lớn — với khoản vay nhiều năm, dư nợ giảm dần thường tiết kiệm được một khoản đáng kể.</p>
 <h2 id="nen-chon-cach-nao">Nên chọn cách nào</h2>
 <ul>
 <li><strong>Chọn dư nợ giảm dần</strong> nếu thu nhập của bạn đủ trả tháng đầu cao nhất và bạn muốn tổng tiền lãi thấp nhất. Cách này cũng hợp khi bạn dự định trả trước một phần — trả trước làm dư nợ giảm ngay nên lãi các tháng sau giảm theo.</li>
@@ -372,7 +372,7 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-lai-suat-tiet-kiem-ngan-hang',
     title: 'Cách tính lãi suất tiết kiệm ngân hàng',
-    desc: 'Lãi tiết kiệm có kỳ hạn tính thế nào + lãi kép dài hạn — gửi 100 triệu, 6%/năm, 12 tháng được 6.000.000đ lãi.',
+    desc: 'Lãi tiết kiệm có kỳ hạn tính thế nào + lãi kép dài hạn — gửi 100 triệu, 6%/năm, 12 tháng được 6.000.000₫ lãi.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/lai-kep/',
@@ -398,21 +398,21 @@ export const ARTICLES = [
 <p>Ngân hàng tính lãi theo số ngày thực gửi chia cho 365 ngày, nhưng cách tính theo tháng ở trên đủ gần để ước tính. Khi đáo hạn, bạn nhận lại cả gốc lẫn lãi; nếu không rút, nhiều ngân hàng tự động gửi tiếp kỳ hạn mới với lãi suất tại thời điểm đó.</p>
 <h2 id="vi-du-100-trieu">Ví dụ — Gửi 100 triệu, 6%/năm, 12 tháng</h2>
 <ol>
-<li><strong>Tiền lãi:</strong> 100.000.000 × 6% × 12 ÷ 12 = <strong>6.000.000đ</strong>.</li>
-<li><strong>Tổng nhận khi đáo hạn:</strong> 100.000.000 + 6.000.000 = <strong>106.000.000đ</strong>.</li>
-<li>Gửi cùng số tiền đó trong 6 tháng thì lãi là 100.000.000 × 6% × 6 ÷ 12 = 3.000.000đ — một nửa, vì thời gian chỉ một nửa.</li>
+<li><strong>Tiền lãi:</strong> 100.000.000 × 6% × 12 ÷ 12 = <strong>6.000.000₫</strong>.</li>
+<li><strong>Tổng nhận khi đáo hạn:</strong> 100.000.000 + 6.000.000 = <strong>106.000.000₫</strong>.</li>
+<li>Gửi cùng số tiền đó trong 6 tháng thì lãi là 100.000.000 × 6% × 6 ÷ 12 = 3.000.000₫ — một nửa, vì thời gian chỉ một nửa.</li>
 </ol>
-<p>Nếu lãi suất là 5%/năm thay vì 6%, tiền lãi 12 tháng còn 5.000.000đ. Chênh 1% lãi suất trên 100 triệu đồng tương đương 1.000.000đ mỗi năm — đáng để so sánh lãi suất giữa các ngân hàng trước khi gửi.</p>
+<p>Nếu lãi suất là 5%/năm thay vì 6%, tiền lãi 12 tháng còn 5.000.000₫. Chênh 1% lãi suất trên 100 triệu đồng tương đương 1.000.000₫ mỗi năm — đáng để so sánh lãi suất giữa các ngân hàng trước khi gửi.</p>
 <h2 id="lai-kep">Lãi kép khi gửi dài hạn và gửi thêm hằng tháng</h2>
 <p>Nếu bạn gửi tiết kiệm dài hạn và để lãi nhập vào gốc (không rút lãi ra), năm sau tiền lãi tính trên cả gốc lẫn lãi năm trước — đó là <strong>lãi kép</strong>. Kết hợp với việc gửi thêm một khoản cố định hằng tháng, số tiền tăng nhanh hơn nhiều so với chỉ gửi một lần rồi để đó.</p>
 <p>Công cụ lãi kép trên web tính theo cách này: mỗi tháng, lãi được cộng vào gốc rồi tháng sau tính lãi trên tổng mới; khoản gửi thêm được cộng vào cuối mỗi tháng.</p>
 <h2 id="vi-du-10-nam">Ví dụ — Gửi 10 năm với lãi kép</h2>
-<p>Vốn ban đầu 10.000.000đ, gửi thêm 1.000.000đ mỗi tháng, lãi suất 6%/năm, lãi nhập gốc hằng tháng:</p>
+<p>Vốn ban đầu 10.000.000₫, gửi thêm 1.000.000₫ mỗi tháng, lãi suất 6%/năm, lãi nhập gốc hằng tháng:</p>
 <table class="tbl">
 <tr><th>Thời điểm</th><th>Tổng gốc đã gửi</th><th>Lãi tích lũy</th><th>Tổng tài sản</th></tr>
-<tr><td>Sau 1 năm</td><td>22.000.000đ</td><td>952.340đ</td><td>22.952.340đ</td></tr>
-<tr><td>Sau 5 năm</td><td>70.000.000đ</td><td>13.258.532đ</td><td>83.258.532đ</td></tr>
-<tr><td>Sau 10 năm</td><td>130.000.000đ</td><td>52.073.314đ</td><td>182.073.314đ</td></tr>
+<tr><td>Sau 1 năm</td><td>22.000.000₫</td><td>952.340₫</td><td>22.952.340₫</td></tr>
+<tr><td>Sau 5 năm</td><td>70.000.000₫</td><td>13.258.532₫</td><td>83.258.532₫</td></tr>
+<tr><td>Sau 10 năm</td><td>130.000.000₫</td><td>52.073.314₫</td><td>182.073.314₫</td></tr>
 </table>
 <p>Sau 10 năm, tổng gốc bạn bỏ ra là 130 triệu đồng nhưng tổng tài sản là hơn 182 triệu — lãi kép tạo thêm hơn 52 triệu, gần bằng 40% số gốc đã gửi. Năm đầu lãi chưa tới 1 triệu, nhưng càng về sau lãi mỗi năm càng lớn vì gốc đã phình lên.</p>
 <h2 id="luu-y">Mấy lưu ý khi gửi tiết kiệm</h2>
@@ -426,14 +426,14 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-thue-thu-nhap-ca-nhan-2026',
     title: 'Cách tính thuế thu nhập cá nhân 2026',
-    desc: 'Thu nhập tính thuế = lương − bảo hiểm − giảm trừ 15,5 triệu — ví dụ lương 25 triệu đóng thuế 343.750đ/tháng.',
+    desc: 'Thu nhập tính thuế = lương − bảo hiểm − giảm trừ 15,5 triệu — ví dụ lương 25 triệu đóng thuế 343.750₫/tháng.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/thue-thu-nhap-ca-nhan/',
       label: 'Tính thuế TNCN của bạn →',
       text: 'Nhập lương Gross và số người phụ thuộc để xem thuế TNCN từng bậc, thuế tháng và thuế năm.',
     },
-    sources: 'Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh); Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000đ từ 01/7/2026).',
+    sources: 'Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh); Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000₫ từ 01/7/2026).',
     body: `
 <p>Thuế thu nhập cá nhân không tính trên toàn bộ lương mà chỉ tính trên phần thu nhập còn lại sau khi trừ bảo hiểm và giảm trừ gia cảnh. Từ năm 2026, mức giảm trừ và biểu thuế đều thay đổi — bài này hướng dẫn cách tính từng bước kèm 2 ví dụ tính sẵn.</p>
 <nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
@@ -448,12 +448,12 @@ export const ARTICLES = [
 <h2 id="thu-nhap-tinh-thue">Thu nhập tính thuế là gì</h2>
 <p>Thuế TNCN tính trên <strong>thu nhập tính thuế</strong>, không phải trên toàn bộ lương Gross. Công thức:</p>
 <p><strong>Thu nhập tính thuế = Lương Gross − Bảo hiểm bắt buộc (10,5%) − Giảm trừ bản thân − Giảm trừ người phụ thuộc</strong></p>
-<p>Bảo hiểm bắt buộc gồm BHXH 8%, BHYT 1,5% và BHTN 1% trên lương đóng bảo hiểm. BHXH và BHYT có trần đóng 50.600.000đ/tháng — lương cao hơn trần thì phần vượt trần không phải đóng BHXH/BHYT nữa. BHTN có trần riêng theo vùng lương tối thiểu.</p>
+<p>Bảo hiểm bắt buộc gồm BHXH 8%, BHYT 1,5% và BHTN 1% trên lương đóng bảo hiểm. BHXH và BHYT có trần đóng 50.600.000₫/tháng — lương cao hơn trần thì phần vượt trần không phải đóng BHXH/BHYT nữa. BHTN có trần riêng theo vùng lương tối thiểu.</p>
 <h2 id="giam-tru-gia-canh">Giảm trừ gia cảnh năm 2026</h2>
 <p>Từ kỳ tính thuế 2026, mức giảm trừ gia cảnh theo Nghị quyết 110/2025/UBTVQH15 là:</p>
 <ul>
-<li><strong>Giảm trừ bản thân: 15.500.000đ/tháng</strong> — áp dụng cho mọi người nộp thuế.</li>
-<li><strong>Giảm trừ người phụ thuộc: 6.200.000đ/tháng cho mỗi người</strong> — con chưa thành niên hoặc con đang học, cha mẹ hết tuổi lao động không có thu nhập, và các trường hợp phụ thuộc khác theo quy định. Người phụ thuộc phải được đăng ký với cơ quan thuế thì mới được giảm trừ.</li>
+<li><strong>Giảm trừ bản thân: 15.500.000₫/tháng</strong> — áp dụng cho mọi người nộp thuế.</li>
+<li><strong>Giảm trừ người phụ thuộc: 6.200.000₫/tháng cho mỗi người</strong> — con chưa thành niên hoặc con đang học, cha mẹ hết tuổi lao động không có thu nhập, và các trường hợp phụ thuộc khác theo quy định. Người phụ thuộc phải được đăng ký với cơ quan thuế thì mới được giảm trừ.</li>
 </ul>
 <h2 id="bieu-thue-5-bac">Biểu thuế lũy tiến 5 bậc</h2>
 <p>Thu nhập tính thuế áp biểu lũy tiến từng phần 5 bậc theo Điều 9 Luật Thuế TNCN 109/2025/QH15:</p>
@@ -465,18 +465,18 @@ export const ARTICLES = [
 <tr><td>4</td><td>Trên 60 đến 100 triệu đồng</td><td>30%</td></tr>
 <tr><td>5</td><td>Trên 100 triệu đồng</td><td>35%</td></tr>
 </table>
-<p><strong>Lũy tiến từng phần</strong> nghĩa là mỗi phần thu nhập chỉ chịu thuế suất của bậc chứa nó. Thu nhập tính thuế 46.493.000đ thì 10 triệu đầu chịu 5%, 20 triệu tiếp theo chịu 10%, chỉ 16.493.000đ còn lại chịu 20% — không phải toàn bộ 46,493 triệu chịu 20%.</p>
+<p><strong>Lũy tiến từng phần</strong> nghĩa là mỗi phần thu nhập chỉ chịu thuế suất của bậc chứa nó. Thu nhập tính thuế 46.493.000₫ thì 10 triệu đầu chịu 5%, 20 triệu tiếp theo chịu 10%, chỉ 16.493.000₫ còn lại chịu 20% — không phải toàn bộ 46,493 triệu chịu 20%.</p>
 <h2 id="vi-du-25-trieu">Ví dụ 1 — Lương 25 triệu, không người phụ thuộc</h2>
 <ol>
-<li><strong>Bảo hiểm:</strong> 25.000.000đ × 10,5% = 2.625.000đ.</li>
-<li><strong>Thu nhập tính thuế:</strong> 25.000.000 − 2.625.000 − 15.500.000 = 6.875.000đ.</li>
-<li><strong>Thuế TNCN:</strong> 6.875.000 × 5% = <strong>343.750đ/tháng</strong> (cả năm khoảng 4.125.000đ).</li>
+<li><strong>Bảo hiểm:</strong> 25.000.000₫ × 10,5% = 2.625.000₫.</li>
+<li><strong>Thu nhập tính thuế:</strong> 25.000.000 − 2.625.000 − 15.500.000 = 6.875.000₫.</li>
+<li><strong>Thuế TNCN:</strong> 6.875.000 × 5% = <strong>343.750₫/tháng</strong> (cả năm khoảng 4.125.000₫).</li>
 </ol>
 <h2 id="vi-du-80-trieu">Ví dụ 2 — Lương 80 triệu, 2 người phụ thuộc</h2>
 <ol>
-<li><strong>Bảo hiểm:</strong> lương đóng bảo hiểm 80.000.000đ vượt trần BHXH/BHYT 50.600.000đ nên BHXH và BHYT chỉ tính trên 50.600.000đ: BHXH 8% = 4.048.000đ, BHYT 1,5% = 759.000đ. BHTN 1% tính trên 80.000.000đ = 800.000đ. Tổng bảo hiểm: 5.607.000đ.</li>
-<li><strong>Thu nhập tính thuế:</strong> 80.000.000 − 5.607.000 − 15.500.000 − 12.400.000 (2 người phụ thuộc) = 46.493.000đ.</li>
-<li><strong>Thuế TNCN:</strong> 10.000.000 × 5% = 500.000đ; 20.000.000 × 10% = 2.000.000đ; 16.493.000 × 20% = 3.298.600đ. Tổng thuế: <strong>5.798.600đ/tháng</strong> (cả năm khoảng 69.583.200đ).</li>
+<li><strong>Bảo hiểm:</strong> lương đóng bảo hiểm 80.000.000₫ vượt trần BHXH/BHYT 50.600.000₫ nên BHXH và BHYT chỉ tính trên 50.600.000₫: BHXH 8% = 4.048.000₫, BHYT 1,5% = 759.000₫. BHTN 1% tính trên 80.000.000₫ = 800.000₫. Tổng bảo hiểm: 5.607.000₫.</li>
+<li><strong>Thu nhập tính thuế:</strong> 80.000.000 − 5.607.000 − 15.500.000 − 12.400.000 (2 người phụ thuộc) = 46.493.000₫.</li>
+<li><strong>Thuế TNCN:</strong> 10.000.000 × 5% = 500.000₫; 20.000.000 × 10% = 2.000.000₫; 16.493.000 × 20% = 3.298.600₫. Tổng thuế: <strong>5.798.600₫/tháng</strong> (cả năm khoảng 69.583.200₫).</li>
 </ol>
 <h2 id="khi-nao-khong-nop">Khi nào không phải nộp thuế</h2>
 <p>Khi thu nhập tính thuế bằng 0 thì không phải nộp thuế TNCN. Với người không có người phụ thuộc, ngưỡng này tương đương lương Gross khoảng <strong>17,3 triệu đồng/tháng</strong> trở xuống (15.500.000 ÷ 89,5% — vì bảo hiểm đã lấy đi 10,5% lương). Mỗi người phụ thuộc nâng ngưỡng này thêm khoảng 6,9 triệu đồng lương Gross.</p>
@@ -491,7 +491,7 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-tien-nuoc-bac-thang-2026',
     title: 'Cách tính tiền nước bậc thang 2026',
-    desc: 'Biểu giá Hà Nội 2026 (8.500–27.000đ/m³) + VAT 5% + phí môi trường 10% — ví dụ dùng 25 m³ hết 303.600đ.',
+    desc: 'Biểu giá Hà Nội 2026 (8.500–27.000₫/m³) + VAT 5% + phí môi trường 10% — ví dụ dùng 25 m³ hết 303.600₫.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/tien-nuoc-bac-thang/',
@@ -528,34 +528,34 @@ export const ARTICLES = [
 <p>VAT nước sinh hoạt là 5%, phí bảo vệ môi trường với nước thải sinh hoạt là 10% theo Nghị định 53/2020/NĐ-CP.</p>
 <h2 id="vi-du-25">Ví dụ 1 — Dùng 25 m³</h2>
 <ol>
-<li>10 m³ đầu × 8.500đ = 85.000đ (bậc 1).</li>
-<li>10 m³ tiếp × 9.900đ = 99.000đ (bậc 2).</li>
-<li>5 m³ còn lại × 16.000đ = 80.000đ (bậc 3).</li>
-<li>Tiền nước chưa thuế, phí: 85.000 + 99.000 + 80.000 = 264.000đ.</li>
-<li>VAT 5%: 264.000 × 5% = 13.200đ. Phí môi trường 10%: 264.000 × 10% = 26.400đ.</li>
-<li><strong>Tổng tiền nước: 264.000 + 13.200 + 26.400 = 303.600đ</strong> — bình quân khoảng 12.144đ/m³.</li>
+<li>10 m³ đầu × 8.500₫ = 85.000₫ (bậc 1).</li>
+<li>10 m³ tiếp × 9.900₫ = 99.000₫ (bậc 2).</li>
+<li>5 m³ còn lại × 16.000₫ = 80.000₫ (bậc 3).</li>
+<li>Tiền nước chưa thuế, phí: 85.000 + 99.000 + 80.000 = 264.000₫.</li>
+<li>VAT 5%: 264.000 × 5% = 13.200₫. Phí môi trường 10%: 264.000 × 10% = 26.400₫.</li>
+<li><strong>Tổng tiền nước: 264.000 + 13.200 + 26.400 = 303.600₫</strong> — bình quân khoảng 12.144₫/m³.</li>
 </ol>
 <h2 id="vi-du-35">Ví dụ 2 — Dùng 35 m³</h2>
 <ol>
-<li>10 m³ × 8.500đ = 85.000đ (bậc 1).</li>
-<li>10 m³ × 9.900đ = 99.000đ (bậc 2).</li>
-<li>10 m³ × 16.000đ = 160.000đ (bậc 3).</li>
-<li>5 m³ còn lại × 27.000đ = 135.000đ (bậc 4).</li>
-<li>Tiền nước chưa thuế, phí: 85.000 + 99.000 + 160.000 + 135.000 = 479.000đ.</li>
-<li>VAT 5%: 23.950đ. Phí môi trường 10%: 47.900đ.</li>
-<li><strong>Tổng tiền nước: 479.000 + 23.950 + 47.900 = 550.850đ</strong> — bình quân khoảng 15.739đ/m³.</li>
+<li>10 m³ × 8.500₫ = 85.000₫ (bậc 1).</li>
+<li>10 m³ × 9.900₫ = 99.000₫ (bậc 2).</li>
+<li>10 m³ × 16.000₫ = 160.000₫ (bậc 3).</li>
+<li>5 m³ còn lại × 27.000₫ = 135.000₫ (bậc 4).</li>
+<li>Tiền nước chưa thuế, phí: 85.000 + 99.000 + 160.000 + 135.000 = 479.000₫.</li>
+<li>VAT 5%: 23.950₫. Phí môi trường 10%: 47.900₫.</li>
+<li><strong>Tổng tiền nước: 479.000 + 23.950 + 47.900 = 550.850₫</strong> — bình quân khoảng 15.739₫/m³.</li>
 </ol>
 <h2 id="doc-hoa-don">Đọc hóa đơn tiền nước thế nào</h2>
 <p>Hóa đơn tiền nước hằng tháng ghi chỉ số đồng hồ đầu kỳ và cuối kỳ, lượng nước tiêu thụ (m³), tiền nước chia theo từng bậc, tiền VAT, phí bảo vệ môi trường và tổng số tiền phải trả. Cách đối chiếu nhanh nhất là lấy số m³ trên hóa đơn nhập vào công cụ — nếu giá từng bậc trong công cụ khớp với địa phương của bạn thì kết quả sẽ khớp hóa đơn.</p>
 <p>Nếu hóa đơn tháng này cao đột biến mà sinh hoạt không đổi, kiểm tra rò rỉ nước trước: khóa hết vòi rồi xem đồng hồ có chạy không. Rò rỉ đường ống ngầm là nguyên nhân phổ biến khiến tiền nước tăng vọt mà gia đình không hay biết.</p>
 <h2 id="tiet-kiem-nuoc">Dùng ít hơn thì tiết kiệm được bao nhiêu</h2>
-<p>Vì giá lũy tiến nên <strong>mỗi m³ tiết kiệm được có giá bằng bậc cao nhất mà hộ bạn đang dùng tới</strong>. Hộ dùng 35 m³ đang ở bậc 4: mỗi m³ giảm đi tiết kiệm 27.000đ + 15% thuế, phí, tức khoảng 31.050đ. Giảm 5 m³/tháng — từ 35 xuống 30 m³ — tiết kiệm được 155.250đ mỗi tháng, hơn 1,8 triệu đồng mỗi năm.</p>
+<p>Vì giá lũy tiến nên <strong>mỗi m³ tiết kiệm được có giá bằng bậc cao nhất mà hộ bạn đang dùng tới</strong>. Hộ dùng 35 m³ đang ở bậc 4: mỗi m³ giảm đi tiết kiệm 27.000₫ + 15% thuế, phí, tức khoảng 31.050₫. Giảm 5 m³/tháng — từ 35 xuống 30 m³ — tiết kiệm được 155.250₫ mỗi tháng, hơn 1,8 triệu đồng mỗi năm.</p>
 <p>Tiết kiệm nước không khó: khóa vòi khi đánh răng, rửa rau trong chậu thay vì xả vòi trực tiếp, kiểm tra bồn cầu và vòi có rò rỉ không, dùng máy giặt đủ tải mới chạy. Mỗi thói quen nhỏ cộng lại thành số tiền đáng kể sau một năm.</p>`,
   },
   {
     slug: 'cach-tinh-luong-tang-ca-2026',
     title: 'Cách tính lương tăng ca 2026',
-    desc: 'Ngày thường 150%, nghỉ tuần 200%, lễ Tết 300% lương giờ — ví dụ lương 10,4 triệu tăng ca 26 giờ được thêm 2.750.000đ.',
+    desc: 'Ngày thường 150%, nghỉ tuần 200%, lễ Tết 300% lương giờ — ví dụ lương 10,4 triệu tăng ca 26 giờ được thêm 2.750.000₫.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/luong-tang-ca/',
@@ -586,13 +586,13 @@ export const ARTICLES = [
 <p><strong>Lương giờ = Lương tháng ÷ (Số ngày công chuẩn × Số giờ làm việc mỗi ngày)</strong></p>
 <p>Công thức phổ biến: 26 ngày công × 8 giờ = 208 giờ/tháng. Nếu công ty bạn tính theo 24 ngày hoặc 22 ngày công chuẩn thì lương giờ sẽ cao hơn — kiểm tra cách tính trong hợp đồng lao động hoặc hỏi bộ phận nhân sự.</p>
 <h2 id="vi-du">Ví dụ — Lương 10,4 triệu, tăng ca 26 giờ</h2>
-<p>Lương tháng 10.400.000đ, tháng có 26 ngày công, mỗi ngày 8 giờ. Trong tháng bạn tăng ca 10 giờ ngày thường, 8 giờ ngày nghỉ tuần và 8 giờ ngày lễ:</p>
+<p>Lương tháng 10.400.000₫, tháng có 26 ngày công, mỗi ngày 8 giờ. Trong tháng bạn tăng ca 10 giờ ngày thường, 8 giờ ngày nghỉ tuần và 8 giờ ngày lễ:</p>
 <ol>
-<li><strong>Lương giờ:</strong> 10.400.000 ÷ (26 × 8) = 10.400.000 ÷ 208 = <strong>50.000đ/giờ</strong>.</li>
-<li><strong>Tăng ca ngày thường:</strong> 10 giờ × 50.000 × 150% = <strong>750.000đ</strong>.</li>
-<li><strong>Tăng ca ngày nghỉ tuần:</strong> 8 giờ × 50.000 × 200% = <strong>800.000đ</strong>.</li>
-<li><strong>Tăng ca ngày lễ:</strong> 8 giờ × 50.000 × 300% = <strong>1.200.000đ</strong>.</li>
-<li><strong>Tổng tiền tăng ca: 750.000 + 800.000 + 1.200.000 = 2.750.000đ. Tổng thu nhập tháng: 10.400.000 + 2.750.000 = 13.150.000đ.</strong></li>
+<li><strong>Lương giờ:</strong> 10.400.000 ÷ (26 × 8) = 10.400.000 ÷ 208 = <strong>50.000₫/giờ</strong>.</li>
+<li><strong>Tăng ca ngày thường:</strong> 10 giờ × 50.000 × 150% = <strong>750.000₫</strong>.</li>
+<li><strong>Tăng ca ngày nghỉ tuần:</strong> 8 giờ × 50.000 × 200% = <strong>800.000₫</strong>.</li>
+<li><strong>Tăng ca ngày lễ:</strong> 8 giờ × 50.000 × 300% = <strong>1.200.000₫</strong>.</li>
+<li><strong>Tổng tiền tăng ca: 750.000 + 800.000 + 1.200.000 = 2.750.000₫. Tổng thu nhập tháng: 10.400.000 + 2.750.000 = 13.150.000₫.</strong></li>
 </ol>
 <p>Chú ý: 8 giờ tăng ca ngày lễ cho tiền bằng 16 giờ làm việc bình thường — đó là lý do làm thêm ngày lễ "đáng" nhất về mặt tiền lương, dù ai cũng muốn nghỉ lễ.</p>
 <h2 id="gioi-han">Giới hạn giờ làm thêm theo luật</h2>
@@ -605,7 +605,7 @@ export const ARTICLES = [
 <h2 id="luu-y">Mấy lưu ý — làm thêm ban đêm, thuế TNCN</h2>
 <ul>
 <li><strong>Làm thêm vào ban đêm được cộng thêm.</strong> Làm việc từ 22 giờ tới 6 giờ sáng hôm sau được trả thêm ít nhất 30% lương giờ; làm thêm giờ vào ban đêm còn được cộng thêm 20% tiền lương tính theo đơn giá tiền lương của công việc làm vào ban ngày.</li>
-<li><strong>Phần tiền tăng ca vượt mức được miễn thuế TNCN.</strong> Phần tiền lương làm thêm giờ cao hơn mức lương giờ bình thường (ví dụ 50% vượt thêm khi tăng ca 150%, 100% vượt thêm khi tăng ca 200%) không tính vào thu nhập chịu thuế TNCN. Trong ví dụ trên, phần được miễn thuế là 250.000 + 400.000 + 800.000 = 1.450.000đ.</li>
+<li><strong>Phần tiền tăng ca vượt mức được miễn thuế TNCN.</strong> Phần tiền lương làm thêm giờ cao hơn mức lương giờ bình thường (ví dụ 50% vượt thêm khi tăng ca 150%, 100% vượt thêm khi tăng ca 200%) không tính vào thu nhập chịu thuế TNCN. Trong ví dụ trên, phần được miễn thuế là 250.000 + 400.000 + 800.000 = 1.450.000₫.</li>
 <li><strong>Kiểm tra bảng lương hằng tháng.</strong> Đối chiếu số giờ tăng ca và hệ số trên bảng lương với số giờ bạn thực tế làm thêm — nếu thiếu, hỏi bộ phận nhân sự ngay trong tháng đó, đừng để dồn nhiều tháng.</li>
 <li>Kết quả trong bài chỉ mang tính tham khảo theo quy định chung — cách tính giờ công chuẩn và hệ số cụ thể theo hợp đồng lao động của bạn.</li>
 </ul>`,
@@ -613,14 +613,14 @@ export const ARTICLES = [
   {
     slug: 'cach-tinh-luong-huu-bhxh-2026',
     title: 'Cách tính lương hưu BHXH 2026',
-    desc: 'Lương hưu = tỷ lệ hưởng × lương bình quân đóng BHXH — ví dụ nữ đóng 28 năm, lương bình quân 12 triệu được 8.520.000đ/tháng.',
+    desc: 'Lương hưu = tỷ lệ hưởng × lương bình quân đóng BHXH — ví dụ nữ đóng 28 năm, lương bình quân 12 triệu được 8.520.000₫/tháng.',
     date: '18/11/2026',
     cta: {
       url: '/cong-cu/luong-huu/',
       label: 'Tính lương hưu của bạn →',
       text: 'Nhập giới tính, số năm đóng và lương bình quân để xem tỷ lệ hưởng, lương hưu mỗi tháng và trợ cấp một lần.',
     },
-    sources: 'Điều 66 và Điều 68 Luật Bảo hiểm xã hội 41/2024/QH15 (tỷ lệ hưởng lương hưu, trợ cấp một lần); Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, giảm trừ khi nghỉ hưu trước tuổi); Nghị định 161/2026/NĐ-CP (trần đóng BHXH 50.600.000đ từ 01/7/2026).',
+    sources: 'Điều 66 và Điều 68 Luật Bảo hiểm xã hội 41/2024/QH15 (tỷ lệ hưởng lương hưu, trợ cấp một lần); khoản 11 Điều 141 Luật Bảo hiểm xã hội 41/2024/QH15 (mức lương hưu hằng tháng thấp nhất); Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, giảm trừ khi nghỉ hưu trước tuổi); Nghị định 161/2026/NĐ-CP (trần đóng BHXH 50.600.000₫ từ 01/7/2026).',
     body: `
 <p>Lương hưu hằng tháng bằng tỷ lệ hưởng nhân với mức bình quân tiền lương tháng đóng BHXH. Tỷ lệ hưởng phụ thuộc vào giới tính và số năm đóng — đóng càng lâu, tỷ lệ càng cao, tối đa 75%. Bài này hướng dẫn cách tính từng bước kèm 5 ví dụ tính sẵn.</p>
 <nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
@@ -634,13 +634,13 @@ export const ARTICLES = [
 </ul></nav>
 <h2 id="cong-thuc">Công thức tính lương hưu</h2>
 <p><strong>Lương hưu hằng tháng = Tỷ lệ hưởng × Mức bình quân tiền lương tháng đóng BHXH</strong></p>
-<p>Điều kiện hưởng: đủ tuổi nghỉ hưu và đóng BHXH đủ 15 năm trở lên. Tuổi nghỉ hưu năm 2026 là nam 61 tuổi 6 tháng, nữ 57 tuổi. Mức bình quân tiền lương tháng là lương bình quân toàn bộ quá trình đóng BHXH — tra được trên ứng dụng VssID. Mức này có trần 50.600.000đ/tháng (từ 01/7/2026): lương cao hơn trần thì phần vượt trần không tính vào lương hưu.</p>
+<p>Điều kiện hưởng: đủ tuổi nghỉ hưu và đóng BHXH đủ 15 năm trở lên. Tuổi nghỉ hưu năm 2026 là nam 61 tuổi 6 tháng, nữ 57 tuổi. Mức bình quân tiền lương tháng là lương bình quân toàn bộ quá trình đóng BHXH — tra được trên ứng dụng VssID. Mức này có trần 50.600.000₫/tháng (từ 01/7/2026): lương cao hơn trần thì phần vượt trần không tính vào lương hưu.</p>
 <h2 id="ty-le-huong">Tỷ lệ hưởng theo số năm đóng</h2>
 <p>Tỷ lệ hưởng tính theo Điều 66 Luật BHXH 2024, khác nhau giữa nam và nữ:</p>
 <table class="tbl">
 <tr><th></th><th>Nữ</th><th>Nam</th></tr>
 <tr><td>15 năm đóng</td><td>45%</td><td>40%</td></tr>
-<tr><td>Mỗi năm thêm</td><td>+2%</td><td>+1% (năm 16–19), +2% từ năm 21</td></tr>
+<tr><td>Mỗi năm thêm</td><td>+2%</td><td>+1%/năm (năm 16–20, đủ 20 năm = 45%), +2%/năm từ năm 21</td></tr>
 <tr><td>Tối đa 75%</td><td>30 năm</td><td>35 năm</td></tr>
 </table>
 <p>Ví dụ: nữ đóng 20 năm hưởng 45% + 2% × 5 = 55%; nam đóng 20 năm hưởng 45%. Đóng vượt 30 năm (nữ) hoặc 35 năm (nam) thì tỷ lệ vẫn chỉ 75%, nhưng phần vượt được tính trợ cấp một lần — xem mục dưới.</p>
@@ -650,18 +650,18 @@ export const ARTICLES = [
 <p>Nghỉ hưu trước tuổi quy định thì tỷ lệ hưởng bị giảm: <strong>trừ 2% mỗi năm tròn nghỉ sớm</strong>; thời gian nghỉ sớm lẻ từ 6 đến 11 tháng trừ thêm 1%; dưới 6 tháng không trừ. Ví dụ nghỉ sớm 3 năm thì tỷ lệ hưởng giảm 6%; nghỉ sớm 2 năm 7 tháng thì giảm 2% × 2 + 1% = 5%.</p>
 <h2 id="vi-du">5 ví dụ tính tay</h2>
 <ol>
-<li><strong>Nữ, 28 năm, bình quân 12 triệu:</strong> tỷ lệ 45% + 2% × 13 = 71%. Lương hưu: 71% × 12.000.000 = <strong>8.520.000đ/tháng</strong>.</li>
-<li><strong>Nam, 32 năm, bình quân 15 triệu:</strong> tỷ lệ 45% + 2% × 12 = 69%. Lương hưu: 69% × 15.000.000 = <strong>10.350.000đ/tháng</strong>.</li>
-<li><strong>Nam, 17 năm, bình quân 10 triệu:</strong> tỷ lệ 40% + 1% × 2 = 42%. Lương hưu: 42% × 10.000.000 = <strong>4.200.000đ/tháng</strong>.</li>
-<li><strong>Nữ, 25 năm, nghỉ sớm 3 năm, bình quân 10 triệu:</strong> tỷ lệ gốc 45% + 2% × 10 = 65%, trừ 2% × 3 = 6% còn 59%. Lương hưu: 59% × 10.000.000 = <strong>5.900.000đ/tháng</strong>.</li>
-<li><strong>Nữ, 32 năm, bình quân 12 triệu:</strong> tỷ lệ 45% + 2% × 17 = 79%, lấy tối đa 75%. Lương hưu: 75% × 12.000.000 = <strong>9.000.000đ/tháng</strong>; vượt 30 năm 2 năm nên còn được trợ cấp một lần 2 × 0,5 × 12.000.000 = <strong>12.000.000đ</strong>.</li>
+<li><strong>Nữ, 28 năm, bình quân 12 triệu:</strong> tỷ lệ 45% + 2% × 13 = 71%. Lương hưu: 71% × 12.000.000 = <strong>8.520.000₫/tháng</strong>.</li>
+<li><strong>Nam, 32 năm, bình quân 15 triệu:</strong> tỷ lệ 45% + 2% × 12 = 69%. Lương hưu: 69% × 15.000.000 = <strong>10.350.000₫/tháng</strong>.</li>
+<li><strong>Nam, 17 năm, bình quân 10 triệu:</strong> tỷ lệ 40% + 1% × 2 = 42%. Lương hưu: 42% × 10.000.000 = <strong>4.200.000₫/tháng</strong>.</li>
+<li><strong>Nữ, 25 năm, nghỉ sớm 3 năm, bình quân 10 triệu:</strong> tỷ lệ gốc 45% + 2% × 10 = 65%, trừ 2% × 3 = 6% còn 59%. Lương hưu: 59% × 10.000.000 = <strong>5.900.000₫/tháng</strong>.</li>
+<li><strong>Nữ, 32 năm, bình quân 12 triệu:</strong> tỷ lệ 45% + 2% × 17 = 79%, lấy tối đa 75%. Lương hưu: 75% × 12.000.000 = <strong>9.000.000₫/tháng</strong>; vượt 30 năm 2 năm nên còn được trợ cấp một lần 2 × 0,5 × 12.000.000 = <strong>12.000.000₫</strong>.</li>
 </ol>
 <h2 id="tro-cap">Trợ cấp một lần khi đóng vượt 30/35 năm</h2>
 <p>Ngoài lương hưu hằng tháng, người đóng vượt số năm tương ứng với tỷ lệ 75% còn được trợ cấp một lần khi nghỉ hưu (Điều 68): mỗi năm vượt 30 năm (nữ) hoặc 35 năm (nam) tính tới tuổi nghỉ hưu được <strong>0,5 lần mức bình quân</strong> tiền lương tháng. Người đã đủ tuổi nghỉ hưu mà vẫn đóng tiếp thì mỗi năm đóng thêm sau tuổi nghỉ hưu — nếu năm đó đã vượt ngưỡng 30/35 năm — được <strong>2 lần mức bình quân</strong>. Năm đóng thêm chưa vượt ngưỡng thì không có trợ cấp một lần.</p>
 <h2 id="luu-y">Mấy lưu ý</h2>
 <ul>
 <li><strong>Chưa đủ 15 năm thì không có lương hưu hằng tháng.</strong> Có thể đóng tiếp BHXH tự nguyện cho đủ 15 năm, hoặc rút BHXH một lần nếu không muốn đóng tiếp.</li>
-<li><strong>Mức sàn 2.530.000đ/tháng không áp cho mọi người.</strong> Mức sàn này chỉ áp dụng cho người tham gia BHXH bắt buộc từ đủ 20 năm trước 01/7/2025 — lương hưu tính ra thấp hơn 2.530.000đ không tự động được nâng lên.</li>
+<li><strong>Mức sàn 2.530.000₫/tháng không áp cho mọi người.</strong> Mức sàn này (bằng mức tham chiếu từ 01/7/2026) chỉ áp dụng cho người đã tham gia BHXH bắt buộc trước 01/7/2025 và có từ đủ 20 năm đóng BHXH bắt buộc trở lên (khoản 11 Điều 141 Luật BHXH 2024) — lương hưu tính ra thấp hơn 2.530.000₫ mới được nâng lên bằng mức tham chiếu. Người bắt đầu đóng từ 01/7/2025 trở đi, hoặc chỉ đóng BHXH tự nguyện, thì không có mức sàn này.</li>
 <li><strong>Lương các năm trước được điều chỉnh theo hệ số trượt giá.</strong> Mức bình quân dùng để tính lương hưu là mức đã điều chỉnh — tra con số chính xác trên VssID thay vì tự cộng lương các năm.</li>
 <li>Kết quả trong bài chỉ mang tính tham khảo theo quy định chung — mức hưởng chính xác do cơ quan BHXH xác định theo hồ sơ đóng của bạn.</li>
 </ul>`,
@@ -693,7 +693,7 @@ export const ARTICLES = [
 <h2 id="vnetraffic">Cách 1: app VNeTraffic</h2>
 <p>VNeTraffic là ứng dụng chính thức của Bộ Công an, tải miễn phí trên CH Play và App Store. Các bước tra cứu:</p>
 <ol>
-<li>Tải app VNeTraffic và đăng ký tài khoản bằng số căn cước công dân.</li>
+<li>Tải app VNeTraffic và đăng ký tài khoản bằng cách quét mã QR trên thẻ CCCD gắn chip, nhập số điện thoại để nhận mã OTP rồi đặt mật khẩu. Sau khi đăng ký có thể liên kết với VNeID để đăng nhập bằng tài khoản định danh điện tử.</li>
 <li>Đăng nhập, vào mục <strong>Tra cứu vi phạm</strong>.</li>
 <li>Nhập biển số xe <strong>viết liền, không dấu</strong> — ví dụ 30A12345 — rồi bấm tra cứu.</li>
 </ol>
@@ -703,13 +703,13 @@ export const ARTICLES = [
 <h2 id="dang-kiem">Cách 3: website Cục Đăng kiểm</h2>
 <p>Trang <strong>vr.org.vn</strong> của Cục Đăng kiểm Việt Nam cũng có mục tra cứu vi phạm — kênh bổ sung hữu ích, nhất là trước khi đưa xe đi đăng kiểm. Nếu xe có vi phạm chưa xử lý, hệ thống đăng kiểm sẽ từ chối đăng kiểm cho tới khi bạn xử lý xong.</p>
 <h2 id="bao-lau-co">Vi phạm bao lâu thì tra được</h2>
-<p>Dữ liệu vi phạm được cập nhật lên hệ thống tra cứu <strong>tối đa 10 ngày sau khi vi phạm</strong> (Thông tư 73/2024/TT-BCA). Nếu bạn mới vi phạm vài ngày mà tra chưa thấy thì đó là bình thường — tra lại sau 10 ngày. Ngược lại, nếu đã quá 10 ngày mà không thấy vi phạm nào thì yên tâm là xe không dính phạt nguội trong đợt đó.</p>
+<p>Dữ liệu vi phạm được cập nhật lên hệ thống tra cứu <strong>tối đa 10 ngày sau khi vi phạm</strong> (Thông tư 73/2024/TT-BCA). Nếu bạn mới vi phạm vài ngày mà tra chưa thấy thì đó là bình thường — tra lại sau 10 ngày. Ngược lại, nếu đã quá 10 ngày mà không thấy vi phạm nào thì thường có thể yên tâm hơn, nhưng nên tra lại định kỳ — dữ liệu có thể về muộn trong một số trường hợp.</p>
 <h2 id="co-vi-pham">Nếu tra thấy có vi phạm thì làm gì</h2>
 <p>Đến cơ quan ghi trong thông báo vi phạm để làm việc và nộp phạt đúng hạn. Đừng để kéo dài: xe có vi phạm chưa xử lý sẽ không được đăng kiểm, và việc chậm nộp phạt có thể phát sinh thêm chi phí. Lưu ý mức phạt giao thông đã tăng từ 01/01/2025 theo Nghị định 168/2024/NĐ-CP — tra cứu thường xuyên giúp bạn không bị bất ngờ với số tiền phạt.</p>
 <h2 id="lua-dao">Cảnh báo lừa đảo phạt nguội</h2>
 <ul>
 <li><strong>Bộ Công an đã cảnh báo tin nhắn phạt nguội giả mạo:</strong> kẻ lừa đảo nhắn tin giả danh công an, kèm link lạ yêu cầu nộp phạt hoặc nhập thông tin ngân hàng để chiếm đoạt tiền.</li>
-<li><strong>Cơ quan công an không gửi link nộp phạt qua tin nhắn.</strong> Mọi thông báo chính thức đều bằng văn bản giấy gửi về địa chỉ đăng ký xe.</li>
+<li><strong>Cơ quan công an không gửi link nộp phạt qua tin nhắn SMS.</strong> Thông báo chính thức qua văn bản hoặc ứng dụng chính thức (VNeTraffic, VNeID).</li>
 <li><strong>Chỉ tự gõ địa chỉ chính thức</strong> (csgt.bocongan.gov.vn, vr.org.vn) hoặc dùng app VNeTraffic — không bấm link trong tin nhắn lạ, dù tin nhắn đó ghi đúng biển số xe của bạn.</li>
 <li><strong>Tra cứu chính thức luôn miễn phí.</strong> Trang nào đòi tiền để tra cứu phạt nguội thì không phải trang chính thức.</li>
 </ul>`,
@@ -717,14 +717,14 @@ export const ARTICLES = [
   {
     slug: 'luong-thang-13-thuong-tet-2027',
     title: 'Lương tháng 13 & thưởng Tết 2027: có bắt buộc không, tính thuế thế nào',
-    desc: 'Thưởng Tết không bắt buộc theo Điều 104 Bộ luật Lao động 2019 — ví dụ lương 15 triệu, tháng 13 thực nhận 14.050.000đ sau thuế.',
+    desc: 'Thưởng Tết không bắt buộc theo Điều 104 Bộ luật Lao động 2019 — ví dụ lương 15 triệu, tháng 13 thực nhận 14.207.500₫ sau thuế.',
     date: '19/11/2026',
     cta: {
       url: '/cong-cu/luong-thang-13/',
       label: 'Tính thưởng tháng 13 của bạn →',
       text: 'Nhập lương tháng, số tháng làm việc và người phụ thuộc để xem thưởng tháng 13 và thuế TNCN phải nộp trên khoản đó.',
     },
-    sources: 'Điều 104 Bộ luật Lao động 2019 (quy định về thưởng); Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh 15,5 triệu/6,2 triệu đồng); Thông báo 11483/TB-BNV (lịch nghỉ Tết Nguyên đán 2027).',
+    sources: 'Điều 104 Bộ luật Lao động 2019 (quy định về thưởng); Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh 15,5 triệu/6,2 triệu đồng); Thông báo 11483/TB-BNV ngày 09/10/2026 (lịch nghỉ Tết Nguyên đán 2027).',
     body: `
 <p>Cuối năm là lúc câu hỏi "năm nay có thưởng Tết không" xuất hiện ở hầu hết văn phòng. Có người chắc chắn nhận một tháng lương, có người chỉ được vài triệu, có người không có gì — và không ít người thắc mắc vì sao tiền thưởng thực nhận lại thấp hơn con số công ty công bố. Bài này giải thích lương tháng 13 và thưởng Tết theo đúng quy định hiện hành, kèm 2 ví dụ tính sẵn cả thuế.</p>
 <nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
@@ -744,30 +744,30 @@ export const ARTICLES = [
 <p>Pháp luật không có khái niệm "lương tháng 13" — đây là cách gọi quen thuộc cho một khoản thưởng cuối năm, thường bằng một tháng lương cho người làm đủ 12 tháng trong năm. Thực tế mỗi công ty gọi một kiểu: có nơi trả lương tháng 13 riêng và thưởng Tết riêng (theo hiệu quả kinh doanh), có nơi gộp cả hai thành một khoản duy nhất, có nơi chỉ có một trong hai. Vì vậy "tháng 13" và "thưởng Tết" có thể là một hoặc hai khoản khác nhau — xem quy chế công ty mới biết chính xác.</p>
 <p>Điểm chung: cả hai đều là thưởng theo Điều 104, nghĩa là không bắt buộc, mức do doanh nghiệp quyết định. Và cả hai đều chịu thuế thu nhập cá nhân (xem mục dưới).</p>
 <h2 id="tinh-the-nao">Thưởng tháng 13 tính thế nào</h2>
-<p>Cách tính phổ biến nhất: làm đủ 12 tháng thì thưởng 1 tháng lương; làm chưa đủ năm thì tính theo tỷ lệ tháng làm việc. Ví dụ lương 15 triệu, làm 6 tháng thì thưởng 7.500.000đ. Lương dùng để tính thưởng thường là lương tháng hiện tại, nhưng một số công ty dùng lương bình quân cả năm hoặc lương cơ bản trong hợp đồng — quy chế công ty là chuẩn cuối cùng.</p>
+<p>Cách tính phổ biến nhất: làm đủ 12 tháng thì thưởng 1 tháng lương; làm chưa đủ năm thì tính theo tỷ lệ tháng làm việc. Ví dụ lương 15 triệu, làm 6 tháng thì thưởng 7.500.000₫. Lương dùng để tính thưởng thường là lương tháng hiện tại, nhưng một số công ty dùng lương bình quân cả năm hoặc lương cơ bản trong hợp đồng — quy chế công ty là chuẩn cuối cùng.</p>
 <p>Một số công ty đặt điều kiện thêm: phải làm đủ số tháng tối thiểu (ví dụ 3 hoặc 6 tháng) mới được thưởng, hoặc thưởng theo đánh giá hiệu quả công việc thay vì cố định một tháng lương. Nếu bạn mới vào làm giữa năm, hỏi nhân sự về cách tính của công ty mình thay vì mặc định sẽ nhận đủ một tháng lương.</p>
 <h2 id="thue-tncn">Thuế TNCN trên tiền thưởng</h2>
 <p>Tiền thưởng Tết và lương tháng 13 đều tính vào thu nhập chịu thuế của tháng nhận thưởng. Cách tính: cộng thưởng vào lương tháng đó, trừ bảo hiểm bắt buộc và giảm trừ gia cảnh (bản thân 15,5 triệu đồng, mỗi người phụ thuộc 6,2 triệu đồng), phần còn lại áp biểu thuế lũy tiến 5 bậc năm 2026 (5% / 10% / 20% / 30% / 35% theo Luật Thuế TNCN 109/2025/QH15).</p>
 <p>Lưu ý quan trọng: thuế trên khoản thưởng là phần thuế <strong>tăng thêm</strong> do có thưởng, không phải thuế của cả tháng. Lương tháng đó vốn đã chịu thuế riêng rồi — khoản thưởng chỉ làm thu nhập tính thuế của tháng đó cao lên, và bạn chỉ nộp thêm phần chênh lệch. Hai ví dụ dưới đây làm rõ cách tính này.</p>
 <p>Và một tin tốt: tiền thưởng không phải đóng BHXH. Thưởng theo Điều 104 ghi thành mục riêng trong hợp đồng lao động, không tính vào lương đóng bảo hiểm xã hội — bạn chỉ bị trừ thuế TNCN trên khoản thưởng, không bị trừ thêm bảo hiểm.</p>
 <h2 id="vi-du-15-trieu">Ví dụ 1 — Lương 15 triệu, làm đủ 12 tháng</h2>
-<p>0 người phụ thuộc, chưa tính bảo hiểm tháng nhận thưởng.</p>
+<p>0 người phụ thuộc, bảo hiểm bắt buộc tháng nhận thưởng 1.575.000₫ (10,5% lương).</p>
 <ol>
-<li><strong>Thưởng tháng 13:</strong> 15.000.000đ (đủ 12 tháng).</li>
-<li><strong>Thu nhập tính thuế tháng nhận thưởng:</strong> 15.000.000 (lương) + 15.000.000 (thưởng) − 15.500.000 (giảm trừ bản thân) = 14.500.000đ.</li>
-<li><strong>Thuế tháng nhận thưởng:</strong> 10.000.000 × 5% + 4.500.000 × 10% = 500.000 + 450.000 = 950.000đ. Thuế nếu không có thưởng là 0đ (lương 15 triệu trừ giảm trừ 15,5 triệu đã âm), nên thuế do thưởng gây ra là 950.000đ.</li>
-<li><strong>Thực nhận:</strong> 15.000.000 − 950.000 = <strong>14.050.000đ</strong>.</li>
+<li><strong>Thưởng tháng 13:</strong> 15.000.000₫ (đủ 12 tháng).</li>
+<li><strong>Thu nhập tính thuế tháng nhận thưởng:</strong> 15.000.000 (lương) + 15.000.000 (thưởng) − 1.575.000 (bảo hiểm) − 15.500.000 (giảm trừ bản thân) = 12.925.000₫.</li>
+<li><strong>Thuế tháng nhận thưởng:</strong> 10.000.000 × 5% + 2.925.000 × 10% = 500.000 + 292.500 = 792.500₫. Thuế nếu không có thưởng là 0₫ (lương 15 triệu trừ bảo hiểm và giảm trừ đã âm), nên thuế do thưởng gây ra là 792.500₫.</li>
+<li><strong>Thực nhận:</strong> 15.000.000 − 792.500 = <strong>14.207.500₫</strong>.</li>
 </ol>
 <h2 id="vi-du-25-trieu">Ví dụ 2 — Lương 25 triệu, 1 người phụ thuộc</h2>
-<p>Bảo hiểm bắt buộc tháng nhận thưởng 2.625.000đ.</p>
+<p>Bảo hiểm bắt buộc tháng nhận thưởng 2.625.000₫.</p>
 <ol>
-<li><strong>Thưởng tháng 13:</strong> 25.000.000đ (đủ 12 tháng).</li>
-<li><strong>Thu nhập tính thuế tháng nhận thưởng:</strong> 25.000.000 + 25.000.000 − 15.500.000 − 6.200.000 − 2.625.000 = 25.675.000đ.</li>
-<li><strong>Thuế tháng nhận thưởng:</strong> 10.000.000 × 5% + 15.675.000 × 10% = 500.000 + 1.567.500 = 2.067.500đ. Thuế nếu không có thưởng: thu nhập tính thuế 675.000đ × 5% = 33.750đ. Thuế do thưởng gây ra: 2.067.500 − 33.750 = 2.033.750đ.</li>
-<li><strong>Thực nhận:</strong> 25.000.000 − 2.033.750 = <strong>22.966.250đ</strong>.</li>
+<li><strong>Thưởng tháng 13:</strong> 25.000.000₫ (đủ 12 tháng).</li>
+<li><strong>Thu nhập tính thuế tháng nhận thưởng:</strong> 25.000.000 + 25.000.000 − 15.500.000 − 6.200.000 − 2.625.000 = 25.675.000₫.</li>
+<li><strong>Thuế tháng nhận thưởng:</strong> 10.000.000 × 5% + 15.675.000 × 10% = 500.000 + 1.567.500 = 2.067.500₫. Thuế nếu không có thưởng: thu nhập tính thuế 675.000₫ × 5% = 33.750₫. Thuế do thưởng gây ra: 2.067.500 − 33.750 = 2.033.750₫.</li>
+<li><strong>Thực nhận:</strong> 25.000.000 − 2.033.750 = <strong>22.966.250₫</strong>.</li>
 </ol>
 <h2 id="khi-nao-nhan">Khi nào nhận thưởng & Tết 2027</h2>
-<p>Hầu hết công ty chi thưởng Tết trước kỳ nghỉ Tết, thường trong tháng 1 hoặc đầu tháng 2. Tết Nguyên đán Đinh Mùi 2027: mùng 1 là thứ Bảy 6/2/2027, lịch nghỉ chính thức từ 4/2 đến 10/2/2027. Ngày chi thưởng cụ thể tùy từng công ty — hỏi bộ phận nhân sự để biết lịch chi và cách nhận (chuyển khoản cùng kỳ lương hay chi riêng).</p>
+<p>Hầu hết công ty chi thưởng Tết trước kỳ nghỉ Tết, thường trong tháng 1 hoặc đầu tháng 2. Tết Nguyên đán Đinh Mùi 2027: mùng 1 là thứ Bảy 6/2/2027. Lịch nghỉ 7 ngày từ 4/2 đến 10/2/2027 áp dụng cho cán bộ, công chức, viên chức (Thông báo 11483/TB-BNV ngày 09/10/2026); người lao động ở doanh nghiệp nghỉ 5 ngày theo 1 trong 3 phương án công ty chọn — hỏi phòng nhân sự lịch nghỉ cụ thể của công ty bạn. Ngày chi thưởng cụ thể tùy từng công ty — hỏi bộ phận nhân sự để biết lịch chi và cách nhận (chuyển khoản cùng kỳ lương hay chi riêng).</p>
 <h2 id="luu-y">Mấy lưu ý</h2>
 <ul>
 <li><strong>Thuế khấu trừ trên thưởng chỉ là tạm tính theo tháng.</strong> Cuối năm quyết toán theo thu nhập thực tế cả năm — có thể được hoàn thuế nếu đã khấu trừ thừa, hoặc phải nộp thêm nếu thu nhập năm cao hơn.</li>

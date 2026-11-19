@@ -15,7 +15,7 @@
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
 //    VietQR/WiFi QR và trang Ủng hộ cần (các trang khác không nạp, tiết kiệm ~57 KB)
 //  - vendorScripts: mảng tên file thư viện trong /assets/vendor/ cần nạp riêng
-//    cho trang này (VD: ['pdf-lib.min.js']) — mở rộng chung của mẫu needsQR:
+//    cho trang này (Ví dụ: ['pdf-lib.min.js']) — mở rộng chung của mẫu needsQR:
 //    mỗi trang công cụ chỉ nạp đúng thư viện nó dùng, trang chủ không nặng thêm.
 //    File phải có trong src/vendor/ và được build.mjs copy sang dist/
 //    (xem TOOL_VENDOR_SCRIPTS trong build.mjs).
@@ -57,7 +57,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   const categoryLinks = CATEGORIES.map((c) => `<a href="/cong-cu/?cat=${c.slug}">${c.label}</a>`).join('\n        ');
   const footerToolLinks = FOOTER_TOOLS.map((t) => `<a href="/cong-cu/${t.slug}/">${t.name}</a>`).join('\n        ');
   const qrScript = needsQR ? '\n  <script src="/assets/vendor/qrcode-generator.js" defer></script>' : '';
-  // Thư viện vendor riêng theo trang (VD: pdf.js/pdf-lib chỉ cho trang PDF) —
+  // Thư viện vendor riêng theo trang (Ví dụ: pdf.js/pdf-lib chỉ cho trang PDF) —
   // defer như QR: chạy xong trước DOMContentLoaded nên init() dùng được ngay.
   const vendorTags = vendorScripts.map((f) => `\n  <script src="/assets/vendor/${f}" defer></script>`).join('');
   const noscriptBlock = `<noscript>
@@ -196,8 +196,12 @@ ${siteFooter}
 ${chatWidget}
   <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).
        (Chính sách bảo mật mục 11 đã mô tả dịch vụ này: không cookie, không thu thập
-       thông tin nhận dạng cá nhân.) -->
-  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dd0aac1b776f42ec95763e59e4913fc9"}'></script><!-- End Cloudflare Web Analytics -->
+       thông tin nhận dạng cá nhân.)
+       Tách lượt kiểm thử nội bộ (19/11/2026): chỉ nạp beacon khi trình duyệt
+       KHÔNG có cờ uh_internal=1 trong localStorage. Đặt cờ trên trình duyệt
+       kiểm thử bằng cách mở console gõ: localStorage.setItem('uh_internal','1')
+       — lượt xem từ trình duyệt đó không được tính vào báo cáo. -->
+  <!-- Cloudflare Web Analytics --><script>(function(){try{if(localStorage.getItem('uh_internal')==='1')return;}catch(e){}var s=document.createElement('script');s.type='module';s.src='https://static.cloudflareinsights.com/beacon.min.js';s.setAttribute('data-cf-beacon','{"token": "dd0aac1b776f42ec95763e59e4913fc9"}');document.head.appendChild(s);})();</script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 `;

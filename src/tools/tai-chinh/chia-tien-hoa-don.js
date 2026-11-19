@@ -17,11 +17,11 @@ export function body() {
   <div class="grid-3">
     <div class="field">
       <label for="cthd-total">Tổng hóa đơn (₫)</label>
-      <input id="cthd-total" type="text" inputmode="decimal" value="1.000.000" placeholder="VD: 1.000.000">
+      <input id="cthd-total" type="text" inputmode="decimal" value="1.000.000" placeholder="Ví dụ: 1.000.000">
     </div>
     <div class="field">
       <label for="cthd-tip">Tiền boa (%)</label>
-      <input id="cthd-tip" type="text" inputmode="decimal" value="10" placeholder="VD: 10">
+      <input id="cthd-tip" type="text" inputmode="decimal" value="10" placeholder="Ví dụ: 10">
     </div>
     <div class="field">
       <label for="cthd-count">Số người</label>
@@ -57,7 +57,7 @@ export function init(root) {
       const prev = existing[i] || {};
       html += `<div class="grid-2" data-cthd-person style="margin-bottom:6px">
         <input data-cthd-name type="text" value="${(prev.name || ('Người ' + (i + 1))).replace(/"/g, '&quot;')}" placeholder="Tên người ${i + 1}">
-        <input data-cthd-extra type="text" inputmode="decimal" value="${prev.extra || '0'}" placeholder="Phần riêng (₫), VD: 50.000 hoặc -20.000">
+        <input data-cthd-extra type="text" inputmode="decimal" value="${prev.extra || '0'}" placeholder="Phần riêng (₫), Ví dụ: 50.000 hoặc -20.000">
       </div>`;
     }
     $('cthd-people').innerHTML = html;

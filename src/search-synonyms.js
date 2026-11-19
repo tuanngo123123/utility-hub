@@ -78,7 +78,7 @@ export const SYNONYMS = {
   'mẫu': ['dat-dai'],
   'giá đất': ['dat-dai'],
 
-  // Vàng / ngoại tệ / tỉ giá
+  // Vàng / ngoại tệ / tỷ giá
   'vàng': ['gia-vang-ty-gia', 'tien-vang'],
   'giá vàng': ['gia-vang-ty-gia', 'tien-vang'],
   'sjc': ['gia-vang-ty-gia'],
@@ -86,6 +86,7 @@ export const SYNONYMS = {
   'lượng vàng': ['tien-vang'],
   'chỉ vàng': ['tien-vang'],
   'tỉ giá': ['gia-vang-ty-gia', 'ngoai-te-ty-gia'],
+  'tỷ giá': ['gia-vang-ty-gia', 'ngoai-te-ty-gia'],
   'ngoại tệ': ['ngoai-te-ty-gia', 'gia-vang-ty-gia'],
   'đô la': ['ngoai-te-ty-gia', 'gia-vang-ty-gia'],
   'usd': ['ngoai-te-ty-gia', 'gia-vang-ty-gia'],
@@ -167,6 +168,7 @@ export const SYNONYMS = {
   'download': ['tai-file'],
   'khung hình': ['ti-le-khung-hinh'],
   'tỉ lệ ảnh': ['ti-le-khung-hinh'],
+  'tỷ lệ ảnh': ['ti-le-khung-hinh'],
   'aspect ratio': ['ti-le-khung-hinh'],
 
   // GitHub
@@ -191,10 +193,14 @@ export const SYNONYMS = {
   'cửu chương': ['luyen-cuu-chuong'],
   'bảng nhân': ['luyen-cuu-chuong'],
   'test logic': ['test-logic'],
+  'bài đố logic': ['test-logic'],
   'iq': ['test-logic'],
   'đố vui': ['test-logic'],
   'quiz': ['quiz-tinh-cach', 'test-logic'],
   'tính cách': ['quiz-tinh-cach'],
+  'kiểm tra tốc độ gõ phím': ['test-go-phim'],
+  'danh sách hành lý': ['checklist-vali'],
+  'công cụ lập trình': ['dev-tools'],
   'trắc nghiệm': ['quiz-tinh-cach', 'test-logic'],
   'học từ vựng': ['hoc-tu-vung-tieng-anh'],
   'học tiếng anh': ['hoc-tu-vung-tieng-anh'],

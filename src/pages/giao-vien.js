@@ -39,7 +39,7 @@ const TOOLS = [
   {
     id: 'dem-nguoc-lop-hoc',
     name: 'Đếm ngược lớp học',
-    desc: 'Đếm ngược màn hình lớn cho giờ học: preset 30 giây đến 15 phút, hiển thị số lớn, vòng tròn hoặc bảng LED, chuông khi hết giờ, bíp 5 giây cuối, có bấm giờ.',
+    desc: 'Đếm ngược màn hình lớn cho giờ học: mốc có sẵn 30 giây đến 15 phút, hiển thị số lớn, vòng tròn hoặc bảng LED, chuông khi hết giờ, bíp 5 giây cuối, có bấm giờ.',
   },
   {
     id: 'do-do-on-lop-hoc',

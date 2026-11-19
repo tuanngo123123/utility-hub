@@ -17,7 +17,7 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="tvl-income">Thu nhập mỗi lần chi trả (₫)</label>
-      <input id="tvl-income" type="text" inputmode="decimal" value="5.000.000" placeholder="VD: 5.000.000">
+      <input id="tvl-income" type="text" inputmode="decimal" value="5.000.000" placeholder="Ví dụ: 5.000.000">
     </div>
     <div class="field">
       <label for="tvl-times">Số lần chi trả trong năm (để ước tính cả năm)</label>

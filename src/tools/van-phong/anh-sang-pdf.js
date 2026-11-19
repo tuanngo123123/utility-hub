@@ -20,7 +20,7 @@ export function body() {
   <div class="field"><label for="asp-file">Chọn các ảnh (giữ Ctrl/Cmd để chọn nhiều ảnh)</label><input id="asp-file" type="file" accept="image/*" multiple><p class="hint">Tối đa 20 ảnh, mỗi ảnh tối đa 20 MB, mỗi chiều tối đa 8.000 px.</p></div>
   <div id="asp-list"></div>
   <div class="grid-2">
-    <div class="field"><label for="asp-size">Khổ trang PDF</label><select id="asp-size"><option value="fit">Vừa ảnh (trang bằng đúng tỉ lệ ảnh)</option><option value="a4">Khổ A4 (ảnh căn giữa, nền trắng)</option></select></div>
+    <div class="field"><label for="asp-size">Khổ trang PDF</label><select id="asp-size"><option value="fit">Vừa ảnh (trang bằng đúng tỷ lệ ảnh)</option><option value="a4">Khổ A4 (ảnh căn giữa, nền trắng)</option></select></div>
     <div class="field"><label for="asp-quality">Chất lượng ảnh trong PDF: <strong id="asp-quality-val">85%</strong></label><input id="asp-quality" type="range" min="50" max="100" value="85"></div>
   </div>
   <div id="asp-status"></div>

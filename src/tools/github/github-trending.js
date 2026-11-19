@@ -1,26 +1,31 @@
-// GitHub Trending — top 10 repo mới nổi 7 ngày gần nhất qua api.github.com (không key).
+// GitHub Trending — top repo mới nổi 7 ngày gần nhất, lấy từ dữ liệu do
+// chính Tiện Ích Hub tổng hợp (/data/trending.json, làm mới mỗi ngày qua
+// GitHub Action). CHỈ hiện repo đã có mô tả tiếng Việt (trường `purpose`
+// do scripts/summarize-trending.mjs viết) + lọc bỏ repo dạng crack /
+// bypass / hack / mã mời — đồng bộ với bộ lọc trong scripts/fetch-data.mjs
+// (TRENDING_BLOCKLIST + TRENDING_BLOCK_KEYWORDS). Không gọi api.github.com
+// trực tiếp nữa: trang chủ từng tự hiện mô tả tiếng Trung chưa dịch và repo
+// lách đăng ký/mã mời qua dữ liệu thô (19/11/2026).
 export const meta = {
   id: 'github-trending',
   name: 'GitHub Trending',
   category: 'GitHub',
   categorySlug: 'github',
-  desc: 'Top 10 repo GitHub được sao nhiều nhất trong 7 ngày gần nhất, kèm ngôn ngữ, sao, fork và mô tả.',
+  desc: 'Top repo GitHub mới nổi trong 7 ngày gần nhất, đã có mô tả tiếng Việt — kèm ngôn ngữ và số sao.',
   keywords: 'github trending, repo hot github, trending github hôm nay, repo nhiều sao nhất',
   icon: '🔥',
-  seoTitle: 'GitHub Trending — Top 10 repo hot 7 ngày qua',
-  seoDesc: 'Xem top 10 repo GitHub được sao nhiều nhất 7 ngày gần nhất: ngôn ngữ, số sao, fork và mô tả, cập nhật trực tiếp từ GitHub.',
+  seoTitle: 'GitHub Trending — repo hot 7 ngày qua, mô tả tiếng Việt',
+  seoDesc: 'Top repo GitHub mới nổi trong 7 ngày gần nhất, chỉ hiện repo đã có mô tả tiếng Việt: ngôn ngữ, số sao và mô tả, dữ liệu làm mới hằng ngày.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
-  <div class="tool-head"><span>🔥</span><div><h2>GitHub Trending</h2><p class="muted">Top 10 repo được tạo và được sao nhiều nhất trong 7 ngày gần nhất.</p></div></div>
-  <div>
-    <button type="button" class="btn btn-primary" id="ght-load">Tải danh sách trending</button>
-    <button type="button" class="btn btn-ghost" id="ght-retry" style="display:none">Thử lại</button>
-  </div>
-  <div id="ght-out"><p class="note">Bấm "Tải danh sách trending" để xem top 10 repo hot nhất tuần qua.</p></div>
-  <p class="note">Dữ liệu lấy trực tiếp từ api.github.com, không cần đăng nhập. GitHub giới hạn 60 lượt gọi/giờ cho người dùng không đăng nhập.</p>
+  <div class="tool-head"><span>🔥</span><div><h2>GitHub Trending</h2><p class="muted">Top repo được tạo và được sao nhiều nhất trong 7 ngày gần nhất — chỉ hiện repo đã có mô tả tiếng Việt.</p></div></div>
+  <div id="ght-out"><p class="note">Đang tải danh sách trending…</p></div>
+  <div><button type="button" class="btn btn-ghost" id="ght-retry" style="display:none">Thử lại</button></div>
+  <p class="note" id="ght-updated"></p>
+  <p class="note">Dữ liệu do Tiện Ích Hub tổng hợp từ GitHub, làm mới hằng ngày. Repo dạng crack, bypass, hack hoặc lách đăng ký/mã mời không hiện ở đây.</p>
 </div>`;
 }
 
@@ -31,40 +36,64 @@ export function init(root) {
   }
   function fmtNum(n) { return (n || 0).toLocaleString('vi-VN'); }
 
+  // Lọc an toàn phía trình duyệt — bản sao của bộ lọc trong
+  // scripts/fetch-data.mjs (giữ đồng bộ khi sửa một bên). Repo lọt qua
+  // Action vẫn bị chặn ở đây trước khi hiện.
+  const BLOCKED_REPOS = ['gylive/google-ultra', 'duwqijlk/muse-protocol', 'hut-hzf/ung220z-tool'];
+  const BLOCK_KEYWORDS = [
+    /\bcrack\b/i, /\bbypass\b/i, /\bkeygen\b/i, /\bhack\b/i, /\bhacking\b/i,
+    /\bstealer\b/i, /\bphishing\b/i, /\bmalware\b/i, /\bransomware\b/i,
+    /\bbotnet\b/i, /\bddos\b/i, /invite[- ]code/i, /free[- ]trial/i,
+    /activation[- ]bypass/i, /license[- ]bypass/i, /carrier[- ]unlock/i,
+    /modem[- ]unlock/i, /imei[- ]unlock/i, /frp[- ]bypass/i,
+    /mã mời/i, /bẻ khóa/i, /phá khóa/i, /lách đăng ký/i,
+    /邀请码/, /破解/, /绕过/, /激活码/, /盗版/, /注册机/,
+  ];
+  function isBlocked(item) {
+    const name = String(item.name || item.fullName || '').toLowerCase();
+    if (BLOCKED_REPOS.indexOf(name) !== -1) return true;
+    const hay = [item.name, item.fullName, item.purpose, item.desc, item.description]
+      .filter(Boolean).join(' ');
+    return BLOCK_KEYWORDS.some(function (re) { return re.test(hay); });
+  }
+
   function load() {
-    $('ght-out').innerHTML = '<p class="note">Đang tải từ GitHub…</p>';
+    $('ght-out').innerHTML = '<p class="note">Đang tải danh sách trending…</p>';
     $('ght-retry').style.display = 'none';
-    const d = new Date();
-    d.setDate(d.getDate() - 7);
-    const since = d.toISOString().slice(0, 10);
-    const url = 'https://api.github.com/search/repositories?q=created:%3E' + since + '&sort=stars&order=desc&per_page=10';
-    fetch(url, { headers: { Accept: 'application/vnd.github+json' } })
-      .then(res => {
-        if (res.status === 403) throw new Error('rate');
+    fetch('/data/trending.json', { cache: 'no-store' })
+      .then(function (res) {
         if (!res.ok) throw new Error('http' + res.status);
         return res.json();
       })
-      .then(data => {
-        const items = data.items || [];
+      .then(function (data) {
+        const items = (data && Array.isArray(data.items) ? data.items : [])
+          // Chỉ hiện repo đã có mô tả tiếng Việt (purpose) + đã qua bộ lọc.
+          .filter(function (it) { return it && String(it.purpose || '').trim() && !isBlocked(it); })
+          .slice(0, 6);
+        if (data && data.updatedAt) {
+          const d = new Date(data.updatedAt);
+          $('ght-updated').textContent = 'Dữ liệu cập nhật: '
+            + (isNaN(d) ? data.updatedAt : d.toLocaleString('vi-VN'));
+        }
         if (!items.length) {
-          $('ght-out').innerHTML = '<p class="note">Không có repo nào trong 7 ngày qua. Thử lại sau nhé.</p>';
+          $('ght-out').innerHTML = '<p class="note">Chưa có repo nào có mô tả tiếng Việt — dữ liệu làm mới hằng ngày, quay lại sau nhé.</p>';
           return;
         }
-        $('ght-out').innerHTML = items.map((r, i) => `<div class="result">
-          <div class="result-row"><span><strong>${i + 1}. <a href="${esc(r.html_url)}" target="_blank" rel="noopener">${esc(r.full_name)}</a></strong></span><strong>⭐ ${fmtNum(r.stargazers_count)}</strong></div>
-          <div class="result-row"><span class="muted">${esc(r.description || 'Không có mô tả.')}</span><span class="muted">${esc(r.language || '—')} · 🍴 ${fmtNum(r.forks_count)} fork</span></div>
-        </div>`).join('');
+        $('ght-out').innerHTML = items.map(function (r, i) {
+          const name = r.fullName || r.name || '';
+          const desc = r.purpose || '';
+          return `<div class="result">
+          <div class="result-row"><span><strong>${i + 1}. <a href="${esc(r.url || '#')}" target="_blank" rel="noopener">${esc(name)}</a></strong></span><strong>⭐ ${fmtNum(r.stars)}</strong></div>
+          <div class="result-row"><span class="muted">${esc(desc)}</span><span class="muted">${esc(r.language || '—')}</span></div>
+        </div>`;
+        }).join('');
       })
-      .catch(err => {
-        if (err && err.message === 'rate') {
-          $('ght-out').innerHTML = '<p class="error">GitHub giới hạn 60 lượt/giờ, thử lại sau.</p>';
-        } else {
-          $('ght-out').innerHTML = '<p class="error">Chưa tải được dữ liệu từ GitHub. Kiểm tra mạng hoặc thử lại sau vài phút.</p>';
-        }
+      .catch(function () {
+        $('ght-out').innerHTML = '<p class="error">Chưa tải được dữ liệu trending. Kiểm tra mạng hoặc thử lại sau vài phút.</p>';
         $('ght-retry').style.display = '';
       });
   }
 
-  $('ght-load').addEventListener('click', load);
   $('ght-retry').addEventListener('click', load);
+  load();
 }

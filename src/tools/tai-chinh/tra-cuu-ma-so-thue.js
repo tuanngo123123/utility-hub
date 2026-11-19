@@ -19,7 +19,7 @@ export function body() {
   <p class="note">Mã số thuế chỉ tra cứu được trên cổng của cơ quan thuế — trang này hướng dẫn bạn tra cứu trực tiếp ở đó (không cần tài khoản) và giúp kiểm tra nhanh định dạng của một mã số thuế. <strong>Chúng tôi không lưu, không gửi mã số thuế hay CCCD của bạn đi đâu</strong> — phần kiểm tra định dạng chạy hoàn toàn trên trình duyệt của bạn.</p>
   <div class="field">
     <label for="mst-code">Kiểm tra định dạng mã số thuế</label>
-    <input id="mst-code" type="text" inputmode="text" value="" placeholder="VD: 0101234567 hoặc 0101234567-001">
+    <input id="mst-code" type="text" inputmode="text" value="" placeholder="Ví dụ: 0101234567 hoặc 0101234567-001">
     <p class="hint">Mã số thuế cá nhân và doanh nghiệp gồm 10 chữ số; chi nhánh, văn phòng đại diện thêm hậu tố “-001”, “-002”… thành 13 chữ số. Phần này chỉ kiểm tra định dạng — muốn biết mã số thuế có tồn tại và thuộc về ai, hãy tra trên cổng cơ quan thuế bên dưới.</p>
   </div>
   <div class="btn-row">
@@ -52,7 +52,7 @@ export function init(root) {
     const raw = $('mst-code').value.trim();
     const code = raw.replace(/[\s.]/g, '');
     if (code === '') {
-      markErr($('mst-code'), 'Ô Mã số thuế đang trống — nhập 10 chữ số (VD: 0101234567) hoặc 13 chữ số dạng 0101234567-001.');
+      markErr($('mst-code'), 'Ô Mã số thuế đang trống — nhập 10 chữ số (Ví dụ: 0101234567) hoặc 13 chữ số dạng 0101234567-001.');
       focusEl($('mst-code'));
       $('mst-out').innerHTML = '';
       return;
@@ -60,7 +60,7 @@ export function init(root) {
     const is10 = /^[0-9]{10}$/.test(code);
     const is13 = /^[0-9]{10}-[0-9]{3}$/.test(code);
     if (!is10 && !is13) {
-      markErr($('mst-code'), 'Mã số thuế chưa đúng định dạng — cần đúng 10 chữ số (VD: 0101234567), hoặc 10 chữ số + dấu gạch ngang + 3 chữ số cho chi nhánh (VD: 0101234567-001).');
+      markErr($('mst-code'), 'Mã số thuế chưa đúng định dạng — cần đúng 10 chữ số (Ví dụ: 0101234567), hoặc 10 chữ số + dấu gạch ngang + 3 chữ số cho chi nhánh (Ví dụ: 0101234567-001).');
       focusEl($('mst-code'));
       $('mst-out').innerHTML = '';
       return;

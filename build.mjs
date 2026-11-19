@@ -418,7 +418,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const GUIDE_LINKS = {
     'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
     'tien-dien-bac-thang': { url: '/huong-dan/cach-tinh-tien-dien-bac-thang-2026/', title: 'Cách tính tiền điện bậc thang 2026' },
-    'le-phi-mon-bai': { url: '/huong-dan/le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien/', title: 'Lệ phí môn bài 2026: hộ kinh doanh được miễn' },
+    'le-phi-mon-bai': { url: '/huong-dan/le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien/', title: 'Lệ phí môn bài bãi bỏ từ 2026: ai còn phải nộp?' },
     'bhxh-mot-lan': { url: '/huong-dan/cach-tinh-bhxh-mot-lan-2026/', title: 'Cách tính BHXH một lần 2026' },
     'lai-vay': { url: '/huong-dan/cach-tinh-lai-vay-tra-gop-du-no-giam-dan/', title: 'Cách tính lãi vay trả góp theo dư nợ giảm dần' },
     'lai-kep': { url: '/huong-dan/cach-tinh-lai-suat-tiet-kiem-ngan-hang/', title: 'Cách tính lãi suất tiết kiệm ngân hàng' },

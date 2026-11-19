@@ -29,7 +29,7 @@ export function body() {
         </div>
         <div class="field m2-field">
           <label for="lggn-salary">Lương <span id="lggn-salary-label">Gross</span> mỗi tháng</label>
-          <span class="input-unit"><input id="lggn-salary" class="m2-salary" type="text" inputmode="decimal" value="30.000.000" placeholder="VD: 30.000.000"><span class="unit">₫</span></span>
+          <span class="input-unit"><input id="lggn-salary" class="m2-salary" type="text" inputmode="decimal" value="30.000.000" placeholder="Ví dụ: 30.000.000"><span class="unit">₫</span></span>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh mức lương">
           <button type="button" class="m2-quick-btn" data-lggn-quick="10000000">10 triệu</button>

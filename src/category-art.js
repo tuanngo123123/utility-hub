@@ -1,6 +1,6 @@
 // Hình minh họa SVG inline cho dải hình đầu thẻ công cụ (vòng 2 làm lại
 // giao diện, thay đổi số 4 — thẻ kiểu gallery của 21st.dev, thay ô icon
-// 48px). Mỗi hình: viewBox "0 0 320 200" (tỉ lệ 16:10), ≤ ~800 byte,
+// 48px). Mỗi hình: viewBox "0 0 320 200" (tỷ lệ 16:10), ≤ ~800 byte,
 // không chữ, không tham chiếu ngoài. Nền pastel = đúng mã đang dùng cho
 // .card-icon; hình khối = màu đậm của hạng mục (categories.js); 1 hình
 // trắng/mờ tạo chiều sâu. Nền pastel giữ nguyên cả dark mode (hình sáng

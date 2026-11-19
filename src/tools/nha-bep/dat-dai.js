@@ -36,7 +36,7 @@ export function body() {
       </div>
       <div class="field">
         <label for="dd-gia">Giá tiền mỗi m² (₫) — để trống nếu chỉ cần đổi đơn vị</label>
-        <input id="dd-gia" type="number" min="0" step="1000" value="" placeholder="VD: 50000000" inputmode="numeric">
+        <input id="dd-gia" type="number" min="0" step="1000" value="" placeholder="Ví dụ: 50000000" inputmode="numeric">
       </div>
     </div>
     <button class="btn btn-primary" id="dd-calc">Đổi đơn vị</button>

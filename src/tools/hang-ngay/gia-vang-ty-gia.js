@@ -1,28 +1,28 @@
-// Giá vàng SJC & tỉ giá trực tiếp — đọc /data/gold.json + /data/fx.json (Action làm mới
+// Giá vàng SJC & tỷ giá trực tiếp — đọc /data/gold.json + /data/fx.json (Action làm mới
 // mỗi 30 phút). Nguồn nào lỗi thì hiện rõ "chưa tải được" + giờ thử lại + nút thử lại,
 // KHÔNG bịa số.
 export const meta = {
   id: 'gia-vang-ty-gia',
-  name: 'Giá vàng SJC & tỉ giá trực tiếp',
+  name: 'Giá vàng SJC & tỷ giá trực tiếp',
   category: 'Hằng ngày',
   categorySlug: 'hang-ngay',
-  desc: 'Giá vàng miếng SJC, nhẫn SJC, DOJI, PNJ và vàng thế giới; tỉ giá 9 ngoại tệ so với VND kèm ô đổi ngoại tệ nhanh.',
-  keywords: 'giá vàng, SJC, DOJI, PNJ, vàng thế giới, tỉ giá, đổi ngoại tệ, USD, EUR',
+  desc: 'Giá vàng miếng SJC, nhẫn SJC, DOJI, PNJ và vàng thế giới; tỷ giá 9 ngoại tệ so với VND kèm ô đổi ngoại tệ nhanh.',
+  keywords: 'giá vàng, SJC, DOJI, PNJ, vàng thế giới, tỷ giá, đổi ngoại tệ, USD, EUR',
   icon: '💰',
-  seoTitle: 'Giá vàng SJC & tỉ giá trực tiếp hôm nay | Tiện Ích Hub',
-  seoDesc: 'Xem giá vàng miếng SJC, nhẫn SJC, DOJI, PNJ, vàng thế giới và tỉ giá USD, EUR, JPY, KRW, CNY, GBP, AUD, SGD, THB so với VND, cập nhật mỗi 30 phút.',
+  seoTitle: 'Giá vàng SJC & tỷ giá trực tiếp hôm nay | Tiện Ích Hub',
+  seoDesc: 'Xem giá vàng miếng SJC, nhẫn SJC, DOJI, PNJ, vàng thế giới và tỷ giá USD, EUR, JPY, KRW, CNY, GBP, AUD, SGD, THB so với VND, cập nhật mỗi 30 phút.',
 };
 
 export function body() {
   return `
   <div class="tool-panel">
-    <div class="tool-head"><h2>💰 Giá vàng SJC &amp; tỉ giá trực tiếp</h2><p class="muted">Giá vàng và tỉ giá làm mới mỗi 30 phút.</p></div>
+    <div class="tool-head"><h2>💰 Giá vàng SJC &amp; tỷ giá trực tiếp</h2><p class="muted">Giá vàng và tỷ giá làm mới mỗi 30 phút.</p></div>
     <div id="gv-status" class="note">Đang tải dữ liệu…</div>
     <h3>Vàng trong nước (đồng/lượng)</h3>
     <div id="gv-gold"></div>
     <h3>Vàng thế giới</h3>
     <div id="gv-world"></div>
-    <h3>Tỉ giá so với VND</h3>
+    <h3>Tỷ giá so với VND</h3>
     <div id="gv-fx"></div>
     <h3>Đổi ngoại tệ nhanh</h3>
     <div class="grid-3">
@@ -41,7 +41,7 @@ export function body() {
       <div class="field"><label>&nbsp;</label><button id="gv-convert" class="btn btn-primary" type="button">Đổi sang VND</button></div>
     </div>
     <div id="gv-convert-out" class="result"></div>
-    <p class="note">Nguồn: giá vàng vang.today; tỉ giá open.er-api.com. Số liệu chỉ để tham khảo, giá mua bán thực tế theo niêm yết tại cửa hàng/ngân hàng.</p>
+    <p class="note">Nguồn: giá vàng vang.today; tỷ giá open.er-api.com. Số liệu chỉ để tham khảo, giá mua bán thực tế theo niêm yết tại cửa hàng/ngân hàng.</p>
   </div>`;
 }
 
@@ -107,7 +107,7 @@ export function init(root) {
   function renderFx() {
     const box = $('gv-fx');
     if (!fxRates || !fxRates.VND) {
-      failBox(box, 'Tỉ giá', new Date().toLocaleTimeString('vi-VN'));
+      failBox(box, 'Tỷ giá', new Date().toLocaleTimeString('vi-VN'));
       return;
     }
     let h = '<table class="tbl"><tr><th>Ngoại tệ</th><th>1 đơn vị = VND</th></tr>';
@@ -115,7 +115,7 @@ export function init(root) {
       const v = vndPerUnit(code);
       h += '<tr><td><strong>' + code + '</strong> — ' + name + '</td><td>' + (v === null ? '—' : fmt(v)) + '</td></tr>';
     });
-    h += '</table><p class="muted">Cập nhật: ' + (fmtTime(fxUpdated) || 'không rõ') + '. Tỉ giá tính từ bảng USD của open.er-api.com.</p>';
+    h += '</table><p class="muted">Cập nhật: ' + (fmtTime(fxUpdated) || 'không rõ') + '. Tỷ giá tính từ bảng USD của open.er-api.com.</p>';
     box.innerHTML = h;
   }
 
@@ -161,9 +161,9 @@ export function init(root) {
     if (!isFinite(amt) || amt < 0) { out.innerHTML = '<p class="error">Nhập số tiền hợp lệ (số không âm).</p>'; return; }
     const code = $('gv-cur').value;
     const rate = vndPerUnit(code);
-    if (rate === null) { out.innerHTML = '<p class="error">Chưa có tỉ giá để đổi — bấm "Thử lại" ở bảng tỉ giá rồi đổi lại.</p>'; return; }
+    if (rate === null) { out.innerHTML = '<p class="error">Chưa có tỷ giá để đổi — bấm "Thử lại" ở bảng tỷ giá rồi đổi lại.</p>'; return; }
     out.innerHTML = '<div class="result-row"><span>' + fmt(amt) + ' ' + code + '</span><strong>' + fmt(amt * rate) + ' VND</strong></div>'
-      + '<p class="muted">Theo tỉ giá 1 ' + code + ' = ' + fmt(rate) + ' VND.</p>';
+      + '<p class="muted">Theo tỷ giá 1 ' + code + ' = ' + fmt(rate) + ' VND.</p>';
   });
 
   loadAll();

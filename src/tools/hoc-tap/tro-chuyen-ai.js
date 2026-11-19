@@ -9,18 +9,18 @@ export const meta = {
   name: 'Trò chuyện AI',
   category: 'Học tập',
   categorySlug: 'hoc-tap',
-  desc: 'Chat thử với AI miễn phí ngay trên web: hỏi đáp, giải thích, dịch câu, viết nháp email — không cần tài khoản, không cần cài đặt, không giới hạn số tin.',
+  desc: 'Trò chuyện thử với AI miễn phí ngay trên web: hỏi đáp, giải thích, dịch câu, viết nháp email — không cần tài khoản, không cần cài đặt. Mỗi tin nhắn cách nhau khoảng 5 giây; lúc đông người dùng có thể phải chờ lâu hơn.',
   keywords: 'chat ai, trò chuyện ai, hỏi ai, chatbot miễn phí, chat với ai, ai trả lời, hỏi đáp ai',
   icon: '💬',
   seoTitle: 'Trò chuyện AI miễn phí — hỏi đáp ngay trên web, không cần tài khoản',
-  seoDesc: 'Chat thử với AI miễn phí trên Tiện Ích Hub: hỏi đáp, giải thích kiến thức, dịch câu, viết nháp email. Không cần đăng ký, không giới hạn số tin.',
+  seoDesc: 'Trò chuyện thử với AI miễn phí trên Tiện Ích Hub: hỏi đáp, giải thích kiến thức, dịch câu, viết nháp email. Không cần đăng ký; lúc đông người dùng có thể phải chờ ít giây giữa các tin nhắn.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head">
-    <p class="muted">Hỏi AI bất cứ điều gì — giải thích kiến thức, dịch câu, viết nháp email, gợi ý ý tưởng. Bản demo miễn phí, không cần tài khoản, không giới hạn số tin.</p>
+    <p class="muted">Hỏi AI bất cứ điều gì — giải thích kiến thức, dịch câu, viết nháp email, gợi ý ý tưởng. Bản demo miễn phí, không cần tài khoản. Mỗi tin nhắn cách nhau khoảng 5 giây; lúc đông người dùng có thể phải chờ lâu hơn.</p>
   </div>
   <div id="ai-log" style="display:flex;flex-direction:column;gap:10px;max-height:420px;overflow-y:auto;padding:12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--bg-soft);margin-bottom:12px;"></div>
   <div id="ai-suggest" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">

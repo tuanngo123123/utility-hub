@@ -21,13 +21,13 @@ export function body() {
   </div>
 
   <div id="hb-pane-a1c">
-    <div class="field"><label for="hb-a1c">HbA1c (%)</label><input id="hb-a1c" type="text" inputmode="decimal" value="6,5" placeholder="VD: 6,5"></div>
+    <div class="field"><label for="hb-a1c">HbA1c (%)</label><input id="hb-a1c" type="text" inputmode="decimal" value="6,5" placeholder="Ví dụ: 6,5"></div>
     <button type="button" class="btn btn-primary" id="hb-a1c-go">Tính đường huyết trung bình</button>
     <div id="hb-a1c-out"></div>
   </div>
 
   <div id="hb-pane-eag" style="display:none">
-    <div class="field"><label for="hb-eag">Đường huyết trung bình eAG (mg/dL)</label><input id="hb-eag" type="text" inputmode="decimal" value="140" placeholder="VD: 140"></div>
+    <div class="field"><label for="hb-eag">Đường huyết trung bình eAG (mg/dL)</label><input id="hb-eag" type="text" inputmode="decimal" value="140" placeholder="Ví dụ: 140"></div>
     <button type="button" class="btn btn-primary" id="hb-eag-go">Tính HbA1c ước tính</button>
     <div id="hb-eag-out"></div>
   </div>
@@ -74,10 +74,10 @@ export function init(root) {
   $('hb-a1c-go').addEventListener('click', () => {
     const a1c = parseNum($('hb-a1c').value);
     if (isNaN(a1c) || a1c < 3 || a1c > 20) {
-      $('hb-a1c-out').innerHTML = '<p class="error">Hãy nhập HbA1c từ 3% đến 20% (VD: 6,5).</p>';
+      $('hb-a1c-out').innerHTML = '<p class="error">Hãy nhập HbA1c từ 3% đến 20% (Ví dụ: 6,5).</p>';
       return;
     }
-    const eag = (287 * a1c - 467) / 10; // = 28,7 × a1c − 46,7, viết dạng này để tránh sai số số thực ở biên .5 (VD: A1c 6,0% phải ra 126, không phải 125).
+    const eag = (287 * a1c - 467) / 10; // = 28,7 × a1c − 46,7, viết dạng này để tránh sai số số thực ở biên .5 (Ví dụ: A1c 6,0% phải ra 126, không phải 125).
     const mmol = eag / 18;
     $('hb-a1c-out').innerHTML = '<div class="result">' +
       '<div class="result-row"><span>Đường huyết trung bình (eAG)</span><strong>' + fmt(eag, 0) + ' mg/dL (' + fmt(mmol, 1) + ' mmol/L)</strong></div>' +
@@ -88,7 +88,7 @@ export function init(root) {
   $('hb-eag-go').addEventListener('click', () => {
     const eag = parseNum($('hb-eag').value);
     if (isNaN(eag) || eag < 40 || eag > 530) {
-      $('hb-eag-out').innerHTML = '<p class="error">Hãy nhập eAG từ 40 đến 530 mg/dL (VD: 140).</p>';
+      $('hb-eag-out').innerHTML = '<p class="error">Hãy nhập eAG từ 40 đến 530 mg/dL (Ví dụ: 140).</p>';
       return;
     }
     const a1c = (eag + 46.7) / 28.7;

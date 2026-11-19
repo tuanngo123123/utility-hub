@@ -20,11 +20,11 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="hr-age">Tuổi</label>
-      <input id="hr-age" type="number" min="5" max="120" step="1" value="30" placeholder="VD: 30">
+      <input id="hr-age" type="number" min="5" max="120" step="1" value="30" placeholder="Ví dụ: 30">
     </div>
     <div class="field">
       <label for="hr-rest">Nhịp tim nghỉ (bpm) — không bắt buộc</label>
-      <input id="hr-rest" type="number" min="30" max="120" step="1" placeholder="VD: 60">
+      <input id="hr-rest" type="number" min="30" max="120" step="1" placeholder="Ví dụ: 60">
       <p class="muted">Đo vào buổi sáng ngay khi thức dậy, trước khi ra khỏi giường.</p>
     </div>
   </div>

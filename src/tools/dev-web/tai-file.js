@@ -16,7 +16,7 @@ export function body() {
 <div class="tool-panel">
   <div class="tool-head"><span>⬇️</span><div><h2>Tải file từ link</h2><p class="muted">Dán link file (ảnh, PDF, tài liệu…) để tạo nút tải về máy.</p></div></div>
   <div class="field"><label for="tf-url">Link file (bắt đầu bằng https://)</label><input id="tf-url" type="url" placeholder="https://example.com/tai-lieu.pdf"></div>
-  <div class="field"><label for="tf-name">Tên file khi lưu (tùy chọn)</label><input id="tf-name" type="text" placeholder="VD: tai-lieu.pdf — để trống thì lấy tên từ link"></div>
+  <div class="field"><label for="tf-name">Tên file khi lưu (tùy chọn)</label><input id="tf-name" type="text" placeholder="Ví dụ: tai-lieu.pdf — để trống thì lấy tên từ link"></div>
   <button type="button" class="btn btn-primary" id="tf-go">Tạo nút tải</button>
   <div id="tf-out"></div>
   <p class="note">Chỉ tải trực tiếp được file mà máy chủ cho phép (không chặn hotlink/CORS). Nếu bấm tải mà trình duyệt chỉ mở file, hãy bấm chuột phải vào file rồi chọn "Lưu hình ảnh/tệp dưới dạng…".</p>

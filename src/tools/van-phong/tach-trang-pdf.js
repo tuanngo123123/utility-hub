@@ -5,11 +5,11 @@ export const meta = {
   name: 'Tách trang PDF: lấy vài trang thành file mới',
   category: 'Văn phòng',
   categorySlug: 'van-phong',
-  desc: 'Lấy một vài trang từ file PDF (VD: trang 1, 3, 5–7) thành file PDF mới, giữ nguyên nội dung trang. Chạy ngay trên trình duyệt, file không rời khỏi máy bạn.',
+  desc: 'Lấy một vài trang từ file PDF (Ví dụ: trang 1, 3, 5–7) thành file PDF mới, giữ nguyên nội dung trang. Chạy ngay trên trình duyệt, file không rời khỏi máy bạn.',
   keywords: 'tách trang pdf, lấy trang pdf, cắt trang pdf, split pdf, trích trang pdf',
   icon: '✂️',
   seoTitle: 'Tách trang PDF online miễn phí — Lấy vài trang thành file mới',
-  seoDesc: 'Lấy một vài trang từ file PDF thành file PDF mới (VD: trang 1, 3, 5–7). Miễn phí, xử lý ngay trên trình duyệt, không tải file lên máy chủ.',
+  seoDesc: 'Lấy một vài trang từ file PDF thành file PDF mới (Ví dụ: trang 1, 3, 5–7). Miễn phí, xử lý ngay trên trình duyệt, không tải file lên máy chủ.',
 };
 
 export function body() {
@@ -19,7 +19,7 @@ export function body() {
   <p class="note">🔒 File chỉ được xử lý trên máy của bạn (thư viện pdf-lib chạy trong trình duyệt), KHÔNG tải lên máy chủ nào.</p>
   <div class="field"><label for="ttp-file">Chọn file PDF</label><input id="ttp-file" type="file" accept=".pdf,application/pdf"><p class="hint">Tối đa 30 MB. PDF có mật khẩu chưa hỗ trợ.</p></div>
   <div id="ttp-info"></div>
-  <div class="field"><label for="ttp-pages">Các trang muốn lấy</label><input id="ttp-pages" type="text" inputmode="text" placeholder="VD: 1, 3, 5-7" autocomplete="off"><p class="hint">Nhập số trang, cách nhau bằng dấu phẩy; dùng dấu gạch ngang cho khoảng trang (VD: 5-7 là trang 5, 6, 7). Trang trùng sẽ chỉ lấy một lần, theo thứ tự tăng dần.</p></div>
+  <div class="field"><label for="ttp-pages">Các trang muốn lấy</label><input id="ttp-pages" type="text" inputmode="text" placeholder="Ví dụ: 1, 3, 5-7" autocomplete="off"><p class="hint">Nhập số trang, cách nhau bằng dấu phẩy; dùng dấu gạch ngang cho khoảng trang (Ví dụ: 5-7 là trang 5, 6, 7). Trang trùng sẽ chỉ lấy một lần, theo thứ tự tăng dần.</p></div>
   <div class="btn-row"><button type="button" class="btn btn-ghost" id="ttp-odd">Chọn trang lẻ</button><button type="button" class="btn btn-ghost" id="ttp-even">Chọn trang chẵn</button></div>
   <div id="ttp-status"></div>
   <div class="btn-row"><button type="button" class="btn btn-primary" id="ttp-go">Tách thành file PDF mới</button></div>
@@ -65,10 +65,10 @@ export function init(root) {
         if (n < 1 || n > max) return { error: 'Trang ' + n + ' không tồn tại — file này chỉ có ' + max + ' trang.' };
         if (!seen[n]) { seen[n] = true; out.push(n); }
       } else {
-        return { error: '"' + tok + '" không hiểu được — chỉ nhập số trang và dấu gạch ngang (VD: 1, 3, 5-7).' };
+        return { error: '"' + tok + '" không hiểu được — chỉ nhập số trang và dấu gạch ngang (Ví dụ: 1, 3, 5-7).' };
       }
     }
-    if (!out.length) return { error: 'Hãy nhập ít nhất một trang muốn lấy (VD: 1, 3, 5-7).' };
+    if (!out.length) return { error: 'Hãy nhập ít nhất một trang muốn lấy (Ví dụ: 1, 3, 5-7).' };
     out.sort(function (x, y) { return x - y; });
     return { pages: out };
   }

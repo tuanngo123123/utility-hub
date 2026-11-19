@@ -16,7 +16,7 @@ export function body() {
 <div class="tool-panel">
   <div class="tool-head"><span>📅</span><div><h2>Đếm ngược sự kiện</h2><p class="muted">Còn bao lâu tới sinh nhật, kỳ thi, chuyến đi? Đặt sự kiện và xem đếm ngược từng giây.</p></div></div>
   <div class="grid-2">
-    <div class="field"><label for="dns-name">Tên sự kiện</label><input id="dns-name" type="text" placeholder="VD: Sinh nhật mẹ" value="Sinh nhật"></div>
+    <div class="field"><label for="dns-name">Tên sự kiện</label><input id="dns-name" type="text" placeholder="Ví dụ: Sinh nhật mẹ" value="Sinh nhật"></div>
     <div class="field"><label for="dns-when">Ngày & giờ diễn ra</label><input id="dns-when" type="datetime-local"></div>
   </div>
   <button type="button" class="btn btn-primary" id="dns-add">Thêm sự kiện</button>

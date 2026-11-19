@@ -26,7 +26,7 @@ export function body() {
     </div>
   </div>
   <div class="grid-2">
-    <div class="field"><label for="pn-years">Số năm thâm niên (để trống = tự tính từ ngày vào làm)</label><input id="pn-years" type="number" min="0" step="1" placeholder="VD: 7"></div>
+    <div class="field"><label for="pn-years">Số năm thâm niên (để trống = tự tính từ ngày vào làm)</label><input id="pn-years" type="number" min="0" step="1" placeholder="Ví dụ: 7"></div>
     <div class="field"><label for="pn-taken">Số ngày phép đã nghỉ trong năm</label><input id="pn-taken" type="number" min="0" step="0.5" value="0"></div>
   </div>
   <button class="btn btn-primary" id="pn-calc">Tính phép năm</button>

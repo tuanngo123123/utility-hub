@@ -1,20 +1,20 @@
-// Dev Tools tổng hợp — JWT decode, JSON, Base64, SHA hash, UUID + mật khẩu, đếm từ.
+// Công cụ lập trình tổng hợp — JWT decode, JSON, Base64, SHA hash, UUID + mật khẩu, đếm từ.
 export const meta = {
   id: 'dev-tools',
-  name: 'Dev Tools tổng hợp',
+  name: 'Công cụ lập trình tổng hợp',
   category: 'Dev & web',
   categorySlug: 'dev-web',
   desc: 'Giải mã JWT, định dạng JSON, mã hóa Base64 (tiếng Việt), băm SHA-256/SHA-1, tạo UUID và mật khẩu ngẫu nhiên, đếm từ.',
   keywords: 'jwt decode, json format, base64, sha-256, tạo uuid, tạo mật khẩu, đếm từ',
   icon: '🧰',
-  seoTitle: 'Dev Tools tổng hợp — JWT, JSON, Base64, SHA, UUID',
+  seoTitle: 'Công cụ lập trình tổng hợp — JWT, JSON, Base64, SHA, UUID',
   seoDesc: 'Giải mã JWT, định dạng và kiểm tra JSON, Base64 hỗ trợ tiếng Việt, băm SHA-256/SHA-1, tạo UUID và mật khẩu ngẫu nhiên. Tất cả chạy trên trình duyệt.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
-  <div class="tool-head"><span>🧰</span><div><h2>Dev Tools tổng hợp</h2><p class="muted">JWT, JSON, Base64, SHA, UUID, mật khẩu, đếm từ — tất cả chạy ngay trên trình duyệt, không gửi dữ liệu đi đâu.</p></div></div>
+  <div class="tool-head"><span>🧰</span><div><h2>Công cụ lập trình tổng hợp</h2><p class="muted">JWT, JSON, Base64, SHA, UUID, mật khẩu, đếm từ — tất cả chạy ngay trên trình duyệt, không gửi dữ liệu đi đâu.</p></div></div>
   <div class="tabs">
     <button type="button" class="tab tab-active" id="dev-tab-jwt">JWT</button>
     <button type="button" class="tab" id="dev-tab-json">JSON</button>

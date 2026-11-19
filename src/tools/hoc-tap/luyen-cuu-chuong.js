@@ -100,7 +100,7 @@ export function init(root) {
 <div class="result">
   <div class="result-row"><span>Câu ${idx + 1}/${TOTAL} — Điểm: ${score}</span><strong>⏱ <span id="cc-timer">${fmtTime(Date.now() - startTime)}</span></strong></div>
   <div class="stat"><div class="stat-num">${q.a} × ${q.b} = ?</div><div class="stat-label">Nhập đáp án rồi bấm Enter hoặc nút "Trả lời"</div></div>
-  <div class="field"><label for="cc-ans">Đáp án của bạn</label><input id="cc-ans" type="number" inputmode="numeric" placeholder="VD: 42" autocomplete="off"></div>
+  <div class="field"><label for="cc-ans">Đáp án của bạn</label><input id="cc-ans" type="number" inputmode="numeric" placeholder="Ví dụ: 42" autocomplete="off"></div>
   <button type="button" class="btn btn-primary" id="cc-answer">Trả lời</button>
   <div id="cc-feedback"></div>
 </div>`;

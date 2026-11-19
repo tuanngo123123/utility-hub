@@ -19,7 +19,7 @@ export function body() {
   </div>
   <div class="field">
     <label for="gmcc-num">Số CCCD (12 chữ số)</label>
-    <input id="gmcc-num" type="text" inputmode="numeric" autocomplete="off" placeholder="VD: 079200000001" maxlength="14">
+    <input id="gmcc-num" type="text" inputmode="numeric" autocomplete="off" placeholder="Ví dụ: 079200000001" maxlength="14">
     <p class="hint">Chỉ nhập số của chính bạn. Mọi xử lý chạy ngay trên trình duyệt, không gửi số đi đâu.</p>
   </div>
   <div class="btn-row">
@@ -27,7 +27,7 @@ export function body() {
     <button type="button" class="btn btn-ghost" id="gmcc-example">Điền ví dụ</button>
   </div>
   <div id="gmcc-out"></div>
-  <p class="note">Cấu trúc 12 số (Nghị định 137/2015/NĐ-CP): 3 số đầu = mã tỉnh/thành nơi đăng ký khai sinh; số thứ 4 = mã thế kỷ + giới tính (0: nam 19xx, 1: nữ 19xx, 2: nam 20xx, 3: nữ 20xx, 4: nam 21xx, 5: nữ 21xx…); 2 số tiếp = 2 số cuối năm sinh; 6 số cuối = dãy ngẫu nhiên. Mã tỉnh là nơi khai sinh, không phải nơi ở hiện tại. Bảng mã tỉnh theo Thông tư 07/2016/TT-BCA (63 tỉnh, thành) — mã trên thẻ đã cấp không đổi sau sáp nhập 2025.</p>
+  <p class="note">Cấu trúc 12 số (Nghị định 137/2015/NĐ-CP): 3 số đầu = mã tỉnh/thành nơi đăng ký khai sinh; số thứ 4 = mã thế kỷ + giới tính (0: nam 19xx, 1: nữ 19xx, 2: nam 20xx, 3: nữ 20xx, 4: nam 21xx, 5: nữ 21xx…); 2 số tiếp = 2 số cuối năm sinh; 6 số cuối = dãy ngẫu nhiên. Mã tỉnh là nơi khai sinh, không phải nơi ở hiện tại. Bảng mã tỉnh theo Thông tư 07/2016/TT-BCA (bảng mã 63 tỉnh cũ) — mã trên thẻ đã cấp không đổi sau sáp nhập 2025.</p>
 </div>`;
 }
 
@@ -87,7 +87,7 @@ export function init(root) {
     const provCode = raw.slice(0, 3);
     const province = PROVINCES[provCode];
     if (!province) {
-      markErr($('gmcc-num'), 'Mã tỉnh ' + provCode + ' (3 số đầu) không có trong bảng 63 tỉnh, thành — kiểm tra lại số CCCD.');
+      markErr($('gmcc-num'), 'Mã tỉnh ' + provCode + ' (3 số đầu) không có trong bảng mã 63 tỉnh cũ — kiểm tra lại số CCCD.');
       focusEl($('gmcc-num'));
       out.innerHTML = '';
       return;

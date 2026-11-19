@@ -39,7 +39,7 @@ export function init(root) {
 
   function rowHTML(name, credits, score) {
     return '<div class="grid-3" data-gpa-row="1">'
-      + '<div class="field"><label>Tên môn</label><input type="text" data-gpa-f="name" value="' + (name || '') + '" placeholder="VD: Toán cao cấp"></div>'
+      + '<div class="field"><label>Tên môn</label><input type="text" data-gpa-f="name" value="' + (name || '') + '" placeholder="Ví dụ: Toán cao cấp"></div>'
       + '<div class="field"><label>Số tín chỉ</label><input type="number" data-gpa-f="credits" min="1" max="10" step="1" value="' + credits + '"></div>'
       + '<div class="field"><label>Điểm hệ 10</label><input type="number" data-gpa-f="score" min="0" max="10" step="0.1" value="' + score + '"></div>'
       + '</div>';

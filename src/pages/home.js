@@ -6,20 +6,22 @@
 // → rail Công cụ nổi bật (công cụ hay dùng) → Dùng gần đây (đọc
 // localStorage uh_visited_tools, trống thì ẩn) → hàng mục nổi bật gọn
 // (Sinh viên / Hướng dẫn / Học miễn phí / Giáo viên) → dải dữ liệu hôm
-// nay (crypto, vàng, tỉ giá, xổ số, lịch âm, tử vi) → Điểm báo thu gọn
+// nay (crypto, vàng, tỷ giá, xổ số, lịch âm, tử vi) → Điểm báo thu gọn
 // (1 tin nổi bật + 2 tin/tab + link xem thêm) → lưới đủ công cụ (+ nút
-// xúc xắc "Thử công cụ ngẫu nhiên") → Bảng xếp hạng (đã dời xuống dưới
+// xúc xắc "Thử công cụ ngẫu nhiên") → Tin hot (đã dời xuống dưới
 // lưới công cụ — trước đây nằm trong vùng hero, chiếm màn hình đầu tiên)
 // → banner Ủng hộ.
 // KHÔNG còn khối "Hôm nay" riêng, hàng "công cụ hay dùng" riêng, thẻ hạng
 // mục riêng như wave 1 (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
-// SSR (worker W11): Điểm báo (tin nổi bật + cụm tin theo chủ đề) và bảng
-// xếp hạng (top 6 repo GitHub + tin hot) được render SẴN trong HTML lúc
-// build từ src/data/news.json + src/data/trending.json (build.mjs truyền
-// qua ctx.news / ctx.trending), kèm data-updated-at. app.js lúc tải trang
-// fetch JSON và CHỈ render lại nếu JSON mới hơn SSR; nếu fetch lỗi thì giữ
-// SSR + hiện nút thử lại. Các dải dữ liệu do app.js điền lúc chạy, khung
-// tải có skeleton (xám mờ) thay bằng nội dung khi tải xong.
+// SSR (worker W11): Điểm báo (tin nổi bật + cụm tin theo chủ đề) và Tin hot
+// được render SẴN trong HTML lúc build từ src/data/news.json (build.mjs
+// truyền qua ctx.news), kèm data-updated-at. app.js lúc tải trang fetch JSON
+// và CHỈ render lại nếu JSON mới hơn SSR; nếu fetch lỗi thì giữ SSR + hiện
+// nút thử lại. Các dải dữ liệu do app.js điền lúc chạy, khung tải có
+// skeleton (xám mờ) thay bằng nội dung khi tải xong.
+// Khối "Xu hướng GitHub" đã gỡ khỏi trang chủ 19/11/2026 (tự hiện mô tả
+// tiếng Trung chưa dịch + repo lách đăng ký/mã mời) — xem trang công cụ
+// /cong-cu/github-trending/ (chỉ hiện repo đã có mô tả tiếng Việt).
 // Lưới công cụ render sẵn lúc build từ danh sách build.mjs quét được.
 import { toolCard, esc } from '../tool-card.js';
 import { CATEGORIES, categoryLabel, categoryColor, categoryColorDark } from '../categories.js';
@@ -42,11 +44,11 @@ function stripCard(label, contentId, loadingText, detailHref, detailText, extraH
 }
 
 // ---------------------------------------------------------------------------
-// SSR Điểm báo + bảng xếp hạng — bản sao lúc build của logic render trong
-// src/app.js (initNewsAndHot/initTrending): cùng markup, cùng quy tắc
-// (tin nổi bật = tin đầu tiên CÓ tóm tắt, ưu tiên nhóm AI, và bị loại khỏi
-// danh sách tab; mỗi nhóm tối đa 2 tin; tin hot = 6 tin mới nhất mọi nhóm;
-// repo = top 6). Giữ hai bên đồng bộ khi sửa một bên.
+// SSR Điểm báo + Tin hot — bản sao lúc build của logic render trong
+// src/app.js (initNewsAndHot): cùng markup, cùng quy tắc (tin nổi bật = tin
+// đầu tiên CÓ tóm tắt, ưu tiên nhóm AI, và bị loại khỏi danh sách tab; mỗi
+// nhóm tối đa 2 tin; tin hot = 6 tin mới nhất mọi nhóm). Giữ hai bên đồng
+// bộ khi sửa một bên.
 // ---------------------------------------------------------------------------
 const NEWS_GROUPS = [
   { id: 'ai', label: 'AI' },
@@ -135,31 +137,7 @@ function hotRowHtml(item, i) {
     '</div></div>';
 }
 
-// Hàng xếp hạng GitHub kiểu Product Hunt: số thứ hạng lớn + tên + mô tả +
-// meta, nút pill ★ số sao ở cuối hàng bên phải (điểm xếp hạng trực quan).
-// Số sao CHỈ hiện trong pill (không lặp lại trong meta).
-// Dòng mô tả ưu tiên `purpose` (tiếng Việt, do summarize-trending.mjs viết),
-// chưa có thì fallback về mô tả tiếng Anh gốc — đồng bộ với app.js initTrending.
-function trendingRowHtml(item, i) {
-  const rank = i + 1;
-  const name = item.fullName || item.name || '';
-  const desc = item.purpose || item.desc || item.description || '';
-  const meta = [];
-  if (item.language) meta.push(item.language);
-  if (item.forks != null) meta.push('Fork ' + Number(item.forks).toLocaleString('en-US'));
-  const starsPill = item.stars != null
-    ? '<span class="rank-pill">★ ' + Number(item.stars).toLocaleString('en-US') + '</span>' : '';
-  return '<div class="rank-row rank-' + rank + '">' +
-    '<div class="rank-num">' + rank + '</div>' +
-    '<div class="rank-body"><h4><a href="' + esc(item.url || '#') +
-    '" target="_blank" rel="noopener">' + esc(name) + '</a>' +
-    (rank === 1 ? '<span class="hot-chip">Hot</span>' : '') + '</h4>' +
-    (desc ? '<p class="rank-desc">' + esc(desc) + '</p>' : '') +
-    (meta.length ? '<p class="rank-meta">' + esc(meta.join(' · ')) + '</p>' : '') +
-    '</div>' + starsPill + '</div>';
-}
-
-export function body({ tools = [], categories = [], news = null, trending = null } = {}) {
+export function body({ tools = [], categories = [], news = null } = {}) {
   const cats = categories.length ? categories : CATEGORIES;
 
   // Lưới đầy đủ công cụ + chip lọc riêng cho trang chủ.
@@ -215,13 +193,6 @@ ${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
     ? hotItems.map(hotRowHtml).join('')
     : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
 
-  const trendingItems = (trending && Array.isArray(trending.items)) ? trending.items : [];
-  const trendingUpdatedAt = (trending && trending.updatedAt) || '';
-  const trendingAttrs = trendingUpdatedAt
-    ? ` data-ssr="1" data-updated-at="${esc(trendingUpdatedAt)}"` : '';
-  const githubHtml = trendingItems.length
-    ? trendingItems.slice(0, 6).map(trendingRowHtml).join('')
-    : '<p class="muted">Chưa có dữ liệu — dữ liệu làm mới hằng ngày.</p>';
 
   // Rail video "Công cụ nổi bật" (18/11, theo đúng cơ chế trang chủ 21st.dev
   // đã đọc từ code JS của họ + Claude xác nhận): mỗi thẻ có sẵn ảnh poster
@@ -305,7 +276,7 @@ ${railHtml}
     <div class="strip-grid">
       ${stripCard('Crypto — Bitcoin', 'crypto-strip', 'Đang tải giá…', '/cong-cu/?cat=hang-ngay', 'Xem công cụ →', '<p class="muted small strip-fng" id="fng-line" hidden></p>')}
       ${stripCard('Giá vàng SJC', 'gold-content', 'Đang tải giá vàng…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
-      ${stripCard('Tỉ giá USD', 'fx-content', 'Đang tải tỉ giá…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
+      ${stripCard('Tỷ giá USD', 'fx-content', 'Đang tải tỷ giá…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
       ${stripCard('Xổ số miền Bắc', 'lottery-content', 'Đang tải kết quả…', '/cong-cu/ket-qua-xo-so/', 'Xem chi tiết →')}
       ${stripCard('Lịch âm', 'lunar-content', 'Đang tính lịch âm…', '/cong-cu/lich-am/', 'Xem chi tiết →')}
       ${stripCard('Tử vi hôm nay', 'horoscope-content', 'Đang tính tử vi…', '/cong-cu/tu-vi-12-con-giap/', 'Xem chi tiết →')}
@@ -335,15 +306,10 @@ ${railHtml}
     ${allGrid}
   </section>
 
-  <section class="section section-ranking" aria-label="Bảng xếp hạng">
+  <section class="section section-ranking" aria-label="Tin hot">
     <div class="hero-ranking" id="ranking">
-      <h2>Bảng xếp hạng</h2>
-      <div class="tabs" role="tablist">
-        <button type="button" class="tab tab-active" data-tab-target="rank-github" role="tab">Xu hướng GitHub</button>
-        <button type="button" class="tab" data-tab-target="rank-hot" role="tab">Tin hot</button>
-      </div>
-      <div class="tab-panel" data-tab-panel="rank-github" id="rank-github"${trendingItems.length ? trendingAttrs : ''}>${trendingItems.length ? githubHtml : '<p class="muted">Đang tải…</p>'}</div>
-      <div class="tab-panel" data-tab-panel="rank-hot" id="rank-hot"${allNewsItems.length ? newsAttrs : ''} hidden>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
+      <h2>Tin hot</h2>
+      <div id="rank-hot"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
     </div>
   </section>
 

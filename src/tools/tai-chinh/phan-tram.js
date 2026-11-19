@@ -53,7 +53,7 @@ export function body() {
   <div id="pt-pane-4" style="display:none">
     <div class="grid-2">
       <div class="field"><label for="pt-4price">Giá gốc (₫)</label><input id="pt-4price" type="text" inputmode="decimal" value="500.000"></div>
-      <div class="field"><label for="pt-4disc">Các lần giảm (%) — cách nhau bằng dấu phẩy</label><input id="pt-4disc" type="text" inputmode="decimal" value="20, 10" placeholder="VD: 20, 10"></div>
+      <div class="field"><label for="pt-4disc">Các lần giảm (%) — cách nhau bằng dấu phẩy</label><input id="pt-4disc" type="text" inputmode="decimal" value="20, 10" placeholder="Ví dụ: 20, 10"></div>
     </div>
     <button type="button" class="btn btn-primary" id="pt-4calc">Tính</button>
     <div id="pt-4out"></div>

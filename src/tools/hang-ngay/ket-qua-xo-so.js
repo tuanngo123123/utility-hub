@@ -22,7 +22,7 @@ export function body() {
       <button id="xs-tab-nam" class="tab" type="button">Miền Nam</button>
     </div>
     <div class="grid-2">
-      <div class="field"><label for="xs-two">Dò nhanh 2 số cuối</label><input id="xs-two" type="text" inputmode="numeric" maxlength="2" placeholder="VD: 47"></div>
+      <div class="field"><label for="xs-two">Dò nhanh 2 số cuối</label><input id="xs-two" type="text" inputmode="numeric" maxlength="2" placeholder="Ví dụ: 47"></div>
       <div class="field"><label>&nbsp;</label><button id="xs-clear" class="btn btn-ghost" type="button">Xóa dò số</button></div>
     </div>
     <div id="xs-out"></div>

@@ -20,7 +20,7 @@ export function body() {
   <div class="grid-3">
     <div class="field">
       <label for="nuoc-w">Cân nặng (kg)</label>
-      <input id="nuoc-w" type="number" min="1" max="500" step="0.1" value="60" placeholder="VD: 60">
+      <input id="nuoc-w" type="number" min="1" max="500" step="0.1" value="60" placeholder="Ví dụ: 60">
     </div>
     <div class="field">
       <label for="nuoc-act">Mức vận động</label>

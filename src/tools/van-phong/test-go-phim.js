@@ -1,20 +1,20 @@
-// Test gõ phím (WPM) — Utility Hub (Văn phòng)
+// Kiểm tra tốc độ gõ phím — Utility Hub (Văn phòng)
 export const meta = {
   id: 'test-go-phim',
-  name: 'Test gõ phím (WPM)',
+  name: 'Kiểm tra tốc độ gõ phím',
   category: 'Văn phòng',
   categorySlug: 'van-phong',
   desc: 'Đo tốc độ gõ phím tiếng Việt: số từ mỗi phút (WPM), độ chính xác và số lỗi.',
-  keywords: 'test gõ phím, WPM, tốc độ đánh máy, typing test, độ chính xác',
+  keywords: 'test gõ phím, kiểm tra tốc độ gõ phím, WPM, tốc độ đánh máy, typing test, độ chính xác',
   icon: '⌨️',
-  seoTitle: 'Test gõ phím tiếng Việt — đo WPM & độ chính xác',
+  seoTitle: 'Kiểm tra tốc độ gõ phím tiếng Việt — đo WPM & độ chính xác',
   seoDesc: 'Kiểm tra tốc độ gõ phím tiếng Việt của bạn: đo WPM, độ chính xác và số lỗi với 3 đoạn văn mẫu.'
 };
 
 export function body() {
   return `
 <div class="tool-panel">
-  <div class="tool-head"><span>⌨️</span><div><h2>Test gõ phím (WPM)</h2><p class="muted">Gõ theo đoạn văn mẫu, xem bạn gõ được bao nhiêu từ mỗi phút.</p></div></div>
+  <div class="tool-head"><span>⌨️</span><div><h2>Kiểm tra tốc độ gõ phím</h2><p class="muted">Gõ theo đoạn văn mẫu, xem bạn gõ được bao nhiêu từ mỗi phút.</p></div></div>
   <div class="field"><label for="tgp-sample">Chọn đoạn văn mẫu</label>
     <select id="tgp-sample">
       <option value="0">Đoạn 1 — Buổi sáng ở văn phòng</option>

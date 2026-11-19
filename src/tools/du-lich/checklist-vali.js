@@ -1,21 +1,21 @@
 export const meta = {
   id: 'checklist-vali',
-  name: 'Checklist hành lý',
+  name: 'Danh sách hành lý cần mang',
   category: 'Du lịch',
   categorySlug: 'du-lich',
-  desc: 'Danh sách đồ mang theo khi đi du lịch theo loại chuyến đi: biển, núi, công tác, ngắn ngày, dài ngày. Tick chọn, thêm đồ tự do, lưu tự động.',
-  keywords: ['checklist', 'hành lý', 'vali', 'đồ mang theo', 'du lịch', 'chuẩn bị đi chơi'],
+  desc: 'Danh sách đồ mang theo khi đi du lịch theo loại chuyến đi: biển, núi, công tác, ngắn ngày, dài ngày. Đánh dấu, thêm đồ tự do, lưu tự động.',
+  keywords: ['checklist', 'danh sách hành lý cần mang', 'hành lý', 'vali', 'đồ mang theo', 'du lịch', 'chuẩn bị đi chơi'],
   icon: '✅',
-  seoTitle: 'Checklist hành lý du lịch — Không sót đồ khi đi chơi',
-  seoDesc: 'Danh sách đồ mang theo khi đi du lịch theo loại chuyến đi (biển, núi, công tác…): tick chọn, thêm đồ tự do, lưu tự động, in hoặc chép danh sách.'
+  seoTitle: 'Danh sách hành lý cần mang khi du lịch — Không sót đồ khi đi chơi',
+  seoDesc: 'Danh sách đồ mang theo khi đi du lịch theo loại chuyến đi (biển, núi, công tác…): đánh dấu, thêm đồ tự do, lưu tự động, in hoặc chép danh sách.'
 };
 
 export function body() {
   return `
   <div class="tool-panel">
     <div class="tool-head">
-      <h2>✅ Checklist hành lý</h2>
-      <p class="muted">Chọn loại chuyến đi để có danh sách gợi ý, tick vào đồ đã chuẩn bị xong. Danh sách được lưu tự động trên trình duyệt này.</p>
+      <h2>✅ Danh sách hành lý cần mang</h2>
+      <p class="muted">Chọn loại chuyến đi để có danh sách gợi ý, đánh dấu đồ đã chuẩn bị xong. Danh sách được lưu tự động trên trình duyệt này.</p>
     </div>
     <div class="grid-2">
       <div class="field">
@@ -31,13 +31,13 @@ export function body() {
       </div>
       <div class="field">
         <label for="clvl-them">Thêm đồ của bạn</label>
-        <input id="clvl-them" type="text" placeholder="VD: Thuốc dị ứng" maxlength="80">
+        <input id="clvl-them" type="text" placeholder="Ví dụ: Thuốc dị ứng" maxlength="80">
       </div>
     </div>
     <button class="btn btn-ghost" id="clvl-add">+ Thêm đồ</button>
     <button class="btn btn-ghost" id="clvl-copy">Chép danh sách</button>
     <button class="btn btn-ghost" id="clvl-print">In danh sách</button>
-    <button class="btn btn-ghost" id="clvl-reset">Đặt lại</button>
+    <button class="btn btn-ghost" id="clvl-reset" data-uh-reset="1">Đặt lại</button>
     <div id="clvl-tiendo" class="result" style="display:none"></div>
     <div id="clvl-list"></div>
     <p class="note">Danh sách lưu trong trình duyệt của bạn (localStorage) — đổi máy hoặc xóa dữ liệu trình duyệt sẽ mất danh sách đã tick.</p>
@@ -124,7 +124,7 @@ export function init(root) {
   root.querySelector('#clvl-copy').addEventListener('click', function () {
     var type = typeSel.value;
     var items = currentItems();
-    var text = 'Checklist hành lý:\n' + items.map(function (it) { return (isChecked(type, it) ? '[x] ' : '[ ] ') + it; }).join('\n');
+    var text = 'Danh sách hành lý cần mang:\n' + items.map(function (it) { return (isChecked(type, it) ? '[x] ' : '[ ] ') + it; }).join('\n');
     copyText(text);
     toast('Đã chép danh sách.');
   });

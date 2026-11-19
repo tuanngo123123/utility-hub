@@ -90,7 +90,7 @@ function grossNet(gross, insSalary, bhtnCap, deps) {
   return { gross, bhxh, bhyt, bhtn, insurance, taxable, tax, taxRows: rows, net, bhxhBase, bhtnBase, insSalary, deps };
 }
 
-// Lương Net → Gross: lặp nhị phân trên Gross (sai số dưới 500đ).
+// Lương Net → Gross: lặp nhị phân trên Gross (sai số dưới 500₫).
 // insSalary: lương đóng bảo hiểm cố định, hoặc null = bằng Gross đang dò.
 function netToGross(targetNet, insSalary, bhtnCap, deps) {
   let lo = targetNet;

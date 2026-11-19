@@ -14,10 +14,10 @@
 //     (bỏ trống). KHÔNG reload trang.
 //  3. Thêm nút "Đặt lại" vào mỗi .tool-panel (sau hàng nút hiện có):
 //     đưa input về GIÁ TRỊ MẶC ĐỊNH trong HTML (defaultValue / option
-//     defaultSelected / defaultChecked — VD: lương 30.000.000, 250 kWh),
+//     defaultSelected / defaultChecked — Ví dụ: lương 30.000.000, 250 kWh),
 //     xóa query string, xóa đánh dấu lỗi theo ô (.field-error/.field-msg)
 //     và trạng thái bận (.is-busy), xóa vùng kết quả (.result — trừ khối
-//     đánh dấu data-uh-keep="1", VD: "hôm nay" của Lịch âm), rồi cuộn
+//     đánh dấu data-uh-keep="1", Ví dụ: "hôm nay" của Lịch âm), rồi cuộn
 //     lên đầu panel.
 //     (Trước 18/11 nút này xóa trắng input về rỗng, dù chú thích ghi
 //     "về mặc định"; nay sửa cho khớp chú thích — worker C.)
@@ -139,7 +139,7 @@
         var t = (el.type || '').toLowerCase();
         if (['button', 'submit', 'reset', 'file', 'hidden', 'image'].indexOf(t) === -1) {
           // Về giá trị mặc định trong HTML (defaultValue) thay vì xóa
-          // trắng — VD: lương 30.000.000, 250 kWh.
+          // trắng — Ví dụ: lương 30.000.000, 250 kWh.
           el.value = el.defaultValue == null ? '' : el.defaultValue;
         }
       }

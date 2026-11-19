@@ -17,7 +17,7 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="ltc-salary">Lương tháng (₫)</label>
-      <input id="ltc-salary" type="text" inputmode="decimal" value="10.400.000" placeholder="VD: 10.400.000">
+      <input id="ltc-salary" type="text" inputmode="decimal" value="10.400.000" placeholder="Ví dụ: 10.400.000">
     </div>
     <div class="field">
       <label for="ltc-days">Số ngày công chuẩn / tháng</label>
@@ -29,15 +29,15 @@ export function body() {
     </div>
     <div class="field">
       <label for="ltc-normal">Giờ tăng ca ngày thường (150%)</label>
-      <input id="ltc-normal" type="text" inputmode="decimal" value="10" placeholder="VD: 10">
+      <input id="ltc-normal" type="text" inputmode="decimal" value="10" placeholder="Ví dụ: 10">
     </div>
     <div class="field">
       <label for="ltc-weekend">Giờ tăng ca ngày nghỉ tuần (200%)</label>
-      <input id="ltc-weekend" type="text" inputmode="decimal" value="8" placeholder="VD: 8">
+      <input id="ltc-weekend" type="text" inputmode="decimal" value="8" placeholder="Ví dụ: 8">
     </div>
     <div class="field">
       <label for="ltc-holiday">Giờ tăng ca ngày lễ, Tết (300%)</label>
-      <input id="ltc-holiday" type="text" inputmode="decimal" value="8" placeholder="VD: 8">
+      <input id="ltc-holiday" type="text" inputmode="decimal" value="8" placeholder="Ví dụ: 8">
     </div>
   </div>
   <button type="button" class="btn btn-primary" id="ltc-calc">Tính lương tăng ca</button>

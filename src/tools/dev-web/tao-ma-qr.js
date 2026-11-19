@@ -15,7 +15,7 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span>🔳</span><div><h2>Tạo mã QR cho link &amp; văn bản</h2><p class="muted">Nhập link hoặc văn bản, bấm tạo mã — quét bằng camera điện thoại là mở được ngay.</p></div></div>
-  <div class="field"><label for="tmq-text">Link hoặc văn bản</label><textarea id="tmq-text" rows="3" placeholder="VD: https://tienichhub.io.vn">https://tienichhub.io.vn</textarea></div>
+  <div class="field"><label for="tmq-text">Link hoặc văn bản</label><textarea id="tmq-text" rows="3" placeholder="Ví dụ: https://tienichhub.io.vn">https://tienichhub.io.vn</textarea></div>
   <p class="muted small" id="tmq-count"></p>
   <div class="grid-2">
     <div class="field"><label for="tmq-size">Kích thước ảnh</label><select id="tmq-size"><option value="256">256 × 256 px — vừa chia sẻ</option><option value="512" selected>512 × 512 px — in ấn nhỏ</option><option value="1024">1024 × 1024 px — in ấn lớn</option></select></div>

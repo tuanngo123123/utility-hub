@@ -15,7 +15,7 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span>🔮</span><div><h2>Tra can chi & mệnh</h2><p class="muted">Nhập năm sinh dương lịch để tra can chi, mệnh ngũ hành và tuổi hợp/kỵ.</p></div></div>
-  <div class="field"><label for="ccm-year">Năm sinh (dương lịch)</label><input id="ccm-year" type="number" min="1900" max="2100" value="1997" placeholder="VD: 1997"></div>
+  <div class="field"><label for="ccm-year">Năm sinh (dương lịch)</label><input id="ccm-year" type="number" min="1900" max="2100" value="1997" placeholder="Ví dụ: 1997"></div>
   <button type="button" class="btn btn-primary" id="ccm-calc">Tra cứu</button>
   <div id="ccm-out"></div>
   <p class="note">Can chi tính theo công thức: can = (năm + 6) % 10, chi = (năm + 8) % 12. Mệnh theo bảng lục thập hoa giáp chuẩn. Kết quả mang tính tham khảo văn hóa dân gian.</p>

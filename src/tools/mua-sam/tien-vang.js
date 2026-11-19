@@ -49,7 +49,7 @@ export function body() {
     </div>
     <button class="btn btn-primary" id="tv-calc2">Tính số vàng mua được</button>
     <div id="tv-out2" class="result" style="display:none"></div>
-    <p class="note">1 lượng (cây) vàng = 10 chỉ = 100 phân = 37,5 gam; 1 chỉ = 10 phân = 3,75 gam. Giá vàng tự nhập, chỉ mang tính tham khảo — xem giá vàng trực tiếp ở công cụ Giá vàng SJC &amp; tỉ giá trực tiếp. Giá mua vào và bán ra của tiệm vàng thường chênh nhau, nhớ hỏi rõ trước khi giao dịch.</p>
+    <p class="note">1 lượng (cây) vàng = 10 chỉ = 100 phân = 37,5 gam; 1 chỉ = 10 phân = 3,75 gam. Giá vàng tự nhập, chỉ mang tính tham khảo — xem giá vàng trực tiếp ở công cụ Giá vàng SJC &amp; tỷ giá trực tiếp. Giá mua vào và bán ra của tiệm vàng thường chênh nhau, nhớ hỏi rõ trước khi giao dịch.</p>
   </div>`;
 }
 

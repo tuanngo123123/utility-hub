@@ -19,7 +19,7 @@ export function body() {
   </div>
   <div class="field">
     <label for="ktdt-num">Số điện thoại</label>
-    <input id="ktdt-num" type="text" inputmode="tel" autocomplete="off" placeholder="VD: 0987654321 hoặc +84987654321">
+    <input id="ktdt-num" type="text" inputmode="tel" autocomplete="off" placeholder="Ví dụ: 0987654321 hoặc +84987654321">
     <p class="hint">Nhập cả số cố định (bắt đầu 02) để tra mã vùng. Số chỉ được xử lý trên trình duyệt của bạn.</p>
   </div>
   <div class="btn-row">

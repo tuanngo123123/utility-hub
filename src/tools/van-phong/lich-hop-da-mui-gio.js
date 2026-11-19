@@ -161,7 +161,7 @@ export function init(root) {
       });
     } else {
       html += '<div class="result-row"><span>Giờ họp chung</span><strong>Không có khung giờ làm việc chung trong ngày này.</strong></div>';
-      html += '<div class="result-row"><span>Gợi ý</span><span>Thử nới giờ làm việc (VD: 8:00–18:00), bớt một thành phố, hoặc họp 2 ca riêng.</span></div>';
+      html += '<div class="result-row"><span>Gợi ý</span><span>Thử nới giờ làm việc (Ví dụ: 8:00–18:00), bớt một thành phố, hoặc họp 2 ca riêng.</span></div>';
     }
     html += '</div>';
 

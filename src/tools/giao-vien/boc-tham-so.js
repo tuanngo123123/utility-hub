@@ -7,7 +7,7 @@ export const meta = {
   name: 'Bốc thăm số ngẫu nhiên',
   category: 'Giáo viên',
   categorySlug: 'giao-vien',
-  desc: 'Bốc thăm số ngẫu nhiên trong khoảng tùy chọn: số trúng hiện khổng lồ, không lặp lại, hiện lịch sử các số đã bốc, tải lịch sử về máy.',
+  desc: 'Bốc thăm số ngẫu nhiên trong khoảng tùy chọn: số trúng hiện thật to, không lặp lại, hiện lịch sử các số đã bốc, tải lịch sử về máy.',
   keywords: 'bốc thăm số, số ngẫu nhiên, quay số, chọn số ngẫu nhiên, bốc số lớp học',
   icon: '🔢',
   seoTitle: 'Bốc thăm số ngẫu nhiên — không lặp, tải lịch sử về',

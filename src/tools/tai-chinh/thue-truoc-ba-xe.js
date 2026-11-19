@@ -46,7 +46,7 @@ export function body() {
     </div>
     <div class="field">
       <label for="tb-price">Giá tính lệ phí trước bạ</label>
-      <span class="input-unit"><input id="tb-price" type="text" inputmode="decimal" value="800.000.000" placeholder="VD: 800.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="tb-price" type="text" inputmode="decimal" value="800.000.000" placeholder="Ví dụ: 800.000.000"><span class="unit">₫</span></span>
       <p class="hint">Là giá theo bảng giá tính lệ phí trước bạ do UBND tỉnh ban hành (từ 01/01/2026), thường gần với giá niêm yết xe mới. Với xe đã qua sử dụng, giá tính theo tỷ lệ % giá trị còn lại — nhập đúng giá tính của xe bạn.</p>
     </div>
   </div>

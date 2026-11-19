@@ -10,11 +10,11 @@ export const meta = {
   name: 'Trợ cấp thôi việc & BHTN',
   category: 'Văn phòng',
   categorySlug: 'van-phong',
-  desc: 'Ước tính trợ cấp thất nghiệp hàng tháng (60% lương đóng BHTN, tối đa 5 lần lương tối thiểu vùng 2026) và trợ cấp thôi việc.',
+  desc: 'Ước tính trợ cấp thất nghiệp hằng tháng (60% lương đóng BHTN, tối đa 5 lần lương tối thiểu vùng 2026) và trợ cấp thôi việc.',
   keywords: 'trợ cấp thất nghiệp, BHTN, trợ cấp thôi việc, bảo hiểm thất nghiệp, tính BHTN 2026, lương tối thiểu vùng 2026, trần trợ cấp thất nghiệp, luật việc làm 2025',
   icon: '🛡️',
   seoTitle: 'Tính trợ cấp thất nghiệp (BHTN) 2026 & trợ cấp thôi việc',
-  seoDesc: 'Ước tính mức hưởng trợ cấp thất nghiệp hàng tháng (60% lương đóng BHTN, áp trần 5 lần lương tối thiểu vùng 2026) và số tháng được hưởng, cộng trợ cấp thôi việc cho thời gian làm việc trước 2009.'
+  seoDesc: 'Ước tính mức hưởng trợ cấp thất nghiệp hằng tháng (60% lương đóng BHTN, áp trần 5 lần lương tối thiểu vùng 2026) và số tháng được hưởng, cộng trợ cấp thôi việc cho thời gian làm việc trước 2009.'
 };
 
 export function body() {
@@ -25,7 +25,7 @@ export function body() {
       <div class="m2-input-top">
         <div class="field m2-field">
           <label for="tc-salary">Lương bình quân đóng BHTN 6 tháng gần nhất</label>
-          <span class="input-unit"><input id="tc-salary" class="m2-salary" type="text" inputmode="decimal" value="12.000.000" placeholder="VD: 12.000.000"><span class="unit">₫</span></span>
+          <span class="input-unit"><input id="tc-salary" class="m2-salary" type="text" inputmode="decimal" value="12.000.000" placeholder="Ví dụ: 12.000.000"><span class="unit">₫</span></span>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh mức lương bình quân">
           <button type="button" class="m2-quick-btn" data-tc-quick="8000000">8 triệu</button>

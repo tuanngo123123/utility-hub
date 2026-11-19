@@ -38,10 +38,10 @@ export function body() {
         <option value="970437">HDBank (970437)</option>
         <option value="970441">VIB (970441)</option>
       </select></div>
-      <div class="field"><label for="vq-acct">Số tài khoản</label><input id="vq-acct" type="text" inputmode="numeric" placeholder="VD: 1234567890"><p class="hint">Chỉ nhập số, 4–20 chữ số, không khoảng trắng.</p></div>
-      <div class="field"><label for="vq-name">Tên chủ tài khoản (không dấu, tùy chọn)</label><input id="vq-name" type="text" placeholder="VD: NGUYEN VAN AN"></div>
-      <div class="field"><label for="vq-amount">Số tiền (để trống = người quét tự nhập)</label><span class="input-unit"><input id="vq-amount" type="text" inputmode="numeric" placeholder="VD: 50000"><span class="unit">₫</span></span></div>
-      <div class="field"><label for="vq-content">Nội dung chuyển khoản (tùy chọn)</label><input id="vq-content" type="text" placeholder="VD: Thanh toan don hang"></div>
+      <div class="field"><label for="vq-acct">Số tài khoản</label><input id="vq-acct" type="text" inputmode="numeric" placeholder="Ví dụ: 1234567890"><p class="hint">Chỉ nhập số, 4–20 chữ số, không khoảng trắng.</p></div>
+      <div class="field"><label for="vq-name">Tên chủ tài khoản (không dấu, tùy chọn)</label><input id="vq-name" type="text" placeholder="Ví dụ: NGUYEN VAN AN"></div>
+      <div class="field"><label for="vq-amount">Số tiền (để trống = người quét tự nhập)</label><span class="input-unit"><input id="vq-amount" type="text" inputmode="numeric" placeholder="Ví dụ: 50000"><span class="unit">₫</span></span></div>
+      <div class="field"><label for="vq-content">Nội dung chuyển khoản (tùy chọn)</label><input id="vq-content" type="text" placeholder="Ví dụ: Thanh toan don hang"></div>
     </div>
     <div class="btn-row">
       <button type="button" class="btn btn-primary" id="vq-go">Tạo mã VietQR</button>
@@ -54,7 +54,7 @@ export function body() {
 
   <div id="vq-pane-wifi" style="display:none">
     <div class="grid-2">
-      <div class="field"><label for="vq-ssid">Tên WiFi (SSID)</label><input id="vq-ssid" type="text" placeholder="VD: NhaAn_WiFi"></div>
+      <div class="field"><label for="vq-ssid">Tên WiFi (SSID)</label><input id="vq-ssid" type="text" placeholder="Ví dụ: NhaAn_WiFi"></div>
       <div class="field"><label for="vq-wpass">Mật khẩu WiFi</label><input id="vq-wpass" type="text" placeholder="Để trống nếu mạng mở"></div>
       <div class="field"><label for="vq-sec">Loại bảo mật</label><select id="vq-sec"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">Không mật khẩu</option></select></div>
       <div class="field"><label><input type="checkbox" id="vq-hidden"> Mạng ẩn (không phát tên)</label></div>

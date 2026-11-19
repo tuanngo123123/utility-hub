@@ -96,7 +96,7 @@ export function init(root) {
 
   $('mh-go').addEventListener('click', () => {
     const c = hexToRgb($('mh-hex').value);
-    if (!c) { $('mh-out').innerHTML = '<p class="error">Mã HEX không hợp lệ. Nhập dạng #RRGGBB, VD: #1a5276.</p>'; return; }
+    if (!c) { $('mh-out').innerHTML = '<p class="error">Mã HEX không hợp lệ. Nhập dạng #RRGGBB, Ví dụ: #1a5276.</p>'; return; }
     show(c);
   });
   $('mh-picker').addEventListener('input', () => {

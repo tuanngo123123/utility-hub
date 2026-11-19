@@ -24,29 +24,29 @@ export const TOOL_CONTENT = {
   "luong-gross-net": {
     intro: "Tính lương net từ lương gross theo luật thuế và bảo hiểm 2026: bảo hiểm 10,5%, giảm trừ bản thân 15,5 triệu đồng, biểu thuế thu nhập cá nhân 5 bậc. Nhập lương gross, số người phụ thuộc và vùng lương tối thiểu để biết lương thực nhận và từng khoản khấu trừ.",
     finance: true,
-    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng) và Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000đ từ 01/7/2026).",
+    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng) và Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000₫ từ 01/7/2026).",
     updatedAt: "19/11/2026",
     example: {
-      text: "Lương Gross 30.000.000đ, đóng bảo hiểm trên toàn bộ lương, 0 người phụ thuộc: bảo hiểm 3.150.000đ, thu nhập tính thuế 11.350.000đ, thuế TNCN 635.000đ → lương Net 26.215.000đ/tháng.",
+      text: "Lương Gross 30.000.000₫, đóng bảo hiểm trên toàn bộ lương, 0 người phụ thuộc: bảo hiểm 3.150.000₫, thu nhập tính thuế 11.350.000₫, thuế TNCN 635.000₫ → lương Net 26.215.000₫/tháng.",
       fills: { 'lggn-salary': '30.000.000', 'lggn-ins': '30.000.000', 'lggn-dep': '0' },
       tab: '#lggn-tab-g2n',
     },
     faqs: [
       {
         q: "Lương 15 triệu đóng BHXH bao nhiêu?",
-        a: "1.575.000 đồng mỗi tháng: người lao động đóng 10,5% lương (8% BHXH cộng 1,5% BHYT cộng 1% BHTN), tức 15.000.000 nhân 10,5% bằng 1.575.000 đồng. Với lương này, sau khi trừ bảo hiểm và giảm trừ bản thân 15,5 triệu đồng thì thu nhập tính thuế bằng 0 nên không phải nộp thuế thu nhập cá nhân, lương net là 13.425.000 đồng."
+        a: "1.575.000₫ mỗi tháng: người lao động đóng 10,5% lương (8% BHXH cộng 1,5% BHYT cộng 1% BHTN), tức 15.000.000 nhân 10,5% bằng 1.575.000₫. Với lương này, sau khi trừ bảo hiểm và giảm trừ bản thân 15,5 triệu đồng thì thu nhập tính thuế bằng 0 nên không phải nộp thuế thu nhập cá nhân, lương net là 13.425.000₫."
       },
       {
         q: "Lương gross 30 triệu thì net được bao nhiêu?",
-        a: "26.215.000 đồng (0 người phụ thuộc, đóng bảo hiểm trên toàn bộ lương): bảo hiểm 3.150.000 đồng, thu nhập tính thuế 11.350.000 đồng, thuế thu nhập cá nhân 635.000 đồng (10 triệu đầu chịu 5%, 1,35 triệu còn lại chịu 10%)."
+        a: "26.215.000₫ (0 người phụ thuộc, đóng bảo hiểm trên toàn bộ lương): bảo hiểm 3.150.000₫, thu nhập tính thuế 11.350.000₫, thuế thu nhập cá nhân 635.000₫ (10 triệu đầu chịu 5%, 1,35 triệu còn lại chịu 10%)."
       },
       {
         q: "Trần đóng BHXH năm 2026 là bao nhiêu?",
-        a: "50.600.000 đồng mỗi tháng (từ 01/7/2026 theo Nghị định 161/2026). Lương cao hơn trần thì BHXH và BHYT chỉ tính trên 50,6 triệu đồng; riêng BHTN có trần riêng theo vùng, vùng I là 106.200.000 đồng."
+        a: "50.600.000₫ mỗi tháng (từ 01/7/2026 theo Nghị định 161/2026). Lương cao hơn trần thì BHXH và BHYT chỉ tính trên 50,6 triệu đồng; riêng BHTN có trần riêng theo vùng, vùng I là 106.200.000₫."
       },
       {
         q: "Giảm trừ người phụ thuộc là bao nhiêu?",
-        a: "6.200.000 đồng mỗi tháng cho mỗi người phụ thuộc, cộng thêm giảm trừ bản thân 15.500.000 đồng mỗi tháng. Ví dụ lương gross 30 triệu, 1 người phụ thuộc: thu nhập tính thuế giảm từ 11.350.000 xuống 5.150.000 đồng, thuế chỉ còn 257.500 đồng."
+        a: "6.200.000₫ mỗi tháng cho mỗi người phụ thuộc, cộng thêm giảm trừ bản thân 15.500.000₫ mỗi tháng. Ví dụ lương gross 30 triệu, 1 người phụ thuộc: thu nhập tính thuế giảm từ 11.350.000 xuống 5.150.000₫, thuế chỉ còn 257.500₫."
       },
       {
         q: "Lương net 20 triệu thì gross là bao nhiêu?",
@@ -57,10 +57,10 @@ export const TOOL_CONTENT = {
   "thue-thu-nhap-ca-nhan": {
     intro: "Tính thuế thu nhập cá nhân 2026 từ lương theo biểu lũy tiến 5 bậc: nhập lương Gross, lương đóng bảo hiểm và số người phụ thuộc để xem thu nhập tính thuế, thuế từng bậc và thuế cả năm.",
     finance: true,
-    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng) và Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000đ từ 01/7/2026).",
+    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng) và Nghị định 161/2026/NĐ-CP (trần đóng BHXH/BHYT 50.600.000₫ từ 01/7/2026).",
     updatedAt: "19/11/2026",
     example: {
-      text: "Lương Gross 45.000.000đ, đóng bảo hiểm trên toàn bộ lương, 1 người phụ thuộc: bảo hiểm 4.725.000đ, thu nhập tính thuế 18.575.000đ → thuế TNCN 1.357.500đ/tháng (cả năm 16.290.000đ).",
+      text: "Lương Gross 45.000.000₫, đóng bảo hiểm trên toàn bộ lương, 1 người phụ thuộc: bảo hiểm 4.725.000₫, thu nhập tính thuế 18.575.000₫ → thuế TNCN 1.357.500₫/tháng (cả năm 16.290.000₫).",
       fills: { 'tncn-gross': '45.000.000', 'tncn-ins': '45.000.000', 'tncn-dep': '1' },
       tab: '#tncn-tab-salary',
     },
@@ -72,7 +72,7 @@ export const TOOL_CONTENT = {
     legalBasis: "Cập nhật theo Điều 70 Luật BHXH 41/2024/QH15, hiệu lực 01/7/2025.",
     updatedAt: "19/11/2026",
     example: {
-      text: "Mức bình quân 10.000.000đ, đóng 5 năm 3 tháng trước 2014 và 8 năm từ 2014: phần trước 2014 là 75.000.000đ (1,5 × 10.000.000 × 5 năm), phần từ 2014 là 170.000.000đ (2 × 10.000.000 × 8,5 năm — 3 tháng lẻ chuyển sang) → rút một lần 245.000.000đ.",
+      text: "Mức bình quân 10.000.000₫, đóng 5 năm 3 tháng trước 2014 và 8 năm từ 2014: phần trước 2014 là 75.000.000₫ (1,5 × 10.000.000 × 5 năm), phần từ 2014 là 170.000.000₫ (2 × 10.000.000 × 8,5 năm — 3 tháng lẻ chuyển sang) → rút một lần 245.000.000₫.",
       fills: { 'bhxh-avg': '10.000.000', 'bhxh-y1': '5', 'bhxh-m1': '3', 'bhxh-y2': '8', 'bhxh-m2': '0', 'bhxh-joined': 'before', 'bhxh-paid': '' },
     },
     disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan BHXH — mức thực tế do cơ quan BHXH xác định theo hồ sơ đóng của bạn.",
@@ -87,11 +87,11 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Đóng BHXH chưa đủ 1 năm thì rút được bao nhiêu?",
-        a: "Bằng số tiền đã đóng vào quỹ hưu trí - tử tuất, nhưng không quá 2 tháng mức bình quân tiền lương tháng đóng BHXH. Ví dụ lương bình quân 10 triệu đồng, đóng 6 tháng: số tiền đã đóng ước tính 22% nhân 10.000.000 nhân 6 bằng 13.200.000 đồng, dưới mức tối đa 20.000.000 đồng nên rút được 13.200.000 đồng."
+        a: "Bằng số tiền đã đóng vào quỹ hưu trí - tử tuất, nhưng không quá 2 tháng mức bình quân tiền lương tháng đóng BHXH. Ví dụ lương bình quân 10 triệu đồng, đóng 6 tháng: số tiền đã đóng ước tính 22% nhân 10.000.000 nhân 6 bằng 13.200.000₫, dưới mức tối đa 20.000.000₫ nên rút được 13.200.000₫."
       },
       {
         q: "Lương bình quân 10 triệu, đóng 5 năm 3 tháng trước 2014 và 8 năm từ 2014 thì rút được bao nhiêu?",
-        a: "245.000.000 đồng. Phần trước 2014: 1,5 nhân 10.000.000 nhân 5 năm bằng 75.000.000 đồng; 3 tháng lẻ chuyển sang giai đoạn từ 2014 thành 8,5 năm, phần từ 2014: 2 nhân 10.000.000 nhân 8,5 bằng 170.000.000 đồng."
+        a: "245.000.000₫. Phần trước 2014: 1,5 nhân 10.000.000 nhân 5 năm bằng 75.000.000₫; 3 tháng lẻ chuyển sang giai đoạn từ 2014 thành 8,5 năm, phần từ 2014: 2 nhân 10.000.000 nhân 8,5 bằng 170.000.000₫."
       },
       {
         q: "Rút BHXH một lần rồi có đóng lại được không?",
@@ -105,22 +105,22 @@ export const TOOL_CONTENT = {
     legalBasis: "Cập nhật theo Quyết định 2892/QĐ-BCT, áp dụng từ 01/11/2026 (VAT 8%).",
     updatedAt: "19/11/2026",
     example: {
-      text: "Dùng 500 kWh trong tháng: 100 kWh × 1.901đ + 100 kWh × 2.289đ + 200 kWh × 2.894đ + 100 kWh × 3.456đ = 1.343.400đ chưa thuế, cộng VAT 8% (107.472đ) → tổng thanh toán 1.450.872đ.",
+      text: "Dùng 500 kWh trong tháng: 100 kWh × 1.901₫ + 100 kWh × 2.289₫ + 200 kWh × 2.894₫ + 100 kWh × 3.456₫ = 1.343.400₫ chưa thuế, cộng VAT 8% (107.472₫) → tổng thanh toán 1.450.872₫.",
       fills: { 'tdbt-kwh': '500', 'tdbt-vat': '8' },
     },
     disclaimer: "Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan điện lực (EVN) — số tiền thực tế theo hóa đơn tiền điện của EVN.",
     faqs: [
       {
         q: "Tiền điện 500 số giá bao nhiêu?",
-        a: "1.450.872 đồng (đã gồm VAT 8%): 100 số đầu nhân 1.901 cộng 100 số nhân 2.289 cộng 200 số nhân 2.894 cộng 100 số nhân 3.456 bằng 1.343.400 đồng chưa thuế, cộng VAT 107.472 đồng."
+        a: "1.450.872₫ (đã gồm VAT 8%): 100 số đầu nhân 1.901 cộng 100 số nhân 2.289 cộng 200 số nhân 2.894 cộng 100 số nhân 3.456 bằng 1.343.400₫ chưa thuế, cộng VAT 107.472₫."
       },
       {
         q: "Giá điện bậc thang 2026 có mấy bậc?",
-        a: "5 bậc, theo Quyết định 2892/QĐ-BCT từ 01/11/2026: bậc 1 (0-100 kWh) 1.901 đồng, bậc 2 (101-200) 2.289 đồng, bậc 3 (201-400) 2.894 đồng, bậc 4 (401-700) 3.456 đồng, bậc 5 (trên 700) 3.844 đồng, tất cả chưa VAT. Tiền điện tính lũy tiến: mỗi bậc chỉ áp cho số kWh trong bậc đó, không áp một giá cho toàn bộ."
+        a: "5 bậc, theo Quyết định 2892/QĐ-BCT từ 01/11/2026: bậc 1 (0-100 kWh) 1.901₫, bậc 2 (101-200) 2.289₫, bậc 3 (201-400) 2.894₫, bậc 4 (401-700) 3.456₫, bậc 5 (trên 700) 3.844₫, tất cả chưa VAT. Tiền điện tính lũy tiến: mỗi bậc chỉ áp cho số kWh trong bậc đó, không áp một giá cho toàn bộ."
       },
       {
         q: "Tiền điện 250 số giá bao nhiêu?",
-        a: "608.796 đồng đã gồm VAT 8%: 100 nhân 1.901 cộng 100 nhân 2.289 cộng 50 nhân 2.894 bằng 563.700 đồng chưa thuế, cộng VAT 45.096 đồng."
+        a: "608.796₫ đã gồm VAT 8%: 100 nhân 1.901 cộng 100 nhân 2.289 cộng 50 nhân 2.894 bằng 563.700₫ chưa thuế, cộng VAT 45.096₫."
       },
       {
         q: "VAT tiền điện là bao nhiêu phần trăm?",
@@ -129,18 +129,18 @@ export const TOOL_CONTENT = {
     ]
   },
   "lai-vay": {
-    intro: "Tính lãi vay và lịch trả nợ hàng tháng theo hai cách: trả đều mỗi tháng hoặc dư nợ giảm dần. Nhập số tiền vay, lãi suất năm và kỳ hạn để xem tiền trả từng tháng, tổng lãi và bảng lịch trả nợ chi tiết.",
+    intro: "Tính lãi vay và lịch trả nợ hằng tháng theo hai cách: trả đều mỗi tháng hoặc dư nợ giảm dần. Nhập số tiền vay, lãi suất năm và kỳ hạn để xem tiền trả từng tháng, tổng lãi và bảng lịch trả nợ chi tiết.",
     finance: true,
     legalBasis: "Cách tính theo chuẩn ngân hàng: lãi tính trên dư nợ thực tế mỗi tháng — trả đều mỗi tháng hoặc dư nợ giảm dần (gốc chia đều, lãi giảm dần).",
     updatedAt: "19/11/2026",
     example: {
-      text: "Vay 100.000.000đ, lãi suất 12%/năm, kỳ hạn 12 tháng, trả đều mỗi tháng: trả 8.884.879đ/tháng, tổng lãi 6.618.546đ, tổng phải trả 106.618.546đ.",
+      text: "Vay 100.000.000₫, lãi suất 12%/năm, kỳ hạn 12 tháng, trả đều mỗi tháng: trả 8.884.879₫/tháng, tổng lãi 6.618.546₫, tổng phải trả 106.618.546₫.",
       fills: { 'lv-principal': '100.000.000', 'lv-rate': '12', 'lv-months': '12', 'lv-method': 'annuity' },
     },
     faqs: [
       {
         q: "Vay 100 triệu lãi 12% trả bao nhiêu mỗi tháng?",
-        a: "Trả đều 12 tháng: 8.884.879 đồng mỗi tháng, tổng lãi 6.618.546 đồng. Dư nợ giảm dần: tháng đầu 9.333.333 đồng rồi giảm dần, tổng lãi 6.500.000 đồng."
+        a: "Trả đều 12 tháng: 8.884.879₫ mỗi tháng, tổng lãi 6.618.546₫. Dư nợ giảm dần: tháng đầu 9.333.333₫ rồi giảm dần, tổng lãi 6.500.000₫."
       },
       {
         q: "Trả đều và dư nợ giảm dần khác nhau thế nào?",
@@ -148,7 +148,7 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Lãi suất 12%/năm thì mỗi tháng tính bao nhiêu?",
-        a: "1% mỗi tháng trên dư nợ: 12% chia 12 tháng. Ví dụ vay 100 triệu, lãi tháng đầu là 1.000.000 đồng."
+        a: "1% mỗi tháng trên dư nợ: 12% chia 12 tháng. Ví dụ vay 100 triệu, lãi tháng đầu là 1.000.000₫."
       },
       {
         q: "Vay càng dài hạn thì tổng lãi càng nhiều không?",
@@ -201,7 +201,7 @@ export const TOOL_CONTENT = {
     ]
   },
   "gia-vang-ty-gia": {
-    intro: "Giá vàng SJC và tỉ giá trực tiếp: vàng miếng SJC, nhẫn SJC, DOJI, PNJ, vàng thế giới và tỉ giá 9 ngoại tệ so với đồng Việt Nam, kèm ô đổi ngoại tệ nhanh. Dữ liệu làm mới 2 lần mỗi ngày.",
+    intro: "Giá vàng SJC và tỷ giá trực tiếp: vàng miếng SJC, nhẫn SJC, DOJI, PNJ, vàng thế giới và tỷ giá 9 ngoại tệ so với đồng Việt Nam, kèm ô đổi ngoại tệ nhanh. Dữ liệu làm mới 2 lần mỗi ngày.",
     finance: true,
     faqs: [
       {
@@ -214,11 +214,11 @@ export const TOOL_CONTENT = {
       },
       {
         q: "1 USD bằng bao nhiêu tiền Việt?",
-        a: "Tỉ giá USD/VND hiển thị ngay trong công cụ cùng 8 ngoại tệ khác (EUR, JPY, KRW, CNY, GBP, AUD, SGD, THB). Nhập số tiền vào ô đổi ngoại tệ để quy đổi nhanh."
+        a: "Tỷ giá USD/VND hiển thị ngay trong công cụ cùng 8 ngoại tệ khác (EUR, JPY, KRW, CNY, GBP, AUD, SGD, THB). Nhập số tiền vào ô đổi ngoại tệ để quy đổi nhanh."
       },
       {
         q: "Giá vàng trên trang có chính xác không?",
-        a: "Số liệu lấy từ nguồn công khai (vang.today cho giá vàng, open.er-api.com cho tỉ giá) và chỉ để tham khảo. Giá vàng biến động liên tục trong ngày và mỗi cửa hàng niêm yết khác nhau, nên kiểm tra trực tiếp tại cửa hàng hoặc ngân hàng trước khi mua bán."
+        a: "Số liệu lấy từ nguồn công khai (vang.today cho giá vàng, open.er-api.com cho tỷ giá) và chỉ để tham khảo. Giá vàng biến động liên tục trong ngày và mỗi cửa hàng niêm yết khác nhau, nên kiểm tra trực tiếp tại cửa hàng hoặc ngân hàng trước khi mua bán."
       }
     ]
   },
@@ -251,11 +251,11 @@ export const TOOL_CONTENT = {
     faqs: [
       {
         q: "25m3 nước hết bao nhiêu tiền?",
-        a: "303.600 đồng theo giá Hà Nội mặc định: 10 m3 nhân 8.500 cộng 10 m3 nhân 9.900 cộng 5 m3 nhân 16.000 bằng 264.000 đồng, cộng VAT 5% (13.200 đồng) và phí bảo vệ môi trường 10% (26.400 đồng). Giá mỗi địa phương khác nhau, nhớ sửa lại theo hóa đơn của bạn."
+        a: "303.600₫ theo giá Hà Nội mặc định: 10 m3 nhân 8.500 cộng 10 m3 nhân 9.900 cộng 5 m3 nhân 16.000 bằng 264.000₫, cộng VAT 5% (13.200₫) và phí bảo vệ môi trường 10% (26.400₫). Giá mỗi địa phương khác nhau, nhớ sửa lại theo hóa đơn của bạn."
       },
       {
         q: "Giá nước sinh hoạt tính theo bậc nào?",
-        a: "Mặc định theo Hà Nội (Quyết định 3541/QĐ-UBND): bậc 1 (0-10 m3) 8.500 đồng, bậc 2 (trên 10-20 m3) 9.900 đồng, bậc 3 (trên 20-30 m3) 16.000 đồng, bậc 4 (trên 30 m3) 27.000 đồng mỗi m3, chưa gồm thuế và phí. Mỗi địa phương có biểu giá riêng, công cụ cho sửa từng bậc."
+        a: "Mặc định theo Hà Nội (Quyết định 3541/QĐ-UBND): bậc 1 (0-10 m3) 8.500₫, bậc 2 (trên 10-20 m3) 9.900₫, bậc 3 (trên 20-30 m3) 16.000₫, bậc 4 (trên 30 m3) 27.000₫ mỗi m3, chưa gồm thuế và phí. Mỗi địa phương có biểu giá riêng, công cụ cho sửa từng bậc."
       },
       {
         q: "Tiền nước gồm những khoản phí gì?",
@@ -263,17 +263,17 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Dùng 10m3 nước hết bao nhiêu tiền?",
-        a: "97.750 đồng theo giá Hà Nội: 10 nhân 8.500 bằng 85.000 đồng, cộng VAT 5% (4.250 đồng) và phí môi trường 10% (8.500 đồng). Hộ chính sách và hộ nghèo được giữ mức 5.973 đồng/m3 cho 10 m3 đầu."
+        a: "97.750₫ theo giá Hà Nội: 10 nhân 8.500 bằng 85.000₫, cộng VAT 5% (4.250₫) và phí môi trường 10% (8.500₫). Hộ chính sách và hộ nghèo được giữ mức 5.973₫/m3 cho 10 m3 đầu."
       }
     ]
   },
   "lai-kep": {
-    intro: "Tính lãi kép và tiết kiệm dài hạn: vốn ban đầu cộng gửi thêm hàng tháng, lãi cộng dồn vào gốc mỗi tháng. Xem tổng tài sản, tổng gốc đã gửi và tổng lãi nhận được sau từng năm.",
+    intro: "Tính lãi kép và tiết kiệm dài hạn: vốn ban đầu cộng gửi thêm hằng tháng, lãi cộng dồn vào gốc mỗi tháng. Xem tổng tài sản, tổng gốc đã gửi và tổng lãi nhận được sau từng năm.",
     finance: true,
     faqs: [
       {
         q: "Gửi 1 triệu mỗi tháng 10 năm được bao nhiêu?",
-        a: "Với lãi suất 6%/năm, sau 10 năm có khoảng 163.879.347 đồng: gốc đã gửi 120.000.000 đồng, lãi 43.879.347 đồng. Lãi kép tính theo tháng, khoản gửi thêm cộng vào cuối mỗi tháng."
+        a: "Với lãi suất 6%/năm, sau 10 năm có khoảng 163.879.347₫: gốc đã gửi 120.000.000₫, lãi 43.879.347₫. Lãi kép tính theo tháng, khoản gửi thêm cộng vào cuối mỗi tháng."
       },
       {
         q: "Lãi kép là gì?",
@@ -281,7 +281,7 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Gửi 100 triệu lãi 6% 10 năm được bao nhiêu?",
-        a: "Khoảng 181.939.673 đồng nếu không rút lãi và lãi suất giữ nguyên 6%/năm, lãi kép theo tháng. Tiền lãi là 81.939.673 đồng, gần bằng số vốn ban đầu."
+        a: "Khoảng 181.939.673₫ nếu không rút lãi và lãi suất giữ nguyên 6%/năm, lãi kép theo tháng. Tiền lãi là 81.939.673₫, gần bằng số vốn ban đầu."
       },
       {
         q: "Gửi tiết kiệm bao lâu thì tiền tăng gấp đôi?",
@@ -292,21 +292,21 @@ export const TOOL_CONTENT = {
   "luong-huu": {
     intro: "Ước tính lương hưu hằng tháng theo Luật BHXH 2024: nhập giới tính, thời gian đóng và mức bình quân tiền lương đóng BHXH để xem tỷ lệ hưởng, lương hưu mỗi tháng và trợ cấp một lần (nếu đóng vượt 30/35 năm).",
     finance: true,
-    legalBasis: "Cập nhật theo Điều 66, 68 Luật BHXH 41/2024/QH15 (hiệu lực 01/7/2025), Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, nghỉ hưu trước tuổi) và Nghị định 161/2026/NĐ-CP (trần đóng 50.600.000đ).",
+    legalBasis: "Cập nhật theo Điều 66, 68 Luật BHXH 41/2024/QH15 (hiệu lực 01/7/2025), Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, nghỉ hưu trước tuổi) và Nghị định 161/2026/NĐ-CP (trần đóng 50.600.000₫).",
     updatedAt: "19/11/2026",
     example: {
-      text: "Nữ, đóng BHXH 28 năm, mức bình quân 12.000.000đ, nghỉ đúng tuổi: tỷ lệ hưởng 71% (45% + 2% × 13 năm trên 15 năm) → lương hưu 8.520.000đ/tháng.",
+      text: "Nữ, đóng BHXH 28 năm, mức bình quân 12.000.000₫, nghỉ đúng tuổi: tỷ lệ hưởng 71% (45% + 2% × 13 năm trên 15 năm) → lương hưu 8.520.000₫/tháng.",
       fills: { 'lh-gender': 'nu', 'lh-years': '28', 'lh-months': '0', 'lh-avg': '12.000.000', 'lh-early-y': '0', 'lh-early-m': '0', 'lh-post': '0' },
     },
     faqs: [],
   },
   "tro-cap-thoi-viec-bhtn": {
-    intro: "Tính trợ cấp thất nghiệp (BHTN) và trợ cấp thôi việc: mức hưởng hàng tháng bằng 60% lương bình quân đóng BHTN 6 tháng gần nhất, cộng số tháng được hưởng theo thời gian đã đóng. Nhập lương và số tháng đóng để ước tính.",
+    intro: "Tính trợ cấp thất nghiệp (BHTN) và trợ cấp thôi việc: mức hưởng hằng tháng bằng 60% lương bình quân đóng BHTN 6 tháng gần nhất, cộng số tháng được hưởng theo thời gian đã đóng. Nhập lương và số tháng đóng để ước tính.",
     finance: true,
     legalBasis: "Cập nhật theo Điều 39 Luật Việc làm 74/2025/QH15 (hiệu lực 01/01/2026) và Nghị định 293/2025/NĐ-CP (lương tối thiểu vùng 2026).",
     updatedAt: "19/11/2026",
     example: {
-      text: "Lương bình quân đóng BHTN 12.000.000đ, đã đóng 24 tháng, Vùng I: trợ cấp thất nghiệp 7.200.000đ/tháng (60% lương, dưới trần 26.550.000đ), được hưởng 3 tháng → tổng 21.600.000đ.",
+      text: "Lương bình quân đóng BHTN 12.000.000₫, đã đóng 24 tháng, Vùng I: trợ cấp thất nghiệp 7.200.000₫/tháng (60% lương, dưới trần 26.550.000₫), được hưởng 3 tháng → tổng 21.600.000₫.",
       fills: { 'tc-salary': '12000000', 'tc-months': '24', 'tc-region': 'I', 'tc-pre2009': '0' },
     },
     faqs: [
@@ -316,7 +316,7 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Trợ cấp thất nghiệp được bao nhiêu một tháng?",
-        a: "60% lương bình quân đóng BHTN 6 tháng gần nhất. Ví dụ lương bình quân 12 triệu đồng thì trợ cấp 7.200.000 đồng mỗi tháng. Mức hưởng tối đa không quá 5 lần lương tối thiểu vùng."
+        a: "60% lương bình quân đóng BHTN 6 tháng gần nhất. Ví dụ lương bình quân 12 triệu đồng thì trợ cấp 7.200.000₫ mỗi tháng. Mức hưởng tối đa không quá 5 lần lương tối thiểu vùng."
       },
       {
         q: "Nghỉ việc bao lâu thì được nhận trợ cấp thất nghiệp?",
@@ -334,11 +334,11 @@ export const TOOL_CONTENT = {
     faqs: [
       {
         q: "1 triệu chưa VAT cộng VAT 10% là bao nhiêu?",
-        a: "1.100.000 đồng: tiền VAT là 100.000 đồng (1.000.000 nhân 10%)."
+        a: "1.100.000₫: tiền VAT là 100.000₫ (1.000.000 nhân 10%)."
       },
       {
         q: "Tách VAT 10% ra khỏi 1.100.000 như thế nào?",
-        a: "Chia cho 1,1: tiền trước thuế là 1.000.000 đồng, tiền VAT là 100.000 đồng. Công thức chung: tiền trước thuế bằng giá đã có VAT chia cho (1 cộng thuế suất)."
+        a: "Chia cho 1,1: tiền trước thuế là 1.000.000₫, tiền VAT là 100.000₫. Công thức chung: tiền trước thuế bằng giá đã có VAT chia cho (1 cộng thuế suất)."
       },
       {
         q: "VAT 8% áp dụng cho hàng hóa nào?",
@@ -346,7 +346,7 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Giá 1 triệu đã gồm VAT 8% thì VAT là bao nhiêu?",
-        a: "Tiền trước thuế là 925.926 đồng (1.000.000 chia 1,08), tiền VAT là 74.074 đồng."
+        a: "Tiền trước thuế là 925.926₫ (1.000.000 chia 1,08), tiền VAT là 74.074₫."
       }
     ]
   },
@@ -356,8 +356,8 @@ export const TOOL_CONTENT = {
     legalBasis: "Thưởng tháng 13 theo thỏa thuận hoặc quy chế công ty (Điều 104 Bộ luật Lao động 2019 — thưởng không bắt buộc); thuế TNCN theo biểu lũy tiến 5 bậc năm 2026 (Luật 109/2025/QH15), giảm trừ bản thân 15,5 triệu đồng.",
     updatedAt: "19/11/2026",
     example: {
-      text: "Lương tháng 15.000.000đ, làm đủ 12 tháng, 0 người phụ thuộc: thưởng tháng 13 là 15.000.000đ; thu nhập tính thuế tháng nhận thưởng 14.500.000đ nên thuế TNCN trên khoản thưởng là 950.000đ → thực nhận 14.050.000đ.",
-      fills: { 'lt13-salary': '15000000', 'lt13-months': '12', 'lt13-dependents': '0', 'lt13-insurance': '0' },
+      text: "Lương tháng 15.000.000₫, làm đủ 12 tháng, 0 người phụ thuộc, bảo hiểm tháng nhận thưởng 1.575.000₫: thưởng tháng 13 là 15.000.000₫; thu nhập tính thuế tháng nhận thưởng 12.925.000₫ nên thuế TNCN trên khoản thưởng là 792.500₫ → thực nhận 14.207.500₫.",
+      fills: { 'lt13-salary': '15000000', 'lt13-months': '12', 'lt13-dependents': '0', 'lt13-insurance': '1575000' },
     },
     faqs: [
       {
@@ -366,11 +366,11 @@ export const TOOL_CONTENT = {
       },
       {
         q: "Lương 15 triệu làm đủ 12 tháng thì tháng 13 được bao nhiêu?",
-        a: "Thưởng 15.000.000 đồng, thuế thu nhập cá nhân trên khoản thưởng khoảng 950.000 đồng (0 người phụ thuộc, chưa tính bảo hiểm tháng nhận thưởng), thực nhận 14.050.000 đồng. Thuế tính trên thu nhập tháng nhận thưởng (lương cộng thưởng) trừ giảm trừ gia cảnh."
+        a: "Thưởng 15.000.000₫, thuế thu nhập cá nhân trên khoản thưởng là 792.500₫ (0 người phụ thuộc, bảo hiểm tháng nhận thưởng 1.575.000₫), thực nhận 14.207.500₫. Thuế tính trên thu nhập tháng nhận thưởng (lương cộng thưởng) trừ bảo hiểm và giảm trừ gia cảnh."
       },
       {
         q: "Làm 6 tháng có được lương tháng 13 không?",
-        a: "Thường được tính theo tỷ lệ: 6 tháng làm việc thì thưởng bằng nửa tháng lương, ví dụ lương 15 triệu thì thưởng 7.500.000 đồng. Mức cụ thể tùy quy chế công ty, có nơi yêu cầu làm đủ số tháng tối thiểu mới được thưởng."
+        a: "Thường được tính theo tỷ lệ: 6 tháng làm việc thì thưởng bằng nửa tháng lương, ví dụ lương 15 triệu thì thưởng 7.500.000₫. Mức cụ thể tùy quy chế công ty, có nơi yêu cầu làm đủ số tháng tối thiểu mới được thưởng."
       },
       {
         q: "Lương tháng 13 có phải đóng thuế không?",

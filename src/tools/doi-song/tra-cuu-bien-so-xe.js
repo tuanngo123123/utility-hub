@@ -4,11 +4,11 @@ export const meta = {
   name: 'Tra cứu biển số xe các tỉnh thành',
   category: 'Đời sống',
   categorySlug: 'doi-song',
-  desc: 'Nhập biển số xe để biết xe đăng ký ở tỉnh/thành nào, hoặc chọn tỉnh để xem ký hiệu biển số của tỉnh đó — theo bảng ký hiệu 63 tỉnh thành.',
+  desc: 'Nhập biển số xe để biết xe đăng ký ở tỉnh/thành nào, hoặc chọn tỉnh để xem ký hiệu biển số của tỉnh đó — theo bảng ký hiệu 63 tỉnh cũ (vẫn đang áp dụng).',
   keywords: 'tra cứu biển số xe, biển số xe các tỉnh, 59 ở đâu, 29 ở đâu, ký hiệu biển số, biển số 51 tỉnh nào',
   icon: '🚗',
   seoTitle: 'Tra cứu biển số xe — 2 số đầu thuộc tỉnh nào',
-  seoDesc: 'Biển số 59, 29, 43 ở đâu? Tra cứu ký hiệu biển số xe của 63 tỉnh thành Việt Nam, hoặc chọn tỉnh để xem mã biển số.',
+  seoDesc: 'Biển số 59, 29, 43 ở đâu? Tra cứu ký hiệu biển số xe của 63 tỉnh thành cũ (ký hiệu biển số vẫn đang dùng), hoặc chọn tỉnh để xem mã biển số.',
 };
 
 export function body() {
@@ -24,7 +24,7 @@ export function body() {
   <div id="tbs-pane-plate">
     <div class="field">
       <label for="tbs-plate">Biển số xe</label>
-      <input id="tbs-plate" type="text" autocomplete="off" placeholder="VD: 59A-12345 hoặc chỉ nhập 59" maxlength="12">
+      <input id="tbs-plate" type="text" autocomplete="off" placeholder="Ví dụ: 59A-12345 hoặc chỉ nhập 59" maxlength="12">
       <p class="hint">Chỉ cần 2 số đầu là đủ — phần còn lại là ký tự series và số thứ tự đăng ký.</p>
     </div>
     <div class="btn-row">

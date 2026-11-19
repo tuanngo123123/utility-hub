@@ -58,7 +58,7 @@ ${samples.map((s) => sampleCard(s, topics)).join('\n')}
   </header>
   <section class="section">
     <label class="small muted" for="code-mau-search">Tìm mẫu code</label>
-    <input type="search" id="code-mau-search" class="search-input search-input-large" placeholder="VD: VietQR, CRC16, slug, JWT, debounce… (gõ không dấu cũng được)" autocomplete="off">
+    <input type="search" id="code-mau-search" class="search-input search-input-large" placeholder="Ví dụ: VietQR, CRC16, slug, JWT, debounce… (gõ không dấu cũng được)" autocomplete="off">
     <div class="chip-row" id="code-mau-chips" role="group" aria-label="Lọc theo chủ đề">
       ${chips}
     </div>

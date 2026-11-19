@@ -51,7 +51,7 @@ export const COURSES = [
     name: 'Google Skillshop',
     url: 'https://skillshop.withgoogle.com',
     learn: 'Chứng chỉ Google Ads (Search, Display, Video…), Google Analytics 4, Gemini cho Workspace; khóa Digital Marketing cơ bản 40 giờ.',
-    free: 'Miễn phí 100%: học + thi + chứng chỉ đều 0 đồng, thi lại miễn phí. Chứng chỉ Ads/Analytics hiệu lực 1 năm (điểm đạt 80%). Khóa Digital Marketing nay chỉ còn huy hiệu "award", không phải chứng chỉ chính thức.',
+    free: 'Miễn phí 100%: học + thi + chứng chỉ đều 0₫, thi lại miễn phí. Chứng chỉ Ads/Analytics hiệu lực 1 năm (điểm đạt 80%). Khóa Digital Marketing nay chỉ còn huy hiệu "award", không phải chứng chỉ chính thức.',
     cond: 'Chỉ cần tài khoản Google/Gmail bất kỳ.',
   },
   {
@@ -64,7 +64,7 @@ export const COURSES = [
   {
     name: 'Saylor University',
     url: 'https://saylor.org',
-    learn: 'Khóa học + sách miễn phí nhiều ngành, tự học theo tốc độ riêng — kể cả chương trình thạc sĩ 0 đồng học phí.',
+    learn: 'Khóa học + sách miễn phí nhiều ngành, tự học theo tốc độ riêng — kể cả chương trình thạc sĩ 0₫ học phí.',
     free: 'Miễn phí 100% học trực tuyến và tự học ("100% Online, Self-Paced, and Tuition Free!"). Chứng chỉ hoàn thành miễn phí khi đạt từ 70%.',
     cond: 'Thi lấy tín chỉ ĐH Mỹ (nếu muốn công nhận tín chỉ) có phí giám thị khoảng $5–25.',
   },
@@ -215,7 +215,7 @@ export const SCHOLARSHIPS_ABROAD = [
   {
     name: 'Manaaki New Zealand Scholarships (NZ)',
     links: [{ url: 'https://nzscholarships.govt.nz/', label: 'Trang chính thức →' }],
-    support: 'Toàn phần: học phí + sinh hoạt hàng tuần + trợ cấp ổn định 3.000 NZD + bảo hiểm + vé khứ hồi.',
+    support: 'Toàn phần: học phí + sinh hoạt hằng tuần + trợ cấp ổn định 3.000 NZD + bảo hiểm + vé khứ hồi.',
     note: 'Chính phủ New Zealand. Sau ĐH (chứng chỉ/văn bằng sau ĐH, thạc sĩ, tiến sĩ) — sinh viên Việt Nam không được nộp bậc ĐH. Mở đầu năm (khoảng tháng 2–4).',
   },
   {
@@ -335,7 +335,7 @@ export const EXAM_PREP = [
     name: 'IDP IELTS Việt Nam — thi thử miễn phí',
     url: 'https://ielts.idp.com/vietnam/about/news-and-articles/article-ielts-computer-trial-at-home/en-gb',
     learn: 'Thi thử IELTS trên máy tính tại trung tâm IDP (Hà Nội, TP.HCM, Đà Nẵng, Hải Phòng…), 15–20 phút/kỹ năng Nghe/Đọc/Viết + đề mẫu làm tại nhà cả 4 kỹ năng.',
-    free: 'Hoàn toàn miễn phí. Thi thử xong được giảm 500.000đ lệ phí thi thật nếu đăng ký thi với IDP.',
+    free: 'Hoàn toàn miễn phí. Thi thử xong được giảm 500.000₫ lệ phí thi thật nếu đăng ký thi với IDP.',
     cond: 'Cần đăng ký trước, số chỗ có hạn; kết quả trả chậm (vài tuần), không cấp bảng điểm chính thức; không có kỹ năng Nói trong thi thử tại trung tâm.',
   },
   {
@@ -372,7 +372,7 @@ export const JOBS = [
   {
     name: 'YBOX',
     url: 'https://ybox.vn',
-    desc: 'Kênh việc làm/học bổng chuyên cho sinh viên, cập nhật hàng ngày: thực tập, việc làm thêm, học bổng — có cả khóa học miễn phí.',
+    desc: 'Kênh việc làm/học bổng chuyên cho sinh viên, cập nhật hằng ngày: thực tập, việc làm thêm, học bổng — có cả khóa học miễn phí.',
     note: 'Miễn phí xem + ứng tuyển. Lưu ý: ngay trên YBOX cũng có tin kiểu "không cần kinh nghiệm, thu nhập 20–30tr/tháng" — đọc hộp cảnh báo bên dưới.',
   },
   {
@@ -444,7 +444,7 @@ export const DEALS = [
   {
     name: 'JetBrains',
     url: 'https://www.jetbrains.com/community/education/',
-    get: 'All Products Pack miễn phí 1 năm, gia hạn hàng năm: IntelliJ IDEA Ultimate, PyCharm Pro, WebStorm, Rider, CLion, DataGrip… (trị giá khoảng $299/năm). AI Pro không kèm (chỉ AI Free + thử AI Pro 30 ngày). Sau tốt nghiệp giảm 40% trong 2 năm.',
+    get: 'All Products Pack miễn phí 1 năm, gia hạn hằng năm: IntelliJ IDEA Ultimate, PyCharm Pro, WebStorm, Rider, CLion, DataGrip… (trị giá khoảng $299/năm). AI Pro không kèm (chỉ AI Free + thử AI Pro 30 ngày). Sau tốt nghiệp giảm 40% trong 2 năm.',
     cond: 'Sinh viên chính quy chương trình từ 1 năm trở lên. Xác minh: email trường, thẻ ISIC, tài khoản GitHub Student Pack, hoặc thẻ sinh viên. Chỉ dùng phi thương mại.',
   },
   {
@@ -468,13 +468,13 @@ export const DEALS = [
   {
     name: 'Spotify Student',
     url: 'https://www.spotify.com/vn-en/student/',
-    get: 'Premium Student: nghe không quảng cáo, tải offline, chất lượng cao — 33.000đ/tháng (giá gốc 65.000đ), tối đa 4 năm.',
+    get: 'Premium Student: nghe không quảng cáo, tải offline, chất lượng cao — 33.000₫/tháng (giá gốc 65.000₫), tối đa 4 năm.',
     cond: 'Từ 18 tuổi, đang học CĐ/ĐH được công nhận. Xác minh qua SheerID (trường phải có trong danh sách SheerID), xác minh lại mỗi 12 tháng. Không thanh toán bằng cước di động.',
   },
   {
     name: 'Autodesk Education',
     url: 'https://www.autodesk.com/asean/support/account/education/students-educators/overview',
-    get: 'Miễn phí 1 năm, gia hạn hàng năm: AutoCAD, Revit, Fusion, Inventor, 3ds Max, Maya… bản đầy đủ (kể cả 3 phiên bản cũ). Phù hợp sinh viên kiến trúc, xây dựng, cơ khí.',
+    get: 'Miễn phí 1 năm, gia hạn hằng năm: AutoCAD, Revit, Fusion, Inventor, 3ds Max, Maya… bản đầy đủ (kể cả 3 phiên bản cũ). Phù hợp sinh viên kiến trúc, xây dựng, cơ khí.',
     cond: 'Sinh viên/giảng viên tại trường đủ điều kiện. Xác minh qua SheerID bằng giấy tờ (thư xác nhận của trường, biên lai học phí, thẻ sinh viên có ngày) — email trường không đủ và cũng không bắt buộc. Cấm dùng thương mại; file xuất có watermark "PRODUCED BY AN AUTODESK STUDENT VERSION".',
   },
 ];
@@ -516,7 +516,7 @@ export const TEMPLATES = [
 <h3>Kỹ năng</h3>
 <ul>
 <li>Viết nội dung, quản lý fanpage Facebook và TikTok — thành thạo; Canva, CapCut — khá.</li>
-<li>Google Sheets (hàm cơ bản, PivotTable), MOS Excel 2025.</li>
+<li>Google Sheets (hàm cơ bản, PivotTable), MOS Excel (Microsoft 365).</li>
 <li>Tiếng Anh: TOEIC 750 (2025).</li>
 </ul>
 <h3>Kinh nghiệm làm thêm</h3>
@@ -525,7 +525,7 @@ export const TEMPLATES = [
 <li>Viết 3 bài/tuần cho fanpage 12.000 người theo dõi; 1 video TikTok đạt 150.000 lượt xem.</li>
 <li>Doanh số bán online tăng 20% trong 3 tháng làm việc.</li>
 </ul>
-<p><strong>Nhân viên bán hàng part-time — Cửa hàng tiện lợi</strong> · 2024</p>
+<p><strong>Nhân viên bán hàng bán thời gian — Cửa hàng tiện lợi</strong> · 2024</p>
 <ul>
 <li>Phục vụ khoảng 100 khách/ngày, thu ngân và kiểm kho cuối ca.</li>
 </ul>
@@ -638,7 +638,7 @@ Giảng viên hướng dẫn: [họ tên, học hàm/học vị]</p>
 <li>Sao chép báo cáo của khóa trước — trường kiểm tra đạo văn, bị phát hiện là trượt.</li>
 <li>Mô tả chung chung ("được học hỏi nhiều") mà không có việc cụ thể, số liệu cụ thể.</li>
 <li>Không ghi nguồn số liệu; hình ảnh lấy từ mạng không ghi nguồn.</li>
-<li>Để dồn viết vào tuần cuối — nên ghi nhật ký thực tập hàng tuần, viết dần theo đó.</li>
+<li>Để dồn viết vào tuần cuối — nên ghi nhật ký thực tập hằng tuần, viết dần theo đó.</li>
 </ul>
 <p class="note">Quy định trình bày (font, cỡ chữ, giãn dòng, lề) theo quy định riêng của từng trường — mẫu này chỉ gợi ý nội dung. Phổ biến nhất: font Times New Roman, cỡ 13–14, giãn dòng 1.5, đánh số trang ở giữa hoặc góc phải phía dưới.</p>`,
   },
@@ -681,7 +681,7 @@ Giảng viên hướng dẫn: [họ tên, học hàm/học vị]</p>
   },
   {
     slug: 'checklist-nhap-hoc-nam-nhat',
-    title: 'Checklist nhập học năm nhất',
+    title: 'Danh sách việc cần làm khi nhập học năm nhất',
     desc: 'Giấy tờ cần mang, thủ tục nhập học, đồ dùng ký túc xá/trọ — kiểm tra từng mục trước ngày lên trường.',
     body: `
 <p>Chuẩn bị trước 1 tuần, đừng để tới ngày nhập học mới lo giấy tờ. Đánh dấu từng mục khi đã xong.</p>
@@ -693,7 +693,7 @@ Giảng viên hướng dẫn: [họ tên, học hàm/học vị]</p>
 <li>Giấy chứng nhận tốt nghiệp THPT tạm thời (hoặc bằng tốt nghiệp nếu đã có).</li>
 <li>Giấy khai sinh (bản sao).</li>
 <li>Ảnh thẻ 3×4 (4–6 tấm, nền trắng hoặc xanh theo yêu cầu của trường).</li>
-<li>Sổ hộ khẩu hoặc giấy xác nhận cư trú.</li>
+<li>Giấy xác nhận thông tin cư trú (hoặc thông tin cư trú trên VNeID) nếu trường yêu cầu.</li>
 <li>Giấy chuyển sinh hoạt Đoàn (nếu là đoàn viên).</li>
 <li>Giấy khám sức khỏe (nếu trường yêu cầu).</li>
 <li>Hồ sơ ưu tiên (con thương binh, hộ nghèo…) nếu thuộc diện.</li>
@@ -760,20 +760,20 @@ Giảng viên hướng dẫn: [họ tên, học hàm/học vị]</p>
 <h2>Gợi ý ngân sách theo 3 mức (ví dụ tham khảo)</h2>
 <table class="tbl">
 <tr><th>Hạng mục</th><th>3 triệu (tiết kiệm)</th><th>4 triệu (vừa)</th><th>5 triệu (thoải mái)</th></tr>
-<tr><td>Nhà trọ (ở ghép)</td><td>800.000đ</td><td>1.200.000đ</td><td>1.500.000đ</td></tr>
-<tr><td>Điện + nước + wifi</td><td>250.000đ</td><td>350.000đ</td><td>450.000đ</td></tr>
-<tr><td>Ăn uống (tự nấu nhiều)</td><td>1.200.000đ</td><td>1.500.000đ</td><td>1.800.000đ</td></tr>
-<tr><td>Đi lại</td><td>200.000đ</td><td>300.000đ</td><td>400.000đ</td></tr>
-<tr><td>Học tập</td><td>150.000đ</td><td>200.000đ</td><td>300.000đ</td></tr>
-<tr><td>Cá nhân + giải trí</td><td>250.000đ</td><td>300.000đ</td><td>400.000đ</td></tr>
-<tr><td>Dự phòng</td><td>150.000đ</td><td>150.000đ</td><td>150.000đ</td></tr>
+<tr><td>Nhà trọ (ở ghép)</td><td>800.000₫</td><td>1.200.000₫</td><td>1.500.000₫</td></tr>
+<tr><td>Điện + nước + wifi</td><td>250.000₫</td><td>350.000₫</td><td>450.000₫</td></tr>
+<tr><td>Ăn uống (tự nấu nhiều)</td><td>1.200.000₫</td><td>1.500.000₫</td><td>1.800.000₫</td></tr>
+<tr><td>Đi lại</td><td>200.000₫</td><td>300.000₫</td><td>400.000₫</td></tr>
+<tr><td>Học tập</td><td>150.000₫</td><td>200.000₫</td><td>300.000₫</td></tr>
+<tr><td>Cá nhân + giải trí</td><td>250.000₫</td><td>300.000₫</td><td>400.000₫</td></tr>
+<tr><td>Dự phòng</td><td>150.000₫</td><td>150.000₫</td><td>150.000₫</td></tr>
 </table>
-<p class="muted small">Mức trên chưa gồm học phí (thường đóng theo học kỳ, không phải hàng tháng) và áp dụng cho sinh viên ở trọ tại thành phố lớn. Tự nấu ăn 4–5 bữa/tuần là cách tiết kiệm hiệu quả nhất — ăn ngoài mỗi ngày tốn gấp đôi.</p>
+<p class="muted small">Mức trên chưa gồm học phí (thường đóng theo học kỳ, không phải hằng tháng) và áp dụng cho sinh viên ở trọ tại thành phố lớn. Tự nấu ăn 4–5 bữa/tuần là cách tiết kiệm hiệu quả nhất — ăn ngoài mỗi ngày tốn gấp đôi.</p>
 <h2>Mẹo giữ ngân sách</h2>
 <ul>
 <li>Rút tiền mặt theo tuần thay vì giữ cả tháng trong ví.</li>
 <li>Mua đồ cũ (sách, xe đạp, đồ điện) từ sinh viên khóa trên.</li>
-<li>Ghi chép mỗi ngày — dùng công cụ <a href="/cong-cu/ghi-chep-tai-chinh/">Ghi chép tài chính</a> trên Tiện Ích Hub để dán ghi chép và xem tổng.</li>
+<li>Ghi chép mỗi ngày — dùng công cụ <a href="/cong-cu/ghi-chep-tai-chinh/">Sổ thu chi nhanh</a> trên Tiện Ích Hub để dán ghi chép và xem tổng.</li>
 <li>Để riêng khoản dự phòng ngay khi nhận tiền, đừng đợi cuối tháng còn bao nhiêu mới để dành.</li>
 </ul>`,
   },
@@ -808,11 +808,11 @@ Mã số sinh viên: [MSSV] — Điện thoại: [SĐT] — Email: [email]<br>
 <p class="note">Ví dụ minh họa — thông tin dưới đây là hư cấu: một sinh viên năm 3 ngành Kế toán xin học bổng khuyến khích học tập. Dùng để tham khảo cách viết, thay bằng thành tích và hoàn cảnh thật của bạn.</p>
 <h3>Đoạn thành tích mẫu (điền vào đơn)</h3>
 <div class="sv-letter">
-<p>Trong 2 học kỳ gần nhất, điểm trung bình của em đạt 3.6/4.0, thuộc nhóm 10 sinh viên có điểm cao nhất lớp 60 người. Em đã nhận học bổng khuyến khích học tập của trường 2 học kỳ liên tiếp, đạt giải Ba cuộc thi "Sinh viên với ý tưởng kinh doanh" cấp trường năm 2025 với đề án kế toán chi phí cho cửa hàng nhỏ, và làm trưởng nhóm dự án thực hành môn Kế toán quản trị — nhóm em đạt 9.2/10, cao nhất trong 8 nhóm. Ngoài ra em là thành viên Ban chấp hành Đoàn khoa, tổ chức 2 buổi hướng dẫn sinh viên năm nhất làm quen với phần mềm kế toán, mỗi buổi có khoảng 80 sinh viên tham gia.</p>
+<p>Trong 2 học kỳ gần nhất, điểm trung bình của tôi đạt 3.6/4.0, thuộc nhóm 10 sinh viên có điểm cao nhất lớp 60 người. Tôi đã nhận học bổng khuyến khích học tập của trường 2 học kỳ liên tiếp, đạt giải Ba cuộc thi "Sinh viên với ý tưởng kinh doanh" cấp trường năm 2025 với đề án kế toán chi phí cho cửa hàng nhỏ, và làm trưởng nhóm dự án thực hành môn Kế toán quản trị — nhóm tôi đạt 9.2/10, cao nhất trong 8 nhóm. Ngoài ra tôi là thành viên Ban chấp hành Đoàn khoa, tổ chức 2 buổi hướng dẫn sinh viên năm nhất làm quen với phần mềm kế toán, mỗi buổi có khoảng 80 sinh viên tham gia.</p>
 </div>
 <h3>Đoạn hoàn cảnh và kế hoạch mẫu (điền vào đơn)</h3>
 <div class="sv-letter">
-<p>Gia đình em ở quê, thu nhập chính từ 2 sào ruộng và việc làm thuê thời vụ của bố mẹ. Em vừa học vừa làm thêm 3 buổi/tuần tại một cửa hàng văn phòng phẩm để trang trải tiền trọ và sinh hoạt, nhưng vẫn giữ điểm trung bình trên 3.5. Nếu nhận được học bổng, em sẽ giảm giờ làm thêm để dành thời gian ôn thi chứng chỉ MOS Excel và chuẩn bị đồ án tốt nghiệp vào học kỳ tới. Em cam kết duy trì kết quả học tập và tham gia đầy đủ các hoạt động của khoa.</p>
+<p>Gia đình tôi ở quê, thu nhập chính từ 2 sào ruộng và việc làm thuê thời vụ của bố mẹ. Tôi vừa học vừa làm thêm 3 buổi/tuần tại một cửa hàng văn phòng phẩm để trang trải tiền trọ và sinh hoạt, nhưng vẫn giữ điểm trung bình trên 3.5. Nếu nhận được học bổng, tôi sẽ giảm giờ làm thêm để dành thời gian ôn thi chứng chỉ MOS Excel và chuẩn bị đồ án tốt nghiệp vào học kỳ tới. Tôi cam kết duy trì kết quả học tập và tham gia đầy đủ các hoạt động của khoa.</p>
 </div>
 <h3>Thư động lực mẫu (3 đoạn theo khung trên)</h3>
 <div class="sv-letter">
@@ -885,7 +885,7 @@ Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: 
   {
     slug: 'email-xin-viec-xin-thuc-tap',
     title: 'Email xin việc / xin thực tập',
-    desc: 'Cấu trúc email 6 phần, 2 mẫu cho 2 tình huống (ứng tuyển tin có sẵn / gửi chủ động) + checklist lỗi thường gặp.',
+    desc: 'Cấu trúc email 6 phần, 2 mẫu cho 2 tình huống (ứng tuyển tin có sẵn / gửi chủ động) + danh sách kiểm tra lỗi thường gặp.',
     body: `
 <p>Email xin việc là ấn tượng đầu tiên của bạn với nhà tuyển dụng — nhiều email bị bỏ qua chỉ vì tiêu đề chung chung hoặc quên đính kèm CV. Mẫu dưới đây dùng cho cả xin thực tập và xin việc làm thêm.</p>
 <h2>Cấu trúc email 6 phần</h2>
@@ -915,7 +915,7 @@ Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: 
 <p>Em xin gửi kèm CV và portfolio (file PDF đính kèm email này). Dù Quý công ty chưa có vị trí trống, em vẫn rất mong nhận được phản hồi để em có thể chuẩn bị cho đợt tuyển sau.</p>
 <p>Trân trọng,<br>Lê Văn C — SĐT: [số] — Email: [email]</p>
 </div>
-<h2>Checklist lỗi thường gặp</h2>
+<h2>Danh sách kiểm tra lỗi thường gặp</h2>
 <ul>
 <li><strong>Quên đính kèm file</strong> — đính kèm CV trước khi viết nội dung email.</li>
 <li><strong>Gửi CC cho nhiều công ty cùng lúc</strong> — mỗi công ty một email riêng, ghi tên công ty đúng.</li>
@@ -940,7 +940,7 @@ Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: 
 Sinh viên lớp [lớp], ngành [ngành], khoa [khoa] — Mã số sinh viên: [MSSV]<br>
 Điện thoại: [SĐT] — Email: [email]</p>
 <p>Nay tôi viết đơn này đề nghị phúc khảo bài thi môn [tên môn], mã học phần [mã], thi ngày [ngày/tháng/năm], học kỳ [kỳ] năm học [năm].</p>
-<p>Điểm đã công bố: [điểm] — Điểm tôi đề nghị xem lại: [điểm mong muốn / hoặc ghi "đề nghị chấm lại toàn bài"].</p>
+<p>Điểm đã công bố: [điểm] — Đề nghị chấm lại: [toàn bài / câu …].</p>
 <p>Lý do: [1–2 câu ngắn, cụ thể — ví dụ: "Tôi đã làm đầy đủ các câu hỏi theo đề thi và tự tin bài làm của mình, nhưng điểm công bố thấp bất thường so với bài làm" — tránh viết dài dòng, cảm tính.]</p>
 <p>Tôi xin cam đoan những thông tin trên là đúng sự thật và chấp hành kết quả phúc khảo của nhà trường.</p>
 <p class="sv-letter-right">[Địa điểm], ngày … tháng … năm …<br>Người viết đơn<br>(Ký và ghi rõ họ tên)<br><br>[Họ và tên]</p>
@@ -1003,7 +1003,7 @@ Mục đích: [xin học bổng / xin việc / xin học tiếp / …].</p>
   {
     slug: 'slide-thuyet-trinh',
     title: 'Slide thuyết trình — cấu trúc + mẹo trình bày',
-    desc: 'Cấu trúc 3 phần, số slide theo thời lượng, quy tắc 1 slide = 1 ý + checklist trước giờ thuyết trình.',
+    desc: 'Cấu trúc 3 phần, số slide theo thời lượng, quy tắc 1 slide = 1 ý + danh sách việc cần làm trước giờ thuyết trình.',
     body: `
 <p>Bài này không phải file tải về — đây là khung cấu trúc và mẹo trình bày để bạn tự làm slide thuyết trình cho môn học. Slide tốt không phải slide đẹp nhất, mà là slide giúp người nghe theo kịp ý của bạn.</p>
 <h2>Cấu trúc 3 phần</h2>
@@ -1039,13 +1039,13 @@ Mục đích: [xin học bổng / xin việc / xin học tiếp / …].</p>
 </ul>
 <h2>Phân công nhóm (mục nhỏ)</h2>
 <p>Trước khi làm slide, nhóm nên chốt phân công bằng văn bản ngắn trong nhóm chat: ai làm phần nào, hạn nộp phần của mình là khi nào, ai tổng hợp slide, ai thuyết trình phần nào. Ghi rõ ngày giờ — phân công miệng rất dễ quên và đổ lỗi cho nhau khi gần đến hạn.</p>
-<h2>Checklist trước giờ thuyết trình</h2>
+<h2>Danh sách việc cần làm trước giờ thuyết trình</h2>
 <ul>
 <li>Thử slide trên máy chiếu/máy tính của phòng học trước giờ (font, video, âm thanh có chạy không).</li>
 <li>Chuẩn bị file dự phòng: 1 bản PDF + 1 bản trên USB + 1 bản trên Drive/email.</li>
 <li>Sạc đầy pin laptop, mang theo sạc và đầu chuyển HDMI/VGA nếu cần.</li>
 <li>In sẵn dàn ý 1 trang để cầm tay khi nói (không in cả slide).</li>
-<li>Đến sớm 10 phút để setup và thử micro.</li>
+<li>Đến sớm 10 phút để chuẩn bị và thử micro.</li>
 </ul>`,
   },
   {

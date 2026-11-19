@@ -17,8 +17,8 @@ export function body() {
   <div class="tool-panel">
     <div class="tool-head"><h2>💘 Bói tình yêu</h2><p class="muted">Nhập tên hai người — kết quả chỉ để vui, đừng tin quá nhé!</p></div>
     <div class="grid-2">
-      <div class="field"><label for="bt-name1">Tên người thứ nhất</label><input id="bt-name1" type="text" maxlength="50" placeholder="VD: Minh Tuấn"></div>
-      <div class="field"><label for="bt-name2">Tên người thứ hai</label><input id="bt-name2" type="text" maxlength="50" placeholder="VD: Thu Hương"></div>
+      <div class="field"><label for="bt-name1">Tên người thứ nhất</label><input id="bt-name1" type="text" maxlength="50" placeholder="Ví dụ: Minh Tuấn"></div>
+      <div class="field"><label for="bt-name2">Tên người thứ hai</label><input id="bt-name2" type="text" maxlength="50" placeholder="Ví dụ: Thu Hương"></div>
     </div>
     <div class="grid-2">
       <div class="field"><label for="bt-dob1">Ngày sinh người 1 (không bắt buộc)</label><input id="bt-dob1" type="date"></div>

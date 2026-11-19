@@ -17,7 +17,7 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="tb-total">Tổng hóa đơn (₫)</label>
-      <input id="tb-total" type="text" inputmode="decimal" value="500.000" placeholder="VD: 500.000">
+      <input id="tb-total" type="text" inputmode="decimal" value="500.000" placeholder="Ví dụ: 500.000">
     </div>
     <div class="field">
       <label for="tb-people">Số người chia</label>
@@ -26,7 +26,7 @@ export function body() {
   </div>
   <div class="field">
     <label for="tb-pct">Tỷ lệ boa (%)</label>
-    <input id="tb-pct" type="text" inputmode="decimal" value="10" placeholder="VD: 10">
+    <input id="tb-pct" type="text" inputmode="decimal" value="10" placeholder="Ví dụ: 10">
     <div style="margin-top:8px">
       <button type="button" class="btn btn-ghost" data-pct="5">5%</button>
       <button type="button" class="btn btn-ghost" data-pct="10">10%</button>

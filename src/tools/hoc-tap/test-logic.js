@@ -1,14 +1,14 @@
-// Test logic 10 câu trắc nghiệm, xáo trộn thứ tự, chấm điểm + giải thích.
+// Bài đố logic 10 câu trắc nghiệm, xáo trộn thứ tự, chấm điểm + giải thích.
 export const meta = {
   id: 'test-logic',
-  name: 'Test logic 10 câu',
+  name: 'Bài đố logic 10 câu',
   category: 'Học tập',
   categorySlug: 'hoc-tap',
-  desc: 'Bài test logic 10 câu hỏi trắc nghiệm ngắn: dãy số, suy luận, đố mẹo toán học — chấm điểm ngay kèm đáp án và giải thích từng câu.',
-  keywords: 'test logic, test iq, câu đố logic, trắc nghiệm logic, bài test tư duy, đố vui toán học',
+  desc: 'Bài đố logic 10 câu hỏi trắc nghiệm ngắn: dãy số, suy luận, đố mẹo toán học — chấm điểm ngay kèm đáp án và giải thích từng câu.',
+  keywords: 'test logic, bài đố logic, test iq, câu đố logic, trắc nghiệm logic, bài test tư duy, đố vui toán học',
   icon: '🧠',
-  seoTitle: 'Test logic 10 câu — trắc nghiệm tư duy có đáp án & giải thích',
-  seoDesc: 'Làm bài test logic 10 câu miễn phí: dãy số, suy luận, đố mẹo. Chấm điểm ngay, xem đáp án và giải thích chi tiết từng câu.',
+  seoTitle: 'Bài đố logic 10 câu — trắc nghiệm tư duy có đáp án & giải thích',
+  seoDesc: 'Làm bài đố logic 10 câu miễn phí: dãy số, suy luận, đố mẹo. Chấm điểm ngay, xem đáp án và giải thích chi tiết từng câu.',
 };
 
 export function body() {

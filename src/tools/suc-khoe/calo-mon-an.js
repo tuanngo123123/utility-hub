@@ -24,7 +24,7 @@ export function body() {
     </div>
     <div class="field">
       <label for="cma-portion">Số khẩu phần</label>
-      <input id="cma-portion" type="text" inputmode="decimal" value="1" placeholder="VD: 1">
+      <input id="cma-portion" type="text" inputmode="decimal" value="1" placeholder="Ví dụ: 1">
     </div>
     <div class="field">
       <label>&nbsp;</label>

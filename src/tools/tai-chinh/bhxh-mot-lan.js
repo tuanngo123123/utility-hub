@@ -22,7 +22,7 @@ export function body() {
       <div class="m2-input-top">
         <div class="field m2-field">
           <label for="bhxh-avg">Mức bình quân tiền lương tháng đóng BHXH</label>
-          <span class="input-unit"><input id="bhxh-avg" class="m2-salary" type="text" inputmode="decimal" value="10.000.000" placeholder="VD: 10.000.000"><span class="unit">₫</span></span>
+          <span class="input-unit"><input id="bhxh-avg" class="m2-salary" type="text" inputmode="decimal" value="10.000.000" placeholder="Ví dụ: 10.000.000"><span class="unit">₫</span></span>
           <p class="hint">Lương bình quân toàn bộ quá trình đóng (tra trên VssID). Công cụ tính theo con số bạn nhập, chưa điều chỉnh hệ số trượt giá — nếu có mức bình quân đã điều chỉnh thì nhập mức đó.</p>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh mức bình quân">

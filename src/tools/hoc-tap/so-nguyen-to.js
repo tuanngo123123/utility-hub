@@ -24,7 +24,7 @@ export function body() {
     <div class="grid-2">
       <div class="field">
         <label for="snt-n">Nhập một số nguyên</label>
-        <input id="snt-n" type="number" step="1" value="97" placeholder="VD: 97">
+        <input id="snt-n" type="number" step="1" value="97" placeholder="Ví dụ: 97">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="snt-calc-1">Kiểm tra</button>
@@ -34,11 +34,11 @@ export function body() {
     <div class="grid-2">
       <div class="field">
         <label for="snt-from">Từ số</label>
-        <input id="snt-from" type="number" step="1" value="1" placeholder="VD: 1">
+        <input id="snt-from" type="number" step="1" value="1" placeholder="Ví dụ: 1">
       </div>
       <div class="field">
         <label for="snt-to">Đến số</label>
-        <input id="snt-to" type="number" step="1" value="100" placeholder="VD: 100">
+        <input id="snt-to" type="number" step="1" value="100" placeholder="Ví dụ: 100">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="snt-calc-2">Liệt kê số nguyên tố</button>

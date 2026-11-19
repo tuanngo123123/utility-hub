@@ -19,7 +19,7 @@ export function body() {
 <div class="tool-panel">
   <div class="tool-head"><span>🐙</span><div><h2>Tra cứu GitHub</h2><p class="muted">Xem hồ sơ tài khoản hoặc thông tin repo công khai — dữ liệu trực tiếp từ GitHub.</p></div></div>
   <div class="field"><label for="tcg-mode">Tra cứu gì</label><select id="tcg-mode"><option value="user">Người dùng — hồ sơ tài khoản</option><option value="repo">Repo — thông tin owner/repo</option></select></div>
-  <div class="field"><label for="tcg-input" id="tcg-label">Tên tài khoản</label><input id="tcg-input" type="text" placeholder="VD: torvalds" value="torvalds" autocomplete="off" spellcheck="false"></div>
+  <div class="field"><label for="tcg-input" id="tcg-label">Tên tài khoản</label><input id="tcg-input" type="text" placeholder="Ví dụ: torvalds" value="torvalds" autocomplete="off" spellcheck="false"></div>
   <button type="button" class="btn btn-primary" id="tcg-go">Tra cứu</button>
   <div id="tcg-out"></div>
   <p class="note">Dữ liệu lấy trực tiếp từ api.github.com, không cần đăng nhập. Chỉ tra được tài khoản và repo công khai. GitHub giới hạn 60 lượt tra cứu/giờ cho mỗi địa chỉ IP khi không đăng nhập.</p>
@@ -48,8 +48,8 @@ export function init(root) {
   }
 
   const LABELS = {
-    user: { label: 'Tên tài khoản', placeholder: 'VD: torvalds', sample: 'torvalds' },
-    repo: { label: 'Tên repo (owner/repo)', placeholder: 'VD: facebook/react', sample: 'facebook/react' },
+    user: { label: 'Tên tài khoản', placeholder: 'Ví dụ: torvalds', sample: 'torvalds' },
+    repo: { label: 'Tên repo (owner/repo)', placeholder: 'Ví dụ: facebook/react', sample: 'facebook/react' },
   };
   $('tcg-mode').addEventListener('change', () => {
     const m = LABELS[$('tcg-mode').value];
@@ -114,7 +114,7 @@ export function init(root) {
     if (mode === 'user') {
       const username = raw.replace(/^https?:\/\/github\.com\//i, '').replace(/^@/, '').replace(/\/$/, '');
       if (!/^[A-Za-z0-9]([A-Za-z0-9-]*[A-Za-z0-9])?$/.test(username) || username.length > 39) {
-        $('tcg-out').innerHTML = '<p class="error">Tên tài khoản GitHub chỉ gồm chữ, số và dấu gạch ngang — VD: torvalds.</p>';
+        $('tcg-out').innerHTML = '<p class="error">Tên tài khoản GitHub chỉ gồm chữ, số và dấu gạch ngang — Ví dụ: torvalds.</p>';
         return;
       }
       $('tcg-out').innerHTML = '<p class="note">Đang tra cứu…</p>';
@@ -134,7 +134,7 @@ export function init(root) {
       const input = raw.replace(/^https?:\/\/github\.com\//i, '').replace(/\/$/, '');
       const m = /^([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)$/.exec(input);
       if (!m) {
-        $('tcg-out').innerHTML = '<p class="error">Nhập đúng dạng owner/repo — VD: facebook/react.</p>';
+        $('tcg-out').innerHTML = '<p class="error">Nhập đúng dạng owner/repo — Ví dụ: facebook/react.</p>';
         return;
       }
       $('tcg-out').innerHTML = '<p class="note">Đang tra cứu…</p>';

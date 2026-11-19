@@ -128,7 +128,7 @@ export function init(root) {
     const unit = $('dtt-' + kind + '-unit').value;
     const wrap = $('dtt-' + kind + '-inputs');
     wrap.innerHTML = def.fields.map(f => '<div class="field"><label for="dtt-' + kind + '-' + f[0] + '">' + f[1] + ' (' + unit + ')</label>'
-      + '<input id="dtt-' + kind + '-' + f[0] + '" type="text" inputmode="decimal" data-dtt-field="' + f[0] + '" placeholder="VD: ' + (def.example[f[0]] || '') + '"></div>').join('')
+      + '<input id="dtt-' + kind + '-' + f[0] + '" type="text" inputmode="decimal" data-dtt-field="' + f[0] + '" placeholder="Ví dụ: ' + (def.example[f[0]] || '') + '"></div>').join('')
       + '<p class="note">Công thức: ' + escHtml(def.formula) + '</p>';
     // Gắn Enter cho các ô mới.
     wrap.querySelectorAll('input').forEach(el => el.addEventListener('keydown', e => { if (e.key === 'Enter') runCalc(kind); }));

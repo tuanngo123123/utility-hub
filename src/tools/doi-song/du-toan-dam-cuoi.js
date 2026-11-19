@@ -20,36 +20,36 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="dtdc-guests">Số khách mời</label>
-      <input id="dtdc-guests" type="text" inputmode="numeric" value="300" placeholder="VD: 300">
+      <input id="dtdc-guests" type="text" inputmode="numeric" value="300" placeholder="Ví dụ: 300">
     </div>
     <div class="field">
       <label for="dtdc-tables">Số bàn tiệc</label>
-      <input id="dtdc-tables" type="text" inputmode="numeric" value="30" placeholder="VD: 30">
+      <input id="dtdc-tables" type="text" inputmode="numeric" value="30" placeholder="Ví dụ: 30">
       <p class="hint">Thường 10 khách/bàn. Để trống sẽ tự tính từ số khách.</p>
     </div>
     <div class="field">
       <label for="dtdc-table-price">Giá mỗi bàn tiệc</label>
-      <span class="input-unit"><input id="dtdc-table-price" type="text" inputmode="decimal" value="5.000.000" placeholder="VD: 5.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="dtdc-table-price" type="text" inputmode="decimal" value="5.000.000" placeholder="Ví dụ: 5.000.000"><span class="unit">₫</span></span>
     </div>
     <div class="field">
       <label for="dtdc-photo">Chụp ảnh + quay phim</label>
-      <span class="input-unit"><input id="dtdc-photo" type="text" inputmode="decimal" value="15.000.000" placeholder="VD: 15.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="dtdc-photo" type="text" inputmode="decimal" value="15.000.000" placeholder="Ví dụ: 15.000.000"><span class="unit">₫</span></span>
     </div>
     <div class="field">
       <label for="dtdc-dress">Váy cưới + trang điểm</label>
-      <span class="input-unit"><input id="dtdc-dress" type="text" inputmode="decimal" value="10.000.000" placeholder="VD: 10.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="dtdc-dress" type="text" inputmode="decimal" value="10.000.000" placeholder="Ví dụ: 10.000.000"><span class="unit">₫</span></span>
     </div>
     <div class="field">
       <label for="dtdc-decor">Hoa + trang trí + âm thanh</label>
-      <span class="input-unit"><input id="dtdc-decor" type="text" inputmode="decimal" value="20.000.000" placeholder="VD: 20.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="dtdc-decor" type="text" inputmode="decimal" value="20.000.000" placeholder="Ví dụ: 20.000.000"><span class="unit">₫</span></span>
     </div>
     <div class="field">
       <label for="dtdc-invite">Thiệp mời + khác</label>
-      <span class="input-unit"><input id="dtdc-invite" type="text" inputmode="decimal" value="5.000.000" placeholder="VD: 5.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="dtdc-invite" type="text" inputmode="decimal" value="5.000.000" placeholder="Ví dụ: 5.000.000"><span class="unit">₫</span></span>
     </div>
     <div class="field">
       <label for="dtdc-gift">Tiền mừng trung bình mỗi khách (ước tính)</label>
-      <span class="input-unit"><input id="dtdc-gift" type="text" inputmode="decimal" value="500.000" placeholder="VD: 500.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="dtdc-gift" type="text" inputmode="decimal" value="500.000" placeholder="Ví dụ: 500.000"><span class="unit">₫</span></span>
       <p class="hint">Để 0 nếu không muốn tính tiền mừng.</p>
     </div>
   </div>

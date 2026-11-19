@@ -23,7 +23,7 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="tvat-amount">Số tiền (₫)</label>
-      <input id="tvat-amount" type="text" inputmode="decimal" value="1.000.000" placeholder="VD: 1.000.000">
+      <input id="tvat-amount" type="text" inputmode="decimal" value="1.000.000" placeholder="Ví dụ: 1.000.000">
     </div>
     <div class="field">
       <label for="tvat-rate">Thuế suất VAT</label>
@@ -38,7 +38,7 @@ export function body() {
   </div>
   <div class="field" id="tvat-custom-wrap" style="display:none">
     <label for="tvat-custom">Thuế suất tùy chọn (%)</label>
-    <input id="tvat-custom" type="text" inputmode="decimal" value="10" placeholder="VD: 7,5">
+    <input id="tvat-custom" type="text" inputmode="decimal" value="10" placeholder="Ví dụ: 7,5">
   </div>
   <button type="button" class="btn btn-primary" id="tvat-calc">Tính VAT</button>
   <div id="tvat-out"></div>

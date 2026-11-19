@@ -1,19 +1,19 @@
-// Đếm ngược lớp học: preset theo hoạt động dạy học (30 giây–15 phút)
+// Đếm ngược lớp học: mốc có sẵn theo hoạt động dạy học (30 giây–15 phút)
 // + nhập tay, 3 kiểu hiển thị (số lớn, vòng tròn, bảng LED), chuông
 // Web Audio khi hết giờ + bíp 5 giây cuối, nút +30 giây, bấm giờ
 // (stopwatch) trong cùng công cụ, chế độ Chiếu lớp. Khác bấm giờ ở
-// mục Đời sống ở chỗ chữ khổng lồ, preset theo phút, chuông và chế
+// mục Đời sống ở chỗ chữ khổng lồ, mốc có sẵn theo phút, chuông và chế
 // độ chiếu.
 export const meta = {
   id: 'dem-nguoc-lop-hoc',
   name: 'Đếm ngược lớp học',
   category: 'Giáo viên',
   categorySlug: 'giao-vien',
-  desc: 'Đếm ngược cho giờ học: preset 30 giây đến 15 phút, hiển thị số lớn, vòng tròn hoặc bảng LED, chuông khi hết giờ, bíp 5 giây cuối, nút +30 giây, có bấm giờ và chế độ chiếu lớp.',
+  desc: 'Đếm ngược cho giờ học: mốc có sẵn 30 giây đến 15 phút, hiển thị số lớn, vòng tròn hoặc bảng LED, chuông khi hết giờ, bíp 5 giây cuối, nút +30 giây, có bấm giờ và chế độ chiếu lớp.',
   keywords: 'đếm ngược lớp học, đồng hồ đếm ngược, hẹn giờ dạy học, timer lớp học, bấm giờ lớp học, chuông hết giờ',
   icon: '⏱️',
-  seoTitle: 'Đếm ngược lớp học — preset theo tiết học, chuông hết giờ',
-  seoDesc: 'Đếm ngược màn hình lớn cho lớp học: preset 30 giây đến 15 phút, 3 kiểu hiển thị, chuông khi hết giờ, bíp 5 giây cuối, bấm giờ trong cùng công cụ. Miễn phí, chạy ngay trên trình duyệt.',
+  seoTitle: 'Đếm ngược lớp học — mốc có sẵn theo tiết học, chuông hết giờ',
+  seoDesc: 'Đếm ngược màn hình lớn cho lớp học: mốc có sẵn 30 giây đến 15 phút, 3 kiểu hiển thị, chuông khi hết giờ, bíp 5 giây cuối, bấm giờ trong cùng công cụ. Miễn phí, chạy ngay trên trình duyệt.',
 };
 
 export function body() {
@@ -177,7 +177,7 @@ export function init(root) {
 
   function startTimer() {
     if (totalMs <= 0) {
-      $('dn-status').textContent = 'Chọn thời gian trước đã nhé (preset hoặc nhập tay).';
+      $('dn-status').textContent = 'Chọn thời gian trước đã nhé (mốc có sẵn hoặc nhập tay).';
       return;
     }
     if (done || remainingMs <= 0) {

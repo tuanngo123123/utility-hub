@@ -2,7 +2,7 @@
 export const meta = {
   id: 'than-so-hoc',
   name: 'Thần số học: số chủ đạo & ý nghĩa',
-  category: 'Hàng ngày',
+  category: 'Hằng ngày',
   categorySlug: 'hang-ngay',
   desc: 'Nhập ngày sinh và họ tên để tính số chủ đạo, số ngày sinh, số thái độ và số sứ mệnh theo thần số học Pythagoras, kèm giải nghĩa từng con số.',
   keywords: 'thần số học, số chủ đạo, tính số chủ đạo, numerology, số sứ mệnh, ý nghĩa số chủ đạo',
@@ -24,7 +24,7 @@ export function body() {
     </div>
     <div class="field">
       <label for="tsh-name">Họ và tên đầy đủ</label>
-      <input id="tsh-name" type="text" placeholder="VD: Nguyễn Văn An" maxlength="60">
+      <input id="tsh-name" type="text" placeholder="Ví dụ: Nguyễn Văn An" maxlength="60">
       <p class="hint">Dùng tên khai sinh. Bỏ trống vẫn tính được các số theo ngày sinh.</p>
     </div>
   </div>

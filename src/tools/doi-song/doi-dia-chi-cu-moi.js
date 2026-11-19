@@ -27,7 +27,7 @@ export function body() {
   <div id="ddc-form" style="display:none">
     <div class="grid-2">
       <div class="field"><label for="ddc-tinh">Tỉnh/thành cũ (tính đến 30/6/2025)</label><select id="ddc-tinh"></select><p class="hint">Chọn tỉnh/thành ghi trên giấy tờ, địa chỉ cũ của bạn.</p></div>
-      <div class="field"><label for="ddc-diachi">Địa chỉ cũ đầy đủ (không bắt buộc)</label><input id="ddc-diachi" type="text" placeholder="VD: Số 12, đường Lê Lợi, phường Phú Cường, TP Thủ Dầu Một, tỉnh Bình Dương"><p class="hint">Nếu nhập, công cụ gợi ý cách viết lại địa chỉ với tỉnh và xã mới (tự bỏ phần quận/huyện đã bãi bỏ).</p></div>
+      <div class="field"><label for="ddc-diachi">Địa chỉ cũ đầy đủ (không bắt buộc)</label><input id="ddc-diachi" type="text" placeholder="Ví dụ: Số 12, đường Lê Lợi, phường Phú Cường, TP Thủ Dầu Một, tỉnh Bình Dương"><p class="hint">Nếu nhập, công cụ gợi ý cách viết lại địa chỉ với tỉnh và xã mới (tự bỏ phần quận/huyện đã bãi bỏ).</p></div>
     </div>
     <div class="btn-row">
       <button type="button" class="btn btn-primary" id="ddc-tim">Tra cứu</button>

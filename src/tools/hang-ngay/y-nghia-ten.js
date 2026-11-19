@@ -17,7 +17,7 @@ export function body() {
   return `
   <div class="tool-panel">
     <div class="tool-head"><h2>📛 Ý nghĩa tên</h2><p class="muted">Nhập họ tên đầy đủ — công cụ phân tích ý nghĩa từng chữ và tổng kết nét tính cách chung của cái tên.</p></div>
-    <div class="field"><label for="yt-name">Họ và tên</label><input id="yt-name" type="text" maxlength="60" placeholder="VD: Nguyễn Minh Tuấn"></div>
+    <div class="field"><label for="yt-name">Họ và tên</label><input id="yt-name" type="text" maxlength="60" placeholder="Ví dụ: Nguyễn Minh Tuấn"></div>
     <button id="yt-go" class="btn btn-primary" type="button">Xem ý nghĩa tên</button>
     <div id="yt-out" class="result"></div>
     <p class="note">Ý nghĩa mang tính tham khảo, giải trí. Chữ nào chưa có trong từ điển sẽ được ghi rõ, không tự suy diễn.</p>

@@ -3,14 +3,14 @@
 // (NQ 198/2025/QH15; NĐ 362/2025/NĐ-CP; Công văn 645/CT-CS của Cục Thuế).
 export const meta = {
   id: 'le-phi-mon-bai',
-  name: 'Tính lệ phí môn bài',
+  name: 'Lệ phí môn bài: đã bãi bỏ từ 2026 + tra mức cũ',
   category: 'Tài chính',
   categorySlug: 'tai-chinh',
-  desc: 'Tra mức lệ phí môn bài theo vốn điều lệ (doanh nghiệp) hoặc doanh thu (hộ kinh doanh) — kèm lưu ý quan trọng: từ năm 2026 lệ phí môn bài đã được bãi bỏ.',
+  desc: 'Từ 01/01/2026 lệ phí môn bài đã bãi bỏ hoàn toàn (0₫, không phải khai). Công cụ này tra mức cũ năm 2025 theo vốn điều lệ (doanh nghiệp) hoặc doanh thu (hộ kinh doanh).',
   keywords: 'lệ phí môn bài, thuế môn bài 2025, môn bài doanh nghiệp, môn bài hộ kinh doanh, bãi bỏ lệ phí môn bài 2026',
   icon: '🏛️',
-  seoTitle: 'Tính lệ phí môn bài — mức thu 2025 & lưu ý bãi bỏ từ 2026',
-  seoDesc: 'Tính lệ phí môn bài năm 2025 theo vốn điều lệ hoặc doanh thu: doanh nghiệp 2–3 triệu/năm, hộ kinh doanh 300 nghìn–1 triệu/năm. Từ 01/01/2026 đã bãi bỏ, không phải nộp.',
+  seoTitle: 'Lệ phí môn bài: đã bãi bỏ từ 2026 + tra mức cũ 2025',
+  seoDesc: 'Từ 01/01/2026 lệ phí môn bài đã bãi bỏ hoàn toàn (0₫, không phải khai). Tra mức cũ năm 2025: doanh nghiệp 2–3 triệu/năm, hộ kinh doanh 300 nghìn–1 triệu/năm.',
 };
 
 export function body() {
@@ -42,14 +42,14 @@ export function body() {
   <div id="lpmb-panel-dn">
     <div class="field">
       <label for="lpmb-capital">Vốn điều lệ hoặc vốn đầu tư</label>
-      <span class="input-unit"><input id="lpmb-capital" type="text" inputmode="decimal" value="8.000.000.000" placeholder="VD: 8.000.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="lpmb-capital" type="text" inputmode="decimal" value="8.000.000.000" placeholder="Ví dụ: 8.000.000.000"><span class="unit">₫</span></span>
       <p class="hint">Trên 10 tỷ đồng: 3.000.000₫/năm. Từ 10 tỷ đồng trở xuống: 2.000.000₫/năm. Chi nhánh, văn phòng đại diện, địa điểm kinh doanh: 1.000.000₫/năm.</p>
     </div>
   </div>
   <div id="lpmb-panel-hkd" style="display:none">
     <div class="field">
       <label for="lpmb-revenue">Doanh thu năm trước liền kề</label>
-      <span class="input-unit"><input id="lpmb-revenue" type="text" inputmode="decimal" value="420.000.000" placeholder="VD: 420.000.000"><span class="unit">₫</span></span>
+      <span class="input-unit"><input id="lpmb-revenue" type="text" inputmode="decimal" value="420.000.000" placeholder="Ví dụ: 420.000.000"><span class="unit">₫</span></span>
       <p class="hint">Trên 500 triệu/năm: 1.000.000₫. Trên 300–500 triệu: 500.000₫. Trên 100–300 triệu: 300.000₫. Từ 100 triệu trở xuống: được miễn.</p>
     </div>
   </div>

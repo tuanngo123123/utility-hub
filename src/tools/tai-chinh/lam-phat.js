@@ -17,11 +17,11 @@ export function body() {
   <div class="grid-3">
     <div class="field">
       <label for="lp-amount">Số tiền hiện tại (₫)</label>
-      <input id="lp-amount" type="text" inputmode="decimal" value="100.000.000" placeholder="VD: 100.000.000">
+      <input id="lp-amount" type="text" inputmode="decimal" value="100.000.000" placeholder="Ví dụ: 100.000.000">
     </div>
     <div class="field">
       <label for="lp-rate">Tỷ lệ lạm phát (%/năm)</label>
-      <input id="lp-rate" type="text" inputmode="decimal" value="5" placeholder="VD: 5">
+      <input id="lp-rate" type="text" inputmode="decimal" value="5" placeholder="Ví dụ: 5">
     </div>
     <div class="field">
       <label for="lp-years">Số năm</label>

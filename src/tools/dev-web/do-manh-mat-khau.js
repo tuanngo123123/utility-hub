@@ -62,8 +62,8 @@ export function init(root) {
     let isCommon = false;
     COMMON.forEach(w => { if (lower.indexOf(w) !== -1) isCommon = true; });
     if (isCommon) { score -= 30; tips.push('Tránh dùng từ/mật khẩu phổ biến như 123456, password, qwerty.'); }
-    if (/(.)\1\1/.test(pw)) { score -= 10; tips.push('Tránh lặp một ký tự 3 lần trở lên (VD: aaa, 111).'); }
-    if (/012|123|234|345|456|567|678|789|890|abc|bcd|qwe/.test(lower)) { score -= 10; tips.push('Tránh dãy ký tự liên tiếp (VD: 123, abc).'); }
+    if (/(.)\1\1/.test(pw)) { score -= 10; tips.push('Tránh lặp một ký tự 3 lần trở lên (Ví dụ: aaa, 111).'); }
+    if (/012|123|234|345|456|567|678|789|890|abc|bcd|qwe/.test(lower)) { score -= 10; tips.push('Tránh dãy ký tự liên tiếp (Ví dụ: 123, abc).'); }
     score = Math.max(0, Math.min(100, score));
 
     let label, emoji;

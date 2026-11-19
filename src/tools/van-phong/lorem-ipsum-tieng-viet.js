@@ -18,7 +18,7 @@ export function body() {
   <div class="grid-3">
     <div class="field"><label for="li-paras">Số đoạn</label><input id="li-paras" type="number" min="1" max="20" step="1" value="3"></div>
     <div class="field"><label for="li-sentences">Số câu mỗi đoạn</label><input id="li-sentences" type="number" min="1" max="10" step="1" value="4"></div>
-    <div class="field"><label for="li-words">Hoặc giới hạn tổng số từ (để trống = không giới hạn)</label><input id="li-words" type="number" min="1" step="1" placeholder="VD: 100"></div>
+    <div class="field"><label for="li-words">Hoặc giới hạn tổng số từ (để trống = không giới hạn)</label><input id="li-words" type="number" min="1" step="1" placeholder="Ví dụ: 100"></div>
   </div>
   <p><button class="btn btn-primary" id="li-gen">Tạo văn bản mẫu</button>
   <button class="btn btn-ghost" id="li-shuffle">🔀 Xáo trộn câu</button></p>

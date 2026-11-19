@@ -1,20 +1,20 @@
-// Nhóm máu của con — nhóm máu bố + mẹ → các nhóm máu con có thể có + tỉ lệ %.
+// Nhóm máu của con — nhóm máu bố + mẹ → các nhóm máu con có thể có + tỷ lệ %.
 export const meta = {
   id: 'nhom-mau-con',
   name: 'Nhóm máu của con',
   category: 'Đời sống',
   categorySlug: 'doi-song',
-  desc: 'Nhập nhóm máu bố và mẹ (ABO + Rh) để xem con có thể mang nhóm máu nào và tỉ lệ từng nhóm.',
+  desc: 'Nhập nhóm máu bố và mẹ (ABO + Rh) để xem con có thể mang nhóm máu nào và tỷ lệ từng nhóm.',
   keywords: 'nhóm máu con, di truyền nhóm máu, bố mẹ nhóm máu gì con nhóm máu gì, ABO Rh',
   icon: '🩸',
   seoTitle: 'Nhóm máu của con — Bố mẹ nhóm máu gì thì con nhóm máu gì',
-  seoDesc: 'Tra cứu di truyền nhóm máu ABO và Rh: nhập nhóm máu bố mẹ, xem các nhóm máu con có thể có kèm tỉ lệ phần trăm.',
+  seoDesc: 'Tra cứu di truyền nhóm máu ABO và Rh: nhập nhóm máu bố mẹ, xem các nhóm máu con có thể có kèm tỷ lệ phần trăm.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
-  <div class="tool-head"><span>🩸</span><div><h2>Nhóm máu của con</h2><p class="muted">Nhóm máu bố mẹ quyết định các nhóm máu con có thể có — xem bảng tỉ lệ di truyền.</p></div></div>
+  <div class="tool-head"><span>🩸</span><div><h2>Nhóm máu của con</h2><p class="muted">Nhóm máu bố mẹ quyết định các nhóm máu con có thể có — xem bảng tỷ lệ di truyền.</p></div></div>
   <div class="grid-2">
     <div class="field"><label for="nmc-dad-abo">Nhóm máu bố (ABO)</label><select id="nmc-dad-abo"><option value="A">A</option><option value="B">B</option><option value="AB">AB</option><option value="O">O</option></select></div>
     <div class="field"><label for="nmc-dad-rh">Rh của bố</label><select id="nmc-dad-rh"><option value="+">Rh+ (dương)</option><option value="-">Rh− (âm)</option></select></div>
@@ -29,7 +29,7 @@ export function body() {
 
 export function init(root) {
   const $ = id => root.querySelector('#' + id);
-  // Bảng di truyền ABO: khóa là cặp bố/mẹ đã sắp xếp, giá trị là tỉ lệ % từng nhóm.
+  // Bảng di truyền ABO: khóa là cặp bố/mẹ đã sắp xếp, giá trị là tỷ lệ % từng nhóm.
   const ABO = {
     'A+A': { A: 75, O: 25 },
     'A+AB': { A: 50, B: 25, AB: 25 },

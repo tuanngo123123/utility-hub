@@ -24,7 +24,7 @@ export function body() {
     </div>
     <div class="field">
       <label for="rt-cycle">Độ dài chu kỳ (ngày)</label>
-      <input id="rt-cycle" type="number" min="21" max="45" step="1" value="28" placeholder="VD: 28">
+      <input id="rt-cycle" type="number" min="21" max="45" step="1" value="28" placeholder="Ví dụ: 28">
       <p class="muted">Chu kỳ bình thường là 21–35 ngày, phổ biến nhất là 28 ngày.</p>
     </div>
   </div>

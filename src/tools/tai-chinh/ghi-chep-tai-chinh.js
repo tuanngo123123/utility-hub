@@ -1,13 +1,13 @@
-// Ghi chép tài chính — dán ghi chép dạng "12/11 ăn trưa -50k" rồi tổng hợp thu/chi.
+// Sổ thu chi nhanh — dán ghi chép dạng "12/11 ăn trưa -50k" rồi tổng hợp thu/chi.
 export const meta = {
   id: 'ghi-chep-tai-chinh',
-  name: 'Ghi chép tài chính',
+  name: 'Sổ thu chi nhanh',
   category: 'Tài chính',
   categorySlug: 'tai-chinh',
   desc: 'Dán ghi chép thu chi dạng "12/11 ăn trưa -50k" (mỗi dòng một khoản) để tự động tổng hợp tổng thu, tổng chi, số dư và xuất file CSV/JSON.',
   keywords: 'ghi chép chi tiêu, quản lý thu chi, sổ thu chi, tổng hợp chi tiêu, xuất csv chi tiêu',
   icon: '📒',
-  seoTitle: 'Ghi chép tài chính — tổng hợp thu chi từ ghi chép tay',
+  seoTitle: 'Sổ thu chi nhanh — tổng hợp thu chi từ ghi chép tay',
   seoDesc: 'Dán ghi chép thu chi "12/11 ăn trưa -50k" để tự động tổng hợp tổng thu, tổng chi, số dư; sửa/xóa từng dòng, xuất CSV và JSON miễn phí.',
 };
 

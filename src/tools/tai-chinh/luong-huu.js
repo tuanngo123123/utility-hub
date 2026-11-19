@@ -1,6 +1,6 @@
 // Tính lương hưu — theo Điều 66, 68 Luật BHXH 2024 (41/2024/QH15, hiệu lực
 // 01/7/2025) + Điều 13 Nghị định 158/2025/NĐ-CP (tháng lẻ, giảm trừ nghỉ
-// hưu trước tuổi) + Nghị định 161/2026/NĐ-CP (trần đóng 50.600.000đ).
+// hưu trước tuổi) + Nghị định 161/2026/NĐ-CP (trần đóng 50.600.000₫).
 // Bố cục MẪU 2: 2 thẻ cạnh nhau, tính trực tiếp khi nhập, không nút Tính /
 // Đặt lại / Điền ví dụ. Công thức ở src/money-formulas.js (M2_CALC); thẻ
 // kết quả, bảng từng bước, 3 nút, thanh dính đáy dùng chung qua UH.m2.
@@ -34,7 +34,7 @@ export function body() {
         <p class="hint">Tháng lẻ 1–6 tháng tính là nửa năm, 7–11 tháng tính là 1 năm.</p>
         <div class="field m2-field">
           <label for="lh-avg">Mức bình quân tiền lương tháng đóng BHXH</label>
-          <span class="input-unit"><input id="lh-avg" class="m2-salary" type="text" inputmode="decimal" value="12.000.000" placeholder="VD: 12.000.000"><span class="unit">₫</span></span>
+          <span class="input-unit"><input id="lh-avg" class="m2-salary" type="text" inputmode="decimal" value="12.000.000" placeholder="Ví dụ: 12.000.000"><span class="unit">₫</span></span>
           <p class="hint">Lương bình quân toàn bộ quá trình đóng (tra trên VssID). Trần tính lương hưu: 50.600.000₫ từ 01/7/2026 (NĐ 161/2026/NĐ-CP).</p>
         </div>
         <div class="m2-quick" aria-label="Chọn nhanh mức bình quân">

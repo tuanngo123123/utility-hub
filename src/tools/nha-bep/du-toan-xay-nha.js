@@ -20,7 +20,7 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="dtxn-area">Diện tích sàn 1 tầng (m²)</label>
-      <input id="dtxn-area" type="text" inputmode="decimal" value="80" placeholder="VD: 80">
+      <input id="dtxn-area" type="text" inputmode="decimal" value="80" placeholder="Ví dụ: 80">
       <p class="hint">Nhà phố 5×16m = 80m²/tầng.</p>
     </div>
     <div class="field">

@@ -20,15 +20,15 @@ export function body() {
   <div class="grid-2">
     <div class="field">
       <label for="bmi-w">Cân nặng (kg)</label>
-      <input id="bmi-w" type="number" min="1" max="500" step="0.1" value="70" placeholder="VD: 70">
+      <input id="bmi-w" type="number" min="1" max="500" step="0.1" value="70" placeholder="Ví dụ: 70">
     </div>
     <div class="field">
       <label for="bmi-h">Chiều cao (cm)</label>
-      <input id="bmi-h" type="number" min="50" max="250" step="0.1" value="175" placeholder="VD: 175">
+      <input id="bmi-h" type="number" min="50" max="250" step="0.1" value="175" placeholder="Ví dụ: 175">
     </div>
     <div class="field">
       <label for="bmi-age">Tuổi</label>
-      <input id="bmi-age" type="number" min="1" max="120" step="1" value="30" placeholder="VD: 30">
+      <input id="bmi-age" type="number" min="1" max="120" step="1" value="30" placeholder="Ví dụ: 30">
     </div>
     <div class="field">
       <label for="bmi-sex">Giới tính</label>

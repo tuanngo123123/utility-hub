@@ -28,7 +28,7 @@ export function body() {
     </div>
     <div class="field" id="qd-num-wrap">
       <label for="qd-num">Điểm số</label>
-      <input id="qd-num" type="number" min="0" max="10" step="0.1" value="8.5" placeholder="VD: 8.5">
+      <input id="qd-num" type="number" min="0" max="10" step="0.1" value="8.5" placeholder="Ví dụ: 8.5">
     </div>
     <div class="field" id="qd-letter-wrap" hidden>
       <label for="qd-letter">Điểm chữ</label>

@@ -15,7 +15,7 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span>🔢</span><div><h2>Đọc số thành chữ tiếng Việt</h2><p class="muted">Nhập số tiền, nhận ngay cách đọc đúng quy tắc tiếng Việt — để viết hóa đơn, hợp đồng, phiếu thu.</p></div></div>
-  <div class="field"><label for="dstc-num">Nhập số (tối đa 21 chữ số, phần thập phân sau dấu phẩy)</label><input id="dstc-num" type="text" inputmode="decimal" value="123456789" placeholder="VD: 123456789"></div>
+  <div class="field"><label for="dstc-num">Nhập số (tối đa 21 chữ số, phần thập phân sau dấu phẩy)</label><input id="dstc-num" type="text" inputmode="decimal" value="123456789" placeholder="Ví dụ: 123456789"></div>
   <div class="field"><label><input type="checkbox" id="dstc-dong" checked> Thêm chữ "đồng" ở cuối (đọc số tiền)</label></div>
   <div class="field"><label>Thử nhanh</label><div>
     <button type="button" class="chip" data-dstc-ex="0">0</button>

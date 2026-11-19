@@ -24,11 +24,11 @@ export function body() {
     <div class="grid-2">
       <div class="field">
         <label for="pt-a1">Hệ số a</label>
-        <input id="pt-a1" type="number" step="any" value="2" placeholder="VD: 2">
+        <input id="pt-a1" type="number" step="any" value="2" placeholder="Ví dụ: 2">
       </div>
       <div class="field">
         <label for="pt-b1">Hệ số b</label>
-        <input id="pt-b1" type="number" step="any" value="4" placeholder="VD: 4">
+        <input id="pt-b1" type="number" step="any" value="4" placeholder="Ví dụ: 4">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="pt-calc-1">Giải phương trình</button>
@@ -38,15 +38,15 @@ export function body() {
     <div class="grid-3">
       <div class="field">
         <label for="pt-a2">Hệ số a</label>
-        <input id="pt-a2" type="number" step="any" value="1" placeholder="VD: 1">
+        <input id="pt-a2" type="number" step="any" value="1" placeholder="Ví dụ: 1">
       </div>
       <div class="field">
         <label for="pt-b2">Hệ số b</label>
-        <input id="pt-b2" type="number" step="any" value="-5" placeholder="VD: -5">
+        <input id="pt-b2" type="number" step="any" value="-5" placeholder="Ví dụ: -5">
       </div>
       <div class="field">
         <label for="pt-c2">Hệ số c</label>
-        <input id="pt-c2" type="number" step="any" value="6" placeholder="VD: 6">
+        <input id="pt-c2" type="number" step="any" value="6" placeholder="Ví dụ: 6">
       </div>
     </div>
     <button type="button" class="btn btn-primary" id="pt-calc-2">Giải phương trình</button>

@@ -29,7 +29,7 @@ export function body() {
   </div>
   <div class="field">
     <label for="tkn-name">Tên dịp (không bắt buộc)</label>
-    <input id="tkn-name" type="text" placeholder="VD: Ngày cưới, Ngày yêu nhau" maxlength="40">
+    <input id="tkn-name" type="text" placeholder="Ví dụ: Ngày cưới, Ngày yêu nhau" maxlength="40">
   </div>
   <div class="btn-row">
     <button type="button" class="btn btn-primary" id="tkn-calc">Tính kỷ niệm</button>

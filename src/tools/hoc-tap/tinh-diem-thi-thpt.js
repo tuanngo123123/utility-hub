@@ -29,7 +29,7 @@ export function body() {
       <div class="field"><label for="dt-tc1">Môn tự chọn 1</label><input id="dt-tc1" type="text" inputmode="decimal" value="6"></div>
       <div class="field"><label for="dt-tc2">Môn tự chọn 2</label><input id="dt-tc2" type="text" inputmode="decimal" value="6,5"></div>
     </div>
-    <p class="hint">Điểm thi thang 10. Môn được miễn thi (VD: ngoại ngữ có chứng chỉ) thì bỏ trống — môn đó không tính vào trung bình điểm thi.</p>
+    <p class="hint">Điểm thi thang 10. Môn được miễn thi (Ví dụ: ngoại ngữ có chứng chỉ) thì bỏ trống — môn đó không tính vào trung bình điểm thi.</p>
     <div class="grid-3">
       <div class="field"><label for="dt-l10">ĐTB lớp 10</label><input id="dt-l10" type="text" inputmode="decimal" value="7,2"></div>
       <div class="field"><label for="dt-l11">ĐTB lớp 11</label><input id="dt-l11" type="text" inputmode="decimal" value="7,5"></div>

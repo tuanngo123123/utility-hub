@@ -28,10 +28,10 @@ export function body() {
 
   <div id="csa-pane-resize">
     <div class="grid-2">
-      <div class="field"><label for="csa-w">Chiều rộng mới (px)</label><input id="csa-w" type="number" min="1" max="8000" placeholder="VD: 1200"></div>
-      <div class="field"><label for="csa-h">Chiều cao mới (px)</label><input id="csa-h" type="number" min="1" max="8000" placeholder="VD: 800"></div>
+      <div class="field"><label for="csa-w">Chiều rộng mới (px)</label><input id="csa-w" type="number" min="1" max="8000" placeholder="Ví dụ: 1200"></div>
+      <div class="field"><label for="csa-h">Chiều cao mới (px)</label><input id="csa-h" type="number" min="1" max="8000" placeholder="Ví dụ: 800"></div>
     </div>
-    <div class="field"><label><input type="checkbox" id="csa-ratio" checked> Giữ đúng tỉ lệ ảnh gốc</label></div>
+    <div class="field"><label><input type="checkbox" id="csa-ratio" checked> Giữ đúng tỷ lệ ảnh gốc</label></div>
     <div class="field"><label for="csa-resize-fmt">Định dạng ảnh xuất</label><select id="csa-resize-fmt"><option value="">Giữ nguyên định dạng gốc</option><option value="image/jpeg">JPEG (.jpg)</option><option value="image/png">PNG (.png)</option><option value="image/webp">WebP (.webp)</option></select></div>
     <button type="button" class="btn btn-primary" id="csa-resize-go">Đổi kích thước</button>
   </div>
@@ -139,7 +139,7 @@ export function init(root) {
     reader.readAsDataURL(file);
   });
 
-  // Giữ tỉ lệ khi đổi rộng/cao.
+  // Giữ tỷ lệ khi đổi rộng/cao.
   $('csa-w').addEventListener('input', () => {
     if (!$('csa-ratio').checked || !img) return;
     const w = +$('csa-w').value;

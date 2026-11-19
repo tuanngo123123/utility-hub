@@ -1,21 +1,21 @@
 export const meta = {
   id: 'ngoai-te-ty-gia',
-  name: 'Đổi ngoại tệ (tỉ giá tự nhập)',
+  name: 'Đổi ngoại tệ (tỷ giá tự nhập)',
   category: 'Du lịch',
   categorySlug: 'du-lich',
-  desc: 'Quy đổi ngoại tệ sang VND và ngược lại theo tỉ giá bạn tự nhập — dùng khi đi du lịch, mua hàng nước ngoài.',
-  keywords: ['đổi ngoại tệ', 'tỉ giá', 'USD', 'VND', 'đổi tiền', 'du lịch'],
+  desc: 'Quy đổi ngoại tệ sang VND và ngược lại theo tỷ giá bạn tự nhập — dùng khi đi du lịch, mua hàng nước ngoài.',
+  keywords: ['đổi ngoại tệ', 'tỷ giá', 'USD', 'VND', 'đổi tiền', 'du lịch'],
   icon: '💱',
-  seoTitle: 'Đổi ngoại tệ sang VND theo tỉ giá tự nhập',
-  seoDesc: 'Quy đổi USD, EUR, JPY, KRW… sang VND và ngược lại theo tỉ giá bạn tự nhập. Tỉ giá tham khảo, không phải tỉ giá ngân hàng.'
+  seoTitle: 'Đổi ngoại tệ sang VND theo tỷ giá tự nhập',
+  seoDesc: 'Quy đổi USD, EUR, JPY, KRW… sang VND và ngược lại theo tỷ giá bạn tự nhập. Tỷ giá tham khảo, không phải tỷ giá ngân hàng.'
 };
 
 export function body() {
   return `
   <div class="tool-panel">
     <div class="tool-head">
-      <h2>💱 Đổi ngoại tệ (tỉ giá tự nhập)</h2>
-      <p class="muted">Nhập tỉ giá bạn tra được (VD: 1 USD = 26.000₫), nhập số tiền để quy đổi 2 chiều.</p>
+      <h2>💱 Đổi ngoại tệ (tỷ giá tự nhập)</h2>
+      <p class="muted">Nhập tỷ giá bạn tra được (Ví dụ: 1 USD = 26.000₫), nhập số tiền để quy đổi 2 chiều.</p>
     </div>
     <div class="grid-2">
       <div class="field">
@@ -34,7 +34,7 @@ export function body() {
         </select>
       </div>
       <div class="field">
-        <label for="nt-tygia">Tỉ giá: 1 đơn vị ngoại tệ = bao nhiêu VND</label>
+        <label for="nt-tygia">Tỷ giá: 1 đơn vị ngoại tệ = bao nhiêu VND</label>
         <input id="nt-tygia" type="number" min="0" step="0.01" value="26000" inputmode="decimal">
       </div>
       <div class="field">
@@ -48,7 +48,7 @@ export function body() {
     </div>
     <button class="btn btn-primary" id="nt-calc">Quy đổi</button>
     <div id="nt-out" class="result" style="display:none"></div>
-    <p class="note">Tỉ giá do bạn tự nhập, chỉ mang tính tham khảo — tỉ giá mua/bán thực tế tại ngân hàng và tiệm vàng có thể chênh lệch. Xem tỉ giá trực tiếp ở công cụ Giá vàng SJC &amp; tỉ giá trực tiếp.</p>
+    <p class="note">Tỷ giá do bạn tự nhập, chỉ mang tính tham khảo — tỷ giá mua/bán thực tế tại ngân hàng và tiệm vàng có thể chênh lệch. Xem tỷ giá trực tiếp ở công cụ Giá vàng SJC &amp; tỷ giá trực tiếp.</p>
   </div>`;
 }
 
@@ -65,7 +65,7 @@ export function init(root) {
     var out = root.querySelector('#nt-out');
     if (isNaN(rate) || rate <= 0) {
       out.style.display = 'block';
-      out.innerHTML = '<p class="error">Vui lòng nhập tỉ giá hợp lệ (lớn hơn 0).</p>';
+      out.innerHTML = '<p class="error">Vui lòng nhập tỷ giá hợp lệ (lớn hơn 0).</p>';
       return;
     }
     var html = '';
@@ -80,7 +80,7 @@ export function init(root) {
       out.innerHTML = '<p class="error">Vui lòng nhập ít nhất một số tiền để quy đổi.</p>';
       return;
     }
-    html += '<p class="muted">Tỉ giá áp dụng: 1 ' + cur + ' = ' + fmtVND(rate) + ' (do bạn tự nhập).</p>';
+    html += '<p class="muted">Tỷ giá áp dụng: 1 ' + cur + ' = ' + fmtVND(rate) + ' (do bạn tự nhập).</p>';
     out.style.display = 'block';
     out.innerHTML = html;
   }

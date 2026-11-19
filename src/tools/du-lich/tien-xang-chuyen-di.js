@@ -35,7 +35,7 @@ export function body() {
       </div>
       <div class="field">
         <label for="tx-gia">Giá xăng (₫/lít) — nhập giá hiện tại nơi bạn đổ</label>
-        <input id="tx-gia" type="number" min="0" step="100" value="" placeholder="VD: 24000" inputmode="numeric">
+        <input id="tx-gia" type="number" min="0" step="100" value="" placeholder="Ví dụ: 24000" inputmode="numeric">
       </div>
     </div>
     <button class="btn btn-primary" id="tx-calc">Tính tiền xăng</button>
