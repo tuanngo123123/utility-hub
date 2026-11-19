@@ -297,16 +297,22 @@ const NEWS_FEEDS = [
 // Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V4): nhóm theo
 // NGUỒN RSS hay sai — vd CNBC đăng tin Starshield/sập hệ thống (công nghệ)
 // nhưng bị gắn "chung-khoan", CoinDesk đăng tin Nvidia nhưng bị gắn "crypto".
-// Ưu tiên: crypto (từ khóa rất đặc trưng) → AI/công nghệ → chứng khoán;
-// không khớp từ khóa nào thì giữ nguyên nhóm theo nguồn RSS. AI đứng trước
-// chứng khoán vì tin công nghệ hay nhắc "IPO"/"earnings" (vd "Amazon và
+// Ưu tiên: crypto (từ khóa rất đặc trưng) → AI/công nghệ → Thời sự → chứng
+// khoán; không khớp từ khóa nào thì giữ nguyên nhóm theo nguồn RSS. AI đứng
+// trước chứng khoán vì tin công nghệ hay nhắc "IPO"/"earnings" (vd "Amazon và
 // Google sẽ sở hữu Anthropic sau IPO" là tin AI, không phải tin chứng khoán).
-// Chỉ dùng 3 nhóm ai/chung-khoan/crypto (summarize-news.mjs lọc theo 3 nhóm).
-// Từ khóa khớp theo từ trọn vẹn, không phân biệt hoa/thường (\b…\b) để "AI"
-// không trúng "said", "eth" không trúng "Ethereum".
+// Thời sự đứng trước chứng khoán vì tin chính trị hay nhắc thị trường/cổ
+// phiếu nhưng vẫn là tin chính trị (vd tin Trump gặp Putin nhắc "stocks").
+// Dùng 4 nhóm ai/chung-khoan/crypto/thoi-su (summarize-news.mjs lọc theo
+// 4 nhóm). Từ khóa khớp theo từ trọn vẹn, không phân biệt hoa/thường
+// (\b…\b) để "AI" không trúng "said", "eth" không trúng "Ethereum".
+// Thời sự KHÔNG dùng từ chung dễ nhầm: không "president" trần (còn có
+// chủ tịch Fed/chủ tịch công ty), không "vote" (còn có cổ đông bỏ phiếu),
+// không "minister" trần — chỉ dùng tên lãnh đạo + cụm chính trị rõ ràng.
 const GROUP_KEYWORDS = {
   crypto: ['bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'solana', 'sol', 'crypto', 'cryptocurrency', 'token', 'tokens', 'blockchain', 'coinbase', 'binance', 'stablecoin', 'stablecoins', 'defi', 'dogecoin', 'doge', 'cardano', 'ada', 'tether', 'usdt', 'usdc', 'nft', 'nfts', 'web3', 'altcoin', 'altcoins', 'memecoin', 'memecoins', 'satoshi', 'halving'],
   ai: ['artificial intelligence', 'machine learning', 'deep learning', 'data center', 'data centers', 'hugging face', 'chatgpt', 'openai', 'nvidia', 'anthropic', 'spacex', 'starshield', 'starlink', 'satellite', 'satellites', 'cyberattack', 'cyberattacks', 'cyber attack', 'outage', 'outages', 'apple', 'microsoft', 'google', 'amazon', 'meta', 'tesla', 'semiconductor', 'semiconductors', 'chip', 'chips', 'ai', 'llm', 'gemini', 'copilot', 'robot', 'robots', 'neural', 'quantum', 'android', 'iphone'],
+  'thoi-su': ['summit', 'summits', 'election', 'elections', 'presidential', 'diplomacy', 'diplomatic', 'ceasefire', 'invasion', 'sanctions', 'sanction', 'treaty', 'white house', 'kremlin', 'parliament', 'congress', 'congressional', 'senate', 'house hearing', 'hearing', 'hearings', 'prime minister', 'foreign minister', 'finance minister', 'chancellor', 'embassy', 'ambassador', 'missile', 'missiles', 'military', 'nato', 'ukraine', 'taiwan', 'gaza', 'israel', 'putin', 'trump', 'donald trump', 'xi jinping', 'zelensky', 'zelenskyy', 'netanyahu', 'macron', 'biden', 'referendum', 'coup', 'protest', 'protests', 'war', 'trade war', 'united nations', 'general assembly', 'security council', 'voters', 'campaign', 'beijing', 'apec', 'g20', 'g7', 'fbi', 'mar-a-lago', 'impeachment', 'subpoena', 'testimony', 'state visit', 'republican', 'republicans', 'democrat', 'democrats', 'cabinet', 'veto'],
   'chung-khoan': ['federal reserve', 'interest rate', 'interest rates', 'dow jones', 'vn-index', 's&p', 'nasdaq', 'chứng khoán', 'cổ phiếu', 'earnings', 'ipo', 'fed', 'stock', 'stocks', 'shares', 'dividend', 'dividends', 'treasury', 'securities', 'wall street'],
 };
 function keywordRegex(words) {
@@ -316,6 +322,7 @@ function keywordRegex(words) {
 const GROUP_PATTERNS = [
   { group: 'crypto', re: keywordRegex(GROUP_KEYWORDS.crypto) },
   { group: 'ai', re: keywordRegex(GROUP_KEYWORDS.ai) },
+  { group: 'thoi-su', re: keywordRegex(GROUP_KEYWORDS['thoi-su']) },
   { group: 'chung-khoan', re: keywordRegex(GROUP_KEYWORDS['chung-khoan']) },
 ];
 function classifyNewsGroup(title, description, fallbackGroup) {

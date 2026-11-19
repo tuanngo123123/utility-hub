@@ -176,6 +176,20 @@ export function init(root) {
     const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
     if (helper) return helper.parse(text);
     const isHead = c => /^(stt|số thứ tự|họ(\s*và)?\s*tên|họ tên( học sinh)?|tên( học sinh)?|tên gọi|họ đệm|giới tính|giới|nam\/nữ|ghi chú|ngày sinh|địa chỉ|nơi sinh|lớp)$/i.test(c);
+    // Dán mỗi-ô-một-dòng (không tab): dòng giới tính đứng sau dòng tên
+    // thì bỏ dòng giới tính, chỉ giữ tên — đồng bộ gvPairNameGenderLines
+    // trong app.js (kiểm xen kẽ toàn bộ để tên thuần có bạn tên "Nam"
+    // không bị ghép sai).
+    const rawText = String(text == null ? '' : text);
+    if (rawText.indexOf('\t') === -1) {
+      const isGenderVal = v => /^(nam|nữ|nu|m|f|male|female)$/i.test(v);
+      const lines = rawText.split(/\r\n|\r|\n/).map(l => l.trim()).filter(l => l !== '' && !isHead(l));
+      let paired = lines.length >= 4 && lines.length % 2 === 0;
+      for (let i = 0; paired && i < lines.length; i += 2) {
+        if (isGenderVal(lines[i]) || !isGenderVal(lines[i + 1])) paired = false;
+      }
+      if (paired) return lines.filter((_, i) => i % 2 === 0).map(n => n.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim()).filter(Boolean);
+    }
     const rows = String(text == null ? '' : text).split(/\r\n|\r|\n/).map(l => String(l).split('\t').map(c => c.trim()));
     const data = rows.filter(r => r.some(c => c !== '') && !r.some(isHead));
     if (!data.length) return [];
@@ -394,6 +408,27 @@ export function init(root) {
         guard++;
       }
     });
+  }
+
+  // Vòng quay vừa 1 màn (1366×768): đo chiều cao còn lại của sân khấu
+  // (viewport − vị trí đầu vòng − dòng trạng thái dưới vòng) rồi đặt
+  // đường kính vòng = min(CSS max-width, chiều cao còn lại). Chỉ chạy
+  // trong app (trang rời cuộn trang bình thường). Chạy lúc mở tab (qua
+  // _gvRefresh) + khi đổi chế độ về Vòng quay + khi đổi cỡ cửa sổ.
+  // Ở 1024 CSS đã giới hạn 360px nên không thu thêm quá mức đó.
+  function fitWheel() {
+    if (!IN_APP || mode !== 'wheel') return;
+    const wrap = $('gt-wheel-wrap');
+    const sub = $('gt-wheel-sub');
+    if (!wrap || !sub) return;
+    // Xóa cỡ cũ để đo đúng CSS (440px, hoặc 360px ở ≤1100px).
+    wrap.style.maxWidth = '';
+    const rect = wrap.getBoundingClientRect();
+    if (rect.width === 0) return; // tab chưa hiện
+    const avail = window.innerHeight - rect.top - sub.offsetHeight - 24;
+    const d = Math.min(rect.width, avail);
+    // Không thu dưới 240px (nút QUAY 104px + nhãn sẽ chật).
+    if (d < rect.width && d >= 240) wrap.style.maxWidth = Math.floor(d) + 'px';
   }
 
   // id bản ghi lớp của 1 bạn trong danh sách gọi — dùng cho +1/−1 điểm
@@ -983,7 +1018,7 @@ export function init(root) {
     $('gt-pane-gift').style.display = m === 'gift' ? '' : 'none';
     $('gt-pane-cards').style.display = m === 'cards' ? '' : 'none';
     $('gt-pane-big').style.display = m === 'big' ? '' : 'none';
-    if (m === 'wheel') drawWheel();
+    if (m === 'wheel') { drawWheel(); fitWheel(); }
     if (m === 'gift' || m === 'cards') buildRevealGrid(m);
   }
 
@@ -1263,17 +1298,23 @@ export function init(root) {
       const tab = document.getElementById('gv-tab-lop-hoc');
       if (tab) tab.click();
     });
-    root._gvRefresh = loadFromActiveClass;
+    // App gọi root._gvRefresh() mỗi lần mở lại tab này (panel đã hiện
+    // nên đo được): nạp lại lớp + vừa vòng quay theo chiều cao màn.
+    root._gvRefresh = function () { loadFromActiveClass(); fitWheel(); };
     // App gọi để xóa lượt đang gọi khi danh sách lớp đổi giữa chừng
     // (thêm/xóa/sửa tên/đổi lớp) — nút +1 không mở lại được.
     root._gvClearRound = resetAll;
-    // Đổi cỡ cửa sổ (vd chuyển máy chiếu): vừa lại tên gọi theo thẻ.
+    // Đổi cỡ cửa sổ (vd chuyển máy chiếu): vừa lại tên gọi theo thẻ
+    // và vừa lại vòng quay theo chiều cao màn.
     var resizeTimer = null;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fitWinnerNames, 150);
+      resizeTimer = setTimeout(function () { fitWinnerNames(); fitWheel(); }, 150);
     });
     loadFromActiveClass();
+    // Lần đầu mở tab (deep-link ?tab=goi-ten) không qua _gvRefresh nên
+    // vừa vòng ngay tại đây; mở lại tab sau thì _gvRefresh lo.
+    fitWheel();
   } else {
     // Trang rời không có dữ liệu sao nên ẩn chọn phạm vi.
     const scopeEl = $('gt-scope');

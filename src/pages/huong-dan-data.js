@@ -8,6 +8,7 @@
 // đợt 2: lãi vay dư nợ giảm dần, lãi kép tiết kiệm, giá nước Hà Nội
 // QĐ 3541/QĐ-UBND, lương tăng ca 150/200/300%);
 // mỗi bài ghi nguồn văn bản ở cuối + ngày đăng.
+// Thêm 19/11/2026: quyết toán thuế TNCN 2026 (bài thứ 14).
 export const ARTICLES = [
   {
     slug: 'cach-tinh-luong-gross-net-2026',
@@ -775,5 +776,91 @@ export const ARTICLES = [
 <li><strong>Công ty phải công bố công khai quy chế thưởng tại nơi làm việc</strong> — nếu công ty bạn không công bố, bạn có quyền hỏi.</li>
 <li>Kết quả trong bài chỉ mang tính tham khảo theo quy định chung — trường hợp cụ thể đối chiếu với cơ quan thuế hoặc bộ phận nhân sự của công ty bạn.</li>
 </ul>`,
+  },
+  {
+    slug: 'quyet-toan-thue-tncn-2026',
+    title: 'Quyết toán thuế TNCN 2026: ai phải làm, hạn nộp và cách tính',
+    desc: 'Hạn nộp 3/5/2027. Làm chưa đủ 12 tháng vẫn được giảm trừ đủ 186 triệu — ví dụ làm 8 tháng lương 40 triệu được hoàn 7.220.000₫.',
+    date: '19/11/2026',
+    cta: {
+      url: '/cong-cu/quyet-toan-thue-tncn-2026/',
+      label: 'Tính quyết toán thuế của bạn →',
+      text: 'Nhập thu nhập cả năm, bảo hiểm đã đóng và thuế đã khấu trừ để xem được hoàn hay phải nộp thêm bao nhiêu.',
+    },
+    sources: 'Luật Thuế thu nhập cá nhân 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc); Nghị quyết 110/2025/UBTVQH15 (mức giảm trừ gia cảnh); Nghị định 253/2026/NĐ-CP (giảm trừ y tế, giáo dục; ủy quyền quyết toán); Nghị định 252/2026/NĐ-CP (trường hợp không phải quyết toán); Nghị định 373/2025/NĐ-CP (nơi nộp hồ sơ); Thông tư 89/2026/TT-BTC (miễn quyết toán khi nộp thêm không quá 50.000₫); Công văn 1296/CT-NVT (hoàn thuế tự động).',
+    body: `
+<p>Thuế khấu trừ hằng tháng chỉ là tạm tính. Cuối năm, bạn tính lại thuế theo thu nhập thực tế cả năm — gọi là quyết toán thuế: thừa thì được hoàn, thiếu thì nộp thêm. Bài này hướng dẫn ai phải quyết toán, hạn nộp và cách tính cho năm 2026, kèm 2 ví dụ tính sẵn.</p>
+<nav class="hd-toc" aria-label="Trong bài này"><p><strong>Trong bài này</strong></p><ul>
+<li><a href="#ai-phai-quyet-toan">Ai phải quyết toán</a></li>
+<li><a href="#ai-khong-phai-quyet-toan">Ai không phải quyết toán</a></li>
+<li><a href="#uy-quyen">Ủy quyền cho công ty được không</a></li>
+<li><a href="#han-nop">Hạn nộp</a></li>
+<li><a href="#cach-tinh">Cách tính thuế cả năm</a></li>
+<li><a href="#vi-du-1">Ví dụ 1 — Làm 8 tháng, được hoàn</a></li>
+<li><a href="#vi-du-2">Ví dụ 2 — Lương cộng vãng lai, nộp thêm</a></li>
+<li><a href="#nop-o-dau">Nộp ở đâu, hoàn bao lâu</a></li>
+</ul></nav>
+<h2 id="ai-phai-quyet-toan">Ai phải quyết toán</h2>
+<p>Bạn phải quyết toán nếu có thu nhập từ tiền lương, tiền công trong năm 2026 và: thuế cả năm lớn hơn số đã khấu trừ (phải nộp thêm), hoặc đã khấu trừ thừa và bạn muốn hoàn hoặc bù trừ.</p>
+<h2 id="ai-khong-phai-quyet-toan">Ai không phải quyết toán</h2>
+<ul>
+<li><strong>Số thuế nộp thêm không quá 50.000₫</strong> — được miễn, không phải nộp hồ sơ (Điều 66 Thông tư 89/2026/TT-BTC).</li>
+<li><strong>Đã nộp thừa nhưng không yêu cầu hoàn hay bù trừ</strong> (điểm a khoản 1 Điều 51 Nghị định 253/2026/NĐ-CP).</li>
+<li><strong>Chỉ có thêm thu nhập nơi khác bình quân không quá 15 triệu đồng/tháng, đã khấu trừ 10%</strong> — không phải quyết toán phần đó (điểm b khoản 1 Điều 51 Nghị định 253/2026/NĐ-CP).</li>
+</ul>
+<h2 id="uy-quyen">Ủy quyền cho công ty được không</h2>
+<p>Bạn được ủy quyền cho nơi trả thu nhập quyết toán thay (mẫu 08/UQ-QTT-TNCN) khi: 1 nguồn lương duy nhất, hợp đồng lao động từ 3 tháng trở lên tại 1 tổ chức, và đang làm việc ở đó khi quyết toán. Có thêm thu nhập nơi khác bình quân không quá 15 triệu đồng/tháng, đã khấu trừ 10%, thì vẫn ủy quyền được. Bắt buộc tự quyết toán khi: giảm trừ chi phí y tế/giáo dục, hoặc xin giảm thuế do thiên tai, dịch bệnh, hỏa hoạn, tai nạn hay bệnh hiểm nghèo (khoản 3 Điều 51 Nghị định 253/2026/NĐ-CP).</p>
+<h2 id="han-nop">Hạn nộp</h2>
+<ul>
+<li><strong>Cá nhân tự quyết toán: 3/5/2027 (thứ Hai).</strong> Hạn gốc 30/4/2027 rơi vào ngày lễ nên dời sang ngày làm việc tiếp theo (khoản 7 Điều 3 Nghị định 252/2026/NĐ-CP).</li>
+<li><strong>Tổ chức trả thu nhập quyết toán thay: 31/3/2027.</strong></li>
+</ul>
+<p>Được hoàn thuế thì nộp hồ sơ hoàn trễ không bị phạt hành chính — có thể nộp sau đợt cao điểm tháng 4–5.</p>
+<h2 id="cach-tinh">Cách tính thuế cả năm</h2>
+<p><strong>Thu nhập tính thuế = Tổng thu nhập năm − Bảo hiểm đã đóng − Giảm trừ bản thân − Giảm trừ người phụ thuộc − Giảm trừ y tế − Giảm trừ giáo dục</strong></p>
+<ul>
+<li><strong>Giảm trừ bản thân: 186.000.000₫</strong> (15.500.000₫ × 12 tháng) — khi quyết toán được giảm trừ đủ 12 tháng kể cả làm chưa đủ 12 tháng (điểm b khoản 1 Điều 48 Nghị định 253/2026/NĐ-CP).</li>
+<li><strong>Giảm trừ người phụ thuộc: 6.200.000₫/người/tháng</strong>, tính từ tháng phát sinh nghĩa vụ nuôi dưỡng (đăng ký trước 31/12).</li>
+<li><strong>Giảm trừ y tế: tối đa 23.000.000₫/năm</strong> — tiền khám chữa bệnh tự trả, có chứng từ.</li>
+<li><strong>Giảm trừ giáo dục: tối đa 24.000.000₫/năm</strong> — chỉ tính học phí.</li>
+</ul>
+<p>Thu nhập tính thuế áp biểu lũy tiến từng phần theo năm (bằng bậc tháng nhân 12):</p>
+<table class="tbl">
+<tr><th>Bậc</th><th>Thu nhập tính thuế/năm</th><th>Thuế suất</th></tr>
+<tr><td>1</td><td>Đến 120 triệu đồng</td><td>5%</td></tr>
+<tr><td>2</td><td>Trên 120 đến 360 triệu đồng</td><td>10%</td></tr>
+<tr><td>3</td><td>Trên 360 đến 720 triệu đồng</td><td>20%</td></tr>
+<tr><td>4</td><td>Trên 720 đến 1.200 triệu đồng</td><td>30%</td></tr>
+<tr><td>5</td><td>Trên 1.200 triệu đồng</td><td>35%</td></tr>
+</table>
+<p>Chênh lệch: <strong>thuế cả năm trừ thuế đã khấu trừ</strong> — âm là được hoàn, dương là nộp thêm.</p>
+<h2 id="vi-du-1">Ví dụ 1 — Làm 8 tháng, được hoàn 7.220.000₫</h2>
+<p>Anh Minh làm việc từ tháng 5 đến tháng 12/2026, lương 40.000.000₫/tháng, không có người phụ thuộc.</p>
+<ol>
+<li><strong>Thu nhập cả năm:</strong> 40.000.000 × 8 = 320.000.000₫. <strong>Bảo hiểm:</strong> 320.000.000 × 10,5% = 33.600.000₫.</li>
+<li><strong>Giảm trừ bản thân:</strong> đủ 12 tháng = 186.000.000₫ (dù chỉ làm 8 tháng).</li>
+<li><strong>Thu nhập tính thuế:</strong> 320.000.000 − 33.600.000 − 186.000.000 = 100.400.000₫.</li>
+<li><strong>Thuế cả năm:</strong> 100.400.000 × 5% = <strong>5.020.000₫</strong>.</li>
+<li><strong>Đã khấu trừ:</strong> mỗi tháng thuế 1.530.000₫ × 8 tháng = 12.240.000₫.</li>
+</ol>
+<p><strong>Kết quả: được hoàn 12.240.000 − 5.020.000 = 7.220.000₫</strong> — vì khi quyết toán được giảm trừ đủ 12 tháng thay vì 8 tháng như khấu trừ hằng tháng.</p>
+<h2 id="vi-du-2">Ví dụ 2 — Lương cộng thu nhập vãng lai, nộp thêm 15.000.000₫</h2>
+<p>Chị Hoa lương 60.000.000₫/tháng cả năm, 1 người phụ thuộc, thêm thu nhập vãng lai 150.000.000₫ đã khấu trừ 10%.</p>
+<ol>
+<li><strong>Thu nhập cả năm:</strong> 60.000.000 × 12 + 150.000.000 = 870.000.000₫. <strong>Bảo hiểm:</strong> 720.000.000 × 10,5% = 75.600.000₫ (thu nhập vãng lai không đóng bảo hiểm).</li>
+<li><strong>Giảm trừ:</strong> bản thân 186.000.000₫ + 1 người phụ thuộc 74.400.000₫.</li>
+<li><strong>Thu nhập tính thuế:</strong> 870.000.000 − 75.600.000 − 186.000.000 − 74.400.000 = 534.000.000₫.</li>
+<li><strong>Thuế cả năm:</strong> 120.000.000 × 5% = 6.000.000₫; 240.000.000 × 10% = 24.000.000₫; 174.000.000 × 20% = 34.800.000₫. Tổng <strong>64.800.000₫</strong>.</li>
+<li><strong>Đã khấu trừ:</strong> lương 2.900.000₫/tháng × 12 = 34.800.000₫; vãng lai 150.000.000 × 10% = 15.000.000₫. Tổng 49.800.000₫.</li>
+</ol>
+<p><strong>Kết quả: nộp thêm 64.800.000 − 49.800.000 = 15.000.000₫</strong> — vì thu nhập vãng lai chỉ khấu trừ 10% nhưng rơi vào bậc 20% khi cộng vào thu nhập năm.</p>
+<h2 id="nop-o-dau">Nộp ở đâu, hoàn bao lâu</h2>
+<ul>
+<li><strong>1 nơi:</strong> cơ quan thuế quản lý trực tiếp nơi trả thu nhập.</li>
+<li><strong>2 nơi trở lên:</strong> cơ quan thuế quản lý tổ chức trả thu nhập lớn nhất trong năm (Nghị định 373/2025/NĐ-CP). Trả bằng nhau thì được chọn một; nộp sai nơi vẫn được chuyển hồ sơ.</li>
+<li><strong>Đã nghỉ việc:</strong> cơ quan thuế nơi bạn cư trú.</li>
+</ul>
+<p>Nộp hồ sơ online qua eTax Mobile (mẫu 02/QTT-TNCN). Hồ sơ hoàn đủ điều kiện được xử lý tự động trong <strong>3 ngày làm việc</strong> (Công văn 1296/CT-NVT) — nên nộp sau 31/3/2027, khi nơi trả thu nhập đã quyết toán xong.</p>
+`,
   },
 ];

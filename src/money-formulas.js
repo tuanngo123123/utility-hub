@@ -292,5 +292,68 @@ function bhtn(salary, months, region, pre2009) {
   };
 }
 
-if (typeof window !== 'undefined') window.M2_CALC = { CAP_BHXH, DEDUCT_SELF, DEDUCT_DEP, TAX_BRACKETS, BHTN_CAPS, MIN_WAGE_2026, ELECTRICITY_TIERS, ELECTRICITY_VAT_DEFAULT, taxByBrackets, grossNet, netToGross, thueTncnFromSalary, thueTncnFromTaxable, bhxhMotLan, luongHuu, tienDien, laiVay, luongThang13, bhtn };
-export { CAP_BHXH, DEDUCT_SELF, DEDUCT_DEP, TAX_BRACKETS, BHTN_CAPS, MIN_WAGE_2026, ELECTRICITY_TIERS, ELECTRICITY_VAT_DEFAULT, taxByBrackets, grossNet, netToGross, thueTncnFromSalary, thueTncnFromTaxable, bhxhMotLan, luongHuu, tienDien, laiVay, luongThang13, bhtn };
+// Quyết toán thuế TNCN 2026 (năm tính thuế 2026, nộp hồ sơ 2027).
+// Biểu lũy tiến theo NĂM = bậc tháng × 12 (Điều 9 Luật 109/2025/QH15).
+const TAX_BRACKETS_ANNUAL = [
+  { upTo: 120000000, rate: 0.05 },
+  { upTo: 360000000, rate: 0.10 },
+  { upTo: 720000000, rate: 0.20 },
+  { upTo: 1200000000, rate: 0.30 },
+  { upTo: Infinity, rate: 0.35 },
+];
+// Giảm trừ khi quyết toán (Nghị định 253/2026/NĐ-CP):
+const DEDUCT_SELF_YEAR = 186000000; // 15,5tr × 12 — đủ 12 tháng khi quyết toán, kể cả làm chưa đủ 12 tháng (điểm b khoản 1 Điều 48)
+const DEDUCT_MEDICAL_CAP = 23000000; // Trần giảm trừ chi phí y tế/năm (khoản 2 Điều 49)
+const DEDUCT_EDU_CAP = 24000000; // Trần giảm trừ chi phí giáo dục/năm (khoản 2 Điều 49)
+const QTTT_EXEMPT_MAX = 50000; // Nộp thêm không quá 50.000₫ thì miễn, không phải nộp hồ sơ (Điều 66 Thông tư 89/2026/TT-BTC)
+
+function taxByBracketsAnnual(taxable) {
+  let tax = 0;
+  let prev = 0;
+  const rows = [];
+  for (const b of TAX_BRACKETS_ANNUAL) {
+    if (taxable <= prev) break;
+    const part = Math.min(taxable, b.upTo) - prev;
+    const t = part * b.rate;
+    tax += t;
+    rows.push({
+      label: prev === 0
+        ? 'Đến 120 triệu'
+        : 'Trên ' + fmtShort(prev / 1000000) + '–' + (b.upTo === Infinity ? '…' : fmtShort(b.upTo / 1000000) + ' triệu'),
+      rate: b.rate * 100,
+      base: part,
+      tax: t,
+    });
+    prev = b.upTo;
+  }
+  return { tax, rows };
+}
+
+// Quyết toán thuế TNCN cả năm.
+// income: tổng thu nhập năm (lương + thưởng + vãng lai); insurance:
+// tổng BHXH+BHYT+BHTN đã đóng trong năm; deps: số người phụ thuộc;
+// depMonths: số tháng giảm trừ phụ thuộc (0–12, tính từ tháng phát sinh
+// nghĩa vụ nuôi dưỡng); medical/education: chi phí y tế/giáo dục tự trả
+// (áp trần 23tr/24tr); withheld: thuế đã khấu trừ trong năm.
+// Trả về thuế cả năm + chênh lệch (diff > 0: nộp thêm; diff < 0: được hoàn).
+function quyetToanThue(income, insurance, deps, depMonths, medical, education, withheld) {
+  const depDeduct = Math.max(0, deps) * DEDUCT_DEP * Math.min(12, Math.max(0, depMonths));
+  const medicalApplied = Math.min(Math.max(0, medical), DEDUCT_MEDICAL_CAP);
+  const eduApplied = Math.min(Math.max(0, education), DEDUCT_EDU_CAP);
+  const taxable = Math.max(0, income - insurance - DEDUCT_SELF_YEAR - depDeduct - medicalApplied - eduApplied);
+  const tb = taxByBracketsAnnual(taxable);
+  const diff = tb.tax - withheld;
+  return {
+    income, insurance, deps, depMonths,
+    selfDeduct: DEDUCT_SELF_YEAR, depDeduct,
+    medicalApplied, medicalCapped: medical > DEDUCT_MEDICAL_CAP,
+    eduApplied, eduCapped: education > DEDUCT_EDU_CAP,
+    taxable, tax: tb.tax, taxRows: tb.rows, withheld, diff,
+    refund: Math.max(0, -diff),
+    extraDue: Math.max(0, diff),
+    exempt: diff > 0 && diff <= QTTT_EXEMPT_MAX,
+  };
+}
+
+if (typeof window !== 'undefined') window.M2_CALC = { CAP_BHXH, DEDUCT_SELF, DEDUCT_DEP, TAX_BRACKETS, TAX_BRACKETS_ANNUAL, DEDUCT_SELF_YEAR, DEDUCT_MEDICAL_CAP, DEDUCT_EDU_CAP, QTTT_EXEMPT_MAX, BHTN_CAPS, MIN_WAGE_2026, ELECTRICITY_TIERS, ELECTRICITY_VAT_DEFAULT, taxByBrackets, taxByBracketsAnnual, grossNet, netToGross, thueTncnFromSalary, thueTncnFromTaxable, bhxhMotLan, luongHuu, tienDien, laiVay, luongThang13, bhtn, quyetToanThue };
+export { CAP_BHXH, DEDUCT_SELF, DEDUCT_DEP, TAX_BRACKETS, TAX_BRACKETS_ANNUAL, DEDUCT_SELF_YEAR, DEDUCT_MEDICAL_CAP, DEDUCT_EDU_CAP, QTTT_EXEMPT_MAX, BHTN_CAPS, MIN_WAGE_2026, ELECTRICITY_TIERS, ELECTRICITY_VAT_DEFAULT, taxByBrackets, taxByBracketsAnnual, grossNet, netToGross, thueTncnFromSalary, thueTncnFromTaxable, bhxhMotLan, luongHuu, tienDien, laiVay, luongThang13, bhtn, quyetToanThue };

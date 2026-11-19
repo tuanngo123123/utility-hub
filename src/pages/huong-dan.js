@@ -8,7 +8,7 @@
 // Làm lại trang mục đợt V2 (19/11): chip nhóm chủ đề lọc lúc chạy
 // (script nhỏ cuối body), thẻ bài CẢ THẺ bấm được (bỏ nút "Đọc bài →"),
 // bài mới nhất lên đầu, bài có ngày đăng mới nhất gắn nhãn "Mới".
-// Bài có công cụ liên quan (11 bài trong GUIDE_LINKS ở build.mjs) thì
+// Bài có công cụ liên quan (12 bài trong GUIDE_LINKS ở build.mjs) thì
 // nhúng công cụ ở đầu bài qua embedHtml (build sinh sẵn); bài không có
 // công cụ liên quan (phạt nguội, CV) thì embedHtml rỗng.
 import { esc } from '../tool-card.js';
@@ -21,6 +21,7 @@ const TOPICS = {
   'cach-tinh-thue-thu-nhap-ca-nhan-2026': 'luong-thue',
   'cach-tinh-luong-tang-ca-2026': 'luong-thue',
   'luong-thang-13-thuong-tet-2027': 'luong-thue',
+  'quyet-toan-thue-tncn-2026': 'luong-thue',
   'le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien': 'luong-thue',
   'cach-tinh-bhxh-mot-lan-2026': 'bao-hiem',
   'cach-tinh-luong-huu-bhxh-2026': 'bao-hiem',
@@ -79,7 +80,7 @@ export function body({ articles = ARTICLES } = {}) {
   return `
   <header class="tool-page-head">
     <h1>Bài viết</h1>
-    <p class="muted">Cách tính lương, thuế TNCN, lãi vay, lãi tiết kiệm, tiền điện, tiền nước, lương tăng ca, lương hưu, lương tháng 13 và thưởng Tết, BHXH một lần, lệ phí môn bài, tra cứu phạt nguội và cách viết CV — viết ngắn gọn, số liệu theo quy định hiện hành, kèm công cụ tính ngay. Tất cả bài do Tiện Ích Hub tự viết.</p>
+    <p class="muted">Cách tính lương, thuế, lãi vay, tiền điện, tiền nước — ngắn gọn, kèm công cụ tính ngay.</p>
   </header>
 
   <section class="section" aria-label="Tất cả bài viết">

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T07:46:57.051Z",
+  "updatedAt": "2026-11-19T17:14:07.899Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,6 +49,46 @@
   ],
   "items": [
     {
+      "title": "Former Alibaba exec’s Everful raises $48.5M to connect retailers with Chinese factories",
+      "link": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000",
+      "description": "Everful has raised $48.5 million to expand its factory-direct sourcing platform, helping retailers source products from overseas manufacturers."
+    },
+    {
+      "title": "Anthropic hits NASDAQ exchanges at $111, 33 percent above IPO price",
+      "link": "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 16:59:23 +0000",
+      "description": "Anthropic's IPO price was set at $83, representing more than $80 billion in new capital raised."
+    },
+    {
+      "title": "At Nasdaq opening bell, Anthropic CEO recommits to pacing AI development",
+      "link": "https://techcrunch.com/2026/11/19/at-nasdaq-opening-bell-anthropic-ceo-recommits-to-pacing-ai-development/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 16:19:41 +0000",
+      "description": "In his Nasdaq opening bell speech, Dario Amodei reiterated Anthropic's commitment to pacing AI development, regardless of business or political pressure."
+    },
+    {
+      "title": "Anthropic’s IPO puts AI’s circular financing boom to the test",
+      "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 14:54:39 +0000",
+      "description": "Anthropic faces enormous compute commitments as it goes public, but its biggest infrastructure partners, including Amazon and Google, could continue profiting from AI even if Anthropic loses its lead."
+    },
+    {
+      "title": "Superhuman pushes its Go assistant everywhere",
+      "link": "https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 14:00:00 +0000",
+      "description": "Superhuman is making Go its central agent and making it available in Docs and Mail"
+    },
+    {
       "title": "Microsoft CEO Satya Nadella explains why he asked 60K employees to quit",
       "link": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/",
       "source": "TechCrunch",
@@ -73,46 +113,6 @@
       "description": "“I don’t think [Huang is] disloyal to the United States,\" Musk said."
     },
     {
-      "title": "Microsoft CEO Satya Nadella remains confident in Nvidia after Huang’s exit",
-      "link": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-remains-confident-in-nvidia-after-huangs-exit/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 23:17:28 +0000",
-      "description": "Microsoft CEO Satya Nadella expressed confidence in Jensen Huang's successor Colette Kress, who is serving as Nvidia's interim CEO."
-    },
-    {
-      "title": "Satya Nadella predicts AI agents will reshuffle the economics of the web",
-      "link": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 22:58:11 +0000",
-      "description": "Microsoft's CEO says AI agents could disrupt advertising-driven business models, forcing companies like Amazon to rethink how they compete for customers."
-    },
-    {
-      "title": "Anthropic prices IPO at $83 a share, above projected range",
-      "link": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 22:11:15 +0000",
-      "description": "The long-awaited IPO reportedly values the company at $1.5 trillion on a fully diluted basis."
-    },
-    {
-      "title": "Nvidia created a weird bit of intrigue by not filing a routine SEC report",
-      "link": "https://techcrunch.com/2026/11/18/nvidia-created-a-weird-bit-of-intrigue-by-not-filing-a-routine-sec-report/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 21:57:40 +0000",
-      "description": "One Wall Street analyst got to the bottom of Nvidia's surprise announcement that it wouldn't be filing its formal quarterly results document, the 10-Q, for weeks."
-    },
-    {
-      "title": "Palmer Luckey warns AI-powered cyberattacks are outpacing defenses: ‘It’s time to start running’",
-      "link": "https://techcrunch.com/2026/11/18/palmer-luckey-warns-ai-powered-cyberattacks-are-outpacing-defenses-its-time-to-start-running/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 21:34:13 +0000",
-      "description": "The Anduril co-founder says outdated technology is leaving systems vulnerable to a new wave of AI-enabled attacks."
-    },
-    {
       "title": "Best Buy sells Blu-rays online and in-store again",
       "link": "https://arstechnica.com/gadgets/2026/11/best-buy-sells-blu-rays-again-after-quitting-the-business-in-2024/",
       "source": "Ars Technica",
@@ -129,196 +129,196 @@
       "description": "MyMems , Wright says he wants to \"turn the simulation inward.\"]]>"
     },
     {
-      "title": "The AI Hype Index: AI is everywhere",
-      "link": "https://www.technologyreview.com/2026/11/18/1148650/ai-hype-index-ai-is-everywhere/",
+      "title": "The Download: a living liver, a billion-dollar battery deal, and AI hype",
+      "link": "https://www.technologyreview.com/2026/11/19/1148979/the-download-liver-kept-alive-sila-battery-deal-ai-hype/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 14:42:44 +0000",
-      "description": "Like a nasty rash, AI seems to spread everywhere. Google crams AI Overviews down your throat even though it costs the company billions of dollars in lost ad revenue. Leave your apartment, and you might pass two people heaving an AI-powered humanoid robot up the stairs to clean someone’s rooms. Go to the supermarket, and…"
+      "publishedAt": "Thu, 19 Nov 2026 13:10:00 +0000",
+      "description": "This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. A human liver has been kept alive outside the body for a record seven weeks Researchers in Australia claim they’ve kept a human liver alive on life support outside the body…"
     },
     {
-      "title": "The Download: AI learns to smell and hydropower struggles",
-      "link": "https://www.technologyreview.com/2026/11/18/1148845/the-download-ai-learns-to-smell-hydropower-struggles/",
+      "title": "A human liver has been kept alive outside the body for a record seven weeks",
+      "link": "https://www.technologyreview.com/2026/11/19/1148934/a-human-liver-has-been-kept-alive-outside-the-body-for-seven-weeks-setting-a-record/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 13:10:00 +0000",
-      "description": "This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. This smell startup says its AI nose is as good as a human’s In a New Jersey lab, researchers are trying to sniff every odor on Earth. Their careful notes—“nutty,” “peachy,”…"
+      "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000",
+      "description": "Researchers in Australia claim they’ve kept a human liver alive, on life support, outside the body for seven weeks, opening up speculative new possibilities in biomedical engineering. The feat, whose details are pending publication, was carried out in Sydney after a team led by surgeon and inventor Carlo Pulitano connected a donated liver to a…"
     },
     {
-      "title": "This smell startup says its AI nose is as good as a human’s",
-      "link": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
+      "title": "What a billion-dollar deal says about the US battery market",
+      "link": "https://www.technologyreview.com/2026/11/19/1148922/sila-panasonic-battery-deal/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 10:20:30 +0000",
-      "description": "In a lab near Newark Airport in New Jersey, a team of around 30 experienced human sniffers are slowly working their way through every odor on Earth. Their careful notes—“nutty,” “peachy,” “marine”—are cross-referenced with a chemical analysis to create a rich set of training data for what AI startup Osmo calls the world’s first foundation…"
+      "publishedAt": "Thu, 19 Nov 2026 11:00:00 +0000",
+      "description": "After a tough few years littered with some high-profile failures, there’s some positive news for next-generation batteries in the US. Sila just signed an agreement with Panasonic Energy, a global battery manufacturer, to supply silicon-carbon anode material, a possible key to smaller, lighter batteries. It’s a deal that Sila says could be worth more than…"
     },
     {
-      "title": "Lego Promo Code | 20% Off November 2026",
-      "link": "https://www.wired.com/story/lego-promo-code/",
+      "title": "Google Built a Giant ‘Mirror Dimension’ Internet to Test Its Chrome AI Agents",
+      "link": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000",
-      "description": "Get the best deals on your favorite building sets, from free shipping over $35 to exclusive gifts with purchase using a Lego coupon code."
+      "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000",
+      "description": "The company’s alternate-universe internet serves as a massive sandbox that allows the Chrome team to properly train AI browsing agents—without the risk of them going rogue."
     },
     {
-      "title": "Reebok Discount Code: 15% Off: November 2026",
-      "link": "https://www.wired.com/story/reebok-discount-code/",
+      "title": "21 Best Home Entertainment Gifts (2026): TVs, Lights, and More",
+      "link": "https://www.wired.com/story/best-home-entertainment-gifts-2026/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000",
-      "description": "Score deep discounts on running shoes, athletic apparel, and classics with the latest verified Reebok promo codes, student discounts, and member-only savings."
+      "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000",
+      "description": "Because staying home can actually mean having the time of your life, whether alone or with friends."
     },
     {
-      "title": "We-Vibe Discount Codes and Deals: Up to 60% Off",
-      "link": "https://www.wired.com/story/we-vibe-discount-code/",
+      "title": "Anthropic’s Record-Breaking IPO Highlights the AI Giant’s Worst Enemy—Itself",
+      "link": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000",
-      "description": "Save on We-Vibe, including app-controlled bestsellers and popular gift sets designed for couples, connection, and shared pleasure."
+      "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000",
+      "description": "Investors betting a barnstorming $107 billion will weigh whether the company’s AI safety strategy and growing public anger towards data centers could impact its growth."
     },
     {
-      "title": "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
-      "link": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
+      "title": "AMD falls on short-seller report of alleged China exposure",
+      "link": "https://www.cnbc.com/2026/11/19/amd-falls-on-short-seller-report-of-alleged-china-exposure.html",
+      "source": "CNBC",
+      "group": "chung-khoan",
+      "publishedAt": "Thu, 19 Nov 2026 16:53:47 GMT",
+      "description": "AMD was slumping Wednesday after a short-seller alleged that its firmware showed up at blacklisted Chinese company"
+    },
+    {
+      "title": "Palo Alto stock jumps on earnings beat and company's big bet on securing open-weight models",
+      "link": "https://www.cnbc.com/2026/11/19/palo-alto-networks-earnings-applied-compute.html",
       "source": "CNBC",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 01:13:20 GMT",
-      "description": "Anthropic stock is set to begin trading on the Nasdaq under the ticker symbol ANT on Thursday."
+      "publishedAt": "Thu, 19 Nov 2026 16:28:06 GMT",
+      "description": "Palo Alto Networks reported better-than-expected first-quarter results and inked a $4.5 billion deal for AI startup Applied Compute"
     },
     {
-      "title": "Musk accuses Zelenskyy of lying about Starshield restrictions in Ukraine",
-      "link": "https://www.cnbc.com/2026/11/19/elon-musk-zelenskyy-starshield-ukraine.html",
+      "title": "Kash Patel skips House hearing after Mar-a-Lago gala with $50,000 access",
+      "link": "https://www.cnbc.com/2026/11/18/kash-patel-hearing-mar-a-lago-gala.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Thu, 19 Nov 2026 14:15:18 GMT",
+      "description": "Kash Patel missed a congressional hearing after appearing the night before at a Mar-a-Lago gala offering donors of $50,000 access to top officials."
+    },
+    {
+      "title": "Walmart hikes outlook as CEO tells CNBC retailer aims to keep prices low despite soaring fuel costs",
+      "link": "https://www.cnbc.com/2026/11/19/walmart-wmt-q3-2026-earnings.html",
+      "source": "CNBC",
+      "group": "chung-khoan",
+      "publishedAt": "Thu, 19 Nov 2026 13:23:50 GMT",
+      "description": "Walmart said it saw strength with store-fulfilled pickup and delivery in its fiscal third quarter."
+    },
+    {
+      "title": "Amazon launches in-app push against Mamdani-backed delivery bill in New York City",
+      "link": "https://www.cnbc.com/2026/11/19/amazon-nyc-delivery-protection-act.html",
       "source": "CNBC",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 06:07:29 GMT",
-      "description": "Elon Musk was asked about Zelenskyy claims over the Starshield network, and he said, \"I don't want to blow your mind, but Zelenskyy is not always truthful.\""
+      "publishedAt": "Thu, 19 Nov 2026 16:15:40 GMT",
+      "description": "Amazon has lobbied heavily against the proposed legislation, while New York City Mayor Zohran Mamdani backed the bill earlier this year."
     },
     {
-      "title": "Trump holds talks separately with Putin and Xi ahead of their historic trilateral meeting",
-      "link": "https://www.cnbc.com/2026/11/19/trump-xi-putin-china-apec-.html",
+      "title": "Trump, Xi, Putin said they plan to boost oil production, revamp UN after trilateral talks",
+      "link": "https://www.cnbc.com/2026/11/19/trump-xi-putin-trilateral-meeting-china.html",
       "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 06:29:34 GMT",
-      "description": "U.S. President Donald Trump met individually on Thursday with Russian President Vladimir Putin, as well as Chinese President Xi Jinping."
-    },
-    {
-      "title": "Takaichi gets chilly reception in China on first Japan leader visit since 2019",
-      "link": "https://www.cnbc.com/2026/11/19/japan-china-trump-takaichi-taiwan-.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 07:38:29 GMT",
-      "description": "Takaichi received a subdued welcome on her trip to attend the APEC summit, as Beijing shows limited appetite for repairing ties strained by Taiwan dispute."
-    },
-    {
-      "title": "Nvidia interim CEO Kress tells employees ‘let’s move forward’ at first all-hands meeting since Jensen Huang exit",
-      "link": "https://www.cnbc.com/2026/11/18/nvidia-interim-ceo-kress-addresses-staff-after-jensen-huang-exit-.html",
-      "source": "CNBC",
-      "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 23:45:50 GMT",
-      "description": "Nvidia's interim CEO Colette Kress urges staff forward and offers pay raises after Jensen Huang exit."
-    },
-    {
-      "title": "I watched Trump, Xi and Putin gather in China. Here are my top takeaways",
-      "link": "https://www.cnbc.com/2026/11/18/trump-xi-putin-apec-shenzhen-china.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Wed, 18 Nov 2026 19:47:05 GMT",
-      "description": "U.S. President Donald Trump, Chinese President Xi Jinping and Russian President Vladimir Putin are expected to hold a rare trilateral meeting on Thursday."
-    },
-    {
-      "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
-      "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 03:45:00 GMT",
-      "description": "“I’m exhausted. My alarm goes off at 6 a.m., and I have a 50-minute commute.”"
-    },
-    {
-      "title": "‘It’s downright dirty’: My brother took over our ailing mother’s life and finances. What can I do?",
-      "link": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 03:45:00 GMT",
-      "description": "“It is devastating when the people you should be able to trust become the very people you have to protect yourself from.”"
+      "group": "thoi-su",
+      "publishedAt": "Thu, 19 Nov 2026 17:01:41 GMT",
+      "description": "The leaders of the U.S., China and Russia met in Shenzhen, China on Thursday for a rare trilateral gathering."
     },
     {
       "title": "‘I’ve been a stay-at-home mom’: I’m 50 and have a chronic illness. My husband lost his job. Should he raid his 401(k)?",
       "link": "https://www.marketwatch.com/story/ive-been-a-stay-at-home-mom-im-50-and-have-a-chronic-illness-my-husband-lost-his-job-should-he-raid-his-401-k-63e59123?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 03:30:00 GMT",
+      "publishedAt": "Thu, 19 Nov 2026 17:00:00 GMT",
       "description": "“Our financial and healthcare situation has become increasingly concerning.”"
     },
     {
-      "title": "Palo Alto Networks’ stock gets a fresh AI-fueled boost from earnings",
-      "link": "https://www.marketwatch.com/story/palo-alto-networks-stock-soars-as-earnings-show-ai-has-upped-the-stakes-for-cybersecurity-308e34b8?mod=mw_rss_topstories",
+      "title": "Anthropic is coming to your 401(k). Love it or hate it, AI is becoming a bigger part of your financial plan.",
+      "link": "https://www.marketwatch.com/story/anthropic-is-coming-to-your-401-k-love-it-or-hate-it-ai-is-becoming-a-bigger-part-of-your-financial-plan-2e9ae533?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 01:02:00 GMT",
-      "description": "The company boosts its outlook in the face of the “current threat environment and demand we see ahead of us.”"
+      "publishedAt": "Thu, 19 Nov 2026 16:53:00 GMT",
+      "description": "A number of public pension plans already have a stake in Anthropic."
     },
     {
-      "title": "Bitcoin carry trades could beat Treasury bills in 2027, Sygnum predicts",
-      "link": "https://cointelegraph.com/markets/sygnum-bitcoin-carry-trades-2027?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Alibaba’s cloud business is thriving. But those profits are completely offset by losses from its AI labs.",
+      "link": "https://www.marketwatch.com/story/alibabas-cloud-business-is-thriving-but-those-profits-are-completely-offset-by-losses-from-its-ai-labs-74bf4b3c?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 16:52:00 GMT",
+      "description": "The cloud-services business of Chinese internet giant Alibaba is thriving — but the losses from the artificial-intelligence labs business is completely offsetting it."
+    },
+    {
+      "title": "Anthropic’s IPO poses this big risk to an already shaky stock market",
+      "link": "https://www.marketwatch.com/story/anthropics-ipo-poses-this-big-risk-to-an-already-shaky-stock-market-83ce7794?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 16:49:00 GMT",
+      "description": "Investors are worried that a flood of equity issuance could overwhelm demand."
+    },
+    {
+      "title": "Anthropic shares open at $111.50, 34.3% above $83 IPO price",
+      "link": "https://cointelegraph.com/markets/anthropic-shares-expected-to-open-above-83-ipo-price?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000",
-      "description": "Sygnum predicts that Bitcoin carry trades may offer higher returns than Treasury bills in 2027, following a sharp drop in funding rates that made the strategy less compelling in 2026."
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 16:07:51 +0000",
+      "description": "The Claude chatbot maker began trading under the ticker ANT, with the company’s valuation at around $2 trillion at the opening price."
     },
     {
       "title": "Here’s what happened in crypto today",
       "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000",
+      "publishedAt": "Thu, 19 Nov 2026 13:48:14 +0000",
       "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
     },
     {
-      "title": "Senators warn GENIUS Act rules could push stablecoin firms toward federal oversight",
-      "link": "https://cointelegraph.com/news/us-senators-genius-act-rules-favor-federal-stablecoin-issuers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Ethereum’s new DeFi security tool raises questions over censorship",
+      "link": "https://cointelegraph.com/magazine/ethereums-new-defi-security-tool-raises-questions-over-censorship?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 05:27:45 +0000",
-      "description": "The lawmakers urged Treasury to extend safe harbor protections to stablecoin issuers in states expected to establish qualifying regulatory frameworks before January 2028."
+      "publishedAt": "Thu, 19 Nov 2026 13:30:00 +0000",
+      "description": "Phylax’s system lets decentralized protocols block potentially harmful transactions, but raises questions about potential censorship and Ethereum’s concentrated builder market."
     },
     {
-      "title": "Fed's rate hike push may be a mistake. Here's why",
-      "link": "https://www.coindesk.com/markets/2026/11/19/fed-s-push-for-more-rate-hikes-leans-on-backward-looking-data-as-gas-prices-slide-analysts-argue",
+      "title": "Anthropic opens for trade at $111.50, up 34% from IPO price",
+      "link": "https://www.coindesk.com/markets/2026/11/19/anthropic-opens-for-trade-at-usd11-50-up-34-from-ipo-price",
       "source": "CoinDesk",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 06:23:19 +0000",
-      "description": "Experts argue that the Fed is looking at the wrong data as it pushes for more interest-rate hikes, with falling gasoline and energy prices suggesting inflation pressures are already easing."
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 17:01:47 +0000",
+      "description": "At that opening price, the company would be valued at more than $2 trillion"
     },
     {
-      "title": "Ethereum block builders received the most in a $3.4 million vault hack, data shows",
-      "link": "https://www.coindesk.com/tech/2026/11/19/ethereum-block-builders-received-the-most-in-a-usd3-4-million-vault-hack-data-shows",
-      "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 05:39:06 +0000",
-      "description": "An automated trading bot copied the attack on K3 Capital's sBOLD vault, taking more than half the funds and paying most of its proceeds to get its transactions processed first."
-    },
-    {
-      "title": "Bitcoin miner that sold its last BTC warns it may run short of cash for $1.2 billion AI deal",
-      "link": "https://www.coindesk.com/markets/2026/11/19/bitcoin-miner-that-sold-its-last-btc-warns-it-may-run-short-of-cash-for-usd1-2-billion-ai-deal",
+      "title": "Binance wins $6.5 billion feezing order against hackers behind crypto's largest theft",
+      "link": "https://www.coindesk.com/business/2026/11/19/binance-wins-usd6-5-billion-feezing-order-against-hackers-behind-crypto-s-largest-theft",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 04:46:10 +0000",
-      "description": "Hyperscale Data needs another $74.8 million to complete its Michigan data center project, even after selling its remaining bitcoin and raising fresh debt."
+      "publishedAt": "Thu, 19 Nov 2026 15:20:38 +0000",
+      "description": "The crypto exchange said it has already replaced the stolen assets using its own funds and insurance reserves."
     },
     {
-      "title": "Ledger Confirms Tampered Bitcoin Wallets in Berlin as Spy Implant Probe Spreads Beyond Asia",
-      "link": "https://decrypt.co/383586/ledger-confirms-tampered-bitcoin-wallets-berlin-spreads-beyond-asia",
-      "source": "Decrypt",
+      "title": "Crypto traders vs. Wall Street: OKX’s Anthropic markets put IPO pricing to the test",
+      "link": "https://www.coindesk.com/markets/2026/11/19/crypto-traders-vs-wall-street-okx-s-anthropic-markets-put-ipo-pricing-to-the-test",
+      "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Wed, 18 Nov 2026 22:16:02 +0000",
-      "description": "Ledger says its hardware implant investigation has confirmed tampered devices in Berlin and is examining two suspected units in Dubai, as the incident spreads beyond Southeast Asia."
+      "publishedAt": "Thu, 19 Nov 2026 13:11:31 +0000",
+      "description": "The crypto exchange plans to launch tokenized Anthropic shares as its pre-IPO futures trade about 24% above the company’s $83 offering price."
     },
     {
-      "title": "ChatGPT, Claude, Gemini and Grok Helped Plan Terror Attacks in Government Tests",
-      "link": "https://decrypt.co/383584/chatgpt-claude-gemini-grok-help-plan-terror-attacks-government-tests",
+      "title": "Anthropic Stock Opens 33% Above IPO Price as AI Stocks Rally",
+      "link": "https://decrypt.co/383631/anthropic-stock-indicated-open-33-above-ipo-price",
       "source": "Decrypt",
       "group": "ai",
-      "publishedAt": "Wed, 18 Nov 2026 21:46:03 +0000",
-      "description": "Federal investigators bypassed safeguards on four popular chatbots, producing viable attack plans within hours."
+      "publishedAt": "Thu, 19 Nov 2026 16:55:10 +0000",
+      "description": "The Claude maker's shares could debut at $110, pushing its valuation toward $2 trillion as enthusiasm for its historic IPO lifts the broader technology sector."
+    },
+    {
+      "title": "Anthropic Tops SpaceX's Initial IPO With $81 Billion Deal: Where the Money Went",
+      "link": "https://decrypt.co/383623/anthropic-tops-spacex-initial-ipo-81-billion-deal-where-the-money-went",
+      "source": "Decrypt",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 15:54:03 +0000",
+      "description": "The Claude maker beat SpaceX's original share sale, though not its expanded final IPO. Here's who got the money and why the computing bill could be even bigger."
     }
   ]
 }

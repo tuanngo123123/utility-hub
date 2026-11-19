@@ -2380,7 +2380,8 @@
   var NEWS_GROUPS = [
     { id: 'ai', label: 'AI' },
     { id: 'chung-khoan', label: 'Chứng khoán' },
-    { id: 'crypto', label: 'Crypto' }
+    { id: 'crypto', label: 'Crypto' },
+    { id: 'thoi-su', label: 'Thời sự' }
   ];
   var HOME_NEWS_COUNT = 3; // Đồng bộ với home.js (SSR): trang chủ chỉ hiện 3 tin mới nhất.
 
@@ -2477,15 +2478,40 @@
   function initHomeNews() {
     var listEl = $('#home-news-list');
     if (!listEl) return;
+    // Lọc theo nhóm tin (chip trên trang chủ, 19/11): bấm chip thì hiện
+    // 3 tin mới nhất của nhóm đó; "Tất cả" thì 3 tin mới nhất mọi nhóm.
+    var currentFilter = 'all';
+    var cachedData = null;
 
     function render(data) {
+      cachedData = data;
       var groups = normalizeNews(data);
       var allItems = [];
       groups.forEach(function (g) { g.items.forEach(function (it) { allItems.push(it); }); });
-      if (allItems.length === 0) {
+      // Cập nhật số đếm trên chip (JSON mới hơn SSR thì số SSR đã cũ).
+      var chips = document.querySelectorAll('[data-home-news-chip]');
+      if (chips.length) {
+        var counts = { all: allItems.length };
+        groups.forEach(function (g) { counts[g.id] = g.items.length; });
+        chips.forEach(function (chip) {
+          var id = chip.getAttribute('data-home-news-chip');
+          var def = null;
+          if (id === 'all') def = { label: 'Tất cả' };
+          else NEWS_GROUPS.forEach(function (d) { if (d.id === id) def = d; });
+          if (def) chip.textContent = def.label + ' · ' + (counts[id] || 0);
+        });
+      }
+      var shown = allItems;
+      if (currentFilter !== 'all') {
+        shown = [];
+        groups.forEach(function (g) {
+          if (g.id === currentFilter) g.items.forEach(function (it) { shown.push(it); });
+        });
+      }
+      if (shown.length === 0) {
         listEl.innerHTML = '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
       } else {
-        var latest = allItems.slice().sort(function (a, b) {
+        var latest = shown.slice().sort(function (a, b) {
           var da = newsItemDate(a), db = newsItemDate(b);
           var ta = da ? da.getTime() : 0, tb = db ? db.getTime() : 0;
           return tb - ta;
@@ -2506,9 +2532,9 @@
         .then(function (data) {
           var fresh = Date.parse((data && data.updatedAt) || '') || 0;
           var ssr = ssrTime(listEl);
-          // JSON không mới hơn SSR thì giữ SSR (nội dung như nhau).
-          // Không có updatedAt để so (fresh = 0) thì render để chắc chắn.
-          if (fresh > 0 && fresh <= ssr) return;
+          // JSON không mới hơn SSR thì giữ SSR (nội dung như nhau)
+          // nhưng vẫn lưu dữ liệu để chip lọc có cái mà lọc khi bấm.
+          if (fresh > 0 && fresh <= ssr) { cachedData = data; return; }
           render(data);
         })
         .catch(function () {
@@ -2520,6 +2546,16 @@
           }
         });
     }
+    document.querySelectorAll('[data-home-news-chip]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        currentFilter = chip.getAttribute('data-home-news-chip') || 'all';
+        document.querySelectorAll('[data-home-news-chip]').forEach(function (c) {
+          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
+        });
+        if (cachedData) render(cachedData);
+        else load();
+      });
+    });
     load();
   }
   /* ---------------- Trang Ủng hộ: VietQR ---------------- */
@@ -2945,8 +2981,39 @@
     return out;
   }
 
+  // Dán mỗi-ô-một-dòng (không tab): ghép cặp tên/giới tính — văn bản
+  // dạng "Nguyễn Văn A / Nam / Trần Thị B / Nữ" (hay gặp khi chép từ
+  // một số nguồn) mà tách mỗi dòng 1 hàng thì "Nam"/"Nữ" thành tên,
+  // đầu trang báo "0 nam · 0 nữ" (lỗi lớp "Lớp 10A1 test", 19/11).
+  // Chỉ ghép khi xen kẽ ĐÚNG quy luật trên TOÀN BỘ dòng (sau khi bỏ
+  // dòng trống + dòng tiêu đề): còn ≥4 dòng, số dòng chẵn, dòng chẵn
+  // (0, 2, 4…) KHÔNG phải giá trị giới tính, dòng lẻ (1, 3, 5…) PHẢI
+  // là giá trị giới tính. Kiểm toàn bộ để danh sách tên thuần có bạn
+  // tên "Nam" không bị ghép sai (dòng sau "Nam" không phải giới tính
+  // thì quy luật vỡ ngay, giữ nguyên như cũ). Không đúng quy luật thì
+  // trả null để gvParseTable dùng cách tách cũ.
+  function gvPairNameGenderLines(text) {
+    var lines = String(text == null ? '' : text).split(/\r\n|\r|\n/)
+      .map(gvCellText)
+      .filter(function (l) { return l !== '' && !gvIsHeaderCell(l); });
+    if (lines.length < 4 || lines.length % 2 !== 0) return null;
+    for (var i = 0; i < lines.length; i += 2) {
+      if (gvIsGenderValue(lines[i]) || !gvIsGenderValue(lines[i + 1])) return null;
+    }
+    var rows = [];
+    for (var j = 0; j < lines.length; j += 2) rows.push([lines[j], lines[j + 1]]);
+    return rows;
+  }
+
   function gvParseTable(text) {
-    var rows = String(text == null ? '' : text).split(/\r\n|\r|\n/).map(function (line) {
+    var raw = String(text == null ? '' : text);
+    // Không có tab nào: thử ghép cặp tên/giới tính trước; không đúng
+    // quy luật xen kẽ thì giữ nguyên cách tách cũ (mỗi dòng 1 hàng).
+    if (raw.indexOf('\t') === -1) {
+      var paired = gvPairNameGenderLines(raw);
+      if (paired) return gvParseRows(paired);
+    }
+    var rows = raw.split(/\r\n|\r|\n/).map(function (line) {
       return String(line).split('\t');
     });
     return gvParseRows(rows);
@@ -3044,8 +3111,10 @@
     catch (e) { return false; }
   }
 
-  if (typeof window !== 'undefined') {
-    window.UhGvClasses = {
+  // API lớp học dùng chung cho Bàn giáo viên + test Node (test-gv-parser
+  // nạp app.js qua vm, không có window). Khai báo 1 lần, gắn lên cả
+  // window lẫn module.exports theo mẫu UHMascot ở cuối file.
+  var UhGvClassesApi = {
       parse: gvParseNames,
       parseRecords: gvParseTable,
       parseRows: gvParseRows,
@@ -3284,8 +3353,9 @@
         try { localStorage.setItem(GV_ACTIVE_KEY, String(name || '')); return true; }
         catch (e) { return false; }
       }
-    };
-  }
+  };
+  if (typeof window !== 'undefined') window.UhGvClasses = UhGvClassesApi;
+  if (typeof module !== 'undefined' && module.exports) module.exports.UhGvClasses = UhGvClassesApi;
 
   /* ---------------- Tự chạy khi DOM sẵn sàng ---------------- */
 

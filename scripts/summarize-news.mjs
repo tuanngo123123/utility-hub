@@ -371,7 +371,7 @@ const WHY_MAX_LEN = 200;
 const TITLE_MAX_LEN = 90;
 const BATCH = 5;
 
-const GROUPS = ['ai', 'chung-khoan', 'crypto'];
+const GROUPS = ['ai', 'chung-khoan', 'crypto', 'thoi-su'];
 
 function trimText(s, maxLen) {
   let t = String(s || '').replace(/\s+/g, ' ').trim().replace(/^["“]|["”]$/g, '');
@@ -564,7 +564,7 @@ async function main() {
     console.warn('Thêm key: GitHub repo -> Settings -> Secrets and variables -> Actions -> New repository secret, tên GEMINI_API_KEY.');
   }
 
-  const groups = { ai: [], 'chung-khoan': [], crypto: [] };
+  const groups = { ai: [], 'chung-khoan': [], crypto: [], 'thoi-su': [] };
   const base = (it, pair) => ({
     title: it.title,
     titleVi: pair.titleVi || '',

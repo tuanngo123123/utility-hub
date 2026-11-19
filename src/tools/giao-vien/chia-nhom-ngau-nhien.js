@@ -47,6 +47,7 @@ An
 Chi</textarea></div>
   <div class="cn-v2">
     <div class="cn-settings">
+      <button type="button" class="cn-settings-toggle" id="cn-settings-toggle" aria-expanded="true">Cài đặt <span class="cn-settings-caret" aria-hidden="true">▴</span></button>
       <h3>Số nhóm</h3>
       <div class="cn-stepper">
         <button type="button" class="cn-step-btn" id="cn-minus" aria-label="Giảm số nhóm">−</button>
@@ -182,6 +183,20 @@ export function init(root) {
     const helper = gvClasses();
     if (helper) return helper.parse(text);
     const isHead = c => /^(stt|số thứ tự|họ(\s*và)?\s*tên|họ tên( học sinh)?|tên( học sinh)?|tên gọi|họ đệm|giới tính|giới|nam\/nữ|ghi chú|ngày sinh|địa chỉ|nơi sinh|lớp)$/i.test(c);
+    // Dán mỗi-ô-một-dòng (không tab): dòng giới tính đứng sau dòng tên
+    // thì bỏ dòng giới tính, chỉ giữ tên — đồng bộ gvPairNameGenderLines
+    // trong app.js (kiểm xen kẽ toàn bộ để tên thuần có bạn tên "Nam"
+    // không bị ghép sai).
+    const rawText = String(text == null ? '' : text);
+    if (rawText.indexOf('\t') === -1) {
+      const isGenderVal = v => /^(nam|nữ|nu|m|f|male|female)$/i.test(v);
+      const lines = rawText.split(/\r\n|\r|\n/).map(l => l.trim()).filter(l => l !== '' && !isHead(l));
+      let paired = lines.length >= 4 && lines.length % 2 === 0;
+      for (let i = 0; paired && i < lines.length; i += 2) {
+        if (isGenderVal(lines[i]) || !isGenderVal(lines[i + 1])) paired = false;
+      }
+      if (paired) return lines.filter((_, i) => i % 2 === 0).map(n => n.replace(/^\d+\s*[.)\-–:]?\s+/, '').trim()).filter(Boolean);
+    }
     const rows = String(text == null ? '' : text).split(/\r\n|\r|\n/).map(l => String(l).split('\t').map(c => c.trim()));
     const data = rows.filter(r => r.some(c => c !== '') && !r.some(isHead));
     if (!data.length) return [];
@@ -406,12 +421,30 @@ export function init(root) {
     return html + '</div>';
   }
 
+  // Dải gập Cài đặt: chia xong thì thu cột cài đặt thành 1 dải ngang
+  // trên cùng để thẻ nhóm dùng hết bề ngang; bấm dải mở lại đầy đủ
+  // để chỉnh rồi chia lại. Dải chỉ hiện khi đã có kết quả chia.
+  function setSettingsCollapsed(collapsed) {
+    const v2 = root.querySelector('.cn-v2');
+    const btn = $('cn-settings-toggle');
+    if (!v2 || !btn) return;
+    v2.classList.toggle('cn-collapsed', collapsed);
+    btn.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    const caret = btn.querySelector('.cn-settings-caret');
+    if (caret) caret.textContent = collapsed ? '▾' : '▴';
+  }
+  function clearSettingsStrip() {
+    const v2 = root.querySelector('.cn-v2');
+    if (v2) v2.classList.remove('cn-has-results', 'cn-collapsed');
+  }
+
   function render() {
     const out = $('cn-out');
     if (!groups.length) {
       out.hidden = true;
       out.innerHTML = '';
       $('cn-result-actions').style.display = 'none';
+      clearSettingsStrip();
       return;
     }
     const total = groups.reduce((a, g) => a + g.length, 0);
@@ -660,6 +693,10 @@ export function init(root) {
     showMsg('');
     tick();
     render();
+    // Chia xong: thu cài đặt thành dải gập để thẻ nhóm dùng hết bề ngang.
+    const v2 = root.querySelector('.cn-v2');
+    if (v2) v2.classList.add('cn-has-results');
+    setSettingsCollapsed(true);
     fanfare();
   }
 
@@ -1011,6 +1048,7 @@ export function init(root) {
       revealed = [];
       $('cn-out').hidden = true;
       $('cn-result-actions').style.display = 'none';
+      clearSettingsStrip();
       updateStepper();
       refreshRuleSelects();
       msg.textContent = 'Đã nạp lớp ' + name + ' (' + names.length + ' bạn) — bấm "Chia nhóm" để chia.';
@@ -1024,8 +1062,15 @@ export function init(root) {
     revealed = [];
     $('cn-out').hidden = true;
     $('cn-result-actions').style.display = 'none';
+    clearSettingsStrip();
     updateStepper();
     refreshRuleSelects();
+  });
+
+  // Bấm dải "Cài đặt ▾" mở lại đầy đủ cài đặt để chỉnh rồi chia lại.
+  $('cn-settings-toggle').addEventListener('click', () => {
+    const v2 = root.querySelector('.cn-v2');
+    if (v2) setSettingsCollapsed(!v2.classList.contains('cn-collapsed'));
   });
 
   (function initSoundBtn() {
@@ -1078,6 +1123,7 @@ export function init(root) {
     revealed = [];
     $('cn-out').hidden = true;
     $('cn-result-actions').style.display = 'none';
+    clearSettingsStrip();
     $('cn-divide').textContent = 'Chia nhóm';
     updateStepper();
     refreshRuleSelects();

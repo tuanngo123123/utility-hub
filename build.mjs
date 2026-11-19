@@ -315,6 +315,7 @@ const TOOL_VENDOR_SCRIPTS = {
 const M2_SLUGS = new Set([
   'luong-gross-net', 'thue-thu-nhap-ca-nhan', 'bhxh-mot-lan', 'luong-huu',
   'tien-dien-bac-thang', 'lai-vay', 'luong-thang-13', 'tro-cap-thoi-viec-bhtn',
+  'quyet-toan-thue-tncn-2026',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;
@@ -327,7 +328,7 @@ function getM2FormulasSrc() {
   return m2FormulasSrc;
 }
 
-// Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 11 công cụ
+// Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
 // (bài → công cụ) khi nhúng công cụ ở đầu bài viết (MẪU 3/4, 19/11).
@@ -343,11 +344,12 @@ const GUIDE_LINKS = {
   'luong-tang-ca': { url: '/huong-dan/cach-tinh-luong-tang-ca-2026/', title: 'Cách tính lương tăng ca 2026' },
   'luong-huu': { url: '/huong-dan/cach-tinh-luong-huu-bhxh-2026/', title: 'Cách tính lương hưu BHXH 2026' },
   'luong-thang-13': { url: '/huong-dan/luong-thang-13-thuong-tet-2027/', title: 'Lương tháng 13 & thưởng Tết 2027: có bắt buộc không, tính thuế thế nào' },
+  'quyet-toan-thue-tncn-2026': { url: '/huong-dan/quyet-toan-thue-tncn-2026/', title: 'Quyết toán thuế TNCN 2026: ai phải làm, hạn nộp và cách tính' },
 };
 
 // Khối nhúng công cụ ở đầu bài viết (MẪU 3/4, 19/11): cùng khung dùng
 // thử + init() như trang công cụ, thêm tiêu đề + link tới trang riêng.
-// Chỉ dùng cho 11 bài có GUIDE_LINKS; bài không có công cụ liên quan
+// Chỉ dùng cho 12 bài có GUIDE_LINKS; bài không có công cụ liên quan
 // (phạt nguội, CV) thì không nhúng gì. tool-state.js nạp kèm để khung
 // nhúng có đủ nút Đặt lại + lưu trạng thái qua URL như trang công cụ
 // (an toàn trên trang bài: không có nút Báo sai nên logic hộp thoại
@@ -620,7 +622,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
 // ---------------------------------------------------------------------------
 // Trang lưu trữ Điểm báo theo ngày (/diem-bao/<YYYY-MM-DD>/)
 // ---------------------------------------------------------------------------
-const NEWS_GROUP_LABELS = { ai: 'AI', 'chung-khoan': 'Chứng khoán', crypto: 'Crypto' };
+const NEWS_GROUP_LABELS = { ai: 'AI', 'chung-khoan': 'Chứng khoán', crypto: 'Crypto', 'thoi-su': 'Thời sự' };
 
 // Ngày theo giờ Việt Nam (độc giả ở VN) từ publishedAt dạng RFC 2822
 // ("Mon, 16 Nov 2026 23:32:32 +0000"). Trả về "YYYY-MM-DD" hoặc "".
@@ -649,14 +651,14 @@ function newsArchiveHtml(date, items) {
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/diem-bao/">← Điểm báo</a></nav>
   <header class="tool-page-head">
     <h1>Điểm báo ngày ${esc(label)}</h1>
-    <p class="muted">${items.length} tin về AI, chứng khoán và crypto. Tóm tắt ngắn bằng lời của mình, bấm tiêu đề để đọc bản gốc.</p>
+    <p class="muted">${items.length} tin về AI, chứng khoán, crypto và thời sự. Tóm tắt ngắn bằng lời của mình, bấm tiêu đề để đọc bản gốc.</p>
   </header>
   <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
   <div class="news-list">${cards}</div>`;
   return shell({
     title: `Điểm báo ngày ${label} | ${SITE_NAME}`,
-    desc: `Điểm báo ngày ${label}: ${items.length} tin về AI, chứng khoán và crypto, tóm tắt ngắn kèm lý do đáng đọc.`,
-    keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto',
+    desc: `Điểm báo ngày ${label}: ${items.length} tin về AI, chứng khoán, crypto và thời sự, tóm tắt ngắn kèm lý do đáng đọc.`,
+    keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto, thời sự',
     canonical: `${BASE_URL}/diem-bao/${date}/`,
     navActive: 'diem-bao',
     body,
@@ -665,9 +667,9 @@ function newsArchiveHtml(date, items) {
 
 // Trang mục Điểm báo (/diem-bao/) — làm lại đợt V2 (19/11): trang đầu
 // hiện LUÔN tin của ngày mới nhất (thẻ tin như trang chủ, lọc theo
-// AI / Chứng khoán / Crypto bằng chip), danh sách ngày cũ ở cột phải
-// (xuống cuối trang trên điện thoại). Trước đây trang này chỉ có 2
-// dòng ngày, trông trống. Trang này là đích của mục "Điểm báo" trên
+// AI / Chứng khoán / Crypto / Thời sự bằng chip), danh sách ngày cũ ở
+// cột phải (xuống cuối trang trên điện thoại). Trước đây trang này chỉ
+// có 2 dòng ngày, trông trống. Trang này là đích của mục "Điểm báo" trên
 // header/footer (L7); khi chưa có ngày nào thì hiện câu báo trống.
 function newsIndexHtml(newsByDay, newsDays) {
   const fmtDay = (date) => {
@@ -676,7 +678,7 @@ function newsIndexHtml(newsByDay, newsDays) {
   };
   const newest = newsDays[0] || '';
   const items = newest ? (newsByDay.get(newest) || []) : [];
-  const groups = ['ai', 'chung-khoan', 'crypto'];
+  const groups = ['ai', 'chung-khoan', 'crypto', 'thoi-su'];
   const counts = {};
   items.forEach((it) => { if (it.group) counts[it.group] = (counts[it.group] || 0) + 1; });
   const chips = [`<button type="button" class="hd-chip" data-news-chip="all" aria-pressed="true">Tất cả · ${items.length}</button>`]
@@ -696,7 +698,7 @@ function newsIndexHtml(newsByDay, newsDays) {
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">← Trang chủ</a></nav>
   <header class="tool-page-head">
     <h1>Điểm báo</h1>
-    <p class="muted">Tin ngày ${fmtDay(newest)} — về AI, chứng khoán và crypto, tóm tắt ngắn bằng lời của mình. Bấm tiêu đề tin để đọc bản gốc.</p>
+    <p class="muted">Tin ngày ${fmtDay(newest)} — về AI, chứng khoán, crypto và thời sự, tóm tắt ngắn bằng lời của mình. Bấm tiêu đề tin để đọc bản gốc.</p>
   </header>
   <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
   <div class="news-index-layout">
@@ -725,14 +727,14 @@ function newsIndexHtml(newsByDay, newsDays) {
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">← Trang chủ</a></nav>
   <header class="tool-page-head">
     <h1>Điểm báo</h1>
-    <p class="muted">Tin về AI, chứng khoán và crypto, tóm tắt ngắn bằng lời của mình. Bấm tiêu đề tin để đọc bản gốc.</p>
+    <p class="muted">Tin về AI, chứng khoán, crypto và thời sự, tóm tắt ngắn bằng lời của mình. Bấm tiêu đề tin để đọc bản gốc.</p>
   </header>
   <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
   <p class="muted">Chưa có ngày lưu trữ nào — Điểm báo sẽ xuất hiện ở đây sau bản tin đầu tiên.</p>`;
   return shell({
     title: `Điểm báo — Tin mới nhất theo ngày | ${SITE_NAME}`,
-    desc: 'Điểm báo hằng ngày của Tiện Ích Hub: tin về AI, chứng khoán và crypto, tóm tắt ngắn kèm lý do đáng đọc — lưu trữ theo ngày.',
-    keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto',
+    desc: 'Điểm báo hằng ngày của Tiện Ích Hub: tin về AI, chứng khoán, crypto và thời sự, tóm tắt ngắn kèm lý do đáng đọc — lưu trữ theo ngày.',
+    keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto, thời sự',
     canonical: `${BASE_URL}/diem-bao/`,
     navActive: 'diem-bao',
     body,
@@ -1036,7 +1038,7 @@ async function main() {
   addPage(
     'huong-dan/index.html',
     shell({
-      title: `Bài viết — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, lương tháng 13, phạt nguội | ${SITE_NAME}`,      desc: 'Bài viết hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, lương tháng 13 và thưởng Tết, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, lương tháng 13, thưởng Tết 2027, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
+      title: `Bài viết — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, lương tháng 13, phạt nguội | ${SITE_NAME}`,      desc: 'Bài viết hướng dẫn cách tính lương Gross–Net, lương tăng ca, thuế TNCN 2026, quyết toán thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, lương tháng 13 và thưởng Tết, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, lương tháng 13, thưởng Tết 2027, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
       canonical: `${BASE_URL}/huong-dan/`,
       navActive: 'huong-dan',
       body: huongDanPage.body({ articles: HUONG_DAN_ARTICLES }),

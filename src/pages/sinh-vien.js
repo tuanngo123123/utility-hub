@@ -36,12 +36,35 @@ const TOOL_ICONS = {
   'tao-ma-qr': { icon: 'qr', bg: '#CCFBF1', fg: '#0D9488' },
 };
 
+// Mô tả ngắn (≤45 ký tự) cho 16 thẻ công cụ — mô tả gốc trong
+// src/tools/* dài quá nên thẻ nào cũng bị cắt "…" (19/11). Theo mẫu
+// MOST_USED_SHORT_DESC ở trang chủ: chỉ ghi đè ở trang này, không
+// đổi mô tả gốc dùng chung cho trang /cong-cu/ và tìm kiếm.
+const STUDENT_SHORT_DESC = {
+  'gpa-tin-chi': 'Điểm trung bình GPA hệ 4 và hệ 10.',
+  'quy-doi-diem': 'Đổi điểm hệ 10, hệ 4 và điểm chữ.',
+  'tinh-diem-thi-thpt': 'Điểm tốt nghiệp THPT và xét tuyển ĐH.',
+  'tinh-diem-ielts': 'Tính điểm IELTS từ 4 kỹ năng.',
+  'hoc-tu-vung-tieng-anh': 'Học 400 từ tiếng Anh thông dụng nhất.',
+  'pomodoro': 'Hẹn giờ tập trung 25 phút, nghỉ 5 phút.',
+  'dem-nguoc-su-kien': 'Đếm ngược tới kỳ thi, sinh nhật, chuyến đi.',
+  'test-go-phim': 'Đo tốc độ gõ phím tiếng Việt (WPM).',
+  'doc-van-ban-thanh-tieng': 'Đọc văn bản tiếng Việt thành tiếng.',
+  'ghi-chep-tai-chinh': 'Tổng hợp thu chi từ ghi chép hằng ngày.',
+  'chia-tien-hoa-don': 'Chia hóa đơn cho cả nhóm, làm tròn nghìn.',
+  'pdf-sang-word': 'Trích văn bản từ PDF ra file Word.',
+  'gop-pdf': 'Gộp nhiều file PDF thành một file.',
+  'tach-trang-pdf': 'Lấy vài trang từ PDF ra file mới.',
+  'anh-sang-pdf': 'Ghép nhiều ảnh thành một file PDF.',
+  'tao-ma-qr': 'Tạo mã QR từ link hoặc văn bản.',
+};
+
 // Thẻ dòng gọn MẪU 4 có icon SVG (cùng mẫu với trang /giao-vien/).
 function toolRowIcon(tool) {
   const ic = TOOL_ICONS[tool.slug] || { icon: 'file-text', bg: '#E8EEFF', fg: '#1747E6' };
   return `<a class="tool-row tool-row-icon" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}">
   <span class="tool-row-ico" style="background:${ic.bg};color:${ic.fg}">${iconSvg(ic.icon, 20, 2)}</span>
-  <span class="tool-row-text"><span class="tool-row-name">${esc(tool.name)}</span><span class="tool-row-desc">${esc(tool.desc || '')}</span></span>
+  <span class="tool-row-text"><span class="tool-row-name">${esc(tool.name)}</span><span class="tool-row-desc">${esc(STUDENT_SHORT_DESC[tool.slug] || tool.desc || '')}</span></span>
 </a>`;
 }
 
@@ -154,8 +177,8 @@ export function body({ tools = [] } = {}) {
     <p class="muted">Công cụ, khóa học, tài liệu, học bổng, mẫu biểu và việc làm thêm — gom một chỗ.</p>
   </header>
 
-  <section class="section" aria-label="Các mục cho sinh viên">
-    <div class="tabs" role="tablist" aria-label="Chọn mục">
+  <section class="section sv-tabs-section" aria-label="Các mục cho sinh viên">
+    <div class="tabs sv-tabs" role="tablist" aria-label="Chọn mục">
       <button type="button" class="tab tab-active" data-tab-target="cong-cu" role="tab">Công cụ</button>
       <button type="button" class="tab" data-tab-target="khoa-hoc" role="tab">Khóa học</button>
       <button type="button" class="tab" data-tab-target="tai-lieu-hoc" role="tab">Tài liệu học</button>

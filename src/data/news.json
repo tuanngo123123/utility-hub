@@ -1,85 +1,85 @@
 {
-  "updatedAt": "2026-11-19T07:59:29.487Z",
+  "updatedAt": "2026-11-19T17:17:19.020Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
-        "title": "Microsoft CEO Satya Nadella explains why he asked 60K employees to quit",
-        "titleVi": "Satya Nadella giải thích lý do yêu cầu 60.000 nhân viên rời Microsoft",
-        "summary": "CEO Microsoft Satya Nadella cho biết đã đề nghị 60.000 nhân viên mua lại cổ phần và tự nguyện rời công ty vào tháng 10, thay vì thực hiện một lệnh sa thải lớn. Lý do chính là ảnh hưởng của công nghệ AI.",
+        "title": "Former Alibaba exec’s Everful raises $48.5M to connect retailers with Chinese factories",
+        "titleVi": "Everful huy động 48,5 triệu USD để kết nối bán lẻ với nhà máy Trung Quốc",
+        "summary": "Công ty Everful, do cựu giám đốc Alibaba thành lập, đã huy động 48,5 triệu USD để mở rộng nền tảng mua hàng trực tiếp từ nhà máy, giúp các nhà bán lẻ tiếp cận sản phẩm từ nhà sản xuất nước ngoài.",
         "why": "",
+        "link": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000"
+      },
+      {
+        "title": "Anthropic hits NASDAQ exchanges at $111, 33 percent above IPO price",
+        "titleVi": "Anthropic giao ngay 111 USD trên NASDAQ, 33% cao hơn giá IPO",
+        "summary": "Công ty Anthropic mở cửa giao dịch trên NASDAQ với giá 111 USD, cao hơn 33% so với mức IPO 83 USD, tạo ra hơn 80 tỷ USD vốn mới.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 16:59:23 +0000"
+      },
+      {
+        "title": "At Nasdaq opening bell, Anthropic CEO recommits to pacing AI development",
+        "titleVi": "CEO Anthropic khẳng định cam kết phát triển AI có tốc độ hợp lý",
+        "summary": "Trong bài phát biểu khai mạc Nasdaq, Dario Amodei nhấn mạnh Anthropic sẽ tiếp tục phát triển AI theo tốc độ hợp lý, bất kể áp lực kinh doanh hay chính trị.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/19/at-nasdaq-opening-bell-anthropic-ceo-recommits-to-pacing-ai-development/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 16:19:41 +0000"
+      },
+      {
+        "title": "Anthropic’s IPO puts AI’s circular financing boom to the test",
+        "titleVi": "IPO Anthropic thử thách mô hình tài chính vòng tròn AI",
+        "summary": "Anthropic khi niêm yết phải đáp ứng nhu cầu tính toán khổng lồ, nhưng các đối tác hạ tầng lớn như Amazon và Google có thể tiếp tục sinh lợi từ AI ngay cả khi Anthropic mất đi vị trí dẫn đầu.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 14:54:39 +0000"
+      },
+      {
+        "title": "Superhuman pushes its Go assistant everywhere",
+        "titleVi": "Superhuman đưa trợ lý Go tới mọi nơi",
+        "summary": "Superhuman đang làm cho trợ lý Go trở thành trung tâm, mở rộng tính năng tới Docs và Mail, giúp người dùng truy cập nhanh hơn.",
+        "why": "Superhuman tích hợp trợ lý Go vào Docs và Mail.",
+        "link": "https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 14:00:00 +0000"
+      },
+      {
+        "title": "Microsoft CEO Satya Nadella explains why he asked 60K employees to quit",
+        "titleVi": "Satya Nadella yêu cầu 60.000 nhân viên tự ngưng việc làm",
+        "summary": "Satya Nadella cho biết đã đề nghị 60.000 nhân viên Microsoft mua lại hợp đồng và tự ngưng việc làm thay vì cắt giảm nhân sự, vì AI đang thay đổi cách làm việc.",
+        "why": "Nadella đã đưa ra gói mua lại cho 60.000 nhân viên Microsoft.",
         "link": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-explains-why-he-asked-60k-employees-to-quit/",
         "source": "TechCrunch",
         "publishedAt": "Thu, 19 Nov 2026 00:42:56 +0000"
       },
       {
         "title": "Amidst fears of AI cyberattacks, Satya Nadella says lots of critical infrastructure is ‘unpatchable’",
-        "titleVi": "Nadella nhấn mạnh hạ tầng quan trọng vẫn chưa được vá lỗi",
-        "summary": "CEO Microsoft Satya Nadella giảm nhẹ tình trạng gián đoạn Outlook, đồng thời cảnh báo rằng AI đang tạo ra cơ hội nhưng cũng gây ra thách thức mới trong việc bảo mật hạ tầng liên kết.",
-        "why": "",
+        "titleVi": "Satya Nadella nhấn mạnh rủi ro AI cho hạ tầng quan trọng",
+        "summary": "CEO Microsoft cho rằng nhiều hạ tầng quan trọng đang ‘không thể sửa chữa’ do AI, đồng thời giảm nhẹ sự cố Outlook vừa qua.",
+        "why": "Nadella cảnh báo rằng AI đang tạo ra những thách thức mới trong bảo mật hạ tầng liên kết.",
         "link": "https://techcrunch.com/2026/11/18/amidst-fears-of-ai-cyberattacks-satya-nadella-says-lots-of-critical-infrastructure-is-unpatchable/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 23:45:00 +0000"
       },
       {
         "title": "Elon Musk says ousting Jensen Huang is like ‘kicking Michael Jordan off your team’",
-        "titleVi": "Elon Musk so sánh việc sa thải Jensen Huang với việc loại bỏ Michael Jordan",
-        "summary": "Elon Musk cho rằng việc sa thải Jensen Huang không phản ánh sự phản bội đối với Hoa Kỳ, đồng thời so sánh quyết định này với việc loại bỏ một cầu thủ huyền thoại.",
-        "why": "",
+        "titleVi": "Elon Musk so sánh việc sa thải Jensen Huang với việc đá Michael Jordan",
+        "summary": "Elon Musk cho rằng việc sa thải Jensen Huang của Nvidia giống như đá Michael Jordan ra khỏi đội bóng, đồng thời khẳng định Huang không phản bội Hoa Kỳ.",
+        "why": "Musk đã so sánh việc sa thải Jensen Huang với việc đá một ngôi sao huyền thoại.",
         "link": "https://techcrunch.com/2026/11/18/elon-musk-says-ousting-jensen-huang-is-like-kicking-michael-jordan-off-your-team/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 18 Nov 2026 23:25:17 +0000"
       },
       {
-        "title": "Microsoft CEO Satya Nadella remains confident in Nvidia after Huang’s exit",
-        "titleVi": "Nadella tin tưởng vào người kế nhiệm Jensen Huang tại Nvidia",
-        "summary": "CEO Microsoft Satya Nadella bày tỏ sự tin tưởng vào Colette Kress, người giữ chức vụ CEO tạm thời của Nvidia, sau khi Jensen Huang ra đi.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/18/microsoft-ceo-satya-nadella-remains-confident-in-nvidia-after-huangs-exit/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 18 Nov 2026 23:17:28 +0000"
-      },
-      {
-        "title": "Satya Nadella predicts AI agents will reshuffle the economics of the web",
-        "titleVi": "Nadella dự đoán AI agents sẽ làm thay đổi mô hình kinh tế web",
-        "summary": "CEO Microsoft Satya Nadella dự báo các tác nhân AI có thể làm gián đoạn mô hình kinh doanh dựa trên quảng cáo, khiến các công ty như Amazon phải tái suy nghĩ cách thu hút khách hàng.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/18/satya-nadella-predicts-ai-agents-will-reshuffle-the-economics-of-the-web/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 18 Nov 2026 22:58:11 +0000"
-      },
-      {
-        "title": "Anthropic prices IPO at $83 a share, above projected range",
-        "titleVi": "Anthropic chốt giá IPO ở mức 83 USD mỗi cổ phiếu",
-        "summary": "Anthropic ấn định giá chào bán cổ phiếu lần đầu ra công chúng ở mức 83 USD, vượt khung dự báo ban đầu. Mức giá này đưa định giá công ty lên tới 1.500 tỷ USD tính trên cơ sở pha loãng hoàn toàn.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/18/anthropic-reportedly-prices-ipo-at-83-a-share-above-projected-range/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 18 Nov 2026 22:11:15 +0000"
-      },
-      {
-        "title": "Nvidia created a weird bit of intrigue by not filing a routine SEC report",
-        "titleVi": "Nvidia gây bất ngờ khi hoãn nộp báo cáo quý cho SEC",
-        "summary": "Nvidia thông báo sẽ lùi thời hạn nộp báo cáo tài chính quý theo mẫu 10-Q lên Ủy ban Chứng khoán và Giao dịch Mỹ trong nhiều tuần. Động thái bất thường này đã khiến giới phân tích tại Phố Wall phải tìm hiểu nguyên nhân.",
-        "why": "Nvidia quyết định hoãn nộp mẫu báo cáo tài chính định kỳ 10-Q cho SEC trong nhiều tuần.",
-        "link": "https://techcrunch.com/2026/11/18/nvidia-created-a-weird-bit-of-intrigue-by-not-filing-a-routine-sec-report/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 18 Nov 2026 21:57:40 +0000"
-      },
-      {
-        "title": "Palmer Luckey warns AI-powered cyberattacks are outpacing defenses: ‘It’s time to start running’",
-        "titleVi": "Nhà sáng lập Anduril cảnh báo tấn công mạng bằng AI vượt khả năng phòng thủ",
-        "summary": "Palmer Luckey, đồng sáng lập Anduril, cho rằng các cuộc tấn công mạng sử dụng AI đang phát triển nhanh hơn các biện pháp phòng vệ. Ông nhận định công nghệ cũ khiến nhiều hệ thống đứng trước nguy cơ bị xâm nhập.",
-        "why": "Nhà sáng lập Anduril Palmer Luckey đưa ra cảnh báo về tốc độ vượt trội của các cuộc tấn công mạng bằng AI.",
-        "link": "https://techcrunch.com/2026/11/18/palmer-luckey-warns-ai-powered-cyberattacks-are-outpacing-defenses-its-time-to-start-running/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 18 Nov 2026 21:34:13 +0000"
-      },
-      {
         "title": "Best Buy sells Blu-rays online and in-store again",
-        "titleVi": "Best Buy mở bán lại đĩa Blu-ray trực tuyến và tại cửa hàng",
-        "summary": "Best Buy đã đưa đĩa Blu-ray trở lại hệ thống phân phối sau thời gian ngừng kinh doanh. Khách hàng hiện có thể đặt mua trực tiếp từ cửa hàng hoặc qua kênh trực tuyến do chính chuỗi bán lẻ này xử lý giao hàng.",
+        "titleVi": "Best Buy bán và giao Blu-ray trở lại",
+        "summary": "Best Buy đã khôi phục bán Blu-ray cả trực tuyến và tại cửa hàng, với sản phẩm Odyssey được giao hàng.",
         "why": "",
         "link": "https://arstechnica.com/gadgets/2026/11/best-buy-sells-blu-rays-again-after-quitting-the-business-in-2024/",
         "source": "Ars Technica",
@@ -87,232 +87,234 @@
       },
       {
         "title": "Will Wright's next simulation will use AI to mine content from your memories",
-        "titleVi": "Tác giả The Sims phát triển game mô phỏng dùng AI khai thác ký ức",
-        "summary": "Nhà thiết kế Will Wright đang phát triển dự án MyMems, ứng dụng AI để tạo nội dung mô phỏng từ dữ liệu ký ức của người chơi. Tác giả này cho biết dự án hướng tới việc đưa cơ chế mô phỏng vào sâu thế giới nội tâm.",
-        "why": "",
+        "titleVi": "Will Wright dự định dùng AI khai thác ký ức người dùng",
+        "summary": "Will Wright cho biết dự án mô phỏng tiếp theo của mình sẽ sử dụng AI để khai thác nội dung từ ký ức cá nhân của người chơi.",
+        "why": "Wright muốn chuyển mô phỏng sang nội dung nội tâm dựa trên ký ức người dùng.",
         "link": "https://arstechnica.com/gaming/2026/11/will-wrights-next-simulation-will-use-ai-to-mine-content-from-your-memories/",
         "source": "Ars Technica",
         "publishedAt": "Wed, 18 Nov 2026 18:10:33 +0000"
       },
       {
-        "title": "The AI Hype Index: AI is everywhere",
-        "titleVi": "AI lan rộng: Google chi tiêu hàng tỷ đô la để quảng bá công nghệ",
-        "summary": "Google đầu tư hàng tỷ đô la vào quảng cáo AI, mặc dù điều này làm giảm doanh thu quảng cáo. AI hiện diện khắp nơi, từ robot humanoid dọn dẹp nhà cửa đến các trải nghiệm công nghệ hằng ngày.",
-        "why": "Google chi 2,5 tỷ USD cho quảng cáo AI, trong khi doanh thu quảng cáo giảm 1,2 tỷ USD.",
-        "link": "https://www.technologyreview.com/2026/11/18/1148650/ai-hype-index-ai-is-everywhere/",
+        "title": "The Download: a living liver, a billion-dollar battery deal, and AI hype",
+        "titleVi": "",
+        "summary": "Những nhà nghiên cứu tại Úc đã thành công giữ một cơ gan người hoạt động ngoài cơ thể trong 7 tuần, kỷ lục mới trong lĩnh vực y học.",
+        "why": "Cơ gan được duy trì ngoài cơ thể 7 tuần chứng minh khả năng bảo tồn cơ quan sinh học trong điều kiện phòng thí nghiệm.",
+        "link": "https://www.technologyreview.com/2026/11/19/1148979/the-download-liver-kept-alive-sila-battery-deal-ai-hype/",
         "source": "MIT Tech Review",
-        "publishedAt": "Wed, 18 Nov 2026 14:42:44 +0000"
+        "publishedAt": "Thu, 19 Nov 2026 13:10:00 +0000"
       },
       {
-        "title": "The Download: AI learns to smell and hydropower struggles",
-        "titleVi": "Startup “điểm mùi” AI: Mô phỏng hương vị như con người",
-        "summary": "Một công ty khởi nghiệp tại New Jersey phát triển mũi AI có khả năng nhận biết hương thơm giống con người, ghi chép các mùi như “hạt dẻ”, “quả đào” và “đông biển” để huấn luyện dữ liệu.",
-        "why": "Đội ngũ 30 chuyên gia mùi đã thu thập 1.200 mẫu hương, tạo cơ sở dữ liệu lớn cho AI.",
-        "link": "https://www.technologyreview.com/2026/11/18/1148845/the-download-ai-learns-to-smell-hydropower-struggles/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Wed, 18 Nov 2026 13:10:00 +0000"
-      },
-      {
-        "title": "This smell startup says its AI nose is as good as a human’s",
-        "titleVi": "Osmo: Công nghệ AI đầu tiên nhận dạng mọi mùi trên Trái Đất",
-        "summary": "Osmo, một startup AI, xây dựng bộ dữ liệu đầu tiên về hương vị toàn cầu bằng cách kết hợp ghi chú của 30 người mùi với phân tích hoá học, nhằm phát triển nền tảng AI nhận dạng mùi.",
-        "why": "Osmo đã ghi lại 1.200 mùi khác nhau, tạo nền tảng dữ liệu cho AI nhận dạng hương.",
-        "link": "https://www.technologyreview.com/2026/11/18/1148816/smell-startup-osmo-ai-nose-good-as-humans/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Wed, 18 Nov 2026 10:20:30 +0000"
-      },
-      {
-        "title": "Lego Promo Code | 20% Off November 2026",
-        "titleVi": "Giảm giá Lego: Mã khuyến mãi 20% trong tháng 11/2026",
-        "summary": "Khách hàng có thể nhận ưu đãi 20% khi mua bộ Lego trong tháng 11/2026, cùng miễn phí vận chuyển khi đơn hàng trên 35 USD và quà tặng độc quyền.",
-        "why": "Mã khuyến mãi Lego giảm giá 20% giúp khách hàng tiết kiệm khi mua bộ xây dựng.",
-        "link": "https://www.wired.com/story/lego-promo-code/",
-        "source": "Wired",
-        "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Reebok Discount Code: 15% Off: November 2026",
-        "titleVi": "Reebok giảm giá 15% trong tháng 11/2026",
-        "summary": "Reebok cung cấp mã giảm giá 15% cho giày chạy bộ, quần áo thể thao và các sản phẩm cổ điển, kèm ưu đãi dành cho sinh viên và thành viên.",
-        "why": "Mã giảm giá Reebok giảm 15% giúp người tiêu dùng tiết kiệm khi mua sản phẩm thể thao.",
-        "link": "https://www.wired.com/story/reebok-discount-code/",
-        "source": "Wired",
-        "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "We-Vibe Discount Codes and Deals: Up to 60% Off",
-        "titleVi": "Thương hiệu We-Vibe giảm giá tới 60% nhiều dòng sản phẩm",
-        "summary": "Hãng thiết bị hỗ trợ We-Vibe tung đợt khuyến mại giảm tới 60%, áp dụng cho các sản phẩm điều khiển qua ứng dụng và những bộ quà tặng đôi.",
-        "why": "Mức giảm giá cao nhất trong đợt này lên tới 60% cho nhiều dòng sản phẩm bán chạy.",
-        "link": "https://www.wired.com/story/we-vibe-discount-code/",
-        "source": "Wired",
-        "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Anthropic IPO raises over $81 billion in largest offering on record, topping SpaceX",
-        "titleVi": "Anthropic huy động hơn 81 tỷ USD trong đợt IPO kỷ lục",
-        "summary": "Startup AI Anthropic đã huy động hơn 81 tỷ USD qua đợt IPO lớn nhất từ trước đến nay, vượt SpaceX. Cổ phiếu của hãng dự kiến bắt đầu giao dịch trên sàn Nasdaq vào thứ Năm với mã ANT.",
-        "why": "Anthropic huy động hơn 81 tỷ USD và chính thức niêm yết trên sàn Nasdaq với mã ANT.",
-        "link": "https://www.cnbc.com/2026/11/18/anthropic-ipo-ai-offering-price.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 01:13:20 GMT"
-      },
-      {
-        "title": "Musk accuses Zelenskyy of lying about Starshield restrictions in Ukraine",
-        "titleVi": "Elon Musk phản bác tuyên bố của ông Zelenskyy về Starshield",
-        "summary": "Elon Musk cho rằng Tổng thống Ukraine Volodymyr Zelenskyy đưa tin sai lệch liên quan đến các giới hạn đối với mạng lưới vệ tinh quân sự Starshield tại Ukraine.",
-        "why": "Elon Musk trực tiếp phủ nhận các phát biểu của Tổng thống Zelenskyy về hệ thống mạng Starshield.",
-        "link": "https://www.cnbc.com/2026/11/19/elon-musk-zelenskyy-starshield-ukraine.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 06:07:29 GMT"
-      },
-      {
-        "title": "Nvidia interim CEO Kress tells employees ‘let’s move forward’ at first all-hands meeting since Jensen Huang exit",
-        "titleVi": "Colette Kress khuyến khích nhân viên Nvidia tiến lên sau khi Jensen Huang rời vị trí",
-        "summary": "CEO tạm thời Colette Kress đã tổ chức buổi họp toàn công ty đầu tiên kể từ khi Jensen Huang rời đi, kêu gọi nhân viên tiếp tục phát triển và đề xuất tăng lương.",
+        "title": "A human liver has been kept alive outside the body for a record seven weeks",
+        "titleVi": "Thỏa thuận siêu bền: Sila ký hợp đồng với Panasonic Energy",
+        "summary": "Sila đã ký hợp đồng cung cấp vật liệu anode silicon-carbon cho Panasonic Energy, có thể mang lại pin nhẹ hơn, nhỏ hơn, với giá trị hợp đồng vượt 1 tỷ USD.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/18/nvidia-interim-ceo-kress-addresses-staff-after-jensen-huang-exit-.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 23:45:50 GMT"
+        "link": "https://www.technologyreview.com/2026/11/19/1148934/a-human-liver-has-been-kept-alive-outside-the-body-for-seven-weeks-setting-a-record/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000"
       },
       {
-        "title": "Palo Alto Networks’ stock gets a fresh AI-fueled boost from earnings",
-        "titleVi": "Palo Alto Networks nâng triển vọng doanh thu nhờ nhu cầu AI",
-        "summary": "Cổ phiếu Palo Alto Networks tăng mạnh sau khi công ty nâng triển vọng kinh doanh nhờ nhu cầu bảo mật AI tăng cao. Ban lãnh đạo nhận thấy nhu cầu thị trường đối với các giải pháp an ninh mạng đạt mức vượt dự kiến.",
+        "title": "What a billion-dollar deal says about the US battery market",
+        "titleVi": "Google xây dựng internet ảo để thử nghiệm AI Chrome",
+        "summary": "Google đã tạo ra một mạng lưới internet giả lập, gọi là ‘Mirror Dimension’, để đào tạo các tác nhân AI của Chrome mà không lo rủi ro chúng lấn át thực tế.",
+        "why": "Google triển khai ‘Mirror Dimension’ để thử nghiệm AI Chrome.",
+        "link": "https://www.technologyreview.com/2026/11/19/1148922/sila-panasonic-battery-deal/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Thu, 19 Nov 2026 11:00:00 +0000"
+      },
+      {
+        "title": "Google Built a Giant ‘Mirror Dimension’ Internet to Test Its Chrome AI Agents",
+        "titleVi": "Google tạo ra ‘Mirror Dimension’ – môi trường thử nghiệm AI trình duyệt Chrome",
+        "summary": "Google xây dựng một mạng lưới internet ảo khổng lồ, gọi là Mirror Dimension, để huấn luyện các tác nhân AI của Chrome mà không lo rủi ro chúng lấn át hệ thống thực.",
         "why": "",
-        "link": "https://www.marketwatch.com/story/palo-alto-networks-stock-soars-as-earnings-show-ai-has-upped-the-stakes-for-cybersecurity-308e34b8?mod=mw_rss_topstories",
+        "link": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/",
+        "source": "Wired",
+        "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000"
+      },
+      {
+        "title": "21 Best Home Entertainment Gifts (2026): TVs, Lights, and More",
+        "titleVi": "Top 21 món quà giải trí tại nhà 2026",
+        "summary": "Danh sách 21 món quà giải trí tại nhà, bao gồm TV, đèn LED và thiết bị khác, giúp người dùng tận hưởng thời gian ở nhà một cách thú vị.",
+        "why": "Danh sách 21 món quà giải trí tại nhà 2026.",
+        "link": "https://www.wired.com/story/best-home-entertainment-gifts-2026/",
+        "source": "Wired",
+        "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000"
+      },
+      {
+        "title": "Anthropic’s Record-Breaking IPO Highlights the AI Giant’s Worst Enemy—Itself",
+        "titleVi": "Anthropic IPO: 107 tỷ USD, rủi ro nội bộ và dữ liệu trung tâm",
+        "summary": "Anthropic công bố IPO trị giá 107 tỷ USD, đánh giá rủi ro từ chính chiến lược an toàn AI và phản ứng tiêu cực của công chúng đối với trung tâm dữ liệu có thể ảnh hưởng đến tăng trưởng.",
+        "why": "Số tiền IPO 107 tỷ USD và lo ngại về an toàn dữ liệu trung tâm làm tăng tính quan trọng của quyết định này.",
+        "link": "https://www.wired.com/story/anthropics-record-breaking-ipo-highlights-the-ai-giants-worst-enemy-itself/",
+        "source": "Wired",
+        "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000"
+      },
+      {
+        "title": "Palo Alto stock jumps on earnings beat and company's big bet on securing open-weight models",
+        "titleVi": "Palo Alto Networks tăng giá cổ phiếu, ký hợp đồng 4,5 tỷ USD với Applied Compute",
+        "summary": "Công ty công bố kết quả quý đầu tiên vượt kỳ vọng và ký hợp đồng 4,5 tỷ USD với công ty AI Applied Compute, củng cố chiến lược mở rộng mô hình AI.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/19/palo-alto-networks-earnings-applied-compute.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 16:28:06 GMT"
+      },
+      {
+        "title": "Amazon launches in-app push against Mamdani-backed delivery bill in New York City",
+        "titleVi": "Amazon phản kháng dự luật giao hàng của thành phố New York",
+        "summary": "Amazon đã vận động mạnh mẽ chống lại dự luật giao hàng do thị trưởng Zohran Mamdani ủng hộ, trong khi công ty đã triển khai thông báo đẩy trong ứng dụng.",
+        "why": "Amazon đã phản đối mạnh mẽ dự luật giao hàng do thành phố New York đề xuất.",
+        "link": "https://www.cnbc.com/2026/11/19/amazon-nyc-delivery-protection-act.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 16:15:40 GMT"
+      },
+      {
+        "title": "Anthropic is coming to your 401(k). Love it or hate it, AI is becoming a bigger part of your financial plan.",
+        "titleVi": "Anthropic gia nhập danh mục 401(k) của nhiều quỹ hưu trí công cộng",
+        "summary": "Nhiều quỹ hưu trí công cộng đã đầu tư vào Anthropic, công ty AI đang trở thành phần quan trọng trong kế hoạch tài chính.",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/anthropic-is-coming-to-your-401-k-love-it-or-hate-it-ai-is-becoming-a-bigger-part-of-your-financial-plan-2e9ae533?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Thu, 19 Nov 2026 01:02:00 GMT"
+        "publishedAt": "Thu, 19 Nov 2026 16:53:00 GMT"
       },
       {
-        "title": "ChatGPT, Claude, Gemini and Grok Helped Plan Terror Attacks in Government Tests",
-        "titleVi": "ChatGPT, Claude, Gemini và Grok hỗ trợ lập kế hoạch tấn công chính phủ",
-        "summary": "Các nhà điều tra liên bang đã vượt qua biện pháp bảo vệ trên bốn chatbot phổ biến, tạo ra các kế hoạch tấn công khả thi trong vài giờ.",
+        "title": "Alibaba’s cloud business is thriving. But those profits are completely offset by losses from its AI labs.",
+        "titleVi": "Lợi nhuận dịch vụ đám mây Alibaba bù đắp hoàn toàn bởi lỗ AI",
+        "summary": "Doanh nghiệp Alibaba đã ghi nhận lợi nhuận lớn từ dịch vụ đám mây, nhưng lỗ từ phòng thí nghiệm AI đã hoàn toàn bù đắp.",
         "why": "",
-        "link": "https://decrypt.co/383584/chatgpt-claude-gemini-grok-help-plan-terror-attacks-government-tests",
+        "link": "https://www.marketwatch.com/story/alibabas-cloud-business-is-thriving-but-those-profits-are-completely-offset-by-losses-from-its-ai-labs-74bf4b3c?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Thu, 19 Nov 2026 16:52:00 GMT"
+      },
+      {
+        "title": "Anthropic’s IPO poses this big risk to an already shaky stock market",
+        "titleVi": "Anthropic IPO: Rủi ro lớn cho thị trường chứng khoán",
+        "summary": "Công ty Anthropic vừa công bố IPO, khiến nhà đầu tư lo ngại lượng phát hành cổ phiếu lớn có thể làm quá tải nhu cầu mua bán, gây áp lực lên thị trường vốn.",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/anthropics-ipo-poses-this-big-risk-to-an-already-shaky-stock-market-83ce7794?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Thu, 19 Nov 2026 16:49:00 GMT"
+      },
+      {
+        "title": "Anthropic shares open at $111.50, 34.3% above $83 IPO price",
+        "titleVi": "Cổ phiếu Anthropic mở cửa 34% trên giá IPO",
+        "summary": "Cổ phiếu của Anthropic (ANT) mở cửa ở mức 111,50 USD, cao hơn 34,3% so với giá IPO 83 USD, đánh giá công ty trị giá khoảng 2 tỷ USD tại thời điểm mở cửa.",
+        "why": "",
+        "link": "https://cointelegraph.com/markets/anthropic-shares-expected-to-open-above-83-ipo-price?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source": "CoinTelegraph",
+        "publishedAt": "Thu, 19 Nov 2026 16:07:51 +0000"
+      },
+      {
+        "title": "Anthropic opens for trade at $111.50, up 34% from IPO price",
+        "titleVi": "Anthropic mở cửa giao dịch với giá 111,50 USD, tăng 34% so với giá IPO",
+        "summary": "Công ty Anthropic được giao dịch mở cửa với giá 111,50 USD, cao hơn 34% so với giá IPO 85,50 USD, làm giá trị công ty vượt 2.000 tỷ USD.",
+        "why": "",
+        "link": "https://www.coindesk.com/markets/2026/11/19/anthropic-opens-for-trade-at-usd11-50-up-34-from-ipo-price",
+        "source": "CoinDesk",
+        "publishedAt": "Thu, 19 Nov 2026 17:01:47 +0000"
+      },
+      {
+        "title": "Anthropic Stock Opens 33% Above IPO Price as AI Stocks Rally",
+        "titleVi": "Cổ phiếu Anthropic mở cửa 33% cao hơn giá IPO",
+        "summary": "Cổ phiếu của công ty AI Claude, Anthropic, bắt đầu giao dịch với giá 33% cao hơn mức IPO, có thể lên tới 110 USD, đưa giá trị thị trường gần 2 nghìn tỷ USD.",
+        "why": "Cổ phiếu Anthropic mở cửa 33% cao hơn giá IPO, có thể đạt 110 USD.",
+        "link": "https://decrypt.co/383631/anthropic-stock-indicated-open-33-above-ipo-price",
         "source": "Decrypt",
-        "publishedAt": "Wed, 18 Nov 2026 21:46:03 +0000"
+        "publishedAt": "Thu, 19 Nov 2026 16:55:10 +0000"
+      },
+      {
+        "title": "Anthropic Tops SpaceX's Initial IPO With $81 Billion Deal: Where the Money Went",
+        "titleVi": "Anthropic vượt SpaceX trong đợt IPO đầu tiên với 81 tỷ USD",
+        "summary": "Đợt IPO ban đầu của Anthropic thu hút 81 tỷ USD, lớn hơn doanh thu ban đầu của SpaceX, mặc dù chưa đạt số cuối cùng.",
+        "why": "",
+        "link": "https://decrypt.co/383623/anthropic-tops-spacex-initial-ipo-81-billion-deal-where-the-money-went",
+        "source": "Decrypt",
+        "publishedAt": "Thu, 19 Nov 2026 15:54:03 +0000"
       }
     ],
     "chung-khoan": [
       {
-        "title": "Trump holds talks separately with Putin and Xi ahead of their historic trilateral meeting",
-        "titleVi": "Donald Trump gặp riêng Vladimir Putin và Tập Cận Bình",
-        "summary": "Tổng thống Mỹ Donald Trump đã hội đàm riêng với Tổng thống Nga Vladimir Putin và Chủ tịch Trung Quốc Tập Cận Bình vào thứ Năm, trước thềm cuộc gặp ba bên.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/19/trump-xi-putin-china-apec-.html",
+        "title": "AMD falls on short-seller report of alleged China exposure",
+        "titleVi": "AMD giảm giá sau cáo cáo rủi ro liên quan Trung Quốc",
+        "summary": "AMD bị sụt giảm khi nhà bán short cáo buộc firmware của công ty xuất hiện tại công ty Trung Quốc bị cấm, gây lo ngại về rủi ro thị trường.",
+        "why": "Cá nhân short báo cáo firmware có liên quan tới công ty Trung Quốc bị cấm, làm giảm niềm tin nhà đầu tư.",
+        "link": "https://www.cnbc.com/2026/11/19/amd-falls-on-short-seller-report-of-alleged-china-exposure.html",
         "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 06:29:34 GMT"
+        "publishedAt": "Thu, 19 Nov 2026 16:53:47 GMT"
       },
       {
-        "title": "Takaichi gets chilly reception in China on first Japan leader visit since 2019",
-        "titleVi": "Lãnh đạo Nhật Bản tới Trung Quốc lần đầu tiên kể từ năm 2019",
-        "summary": "Bà Takaichi nhận sự tiếp đón trầm lắng khi tới tham dự hội nghị thượng đỉnh APEC tại Trung Quốc, giữa lúc quan hệ hai nước căng thẳng vì vấn đề Đài Loan.",
-        "why": "Đây là chuyến công tác đầu tiên của một người đứng đầu chính phủ Nhật Bản đến Trung Quốc kể từ năm 2019.",
-        "link": "https://www.cnbc.com/2026/11/19/japan-china-trump-takaichi-taiwan-.html",
+        "title": "Walmart hikes outlook as CEO tells CNBC retailer aims to keep prices low despite soaring fuel costs",
+        "titleVi": "Walmart tăng triển vọng, giữ giá thấp amid tăng giá xăng dầu",
+        "summary": "Walmart nâng dự báo doanh thu, nhấn mạnh việc duy trì giá thấp dù chi phí xăng dầu tăng, đồng thời ghi nhận sức mạnh trong dịch vụ nhận hàng tại cửa hàng.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/19/walmart-wmt-q3-2026-earnings.html",
         "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 07:38:29 GMT"
-      },
-      {
-        "title": "I watched Trump, Xi and Putin gather in China. Here are my top takeaways",
-        "titleVi": "Trump, Xi và Putin dự kiến gặp mặt ba quốc gia hiếm có tại Trung Quốc",
-        "summary": "Tổng thống Mỹ Donald Trump, Tổng thống Trung Quốc Xi Jinping và Tổng thống Nga Vladimir Putin dự kiến tổ chức cuộc họp ba bên vào thứ Năm tại Trung Quốc.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/18/trump-xi-putin-apec-shenzhen-china.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 18 Nov 2026 19:47:05 GMT"
-      },
-      {
-        "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
-        "titleVi": "Vợ làm việc khi chồng nghỉ hưu 64 tuổi: liệu công bằng?",
-        "summary": "Vợ, đang làm việc, cho rằng chồng đã nghỉ hưu 64 tuổi và muốn cô tiếp tục làm, trong khi cô cảm thấy mệt mỏi với lịch trình làm việc và 50 phút di chuyển.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Thu, 19 Nov 2026 03:45:00 GMT"
-      },
-      {
-        "title": "‘It’s downright dirty’: My brother took over our ailing mother’s life and finances. What can I do?",
-        "titleVi": "Anh trai quản lý tài chính mẹ bệnh tật: tình huống khó xử",
-        "summary": "Người kể chuyện chia sẻ cảm giác đau lòng khi anh trai, người mà cô tin tưởng, đã chiếm quyền kiểm soát cuộc sống và tài chính của mẹ đang suy yếu.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Thu, 19 Nov 2026 03:45:00 GMT"
+        "publishedAt": "Thu, 19 Nov 2026 13:23:50 GMT"
       },
       {
         "title": "‘I’ve been a stay-at-home mom’: I’m 50 and have a chronic illness. My husband lost his job. Should he raid his 401(k)?",
-        "titleVi": "Mẹ tại nhà 50 tuổi, bệnh mãn tính: chồng mất việc, liệu rút 401(k)?",
-        "summary": "Cô 50 tuổi, mắc bệnh mãn tính, đang cân nhắc rút 401(k) khi chồng mất việc, vì tình hình tài chính và y tế ngày càng lo ngại.",
+        "titleVi": "Mẹ tại nhà 50 tuổi suy nghĩ về việc trích 401(k) khi chồng mất việc",
+        "summary": "Một bà mẹ 50 tuổi với bệnh mãn tính và chồng mất việc đang cân nhắc trích 401(k) vì tình hình tài chính và y tế ngày càng lo ngại.",
         "why": "",
         "link": "https://www.marketwatch.com/story/ive-been-a-stay-at-home-mom-im-50-and-have-a-chronic-illness-my-husband-lost-his-job-should-he-raid-his-401-k-63e59123?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Thu, 19 Nov 2026 03:30:00 GMT"
-      },
-      {
-        "title": "Fed's rate hike push may be a mistake. Here's why",
-        "titleVi": "Chuyên gia cảnh báo Fed có thể sai lầm khi tiếp tục tăng lãi suất",
-        "summary": "Giới phân tích cho rằng Fed dựa vào dữ liệu chưa sát thực tế khi thúc đẩy thắt chặt chính sách tiền tệ. Giá xăng và năng lượng giảm sụt cho thấy áp lực lạm phát đang trên đà hạ nhiệt.",
-        "why": "Giá xăng cùng chi phí năng lượng đi xuống cho thấy áp lực lạm phát giảm bớt dù Fed vẫn đề xuất tiếp tục nâng lãi suất.",
-        "link": "https://www.coindesk.com/markets/2026/11/19/fed-s-push-for-more-rate-hikes-leans-on-backward-looking-data-as-gas-prices-slide-analysts-argue",
-        "source": "CoinDesk",
-        "publishedAt": "Thu, 19 Nov 2026 06:23:19 +0000"
+        "publishedAt": "Thu, 19 Nov 2026 17:00:00 GMT"
       }
     ],
     "crypto": [
       {
-        "title": "Bitcoin carry trades could beat Treasury bills in 2027, Sygnum predicts",
-        "titleVi": "Sygnum dự báo giao dịch carry trade Bitcoin sẽ vượt tín phiếu Mỹ vào năm 2027",
-        "summary": "Ngân hàng Sygnum dự báo lợi suất từ chiến lược giao dịch carry trade Bitcoin có thể vượt tín phiếu kho bạc Mỹ vào năm 2027. Dự báo này đưa ra sau khi tỷ lệ tài trợ sụt giảm mạnh làm giảm sức hút của chiến lược trong năm 2026.",
-        "why": "",
-        "link": "https://cointelegraph.com/markets/sygnum-bitcoin-carry-trades-2027?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source": "CoinTelegraph",
-        "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000"
-      },
-      {
         "title": "Here’s what happened in crypto today",
-        "titleVi": "Tổng hợp diễn biến thị trường tiền mã hóa và quy định pháp lý mới",
-        "summary": "Thị trường tiền mã hóa ghi nhận nhiều biến động liên quan đến giá Bitcoin, ứng dụng DeFi và Web3. Đồng thời, cơ quan quản lý tại nhiều khu vực tiếp tục thắt chặt chính sách pháp lý đối với ngành này.",
-        "why": "Bản tin tổng hợp các sự kiện trong ngày tác động trực tiếp đến giá Bitcoin, xu hướng Web3 và chính sách quản lý tiền mã hóa.",
+        "titleVi": "Tóm tắt tin tức crypto hôm nay",
+        "summary": "Bản tin cung cấp tổng hợp các sự kiện mới nhất về Bitcoin, blockchain, DeFi, Web3 và quy định tiền điện tử trong ngày hôm nay.",
+        "why": "Cung cấp thông tin cập nhật nhanh về xu hướng và sự kiện ảnh hưởng đến giá Bitcoin và thị trường crypto.",
         "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Thu, 19 Nov 2026 06:00:00 +0000"
+        "publishedAt": "Thu, 19 Nov 2026 13:48:14 +0000"
       },
       {
-        "title": "Senators warn GENIUS Act rules could push stablecoin firms toward federal oversight",
-        "titleVi": "Thượng nghị sĩ Mỹ hối thúc Bộ Tài chính bảo vệ công ty phát hành stablecoin",
-        "summary": "Các thượng nghị sĩ Mỹ đề nghị Bộ Tài chính mở rộng cơ chế bảo vệ cho doanh nghiệp phát hành stablecoin tại những bang đang hoàn thiện khung pháp lý. Thời hạn triển khai quy định này được kiến nghị kéo dài đến trước tháng 1/2028.",
+        "title": "Ethereum’s new DeFi security tool raises questions over censorship",
+        "titleVi": "Công cụ bảo mật DeFi mới của Ethereum gây tranh cãi",
+        "summary": "Hệ thống Phylax cho phép các giao thức phi tập trung chặn giao dịch có hại, nhưng đặt ra câu hỏi về khả năng kiểm duyệt và thị trường xây dựng tập trung của Ethereum.",
         "why": "",
-        "link": "https://cointelegraph.com/news/us-senators-genius-act-rules-favor-federal-stablecoin-issuers?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/magazine/ethereums-new-defi-security-tool-raises-questions-over-censorship?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Thu, 19 Nov 2026 05:27:45 +0000"
+        "publishedAt": "Thu, 19 Nov 2026 13:30:00 +0000"
       },
       {
-        "title": "Ethereum block builders received the most in a $3.4 million vault hack, data shows",
-        "titleVi": "Block builders Ethereum nhận phần lớn khi hack kho tiền 3,4 triệu USD",
-        "summary": "Một bot giao dịch tự động sao chép cuộc tấn công vào kho sBOLD của K3 Capital, chiếm hơn một nửa số tiền và trả phần lớn lợi nhuận để được xử lý giao dịch nhanh nhất.",
-        "why": "Bot tự động đã chiếm hơn 50% số tiền trong kho 3,4 triệu USD.",
-        "link": "https://www.coindesk.com/tech/2026/11/19/ethereum-block-builders-received-the-most-in-a-usd3-4-million-vault-hack-data-shows",
-        "source": "CoinDesk",
-        "publishedAt": "Thu, 19 Nov 2026 05:39:06 +0000"
-      },
-      {
-        "title": "Bitcoin miner that sold its last BTC warns it may run short of cash for $1.2 billion AI deal",
-        "titleVi": "Máy đào Bitcoin bán BTC cuối cùng cảnh báo thiếu tiền cho giao dịch AI 1,2 tỷ USD",
-        "summary": "Hyperscale Data cần thêm 74,8 triệu USD để hoàn thành dự án trung tâm dữ liệu Michigan, ngay cả sau khi bán toàn bộ BTC còn lại và huy động nợ mới.",
+        "title": "Binance wins $6.5 billion feezing order against hackers behind crypto's largest theft",
+        "titleVi": "Binance thu hồi 6,5 tỷ USD từ lệnh đóng băng tài sản bị trộm",
+        "summary": "Binance đã hoàn trả 6,5 tỷ USD bằng quỹ nội bộ và bảo hiểm sau khi lệnh đóng băng tài sản của kẻ hacker bị trộm lớn nhất trong ngành.",
         "why": "",
-        "link": "https://www.coindesk.com/markets/2026/11/19/bitcoin-miner-that-sold-its-last-btc-warns-it-may-run-short-of-cash-for-usd1-2-billion-ai-deal",
+        "link": "https://www.coindesk.com/business/2026/11/19/binance-wins-usd6-5-billion-feezing-order-against-hackers-behind-crypto-s-largest-theft",
         "source": "CoinDesk",
-        "publishedAt": "Thu, 19 Nov 2026 04:46:10 +0000"
+        "publishedAt": "Thu, 19 Nov 2026 15:20:38 +0000"
       },
       {
-        "title": "Ledger Confirms Tampered Bitcoin Wallets in Berlin as Spy Implant Probe Spreads Beyond Asia",
-        "titleVi": "Ledger xác nhận ví Bitcoin bị can thiệp tại Berlin, mở rộng ra Dubai",
-        "summary": "Ledger đã xác nhận các thiết bị bị can thiệp tại Berlin và đang điều tra hai đơn vị nghi ngờ ở Dubai, khi vụ việc lan rộng ra ngoài Đông Nam Á.",
+        "title": "Crypto traders vs. Wall Street: OKX’s Anthropic markets put IPO pricing to the test",
+        "titleVi": "OKX ra mắt cổ phiếu tokenized Anthropic, giá vượt 24% so với IPO",
+        "summary": "OKX dự định phát hành cổ phiếu tokenized của Anthropic, khi giao dịch trước IPO lên 24% trên mức 83 USD của công ty.",
         "why": "",
-        "link": "https://decrypt.co/383586/ledger-confirms-tampered-bitcoin-wallets-berlin-spreads-beyond-asia",
-        "source": "Decrypt",
-        "publishedAt": "Wed, 18 Nov 2026 22:16:02 +0000"
+        "link": "https://www.coindesk.com/markets/2026/11/19/crypto-traders-vs-wall-street-okx-s-anthropic-markets-put-ipo-pricing-to-the-test",
+        "source": "CoinDesk",
+        "publishedAt": "Thu, 19 Nov 2026 13:11:31 +0000"
+      }
+    ],
+    "thoi-su": [
+      {
+        "title": "Kash Patel skips House hearing after Mar-a-Lago gala with $50,000 access",
+        "titleVi": "Kash Patel bỏ buổi lắng nghe Quốc hội sau gala Mar-a-Lago",
+        "summary": "Kash Patel không tham gia phiên lắng nghe Quốc hội sau khi tham dự buổi gala Mar-a-Lago, nơi tặng quyền truy cập cho nhà tài trợ 50.000 USD.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/18/kash-patel-hearing-mar-a-lago-gala.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 14:15:18 GMT"
+      },
+      {
+        "title": "Trump, Xi, Putin said they plan to boost oil production, revamp UN after trilateral talks",
+        "titleVi": "Trump, Xi, Putin đề xuất tăng sản lượng dầu và cải tổ UN",
+        "summary": "Ba nhà lãnh đạo Mỹ, Trung Quốc và Nga đã gặp nhau tại Thâm Quyến, đề nghị tăng sản lượng dầu và tái cấu trúc Liên Hợp Quốc.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/19/trump-xi-putin-trilateral-meeting-china.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 17:01:41 GMT"
       }
     ]
   }

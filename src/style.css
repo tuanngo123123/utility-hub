@@ -967,6 +967,14 @@ button.chip-cat[aria-pressed="true"]:hover,
   .tab { flex: none; }
 }
 
+/* Hàng tab Sinh viên (19/11): 9 tab nằm 1 dòng, cuộn ngang khi hẹp —
+   chip "Ưu đãi" không rớt một mình xuống dòng 2. Khoảng trống giữa
+   dòng giới thiệu và hàng tab cũng thu lại (margin 88px của .section
+   quá lớn ở đây). */
+.sv-tabs-section { margin-top: 16px; }
+.sv-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+.sv-tabs .tab { flex: none; padding: 8px 12px; }
+
 /* Tab lấp đầy chiều rộng (công cụ lương, đợt sửa UX 18/11): 2 tab
    Gross ⇄ Net chia đều khung, không cuộn ngang, không cắt chữ "Net →
    Gross" ở 375px (trước đây khung tab chỉ 243px mà 2 tab rộng 270px). */
@@ -1813,14 +1821,13 @@ button.chip-cat[aria-pressed="true"]:hover,
 }
 .gv-group-counts { font-size: 13px; font-weight: 500; opacity: 0.95; white-space: nowrap; }
 .gv-group ul { margin: 0; padding-left: 0; list-style: none; }
-/* Hàng thành viên: tên gọi 18px + chip vai trò 14px cùng dòng; chip
-   dài ("Nhóm trưởng") không vừa thì xuống dòng dưới (flex-wrap) thay
-   vì bóp tên vỡ từng ký tự — lỗi bắt được khi chụp ảnh kiểm chứng
-   19/11. KHÔNG xếp dọc mọi chip: thẻ sẽ cao quá, 4 nhóm 2 hàng không
-   vừa màn hình 768px (đã thử, hàng 2 bị cắt). Tên trong thẻ là TÊN
-   GỌI (theo bản phác), họ tên đầy đủ nằm ở title khi rê chuột. */
-.gv-group li { line-height: 1.4; font-size: 18px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 0; flex-wrap: wrap; }
-.gv-member-name { font-weight: 600; min-width: 0; }
+/* Hàng thành viên: tên gọi 18px + chip vai trò 14px LUÔN cùng dòng,
+   chip bên phải tên; tên dài thì cắt "…" chứ không đẩy chip xuống
+   dòng dưới (quyết 19/11 — chip lúc cạnh tên lúc rớt dòng trông lệch).
+   Họ tên đầy đủ nằm ở title khi rê chuột. Chip cùng dòng còn giúp thẻ
+   thấp hơn, 4 nhóm 2 hàng vừa màn hình 768px. */
+.gv-group li { line-height: 1.4; font-size: 18px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 0; flex-wrap: nowrap; }
+.gv-member-name { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .gv-member-star { color: #D97706; }
 /* Vai trò không ngắt dòng giữa chừng ("Nhóm" / "trưởng" xấu). */
 .gv-role { font-size: 14px; color: var(--gc-fg, var(--muted)); background: #fff; border: 1px solid var(--gc-border, var(--line)); border-radius: 999px; padding: 1px 8px; white-space: nowrap; flex: none; }
@@ -3894,6 +3901,31 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
   gap: 10px;
   box-sizing: border-box;
 }
+/* Dải gập Cài đặt (Chia nhóm, 19/11): chia xong thì cột cài đặt thu
+   thành 1 dải ngang trên cùng, thẻ nhóm dùng hết bề ngang. Nút chỉ
+   hiện khi đã có kết quả chia (.cn-has-results); khi thu gọn thì cột
+   cài đặt mất khung, chỉ còn nút dải; bấm dải mở lại đầy đủ để chỉnh
+   rồi chia lại. */
+.cn-settings-toggle {
+  display: none;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border: 1px solid var(--gv-line);
+  border-radius: 12px;
+  background: var(--gv-surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.cn-settings-toggle:hover { background: var(--bg-soft); }
+.cn-v2.cn-has-results .cn-settings-toggle { display: flex; }
+.cn-v2.cn-collapsed { flex-direction: column; }
+.cn-v2.cn-collapsed .cn-settings { width: 100%; padding: 0; background: transparent; border: 0; }
+.cn-v2.cn-collapsed .cn-settings > *:not(.cn-settings-toggle) { display: none; }
 .cn-settings h3 { margin: 6px 0 0; font-size: 1.05rem; font-weight: 800; }
 .cn-settings h3:first-child { margin-top: 0; }
 .cn-stepper { display: flex; align-items: center; gap: 10px; }

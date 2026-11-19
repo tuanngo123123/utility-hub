@@ -86,13 +86,15 @@ function todayCard(label, contentId, loadingText, detailHref, detailText) {
 
 // ---------------------------------------------------------------------------
 // SSR Điểm báo — bản sao lúc build của logic render trong src/app.js
-// (initHomeNews): cùng markup, cùng quy tắc (3 tin mới nhất mọi nhóm).
-// Giữ hai bên đồng bộ khi sửa một bên.
+// (initHomeNews): cùng markup, cùng quy tắc (3 tin mới nhất mọi nhóm;
+// bấm chip thì 3 tin mới nhất của nhóm đó). Giữ hai bên đồng bộ khi
+// sửa một bên.
 // ---------------------------------------------------------------------------
 const NEWS_GROUPS = [
   { id: 'ai', label: 'AI' },
   { id: 'chung-khoan', label: 'Chứng khoán' },
   { id: 'crypto', label: 'Crypto' },
+  { id: 'thoi-su', label: 'Thời sự' },
 ];
 const HOME_NEWS_COUNT = 3;
 
@@ -163,6 +165,15 @@ export function body({ tools = [], news = null } = {}) {
   const newsHtml = homeNewsItems.length
     ? homeNewsItems.map(newsCardHtml).join('')
     : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
+  // Chip lọc theo nhóm tin (19/11): bấm chip thì hiện 3 tin mới nhất
+  // của nhóm đó (app.js initHomeNews xử lý lúc chạy). Chỉ render khi
+  // có tin — chưa có tin thì chip toàn số 0, vô nghĩa.
+  const newsCounts = {};
+  newsGroups.forEach((g) => { newsCounts[g.id] = g.items.length; });
+  const homeNewsChips = allNewsItems.length ? `<div class="hd-chips" role="group" aria-label="Lọc theo nhóm tin">
+      <button type="button" class="hd-chip" data-home-news-chip="all" aria-pressed="true">Tất cả · ${allNewsItems.length}</button>
+${NEWS_GROUPS.map((g) => `      <button type="button" class="hd-chip" data-home-news-chip="${g.id}" aria-pressed="false">${esc(g.label)} · ${newsCounts[g.id] || 0}</button>`).join('\n')}
+    </div>` : '';
 
   // Được dùng nhiều nhất: 8 thẻ (icon SVG riêng + tên đậm + mô tả ngắn).
   const mostUsedTools = MOST_USED_SLUGS
@@ -256,6 +267,7 @@ ${mostUsedHtml}
       <a href="/diem-bao/">Xem thêm →</a>
     </div>
     <p class="muted small">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
+    ${homeNewsChips}
     <div class="home-news-list" id="home-news-list"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? newsHtml : '<p class="muted">Đang tải tin…</p>'}</div>
   </section>`;
 }

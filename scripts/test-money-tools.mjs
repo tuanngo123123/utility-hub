@@ -1,4 +1,4 @@
-// test-money-tools.mjs — Bộ kiểm tra tự động cho 8 công cụ tiền/lương/thuế.
+// test-money-tools.mjs — Bộ kiểm tra tự động cho 9 công cụ tiền/lương/thuế.
 //
 // Chạy trong `npm run build` TRƯỚC build.mjs: kiểm nào trượt thì build
 // thất bại (exit 1) để không đăng số sai lên web.
@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   taxByBrackets, grossNet, netToGross, thueTncnFromSalary, thueTncnFromTaxable,
-  bhxhMotLan, luongHuu, tienDien, laiVay, luongThang13, bhtn,
+  bhxhMotLan, luongHuu, tienDien, laiVay, luongThang13, bhtn, quyetToanThue,
 } from '../src/money-formulas.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -226,13 +226,56 @@ function is(name, actual, expected) {
   eq('bhtn + 2 năm trước 2009: trợ cấp thôi việc', r.severance, 12000000);
 }
 
+// --- Quyết toán thuế TNCN 2026 (biểu năm = bậc tháng × 12; giảm trừ bản thân đủ 186tr khi quyết toán) ---
+{
+  // Thu nhập đều cả năm (45tr/tháng, 1 phụ thuộc) thì khấu trừ hằng tháng khớp thuế năm (chênh 0).
+  let r = quyetToanThue(540000000, 56700000, 1, 12, 0, 0, 16290000);
+  eq('QTTT đều cả năm: TNTT', r.taxable, 222900000);
+  eq('QTTT đều cả năm: thuế', r.tax, 16290000);
+  eq('QTTT đều cả năm: chênh', r.diff, 0);
+  // Giảm trừ y tế + giáo dục đủ trần (23tr + 24tr): TNTT 14,8tr, thuế 740.000₫, hoàn 2.350.000₫.
+  r = quyetToanThue(360000000, 37800000, 1, 12, 23000000, 24000000, 3090000);
+  eq('QTTT y tế+GD đủ trần: TNTT', r.taxable, 14800000);
+  eq('QTTT y tế+GD đủ trần: thuế', r.tax, 740000);
+  eq('QTTT y tế+GD đủ trần: hoàn', r.refund, 2350000);
+  // Trần y tế/giáo dục: nhập 30tr thì chỉ tính 23tr/24tr (TNTT 89,2tr → thuế 4.460.000₫).
+  r = quyetToanThue(360000000, 37800000, 0, 12, 30000000, 30000000, 0);
+  eq('QTTT trần y tế: áp dụng', r.medicalApplied, 23000000);
+  eq('QTTT trần giáo dục: áp dụng', r.eduApplied, 24000000);
+  eq('QTTT trần y tế+GD: thuế', r.tax, 4460000);
+  is('QTTT trần y tế: cờ vượt trần', r.medicalCapped, true);
+  is('QTTT trần giáo dục: cờ vượt trần', r.eduCapped, true);
+  // Phụ thuộc 2 người × 6 tháng: giảm trừ 74,4tr, thuế 21.660.000₫.
+  r = quyetToanThue(600000000, 63000000, 2, 6, 0, 0, 0);
+  eq('QTTT 2 PT × 6 tháng: giảm trừ', r.depDeduct, 74400000);
+  eq('QTTT 2 PT × 6 tháng: thuế', r.tax, 21660000);
+  // Nộp thêm 20.000₫ (≤ 50.000₫) thì được miễn, không phải nộp hồ sơ (Điều 66 TT 89/2026).
+  r = quyetToanThue(320000000, 33600000, 0, 12, 0, 0, 5000000);
+  eq('QTTT miễn: nộp thêm', r.extraDue, 20000);
+  is('QTTT miễn: cờ', r.exempt, true);
+  // Thu nhập thấp (200tr/năm, BH 21tr): TNTT bằng 0, thuế 0.
+  r = quyetToanThue(200000000, 21000000, 0, 12, 0, 0, 0);
+  eq('QTTT thu nhập thấp: TNTT', r.taxable, 0);
+  eq('QTTT thu nhập thấp: thuế', r.tax, 0);
+}
+
 // --- Ví dụ trong bài Hướng dẫn (khóa bài ↔ công thức, thêm 19/11/2026) ---
 // Mỗi ví dụ tính sẵn trong bài Hướng dẫn gắn với 8 công cụ tiền đều có ca
 // kiểm ở đây (ghi rõ tên bài). Bài sai số thì sửa BÀI, không sửa công thức
 // (công thức đã kiểm đúng theo văn bản). BHTN chưa có bài Hướng dẫn riêng.
 {
+  // Bài "Quyết toán thuế TNCN 2026", Ví dụ 1: làm 8 tháng, lương 40tr/tháng, 0 phụ thuộc.
+  let r = quyetToanThue(320000000, 33600000, 0, 12, 0, 0, 12240000);
+  eq('bài quyết toán Vd1 8 tháng 40tr: TNTT', r.taxable, 100400000);
+  eq('bài quyết toán Vd1 8 tháng 40tr: thuế cả năm', r.tax, 5020000);
+  eq('bài quyết toán Vd1 8 tháng 40tr: hoàn', r.refund, 7220000);
+  // Bài "Quyết toán thuế TNCN 2026", Ví dụ 2: lương 60tr/tháng + vãng lai 150tr, 1 phụ thuộc.
+  r = quyetToanThue(870000000, 75600000, 1, 12, 0, 0, 49800000);
+  eq('bài quyết toán Vd2 60tr + vãng lai: TNTT', r.taxable, 534000000);
+  eq('bài quyết toán Vd2 60tr + vãng lai: thuế cả năm', r.tax, 64800000);
+  eq('bài quyết toán Vd2 60tr + vãng lai: nộp thêm', r.extraDue, 15000000);
   // Bài "Cách tính lương Gross sang Net 2026", Ví dụ 1: 30tr, 0 phụ thuộc.
-  let r = grossNet(30000000, 30000000, 106200000, 0);
+  r = grossNet(30000000, 30000000, 106200000, 0);
   eq('bài gross-net Vd1 30tr: bảo hiểm', r.insurance, 3150000);
   eq('bài gross-net Vd1 30tr: TNTT', r.taxable, 11350000);
   eq('bài gross-net Vd1 30tr: thuế', r.tax, 635000);

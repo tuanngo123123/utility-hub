@@ -1,5 +1,5 @@
 // Nội dung giới thiệu + FAQ cho các công cụ chính của Tiện Ích Hub
-// (15 mục: 13 mục có FAQ, 2 mục thuế TNCN + lương hưu chỉ có intro/
+// (16 mục: 14 mục có FAQ, 2 mục thuế TNCN + lương hưu chỉ có intro/
 // legalBasis/example, chưa có FAQ).
 //
 // Ngoài intro/finance/disclaimer/faqs, mục SEO lô 1 (19/11/2026) có thêm:
@@ -65,6 +65,38 @@ export const TOOL_CONTENT = {
       tab: '#tncn-tab-salary',
     },
     faqs: [],
+  },
+  "quyet-toan-thue-tncn-2026": {
+    intro: "Tính thuế thu nhập cá nhân phải nộp cả năm 2026 theo biểu lũy tiến năm: nhập tổng thu nhập, bảo hiểm đã đóng, người phụ thuộc, chi phí y tế/giáo dục (nếu có) và thuế đã khấu trừ để biết được hoàn hay phải nộp thêm bao nhiêu, kèm hạn nộp và nơi nộp hồ sơ quyết toán.",
+    finance: true,
+    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (Điều 9 — biểu thuế 5 bậc), Nghị quyết 110/2025/UBTVQH15 (giảm trừ bản thân 15,5 triệu đồng, người phụ thuộc 6,2 triệu đồng), Nghị định 253/2026/NĐ-CP (giảm trừ y tế 23 triệu đồng, giáo dục 24 triệu đồng; ủy quyền quyết toán), Nghị định 373/2025/NĐ-CP (nơi nộp hồ sơ) và Thông tư 89/2026/TT-BTC (miễn quyết toán khi nộp thêm không quá 50.000₫).",
+    updatedAt: "19/11/2026",
+    example: {
+      text: "Làm 8 tháng trong năm, lương 40.000.000₫/tháng, 0 người phụ thuộc: thu nhập cả năm 320.000.000₫, bảo hiểm 33.600.000₫, giảm trừ bản thân đủ 12 tháng 186.000.000₫, thu nhập tính thuế 100.400.000₫ → thuế cả năm 5.020.000₫; đã khấu trừ 12.240.000₫ nên được hoàn 7.220.000₫.",
+      fills: { 'qttt-income': '320.000.000', 'qttt-insurance': '33.600.000', 'qttt-deps': '0', 'qttt-dep-months': '12', 'qttt-medical': '', 'qttt-edu': '', 'qttt-withheld': '12.240.000' },
+    },
+    faqs: [
+      {
+        q: "Làm việc chưa đủ 12 tháng thì giảm trừ bản thân bao nhiêu?",
+        a: "Đủ 12 tháng, tức 186.000.000₫, khi quyết toán (điểm b khoản 1 Điều 48 Nghị định 253/2026) — kể cả bạn chỉ làm vài tháng trong năm. Ví dụ làm 8 tháng, lương 40 triệu đồng/tháng: thu nhập cả năm 320.000.000₫, bảo hiểm 33.600.000₫, thu nhập tính thuế 100.400.000₫, thuế cả năm 5.020.000₫; đã khấu trừ 12.240.000₫ nên được hoàn 7.220.000₫."
+      },
+      {
+        q: "Hạn quyết toán thuế TNCN 2026 là ngày nào?",
+        a: "Cá nhân tự quyết toán: 3/5/2027 (thứ Hai) — hạn gốc 30/4/2027 rơi vào ngày lễ nên dời sang ngày làm việc tiếp theo. Tổ chức trả thu nhập quyết toán thay: 31/3/2027. Nếu bạn thuộc diện được hoàn thuế thì nộp hồ sơ hoàn trễ không bị phạt hành chính."
+      },
+      {
+        q: "Được hoàn thuế thì bao lâu nhận được tiền?",
+        a: "Nộp hồ sơ điện tử qua eTax Mobile, đủ điều kiện thì hệ thống hoàn tự động trong 3 ngày làm việc (Công văn 1296/CT-NVT). Bạn nên nộp sau khi nơi trả thu nhập đã quyết toán xong (sau 31/3/2027) để hệ thống đủ dữ liệu, và tài khoản ngân hàng nhận hoàn phải đã xác thực trên eTax Mobile."
+      },
+      {
+        q: "Nộp thêm bao nhiêu thì được miễn quyết toán?",
+        a: "Số thuế nộp thêm không quá 50.000₫ thì bạn được miễn, không phải nộp hồ sơ quyết toán (Điều 66 Thông tư 89/2026). Ví dụ thuế cả năm 5.020.000₫ mà đã khấu trừ 5.000.000₫ thì chỉ nộp thêm 20.000₫ nên được miễn."
+      },
+      {
+        q: "Giảm trừ chi phí y tế, giáo dục tối đa bao nhiêu?",
+        a: "Y tế tối đa 23.000.000₫/năm, giáo dục tối đa 24.000.000₫/năm (tổng 47 triệu đồng). Chỉ tính chi phí thực tế tự trả, có chứng từ hợp lệ — y tế là tiền khám chữa bệnh tại cơ sở trong nước thuộc danh mục BHYT chi trả; giáo dục chỉ tính học phí, không tính tiền ăn, đồng phục hay sách vở. Muốn giảm trừ hai khoản này thì bạn phải tự quyết toán, không được ủy quyền cho nơi trả thu nhập."
+      }
+    ]
   },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
