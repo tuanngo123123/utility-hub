@@ -115,6 +115,7 @@ ${inner}
       <span class="gv-attend-count" id="gv-attend-count">Chưa có lớp</span>
       <span class="gv-teach-class" id="gv-app-teach-class"></span>
       <div class="gv-topbar-actions">
+        <button type="button" class="gv-install-btn" id="gv-install-btn" hidden aria-label="Cài Bàn giáo viên lên màn hình chính"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="gv-install-label">Cài lên màn hình</span></button>
         <button type="button" class="gv-sound-btn" id="gv-sound-btn" aria-label="Âm thanh lớp học" aria-expanded="false" aria-controls="gv-sound-pop"><svg class="gv-snd-on" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><svg class="gv-snd-off" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
         <button type="button" class="gv-help-btn" id="gv-app-help-btn" aria-haspopup="dialog"><span class="gv-help-label">Phím tắt</span> <kbd>?</kbd></button>
         <div class="gv-mode-toggle" role="group" aria-label="Chế độ dạy">
@@ -242,6 +243,46 @@ ${toolPanels}
   try {
     if (localStorage.getItem('uh_gv_dayhoc') === '1') document.body.classList.add('gv-teach');
   } catch (e) { /* bỏ qua */ }
+  // PWA (19/11): cài Bàn giáo viên như ứng dụng + dùng được khi mất
+  // mạng. Chạy NGAY khi script được đọc (không chờ DOMContentLoaded)
+  // để không bỏ lỡ sự kiện beforeinstallprompt của trình duyệt.
+  // - Service worker chỉ đăng ký trên trang này, phạm vi mặc định là
+  //   thư mục chứa file (/giao-vien/lop-hoc/) — không đụng trang khác.
+  // - Nút "Cài lên màn hình" ẩn mặc định, chỉ hiện khi trình duyệt cho
+  //   cài (beforeinstallprompt); đã cài rồi (standalone) thì không hiện.
+  //   Không popup tự động, không banner.
+  (function initPwa() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function (e) {
+        console.warn('Không đăng ký được service worker', e);
+      });
+    }
+    var btn = document.getElementById('gv-install-btn');
+    if (!btn) return;
+    var installed = false;
+    try {
+      installed = window.matchMedia('(display-mode: standalone)').matches
+        || window.navigator.standalone === true;
+    } catch (e) { /* bỏ qua */ }
+    if (installed) return;
+    var deferred = null;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      deferred = e;
+      btn.hidden = false;
+    });
+    window.addEventListener('appinstalled', function () {
+      deferred = null;
+      btn.hidden = true;
+    });
+    btn.addEventListener('click', function () {
+      if (!deferred) return;
+      var p = deferred.prompt();
+      deferred = null;
+      btn.hidden = true;
+      if (p && p.catch) p.catch(function () { /* người dùng đóng hộp cài */ });
+    });
+  })();
   var GV_INITS = {
 ${inits}
   };

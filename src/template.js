@@ -51,7 +51,7 @@ const OG_IMAGE = 'https://tienichhub.io.vn/assets/og-image.png';
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
 
-export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [], hideChat = false, hideChrome = false }) {
+export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [], hideChat = false, hideChrome = false, themeColor = '#0033FF' }) {
   const active = (key) => (navActive === key ? ' nav-active' : '');
   const keywordsMeta = keywords ? `\n  <meta name="keywords" content="${keywords}">` : '';
   const categoryLinks = CATEGORIES.map((c) => `<a href="/cong-cu/?cat=${c.slug}">${c.label}</a>`).join('\n        ');
@@ -178,7 +178,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${OG_IMAGE}">
   <meta property="og:locale" content="vi_VN">
-  <meta name="theme-color" content="#0033FF">
+  <meta name="theme-color" content="${themeColor}">
   ${FAVICON_LINKS}
   ${THEME_BOOT}
   <link rel="stylesheet" href="/assets/style.css">${qrScript}${vendorTags}

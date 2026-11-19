@@ -3427,6 +3427,28 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   white-space: nowrap;
 }
 .gv-help-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
+/* Nút cài Bàn giáo viên như ứng dụng (PWA): nhỏ, cùng kiểu nút ma
+   như nút Phím tắt. Ẩn mặc định (hidden) — JS chỉ hiện khi trình
+   duyệt cho cài (beforeinstallprompt) và chưa cài. */
+.gv-install-btn {
+  height: 44px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 1px solid var(--gv-line-input);
+  border-radius: 12px;
+  background: var(--gv-surface);
+  color: var(--gv-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gv-install-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
+.gv-install-btn[hidden] { display: none; }
 .gv-help-btn kbd,
 .gv-mode-btn kbd {
   font-family: inherit;
@@ -4048,6 +4070,7 @@ body.gv-teach .gv-topbar-class,
 body.gv-teach .gv-attend-count,
 body.gv-teach .gv-sound-btn,
 body.gv-teach .gv-help-btn,
+body.gv-teach .gv-install-btn,
 body.gv-teach .gv-sound-pop { display: none; }
 body.gv-teach .gv-teach-class {
   display: block;
@@ -4159,6 +4182,8 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
   }
   .gv-drawer-backdrop[hidden] { display: none; }
   .gv-help-label { display: none; }
+  .gv-install-label { display: none; }
+  .gv-install-btn { padding: 0 11px; }
   .gv-help-btn { padding: 0 12px; }
   /* Chừa chỗ dưới đáy thẻ để nút tròn "Danh sách lớp" không che
      mất nội dung cuối thẻ. Nút cao 56px, cách đáy màn hình 16px;

@@ -1016,6 +1016,10 @@ async function main() {
       // MẪU 1 (19/11): trang ứng dụng toàn màn hình — không có
       // header/footer/thanh đáy của site, trang tự có thanh trên riêng.
       hideChrome: true,
+      // PWA (19/11): chỉ trang này cài được như ứng dụng — manifest
+      // + theme-color theo token Bàn giáo viên (#1747E6).
+      themeColor: '#1747E6',
+      extraHead: '<link rel="manifest" href="manifest.webmanifest">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="apple-mobile-web-app-status-bar-style" content="default">\n  <meta name="apple-mobile-web-app-title" content="Bàn giáo viên">',
     }),
     `${BASE_URL}/giao-vien/lop-hoc/`
   );
@@ -1064,6 +1068,11 @@ async function main() {
   copyFile('logo/apple-touch-icon.png', 'apple-touch-icon.png');
   copyFile('logo/favicon-48.png', 'assets/favicon-48.png');
   copyFile('logo/favicon-192.png', 'assets/favicon-192.png');
+  // Icon 512 cho PWA Bàn giáo viên (vẽ từ đúng hình học logo SVG):
+  // bản thường + bản maskable (nền xanh đầy khung, logo trong vùng
+  // an toàn 80%) cho màn hình chính Android.
+  copyFile('logo/favicon-512.png', 'assets/favicon-512.png');
+  copyFile('logo/favicon-512-maskable.png', 'assets/favicon-512-maskable.png');
   copyFile('logo/og-image.png', 'assets/og-image.png');
   copyFile('tool-state.js', 'assets/tool-state.js');
   // Rail video trang chủ (18/11, theo cơ chế 21st.dev): 8 clip mp4 + 8
@@ -1104,6 +1113,43 @@ async function main() {
   // (chống trình duyệt giữ CSS/JS cũ sau mỗi lần triển khai — xem
   // versionAssets). Chạy cuối cùng, sau khi mọi HTML + asset đã ghi xong.
   versionAssets();
+
+  // PWA Bàn giáo viên (19/11): manifest + service worker, CHỈ cho
+  // trang /giao-vien/lop-hoc/ (phạm vi SW = thư mục chứa file).
+  copyFile('gv-manifest.webmanifest', 'giao-vien/lop-hoc/manifest.webmanifest');
+  // SW sinh SAU versionAssets để danh sách cache trước dùng đúng URL
+  // ?v=<hash> của style.css/app.js. Tên cache gồm hash của CSS + JS +
+  // HTML trang: đổi bất cứ thứ nào thì cache cũ bị xóa ở lần kích hoạt
+  // sau (xem activate trong src/sw-gv.js).
+  const gvCssHash = contentHash('assets/style.css');
+  const gvJsHash = contentHash('assets/app.js');
+  const gvPageHash = contentHash('giao-vien/lop-hoc/index.html');
+  const gvPrecache = [
+    '/giao-vien/lop-hoc/',
+    '/giao-vien/lop-hoc/manifest.webmanifest',
+    `/assets/style.css?v=${gvCssHash}`,
+    `/assets/app.js?v=${gvJsHash}`,
+    '/favicon.svg',
+    '/assets/favicon-192.png',
+    '/assets/favicon-512.png',
+    '/assets/favicon-512-maskable.png',
+  ];
+  for (const w of [400, 500, 600, 700, 800]) {
+    gvPrecache.push(`/assets/fonts/BeVietnamPro-${w}-latin.woff2`);
+    gvPrecache.push(`/assets/fonts/BeVietnamPro-${w}-vietnamese.woff2`);
+  }
+  const swTemplate = fs.readFileSync(path.join(SRC, 'sw-gv.js'), 'utf8');
+  if (!swTemplate.includes('__CACHE_NAME__') || !swTemplate.includes('__PRECACHE_URLS__')) {
+    fail('Mẫu service worker src/sw-gv.js thiếu chỗ giữ __CACHE_NAME__/__PRECACHE_URLS__.');
+  }
+  writeFile('giao-vien/lop-hoc/sw.js', swTemplate
+    .replaceAll('__CACHE_NAME__', `gv-app-${gvCssHash}-${gvJsHash}-${gvPageHash}`)
+    .replaceAll('__PRECACHE_URLS__', JSON.stringify(gvPrecache)));
+  // Cloudflare Pages mặc định cache .js 4 giờ — SW mà bị cache lâu thì
+  // bản mới lên chậm. File _headers ở gốc dist ép trình duyệt kiểm tra
+  // lại SW mỗi lần mở trang (chỉ riêng file này, không đụng asset khác).
+  writeFile('_headers', '/giao-vien/lop-hoc/sw.js\n  Cache-Control: no-cache\n');
+  console.log(`   - PWA Bàn giáo viên: manifest + SW (${gvPrecache.length} URL cache trước)`);
 
   console.log(`✅ Build xong trong ${Date.now() - started}ms:`);
   console.log(`   - ${tools.length} công cụ, ${urls.length} trang, sitemap ${urls.length} URL`);
