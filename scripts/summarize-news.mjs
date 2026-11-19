@@ -161,6 +161,20 @@ function stripVietnam(text) {
   if (/việt nam|vietnam|người việt/i.test(String(text || ''))) return '';
   return text;
 }
+// Chuẩn hoá chính tả theo luật viết của web (quy tắc 1d trong prompt —
+// prompt đã dặn model nhưng model mở vẫn viết sai: 20/11 "hàng ngày"
+// lọt 2 tin, quét nội dung chặn build khiến 3 lần triển khai Pages lỗi
+// liên tiếp). "hàng ngày/tuần/tháng/năm" -> "hằng ..."; "tỉ lệ/tỉ giá"
+// -> "tỷ ..."; "VD:" -> "Ví dụ:". Chỉ đổi đúng các cụm đứng một mình —
+// "hàng hóa", "hàng đầu", "tỉ mỉ" không đụng tới.
+function normalizeSpellingVi(text) {
+  return String(text || '')
+    .replace(/hàng (ngày|tuần|tháng|năm)/g, 'hằng $1')
+    .replace(/Hàng (ngày|tuần|tháng|năm)/g, 'Hằng $1')
+    .replace(/tỉ (lệ|giá)/g, 'tỷ $1')
+    .replace(/Tỉ (lệ|giá)/g, 'Tỷ $1')
+    .replace(/VD:/g, 'Ví dụ:');
+}
 // Lưới lọc mệnh đề tiếng Anh lọt trong tóm tắt (đã xảy ra thật 18/11:
 // tin Nvidia đầu tiên có vế đầu bằng tiếng Anh, vế sau tiếng Việt —
 // looksVietnamese() kiểm cả đoạn nên vẫn qua vì vế sau có dấu). Tách
@@ -445,10 +459,13 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
     // (lọt ngôn ngữ gợi ý đầu tư thì để trống) -> stripVietnam (nhắc Việt Nam
     // thì để trống) -> stripEnglishClauses (lược mệnh đề tiếng Anh) ->
     // normalizeNumbersVi ("65 B $" -> "65 tỷ USD") -> stripBannedSentences
-    // (bỏ câu chứa cụm bình luận sáo rỗng). Cờ _banned ghi lại tin nào từng
+    // (bỏ câu chứa cụm bình luận sáo rỗng) -> normalizeSpellingVi ("hàng ngày"
+    // -> "hằng ngày", "tỉ lệ" -> "tỷ lệ", "VD:" -> "Ví dụ:" — model mở hay
+    // viết sai dù prompt đã dặn; không có bước này thì quét nội dung chặn
+    // build). Cờ _banned ghi lại tin nào từng
     // có cụm cấm TRƯỚC khi lọc (để hỏi lại AI viết lại bằng sự kiện cụ thể);
     // cờ bị gỡ trước khi trả về, không ghi vào news.json.
-    const clean = (s, trimFn) => trimFn(stripBannedSentences(normalizeNumbersVi(stripEnglishClauses(stripVietnam(stripAdvice(trimFn(s)))))));
+    const clean = (s, trimFn) => normalizeSpellingVi(trimFn(stripBannedSentences(normalizeNumbersVi(stripEnglishClauses(stripVietnam(stripAdvice(trimFn(s))))))));
     return arr.map((el) => {
       if (typeof el === 'string') return { titleVi: '', summary: clean(el, trimSummary), why: '', _banned: hasBannedPhrase(el) };
       if (el && typeof el === 'object') {
