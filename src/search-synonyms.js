@@ -307,6 +307,22 @@ export const SYNONYMS = {
   'mã đề': ['tron-de-trac-nghiem'],
   'bảng đáp án': ['tron-de-trac-nghiem'],
   'đề kiểm tra': ['tron-de-trac-nghiem'],
+  // Chuyển mã tiếng Việt
+  'chuyển mã': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'chuyen ma': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'chuyển mã tiếng việt': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'tcvn3': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'vni': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'chuyển font': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'chuyển mã font': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'font abc': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'font tcvn3': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'font vni': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'lỗi font': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'văn bản lỗi font': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'sửa lỗi font': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'đổi mã': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
+  'mã abc': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
 
   // Đời sống / thời gian
   'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],

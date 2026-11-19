@@ -286,6 +286,36 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "chuyen-ma-tieng-viet-tcvn3-vni-unicode": {
+    intro: "Đổi văn bản tiếng Việt giữa 3 bảng mã: Unicode (chuẩn hiện nay), TCVN3 còn gọi là bảng mã ABC (dùng với font .VnTimes, .VnArial trong văn bản cũ) và VNI (quy ước gõ bằng số: a6 = â, a8 = ă, d9 = đ, dấu 1–5 sau nguyên âm). Dán văn bản, chọn mã nguồn và mã đích, kết quả hiện ngay — chữ không dấu, số và dấu câu giữ nguyên.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "TCVN3 (ABC) là gì, sao văn bản cũ mở ra toàn ký tự lạ?",
+        a: "TCVN3 (tiêu chuẩn TCVN 5712:1993, còn gọi bảng mã ABC) là bảng mã tiếng Việt cũ, dùng với các font bắt đầu bằng .Vn (như .VnTimes, .VnArial). Trong bảng này, chữ có dấu được ghi bằng các ký tự Latin-1 khác — ví dụ 'Cộng' viết thành 'Céng'. Mở văn bản TCVN3 bằng font Unicode thì máy hiện đúng các ký tự Latin-1 đó nên đọc không ra tiếng Việt. Chuyển sang Unicode là đọc được ngay."
+      },
+      {
+        q: "VNI là gì?",
+        a: "VNI là quy ước gõ tiếng Việt bằng số, do kỹ sư Hồ Thành Việt sáng tạo năm 1987: gõ số ngay sau nguyên âm để thêm mũ và dấu — a6 = â, a8 = ă, e6 = ê, o6 = ô, o7 = ơ, u7 = ư, d9 = đ; dấu sắc/huyền/hỏi/ngã/nặng là 1/2/3/4/5 (a1 = á, a61 = ấ, e65 = ệ). Ví dụ: 'Tie61ng Vie65t' là 'Tiếng Việt'. Lưu ý đây là quy ước gõ VNI, khác với bảng mã 8-bit VNI-Windows (font VNI-Times) — công cụ này không xử lý VNI-Windows."
+      },
+      {
+        q: "Chữ hoa có dấu trong TCVN3 viết thế nào?",
+        a: "Bảng mã TCVN3 không có ký tự riêng cho chữ hoa có dấu (À, Ế, Ộ…). Quy ước của font ABC là ghi bằng 2 ký tự: chữ hoa không dấu + ký tự thường có dấu cùng họ — ví dụ À = 'A' + 'µ', Ế = 'E' + 'Õ', Ộ = 'O' + 'é'. Chỉ có 7 chữ hoa không dấu thanh có ký tự riêng: Ă, Â, Ê, Ô, Ơ, Ư, Đ. Khi chuyển sang Unicode, công cụ tự ghép cặp 2 ký tự thành chữ hoa có dấu; khi chuyển ngược lại cũng tự tách ra đúng quy ước."
+      },
+      {
+        q: "Số đứng sau nguyên âm trong văn bản VNI thì sao?",
+        a: "Trong mã VNI, số 1–5 đứng ngay sau nguyên âm được hiểu là dấu, nên 'a1' đọc thành 'á' chứ không phải chữ 'a' và số 1. Nếu văn bản của bạn có số thật đứng sau nguyên âm (ví dụ mã hàng 'a1'), hãy tách số ra khỏi nguyên âm bằng khoảng trắng trước khi chuyển. Số đứng sau phụ âm (như 'b1') hoặc sau khoảng trắng thì giữ nguyên."
+      },
+      {
+        q: "Nút Đoán mã có chắc chắn không?",
+        a: "Đoán mã chỉ là gợi ý dựa trên ký tự đặc trưng: văn bản TCVN3 có nhiều ký tự lạ như µ, ß, ·, ñ; văn bản VNI có mẫu nguyên âm + số (a61, o72, d9); văn bản Unicode có các chữ như ơ, ư, đ, ộ, ệ. Văn bản ngắn, không dấu hoặc lẫn nhiều mã có thể đoán sai hoặc không đoán được — khi đó bạn cứ chọn tay mã nguồn cho chắc."
+      },
+      {
+        q: "Ký tự nào được giữ nguyên khi chuyển mã?",
+        a: "Chữ không dấu, số, dấu câu, khoảng trắng và mọi ký tự không thuộc bảng mã đều giữ nguyên. Riêng với TCVN3, các byte không có trong bảng chuẩn (như ÿ, ¯, °) cũng giữ nguyên thay vì đoán bừa. Văn bản dùng dấu tổ hợp (chữ + dấu rời) vẫn chuyển đúng vì công cụ chuẩn hóa về dạng tổ hợp sẵn trước khi chuyển."
+      }
+    ]
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,

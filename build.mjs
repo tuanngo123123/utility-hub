@@ -411,6 +411,23 @@ function getLopHoc3LogicSrc() {
   return lopHoc3LogicSrc;
 }
 
+// Chuyển mã tiếng Việt TCVN3/VNI ↔ Unicode (20/11): bảng mã +
+// logic chuyển đổi src/chuyen-ma-logic.js được chèn nguyên văn vào
+// trang công cụ (trừ dòng export cuối) để init() gọi qua
+// window.UH_CHUYENMA — cùng mẫu SODIEM/NHANXET/MATRAN ở trên.
+// Bộ kiểm scripts/test-chuyen-ma.mjs kiểm cùng file này.
+const CHUYENMA_SLUGS = new Set(['chuyen-ma-tieng-viet-tcvn3-vni-unicode']);
+const CHUYENMA_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let chuyenMaLogicSrc = null;
+function getChuyenMaLogicSrc() {
+  if (chuyenMaLogicSrc !== null) return chuyenMaLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'chuyen-ma-logic.js'), 'utf8');
+  const stripped = src.replace(CHUYENMA_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('chuyen-ma-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  chuyenMaLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return chuyenMaLogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -475,6 +492,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isNhanXet = NHANXET_SLUGS.has(tool.slug);
   const isMaTran = MATRAN_SLUGS.has(tool.slug);
   const isLopHoc3 = LOPHOC3_SLUGS.has(tool.slug);
+  const isChuyenMa = CHUYENMA_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -681,6 +699,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isNhanXet ? `<script>\n${getNhanXetLogicSrc()}\n</script>` : ''}
   ${isMaTran ? `<script>\n${getMaTranLogicSrc()}\n</script>` : ''}
   ${isLopHoc3 ? `<script>\n${getLopHoc3LogicSrc()}\n</script>` : ''}
+  ${isChuyenMa ? `<script>\n${getChuyenMaLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');

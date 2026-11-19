@@ -2633,6 +2633,19 @@ button.chip-cat[aria-pressed="true"]:hover,
 
 /* ---------- 3 công cụ "Trên lớp" (20/11): Sơ đồ chỗ ngồi (.sc-),
    Ghép cặp thảo luận (.gc-), Bảng vinh danh (.vd-) ---------- */
+/* ---------- Chuyển mã tiếng Việt TCVN3/VNI (20/11, .cm-) ---------- */
+.cm-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 12px; }
+.cm-row .field { flex: 1 1 0; min-width: 0; margin-bottom: 0; }
+.cm-row .btn { flex: 0 0 auto; padding-left: 12px; padding-right: 12px; }
+.cm-stats { color: var(--muted); font-size: 0.95rem; }
+@media (max-width: 480px) {
+  /* Điện thoại hẹp: 2 ô chọn xếp dọc cho đủ chỗ hiện tên mã
+     (xếp ngang thì "Unicode"/"TCVN3 (ABC)" bị cắt cụt); nút đổi
+     chiều xoay 90° cho hợp chiều dọc. */
+  .cm-row { flex-direction: column; align-items: stretch; }
+  .cm-row .field { flex: none; }
+  .cm-row .btn { align-self: center; transform: rotate(90deg); }
+}
 .sc-size { display: flex; flex-wrap: wrap; gap: 16px; margin: 4px 0 12px; }
 .sc-size .field { margin-bottom: 0; }
 .sc-stepper { display: flex; align-items: center; gap: 8px; }
