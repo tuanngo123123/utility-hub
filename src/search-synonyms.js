@@ -252,6 +252,14 @@ export const SYNONYMS = {
   'câu hỏi ôn tập': ['boc-cau-hoi'],
   'kiểm tra bài cũ': ['boc-cau-hoi'],
   'ôn tập': ['boc-cau-hoi'],
+  'trộn đề': ['tron-de-trac-nghiem'],
+  'đảo đề': ['tron-de-trac-nghiem'],
+  'xáo đề': ['tron-de-trac-nghiem'],
+  'đề trắc nghiệm': ['tron-de-trac-nghiem'],
+  'trắc nghiệm': ['tron-de-trac-nghiem'],
+  'mã đề': ['tron-de-trac-nghiem'],
+  'bảng đáp án': ['tron-de-trac-nghiem'],
+  'đề kiểm tra': ['tron-de-trac-nghiem'],
 
   // Đời sống / thời gian
   'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],

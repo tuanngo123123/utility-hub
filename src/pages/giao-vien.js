@@ -1,7 +1,7 @@
 // Trang Giáo viên (/giao-vien/) — làm lại đợt V2 (19/11): khối đầu
 // Bàn giáo viên (ảnh chụp V2 thật + 2 nút) rồi 2 nhóm công cụ.
 // Nhóm "Chấm điểm & giấy tờ" chỉ hiện công cụ ĐÃ CHẠY ĐƯỢC (hiện có
-// Bốc câu hỏi, Bảng điểm, Điểm danh) — công cụ mới thêm vào khi làm
+// Bốc câu hỏi, Bảng điểm, Điểm danh, Trộn đề) — công cụ mới thêm vào khi làm
 // xong, KHÔNG hiện "Sắp có". Thẻ dòng gọn MẪU 4 (.tool-row), cả thẻ
 // bấm được, không nút "Dùng ngay" từng thẻ. Mọi công cụ chạy ngay
 // trên trình duyệt, không cần đăng ký; điểm lớp lưu trên trình duyệt
@@ -73,6 +73,12 @@ const GRADING = [
     name: 'Điểm danh nhanh',
     desc: 'Bấm vào tên để đánh dấu Vắng / Muộn, tổng kết ngay, tải file theo ngày.',
     icon: 'check-square', bg: '#FFEDD5', fg: '#EA580C',
+  },
+  {
+    id: 'tron-de-trac-nghiem',
+    name: 'Trộn đề trắc nghiệm',
+    desc: 'Trộn câu hỏi và đáp án thành 2–8 mã đề, kèm bảng đáp án từng mã.',
+    icon: 'file-text', bg: '#E0E7FF', fg: '#1747E6',
   },
 ];
 

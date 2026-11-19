@@ -1,5 +1,5 @@
 // Nội dung giới thiệu + FAQ cho các công cụ chính của Tiện Ích Hub
-// (16 mục: 14 mục có FAQ, 2 mục thuế TNCN + lương hưu chỉ có intro/
+// (17 mục: 15 mục có FAQ, 2 mục thuế TNCN + lương hưu chỉ có intro/
 // legalBasis/example, chưa có FAQ).
 //
 // Ngoài intro/finance/disclaimer/faqs, mục SEO lô 1 (19/11/2026) có thêm:
@@ -95,6 +95,31 @@ export const TOOL_CONTENT = {
       {
         q: "Giảm trừ chi phí y tế, giáo dục tối đa bao nhiêu?",
         a: "Y tế tối đa 23.000.000₫/năm, giáo dục tối đa 24.000.000₫/năm (tổng 47 triệu đồng). Chỉ tính chi phí thực tế tự trả, có chứng từ hợp lệ — y tế là tiền khám chữa bệnh tại cơ sở trong nước thuộc danh mục BHYT chi trả; giáo dục chỉ tính học phí, không tính tiền ăn, đồng phục hay sách vở. Muốn giảm trừ hai khoản này thì bạn phải tự quyết toán, không được ủy quyền cho nơi trả thu nhập."
+      }
+    ]
+  },
+  "tron-de-trac-nghiem": {
+    intro: "Trộn đề trắc nghiệm thành nhiều mã đề khác nhau để chống quay cóp: dán đề gốc hoặc tải file Word, đánh dấu đáp án đúng bằng *, chọn số mã đề rồi nhận đề đã trộn kèm bảng đáp án để in và chấm.",
+    faqs: [
+      {
+        q: "Đánh dấu đáp án đúng thế nào?",
+        a: "Thêm dấu * trước đáp án đúng trong đề gốc — ví dụ *B. Hà Nội (hoặc B. *Hà Nội). Mỗi câu chỉ được 1 đáp án đúng; câu nào thiếu dấu * hoặc có 2 dấu * sẽ bị báo lỗi và không được trộn."
+      },
+      {
+        q: "Mã đề được đánh số ra sao?",
+        a: "Mã đề chạy từ 101 trở đi theo thứ tự: chọn 4 mã đề thì có 101, 102, 103, 104; chọn 8 mã đề thì tới 108. Đây là cách đánh mã đề quen thuộc ở trường phổ thông."
+      },
+      {
+        q: "Câu hỏi bị báo lỗi thì sao?",
+        a: "Câu thiếu nội dung, thiếu đáp án đúng hoặc có ít hơn 2 đáp án sẽ bị loại khỏi đợt trộn và hiện rõ lý do trong khung xem trước. Bạn sửa lại câu đó trong ô đề gốc rồi bấm Trộn đề lần nữa."
+      },
+      {
+        q: "In đề cho học sinh có lộ đáp án không?",
+        a: "Không. Đề đã trộn chỉ in câu hỏi và các đáp án chưa đánh dấu; bảng đáp án nằm riêng và chỉ in khi bạn bấm nút In đáp án. File Word tải về có bảng đáp án ở cuối file — nhớ xóa phần đó trước khi in cho học sinh."
+      },
+      {
+        q: "Tải file Word về sửa được không?",
+        a: "Được. File tải về mở bằng Word hoặc LibreOffice, sửa như văn bản thường. Bạn có thể thêm tên trường, đổi phông chữ hoặc chèn hình rồi in."
       }
     ]
   },

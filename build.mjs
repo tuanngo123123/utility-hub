@@ -328,6 +328,22 @@ function getM2FormulasSrc() {
   return m2FormulasSrc;
 }
 
+// Trộn đề trắc nghiệm (20/11): logic thuần src/tron-de-logic.js
+// được chèn nguyên văn vào trang công cụ (trừ dòng export cuối)
+// để init() gọi qua window.UH_TRONDE — cùng mẫu M2_CALC ở trên.
+// Bộ kiểm scripts/test-tron-de.mjs kiểm cùng file này.
+const TRONDE_SLUGS = new Set(['tron-de-trac-nghiem']);
+const TRONDE_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let tronDeLogicSrc = null;
+function getTronDeLogicSrc() {
+  if (tronDeLogicSrc !== null) return tronDeLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'tron-de-logic.js'), 'utf8');
+  const stripped = src.replace(TRONDE_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('tron-de-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  tronDeLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return tronDeLogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -387,6 +403,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // Công cụ không có trong TOOL_CONTENT thì các chuỗi dưới rỗng, trang giữ nguyên.
   const content = TOOL_CONTENT[tool.slug] || null;
   const isM2 = M2_SLUGS.has(tool.slug);
+  const isTronDe = TRONDE_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -588,6 +605,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${donateHtml}
   ${reportHtml}
   ${isM2 ? `<script>\n${getM2FormulasSrc()}\n</script>` : ''}
+  ${isTronDe ? `<script>\n${getTronDeLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');
@@ -1140,14 +1158,14 @@ async function main() {
   );
   console.log('   - Giới thiệu: 1 trang');
 
-  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 10 công cụ hạng mục
+  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 11 công cụ hạng mục
   // giao-vien (danh sách trong src/pages/giao-vien.js).
   addPage(
     'giao-vien/index.html',
     shell({
-      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm | ${SITE_NAME}`,
-      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi — chạy ngay trên trình duyệt, không cần đăng ký.',
-      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh',
+      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm, trộn đề | ${SITE_NAME}`,
+      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi, trộn đề trắc nghiệm — chạy ngay trên trình duyệt, không cần đăng ký.',
+      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh, trộn đề trắc nghiệm',
       canonical: `${BASE_URL}/giao-vien/`,
       navActive: 'giao-vien',
       body: giaoVienPage.body(),
@@ -1155,7 +1173,7 @@ async function main() {
     }),
     `${BASE_URL}/giao-vien/`
   );
-  console.log('   - Giáo viên: 10 công cụ, 1 trang');
+  console.log('   - Giáo viên: 11 công cụ, 1 trang');
 
   // Trang Bàn giáo viên: 1 trang ứng dụng gom cả 10 công cụ Giáo viên
   // + quản lý lớp học (KHÔNG phải công cụ mới — không tính vào số
@@ -1244,6 +1262,9 @@ async function main() {
   copyFile('vendor/pdf.worker.min.js', 'assets/vendor/pdf.worker.min.js');
   copyFile('vendor/pdf-lib.min.js', 'assets/vendor/pdf-lib.min.js');
   copyFile('vendor/xlsx.full.min.js', 'assets/vendor/xlsx.full.min.js');
+  // mammoth (BSD-2-Clause): đọc văn bản file .docx ở công cụ Trộn đề
+  // trắc nghiệm — chỉ tải khi người dùng chọn file .docx.
+  copyFile('vendor/mammoth.browser.min.js', 'assets/vendor/mammoth.browser.min.js');
   for (const f of DATA_FILES) copyFile(`data/${f}`, `data/${f}`);
 
   // Chỉ mục tìm kiếm (sinh từ meta công cụ + bảng đồng nghĩa).

@@ -2491,6 +2491,25 @@ button.chip-cat[aria-pressed="true"]:hover,
   .sv-letter { padding: 18px; }
 }
 
+/* ---------- Trộn đề trắc nghiệm (20/11) ---------- */
+/* Tờ đề đã trộn: thẻ trắng như một tờ đề thật — đầu tờ căn giữa
+   (tên bài, thời gian, mã đề, dòng họ tên), câu hỏi cách nhau rõ,
+   đáp án thụt vào. Bảng đáp án dùng .tbl chung, tab mã đề dùng
+   .tabs/.tab chung. */
+.td-sheet { background: #fff; border: 1px solid var(--line-soft); border-radius: 12px; padding: 24px; margin: 12px 0; }
+.td-sheet-head { text-align: center; border-bottom: 2px solid var(--line); padding-bottom: 12px; margin-bottom: 16px; }
+.td-sheet-head h4 { margin: 0 0 4px; font-size: 1.1rem; }
+.td-sheet-head p { margin: 4px 0; }
+.td-q { margin: 0 0 14px; }
+.td-q > p { margin: 0 0 4px; }
+.td-opt { margin: 0 0 2px 20px; }
+/* Tờ in (nút In đề / In đáp án): JS gắn vào cuối body chỉ khi in,
+   màn hình không hiện; xem quy tắc print dưới. */
+#td-print-sheet { display: none; }
+@media (max-width: 640px) {
+  .td-sheet { padding: 16px; }
+}
+
 /* In mẫu: chỉ in nội dung mẫu, ẩn header/footer/nav/nút. */
 @media print {
   .site-header, .site-footer, .bottom-nav, .skip-link, .aiw,
@@ -2512,6 +2531,14 @@ button.chip-cat[aria-pressed="true"]:hover,
      (cả khối .tool-page-head) và dòng ghi chú cuối trang. */
   .cv-print-only .tool-page-head,
   .cv-print-only > p.muted { display: none !important; }
+  /* Trộn đề: khi in (body.td-printing), chỉ in tờ #td-print-sheet
+     (đề 1 mã hoặc bảng đáp án) — ẩn toàn bộ phần còn lại của trang.
+     Mỗi câu hỏi không tách làm đôi giữa 2 trang. */
+  body.td-printing > *:not(#td-print-sheet) { display: none !important; }
+  body.td-printing > #td-print-sheet { display: block !important; }
+  #td-print-sheet .td-sheet { border: none; box-shadow: none; padding: 0; margin: 0; }
+  #td-print-sheet .td-q { break-inside: avoid; }
+  #td-print-sheet .tbl th { background: #eee !important; }
   a { color: #000; text-decoration: none; }
 }
 

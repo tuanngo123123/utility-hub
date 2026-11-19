@@ -55,6 +55,11 @@ export function body() {
         <span class="about-license">Apache-2.0</span>
       </div>
       <div class="about-lib">
+        <h3>mammoth</h3>
+        <p>Đọc văn bản từ file Word (.docx) ở công cụ Trộn đề trắc nghiệm — chỉ tải về khi bạn chọn file .docx.</p>
+        <span class="about-license">BSD-2-Clause</span>
+      </div>
+      <div class="about-lib">
         <h3>Phông chữ Inter và Be Vietnam Pro</h3>
         <p>Phông chữ hiển thị toàn web.</p>
         <span class="about-license">SIL Open Font License 1.1</span>
