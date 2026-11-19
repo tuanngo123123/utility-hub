@@ -33,13 +33,14 @@ export function body() {
     </div>
   </div>
   <p class="note" id="bd-empty">Chưa có đội nào — gõ tên đội hoặc tên bạn rồi bấm "Thêm".</p>
-  <div id="bd-list"></div>
-  <div class="btn-row gv-prep-only" style="margin-top:14px">
+  <div class="btn-row gv-prep-only" style="margin-bottom:14px">
     <button type="button" class="btn gv-dl" id="bd-download" style="display:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải bảng điểm (.csv)</button>
+    <button type="button" class="btn gv-dl" id="bd-excel" style="display:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải bảng điểm (.xlsx)</button>
     <button type="button" class="btn" id="bd-stage">Chiếu lớp</button>
     <button type="button" class="btn btn-ghost gv-sound-btn" id="bd-sound">Âm thanh: Bật</button>
     <button type="button" class="btn btn-ghost" id="bd-clear" data-uh-reset="1">Xóa bảng điểm</button>
   </div>
+  <div id="bd-list"></div>
   <p class="note" id="bd-msg" style="display:none"></p>
 </div>`;
 }
@@ -75,6 +76,12 @@ export function init(root) {
 
   function gvClasses() {
     return (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+  }
+
+  // Tên lớp hiển thị ('Lớp 10A1', không 'Lớp Lớp mẫu').
+  function classLabel(n) {
+    const h = gvClasses();
+    return (h && h.classLabel) ? h.classLabel(n) : 'Lớp ' + String(n || '').replace(/^Lớp\s+/, '');
   }
 
   function activeClass() {
@@ -140,7 +147,7 @@ export function init(root) {
         $('bd-no-class-btn').textContent = 'Tạo lớp';
         noClass.style.display = '';
       } else if (!entries.length) {
-        $('bd-no-class-text').textContent = 'Lớp ' + cls + ' chưa có bạn nào — thêm bạn ở tab Lớp học.';
+        $('bd-no-class-text').textContent = classLabel(cls) + ' chưa có bạn nào — thêm bạn ở tab Lớp học.';
         $('bd-no-class-btn').textContent = 'Mở tab Lớp học';
         noClass.style.display = '';
       } else {
@@ -151,6 +158,7 @@ export function init(root) {
     }
     $('bd-empty').style.display = (entries.length || (IN_APP && mode === 'class')) ? 'none' : '';
     $('bd-download').style.display = entries.length ? '' : 'none';
+    $('bd-excel').style.display = entries.length ? '' : 'none';
     if (!entries.length) { list.innerHTML = ''; updateStage(); return; }
     const max = maxScore();
     list.innerHTML = sorted().map((row, rank) => {
@@ -316,6 +324,65 @@ export function init(root) {
       csv += (rank + 1) + ',' + csvCell(row.e.label || row.e.name) + ',' + row.e.score + '\n';
     });
     download('bang-diem-lop.csv', csv);
+  });
+
+  // Xuất Excel (MẪU 5, 19/11): cột Hạng/Tên/Điểm, thêm cột Cấp độ ở
+  // chế độ Cá nhân (Lv.1 Mầm non / Lv.2 Chăm chỉ / Lv.3 Ngôi sao).
+  // Thư viện SheetJS (vendored trong src/vendor — không CDN, không
+  // link ngoài) chỉ tải khi bấm nút, để trang nhẹ.
+  var xlsxPromise = null;
+  function loadXlsx() {
+    if (window.XLSX) return Promise.resolve(window.XLSX);
+    if (xlsxPromise) return xlsxPromise;
+    xlsxPromise = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = '/assets/vendor/xlsx.full.min.js';
+      s.onload = function () { resolve(window.XLSX); };
+      s.onerror = function () { xlsxPromise = null; reject(new Error('Không tải được thư viện Excel.')); };
+      document.head.appendChild(s);
+    });
+    return xlsxPromise;
+  }
+
+  function levelLabel(points) {
+    const h = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+    if (h && typeof h.level === 'function') return h.level(points || 0).label;
+    const p = points || 0;
+    if (p >= 5) return 'Lv.3 · Ngôi sao';
+    if (p >= 2) return 'Lv.2 · Chăm chỉ';
+    return 'Lv.1 · Mầm non';
+  }
+
+  $('bd-excel').addEventListener('click', () => {
+    if (!entries.length) return;
+    const btn = $('bd-excel');
+    const btnHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Đang tạo file…';
+    const withLevel = IN_APP && mode === 'class';
+    loadXlsx().then(XLSX => {
+      const rows = withLevel
+        ? [['Hạng', 'Tên', 'Điểm', 'Cấp độ']]
+        : [['Hạng', 'Tên', 'Điểm']];
+      sorted().forEach((row, rank) => {
+        const r = [rank + 1, row.e.label || row.e.name, row.e.score];
+        if (withLevel) r.push(levelLabel(row.e.score));
+        rows.push(r);
+      });
+      const ws = XLSX.utils.aoa_to_sheet(rows);
+      ws['!cols'] = withLevel
+        ? [{ wch: 8 }, { wch: 28 }, { wch: 10 }, { wch: 16 }]
+        : [{ wch: 8 }, { wch: 28 }, { wch: 10 }];
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'Bảng điểm');
+      XLSX.writeFile(wb, 'bang-diem-lop.xlsx');
+      setMsg('Đã tải file bang-diem-lop.xlsx.');
+    }).catch(() => {
+      setMsg('Không tải được thư viện Excel — kiểm tra mạng rồi thử lại nhé.');
+    }).then(() => {
+      btn.disabled = false;
+      btn.innerHTML = btnHtml;
+    });
   });
 
   // Chế độ Chiếu lớp: bảng xếp hạng phóng to.

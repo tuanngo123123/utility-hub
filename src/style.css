@@ -306,6 +306,35 @@ p.error {
 }
 .theme-toggle:hover { background: var(--bg-soft); }
 
+/* Nút "Ủng hộ" ở góc phải header, cạnh nút sáng/tối (Tuấn chốt
+   19/11): viền cam #F59E0B, chữ #92400E, cao 40px. Trên điện thoại
+   thành icon tim 44px. Không thêm thành mục menu thứ 6. */
+.donate-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #F59E0B;
+  border-radius: 999px;
+  background: transparent;
+  color: #92400E;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.donate-btn:hover { background: #FEF3C7; }
+.donate-btn svg { flex: none; }
+[data-theme="dark"] .donate-btn { color: #FBBF24; }
+[data-theme="dark"] .donate-btn:hover { background: rgba(245, 158, 11, 0.15); }
+@media (max-width: 768px) {
+  .donate-btn { width: 44px; height: 44px; padding: 0; }
+  .donate-btn span { display: none; }
+}
+
 /* Nav ngang: 5 mục, mỗi mục cao 44px, đệm 0 12px, bo 10px, chữ 15px.
    Mục đang chọn: nền #E8EEFF + chữ #1747E6 đậm (MẪU 3). Ẩn dưới
    769px — điện thoại dùng thanh đáy. */
@@ -374,6 +403,8 @@ p.error {
   margin: 0 auto 16px;
   max-width: 760px;
   color: #0F172A;
+  /* Cân 2 dòng (Claude 19/11: "Việt" rớt xuống dòng 2 một mình). */
+  text-wrap: balance;
 }
 .hero-sub { color: #475569; font-size: 17px; margin: 0 auto 24px; max-width: 60ch; }
 
@@ -1743,19 +1774,74 @@ button.chip-cat[aria-pressed="true"]:hover,
 @keyframes gv-flip { from { transform: rotateY(0); } to { transform: rotateY(1800deg); } }
 .gv-flip { animation: gv-flip 0.9s ease-out; }
 
-/* Thẻ nhóm (chia nhóm ngẫu nhiên) — mỗi nhóm một màu pastel riêng. */
-.gv-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+/* Thẻ nhóm (chia nhóm ngẫu nhiên) — mỗi nhóm một màu pastel riêng.
+   MẪU 5: số cột tự tính theo số nhóm (data-cols) để mọi nhóm nằm gọn
+   1 màn, không để 1 thẻ lẻ hàng dưới; thẻ kéo giãn hết chiều cao còn
+   lại; tên thành viên tối thiểu 18px, chip vai trò 14px. Màu thẻ lấy
+   từ biến --gc-* do JS đặt theo nhóm (dự phòng: thẻ trắng). */
+/* Lưới thẻ nhóm: align-content: start — hàng chỉ cao bằng nội dung,
+   KHÔNG giãn theo chiều cao vùng chứa (mặc định grid giãn hàng auto
+   khi vùng chứa cao hơn nội dung, làm 2 hàng nhóm vượt khỏi màn hình
+   768px — bắt khi chụp ảnh kiểm chứng 19/11). Thẻ trong cùng hàng
+   vẫn cao bằng nhau nhờ align-items: stretch. */
+.gv-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; align-items: stretch; align-content: start; }
+.gv-groups[data-cols="2"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gv-groups[data-cols="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.gv-groups[data-cols="4"] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .gv-group {
-  background: var(--surface);
-  border: 1px solid var(--line);
+  background: var(--gc-bg, var(--surface));
+  border: 2px solid var(--gc-border, var(--line));
   border-radius: var(--radius-sm);
   padding: 12px 14px;
+  height: 100%;
+  box-sizing: border-box;
 }
-.gv-group h3 { margin: 0 0 8px; font-size: 1rem; color: var(--accent-dark); }
-.gv-group ul { margin: 0; padding-left: 18px; }
-.gv-group li { line-height: 1.7; }
+/* Đầu thẻ nhóm: dải màu đậm (theo bản phác đã duyệt) — tên nhóm
+   trái, số bạn + nam/nữ phải. Tràn qua padding thẻ bằng margin âm. */
+.gv-group h3 {
+  margin: -12px -14px 10px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  background: var(--gc-fg, var(--accent));
+  color: #fff;
+  border-radius: calc(var(--radius-sm) - 2px) calc(var(--radius-sm) - 2px) 0 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.gv-group-counts { font-size: 13px; font-weight: 500; opacity: 0.95; white-space: nowrap; }
+.gv-group ul { margin: 0; padding-left: 0; list-style: none; }
+/* Hàng thành viên: tên gọi 18px + chip vai trò 14px cùng dòng; chip
+   dài ("Nhóm trưởng") không vừa thì xuống dòng dưới (flex-wrap) thay
+   vì bóp tên vỡ từng ký tự — lỗi bắt được khi chụp ảnh kiểm chứng
+   19/11. KHÔNG xếp dọc mọi chip: thẻ sẽ cao quá, 4 nhóm 2 hàng không
+   vừa màn hình 768px (đã thử, hàng 2 bị cắt). Tên trong thẻ là TÊN
+   GỌI (theo bản phác), họ tên đầy đủ nằm ở title khi rê chuột. */
+.gv-group li { line-height: 1.4; font-size: 18px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 0; flex-wrap: wrap; }
+.gv-member-name { font-weight: 600; min-width: 0; }
+.gv-member-star { color: #D97706; }
 /* Vai trò không ngắt dòng giữa chừng ("Nhóm" / "trưởng" xấu). */
-.gv-role { font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.gv-role { font-size: 14px; color: var(--gc-fg, var(--muted)); background: #fff; border: 1px solid var(--gc-border, var(--line)); border-radius: 999px; padding: 1px 8px; white-space: nowrap; flex: none; }
+/* Thẻ chưa công bố: chỉ hiện tên nhóm + nút "?" to, chạm để mở. */
+.gv-group-hidden { display: flex; flex-direction: column; align-items: stretch; min-height: 120px; }
+.gv-group-q {
+  flex: 1;
+  border: 2px dashed var(--gc-border, var(--line));
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  color: var(--gc-fg, var(--muted));
+  font: inherit;
+  font-size: 3rem;
+  font-weight: 800;
+  cursor: pointer;
+  min-height: 72px;
+}
+.gv-group-q:hover { background: rgba(255, 255, 255, 0.85); }
+/* Kéo thả giữa các nhóm: thẻ đích tô viền, dòng đang kéo mờ đi. */
+.gv-group-drop { outline: 3px dashed var(--gv-primary, #1747E6); outline-offset: 2px; }
+.gv-dragging { opacity: 0.5; }
 .gv-group-c0 { background: #dbeafe; border-color: #93c5fd; }
 .gv-group-c0 h3 { color: #1d4ed8; }
 .gv-group-c1 { background: #fef3c7; border-color: #fcd34d; }
@@ -1852,20 +1938,22 @@ button.chip-cat[aria-pressed="true"]:hover,
 }
 .gv-winner-name-sm { font-size: clamp(1.8rem, 7vw, 3rem); }
 
-/* Vòng quay tên (SVG, xoay bằng transform). */
-.gv-wheel-wrap { position: relative; margin: 8px auto 0; max-width: 340px; }
-.gv-wheel { transition: transform 3.6s cubic-bezier(0.12, 0.8, 0.08, 1); }
+/* Vòng quay tên (SVG, xoay bằng transform). MẪU 5: vòng 440px, kim
+   đen trên đỉnh, nút QUAY tròn 104px ở giữa (là nút thật, id gt-call),
+   quay 3,2s giảm dần. */
+.gv-wheel-wrap { position: relative; margin: 8px auto 0; max-width: 440px; }
+.gv-wheel { transition: transform 3.2s cubic-bezier(0.12, 0.8, 0.08, 1); }
 .gv-wheel svg { width: 100%; height: auto; display: block; }
 .gv-wheel-pointer {
   position: absolute;
-  top: -8px;
+  top: -6px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
   border-left: 14px solid transparent;
   border-right: 14px solid transparent;
-  border-top: 26px solid #dc2626;
+  border-top: 26px solid #111827;
   z-index: 2;
 }
 .gv-wheel-hub {
@@ -1873,14 +1961,22 @@ button.chip-cat[aria-pressed="true"]:hover,
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 34px;
-  height: 34px;
+  width: 104px;
+  height: 104px;
   border-radius: 50%;
-  background: var(--surface);
-  border: 2px solid var(--line);
+  background: #fff;
+  border: 3px solid #111827;
   box-shadow: var(--shadow-sm);
   z-index: 2;
+  font: inherit;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0F172A;
+  cursor: pointer;
+  padding: 0;
 }
+.gv-wheel-hub:hover { background: #FEF3C7; }
+.gv-wheel-hub:disabled { opacity: 0.6; cursor: default; }
 
 /* Pháo giấy CSS: 1 đợt ngắn khi có kết quả. */
 .gv-confetti {
@@ -2694,15 +2790,16 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   outline-offset: 2px;
 }
 
-/* ---------- Thanh trên 64px ---------- */
+/* ---------- Thanh trên 64px (MẪU 5): nền xanh #1747E6, chữ trắng;
+   thông tin lớp dạng chip nền trắng mờ; đồng hồ lớn; nút Dạy cam. ---------- */
 .gv-topbar {
   height: 64px;
   flex: none;
-  background: var(--gv-surface);
-  border-bottom: 1px solid var(--gv-line);
+  background: #1747E6;
+  color: #fff;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   padding: 0 16px;
   position: relative;
   z-index: 60;
@@ -2712,45 +2809,70 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   align-items: center;
   gap: 10px;
   text-decoration: none;
-  color: var(--gv-ink);
+  color: #fff;
   font-size: 1.2rem;
   font-weight: 800;
   white-space: nowrap;
   flex: none;
 }
-.gv-brand:hover { color: var(--gv-primary); }
+.gv-brand:hover { color: #DBEAFE; }
+.gv-brand-mark {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #1747E6;
+  border-radius: 9px;
+}
 .gv-topbar-class {
   display: flex;
   align-items: center;
-  gap: 8px;
   flex: none;
-}
-.gv-topbar-class label {
-  font-size: 0.95rem;
-  color: var(--gv-muted);
-  white-space: nowrap;
 }
 .gv-topbar-class select {
-  height: 44px;
+  height: 40px;
   font: inherit;
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--gv-ink);
-  background: var(--gv-surface);
-  border: 1px solid var(--gv-line-input);
-  border-radius: 12px;
-  padding: 0 12px;
-  min-width: 160px;
-  max-width: 240px;
-}
-.gv-attend-count {
-  font-size: 1rem;
   font-weight: 700;
-  color: var(--gv-muted);
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.16);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  border: 0;
+  border-radius: 999px;
+  padding: 0 32px 0 14px;
+  min-width: 130px;
+  max-width: 220px;
+  appearance: none;
+  cursor: pointer;
+}
+.gv-topbar-class select:hover { background-color: rgba(255, 255, 255, 0.24); }
+.gv-topbar-class select option { color: #0F172A; }
+/* Chip thông tin lớp trên thanh xanh (khác .gv-chip huy hiệu nhỏ). */
+.gv-top-chip {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 8px 14px;
   white-space: nowrap;
   flex: none;
 }
+.gv-top-chip[hidden] { display: none; }
 .gv-teach-class { display: none; }
+.gv-clock {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  white-space: nowrap;
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
 .gv-topbar-actions {
   margin-left: auto;
   display: flex;
@@ -2758,25 +2880,25 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   gap: 8px;
   flex: none;
 }
-/* Nút âm thanh nhỏ dùng chung (mở khung 6 âm báo). */
-.gv-sound-btn {
+/* Nút âm thanh nhỏ dùng chung (mở khung 6 âm báo) — trên nền xanh. */
+.gv-topbar .gv-sound-btn {
   width: 44px;
   height: 44px;
   flex: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--gv-line-input);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 12px;
-  background: var(--gv-surface);
-  color: var(--gv-ink);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
   cursor: pointer;
 }
-.gv-sound-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
+.gv-topbar .gv-sound-btn:hover { background: rgba(255, 255, 255, 0.28); }
 .gv-sound-btn .gv-snd-off { display: none; }
 .gv-sound-btn.gv-sound-off .gv-snd-on { display: none; }
 .gv-sound-btn.gv-sound-off .gv-snd-off { display: block; }
-.gv-sound-btn.gv-sound-off { color: var(--gv-faint); }
+.gv-topbar .gv-sound-btn.gv-sound-off { color: rgba(255, 255, 255, 0.55); }
 .gv-help-btn {
   height: 44px;
   flex: none;
@@ -2784,17 +2906,17 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   align-items: center;
   gap: 6px;
   padding: 0 14px;
-  border: 1px solid var(--gv-line-input);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 12px;
-  background: var(--gv-surface);
-  color: var(--gv-ink);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
   font: inherit;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
 }
-.gv-help-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
+.gv-help-btn:hover { background: rgba(255, 255, 255, 0.28); }
 /* Nút cài Bàn giáo viên như ứng dụng (PWA): nhỏ, cùng kiểu nút ma
    như nút Phím tắt. Ẩn mặc định (hidden) — JS chỉ hiện khi trình
    duyệt cho cài (beforeinstallprompt) và chưa cài. */
@@ -2805,53 +2927,50 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   align-items: center;
   gap: 6px;
   padding: 0 12px;
-  border: 1px solid var(--gv-line-input);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 12px;
-  background: var(--gv-surface);
-  color: var(--gv-ink);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
   font: inherit;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
 }
-.gv-install-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
+.gv-install-btn:hover { background: rgba(255, 255, 255, 0.28); }
 .gv-install-btn[hidden] { display: none; }
 .gv-help-btn kbd,
 .gv-mode-btn kbd {
   font-family: inherit;
   font-size: 0.8rem;
   font-weight: 700;
-  background: rgba(0, 0, 0, 0.07);
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 4px;
   padding: 1px 6px;
 }
-/* Công tắc 2 nút Chuẩn bị | Dạy (F). */
-.gv-mode-toggle {
-  display: flex;
-  border: 1px solid var(--gv-line-input);
-  border-radius: 12px;
-  overflow: hidden;
-  flex: none;
-}
+/* Nút Dạy duy nhất (MẪU 5): cam ở chế độ Chuẩn bị; khi đang Dạy thì
+   nút hiện "Chuẩn bị" nền trắng chữ xanh. */
 .gv-mode-btn {
   height: 44px;
-  padding: 0 16px;
+  padding: 0 18px;
   border: 0;
-  background: var(--gv-surface);
-  color: var(--gv-ink);
+  border-radius: 12px;
+  background: #F59E0B;
+  color: #1F1300;
   font: inherit;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  flex: none;
 }
-.gv-mode-btn + .gv-mode-btn { border-left: 1px solid var(--gv-line-input); }
-.gv-mode-btn.gv-mode-active { background: var(--gv-primary); color: #fff; }
-.gv-mode-btn.gv-mode-active kbd { background: rgba(255, 255, 255, 0.25); }
+.gv-mode-btn:hover { background: #FBBF24; }
+.gv-mode-btn.gv-mode-active { background: #fff; color: #1747E6; }
+.gv-mode-btn.gv-mode-active:hover { background: #DBEAFE; }
+.gv-mode-btn.gv-mode-active kbd { background: rgba(23, 71, 230, 0.12); }
 /* Khung âm thanh trượt xuống dưới nút loa. */
 .gv-sound-pop {
   position: absolute;
@@ -2875,44 +2994,58 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: 196px minmax(0, 1fr) 300px;
+  grid-template-columns: 188px minmax(0, 1fr) 300px;
   gap: 16px;
   padding: 16px;
 }
 
-/* Cột tab dọc trái: mỗi tab cao 48px (icon + tên + số phím tắt);
-   tab chọn nền màu chính, chữ trắng đậm. */
+/* Cột tab dọc trái (MẪU 5): nền trắng, mỗi tab cao 48px (hộp icon
+   32px màu pastel riêng + tên + số phím tắt); tab chọn nền #E8EEFF
+   + vạch xanh 4px bên trái. */
 .gv-tabs {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
-  padding: 2px;
+  padding: 8px;
   scrollbar-width: thin;
+  background: var(--gv-surface);
+  border: 1px solid var(--gv-line);
+  border-radius: 20px;
 }
 .gv-app-tab {
   height: 48px;
   flex: none;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 0 12px;
-  border: 1px solid transparent;
+  gap: 8px;
+  padding: 0 8px;
+  border: 0;
   border-radius: 12px;
   background: transparent;
   color: var(--gv-ink);
   font: inherit;
-  font-size: 1rem;
+  /* 15px (không phải 16px): nhãn "Chia nhóm" cần 85px, cột 188px
+     chỉ chừa ~80px ở 16px — 15px + padding 8px cho đủ chỗ, không
+     còn cắt "Chia nh…" (đo bằng Playwright 19/11). */
+  font-size: 0.9375rem;
   font-weight: 600;
   cursor: pointer;
   text-align: left;
   white-space: nowrap;
 }
-.gv-app-tab:hover { background: var(--gv-surface); border-color: var(--gv-line); }
-.gv-app-tab-ico { display: inline-flex; flex: none; color: var(--gv-muted); }
-.gv-app-tab-active .gv-app-tab-ico { color: #fff; }
+.gv-app-tab:hover { background: #F1F5F9; }
+.gv-app-tab-ico {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
 .gv-app-tab-label { overflow: hidden; text-overflow: ellipsis; }
 .gv-app-tab kbd {
   margin-left: auto;
@@ -2925,13 +3058,13 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   flex: none;
 }
 .gv-app-tab-active {
-  background: var(--gv-primary);
-  border-color: var(--gv-primary);
-  color: #fff;
+  background: #E8EEFF;
+  color: #1747E6;
   font-weight: 700;
+  box-shadow: inset 4px 0 0 #1747E6;
 }
-.gv-app-tab-active:hover { background: var(--gv-primary-dark); border-color: var(--gv-primary-dark); }
-.gv-app-tab-active kbd { background: rgba(255, 255, 255, 0.25); }
+.gv-app-tab-active:hover { background: #E8EEFF; }
+.gv-app-tab-active kbd { background: rgba(23, 71, 230, 0.12); }
 
 /* ---------- Sân khấu giữa ---------- */
 .gv-stage-col { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
@@ -2949,6 +3082,15 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   border: 1px solid var(--gv-line);
   border-radius: 20px;
   padding: 24px;
+}
+/* MẪU 5: Gọi tên + Chia nhóm dùng sân khấu trong suốt (không thẻ
+   trắng) để vừa 1 màn; vẫn cuộn dọc khi nội dung dài. */
+#gv-panel-goi-ten .gv-stage-card,
+#gv-panel-chia-nhom .gv-stage-card {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding: 8px 4px;
 }
 /* Màn hình thấp (máy chiếu 768px): thẻ sân khấu bớt đệm để nội dung
    vừa 1 màn hình không cuộn trong — chỉ áp cho máy tính (min-width),
@@ -2998,11 +3140,11 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 .gv-app .gv-q-who { font-size: 1.3rem; }
 .gv-app .tab { font-size: 1.05rem; padding: 10px 20px; min-height: 44px; }
 
-/* Nút chính to của mỗi tab (Space): Gọi tên theo đúng mẫu (72px,
-   chữ 26px); các tab khác 64px. Nút "Thêm" của Bảng điểm không
-   tính (nó là nút thêm dòng, không phải hành động sân khấu). */
-.gv-app #gt-call { height: 72px; font-size: 26px; padding: 0 48px; }
-.gv-app #cn-divide,
+/* Nút chính to của mỗi tab (Space): 64px, chữ 1.3rem. Gọi tên không
+   còn nút chữ nhật — nút QUAY tròn nằm giữa vòng quay (.gv-wheel-hub).
+   Nút "Thêm" của Bảng điểm không tính (nó là nút thêm dòng, không
+   phải hành động sân khấu). Chia nhóm 56px theo MẪU 5 (ghi riêng ở
+   .cn-actions). */
 .gv-app #bs-draw,
 .gv-app #bq-draw,
 .gv-app #dn-start,
@@ -3033,12 +3175,12 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 .gv-merge-btn + .gv-merge-btn { border-left: 1px solid var(--gv-line-input); }
 .gv-merge-btn.gv-merge-active { background: var(--gv-primary); color: #fff; }
 
-/* ---------- Tab Gọi tên theo MẪU 1 ----------
-   Tên gọi 120px đậm (tên gọi; trùng tên thì 2 chữ cuối — logic
-   trong goi-ten-ngau-nhien.js), đủ họ tên 32px bên dưới, hàng
-   chấm điểm −1 | N điểm | +1 cao 56px (+1 nền cam), nút chính
-   72px. clamp() để tên dài không tràn ở màn hẹp; ở 1366px trở
-   lên vẫn đúng 120px/32px như mẫu. */
+/* ---------- Tab Gọi tên theo MẪU 5 ----------
+   Thẻ người được gọi: nền #FEF3C7, viền cam 3px, tên gọi 88px đậm,
+   đủ họ tên 32px bên dưới, chip cấp độ + chip điểm, 3 nút −1/+1/+2
+   cao 56px (+1 nền cam, +2 nền xanh lá). Gọi nhiều bạn thì mỗi bạn
+   một thẻ nhỏ xếp chồng. Tên gọi không quấn dòng trong app — JS thu
+   nhỏ tới khi vừa 1 dòng (không dưới 64px). */
 .gv-app #gt-big .gv-big { font-size: clamp(56px, 18vw, 120px); line-height: 1.1; }
 .gv-app #gt-hero .gv-hero-label {
   font-size: 1rem;
@@ -3050,81 +3192,64 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 .gv-app .gv-winner { margin-top: 8px; }
 .gv-app .gv-winner-name { font-size: clamp(56px, 18vw, 120px); line-height: 1.1; }
 .gv-app .gv-winner-name-sm { font-size: clamp(40px, 9vw, 64px); }
-.gv-winner-given { font-size: clamp(56px, 18vw, 120px); font-weight: 800; line-height: 1.1; overflow-wrap: break-word; }
+.gv-winner-card {
+  background: #FEF3C7;
+  border: 3px solid #F59E0B;
+  border-radius: 20px;
+  padding: 20px 16px 16px;
+  margin-top: 12px;
+}
+.gv-winner-card-sm { padding: 14px 12px 12px; }
+.gv-winner-given { font-size: 88px; font-weight: 800; line-height: 1.05; overflow-wrap: break-word; }
 .gv-winner-full { font-size: clamp(20px, 4vw, 32px); font-weight: 600; color: var(--gv-muted); margin-top: 8px; overflow-wrap: break-word; }
 .gv-winner-full-sm { font-size: clamp(18px, 3vw, 24px); }
+.gv-winner-chips { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; }
+.gv-level-chip,
+.gv-points-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.gv-level-chip { background: #DBEAFE; color: #1747E6; }
+.gv-points-chip { background: #F59E0B; color: #1F1300; }
 .gv-points-row {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 20px 0 4px;
+  margin: 16px 0 4px;
 }
 .gv-points-btn {
   height: 56px;
-  min-width: 72px;
-  padding: 0 16px;
+  min-width: 56px;
+  padding: 0 14px;
   border: 1px solid var(--gv-line-input);
-  border-radius: 12px;
+  border-radius: 14px;
   background: var(--gv-surface);
   color: var(--gv-ink);
   font: inherit;
-  font-size: 1.6rem;
+  font-size: 1.25rem;
   font-weight: 800;
   cursor: pointer;
 }
 .gv-points-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
 .gv-points-btn:disabled { opacity: 0.45; cursor: default; }
-.gv-points-plus { background: var(--gv-accent); border-color: var(--gv-accent); color: var(--gv-ink); }
-.gv-points-plus:hover { background: #d97706; border-color: #d97706; color: #fff; }
-.gv-points-val {
-  height: 56px;
-  min-width: 120px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-  border-radius: 12px;
-  background: var(--gv-accent-bg);
-  color: var(--gv-accent-ink);
-  font-size: 1.5rem;
-  font-weight: 800;
-  white-space: nowrap;
-}
-/* Hàng nút Gọi tên: nút chính chiếm phần lớn, nút "Gọi lại từ đầu"
-   nằm cạnh (xếp dọc tốn thêm 62px, làm sân khấu cuộn trong ở
-   1366×768 — đo 19/11). */
-.gv-app #gv-tool-goi-ten .btn-row { flex-direction: row; align-items: center; gap: 12px; }
-.gv-app #gv-tool-goi-ten #gt-call { flex: 1; }
+.gv-points-plus { background: #F59E0B; border-color: #F59E0B; color: #1F1300; }
+.gv-points-plus:hover { background: #D97706; border-color: #D97706; color: #fff; }
+.gv-points-plus2 { background: #16A34A; border-color: #16A34A; color: #fff; }
+.gv-points-plus2:hover { background: #15803D; border-color: #15803D; }
 /* Thẻ người thắng trong app gọn lại: nhãn "MỜI BẠN" bớt lề, hàng
    điểm sát tên hơn, dòng nhắn điểm khi trống không chiếm chỗ. Tên gọi
    không quấn dòng trong app — JS thu nhỏ tới khi vừa 1 dòng. */
 .gv-app .gv-hero-label { margin: 4px 0; }
 .gv-app .gv-winner-given { white-space: nowrap; }
-.gv-app .gv-points-row { margin-top: 8px; }
+.gv-app .gv-points-row { margin-top: 12px; }
 .gv-app #gt-point-msg:empty { margin: 0; }
-/* Công tắc Tên to/Vòng quay trong app gọn lại một chút. */
-.gv-app #gv-tool-goi-ten .tabs { margin-bottom: 12px; }
-.gv-app #gv-tool-goi-ten .tabs .tab { padding: 6px 12px; }
 .gv-app #gv-tool-goi-ten .gv-hero { background: transparent; border: 0; margin: 8px 0; padding: 12px 8px; }
-.gv-app #gv-tool-goi-ten .gv-wheel-wrap { max-width: 320px; }
-/* Hàng gọn dưới nút Gọi tên (chỉ ở chế độ Chuẩn bị; chế độ Dạy ẩn
-   hẳn qua gv-prep-only): "Đã gọi", "Số bạn gọi mỗi lần", "Tải danh
-   sách đã gọi" xếp 1 hàng nhỏ thay vì 3 khối dọc — để sân khấu vừa
-   màn hình 1366×768 sau khi gọi. Trang rời không có quy tắc này nên
-   3 khối giữ nguyên dạng dọc như trước. */
-.gv-app .gv-prep-row { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; margin-top: 14px; }
-.gv-app .gv-prep-row .field { display: flex; align-items: center; gap: 8px; margin: 0; }
-.gv-app .gv-prep-row .field label { margin: 0; white-space: nowrap; font-size: 0.95rem; }
-.gv-app .gv-prep-row .field select { width: auto; min-width: 64px; padding: 8px 10px; }
-.gv-app .gv-prep-row #gt-status { margin: 0; flex: 1 1 220px; }
-/* "Đã gọi": số đếm + chip tên chảy cùng dòng (khối chip không tạo
-   dòng riêng) để hàng chuẩn bị thấp lại; chip nhiều thì tự xuống
-   dòng trong trạng thái. */
-.gv-app .gv-prep-row #gt-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
-.gv-app .gv-prep-row #gt-status p { margin: 0; }
-.gv-app .gv-prep-row #gt-status .gv-chips { display: contents; }
-.gv-app #gv-tool-goi-ten .gv-prep-row .btn-row { margin: 0; flex-direction: row; }
 
 /* Khối "chưa có lớp" trong app: 1 câu + đúng 1 nút dẫn về tab Lớp học. */
 .gv-app-noclass {
@@ -3164,7 +3289,22 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   padding: 16px 16px 8px;
   flex: none;
 }
-.gv-drawer-head h2 { margin: 0; font-size: 1.15rem; font-weight: 800; }
+.gv-drawer-head h2 { margin: 0; font-size: 1.05rem; font-weight: 800; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.gv-drawer-edit {
+  flex: none;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--gv-line-input);
+  border-radius: 10px;
+  background: var(--gv-surface);
+  color: var(--gv-primary);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gv-drawer-edit:hover { border-color: var(--gv-primary); }
 .gv-drawer-close {
   display: none;
   width: 44px;
@@ -3188,70 +3328,100 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   padding: 0 6px 12px;
   scrollbar-width: thin;
 }
-/* Mỗi dòng cao 44px: sao, họ tên, điểm, nút Có mặt/Vắng. Điểm chỉ
-   hiện con số (màu cam là điểm theo token) để họ tên đủ chỗ — tên
-   đầy đủ vẫn xem được khi rê chuột (title). Nút cao đủ 44px (lấp
-   đầy dòng) để đúng vùng bấm tối thiểu. */
+/* Mỗi dòng cao 48px (MẪU 5): vòng tròn chữ cái đầu tên gọi, họ tên
+   + dòng nhỏ "Giới tính · Lv.", nút sao SVG, huy hiệu điểm vàng
+   tròn, nút ✓ xanh lá / Vắng đỏ. Hàng bạn vừa gọi tô vàng #FEF3C7. */
 .gv-drawer-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  height: 44px;
-  padding: 0 2px;
+  gap: 8px;
+  height: 48px;
+  padding: 0 8px;
   border-radius: 12px;
 }
 .gv-drawer-row + .gv-drawer-row { margin-top: 2px; }
-.gv-drawer-row-called { background: var(--gv-called-bg); }
-.gv-drawer-star {
-  width: 44px;
-  height: 44px;
+.gv-drawer-row-called { background: #FEF3C7; }
+.gv-drawer-avatar {
+  width: 32px;
+  height: 32px;
   flex: none;
-  border: 0;
-  border-radius: 12px;
-  background: transparent;
-  color: var(--gv-faint);
-  font-size: 1.4rem;
-  line-height: 1;
-  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  font-weight: 800;
 }
-.gv-drawer-star-on { color: var(--gv-accent); }
-.gv-drawer-name {
+.gv-drawer-namewrap {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+.gv-drawer-star {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #CBD5E1;
+  cursor: pointer;
+  padding: 0;
+}
+.gv-drawer-star:hover { color: #F59E0B; }
+.gv-drawer-star-on { color: #F59E0B; }
+.gv-drawer-name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 0.95rem;
   font-weight: 600;
 }
+.gv-drawer-sub {
+  font-size: 0.8rem;
+  color: var(--gv-muted);
+  white-space: nowrap;
+}
 .gv-drawer-name-absent { color: var(--gv-faint); text-decoration: line-through; font-weight: 400; }
 .gv-drawer-points {
   flex: none;
-  min-width: 20px;
-  text-align: right;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--gv-accent-ink);
+  min-width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: #FEF3C7;
+  color: #92400E;
+  font-size: 0.9rem;
+  font-weight: 800;
   white-space: nowrap;
 }
 .gv-drawer-absent {
-  height: 44px;
+  height: 32px;
+  min-width: 32px;
   flex: none;
   padding: 0 8px;
-  border: 1px solid var(--gv-line-input);
-  border-radius: 12px;
-  background: var(--gv-surface);
-  color: #15803d;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #16A34A;
   font: inherit;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font-size: 1rem;
+  font-weight: 800;
   cursor: pointer;
   white-space: nowrap;
 }
 .gv-drawer-absent-on {
-  color: var(--gv-absent-ink);
-  border-color: var(--gv-absent-line);
-  background: var(--gv-absent-bg);
+  color: #DC2626;
+  background: #FEE2E2;
+  font-size: 0.85rem;
 }
 .gv-drawer-empty { padding: 0 16px 16px; margin: 0; font-size: 0.95rem; }
 /* Nút mở ngăn lớp (chỉ hiện ở màn hẹp khi ngăn thu gọn). */
@@ -3435,7 +3605,7 @@ body.gv-teach .gv-stage-card { padding-bottom: 16px; }
 body.gv-teach .gv-layout { grid-template-columns: minmax(0, 1fr); }
 body.gv-teach .gv-stage-head h2 { font-size: 36px; }
 body.gv-teach .gv-topbar-class,
-body.gv-teach .gv-attend-count,
+body.gv-teach .gv-top-chip,
 body.gv-teach .gv-sound-btn,
 body.gv-teach .gv-help-btn,
 body.gv-teach .gv-install-btn,
@@ -3450,15 +3620,11 @@ body.gv-teach .gv-app #gt-big .gv-big,
 body.gv-teach .gv-app .gv-winner-name,
 body.gv-teach .gv-winner-given { font-size: clamp(72px, 22vw, 168px); }
 body.gv-teach .gv-winner-full { font-size: clamp(28px, 5vw, 44px); }
-/* Chế độ Dạy: ẩn công tắc Tên to/Vòng quay (chọn chế độ ở Chuẩn bị
-   rồi hãy dạy) để nút Gọi tên vừa trong thẻ, không bị cắt. */
-body.gv-teach .gv-app #gv-tool-goi-ten .tabs { display: none; }
+/* Chế độ Dạy: ẩn thanh chọn kiểu gọi + phạm vi (chọn ở Chuẩn bị rồi
+   hãy dạy) và cột cài đặt Chia nhóm — chỉ giữ sân khấu + kết quả. */
+body.gv-teach .gt-v2-bar { display: none; }
+body.gv-teach .cn-settings { display: none; }
 body.gv-teach .gv-points-row { margin: 12px 0 4px; }
-/* Chế độ Dạy: nút gọi vừa theo nội dung, căn giữa; nút 'Gọi lại từ
-   đầu' thành nút nhỏ nằm bên dưới (MẪU 1). */
-body.gv-teach .gv-app #gv-tool-goi-ten .btn-row { flex-direction: column; align-items: center; gap: 8px; }
-body.gv-teach .gv-app #gv-tool-goi-ten #gt-call { flex: none; width: auto; }
-body.gv-teach .gv-app #gv-tool-goi-ten #gt-reset { height: 40px; min-height: 40px; padding: 0 16px; font-size: 15px; }
 /* Chế độ Dạy chỉ giữ tên + điểm + nút chính (tiêu chí 19/11: KHÔNG
    tab nào cuộn trong ở 1366×768 và 1024×768): ẩn dòng gợi ý dưới
    tiêu đề, công tắc Xúc xắc/Bốc số (chọn ngăn ở Chuẩn bị) và mọi
@@ -3481,9 +3647,10 @@ body.gv-teach .gv-app .gv-score-bar { display: none; }
 body.gv-teach .gv-app-table th,
 body.gv-teach .gv-app-table td { padding: 6px 8px; }
 body.gv-teach .gv-app-tablewrap { margin: 0; }
-/* Chia nhóm chế độ Dạy: thẻ nhóm gọn lại. */
+/* Chia nhóm chế độ Dạy: tên thành viên 24px để cả lớp đọc được
+   (Claude dặn, 19/11); chip vai trò giữ 14px. */
 body.gv-teach .gv-app .gv-group { padding: 10px 12px; }
-body.gv-teach .gv-app .gv-group li { font-size: 1.1rem; line-height: 1.5; }
+body.gv-teach .gv-app .gv-group li { font-size: 24px; line-height: 1.5; }
 /* Đo độ ồn chế độ Dạy: sân bóng thấp lại một chút. */
 body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6px; margin: 8px 0 4px; }
 /* Nút chính của Đếm ngược dính đáy thẻ (nội dung tab này dài, nút
@@ -3495,22 +3662,32 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
   padding: 12px 0 4px;
 }
 
-/* ---------- Màn 1024×768 (máy chiếu): cột tab thu còn icon + số
-   (72px), ngăn lớp thu gọn thành nút mở (trượt từ mép phải). ---------- */
+/* ---------- Màn 1024×768 (máy chiếu): cột tab thu còn icon (72px),
+   ngăn lớp thu gọn thành nút mở (trượt từ mép phải), vòng quay
+   440→360px, tên gọi 88→64px, lưới nhóm → 2 cột (Claude dặn, 19/11). ---------- */
 @media (max-width: 1100px) {
   .gv-layout { grid-template-columns: 72px minmax(0, 1fr); }
+  .gv-tabs { padding: 6px; }
   .gv-app-tab {
-    /* Rộng bằng cột trừ lề (72px cột − 2×2px padding của .gv-tabs):
-       width 72px cố định làm nút tràn 4px, sinh thanh cuộn ngang ở
-       đáy cột (lỗi 19/11). */
+    /* Rộng bằng cột trừ lề (72px cột − 2×6px padding của .gv-tabs):
+       width 72px cố định làm nút tràn, sinh thanh cuộn ngang ở đáy
+       cột (lỗi 19/11). */
     width: 100%;
     height: 48px;
-    padding: 0 6px;
-    gap: 6px;
+    padding: 0;
+    gap: 0;
     justify-content: center;
   }
   .gv-app-tab-label { display: none; }
-  .gv-app-tab kbd { margin-left: 0; }
+  .gv-app-tab kbd { display: none; }
+  .gv-app-tab-active { box-shadow: inset 3px 0 0 #1747E6; }
+  .gv-wheel-wrap { max-width: 360px; }
+  .gv-wheel-hub { width: 88px; height: 88px; font-size: 1rem; }
+  .gv-winner-given { font-size: 64px; }
+  .gv-groups[data-cols="3"],
+  .gv-groups[data-cols="4"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cn-settings { width: 300px; }
+  .gv-top-chip-stats { display: none; }
   .gv-drawer {
     position: fixed;
     top: 64px;
@@ -3526,6 +3703,10 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
   }
   .gv-drawer.gv-drawer-show { transform: none; }
   .gv-drawer-close { display: inline-flex; align-items: center; justify-content: center; }
+  /* Nút nổi "Danh sách lớp" (cao 56px, cách đáy 16px) đè lên nội
+     dung cuối sân khấu — đệm dưới để cuộn hết cỡ vẫn bấm được nút
+     cuối (bắt khi chụp ảnh 1024: nút đè lên "Tải danh sách", 19/11). */
+  .gv-stage-card { padding-bottom: 88px; }
   .gv-drawer-open {
     display: inline-flex;
     align-items: center;
@@ -3574,7 +3755,7 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
   .gv-brand { font-size: 1.05rem; }
   .gv-topbar-class { flex: 1 1 100%; order: 3; }
   .gv-topbar-class select { flex: 1; max-width: none; }
-  .gv-attend-count { font-size: 0.95rem; }
+  .gv-top-chip { font-size: 0.9rem; padding: 6px 10px; }
   .gv-layout { display: block; padding: 12px; }
   .gv-tabs {
     flex-direction: row;
@@ -3586,13 +3767,12 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
   }
   .gv-app-tab { flex: none; width: auto; height: 48px; padding: 0 12px; }
   .gv-app-tab-label { display: inline; }
-  .gv-app-tab kbd { margin-left: 4px; }
+  .gv-app-tab kbd { display: inline; margin-left: 4px; }
   .gv-stage-col { display: block; }
   .gv-app-panel { display: block; }
   .gv-app-panel[hidden] { display: none; }
   .gv-stage-head h2 { font-size: 24px; }
   .gv-stage-card { overflow-y: visible; padding: 16px; padding-bottom: 88px; }
-  .gv-app #gt-call { height: 64px; font-size: 22px; padding: 0 24px; width: 100%; max-width: 480px; }
   .gv-app-classbar { flex-direction: column; align-items: stretch; }
   .gv-app-classbar .field { min-width: 0; }
   .gv-app .gv-big { font-size: 2.4rem; }
@@ -3603,6 +3783,239 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
 @media (prefers-reduced-motion: reduce) {
   .gv-app-tab, .gv-app .btn, .lh-star, .lh-absent, .lh-pt-btn, .lh-del,
   .gv-drawer, .gv-mode-btn, .gv-merge-btn { transition: none; }
+}
+
+/* ============================================================
+   Bàn giáo viên V2 — MẪU 5 (19/11/2026)
+   Gọi tên 4 kiểu (sân khấu trái + cột đã gọi phải), Chia nhóm thông
+   minh (cột cài đặt 360px + kết quả phải). */
+
+/* Thanh chọn kiểu gọi + phạm vi + số bạn mỗi lần (ẩn ở chế độ Dạy). */
+.gt-v2-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-bottom: 12px;
+}
+.gt-modes {
+  display: inline-flex;
+  border: 1px solid var(--gv-line-input);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--gv-surface);
+}
+.gt-mode {
+  height: 44px;
+  padding: 0 18px;
+  border: 0;
+  background: transparent;
+  color: var(--gv-ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gt-mode + .gt-mode { border-left: 1px solid var(--gv-line-input); }
+.gt-mode-active { background: var(--gv-primary); color: #fff; }
+.gt-scope {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.gt-scope-label { color: var(--gv-muted); }
+.gt-scope label { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; }
+.gt-scope input { width: 18px; height: 18px; accent-color: var(--gv-primary); }
+.gt-v2-bar .gt-count-field { display: flex; align-items: center; gap: 8px; margin: 0 0 0 auto; }
+.gt-v2-bar .gt-count-field label { margin: 0; white-space: nowrap; font-size: 0.95rem; }
+.gt-v2-bar .gt-count-field select { width: auto; min-width: 80px; padding: 8px 10px; }
+
+/* Sân khấu Gọi tên: khung gọi trái + cột đã gọi phải. */
+.gt-stage { display: flex; gap: 20px; align-items: flex-start; }
+.gt-view { flex: 1; min-width: 0; }
+.gt-called-col { width: 340px; flex: none; min-width: 0; }
+.gt-called-col #gt-status p { margin: 12px 0 0; }
+.gt-actions { margin-top: 16px; }
+/* Khung hỏi "Gọi lại từ đầu?" khi đã gọi hết cả lớp. */
+.gt-exhausted {
+  text-align: center;
+  background: var(--gv-surface);
+  border: 1px solid var(--gv-line);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 12px;
+}
+.gt-exhausted p { margin: 0 0 10px; font-size: 1.1rem; }
+
+/* Lưới Hộp quà / Lật thẻ: 6 cột, thẻ cao 92px. */
+.gt-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+.gt-cell {
+  height: 92px;
+  border: 0;
+  border-radius: 14px;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  box-sizing: border-box;
+}
+.gt-cell-down { color: #fff; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15); }
+.gt-cell-down:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.gt-cell-num { font-size: 1.8rem; font-weight: 800; }
+.gt-cell-open {
+  background: #F1F5F9;
+  color: var(--gv-ink);
+  border: 2px solid #E2E8F0;
+  cursor: default;
+  opacity: 0.75;
+}
+.gt-cell-name { font-size: 1.25rem; font-weight: 800; text-align: center; overflow-wrap: break-word; line-height: 1.2; }
+
+/* ---------- Chia nhóm V2: cột cài đặt + kết quả ---------- */
+.cn-v2 { display: flex; gap: 20px; align-items: flex-start; }
+.cn-settings {
+  width: 360px;
+  flex: none;
+  background: var(--gv-surface);
+  border: 1px solid var(--gv-line);
+  border-radius: 20px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+.cn-settings h3 { margin: 6px 0 0; font-size: 1.05rem; font-weight: 800; }
+.cn-settings h3:first-child { margin-top: 0; }
+.cn-stepper { display: flex; align-items: center; gap: 10px; }
+.cn-step-btn {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 1px solid var(--gv-line-input);
+  border-radius: 12px;
+  background: var(--gv-surface);
+  color: var(--gv-ink);
+  font: inherit;
+  font-size: 1.4rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.cn-step-btn:hover:not(:disabled) { border-color: var(--gv-primary); color: var(--gv-primary); }
+.cn-step-btn:disabled { opacity: 0.4; cursor: default; }
+.cn-count { font-size: 2rem; font-weight: 800; min-width: 40px; text-align: center; }
+.cn-per-group { font-size: 1rem; font-weight: 600; color: var(--gv-muted); }
+.cn-modes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.cn-mode-card {
+  border: 1px solid var(--gv-line-input);
+  border-radius: 12px;
+  background: var(--gv-surface);
+  color: var(--gv-ink);
+  font: inherit;
+  text-align: left;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.cn-mode-card strong { font-size: 0.98rem; }
+.cn-mode-card span { font-size: 0.85rem; color: var(--gv-muted); line-height: 1.3; }
+.cn-mode-card:hover { border-color: var(--gv-primary); }
+.cn-mode-active { border-color: var(--gv-primary); border-width: 2px; background: #E8EEFF; }
+.cn-mode-active strong { color: var(--gv-primary); }
+.cn-balance { display: flex; flex-wrap: wrap; gap: 8px; }
+.cn-balance-note { font-size: 0.85rem; font-weight: 400; }
+.cn-bal-chip {
+  border: 1px solid var(--gv-line-input);
+  border-radius: 999px;
+  background: var(--gv-surface);
+  color: var(--gv-muted);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.cn-bal-chip:hover:not(:disabled) { border-color: var(--gv-primary); color: var(--gv-primary); }
+.cn-bal-on { background: #E8EEFF; border-color: var(--gv-primary); color: var(--gv-primary); }
+.cn-bal-chip:disabled { opacity: 0.45; cursor: default; }
+.cn-rules { display: flex; flex-direction: column; gap: 6px; }
+.cn-rules-empty { margin: 0; font-size: 0.95rem; }
+.cn-rule {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+}
+.cn-rule-apart { background: #FEE2E2; color: #991B1B; }
+.cn-rule-together { background: #DCFCE7; color: #166534; }
+.cn-rule-names { font-weight: 700; }
+.cn-rule-tag { font-size: 0.8rem; font-weight: 600; opacity: 0.75; }
+.cn-rule-note { font-size: 0.85rem; font-style: italic; opacity: 0.8; }
+.cn-rule-missing { opacity: 0.65; }
+.cn-rule-del {
+  margin-left: auto;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.cn-rule-form { display: flex; flex-direction: column; gap: 8px; }
+.cn-rule-form select,
+.cn-rule-form input { width: 100%; font-size: 1rem; padding: 10px 12px; border: 1px solid var(--gv-line-input); border-radius: 12px; background: var(--gv-surface); color: var(--gv-ink); box-sizing: border-box; }
+.cn-rule-form .btn { align-self: flex-start; }
+.cn-themes { display: flex; flex-wrap: wrap; gap: 8px; }
+.cn-theme-btn {
+  border: 1px solid var(--gv-line-input);
+  border-radius: 999px;
+  background: var(--gv-surface);
+  color: var(--gv-ink);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.cn-theme-btn:hover { border-color: var(--gv-primary); color: var(--gv-primary); }
+.cn-theme-active { background: var(--gv-primary); border-color: var(--gv-primary); color: #fff; }
+.cn-toggle { display: flex; align-items: center; gap: 8px; font-size: 0.98rem; font-weight: 600; cursor: pointer; margin-top: 4px; }
+.cn-toggle input { width: 18px; height: 18px; accent-color: var(--gv-primary); }
+.cn-results { flex: 1; min-width: 0; }
+/* Vùng kết quả gọn để 4 nhóm 2 hàng vừa màn hình 768px (đã đo:
+   lề <p> mặc định + padding thừa làm hàng 2 bị cắt ~30px, 19/11). */
+.cn-results .result { margin-top: 10px; padding: 12px; }
+.cn-result-head { margin: 0 0 10px; }
+.cn-actions #cn-divide { height: 56px; font-size: 1.25rem; padding: 0 28px; }
+.cn-result-actions { margin-top: 14px; }
+.cn-results .result { margin-top: 14px; }
+
+/* Màn hẹp: sân khấu Gọi tên + Chia nhóm xếp dọc. */
+@media (max-width: 768px) {
+  .gt-stage { flex-direction: column; }
+  .gt-called-col { width: 100%; }
+  .gt-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cn-v2 { flex-direction: column; }
+  .cn-settings { width: 100%; }
 }
 
 /* ============================================================
@@ -4025,6 +4438,86 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 .tool-row-name { display: block; font-size: 15px; font-weight: 700; overflow-wrap: break-word; }
 .tool-row-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; line-height: 1.45; color: #475569; overflow-wrap: break-word; }
 
+/* --- Dòng công cụ gọn MẪU 4 có icon SVG (trang /giao-vien/, /sinh-vien/,
+   đợt V2 19/11): hộp icon 40px nền pastel + tên + mô tả, cả thẻ bấm được. --- */
+.tool-row-icon { display: flex; gap: 12px; align-items: flex-start; }
+.tool-row-ico { width: 40px; height: 40px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; }
+.tool-row-ico svg { display: block; }
+.tool-row-text { min-width: 0; flex: 1; }
+
+/* --- Khối đầu Bàn giáo viên ở trang /giao-vien/ (đợt V2 19/11):
+   chữ trái + ảnh chụp V2 thật phải; điện thoại xếp chồng. --- */
+.gv-hero-block {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 24px;
+  align-items: center;
+  background: #E8EEFF;
+  border: 1px solid #C7D2FE;
+  border-radius: 20px;
+  padding: 28px;
+  margin: 0 0 32px;
+}
+.gv-hero-text h2 { margin: 0 0 10px; font-size: 28px; }
+.gv-hero-text p { margin: 0 0 16px; line-height: 1.6; }
+.gv-hero-img img { display: block; width: 100%; height: auto; border: 1px solid #DCE1EA; border-radius: 12px; box-shadow: 0 12px 28px -12px rgba(15, 23, 42, 0.25); }
+@media (max-width: 768px) {
+  .gv-hero-block { grid-template-columns: 1fr; padding: 20px; gap: 16px; }
+  .gv-hero-text h2 { font-size: 24px; }
+}
+
+/* --- Chip lọc + thẻ bài viết trang /huong-dan/ (đợt V2 19/11):
+   chip dùng chung cho trang /diem-bao/ (.hd-chips/.hd-chip). Thẻ bài
+   CẢ THẺ bấm được, không nút "Đọc bài →". --- */
+.hd-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.hd-chip {
+  padding: 8px 14px;
+  border: 1px solid #DCE1EA;
+  border-radius: 999px;
+  background: #fff;
+  color: #0F172A;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  min-height: 36px;
+}
+.hd-chip:hover { border-color: #1747E6; }
+.hd-chip[aria-pressed="true"] { background: #1747E6; border-color: #1747E6; color: #fff; font-weight: 700; }
+.hd-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 64px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #DCE1EA;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #0F172A;
+}
+.hd-card:hover { border-color: #1747E6; box-shadow: var(--shadow-sm); }
+.hd-card-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.hd-topic { font-size: 12px; }
+.hd-new { display: inline-block; background: #FEF3C7; color: #92400E; font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 8px; }
+.hd-card-title { display: block; font-size: 16px; font-weight: 700; line-height: 1.45; overflow-wrap: break-word; }
+.hd-card-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; line-height: 1.45; color: #475569; overflow-wrap: break-word; }
+.hd-card-date { font-size: 12px; color: #64748B; }
+
+/* --- Trang mục /diem-bao/ (đợt V2 19/11): tin ngày mới nhất trái,
+   cột ngày cũ phải; điện thoại xếp chồng, ngày cũ xuống cuối trang. --- */
+.news-index-layout { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 32px; align-items: start; }
+.news-aside { background: #fff; border: 1px solid #DCE1EA; border-radius: 12px; padding: 16px 20px; position: sticky; top: 80px; }
+.news-aside h2 { margin: 0 0 8px; font-size: 16px; }
+.news-archive-list { list-style: none; margin: 0; padding: 0; }
+.news-archive-list li { padding: 8px 0; border-bottom: 1px solid #EDF0F5; }
+.news-archive-list li:last-child { border-bottom: none; }
+.news-archive-list a { color: #0F172A; text-decoration: none; font-weight: 600; }
+.news-archive-list a:hover { color: #1747E6; text-decoration: underline; }
+@media (max-width: 900px) {
+  .news-index-layout { grid-template-columns: 1fr; }
+  .news-aside { position: static; }
+}
+
 /* --- Không tìm thấy công cụ --- */
 .cat-empty {
   padding: 32px 16px;
@@ -4054,6 +4547,13 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   cursor: pointer;
 }
 .uh-report-btn:hover { border-color: #1747E6; color: #1747E6; }
+
+/* Dòng Ủng hộ dưới kết quả mọi công cụ (Tuấn chốt 19/11): 14px,
+   nhẹ, không popup, không che nội dung. */
+.uh-donate-line { margin: 14px 0 0; text-align: center; font-size: 14px; color: var(--muted); }
+.uh-donate-line a { color: #92400E; font-weight: 700; text-decoration: none; }
+.uh-donate-line a:hover { text-decoration: underline; }
+[data-theme="dark"] .uh-donate-line a { color: #FBBF24; }
 .uh-report-dialog {
   border: 1px solid #DCE1EA;
   border-radius: 16px;

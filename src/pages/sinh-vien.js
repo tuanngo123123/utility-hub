@@ -10,9 +10,40 @@
 // 301 tới /sinh-vien/#tai-lieu-hoc (xem _redirects trong build.mjs).
 // Ranh giới pháp lý (§2.5): chỉ link nguồn miễn phí CHÍNH THỨC + nội dung
 // gốc tự viết; không sách lậu/khóa lậu/tài khoản dùng chung.
-import { esc, toolCard } from '../tool-card.js';
+import { esc } from '../tool-card.js';
+import { iconSvg } from '../icons.js';
 import { COURSES, DEALS, SEASONAL_DEAL, TEMPLATES, STUDENT_TOOL_SLUGS, SCHOLARSHIPS_DOMESTIC, SCHOLARSHIPS_ABROAD, BOOKS, EXAM_PREP, JOBS, JOB_SCAM } from './sinh-vien-data.js';
 import { GROUPS } from './hoc-mien-phi-data.js';
+
+// Icon + màu hộp icon cho 16 công cụ ở tab Công cụ (MẪU 4, 19/11) —
+// mỗi công cụ một icon riêng, thay cho thẻ ảnh minh họa to cũ.
+const TOOL_ICONS = {
+  'gpa-tin-chi': { icon: 'trophy', bg: '#FEF3C7', fg: '#D97706' },
+  'quy-doi-diem': { icon: 'percent', bg: '#E0F2FE', fg: '#0284C7' },
+  'tinh-diem-thi-thpt': { icon: 'star', bg: '#FCE7F3', fg: '#DB2777' },
+  'tinh-diem-ielts': { icon: 'globe', bg: '#DBEAFE', fg: '#1747E6' },
+  'hoc-tu-vung-tieng-anh': { icon: 'book', bg: '#DCFCE7', fg: '#16A34A' },
+  'pomodoro': { icon: 'clock', bg: '#FFEDD5', fg: '#EA580C' },
+  'dem-nguoc-su-kien': { icon: 'timer', bg: '#EDE9FE', fg: '#7C3AED' },
+  'test-go-phim': { icon: 'keyboard', bg: '#CCFBF1', fg: '#0D9488' },
+  'doc-van-ban-thanh-tieng': { icon: 'volume', bg: '#DBEAFE', fg: '#1747E6' },
+  'ghi-chep-tai-chinh': { icon: 'banknote', bg: '#DCFCE7', fg: '#16A34A' },
+  'chia-tien-hoa-don': { icon: 'users', bg: '#FCE7F3', fg: '#DB2777' },
+  'pdf-sang-word': { icon: 'file-text', bg: '#E0F2FE', fg: '#0284C7' },
+  'gop-pdf': { icon: 'layers', bg: '#FEF3C7', fg: '#D97706' },
+  'tach-trang-pdf': { icon: 'scissors', bg: '#FFEDD5', fg: '#EA580C' },
+  'anh-sang-pdf': { icon: 'image', bg: '#EDE9FE', fg: '#7C3AED' },
+  'tao-ma-qr': { icon: 'qr', bg: '#CCFBF1', fg: '#0D9488' },
+};
+
+// Thẻ dòng gọn MẪU 4 có icon SVG (cùng mẫu với trang /giao-vien/).
+function toolRowIcon(tool) {
+  const ic = TOOL_ICONS[tool.slug] || { icon: 'file-text', bg: '#E8EEFF', fg: '#1747E6' };
+  return `<a class="tool-row tool-row-icon" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}">
+  <span class="tool-row-ico" style="background:${ic.bg};color:${ic.fg}">${iconSvg(ic.icon, 20, 2)}</span>
+  <span class="tool-row-text"><span class="tool-row-name">${esc(tool.name)}</span><span class="tool-row-desc">${esc(tool.desc || '')}</span></span>
+</a>`;
+}
 
 // Link ngoài: luôn mở tab mới + rel noopener (mẫu newsCardHtml trong
 // home.js). target="_blank" KHÔNG dùng cho link nội bộ.
@@ -120,7 +151,7 @@ export function body({ tools = [] } = {}) {
   return `
   <header class="tool-page-head">
     <h1>Dành cho sinh viên</h1>
-    <p class="muted">Công cụ học tập, khóa học miễn phí, tài liệu học, sách giáo khoa, học bổng, luyện thi IELTS/TOEIC, mẫu CV/báo cáo, việc làm thêm và ưu đãi phần mềm — gom một chỗ. Chỉ link tới nguồn miễn phí chính thức; mẫu biểu do Tiện Ích Hub tự viết.</p>
+    <p class="muted">Công cụ, khóa học, tài liệu, học bổng, mẫu biểu và việc làm thêm — gom một chỗ.</p>
   </header>
 
   <section class="section" aria-label="Các mục cho sinh viên">
@@ -139,8 +170,8 @@ export function body({ tools = [] } = {}) {
     <div class="tab-panel" data-tab-panel="cong-cu">
       <h2>Công cụ cho sinh viên</h2>
       <p class="muted">Công cụ có sẵn trên web, hợp sinh viên nhất — tính điểm, học từ vựng, quản lý thời gian, chia tiền, làm tài liệu.</p>
-      <div class="grid-3">
-${studentTools.map((tool, i) => toolCard(tool, i)).join('\n')}
+      <div class="cat-rows">
+${studentTools.map((tool) => toolRowIcon(tool)).join('\n')}
       </div>
     </div>
 

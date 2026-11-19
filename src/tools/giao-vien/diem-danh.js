@@ -60,6 +60,12 @@ export function init(root) {
     return (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
   }
 
+  // Tên lớp hiển thị ('Lớp 10A1', không 'Lớp Lớp mẫu').
+  function classLabel(n) {
+    const h = gvClasses();
+    return (h && h.classLabel) ? h.classLabel(n) : 'Lớp ' + String(n || '').replace(/^Lớp\s+/, '');
+  }
+
   function todayLocal() {
     const d = new Date();
     const y = d.getFullYear();
@@ -316,7 +322,7 @@ export function init(root) {
       if (btn) btn.textContent = 'Tạo lớp';
       block.style.display = '';
     } else if (cls && !(helper && helper.get(cls).length)) {
-      if (text) text.textContent = 'Lớp ' + cls + ' chưa có bạn nào — thêm bạn ở tab Lớp học.';
+      if (text) text.textContent = classLabel(cls) + ' chưa có bạn nào — thêm bạn ở tab Lớp học.';
       if (btn) btn.textContent = 'Mở tab Lớp học';
       block.style.display = '';
     } else {

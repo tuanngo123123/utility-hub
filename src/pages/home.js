@@ -13,7 +13,7 @@
 // app.js điền lúc chạy, khung tải có skeleton (xám mờ) thay bằng nội
 // dung khi tải xong.
 import { esc } from '../tool-card.js';
-import { CATEGORIES } from '../categories.js';
+import { iconSvg } from '../icons.js';
 
 // "Được dùng nhiều nhất" — THỨ TỰ MẶC ĐỊNH, chưa phải số liệu thật.
 // Báo cáo tuần 17–19/11/2026 (bao-cao-tuan.json): 91 lượt thăm, phần
@@ -43,10 +43,33 @@ const HOT_CHIPS = [
   { label: 'Lương hưu', href: '/cong-cu/luong-huu/' },
 ];
 
-function categoryIcon(slug) {
-  const found = CATEGORIES.find((c) => c.slug === slug);
-  return found ? found.icon : '🧰';
-}
+// Icon SVG nét riêng cho từng thẻ "Được dùng nhiều nhất" (MẪU 3,
+// Claude 19/11 ~22:35): không dùng icon hạng mục nữa — BHXH, lãi vay,
+// thuế TNCN trước đây đều hiện túi tiền. Icon lấy từ bộ dùng chung
+// src/icons.js (chung với cột tab Bàn giáo viên V2).
+const MOST_USED_ICONS = {
+  'luong-gross-net': 'banknote',
+  'tien-dien-bac-thang': 'zap',
+  'vietqr-wifi-qr': 'qr',
+  'lich-am': 'moon',
+  'bhxh-mot-lan': 'shield',
+  'lai-vay': 'percent',
+  'doi-dia-chi-cu-moi': 'map-pin',
+  'thue-thu-nhap-ca-nhan': 'file-text',
+};
+
+// Mô tả NGẮN riêng cho thẻ (≤ 45 ký tự, Claude 19/11 ~22:35): viết
+// lại thay vì cắt mô tả dài của trang công cụ (bị "…" ở dòng 2).
+const MOST_USED_SHORT_DESC = {
+  'luong-gross-net': 'Lương thực nhận sau bảo hiểm và thuế.',
+  'tien-dien-bac-thang': 'Tiền điện theo bậc thang, có thuế VAT.',
+  'vietqr-wifi-qr': 'Tạo mã QR chuyển khoản và WiFi.',
+  'lich-am': 'Đổi dương lịch sang âm lịch, xem ngày tốt.',
+  'bhxh-mot-lan': 'Rút BHXH một lần được bao nhiêu tiền?',
+  'lai-vay': 'Trả góp hằng tháng hết bao nhiêu?',
+  'doi-dia-chi-cu-moi': 'Đổi địa chỉ cũ sang phường/xã mới.',
+  'thue-thu-nhap-ca-nhan': 'Thuế phải nộp mỗi tháng là bao nhiêu?',
+};
 
 // Ô "Hôm nay": nhãn + vùng dữ liệu (app.js điền lúc chạy) + link chi
 // tiết. id gold-content / fx-content / lunar-content / lottery-content
@@ -141,16 +164,16 @@ export function body({ tools = [], news = null } = {}) {
     ? homeNewsItems.map(newsCardHtml).join('')
     : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
 
-  // Được dùng nhiều nhất: 8 thẻ (icon hạng mục + tên đậm + 1 dòng mô tả).
+  // Được dùng nhiều nhất: 8 thẻ (icon SVG riêng + tên đậm + mô tả ngắn).
   const mostUsedTools = MOST_USED_SLUGS
     .map((slug) => tools.find((t) => t.slug === slug))
     .filter(Boolean);
   const mostUsedHtml = mostUsedTools.map((tool) => `
     <a class="most-used-card" href="/cong-cu/${esc(tool.slug)}/">
-      <span class="most-used-icon" aria-hidden="true">${esc(categoryIcon(tool.categorySlug))}</span>
+      <span class="most-used-icon" aria-hidden="true">${iconSvg(MOST_USED_ICONS[tool.slug] || 'banknote', 22, 2)}</span>
       <span class="most-used-body">
         <span class="most-used-name">${esc(tool.name)}</span>
-        <span class="most-used-desc">${esc(tool.desc || '')}</span>
+        <span class="most-used-desc">${esc(MOST_USED_SHORT_DESC[tool.slug] || tool.desc || '')}</span>
       </span>
     </a>`).join('');
 

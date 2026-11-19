@@ -17,19 +17,21 @@
 // GĐ3/GĐ4). Chỉ học Ý TƯỞNG tổ chức (một app + tab + danh sách
 // lớp chung) từ edutoolkit — không chép code, chữ hay hình của họ.
 import { esc } from '../tool-card.js';
+import { iconSvg } from '../icons.js';
 
-// Icon mỗi tab (SVG nét, copy từ tool-head của chính công cụ đó;
-// Lớp học dùng icon danh sách, tab gộp dùng icon xúc xắc).
-const ICONS = {
-  'lop-hoc': '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>',
-  'goi-ten': '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
-  'chia-nhom': '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
-  'bang-diem': '<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>',
-  'dem-nguoc': '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
-  'boc-cau-hoi': '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
-  'diem-danh': '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
-  'xuc-xac-boc-so': '<rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/>',
-  'do-on': '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>',
+// Icon mỗi tab (MẪU 5): SVG nét trong ô 32px nền pastel màu riêng —
+// lấy từ bộ dùng chung src/icons.js (chung với 8 thẻ trang chủ).
+// bg = nền ô icon, fg = màu nét vẽ.
+const TAB_ICONS = {
+  'lop-hoc': { icon: 'users', bg: '#DBEAFE', fg: '#1747E6' },
+  'goi-ten': { icon: 'megaphone', bg: '#FEF3C7', fg: '#D97706' },
+  'chia-nhom': { icon: 'grid', bg: '#E0F2FE', fg: '#0284C7' },
+  'bang-diem': { icon: 'trophy', bg: '#FCE7F3', fg: '#DB2777' },
+  'dem-nguoc': { icon: 'clock', bg: '#DCFCE7', fg: '#16A34A' },
+  'boc-cau-hoi': { icon: 'help-circle', bg: '#EDE9FE', fg: '#7C3AED' },
+  'diem-danh': { icon: 'check-square', bg: '#FFEDD5', fg: '#EA580C' },
+  'xuc-xac-boc-so': { icon: 'shuffle', bg: '#CCFBF1', fg: '#0D9488' },
+  'do-on': { icon: 'mic', bg: '#FEE2E2', fg: '#DC2626' },
 };
 
 // Thứ tự tab theo MẪU 1 (đánh số phím tắt liền nhau 1–9).
@@ -37,13 +39,13 @@ const ICONS = {
 // hint: 1 dòng gợi ý dưới tiêu đề sân khấu.
 const TABS = [
   { id: 'lop-hoc', label: 'Lớp học', tools: [], key: '1', hint: 'Chọn lớp đang dạy — mọi công cụ trong Bàn giáo viên đều dùng lớp này. Sửa trực tiếp trong bảng, thay đổi lưu ngay trên trình duyệt.' },
-  { id: 'goi-ten', label: 'Gọi tên', tools: ['goi-ten-ngau-nhien'], key: '2', hint: 'Vòng quay dừng ở bạn được gọi — không gọi lại người đã gọi tới khi hết danh sách. Bấm phím Space để gọi nhanh.' },
-  { id: 'chia-nhom', label: 'Chia nhóm', tools: ['chia-nhom-ngau-nhien'], key: '3', hint: 'Xáo trộn rồi chia đều — các nhóm lệch nhau tối đa 1 bạn, mỗi bạn có một vai trò.' },
+  { id: 'goi-ten', label: 'Gọi tên', tools: ['goi-ten-ngau-nhien'], key: '2', hint: 'Gọi tên bằng vòng quay, hộp quà, lật thẻ hay tên to — không gọi lại người đã gọi tới khi hết danh sách. Bấm phím Space để gọi nhanh.' },
+  { id: 'chia-nhom', label: 'Chia nhóm', tools: ['chia-nhom-ngau-nhien'], key: '3', hint: 'Chia nhóm thông minh theo sao, giới tính và điểm thi đua — các nhóm lệch nhau tối đa 1 bạn, kéo thả để đổi bạn giữa các nhóm.' },
   { id: 'bang-diem', label: 'Bảng điểm', tools: ['bang-diem-lop'], key: '4', hint: 'Chế độ Cá nhân chấm điểm từng bạn (chung cột Điểm ở tab Lớp học); chế độ Đội chấm điểm theo đội riêng.' },
   { id: 'dem-nguoc', label: 'Đếm ngược', tools: ['dem-nguoc-lop-hoc'], key: '5', hint: 'Chọn thời gian rồi bấm bắt đầu — hết giờ sẽ có chuông, 5 giây cuối có tiếng bíp.' },
   { id: 'boc-cau-hoi', label: 'Bốc câu hỏi', tools: ['boc-cau-hoi'], key: '6', hint: 'Bốc câu hỏi ngẫu nhiên không lặp — bấm Hiện đáp án khi cần.' },
   { id: 'diem-danh', label: 'Điểm danh', tools: ['diem-danh'], key: '7', hint: 'Bấm vào tên để đánh dấu: 1 lần là Vắng, 2 lần là Muộn, 3 lần trở lại Có mặt. Điểm danh tự lưu theo ngày.' },
-  { id: 'xuc-xac-boc-so', label: 'Xúc xắc & bốc số', short: 'Xúc xắc & số', tools: ['tung-xuc-xac-dong-xu', 'boc-tham-so'], key: '8', hint: 'Tung xúc xắc, đồng xu hoặc bốc số ngẫu nhiên cho lớp.' },
+  { id: 'xuc-xac-boc-so', label: 'Xúc xắc & bốc số', short: 'Xúc xắc', tools: ['tung-xuc-xac-dong-xu', 'boc-tham-so'], key: '8', hint: 'Tung xúc xắc, đồng xu hoặc bốc số ngẫu nhiên cho lớp.' },
   { id: 'do-on', label: 'Đo độ ồn', tools: ['do-do-on-lop-hoc'], key: '9', hint: 'Bóng nảy càng mạnh khi lớp càng ồn — chỉ đo độ to, không ghi âm.' },
 ];
 
@@ -69,8 +71,9 @@ export function body(ctx) {
     .join(',\n');
 
   const tabBtn = (t, i) => {
-    const icon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[t.id]}</svg>`;
-    return `<button type="button" class="gv-app-tab${i === 0 ? ' gv-app-tab-active' : ''}" role="tab" id="gv-tab-${t.id}" data-tab="${t.id}" aria-selected="${i === 0 ? 'true' : 'false'}" aria-controls="gv-panel-${t.id}" tabindex="${i === 0 ? '0' : '-1'}" title="${esc(t.label)}"><span class="gv-app-tab-ico">${icon}</span><span class="gv-app-tab-label">${esc(t.short || t.label)}</span><kbd>${t.key}</kbd></button>`;
+    const ti = TAB_ICONS[t.id] || TAB_ICONS['lop-hoc'];
+    const icon = `<span class="gv-app-tab-ico" style="background:${ti.bg};color:${ti.fg}">${iconSvg(ti.icon, 18, 2.2)}</span>`;
+    return `<button type="button" class="gv-app-tab${i === 0 ? ' gv-app-tab-active' : ''}" role="tab" id="gv-tab-${t.id}" data-tab="${t.id}" aria-selected="${i === 0 ? 'true' : 'false'}" aria-controls="gv-panel-${t.id}" tabindex="${i === 0 ? '0' : '-1'}" title="${esc(t.label)}">${icon}<span class="gv-app-tab-label">${esc(t.short || t.label)}</span><kbd>${t.key}</kbd></button>`;
   };
 
   // Khung sân khấu của 1 tab: tiêu đề 28px + 1 dòng gợi ý + thẻ trắng
@@ -107,21 +110,19 @@ ${inner}
   return `
   <div class="gv-app" id="gv-app">
     <header class="gv-topbar">
-      <a class="gv-brand" href="/giao-vien/" aria-label="Về mục Giáo viên"><img src="/favicon.svg" alt="" width="30" height="30"><span>Bàn giáo viên</span></a>
+      <a class="gv-brand" href="/giao-vien/" aria-label="Về mục Giáo viên"><span class="gv-brand-mark"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18"/><path d="M12 5v14"/><path d="M8 19h8"/></svg></span><span>Bàn giáo viên</span></a>
       <div class="gv-topbar-class">
-        <label for="gv-top-class">Lớp đang dạy</label>
-        <select id="gv-top-class"><option value="">— Chưa có lớp nào —</option></select>
+        <select id="gv-top-class" aria-label="Lớp đang dạy"><option value="">— Chưa có lớp nào —</option></select>
       </div>
-      <span class="gv-attend-count" id="gv-attend-count">Chưa có lớp</span>
+      <span class="gv-top-chip" id="gv-attend-count">Chưa có lớp</span>
+      <span class="gv-top-chip gv-top-chip-stats" id="gv-class-stats" hidden></span>
       <span class="gv-teach-class" id="gv-app-teach-class"></span>
+      <span class="gv-clock" id="gv-clock" aria-label="Giờ hiện tại">--:--</span>
       <div class="gv-topbar-actions">
         <button type="button" class="gv-install-btn" id="gv-install-btn" hidden aria-label="Cài Bàn giáo viên lên màn hình chính"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span class="gv-install-label">Cài lên màn hình</span></button>
         <button type="button" class="gv-sound-btn" id="gv-sound-btn" aria-label="Âm thanh lớp học" aria-expanded="false" aria-controls="gv-sound-pop"><svg class="gv-snd-on" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg><svg class="gv-snd-off" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>
         <button type="button" class="gv-help-btn" id="gv-app-help-btn" aria-haspopup="dialog"><span class="gv-help-label">Phím tắt</span> <kbd>?</kbd></button>
-        <div class="gv-mode-toggle" role="group" aria-label="Chế độ dạy">
-          <button type="button" class="gv-mode-btn gv-mode-active" id="gv-mode-prep" aria-pressed="true">Chuẩn bị</button>
-          <button type="button" class="gv-mode-btn" id="gv-mode-teach" aria-pressed="false">Dạy <kbd>F</kbd></button>
-        </div>
+        <button type="button" class="gv-mode-btn" id="gv-mode-teach" aria-pressed="false">Dạy <kbd>F</kbd></button>
       </div>
       <div class="gv-sound-pop" id="gv-sound-pop" hidden>
         <div id="gv-tool-am-thanh" data-gv-app="1" data-tool="am-thanh-lop-hoc">${soundTool.bodyHtml}</div>
@@ -192,7 +193,8 @@ ${toolPanels}
 
       <aside class="gv-drawer" id="gv-drawer" aria-label="Danh sách lớp">
         <div class="gv-drawer-head">
-          <h2>Danh sách lớp</h2>
+          <h2 id="gv-drawer-title">Danh sách lớp</h2>
+          <button type="button" class="gv-drawer-edit" id="gv-drawer-edit">Sửa lớp</button>
           <button type="button" class="gv-drawer-close" id="gv-drawer-close" aria-label="Đóng danh sách lớp">✕</button>
         </div>
         <button type="button" class="btn btn-primary gv-drawer-paste" id="gv-drawer-paste">+ Dán từ Excel</button>
@@ -202,7 +204,7 @@ ${toolPanels}
       </aside>
     </div>
 
-    <button type="button" class="gv-drawer-open" id="gv-drawer-open" aria-controls="gv-drawer" aria-expanded="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Danh sách lớp</span></button>
+    <button type="button" class="gv-drawer-open" id="gv-drawer-open" aria-controls="gv-drawer" aria-expanded="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span id="gv-drawer-open-label">Danh sách lớp</span></button>
     <div class="gv-drawer-backdrop" id="gv-drawer-backdrop" hidden></div>
   </div>
 
@@ -306,6 +308,12 @@ ${inits}
       var helpPanel = document.getElementById('gv-app-help-panel');
 
       function gvClasses() { return (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null; }
+      // Tên lớp hiển thị ('Lớp 10A1', không 'Lớp Lớp mẫu') — qua helper
+      // dùng chung, dự phòng khi app.js cũ chưa có classLabel.
+      function classLabel(n) {
+        var h = gvClasses();
+        return (h && h.classLabel) ? h.classLabel(n) : 'Lớp ' + String(n || '').replace(/^Lớp\s+/, '');
+      }
 
       function escHtml(s) {
         return String(s == null ? '' : s)
@@ -317,7 +325,27 @@ ${inits}
       // nhất là bản ghi lớp trong UhGvClasses) ----------
       var drawerList = document.getElementById('gv-drawer-list');
       var drawerEmpty = document.getElementById('gv-drawer-empty');
-      var calledId = ''; // id bạn đang được gọi (tô nền #E8EEFF)
+      var calledId = ''; // id bạn đang được gọi (tô nền #FEF3C7)
+
+      // Màu vòng tròn chữ cái đầu tên gọi (xoay 8 màu); bạn vắng → xám.
+      var GV_AVATAR_COLORS = [
+        ['#DBEAFE', '#1747E6'], ['#FCE7F3', '#DB2777'],
+        ['#DCFCE7', '#16A34A'], ['#FEF3C7', '#D97706'],
+        ['#E0F2FE', '#0284C7'], ['#EDE9FE', '#7C3AED'],
+        ['#FFEDD5', '#EA580C'], ['#CCFBF1', '#0D9488']
+      ];
+      var GV_STAR_SVG = '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>';
+      var GV_STAR_OUTLINE_SVG = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>';
+      function gvGivenName(full) {
+        var parts = String(full || '').trim().split(/\s+/);
+        return parts.length ? parts[parts.length - 1] : '';
+      }
+      function gvLevelShort(points) {
+        var h = gvClasses();
+        if (h && h.level) return h.level(points || 0).short;
+        var p = points || 0;
+        return p >= 5 ? 'Lv.3' : (p >= 2 ? 'Lv.2' : 'Lv.1');
+      }
 
       function refreshSideUI() {
         var helper = gvClasses();
@@ -330,17 +358,35 @@ ${inits}
           var hasClasses = helper && Object.keys(helper.list()).length > 0;
           drawerSample.style.display = hasClasses ? 'none' : '';
         }
+        // Chip Có mặt + chip thống kê trên thanh trên.
         var present = recs.filter(function (r) { return !r.absent; }).length;
         var countEl = document.getElementById('gv-attend-count');
-        countEl.textContent = active ? ('Có mặt ' + present + '/' + recs.length) : 'Chưa có lớp';
+        countEl.textContent = active ? (present + '/' + recs.length + ' có mặt') : 'Chưa có lớp';
+        var statsEl = document.getElementById('gv-class-stats');
+        if (statsEl) {
+          if (active && recs.length) {
+            var boys = recs.filter(function (r) { return r.gender === 'nam'; }).length;
+            var girls = recs.filter(function (r) { return r.gender === 'nữ'; }).length;
+            var stars = recs.filter(function (r) { return r.star; }).length;
+            statsEl.textContent = boys + ' nam · ' + girls + ' nữ · ' + stars + ' bạn có sao';
+            statsEl.hidden = false;
+          } else {
+            statsEl.hidden = true;
+          }
+        }
         var chip = document.getElementById('gv-app-teach-class');
-        if (chip) chip.textContent = active ? 'Lớp ' + active : 'Chưa chọn lớp';
+        if (chip) chip.textContent = active ? classLabel(active) : 'Chưa chọn lớp';
+        // Đầu ngăn lớp + nút mở ngăn (màn hẹp).
+        var drawerTitle = document.getElementById('gv-drawer-title');
+        if (drawerTitle) drawerTitle.textContent = active ? (classLabel(active) + ' · ' + recs.length + ' bạn') : 'Danh sách lớp';
+        var openLabel = document.getElementById('gv-drawer-open-label');
+        if (openLabel) openLabel.textContent = 'Danh sách lớp (' + recs.length + ')';
         if (!recs.length) {
           drawerList.innerHTML = '';
           drawerList.style.display = 'none';
           drawerEmpty.style.display = '';
           drawerEmpty.textContent = active
-            ? 'Lớp ' + active + ' chưa có bạn nào — bấm "+ Dán từ Excel" để thêm.'
+            ? classLabel(active) + ' chưa có bạn nào — bấm "+ Dán từ Excel" để thêm.'
             : 'Chưa có lớp nào — tạo lớp ở tab Lớp học rồi dán danh sách vào.';
           return;
         }
@@ -351,13 +397,42 @@ ${inits}
         var labels = (helper && helper.displayNames) ? helper.displayNames(recs) : recs.map(function (r) { return r.name; });
         drawerList.innerHTML = recs.map(function (r, i) {
           var label = labels[i] || r.name;
+          var given = gvGivenName(label);
+          var initial = given ? given.charAt(0).toUpperCase() : '?';
+          var colors = r.absent ? ['#E2E8F0', '#64748B'] : GV_AVATAR_COLORS[i % GV_AVATAR_COLORS.length];
+          var genderLabel = r.gender === 'nam' ? 'Nam' : (r.gender === 'nữ' ? 'Nữ' : '');
+          var sub = (genderLabel ? genderLabel + ' · ' : '') + gvLevelShort(r.points);
           return '<div class="gv-drawer-row' + (r.id && r.id === calledId ? ' gv-drawer-row-called' : '') + '" data-id="' + escHtml(r.id || '') + '">'
-            + '<button type="button" class="gv-drawer-star' + (r.star ? ' gv-drawer-star-on' : '') + '" aria-pressed="' + (r.star ? 'true' : 'false') + '" aria-label="Đánh dấu sao cho ' + escHtml(label) + '">' + (r.star ? '★' : '☆') + '</button>'
-            + '<span class="gv-drawer-name' + (r.absent ? ' gv-drawer-name-absent' : '') + '" title="' + escHtml(label) + '">' + escHtml(label) + '</span>'
+            + '<span class="gv-drawer-avatar" style="background:' + colors[0] + ';color:' + colors[1] + '" aria-hidden="true">' + escHtml(initial) + '</span>'
+            + '<span class="gv-drawer-namewrap"><span class="gv-drawer-name' + (r.absent ? ' gv-drawer-name-absent' : '') + '" title="' + escHtml(label) + '">' + escHtml(label) + '</span>'
+            + '<span class="gv-drawer-sub">' + escHtml(sub) + '</span></span>'
+            + '<button type="button" class="gv-drawer-star' + (r.star ? ' gv-drawer-star-on' : '') + '" aria-pressed="' + (r.star ? 'true' : 'false') + '" aria-label="Đánh dấu sao cho ' + escHtml(label) + '">' + (r.star ? GV_STAR_SVG : GV_STAR_OUTLINE_SVG) + '</button>'
             + '<span class="gv-drawer-points" title="' + (r.points || 0) + ' điểm">' + (r.points || 0) + '</span>'
-            + '<button type="button" class="gv-drawer-absent' + (r.absent ? ' gv-drawer-absent-on' : '') + '" aria-pressed="' + (r.absent ? 'true' : 'false') + '">' + (r.absent ? 'Vắng' : 'Có mặt') + '</button>'
+            + '<button type="button" class="gv-drawer-absent' + (r.absent ? ' gv-drawer-absent-on' : '') + '" aria-pressed="' + (r.absent ? 'true' : 'false') + '" aria-label="' + (r.absent ? 'Đánh dấu có mặt: ' : 'Đánh dấu vắng: ') + escHtml(label) + '">' + (r.absent ? 'Vắng' : '✓') + '</button>'
             + '</div>';
         }).join('');
+      }
+
+      // Đồng hồ trên thanh trên (giờ:phút, cập nhật mỗi 10 giây).
+      var clockEl = document.getElementById('gv-clock');
+      function tickClock() {
+        if (!clockEl) return;
+        var d = new Date();
+        var hh = String(d.getHours()).padStart(2, '0');
+        var mm = String(d.getMinutes()).padStart(2, '0');
+        clockEl.textContent = hh + ':' + mm;
+      }
+      tickClock();
+      setInterval(tickClock, 10000);
+
+      // Làm mới các công cụ đã khởi tạo (sửa sao/vắng/điểm ở ngăn lớp
+      // phải thấy ngay ở Gọi tên/Chia nhóm/Bảng điểm/Điểm danh).
+      function refreshAllTools() {
+        document.querySelectorAll('[data-tool]').forEach(function (root) {
+          if (typeof root._gvRefresh === 'function') {
+            try { root._gvRefresh(); } catch (e) { /* bỏ qua */ }
+          }
+        });
       }
 
       // Công cụ gọi lại app khi dữ liệu lớp đổi (Gọi tên cộng điểm,
@@ -398,6 +473,12 @@ ${inits}
         helper.saveRecords(active, recs);
         syncRecordsFromHelper();
         refreshSideUI();
+        refreshAllTools();
+      });
+
+      // Nút "Sửa lớp" ở đầu ngăn lớp: mở tab Lớp học.
+      document.getElementById('gv-drawer-edit').addEventListener('click', function () {
+        activateTab('lop-hoc');
       });
 
       // Nút "+ Dán từ Excel" ở ngăn lớp: mở tab Lớp học rồi đưa con trỏ
@@ -486,15 +567,13 @@ ${inits}
         teachMode = !!on;
         try { localStorage.setItem(TEACH_KEY, teachMode ? '1' : '0'); } catch (e) { /* bỏ qua */ }
         document.body.classList.toggle('gv-teach', teachMode);
-        var prep = document.getElementById('gv-mode-prep');
+        // V2: một nút duy nhất — "Dạy (F)" cam ở chế độ Chuẩn bị,
+        // "Chuẩn bị" khi đang Dạy.
         var teach = document.getElementById('gv-mode-teach');
-        if (prep) {
-          prep.classList.toggle('gv-mode-active', !teachMode);
-          prep.setAttribute('aria-pressed', teachMode ? 'false' : 'true');
-        }
         if (teach) {
           teach.classList.toggle('gv-mode-active', teachMode);
           teach.setAttribute('aria-pressed', teachMode ? 'true' : 'false');
+          teach.innerHTML = teachMode ? 'Chuẩn bị' : 'Dạy <kbd>F</kbd>';
         }
         if (teachMode) setDrawerOpen(false);
         if (teachMode && !soundPop.hidden) setSoundPop(false);
@@ -747,27 +826,22 @@ ${inits}
         if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); runMainAction(); }
       });
 
-      // Công tắc Chuẩn bị | Dạy trên thanh trên; khôi phục trạng thái
-      // lần trước (bố cục ẩn đã áp ngay khi tải trang); toàn màn hình
-      // xin lại ở lần chạm/phím đầu tiên; Esc khỏi toàn màn hình thì
-      // tắt luôn chế độ Dạy.
-      document.getElementById('gv-mode-prep').addEventListener('click', function () { setTeachMode(false); });
-      document.getElementById('gv-mode-teach').addEventListener('click', function () { setTeachMode(true); });
+      // Nút Dạy/Chuẩn bị duy nhất trên thanh trên (bấm để đổi chế độ);
+      // khôi phục trạng thái lần trước (bố cục ẩn đã áp ngay khi tải
+      // trang); toàn màn hình xin lại ở lần chạm/phím đầu tiên; Esc
+      // khỏi toàn màn hình thì tắt luôn chế độ Dạy.
+      document.getElementById('gv-mode-teach').addEventListener('click', function () { setTeachMode(!teachMode); });
       document.addEventListener('fullscreenchange', function () {
         if (!document.fullscreenElement && teachMode) setTeachMode(false, { noFullscreen: true });
       });
       (function restoreTeachMode() {
         try { teachMode = localStorage.getItem(TEACH_KEY) === '1'; } catch (e) { teachMode = false; }
         if (!teachMode) return;
-        var prep = document.getElementById('gv-mode-prep');
         var teach = document.getElementById('gv-mode-teach');
-        if (prep) {
-          prep.classList.remove('gv-mode-active');
-          prep.setAttribute('aria-pressed', 'false');
-        }
         if (teach) {
           teach.classList.add('gv-mode-active');
           teach.setAttribute('aria-pressed', 'true');
+          teach.innerHTML = 'Chuẩn bị';
         }
         var askFs = function () {
           if (teachMode && !document.fullscreenElement && document.documentElement.requestFullscreen) {
@@ -832,7 +906,7 @@ ${inits}
           lhTbody.innerHTML = '';
           lhTableWrap.style.display = 'none';
           lhEmpty.style.display = '';
-          lhEmpty.textContent = 'Lớp ' + activeClass + ' chưa có bạn nào — dán danh sách ở ô dưới hoặc bấm "+ Thêm bạn".';
+          lhEmpty.textContent = classLabel(activeClass) + ' chưa có bạn nào — dán danh sách ở ô dưới hoặc bấm "+ Thêm bạn".';
           return;
         }
         lhTableWrap.style.display = '';
@@ -856,21 +930,27 @@ ${inits}
       }
 
       // 2 ô chọn lớp (thanh trên + tab Lớp học) luôn hiện cùng danh
-      // sách và cùng lớp đang chọn.
+      // sách và cùng lớp đang chọn. Ô trên thanh trên chỉ hiện "Lớp X"
+      // (dạng chip); ô trong tab Lớp học giữ số bạn.
       function refreshClassSelect() {
         var helper = gvClasses();
         var map = helper ? helper.list() : {};
         var names = Object.keys(map).sort();
         var html;
+        var topHtml;
         if (!names.length) {
           html = '<option value="">— Chưa có lớp nào —</option>';
+          topHtml = html;
         } else {
           html = names.map(function (n) {
             return '<option value="' + escHtml(n) + '">' + escHtml(n) + ' (' + map[n].length + ' bạn)</option>';
           }).join('');
+          topHtml = names.map(function (n) {
+            return '<option value="' + escHtml(n) + '">' + escHtml(classLabel(n)) + '</option>';
+          }).join('');
         }
         lhClassSel.innerHTML = html;
-        topClassSel.innerHTML = html;
+        topClassSel.innerHTML = topHtml;
         var val = (activeClass && map[activeClass]) ? activeClass : (names.length ? names[0] : '');
         lhClassSel.value = val;
         topClassSel.value = val;
@@ -945,7 +1025,7 @@ ${inits}
         if (map[name]) {
           refreshClassSelect();
           loadClass(name);
-          showMsg(lhMsg, 'Lớp ' + name + ' đã có rồi — đã chọn lớp này.');
+          showMsg(lhMsg, classLabel(name) + ' đã có rồi — đã chọn lớp này.');
           return;
         }
         helper.saveRecords(name, []);
@@ -1410,6 +1490,7 @@ ${inits}
       (function initTab() {
         var tab = 'lop-hoc';
         var view = '';
+        var sample = false;
         try {
           var params = new URLSearchParams(window.location.search);
           var q = params.get('tab') || '';
@@ -1418,7 +1499,18 @@ ${inits}
           view = params.get('view') || '';
           // Link cũ ?tab=boc-tham (không có ?view=) vẫn mở đúng ngăn Bốc số.
           if ((q === 'boc-tham' || q === 'boc-tham-so') && !view) view = 'boc-so';
+          sample = params.get('sample') === '1';
         } catch (e) { /* bỏ qua */ }
+        // ?sample=1 (nút "Dùng thử với lớp mẫu" ở trang /giao-vien/):
+        // tạo lớp mẫu 30 bạn (đã có thì chỉ chọn nó) rồi mở tab yêu cầu.
+        if (sample) {
+          try { createSampleClass(); } catch (e) { /* bỏ qua */ }
+          try {
+            var url = new URL(window.location.href);
+            url.searchParams.delete('sample');
+            history.replaceState(null, '', url.toString());
+          } catch (e) { /* bỏ qua */ }
+        }
         if (view === 'boc-so' || view === 'xuc-xac') mergeView = view;
         activateTab(tab);
       })();

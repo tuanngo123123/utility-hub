@@ -1,61 +1,88 @@
-// Gọi tên ngẫu nhiên trong lớp: vòng quay SVG quay giảm tốc hoặc chế
-// độ chạy tên; không gọi lại người đã gọi cho tới khi hết danh sách.
-// Kết quả là "sân khấu" to trên cùng; thẻ người thắng có nút cộng
-// điểm sang Bảng điểm lớp; có chế độ Chiếu lớp toàn màn hình, âm
-// thanh Web Audio, phím R để gọi nhanh.
+// Gọi tên ngẫu nhiên trong lớp (MẪU 5, 19/11): 4 kiểu gọi — Vòng
+// quay (6 màu, viền đen, nút QUAY tròn ở giữa), Hộp quà, Lật thẻ số,
+// Tên to. Không gọi lại người đã gọi cho tới khi hết danh sách; lát
+// vừa trúng giữ dưới kim tới lần quay sau mới bỏ khỏi vòng; còn 1 bạn
+// thì gọi luôn không quay; hết lượt thì hỏi "Gọi lại từ đầu?".
+// Thẻ người được gọi có chip cấp độ (Lv.1–3) + nút −1/+1/+2 điểm.
+// Kết quả là "sân khấu" to bên trái, thẻ đã gọi ở cột phải; có chế độ
+// Chiếu lớp toàn màn hình, âm thanh Web Audio, phím R gọi nhanh
+// (trang rời) / Space (trong app), phím +/− cộng trừ điểm (trong app).
 export const meta = {
   id: 'goi-ten-ngau-nhien',
   name: 'Gọi tên ngẫu nhiên',
   category: 'Giáo viên',
   categorySlug: 'giao-vien',
-  desc: 'Gọi tên học sinh ngẫu nhiên bằng vòng quay hoặc chạy tên: không gọi lại người đã gọi, gọi 1–5 bạn mỗi lần, cộng điểm sang bảng điểm, lưu được nhiều lớp dùng chung cho cả mục Giáo viên, tải danh sách đã gọi về máy.',
+  desc: 'Gọi tên học sinh ngẫu nhiên bằng vòng quay, hộp quà, lật thẻ hoặc tên to: không gọi lại người đã gọi, gọi 1–5 bạn mỗi lần, cộng điểm sang bảng điểm, lưu được nhiều lớp dùng chung cho cả mục Giáo viên, tải danh sách đã gọi về máy.',
   keywords: 'gọi tên ngẫu nhiên, gọi tên học sinh, chọn tên ngẫu nhiên, gọi bài, điểm danh lớp, vòng quay tên, lưu danh sách lớp',
   icon: '🎯',
-  seoTitle: 'Gọi tên ngẫu nhiên trong lớp — vòng quay, không gọi lại người đã gọi',
-  seoDesc: 'Dán danh sách lớp, bấm gọi tên — vòng quay giảm tốc rồi dừng ở bạn được gọi, không gọi lại người đã gọi cho tới khi hết danh sách. Lưu được nhiều lớp, dùng chung cho cả mục Giáo viên. Miễn phí, chạy ngay trên trình duyệt.',
+  seoTitle: 'Gọi tên ngẫu nhiên trong lớp — vòng quay, hộp quà, lật thẻ, tên to',
+  seoDesc: 'Dán danh sách lớp, bấm gọi tên — vòng quay giảm tốc rồi dừng ở bạn được gọi, hoặc mở hộp quà, lật thẻ, chạy tên to. Không gọi lại người đã gọi cho tới khi hết danh sách. Lưu được nhiều lớp, dùng chung cho cả mục Giáo viên. Miễn phí, chạy ngay trên trình duyệt.',
 };
 
 export function body() {
   return `
 <div class="tool-panel">
-  <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><h2>Gọi tên ngẫu nhiên</h2><p class="muted">Vòng quay dừng ở bạn được gọi — không gọi lại người đã gọi cho tới khi hết danh sách. Bấm phím R để gọi nhanh.</p></div></div>
+  <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><h2>Gọi tên ngẫu nhiên</h2><p class="muted">Bốn kiểu gọi tên — vòng quay, hộp quà, lật thẻ, tên to — không gọi lại người đã gọi cho tới khi hết danh sách. Bấm phím R để gọi nhanh.</p></div></div>
   <div class="gv-app-noclass" id="gt-no-class" style="display:none">
     <p id="gt-no-class-text">Chưa có lớp nào — tạo lớp ở tab Lớp học để gọi tên.</p>
     <button type="button" class="btn btn-primary" id="gt-no-class-btn">Tạo lớp</button>
   </div>
-  <div class="tabs">
-    <button type="button" class="tab tab-active" id="gt-tab-wheel">Vòng quay</button>
-    <button type="button" class="tab" id="gt-tab-text">Chạy tên</button>
+  <div class="gt-v2-bar">
+    <div class="gt-modes" role="tablist" aria-label="Kiểu gọi tên">
+      <button type="button" class="gt-mode gt-mode-active" data-mode="wheel" role="tab" aria-selected="true">Vòng quay</button>
+      <button type="button" class="gt-mode" data-mode="gift" role="tab" aria-selected="false">Hộp quà</button>
+      <button type="button" class="gt-mode" data-mode="cards" role="tab" aria-selected="false">Lật thẻ</button>
+      <button type="button" class="gt-mode" data-mode="big" role="tab" aria-selected="false">Tên to</button>
+    </div>
+    <div class="gt-scope" id="gt-scope">
+      <span class="gt-scope-label">Phạm vi:</span>
+      <label><input type="radio" name="gt-scope" value="all" checked> Cả lớp</label>
+      <label><input type="radio" name="gt-scope" value="star"> Chỉ bạn có sao</label>
+    </div>
+    <div class="field gt-count-field"><label for="gt-count">Số bạn gọi mỗi lần</label><select id="gt-count"><option value="1" selected>1 bạn</option><option value="2">2 bạn</option><option value="3">3 bạn</option><option value="4">4 bạn</option><option value="5">5 bạn</option></select></div>
   </div>
-  <p class="note" id="gt-big-hint" style="display:none">Lớp đông (trên 24 bạn) nên dùng chế độ chữ để đọc rõ tên — vòng quay vẫn chọn được tay ở trên, nhưng chữ trên vòng sẽ nhỏ.</p>
-  <div id="gt-pane-wheel">
-    <div class="gv-wheel-wrap" id="gt-wheel-wrap">
-      <div class="gv-wheel-pointer" aria-hidden="true"></div>
-      <div class="gv-wheel" id="gt-wheel"></div>
-      <div class="gv-wheel-hub" aria-hidden="true"></div>
+  <p class="note" id="gt-big-hint" style="display:none">Lớp đông (trên 24 bạn) — chế độ Tên to đọc rõ tên hơn vòng quay.</p>
+  <div class="gt-stage">
+    <div class="gt-view">
+      <div id="gt-pane-wheel">
+        <div class="gv-wheel-wrap" id="gt-wheel-wrap">
+          <div class="gv-wheel-pointer" aria-hidden="true"></div>
+          <div class="gv-wheel" id="gt-wheel"></div>
+          <button type="button" class="gv-wheel-hub" id="gt-call" aria-label="Quay vòng gọi tên">QUAY</button>
+        </div>
+      </div>
+      <div id="gt-pane-gift" style="display:none">
+        <div class="gt-grid" id="gt-gift-grid" role="list" aria-label="Hộp quà chưa mở"></div>
+      </div>
+      <div id="gt-pane-cards" style="display:none">
+        <div class="gt-grid" id="gt-card-grid" role="list" aria-label="Thẻ chưa lật"></div>
+      </div>
+      <div id="gt-pane-big" style="display:none">
+        <div class="gv-hero" id="gt-hero">
+          <span class="gv-hero-label">Bạn được gọi</span>
+          <div id="gt-big"><div class="gv-big">—</div></div>
+          <span class="muted" id="gt-sub">Bấm "Gọi tên" để bắt đầu</span>
+        </div>
+        <div class="btn-row" style="justify-content:center"><button type="button" class="btn btn-primary btn-lg" id="gt-call-big">Gọi tên</button></div>
+      </div>
+      <p class="muted" id="gt-wheel-sub" style="text-align:center">Bấm "Quay" để bắt đầu</p>
+      <div class="gt-exhausted" id="gt-exhausted" style="display:none">
+        <p><strong>Đã gọi hết cả lớp!</strong></p>
+        <button type="button" class="btn btn-primary" id="gt-exhausted-reset">Gọi lại từ đầu?</button>
+      </div>
+    </div>
+    <div class="gt-called-col">
+      <div class="gv-winner" id="gt-winner" style="display:none"></div>
+      <div id="gt-status"></div>
+      <div class="btn-row" id="gt-dl-row" style="display:none">
+        <button type="button" class="btn gv-dl" id="gt-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải danh sách đã gọi (.txt)</button>
+      </div>
     </div>
   </div>
-  <div id="gt-pane-text" style="display:none">
-    <div class="gv-hero" id="gt-hero">
-      <span class="gv-hero-label">Bạn được gọi</span>
-      <div id="gt-big"><div class="gv-big">—</div></div>
-      <span class="muted" id="gt-sub">Bấm "Gọi tên" để bắt đầu</span>
-    </div>
-  </div>
-  <div class="gv-winner" id="gt-winner" style="display:none"></div>
-  <p class="muted" id="gt-wheel-sub" style="text-align:center">Bấm "Gọi tên" để quay</p>
-  <div class="btn-row">
-    <button type="button" class="btn btn-primary" id="gt-call">Gọi tên</button>
+  <div class="btn-row gt-actions">
     <button type="button" class="btn" id="gt-stage">Chiếu lớp</button>
     <button type="button" class="btn btn-ghost gv-sound-btn" id="gt-sound">Âm thanh: Bật</button>
     <button type="button" class="btn btn-ghost" id="gt-reset" data-uh-reset="1">Gọi lại từ đầu</button>
-  </div>
-  <div class="gv-prep-row gv-prep-only" id="gt-prep-row">
-    <div id="gt-status"></div>
-    <div class="field"><label for="gt-count">Số bạn gọi mỗi lần</label><select id="gt-count"><option value="1" selected>1 bạn</option><option value="2">2 bạn</option><option value="3">3 bạn</option><option value="4">4 bạn</option><option value="5">5 bạn</option></select></div>
-    <div class="btn-row" id="gt-dl-row" style="display:none">
-      <button type="button" class="btn gv-dl" id="gt-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải danh sách đã gọi (.txt)</button>
-    </div>
   </div>
   <div class="field"><label for="gt-names">Danh sách lớp (mỗi bạn một dòng)</label><textarea id="gt-names" rows="6" placeholder="Mai&#10;Nam&#10;Phương&#10;Tuấn">Mai
 Nam
@@ -102,8 +129,11 @@ export function init(root) {
   const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const REDUCED = typeof window !== 'undefined' && window.matchMedia
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const WHEEL_COLORS = ['#2563eb', '#0d9488', '#f97316', '#db2777', '#7c3aed', '#059669', '#eab308', '#dc2626'];
+  // Vòng quay MẪU 5: 6 màu cố định; lát cam chữ đậm, các lát còn lại
+  // chữ trắng.
+  const WHEEL_COLORS = ['#F59E0B', '#1747E6', '#16A34A', '#DB2777', '#0891B2', '#7C3AED'];
   const CONFETTI_COLORS = ['#2563eb', '#f59e0b', '#dc2626', '#059669', '#7c3aed', '#ec4899'];
+  const GIFT_SVG = '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>';
   // Đã gọi theo ID CỐ ĐỊNH của học sinh (chế độ app) hoặc theo vị trí
   // (trang rời không có bản ghi lớp) — lớp có 2 bạn trùng họ tên thì
   // gọi 1 bạn không tính cả bạn kia là đã gọi. roundPicks giữ tên để
@@ -114,10 +144,12 @@ export function init(root) {
   let roundPickIdx = [];
   let roundPickIds = [];
   // Chế độ app: danh sách gọi là bản ghi lớp (chỉ bạn không vắng),
-  // mỗi mục {id, name, label, given}: label = tên hiển thị có đánh số
-  // trùng tên ("Bùi Ngọc Lan (1)"), given = tên gọi hiển thị trên
-  // vòng quay/thẻ thắng. Trang rời: null, danh sách đọc từ ô gt-names.
+  // mỗi mục {id, name, label, given, star}: label = tên hiển thị có
+  // đánh số trùng tên ("Bùi Ngọc Lan (1)"), given = tên gọi hiển thị
+  // trên vòng quay/thẻ thắng. Trang rời: null, danh sách đọc từ ô
+  // gt-names. Phạm vi "Chỉ bạn có sao" lọc appEntries ngay khi nạp.
   let appEntries = null;
+  let scope = 'all';
   let busy = false;
   let mode = 'wheel';
   let wheelRotation = 0;
@@ -296,11 +328,18 @@ export function init(root) {
     return (sp > 0 ? cut.slice(0, sp) : cut) + '…';
   }
 
-  // Vẽ vòng quay SVG từ danh sách tên còn lại.
+  // Vẽ vòng quay SVG từ danh sách tên còn lại. Lát vừa trúng GIỮ
+  // NGUYÊN dưới kim sau khi công bố — chỉ vẽ lại ở ĐẦU lần quay sau
+  // (trong spinOnce) rồi mới bỏ lát đó khỏi vòng (Claude dặn, 19/11).
   function drawWheel() {
-    const names = remainingNames();
-    const labels = wheelLabels(names);
-    const n = names.length;
+    const remIdx = remainingIdx();
+    // Nhãn lát cắt lấy từ tên gọi đã tính trên TOÀN BỘ lớp (như thẻ
+    // người thắng, hộp quà, tên to) — KHÔNG tính lại trên số còn lại,
+    // nếu không cùng một bạn hiện "Anh" trên vòng nhưng "Minh Anh" ở
+    // thẻ đã gọi khi bạn trùng tên gọi đã vắng/bị gọi (bắt khi chụp
+    // ảnh kiểm chứng 19/11).
+    const labels = remIdx.map(i => entryGivenAt(i));
+    const n = remIdx.length;
     const el = $('gt-wheel');
     el.style.transition = 'none';
     el.style.transform = 'rotate(0deg)';
@@ -315,50 +354,32 @@ export function init(root) {
     const parts = ['<svg viewBox="0 0 300 300" role="img" aria-label="Vòng quay tên">'];
     if (n === 1) {
       parts.push('<circle cx="150" cy="150" r="145" fill="' + WHEEL_COLORS[0] + '"/>');
-      parts.push('<text x="150" y="150" fill="#fff" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="middle">' + esc(shortenLabel(names[0], 14)) + '</text>');
+      parts.push('<text x="150" y="150" fill="#1F1300" font-size="16" font-weight="700" text-anchor="middle" dominant-baseline="middle">' + esc(shortenLabel(labels[0], 14)) + '</text>');
     } else {
       for (let i = 0; i < n; i++) {
+        const color = WHEEL_COLORS[i % WHEEL_COLORS.length];
         const a0 = (i * 360 / n) * Math.PI / 180;
         const a1 = ((i + 1) * 360 / n) * Math.PI / 180;
         const x0 = 150 + 145 * Math.cos(a0), y0 = 150 + 145 * Math.sin(a0);
         const x1 = 150 + 145 * Math.cos(a1), y1 = 150 + 145 * Math.sin(a1);
         const large = (360 / n) > 180 ? 1 : 0;
-        parts.push('<path d="M150,150 L' + x0.toFixed(1) + ',' + y0.toFixed(1) + ' A145,145 0 ' + large + ' 1 ' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' Z" fill="' + WHEEL_COLORS[i % WHEEL_COLORS.length] + '" stroke="#fff" stroke-width="1.5"/>');
+        parts.push('<path d="M150,150 L' + x0.toFixed(1) + ',' + y0.toFixed(1) + ' A145,145 0 ' + large + ' 1 ' + x1.toFixed(1) + ',' + y1.toFixed(1) + ' Z" fill="' + color + '" stroke="#fff" stroke-width="1.5"/>');
         const mid = (a0 + a1) / 2;
         const tx = 150 + 98 * Math.cos(mid), ty = 150 + 98 * Math.sin(mid);
         const deg = mid * 180 / Math.PI;
         const rot = (deg > 90 && deg < 270) ? deg + 180 : deg;
-        parts.push('<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" fill="#fff" font-size="' + fontSize + '" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(' + rot.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ')">' + esc(shortenLabel(labels[i], 14)) + '</text>');
+        const textColor = color === '#F59E0B' ? '#1F1300' : '#fff';
+        parts.push('<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" fill="' + textColor + '" font-size="' + fontSize + '" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(' + rot.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ')">' + esc(shortenLabel(labels[i], 14)) + '</text>');
       }
     }
-    parts.push('<circle cx="150" cy="150" r="145" fill="none" stroke="#e2e8f0" stroke-width="2"/>');
+    // Viền đen 10px quanh vòng (7 đơn vị viewBox ≈ 10px ở cỡ 440px).
+    parts.push('<circle cx="150" cy="150" r="145" fill="none" stroke="#111827" stroke-width="7"/>');
     parts.push('</svg>');
     el.innerHTML = parts.join('');
   }
 
-  // Chế độ chạy tên: khi đã có bạn được gọi thì chỉ hiện khối lớn (thẻ
-  // người thắng), ẩn hộp chạy tên để không trùng 2 khối "Bạn được gọi".
-  function syncHero() {
-    $('gt-hero').style.display = (mode === 'text' && roundPicks.length) ? 'none' : '';
-  }
-
-  // Chế độ Dạy + vòng quay: khi đã công bố người thắng thì ẩn khung
-  // vòng quay để thẻ thắng + nút chính vừa sân khấu (không cuộn
-  // trong); chưa công bố thì hiện vòng quay để quay tiếp. Gọi lại khi
-  // chế độ Dạy đổi (sự kiện gv-teach của app) và sau mỗi lần vẽ thẻ.
-  function syncPanes() {
-    if (!IN_APP) return;
-    const wheelPane = $('gt-pane-wheel');
-    if (!wheelPane) return;
-    const teach = document.body.classList.contains('gv-teach');
-    const hide = mode === 'wheel' && teach && roundPicks.length > 0;
-    wheelPane.style.display = hide ? 'none' : (mode === 'wheel' ? '' : 'none');
-    fitWinnerNames();
-  }
-
   // Tên gọi dài (vd "Ngọc Lan (2)") ở cỡ chữ lớn có thể rộng hơn thẻ
-  // và quấn thành 2 dòng, làm sân khấu cuộn trong (+185px ở chế độ Dạy
-  // 1024×768, đo 19/11) — thu nhỏ từng nấc tới khi vừa 1 dòng, không
+  // và quấn thành 2 dòng — thu nhỏ từng nấc tới khi vừa 1 dòng, không
   // dưới 64px (vẫn đọc rõ từ cuối lớp). Chỉ chạy trong app (trang rời
   // cuộn trang bình thường, tên dài cứ quấn dòng).
   function fitWinnerNames() {
@@ -394,6 +415,18 @@ export function init(root) {
     return rec ? (rec.points || 0) : 0;
   }
 
+  // Cấp độ thi đua theo điểm (dùng helper dùng chung, dự phòng giống
+  // hệt khi app.js chưa nạp): Lv.1 Mầm non (0–1 điểm), Lv.2 Chăm chỉ
+  // (2–4 điểm), Lv.3 Ngôi sao (5 điểm trở lên).
+  function levelOf(points) {
+    const h = gvClasses();
+    if (h && typeof h.level === 'function') return h.level(points || 0);
+    const p = points || 0;
+    if (p >= 5) return { n: 3, name: 'Ngôi sao', label: 'Lv.3 · Ngôi sao', short: 'Lv.3' };
+    if (p >= 2) return { n: 2, name: 'Chăm chỉ', label: 'Lv.2 · Chăm chỉ', short: 'Lv.2' };
+    return { n: 1, name: 'Mầm non', label: 'Lv.1 · Mầm non', short: 'Lv.1' };
+  }
+
   // Tên gọi hiển thị trên sân khấu: tên gọi (từ cuối); trùng tên gọi
   // thì 2 chữ cuối; trùng cả họ tên thì đánh số (1)/(2) — cùng logic
   // nhãn vòng quay, tính trên toàn bộ danh sách lớp.
@@ -403,34 +436,63 @@ export function init(root) {
     return wheelLabels(list)[idx] || list[idx];
   }
 
+  // Nhãn 2 nút gọi chính theo trạng thái: nút QUAY ở giữa vòng quay
+  // và nút Gọi tên ở chế độ Tên to.
+  function paintCallButtons() {
+    const hub = $('gt-call');
+    if (hub) hub.textContent = roundPicks.length ? 'QUAY TIẾP' : 'QUAY';
+    const bigBtn = $('gt-call-big');
+    if (bigBtn) bigBtn.textContent = roundPicks.length ? 'Gọi bạn tiếp theo' : 'Gọi tên';
+  }
+
+  function setCallDisabled(dis) {
+    const hub = $('gt-call');
+    if (hub) hub.disabled = dis;
+    const bigBtn = $('gt-call-big');
+    if (bigBtn) bigBtn.disabled = dis;
+  }
+
+  // Khung hỏi "Gọi lại từ đầu?" khi đã gọi hết cả lớp.
+  function showExhausted() {
+    const el = $('gt-exhausted');
+    if (el) el.style.display = '';
+  }
+  function hideExhausted() {
+    const el = $('gt-exhausted');
+    if (el) el.style.display = 'none';
+  }
+
   function renderWinner() {
     const w = $('gt-winner');
     if (!roundPicks.length) {
       w.style.display = 'none';
       w.innerHTML = '';
-      if (IN_APP) $('gt-call').textContent = 'Gọi tên';
-      syncHero();
-      syncPanes();
+      paintCallButtons();
       return;
     }
-    if (IN_APP) $('gt-call').textContent = 'Gọi bạn tiếp theo';
+    paintCallButtons();
     if (IN_APP) {
-      // MẪU 1: nhãn "MỜI BẠN", tên gọi 120px đậm, đủ họ tên 32px,
-      // hàng chấm điểm −1 | N điểm | +1 ngay tại chỗ (dùng chung cột
-      // điểm của lớp). Gọi nhiều bạn một lần thì mỗi bạn một khối nhỏ
-      // hơn để vừa thẻ. Tên hiển thị có đánh số trùng tên ("Bùi Ngọc
-      // Lan (1)/(2)"); hàng điểm mang data-points-id để cộng đúng bạn.
+      // MẪU 5: nền #FEF3C7, viền cam 3px, tên gọi 88px đậm, đủ họ tên,
+      // chip cấp độ + chip điểm, 3 nút 56px −1/+1/+2. Gọi nhiều bạn
+      // một lần thì mỗi bạn một thẻ nhỏ xếp chồng.
       const multi = roundPicks.length > 1;
-      let html = '<p class="gv-hero-label">Mời bạn</p>';
+      let html = '<p class="gv-hero-label">' + (multi ? 'Mời các bạn' : 'Mời bạn') + '</p>';
       roundPicks.forEach((p, i) => {
-        const label = entryLabelAt(roundPickIdx[i]);
-        html += '<div class="gv-winner-given' + (multi ? ' gv-winner-name-sm' : '') + '">' + esc(entryGivenAt(roundPickIdx[i])) + '</div>';
-        html += '<div class="gv-winner-full' + (multi ? ' gv-winner-full-sm' : '') + '">' + esc(label) + '</div>';
-        html += '<div class="gv-points-row" data-points-id="' + esc(recIdForCallIdx(roundPickIdx[i])) + '">'
-          + '<button type="button" class="gv-points-btn" data-point-delta="-1" aria-label="Trừ 1 điểm cho ' + esc(label) + '">−</button>'
-          + '<span class="gv-points-val">' + currentPoints(roundPickIdx[i]) + ' điểm</span>'
-          + '<button type="button" class="gv-points-btn gv-points-plus" data-point-delta="1" aria-label="Cộng 1 điểm cho ' + esc(label) + '">+</button>'
-          + '</div>';
+        const idx = roundPickIdx[i];
+        const label = entryLabelAt(idx);
+        const id = recIdForCallIdx(idx);
+        const pts = currentPoints(idx);
+        const lv = levelOf(pts);
+        html += '<div class="gv-winner-card' + (multi ? ' gv-winner-card-sm' : '') + '">'
+          + '<div class="gv-winner-given' + (multi ? ' gv-winner-name-sm' : '') + '">' + esc(entryGivenAt(idx)) + '</div>'
+          + '<div class="gv-winner-full' + (multi ? ' gv-winner-full-sm' : '') + '">' + esc(label) + '</div>'
+          + '<div class="gv-winner-chips"><span class="gv-level-chip" data-lv-for="' + esc(id) + '">' + esc(lv.label) + '</span>'
+          + '<span class="gv-points-chip" data-pts-for="' + esc(id) + '">' + pts + ' điểm</span></div>'
+          + '<div class="gv-points-row" data-points-id="' + esc(id) + '">'
+          + '<button type="button" class="gv-points-btn" data-point-delta="-1" aria-label="Trừ 1 điểm cho ' + esc(label) + '">−1</button>'
+          + '<button type="button" class="gv-points-btn gv-points-plus" data-point-delta="1" aria-label="Cộng 1 điểm cho ' + esc(label) + '">+1</button>'
+          + '<button type="button" class="gv-points-btn gv-points-plus2" data-point-delta="2" aria-label="Cộng 2 điểm cho ' + esc(label) + '">+2</button>'
+          + '</div></div>';
       });
       html += '<p class="muted" id="gt-point-msg" style="margin-top:8px"></p>';
       w.innerHTML = html;
@@ -438,8 +500,7 @@ export function init(root) {
       w.classList.remove('gv-pop');
       void w.offsetWidth;
       w.classList.add('gv-pop');
-      syncHero();
-      syncPanes();
+      fitWinnerNames();
       return;
     }
     const cls = roundPicks.length > 1 ? 'gv-winner-name gv-winner-name-sm' : 'gv-winner-name';
@@ -459,20 +520,22 @@ export function init(root) {
     w.classList.remove('gv-pop');
     void w.offsetWidth;
     w.classList.add('gv-pop');
-    syncHero();
-    syncPanes();
   }
 
   // Cộng/trừ điểm ngay trên thẻ người thắng (chế độ app): ghi theo
-  // id trong bản ghi lớp, cập nhật số hiển thị + ngăn lớp.
-  function changePoint(id, delta, rowEl) {
+  // id trong bản ghi lớp, cập nhật chip điểm + chip cấp độ + ngăn lớp.
+  function changePoint(id, delta) {
     const helper = gvClasses();
     const active = helper && typeof helper.active === 'function' ? helper.active() : '';
     if (!helper || !active || !id || typeof helper.addPointsById !== 'function') return;
     if (!helper.addPointsById(active, id, delta)) return;
     const rec = (typeof helper.getRecordById === 'function') ? helper.getRecordById(active, id) : null;
-    const val = rowEl ? rowEl.querySelector('.gv-points-val') : null;
-    if (val && rec) val.textContent = rec.points + ' điểm';
+    if (rec) {
+      const ptsEl = root.querySelector('[data-pts-for="' + id + '"]');
+      if (ptsEl) ptsEl.textContent = rec.points + ' điểm';
+      const lvEl = root.querySelector('[data-lv-for="' + id + '"]');
+      if (lvEl) lvEl.textContent = levelOf(rec.points).label;
+    }
     tick();
     if (typeof window !== 'undefined' && window.UhGvApp && typeof window.UhGvApp.refresh === 'function') {
       window.UhGvApp.refresh();
@@ -546,19 +609,82 @@ export function init(root) {
   }
 
   $('gt-winner').addEventListener('click', (ev) => {
-    // Hàng chấm điểm −1 | N điểm | +1 trong app (MẪU 1): ghi theo id
-    // trong bản ghi lớp, không khóa nút (cộng/trừ nhiều lần được).
+    // Hàng chấm điểm −1/+1/+2 trong app (MẪU 5): ghi theo id trong
+    // bản ghi lớp, không khóa nút (cộng/trừ nhiều lần được).
     const dp = ev.target.closest('button[data-point-delta]');
     if (dp) {
       const row = dp.closest('.gv-points-row');
       const id = row ? row.getAttribute('data-points-id') : '';
-      if (id) changePoint(id, parseInt(dp.getAttribute('data-point-delta'), 10) || 0, row);
+      if (id) changePoint(id, parseInt(dp.getAttribute('data-point-delta'), 10) || 0);
       return;
     }
     const btn = ev.target.closest('button[data-add-point]');
     if (!btn || btn.disabled) return;
     addPoint(btn.getAttribute('data-add-point'), parseInt(btn.getAttribute('data-add-point-idx'), 10), btn);
   });
+
+  // ---------- Hộp quà / Lật thẻ: lưới ô úp, chạm để mở ----------
+  // Mỗi bạn chưa gọi được xáo trộn rồi gán vào 1 ô úp khi mở chế độ
+  // (hoặc khi danh sách đổi); bạn đã gọi giữ ô mở, mờ đi. Chạm 1 ô
+  // là gọi bạn trong ô đó. Số bạn mỗi lần chỉ áp cho nút Quay/Gọi
+  // tên, không áp cho chạm tay.
+  function currentGrid() {
+    if (mode === 'gift') return $('gt-gift-grid');
+    if (mode === 'cards') return $('gt-card-grid');
+    return null;
+  }
+
+  function buildRevealGrid(m) {
+    const grid = (m === 'gift') ? $('gt-gift-grid') : $('gt-card-grid');
+    if (!grid) return;
+    const list = nameList();
+    const rem = remainingIdx();
+    const shuffled = rem.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const t = shuffled[i]; shuffled[i] = shuffled[j]; shuffled[j] = t;
+    }
+    let next = 0;
+    const cells = [];
+    for (let i = 0; i < list.length; i++) {
+      const isCalled = called.indexOf(entryIdAt(i)) !== -1;
+      const color = WHEEL_COLORS[i % WHEEL_COLORS.length];
+      if (isCalled) {
+        cells.push('<button type="button" class="gt-cell gt-cell-open" data-idx="' + i + '" disabled title="' + esc(entryLabelAt(i)) + '" aria-label="Đã gọi: ' + esc(entryLabelAt(i)) + '"><span class="gt-cell-name">' + esc(entryGivenAt(i)) + '</span></button>');
+      } else {
+        const assigned = shuffled[next++];
+        const face = (m === 'gift')
+          ? GIFT_SVG
+          : '<span class="gt-cell-num">' + (i + 1) + '</span>';
+        cells.push('<button type="button" class="gt-cell gt-cell-down" data-idx="' + assigned + '" style="background:' + color + '" aria-label="' + (m === 'gift' ? 'Hộp quà chưa mở' : 'Thẻ số ' + (i + 1) + ' chưa lật') + '">' + face + '</button>');
+      }
+    }
+    grid.innerHTML = cells.join('');
+  }
+
+  function revealCell(cell, idx) {
+    cell.classList.remove('gt-cell-down');
+    cell.classList.add('gt-cell-open', 'gv-pop');
+    cell.style.background = '';
+    cell.disabled = true;
+    cell.innerHTML = '<span class="gt-cell-name">' + esc(entryGivenAt(idx)) + '</span>';
+    cell.setAttribute('aria-label', 'Đã gọi: ' + esc(entryLabelAt(idx)));
+    cell.title = entryLabelAt(idx);
+    announcePick(idx);
+  }
+
+  function onGridClick(ev) {
+    const cell = ev.target.closest('.gt-cell-down');
+    if (!cell || busy) return;
+    const idx = parseInt(cell.getAttribute('data-idx'), 10);
+    if (isNaN(idx)) return;
+    roundPicks = [];
+    roundPickIdx = [];
+    roundPickIds = [];
+    $('gt-winner').style.display = 'none';
+    hideExhausted();
+    revealCell(cell, idx);
+  }
 
   // Chế độ Chiếu lớp: lớp phủ toàn màn hình chỉ hiện kết quả.
   function ensureStage() {
@@ -602,16 +728,30 @@ export function init(root) {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && stageOpen) closeStage();
     // Trong Bàn giáo viên, phím Space/Enter của app gọi tên thay phím R
-    // (tránh gọi nhầm khi giáo viên đang ở tab khác).
-    if (IN_APP) return;
+    // (tránh gọi nhầm khi giáo viên đang ở tab khác); phím +/− cộng
+    // trừ điểm cho bạn vừa gọi.
+    if (IN_APP) {
+      if ((e.key === '+' || e.key === '-') && !e.ctrlKey && !e.metaKey && !e.altKey && roundPickIds.length) {
+        const t = e.target;
+        const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
+        if (!typing) {
+          const id = roundPickIds[roundPickIds.length - 1];
+          if (id) changePoint(id, e.key === '+' ? 1 : -1);
+        }
+      }
+      return;
+    }
     const t = e.target;
     const typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
     if ((e.key === 'r' || e.key === 'R') && !typing && !busy) { e.preventDefault(); call(); }
   });
 
   // Quay 1 lần, dừng ở bạn đã chọn trước (theo chỉ số trong danh sách
-  // để 2 bạn trùng tên dừng đúng ô của mình). done() chạy khi dừng hẳn.
+  // để 2 bạn trùng tên dừng đúng ô của mình). Vẽ lại vòng ở ĐẦU lần
+  // quay này — lát vừa trúng ở lần trước giờ mới bị bỏ khỏi vòng.
+  // done() chạy khi dừng hẳn. Quay 3,2s giảm dần.
   function spinOnce(pickIdx, done) {
+    drawWheel();
     const rem = remainingIdx();
     const idx = rem.indexOf(pickIdx);
     const n = rem.length;
@@ -646,7 +786,7 @@ export function init(root) {
     setTimeout(() => {
       ticking = false;
       done();
-    }, 3700);
+    }, 3200);
   }
 
   function announcePick(pickIdx) {
@@ -655,17 +795,10 @@ export function init(root) {
     roundPickIdx.push(pickIdx);
     roundPickIds.push(entryIdAt(pickIdx));
     renderWinner();
-    // Chế độ app + vòng quay: vòng quay chiếm nửa thẻ, thẻ người thắng
-    // nằm dưới mép — cuộn tới thẻ để cô thấy ngay tên to + điểm.
-    // Đợi 400ms cho hiệu ứng nảy (0,35s) xong rồi mới cuộn, không thì
-    // vị trí đo lúc đang co (scale 0,92) sẽ lệch ~11px.
-    if (IN_APP && mode === 'wheel') {
-      const wEl = $('gt-winner');
-      setTimeout(function () {
-        if (wEl && typeof wEl.scrollIntoView === 'function') {
-          try { wEl.scrollIntoView({ behavior: 'auto', block: 'start' }); } catch (e) { /* bỏ qua */ }
-        }
-      }, 400);
+    // Chế độ Tên to: khung tên to giữ nguyên, hiện tên vừa gọi.
+    if (mode === 'big') {
+      const big = $('gt-big');
+      if (big) big.innerHTML = '<div class="gv-big">' + esc(entryGivenAt(pickIdx)) + '</div>';
     }
     // Chế độ app: tô dòng bạn đang gọi ở ngăn Danh sách lớp (theo id).
     if (IN_APP && typeof window !== 'undefined' && window.UhGvApp && typeof window.UhGvApp.setCalled === 'function') {
@@ -675,26 +808,28 @@ export function init(root) {
     updateStatus();
     updateStage();
     fanfare();
-    // Pháo giấy rơi trên khung đang hiện (vòng quay hoặc thẻ người thắng
-    // ở chế độ chạy tên — khung vòng quay đang ẩn thì không thấy gì).
-    confetti(mode === 'text' ? $('gt-winner') : $('gt-wheel-wrap'));
+    // Pháo giấy rơi trên khung đang hiện.
+    const pane = mode === 'wheel' ? $('gt-wheel-wrap') : (mode === 'big' ? $('gt-hero') : currentGrid());
+    confetti(pane || $('gt-winner'));
     const left = remainingNames().length;
-    $('gt-wheel-sub').textContent = left > 0
+    const msg = left > 0
       ? 'Còn ' + left + ' bạn chưa được gọi'
-      : 'Đã gọi hết danh sách — bấm "Gọi lại từ đầu" để gọi vòng mới.';
-    $('gt-sub').textContent = $('gt-wheel-sub').textContent;
+      : 'Đã gọi hết danh sách.';
+    $('gt-wheel-sub').textContent = msg;
+    $('gt-sub').textContent = msg;
+    if (left === 0) showExhausted();
   }
 
-  // Chế độ chạy tên cũ (lớp đông, tên dài).
-  function callTextMode(picks, onDone) {
+  // Chế độ Tên to: tên chạy nhanh rồi dừng ở bạn được chọn.
+  function callBigMode(picks, onDone) {
     const remaining = remainingNames();
     busy = true;
-    $('gt-call').disabled = true;
+    setCallDisabled(true);
     $('gt-sub').textContent = 'Đang chọn…';
     if (REDUCED) {
       picks.forEach(p => announcePick(p));
       busy = false;
-      $('gt-call').disabled = false;
+      setCallDisabled(false);
       onDone();
       return;
     }
@@ -717,13 +852,34 @@ export function init(root) {
         clearInterval(timer);
         big.classList.remove('gv-cycling');
         picks.forEach(p => announcePick(p));
-        // Hộp chạy tên đã ẩn sau khi công bố (chỉ giữ thẻ người thắng
-        // khổng lồ) nên không cần ghi tên vào hộp nữa.
         busy = false;
-        $('gt-call').disabled = false;
+        setCallDisabled(false);
         onDone();
       }
     }, 70);
+  }
+
+  // Hộp quà / Lật thẻ qua nút Quay (Space): mở ngẫu nhiên từng ô,
+  // cách nhau một nhịp để thấy rõ từng bạn.
+  function callRevealMode(picks, onDone) {
+    busy = true;
+    setCallDisabled(true);
+    let i = 0;
+    (function next() {
+      if (i >= picks.length) {
+        busy = false;
+        setCallDisabled(false);
+        onDone();
+        return;
+      }
+      const pick = picks[i++];
+      const grid = currentGrid();
+      const cell = grid ? grid.querySelector('[data-idx="' + pick + '"]') : null;
+      if (cell && cell.classList.contains('gt-cell-down')) revealCell(cell, pick);
+      else announcePick(pick);
+      if (i < picks.length) setTimeout(next, 450);
+      else next();
+    })();
   }
 
   function call() {
@@ -736,8 +892,9 @@ export function init(root) {
       return;
     }
     if (!remaining.length) {
-      $('gt-wheel-sub').textContent = 'Đã gọi hết danh sách — bấm "Gọi lại từ đầu" để gọi vòng mới.';
+      $('gt-wheel-sub').textContent = 'Đã gọi hết danh sách.';
       $('gt-sub').textContent = $('gt-wheel-sub').textContent;
+      showExhausted();
       return;
     }
     const count = Math.min(parseInt($('gt-count').value, 10) || 1, remaining.length);
@@ -751,28 +908,40 @@ export function init(root) {
     roundPickIdx = [];
     roundPickIds = [];
     $('gt-winner').style.display = 'none';
-    syncHero();
-    syncPanes(); // vòng gọi mới: hiện lại khung vòng quay để quay tiếp
-    if (mode === 'text') {
-      callTextMode(picks, () => {});
+    hideExhausted();
+    // Còn đúng 1 bạn: gọi luôn, không cần quay/chạy tên/mở ô.
+    if (remaining.length === 1) {
+      if (mode === 'gift' || mode === 'cards') {
+        const grid = currentGrid();
+        const cell = grid ? grid.querySelector('[data-idx="' + picks[0] + '"]') : null;
+        if (cell && cell.classList.contains('gt-cell-down')) { revealCell(cell, picks[0]); return; }
+      }
+      announcePick(picks[0]);
+      return;
+    }
+    if (mode === 'big') {
+      callBigMode(picks, () => {});
+      return;
+    }
+    if (mode === 'gift' || mode === 'cards') {
+      callRevealMode(picks, () => {});
       return;
     }
     // Chế độ vòng quay: quay lần lượt từng bạn.
     busy = true;
-    $('gt-call').disabled = true;
+    setCallDisabled(true);
     let i = 0;
     (function next() {
       if (i >= picks.length) {
         busy = false;
-        $('gt-call').disabled = false;
-        drawWheel();
+        setCallDisabled(false);
         return;
       }
       const pick = picks[i++];
       spinOnce(pick, () => {
         announcePick(pick);
         if (i < picks.length) {
-          setTimeout(() => { drawWheel(); next(); }, 800);
+          setTimeout(next, 800);
         } else {
           next();
         }
@@ -787,51 +956,56 @@ export function init(root) {
     roundPickIds = [];
     $('gt-big').innerHTML = '<div class="gv-big">' + (IN_APP ? '?' : '—') + '</div>';
     $('gt-sub').textContent = 'Bấm "Gọi tên" để bắt đầu';
-    $('gt-wheel-sub').textContent = 'Bấm "Gọi tên" để quay';
+    $('gt-wheel-sub').textContent = 'Bấm "Quay" để bắt đầu';
     $('gt-winner').style.display = 'none';
     $('gt-winner').innerHTML = '';
+    hideExhausted();
     if (IN_APP) {
-      $('gt-call').textContent = 'Gọi tên';
       if (typeof window !== 'undefined' && window.UhGvApp && typeof window.UhGvApp.clearCalled === 'function') {
         window.UhGvApp.clearCalled();
       }
     }
+    paintCallButtons();
     updateStatus();
     updateStage();
-    syncHero();
-    syncPanes();
     drawWheel();
+    if (mode === 'gift' || mode === 'cards') buildRevealGrid(mode);
   }
 
   function setMode(m) {
     mode = m;
-    $('gt-tab-wheel').classList.toggle('tab-active', m === 'wheel');
-    $('gt-tab-text').classList.toggle('tab-active', m === 'text');
+    root.querySelectorAll('.gt-mode').forEach(b => {
+      const on = b.getAttribute('data-mode') === m;
+      b.classList.toggle('gt-mode-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
     $('gt-pane-wheel').style.display = m === 'wheel' ? '' : 'none';
-    $('gt-pane-text').style.display = m === 'text' ? '' : 'none';
-    // Trong app, dòng "Bấm Gọi tên để quay" nằm ngoài 2 ngăn nên ở chế
-    // độ Tên to nó hiện thừa dưới dòng "Bấm Gọi tên để bắt đầu" — chỉ
-    // hiện khi đang ở ngăn Vòng quay. (Trang rời giữ nguyên.)
-    if (IN_APP) $('gt-wheel-sub').style.display = m === 'wheel' ? '' : 'none';
-    syncHero();
-    syncPanes();
+    $('gt-pane-gift').style.display = m === 'gift' ? '' : 'none';
+    $('gt-pane-cards').style.display = m === 'cards' ? '' : 'none';
+    $('gt-pane-big').style.display = m === 'big' ? '' : 'none';
     if (m === 'wheel') drawWheel();
+    if (m === 'gift' || m === 'cards') buildRevealGrid(m);
   }
 
   // Lớp đông (trên 24 bạn): vòng quay không đọc được tên nên tự động
-  // mở ở chế độ chạy tên + hiện gợi ý; giáo viên vẫn chọn vòng quay
+  // mở ở chế độ Tên to + hiện gợi ý; giáo viên vẫn chọn vòng quay
   // được tay nếu muốn (gợi ý vẫn hiện khi danh sách còn đông).
   function checkBigClass() {
     const big = nameList().length > 24;
     $('gt-big-hint').style.display = big ? '' : 'none';
-    if (big && mode === 'wheel') setMode('text');
+    if (big && mode === 'wheel') setMode('big');
   }
 
-  $('gt-tab-wheel').addEventListener('click', () => setMode('wheel'));
-  $('gt-tab-text').addEventListener('click', () => setMode('text'));
+  root.querySelectorAll('.gt-mode').forEach(b => {
+    b.addEventListener('click', () => setMode(b.getAttribute('data-mode')));
+  });
   $('gt-call').addEventListener('click', call);
+  $('gt-call-big').addEventListener('click', call);
   $('gt-stage').addEventListener('click', openStage);
   $('gt-reset').addEventListener('click', resetAll);
+  $('gt-exhausted-reset').addEventListener('click', resetAll);
+  $('gt-gift-grid').addEventListener('click', onGridClick);
+  $('gt-card-grid').addEventListener('click', onGridClick);
   $('gt-names').addEventListener('input', () => { resetAll(); checkBigClass(); });
 
   $('gt-download').addEventListener('click', () => {
@@ -856,6 +1030,12 @@ export function init(root) {
   // window.UhGvClasses trong app.js, khóa localStorage 'uh_gv_lop').
   function gvClasses() {
     return (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
+  }
+
+  // Tên lớp hiển thị ('Lớp 10A1', không 'Lớp Lớp mẫu').
+  function classLabel(n) {
+    const h = gvClasses();
+    return (h && h.classLabel) ? h.classLabel(n) : 'Lớp ' + String(n || '').replace(/^Lớp\s+/, '');
   }
 
   function classMsg(text) {
@@ -981,10 +1161,12 @@ export function init(root) {
     const entries = [];
     recs.forEach((r, i) => {
       if (r.absent) return;
-      entries.push({ id: r.id, name: r.name, label: labels[i] || r.name, given: givens[i] || r.name });
+      entries.push({ id: r.id, name: r.name, label: labels[i] || r.name, given: givens[i] || r.name, star: !!r.star, gender: r.gender || '' });
     });
-    const names = entries.map(e => e.name);
-    const sig = active + '\n' + entries.map(e => e.id + '|' + e.name).join('\n');
+    // Phạm vi "Chỉ bạn có sao": chỉ giữ bạn có sao trong danh sách gọi.
+    const pool = (scope === 'star') ? entries.filter(e => e.star) : entries;
+    const names = pool.map(e => e.name);
+    const sig = active + '|' + scope + '\n' + pool.map(e => e.id + '|' + e.name + '|' + (e.star ? 1 : 0)).join('\n');
     if (sig === appSig) return;
     appSig = sig;
     // Chưa có lớp (hoặc lớp chưa có bạn nào để gọi): hiện đúng 1 nút
@@ -995,7 +1177,9 @@ export function init(root) {
       noClass.style.display = show ? '' : 'none';
       if (show) {
         $('gt-no-class-text').textContent = active
-          ? 'Lớp ' + active + ' chưa có bạn nào để gọi — thêm bạn hoặc bỏ đánh dấu Vắng ở tab Lớp học.'
+          ? (scope === 'star'
+              ? classLabel(active) + ' chưa có bạn nào có sao — đánh dấu sao ở ngăn Danh sách lớp hoặc tab Lớp học.'
+              : classLabel(active) + ' chưa có bạn nào để gọi — thêm bạn hoặc bỏ đánh dấu Vắng ở tab Lớp học.')
           : 'Chưa có lớp nào — tạo lớp ở tab Lớp học để gọi tên.';
         $('gt-no-class-btn').textContent = active ? 'Mở tab Lớp học' : 'Tạo lớp';
       }
@@ -1007,9 +1191,9 @@ export function init(root) {
     const prevCalled = called.slice();
     const prevPickIds = roundPickIds.slice();
     const prevPicks = roundPicks.slice();
-    appEntries = entries;
+    appEntries = pool;
     const idSet = {};
-    entries.forEach(e => { idSet[e.id] = true; });
+    pool.forEach(e => { idSet[e.id] = true; });
     called = prevCalled.filter(id => idSet[id]);
     roundPicks = [];
     roundPickIdx = [];
@@ -1028,8 +1212,9 @@ export function init(root) {
         ? 'Bấm "Gọi tên" để bắt đầu'
         : 'Lớp này chưa có bạn nào để gọi — chọn lớp khác hoặc bỏ đánh dấu Vắng ở tab Lớp học.';
       $('gt-wheel-sub').textContent = names.length
-        ? 'Bấm "Gọi tên" để quay'
+        ? 'Bấm "Quay" để bắt đầu'
         : 'Lớp này chưa có bạn nào để gọi.';
+      paintCallButtons();
     } else {
       // Vòng gọi còn bạn sau khi ánh xạ lại theo id: vẽ lại thẻ để
       // nút +1 mang id mới (chỉ số cũ vô hiệu khi danh sách đổi).
@@ -1037,11 +1222,22 @@ export function init(root) {
     }
     updateStatus();
     drawWheel();
+    if (mode === 'gift' || mode === 'cards') buildRevealGrid(mode);
     checkBigClass();
-    syncHero();
-    syncPanes();
     updateStage();
   }
+
+  // Đổi phạm vi gọi (chế độ app): gọi lại từ đầu vì danh sách gọi đã
+  // đổi hẳn (không giữ lượt đã gọi của phạm vi cũ).
+  root.querySelectorAll('input[name="gt-scope"]').forEach(r => {
+    r.addEventListener('change', () => {
+      if (!r.checked) return;
+      scope = r.value;
+      appSig = '';
+      resetAll();
+      loadFromActiveClass();
+    });
+  });
 
   if (IN_APP) {
     // Xóa hẳn khỏi DOM (không chỉ ẩn): ô dán tên + khung quản lý lớp
@@ -1051,11 +1247,6 @@ export function init(root) {
     if (namesField) namesField.remove();
     const box = $('gt-class-box');
     if (box) box.remove();
-    // MẪU 1: mặc định chế độ "Tên to" (tên gọi 120px trên sân khấu);
-    // vòng quay là chế độ xem thứ hai, quay xong vẫn công bố bằng
-    // thẻ tên to như trên.
-    $('gt-tab-text').textContent = 'Tên to';
-    $('gt-tab-wheel').textContent = 'Vòng quay';
     const heroLabel = root.querySelector('#gt-hero .gv-hero-label');
     if (heroLabel) heroLabel.textContent = 'Mời bạn';
     // Lúc chờ hiện "?" thay cho gạch "—" (gạch ở cỡ 120px trông như
@@ -1063,7 +1254,6 @@ export function init(root) {
     $('gt-big').innerHTML = '<div class="gv-big">?</div>';
     const bigHint = $('gt-big-hint');
     if (bigHint) bigHint.textContent = 'Lớp đông (trên 24 bạn) — chế độ Tên to đọc rõ tên hơn vòng quay.';
-    setMode('text');
     // Phím R tắt trong app (Space/Enter của app gọi tên thay) nên gợi
     // ý trong mô tả cũng đổi theo, tránh chỉ phím không còn tác dụng.
     const desc = root.querySelector('.tool-head p');
@@ -1077,8 +1267,6 @@ export function init(root) {
     // App gọi để xóa lượt đang gọi khi danh sách lớp đổi giữa chừng
     // (thêm/xóa/sửa tên/đổi lớp) — nút +1 không mở lại được.
     root._gvClearRound = resetAll;
-    // Chế độ Dạy đổi thì đồng bộ khung vòng quay (ẩn khi đã công bố).
-    document.addEventListener('gv-teach', syncPanes);
     // Đổi cỡ cửa sổ (vd chuyển máy chiếu): vừa lại tên gọi theo thẻ.
     var resizeTimer = null;
     window.addEventListener('resize', function () {
@@ -1087,6 +1275,9 @@ export function init(root) {
     });
     loadFromActiveClass();
   } else {
+    // Trang rời không có dữ liệu sao nên ẩn chọn phạm vi.
+    const scopeEl = $('gt-scope');
+    if (scopeEl) scopeEl.style.display = 'none';
     refreshClassSelect();
   }
   drawWheel();

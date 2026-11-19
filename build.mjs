@@ -567,6 +567,10 @@ function toolPageHtml(tool, index, noscriptLinks) {
       <button type="button" class="btn btn-primary" data-uh-report-send>Soạn email</button>
     </div>
   </dialog>`;
+  // Dòng Ủng hộ dưới kết quả MỌI công cụ (Tuấn chốt 19/11): chữ
+  // 14px, nhẹ, không popup, không che nội dung. Chèn một lần ở đây
+  // (ngay sau khung công cụ) nên cả trang MẪU 2 cũng có.
+  const donateHtml = `<p class="uh-donate-line">Công cụ này có ích? <a href="/ung-ho/">Ủng hộ một ly cà phê →</a></p>`;
   const bodyInner = `
   <nav class="breadcrumb" aria-label="Đường dẫn">${isM2 ? `<a href="/cong-cu/?cat=${esc(tool.categorySlug)}">← ${esc(tool.categoryLabel)}</a>` : `<a href="/cong-cu/">← Tất cả công cụ</a>`}</nav>
   <header class="tool-page-head">
@@ -579,6 +583,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
   </div>
+  ${donateHtml}
   ${reportHtml}
   ${isM2 ? `<script>\n${getM2FormulasSrc()}\n</script>` : ''}
   <script>
@@ -626,16 +631,20 @@ function newsDay(publishedAt) {
   return isNaN(d.getTime()) ? '' : VN_DAY.format(d);
 }
 
-function newsArchiveHtml(date, items) {
-  const [y, m, d] = date.split('-');
-  const label = `${d}/${m}/${y}`;
-  const cards = items.map((it) => `
-    <article class="news-card">
+function newsCardItem(it) {
+  return `
+    <article class="news-card" data-news-group="${esc(it.group || '')}">
       <h4><a href="${esc(it.link || '')}" target="_blank" rel="noopener">${esc(it.titleVi || it.title || '(không có tiêu đề)')}</a></h4>
       ${it.summary ? `<p class="news-summary">${esc(it.summary)}</p>` : ''}
       ${it.why ? `<p class="news-why">${esc(it.why)}</p>` : ''}
       <p class="news-meta">${esc([NEWS_GROUP_LABELS[it.group] || it.group || '', it.source || ''].filter(Boolean).join(' · '))}</p>
-    </article>`).join('\n');
+    </article>`;
+}
+
+function newsArchiveHtml(date, items) {
+  const [y, m, d] = date.split('-');
+  const label = `${d}/${m}/${y}`;
+  const cards = items.map(newsCardItem).join('\n');
   const body = `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/diem-bao/">← Điểm báo</a></nav>
   <header class="tool-page-head">
@@ -654,31 +663,74 @@ function newsArchiveHtml(date, items) {
   });
 }
 
-// Trang mục Điểm báo (/diem-bao/): liệt kê các ngày có lưu trữ (mới
-// nhất trước), mỗi ngày kèm số tin + link tới trang lưu trữ ngày đó.
-// Trang này là đích của mục "Điểm báo" trên header/footer (L7); khi
-// chưa có ngày nào thì hiện câu báo trống thay vì danh sách rỗng.
+// Trang mục Điểm báo (/diem-bao/) — làm lại đợt V2 (19/11): trang đầu
+// hiện LUÔN tin của ngày mới nhất (thẻ tin như trang chủ, lọc theo
+// AI / Chứng khoán / Crypto bằng chip), danh sách ngày cũ ở cột phải
+// (xuống cuối trang trên điện thoại). Trước đây trang này chỉ có 2
+// dòng ngày, trông trống. Trang này là đích của mục "Điểm báo" trên
+// header/footer (L7); khi chưa có ngày nào thì hiện câu báo trống.
 function newsIndexHtml(newsByDay, newsDays) {
   const fmtDay = (date) => {
     const [y, m, d] = date.split('-');
     return `${d}/${m}/${y}`;
   };
-  const list = newsDays.length
-    ? `<ul class="news-archive-list">${newsDays.map((day) => {
+  const newest = newsDays[0] || '';
+  const items = newest ? (newsByDay.get(newest) || []) : [];
+  const groups = ['ai', 'chung-khoan', 'crypto'];
+  const counts = {};
+  items.forEach((it) => { if (it.group) counts[it.group] = (counts[it.group] || 0) + 1; });
+  const chips = [`<button type="button" class="hd-chip" data-news-chip="all" aria-pressed="true">Tất cả · ${items.length}</button>`]
+    .concat(groups.map((g) => `<button type="button" class="hd-chip" data-news-chip="${g}" aria-pressed="false">${esc(NEWS_GROUP_LABELS[g])} · ${counts[g] || 0}</button>`))
+    .join('\n      ');
+  const cards = items.map(newsCardItem).join('\n');
+  const older = newsDays.slice(1);
+  const aside = older.length ? `
+    <aside class="news-aside" aria-label="Ngày trước">
+      <h2>Ngày trước</h2>
+      <ul class="news-archive-list">${older.map((day) => {
         const count = (newsByDay.get(day) || []).length;
-        return `<li><a href="/diem-bao/${day}/">Ngày ${fmtDay(day)}</a> — ${count} tin</li>`;
-      }).join('\n')}</ul>`
-    : '<p class="muted">Chưa có ngày lưu trữ nào — Điểm báo sẽ xuất hiện ở đây sau bản tin đầu tiên.</p>';
-  const body = `
+        return `<li><a href="/diem-bao/${day}/">Ngày ${fmtDay(day)}</a> <span class="muted">— ${count} tin</span></li>`;
+      }).join('\n')}</ul>
+    </aside>` : '';
+  const body = newest ? `
   <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">← Trang chủ</a></nav>
   <header class="tool-page-head">
     <h1>Điểm báo</h1>
-    <p class="muted">Tin về AI, chứng khoán và crypto, tóm tắt ngắn bằng lời của mình. Bấm vào một ngày để đọc các tin của ngày đó, bấm tiêu đề tin để đọc bản gốc.</p>
+    <p class="muted">Tin ngày ${fmtDay(newest)} — về AI, chứng khoán và crypto, tóm tắt ngắn bằng lời của mình. Bấm tiêu đề tin để đọc bản gốc.</p>
   </header>
   <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
-  ${list}`;
+  <div class="news-index-layout">
+    <div class="news-index-main">
+      <div class="hd-chips" role="group" aria-label="Lọc theo nhóm tin">
+      ${chips}
+      </div>
+      <div class="news-list">${cards}</div>
+    </div>${aside}
+  </div>
+  <script>
+  (function () {
+    var chips = document.querySelectorAll('[data-news-chip]');
+    var cards = document.querySelectorAll('[data-news-group]');
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var t = chip.getAttribute('data-news-chip');
+        chips.forEach(function (c) { c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'); });
+        cards.forEach(function (card) {
+          card.style.display = (t === 'all' || card.getAttribute('data-news-group') === t) ? '' : 'none';
+        });
+      });
+    });
+  })();
+  </script>` : `
+  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/">← Trang chủ</a></nav>
+  <header class="tool-page-head">
+    <h1>Điểm báo</h1>
+    <p class="muted">Tin về AI, chứng khoán và crypto, tóm tắt ngắn bằng lời của mình. Bấm tiêu đề tin để đọc bản gốc.</p>
+  </header>
+  <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
+  <p class="muted">Chưa có ngày lưu trữ nào — Điểm báo sẽ xuất hiện ở đây sau bản tin đầu tiên.</p>`;
   return shell({
-    title: `Điểm báo — Lưu trữ theo ngày | ${SITE_NAME}`,
+    title: `Điểm báo — Tin mới nhất theo ngày | ${SITE_NAME}`,
     desc: 'Điểm báo hằng ngày của Tiện Ích Hub: tin về AI, chứng khoán và crypto, tóm tắt ngắn kèm lý do đáng đọc — lưu trữ theo ngày.',
     keywords: 'điểm báo, tin tức, AI, chứng khoán, crypto',
     canonical: `${BASE_URL}/diem-bao/`,
@@ -1178,6 +1230,7 @@ async function main() {
   copyFile('logo/favicon-512.png', 'assets/favicon-512.png');
   copyFile('logo/favicon-512-maskable.png', 'assets/favicon-512-maskable.png');
   copyFile('logo/og-image.png', 'assets/og-image.png');
+  copyFile('logo/ban-giao-vien-v2.png', 'assets/ban-giao-vien-v2.png');
   copyFile('tool-state.js', 'assets/tool-state.js');
   // Rail video trang chủ đã gỡ đợt MẪU 3 (19/11) — không chép nữa;
   // file gốc vẫn giữ trong src/rail/ (không xóa, để sau này dùng lại).

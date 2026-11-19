@@ -3106,6 +3106,23 @@
           return r.name + ' (' + seen[r.name] + ')';
         });
       },
+      // Cấp độ thi đua theo điểm (MẪU 5, 19/11): Lv.1 Mầm non (0–1
+      // điểm), Lv.2 Chăm chỉ (2–4 điểm), Lv.3 Ngôi sao (5 điểm trở
+      // lên). Dùng ở thẻ người được
+      // gọi, ngăn Danh sách lớp, xuất Excel Bảng điểm. Công cụ có hàm
+      // dự phòng giống hệt khi app.js chưa nạp.
+      level: function (points) {
+        var p = parseInt(points, 10);
+        if (isNaN(p)) p = 0;
+        if (p >= 5) return { n: 3, name: 'Ngôi sao', label: 'Lv.3 · Ngôi sao', short: 'Lv.3' };
+        if (p >= 2) return { n: 2, name: 'Chăm chỉ', label: 'Lv.2 · Chăm chỉ', short: 'Lv.2' };
+        return { n: 1, name: 'Mầm non', label: 'Lv.1 · Mầm non', short: 'Lv.1' };
+      },
+      // Tên lớp hiển thị: 'Lớp 10A1'. Lớp mẫu tên sẵn 'Lớp mẫu' nên
+      // bỏ tiền tố 'Lớp ' trước khi thêm, tránh 'Lớp Lớp mẫu'.
+      classLabel: function (n) {
+        return 'Lớp ' + String(n || '').replace(/^Lớp\s+/, '');
+      },
       // 1 bản ghi theo id (bản sao; không có thì null).
       getRecordById: function (className, id) {
         var map = gvLoadClasses();

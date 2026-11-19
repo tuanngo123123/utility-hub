@@ -1,9 +1,7 @@
 // Trang Giới thiệu (/gioi-thieu/): người làm, mục đích của web, mục
-// Nguồn mở (đợt menu MẪU 3/4, 19/11). Link từ footer.
-//
-// TODO (chờ Tuấn chọn): trang này CHƯA có mục liên hệ — chưa quyết ghi
-// email hay Zalo. Khi Tuấn chọn xong, thêm mục "Liên hệ" ở cuối trang
-// này (và chỉ ở đây, không thêm vào footer).
+// Nguồn mở (đợt menu MẪU 3/4, 19/11), mục Liên hệ (Tuấn chọn email
+// 19/11 ~22:39: ngotuantdmu97@gmail.com, link mailto tiêu đề "Góp ý
+// Tiện Ích Hub"). Link từ footer.
 //
 // Giấy phép trong mục Nguồn mở đã tra đúng từng thư viện trong
 // src/vendor/ (19/11): pdf.js Apache-2.0, pdf-lib MIT,
@@ -61,6 +59,11 @@ export function body() {
         <p>Phông chữ hiển thị toàn web.</p>
         <span class="about-license">SIL Open Font License 1.1</span>
       </div>
+    </section>
+
+    <section class="section" aria-label="Liên hệ">
+      <h2>Liên hệ</h2>
+      <p>Góp ý, báo lỗi hay hợp tác — gửi email cho Tuấn: <a href="mailto:ngotuantdmu97@gmail.com?subject=G%C3%B3p%20%C3%BD%20Ti%E1%BB%87n%20%C3%8Dch%20Hub">ngotuantdmu97@gmail.com</a>. Tuấn đọc và trả lời mọi email.</p>
     </section>
   </div>`;
 }

@@ -8,7 +8,7 @@ export function body() {
     <h2>Thông tin liên hệ</h2>
     <ul>
       <li><strong>Chủ trang:</strong> Ngô Minh Tuấn</li>
-      <li><strong>Email:</strong> <a href="mailto:ngotuantdmu97@gmail.com">ngotuantdmu97@gmail.com</a></li>
+      <li><strong>Email:</strong> <a href="mailto:ngotuantdmu97@gmail.com?subject=G%C3%B3p%20%C3%BD%20Ti%E1%BB%87n%20%C3%8Dch%20Hub">ngotuantdmu97@gmail.com</a></li>
     </ul>
     <p>Mọi liên hệ — góp ý, báo lỗi, hợp tác — xin gửi qua email trên. Trang không công bố số điện thoại hay địa chỉ.</p>
 
