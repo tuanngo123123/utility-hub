@@ -315,7 +315,7 @@ const TOOL_VENDOR_SCRIPTS = {
 const M2_SLUGS = new Set([
   'luong-gross-net', 'thue-thu-nhap-ca-nhan', 'bhxh-mot-lan', 'luong-huu',
   'tien-dien-bac-thang', 'lai-vay', 'luong-thang-13', 'tro-cap-thoi-viec-bhtn',
-  'quyet-toan-thue-tncn-2026', 'diem-xet-tuyen-dai-hoc', 'tien-thai-san-bhxh',
+  'quyet-toan-thue-tncn-2026', 'diem-xet-tuyen-dai-hoc', 'tien-thai-san-bhxh', 'thue-ho-kinh-doanh',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;
@@ -478,6 +478,21 @@ function getThaiSanLogicSrc() {
   thaiSanLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
   return thaiSanLogicSrc;
 }
+// Thuế hộ kinh doanh + bán hàng online — công thức thuần nằm trong
+// src/thue-hkd-logic.js được chèn vào trang công cụ này và tiếp cận
+// qua window.UH_THUEHKD — cùng mẫu SODIEM/NHANXET/MATRAN ở trên.
+// Bộ kiểm scripts/test-thue-hkd.mjs kiểm cùng file này.
+const THUEHKD_SLUGS = new Set(['thue-ho-kinh-doanh']);
+const THUEHKD_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let thueHkdLogicSrc = null;
+function getThueHkdLogicSrc() {
+  if (thueHkdLogicSrc !== null) return thueHkdLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'thue-hkd-logic.js'), 'utf8');
+  const stripped = src.replace(THUEHKD_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('thue-hkd-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  thueHkdLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return thueHkdLogicSrc;
+}
 
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
@@ -547,6 +562,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isAnhThe = ANHTHE_SLUGS.has(tool.slug);
   const isDiemDh = DIEMDH_SLUGS.has(tool.slug);
   const isThaiSan = THAISAN_SLUGS.has(tool.slug);
+  const isThueHkd = THUEHKD_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -590,6 +606,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     'tro-cap-thoi-viec-bhtn': ['bhxh-mot-lan', 'luong-huu', 'luong-gross-net', 'thue-thu-nhap-ca-nhan'],
     'diem-xet-tuyen-dai-hoc': ['tinh-diem-thi-thpt', 'gpa-tin-chi', 'quy-doi-diem', 'tinh-diem-ielts'],
     'tien-thai-san-bhxh': ['bhxh-mot-lan', 'luong-huu', 'tro-cap-thoi-viec-bhtn', 'luong-gross-net'],
+    'thue-ho-kinh-doanh': ['thue-thu-nhap-ca-nhan', 'quyet-toan-thue-tncn-2026', 'le-phi-mon-bai', 'luong-gross-net'],
   };
   const relatedHtml = (() => {
     const cache = toolPageHtml._metaCache || (toolPageHtml._metaCache = (() => {
@@ -759,6 +776,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isAnhThe ? `<script>\n${getAnhTheLogicSrc()}\n</script>` : ''}
   ${isDiemDh ? `<script>\n${getDiemDhLogicSrc()}\n</script>` : ''}
   ${isThaiSan ? `<script>\n${getThaiSanLogicSrc()}\n</script>` : ''}
+  ${isThueHkd ? `<script>\n${getThueHkdLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');

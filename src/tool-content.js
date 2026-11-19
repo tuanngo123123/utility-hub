@@ -168,6 +168,43 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "thue-ho-kinh-doanh": {
+    intro: "Tính thuế hộ kinh doanh năm 2026 theo phương pháp kê khai: nhập doanh thu, ngành nghề, cách tính thuế TNCN (theo doanh thu hay theo thu nhập sau chi phí) và kênh bán — công cụ tính thuế GTGT, thuế TNCN (đã giảm 30% nếu đủ điều kiện), và nếu bán qua sàn thương mại điện tử thì tính luôn số sàn đã khấu trừ thay để biết còn phải nộp thêm hay được hoàn.",
+    finance: true,
+    legalBasis: "Cập nhật theo Luật Thuế GTGT 48/2024/QH15 (Điều 12 khoản 2), Luật Thuế TNCN 109/2025/QH15 (Điều 7), Nghị định 68/2026/NĐ-CP sửa bởi Nghị định 141/2026/NĐ-CP (ngưỡng không chịu thuế 1 tỷ đồng từ 01/01/2026), Nghị định 117/2025/NĐ-CP (sàn khấu trừ thuế thay từ 01/7/2025), nay là Nghị định 252/2026/NĐ-CP (từ 01/7/2026), Nghị quyết 43/2026/QH16 và Nghị định 398/2026/NĐ-CP (giảm 30% thuế TNCN kỳ tính thuế 2026–2027), Nghị quyết 198/2025/QH15 (bỏ thuế khoán và lệ phí môn bài từ 01/01/2026).",
+    updatedAt: "20/11/2026",
+    disclaimer: "Kết quả chỉ để tham khảo — đối chiếu với cơ quan thuế quản lý trước khi kê khai; ngưỡng và tỷ lệ thuế có thể thay đổi theo văn bản mới.",
+    example: {
+      text: "Ví dụ: hộ bán lẻ quần áo doanh thu năm 1.400.000.000₫, tính thuế theo doanh thu → thuế GTGT 1% × 1.400.000.000₫ = 14.000.000₫; thuế TNCN 0,5% × 400.000.000₫ (phần vượt ngưỡng 1 tỷ đồng) = 2.000.000₫, giảm 30% còn 1.400.000₫; tổng thuế phải nộp 15.400.000₫.",
+      fills: { "hkd-doanh-thu": "1.400.000.000", "hkd-nganh": "phan-phoi" }
+    },
+    faqs: [
+      {
+        q: "Doanh thu bao nhiêu thì hộ kinh doanh phải nộp thuế năm 2026?",
+        a: "Doanh thu năm trên 1 tỷ đồng. Ngưỡng không chịu thuế đã tăng nhiều lần: 100 triệu đồng (đến 30/6/2025) → 200 triệu đồng (Luật Thuế GTGT 48/2024, từ 01/7/2025) → 500 triệu đồng (Nghị định 68/2026, từ 01/01/2026) → 1 tỷ đồng (Nghị định 141/2026 ngày 29/4/2026, áp dụng từ 01/01/2026). Doanh thu năm từ 1 tỷ đồng trở xuống không phải nộp thuế GTGT và thuế TNCN, chỉ cần thông báo doanh thu với cơ quan thuế quản lý trước 31/1 năm sau. Doanh thu trên 1 tỷ đồng thì kê khai theo quý và phải dùng hóa đơn điện tử. Ngưỡng này vẫn có thể được điều chỉnh theo văn bản mới — đối chiếu với cơ quan thuế quản lý trước khi kê khai."
+      },
+      {
+        q: "Thuế GTGT và thuế TNCN tính khác nhau thế nào?",
+        a: "Thuế GTGT tính trên TOÀN BỘ doanh thu khi đã trên ngưỡng, không trừ ngưỡng (khoản 2 Điều 12 Luật Thuế GTGT 48/2024): phân phối hàng hóa 1%, dịch vụ 5%, sản xuất/vận tải 3%, hoạt động khác 2%. Thuế TNCN theo doanh thu chỉ tính trên PHẦN VƯỢT ngưỡng (khoản 3 Điều 7 Luật Thuế TNCN 109/2025): phân phối 0,5%, dịch vụ 2%, sản xuất/vận tải 1,5%, hoạt động khác 1%. Ví dụ hộ bán lẻ doanh thu 1,4 tỷ đồng: thuế GTGT 1% × 1,4 tỷ đồng = 14.000.000₫, thuế TNCN 0,5% × 400 triệu đồng (phần vượt 1 tỷ đồng) = 2.000.000₫."
+      },
+      {
+        q: "Nên tính thuế TNCN theo doanh thu hay theo thu nhập?",
+        a: "Doanh thu năm trên 1 tỷ đồng và từ 3 tỷ đồng trở xuống được chọn một trong hai cách. Theo doanh thu: thuế suất nhân phần doanh thu vượt ngưỡng 1 tỷ đồng. Theo thu nhập: (doanh thu − chi phí) × 15% (đến 3 tỷ đồng), 17% (trên 3 đến 50 tỷ đồng), 20% (trên 50 tỷ đồng); doanh thu trên 3 tỷ đồng thì BẮT BUỘC tính theo thu nhập. Ví dụ doanh thu 1,4 tỷ đồng, chi phí 1 tỷ đồng: theo doanh thu thuế TNCN là 2.000.000₫ (sau giảm 30% còn 1.400.000₫), theo thu nhập là 60.000.000₫ (sau giảm 30% còn 42.000.000₫) — thường theo doanh thu rẻ hơn, trừ khi lãi rất thấp; nếu chi phí bằng hoặc hơn doanh thu thì thuế TNCN theo thu nhập bằng 0. Chi phí tính theo thu nhập phải là chi phí thực tế liên quan đến kinh doanh, có hóa đơn chứng từ."
+      },
+      {
+        q: "Bán hàng trên sàn thì sàn trừ thuế bao nhiêu?",
+        a: "Từ 01/7/2025, sàn thương mại điện tử có chức năng thanh toán khấu trừ thuế thay người bán theo từng giao dịch (Nghị định 117/2025, nay là Nghị định 252/2026 từ 01/7/2026): hàng hóa 1% thuế GTGT + 0,5% thuế TNCN, dịch vụ 5% + 2%, vận tải 3% + 1,5% — tính trên toàn bộ doanh thu từng giao dịch, không trừ ngưỡng 1 tỷ đồng. Số sàn đã trừ là tiền nộp trước: cuối năm quyết toán, bạn nộp thêm phần thiếu hoặc được hoàn phần thừa; doanh thu cả năm dưới ngưỡng 1 tỷ đồng thì được hoàn toàn bộ số sàn đã trừ. Nhóm hoạt động kinh doanh khác không có tỷ lệ riêng trong nghị định về khấu trừ trên sàn nên công cụ dùng tỷ lệ của nhóm (GTGT 2%, TNCN 1%) — đối chiếu với sàn nếu sàn áp tỷ lệ khác."
+      },
+      {
+        q: "Giảm 30% thuế TNCN năm 2026 là gì?",
+        a: "Nghị quyết 43/2026/QH16 và Nghị định 398/2026 giảm 30% số thuế thu nhập cá nhân phải nộp của kỳ tính thuế 2026 và 2027 cho cá nhân, hộ kinh doanh có doanh thu năm từ 10 tỷ đồng trở xuống — áp dụng cho cả hai cách tính thuế TNCN (theo doanh thu và theo thu nhập), đã tính sẵn trong kết quả của công cụ. Mức giảm chỉ áp dụng cho thuế TNCN, không giảm thuế GTGT. Nếu doanh thu thực tế cả năm vượt 10 tỷ đồng thì phải nộp bổ sung phần thuế đã giảm."
+      },
+      {
+        q: "Hộ kinh doanh còn phải nộp lệ phí môn bài không?",
+        a: "Không. Lệ phí môn bài đã bãi bỏ từ 01/01/2026 (Nghị quyết 198/2025/QH15, Nghị định 362/2025) — công cụ luôn ghi 0₫ cho khoản này. Thuế khoán cũng bỏ từ 01/01/2026 (Điều 10 Nghị quyết 198/2025): hộ kinh doanh chuyển sang kê khai theo doanh thu thực tế, nộp thuế theo tỷ lệ từng ngành nghề như công cụ tính."
+      }
+    ]
+  },
   "tron-de-trac-nghiem": {
     intro: "Trộn đề trắc nghiệm thành nhiều mã đề khác nhau để chống quay cóp: dán đề gốc hoặc tải file Word, đánh dấu đáp án đúng bằng *, chọn số mã đề rồi nhận đề đã trộn kèm bảng đáp án để in và chấm.",
     faqs: [
