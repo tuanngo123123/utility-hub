@@ -33,12 +33,12 @@ export function body() {
     <button type="button" class="btn btn-ghost" id="bq-reset" data-uh-reset="1">Hỏi lại từ đầu</button>
   </div>
   <div id="bq-status"></div>
-  <div class="field"><label for="bq-questions">Danh sách câu hỏi (mỗi dòng 1 câu — đáp án sau dấu |)</label><textarea id="bq-questions" rows="6" placeholder="Thủ đô của Việt Nam là thành phố nào? | Hà Nội&#10;5 × 8 bằng bao nhiêu? | 40">Thủ đô của Việt Nam là thành phố nào? | Hà Nội
+  <div class="field gv-prep-only"><label for="bq-questions">Danh sách câu hỏi (mỗi dòng 1 câu — đáp án sau dấu |)</label><textarea id="bq-questions" rows="6" placeholder="Thủ đô của Việt Nam là thành phố nào? | Hà Nội&#10;5 × 8 bằng bao nhiêu? | 40">Thủ đô của Việt Nam là thành phố nào? | Hà Nội
 5 × 8 bằng bao nhiêu? | 40
 Sông dài nhất Việt Nam là sông nào? | Sông Cửu Long (Mê Kông)
 Từ "beautiful" trong tiếng Anh nghĩa là gì? | Đẹp
 Năm 2026 là năm con gì? | Năm Bính Ngọ (ngựa)</textarea></div>
-  <div class="gv-class-box">
+  <div class="gv-class-box gv-prep-only">
     <h3>Bộ câu hỏi đã lưu</h3>
     <p class="muted">Lưu từng bộ theo tên ("Ôn tập chương 3", "Kiểm tra bài cũ tuần 12") để dùng lại nhiều buổi.</p>
     <div class="field"><label for="bq-set">Nạp bộ đã lưu</label>
@@ -56,7 +56,7 @@ Năm 2026 là năm con gì? | Năm Bính Ngọ (ngựa)</textarea></div>
     </div>
     <p class="note" id="bq-set-msg" style="display:none"></p>
   </div>
-  <div class="field"><label for="bq-class">Bốc kèm tên bạn trả lời <span class="muted">(không bắt buộc — lớp lưu trong công cụ Gọi tên)</span></label>
+  <div class="field gv-prep-only"><label for="bq-class">Bốc kèm tên bạn trả lời <span class="muted">(không bắt buộc — lớp lưu trong công cụ Gọi tên)</span></label>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <select id="bq-class" style="flex:1;min-width:140px"><option value="">— Không bốc tên —</option></select>
       <label style="display:flex;gap:6px;align-items:center;white-space:nowrap"><input type="checkbox" id="bq-with-name"> Bốc tên cùng lúc</label>
@@ -74,7 +74,7 @@ export function init(root) {
   const SETS_KEY = 'uh_gv_cauhoi';
   const ASKED_KEY = 'uh_gv_cauhoi_asked';
   let asked = []; // chỉ số câu đã hỏi trong danh sách hiện tại
-  let pickedNames = []; // tên đã bốc trong buổi này (không lặp)
+  let pickedIds = []; // id bạn đã bốc trong buổi này (không lặp)
   let currentSet = null; // tên bộ đang nạp (null = danh sách dán tay)
   let currentQ = -1;
   let stageOpen = false;
@@ -183,7 +183,7 @@ export function init(root) {
 
   function resetAsked() {
     asked = [];
-    pickedNames = [];
+    pickedIds = [];
     currentQ = -1;
     $('bq-qnum').textContent = 'Câu —/—';
     $('bq-big').textContent = 'Bấm "Bốc câu hỏi" để bắt đầu';
@@ -198,19 +198,26 @@ export function init(root) {
 
   function pickName() {
     const helper = gvClasses();
-    const cls = $('bq-class').value;
-    if (!helper || !cls) return '';
-    // Trong Bàn giáo viên: bạn đánh dấu Vắng ở tab Lớp học không bị bốc.
-    const pool = (IN_APP && typeof helper.getRecords === 'function')
-      ? helper.getRecords(cls).filter(r => !r.absent).map(r => r.name)
-      : helper.get(cls);
-    const names = pool.filter(n => pickedNames.indexOf(n) === -1);
+    if (!helper || typeof helper.getRecords !== 'function') return '';
+    // Chế độ app: lớp lấy từ lớp đang chọn ở tab Lớp học (ô chọn lớp
+    // của trang rời đã bị xóa khỏi DOM); trang rời: lớp ở ô chọn dưới.
+    const cls = IN_APP
+      ? ((typeof helper.active === 'function') ? helper.active() : '')
+      : $('bq-class').value;
+    if (!cls) return '';
+    const recs = helper.getRecords(cls) || [];
+    const labels = (typeof helper.displayNames === 'function') ? helper.displayNames(recs) : recs.map(r => r.name);
+    // Bạn đánh dấu Vắng ở tab Lớp học không bị bốc. Bốc theo id để 2
+    // bạn trùng tên là 2 người riêng; hiện tên có đánh số (1)/(2).
+    const pool = [];
+    recs.forEach((r, i) => { if (!r.absent) pool.push({ id: r.id, label: labels[i] || r.name }); });
+    const names = pool.filter(e => pickedIds.indexOf(e.id) === -1);
     const avail = names.length ? names : pool;
     if (!avail.length) return '';
-    if (!names.length) pickedNames = [];
+    if (!names.length) pickedIds = [];
     const pick = avail[Math.floor(Math.random() * avail.length)];
-    pickedNames.push(pick);
-    return pick;
+    pickedIds.push(pick.id);
+    return pick.label;
   }
 
   function draw() {
@@ -280,7 +287,7 @@ export function init(root) {
     currentSet = name;
     const saved = loadAsked()[name];
     asked = Array.isArray(saved) ? saved.filter(i => typeof i === 'number' && i < map[name].length) : [];
-    pickedNames = [];
+    pickedIds = [];
     currentQ = -1;
     $('bq-qnum').textContent = 'Câu —/—';
     $('bq-big').textContent = 'Bấm "Bốc câu hỏi" để bắt đầu';
@@ -426,33 +433,14 @@ export function init(root) {
   refreshSetSelect();
   updateStatus();
 
-  // --- Chế độ Bàn giáo viên: ô chọn lớp ẩn đi, tên bốc kèm lấy từ
-  // lớp đang chọn ở tab Lớp học; app gọi root._gvRefresh() mỗi lần mở
-  // lại tab để nhận lớp mới/sửa.
-  function refreshFromActiveClass() {
-    const helper = gvClasses();
-    if (!helper) return;
-    const map = helper.list();
-    const sel = $('bq-class');
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">— Không bốc tên —</option>';
-    Object.keys(map).sort().forEach(n => {
-      const opt = document.createElement('option');
-      opt.value = n;
-      opt.textContent = n + ' (' + map[n].length + ' bạn)';
-      sel.appendChild(opt);
-    });
-    const active = (typeof helper.active === 'function') ? helper.active() : '';
-    if (active && map[active]) sel.value = active;
-    else if (cur && map[cur]) sel.value = cur;
-  }
-
+  // --- Chế độ Bàn giáo viên: ô chọn lớp XÓA HẲN khỏi DOM (lớp lấy từ
+  // lớp đang chọn ở tab Lớp học, đọc trực tiếp mỗi lần bốc nên không
+  // cần làm mới gì khi mở lại tab); chỉ giữ ô tick "Bốc tên cùng lúc".
   if (IN_APP) {
     const sel = $('bq-class');
-    sel.style.display = 'none';
+    if (sel) sel.remove();
     const labelNote = root.querySelector('label[for="bq-class"] .muted');
     if (labelNote) labelNote.textContent = '(không bắt buộc — lấy tên từ lớp đang chọn ở tab Lớp học)';
-    root._gvRefresh = refreshFromActiveClass;
-    refreshFromActiveClass();
+    root._gvRefresh = function () {};
   }
 }

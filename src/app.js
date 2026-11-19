@@ -472,6 +472,17 @@
   var LA_MONTH_NAMES = ['', 'Giêng', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'Tám', 'Chín', 'Mười', 'Mười một', 'Chạp'];
   var TV_NAMES = ['Tý — Chuột', 'Sửu — Trâu', 'Dần — Hổ', 'Mão — Mèo', 'Thìn — Rồng', 'Tỵ — Rắn', 'Ngọ — Ngựa', 'Mùi — Dê', 'Thân — Khỉ', 'Dậu — Gà', 'Tuất — Chó', 'Hợi — Heo'];
 
+  // Khóa "Dùng gần đây" + xúc xắc — PHẢI khai báo TRƯỚC khối onReady
+  // bên dưới, cùng lý do như mảng lịch âm: script nạp dạng defer nên
+  // onReady chạy ngay khi thực thi tới đây, recordToolVisit() chạy
+  // đồng bộ và đọc VISITED_KEY — để sau thì khóa vẫn là undefined lúc
+  // dùng, localStorage bị ghi 1 khóa tên là 'undefined' (lỗi tìm ra
+  // 19/11 khi sửa Bàn giáo viên). visitedMigrated cũng ở đây để lần
+  // migration đầu tiên không bị var gán lại false sau đó.
+  var VISITED_KEY = 'uh_visited_tools';
+  var DICE_LAST_KEY = 'uh_dice_last';
+  var visitedMigrated = false;
+
   onReady(function () {
     setupNav();
     setupTheme();
@@ -1340,11 +1351,25 @@
      slug, tối đa 200 mục, không gửi đi đâu. Danh sách giữ theo THỨ TỰ
      DÙNG GẦN NHẤT (mới nhất ở cuối): mỗi lần mở lại một công cụ thì
      slug đó chuyển xuống cuối. */
-  var VISITED_KEY = 'uh_visited_tools';
-  var DICE_LAST_KEY = 'uh_dice_last';
-
   function readVisited() {
     try {
+      // Migration 1 lần (19/11): bản cũ ghi lịch sử vào khóa tên là
+      // 'undefined' (lỗi hoisting ở trên) — chuyển sang khóa đúng rồi
+      // xóa khóa cũ. Gộp nếu cả 2 khóa đều có dữ liệu (cũ trước, mới
+      // sau, không trùng), giữ tối đa 200 mục như recordToolVisit.
+      if (!visitedMigrated) {
+        visitedMigrated = true;
+        var legacy = null;
+        try { legacy = JSON.parse(localStorage.getItem('undefined') || 'null'); } catch (e) { legacy = null; }
+        if (Array.isArray(legacy) && legacy.length) {
+          var cur = [];
+          try { cur = JSON.parse(localStorage.getItem(VISITED_KEY) || '[]'); } catch (e) { cur = []; }
+          if (!Array.isArray(cur)) cur = [];
+          var merged = legacy.concat(cur.filter(function (s) { return legacy.indexOf(s) === -1; }));
+          try { localStorage.setItem(VISITED_KEY, JSON.stringify(merged.slice(-200))); } catch (e) { /* bỏ qua */ }
+        }
+        try { localStorage.removeItem('undefined'); } catch (e) { /* bỏ qua */ }
+      }
       var arr = JSON.parse(localStorage.getItem(VISITED_KEY) || '[]');
       return Array.isArray(arr) ? arr : [];
     } catch (e) { return []; }
@@ -3036,7 +3061,12 @@
      lớp 1 lần (vd "6A", "7B"), các công cụ Gọi tên / Chia nhóm / Điểm
      danh / Bốc câu hỏi đều đọc chung — không dán lại mỗi buổi.
      1 key localStorage 'uh_gv_lop' dạng { "6A": [bản ghi], ... }, mỗi
-     bản ghi là { name, gender ('nam'/'nữ'/''), star, absent, points }.
+     bản ghi là { id, name, gender ('nam'/'nữ'/''), star, absent,
+     points }. id là mã cố định tạo lúc thêm bạn vào lớp (gvNewId),
+     KHÔNG đổi khi sửa tên/di chuyển — mọi tab tra cứu theo id, không
+     theo tên hay vị trí, để 2 bạn trùng họ tên không bao giờ nhầm
+     nhau (19/11). Bản ghi cũ chưa có id thì gán id khi đọc lần đầu
+     và lưu lại ngay.
      Dữ liệu CŨ (mảng tên thuần ["An", "Bình"]) được tự chuyển đổi sang
      bản ghi khi đọc lần đầu (không mất tên đã lưu); điểm ban đầu lấy
      từ bảng điểm uh_bangdiemlop nếu có. Các công cụ cũ vẫn dùng được:
@@ -3165,18 +3195,27 @@
     } catch (e) { return {}; }
   }
 
+  // Mã cố định của 1 học sinh — tạo 1 lần lúc thêm vào lớp, không
+  // đổi sau đó. Thời gian + ngẫu nhiên nên 2 bạn thêm cùng lúc cũng
+  // không trùng.
+  function gvNewId() {
+    return 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  }
+
   // Chuẩn hóa 1 phần tử thành bản ghi (chuỗi tên cũ -> bản ghi mới).
+  // Bản ghi đã có id thì GIỮ id; chưa có thì gán id mới.
   function gvNormRecord(r, scores) {
     if (typeof r === 'string') {
       var n = r.trim();
       if (!n) return null;
-      return { name: n, gender: '', star: false, absent: false, points: (scores && typeof scores[n] === 'number') ? scores[n] : 0 };
+      return { id: gvNewId(), name: n, gender: '', star: false, absent: false, points: (scores && typeof scores[n] === 'number') ? scores[n] : 0 };
     }
     if (r && typeof r === 'object' && typeof r.name === 'string' && r.name.trim()) {
       var name = r.name.trim();
       var pts = (typeof r.points === 'number') ? r.points : 0;
       if (typeof r.points !== 'number' && scores && typeof scores[name] === 'number') pts = scores[name];
       return {
+        id: (typeof r.id === 'string' && r.id) ? r.id : gvNewId(),
         name: name,
         gender: (r.gender === 'nam' || r.gender === 'nữ') ? r.gender : '',
         star: !!r.star,
@@ -3201,10 +3240,19 @@
         // Dạng cũ (mảng tên thuần) thì chuyển đổi + lưu lại ngay.
         if (data[k].some(function (n) { return typeof n === 'string'; })) migrated = true;
         var recs = [];
+        var seenIds = {};
         // Không gộp trùng tên: lớp hay có 2 bạn trùng họ tên — giữ cả hai.
         data[k].forEach(function (r) {
+          // Bản ghi cũ chưa có id thì gán id (trong gvNormRecord) và
+          // lưu lại ngay để id ổn định, không đổi mỗi lần đọc.
+          if (!r || typeof r !== 'object' || typeof r.id !== 'string' || !r.id) migrated = true;
           var rec = gvNormRecord(r, scores);
-          if (rec) recs.push(rec);
+          if (!rec) return;
+          // Phòng trường hợp 2 bản ghi trùng id (bản cũ nhân bản bản
+          // ghi theo tên) — bản sau gán id mới.
+          if (seenIds[rec.id]) { rec.id = gvNewId(); migrated = true; }
+          seenIds[rec.id] = true;
+          recs.push(rec);
         });
         // Giữ cả lớp rỗng (giáo viên vừa tạo lớp chưa kịp thêm bạn).
         if (k.trim()) clean[k.trim()] = recs;
@@ -3235,17 +3283,24 @@
         var map = gvLoadClasses();
         var key = String(name).trim();
         var old = map[key] || [];
+        // Hàng đợi theo tên: 2 bạn trùng tên lấy 2 bản ghi cũ khác
+        // nhau (theo thứ tự xuất hiện) — không nhân bản 1 bản ghi cho
+        // cả hai, nếu không cả hai sẽ trùng id.
         var byName = {};
-        old.forEach(function (r) { byName[r.name] = r; });
+        old.forEach(function (r) {
+          if (!byName[r.name]) byName[r.name] = [];
+          byName[r.name].push(r);
+        });
         var recs = [];
         (names || []).forEach(function (n) {
           var t = String(n == null ? '' : n).trim();
           if (!t) return;
           // Không gộp trùng tên; nhân bản bản ghi cũ để 2 bạn trùng
           // tên không dùng chung 1 object trong mảng.
-          recs.push(byName[t]
-            ? gvNormRecord(byName[t])
-            : { name: t, gender: '', star: false, absent: false, points: 0 });
+          var queue = byName[t];
+          recs.push((queue && queue.length)
+            ? gvNormRecord(queue.shift())
+            : gvNormRecord({ name: t }));
         });
         map[key] = recs;
         return gvSaveClasses(map);
@@ -3254,8 +3309,103 @@
         var map = gvLoadClasses();
         if (!map[name]) return [];
         return map[name].map(function (r) {
-          return { name: r.name, gender: r.gender, star: r.star, absent: r.absent, points: r.points };
+          return { id: r.id, name: r.name, gender: r.gender, star: r.star, absent: r.absent, points: r.points };
         });
+      },
+      // Mã mới cho 1 bạn vừa thêm vào lớp (tab Lớp học gán lúc tạo
+      // bản ghi để mảng làm việc có id ngay, không đợi lần lưu sau).
+      newId: gvNewId,
+      // Tên hiển thị có đánh số trùng tên: 2 bạn cùng họ tên trong lớp
+      // thì hiện "Bùi Ngọc Lan (1)" / "Bùi Ngọc Lan (2)" theo thứ tự
+      // trong lớp; tên không trùng giữ nguyên. Trả mảng cùng thứ tự
+      // với mảng bản ghi đầu vào.
+      displayNames: function (records) {
+        var counts = {};
+        var seen = {};
+        (records || []).forEach(function (r) { counts[r.name] = (counts[r.name] || 0) + 1; });
+        return (records || []).map(function (r) {
+          if (counts[r.name] <= 1) return r.name;
+          seen[r.name] = (seen[r.name] || 0) + 1;
+          return r.name + ' (' + seen[r.name] + ')';
+        });
+      },
+      // 1 bản ghi theo id (bản sao; không có thì null).
+      getRecordById: function (className, id) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return null;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].id === id) {
+            var r = recs[i];
+            return { id: r.id, name: r.name, gender: r.gender, star: r.star, absent: r.absent, points: r.points };
+          }
+        }
+        return null;
+      },
+      // Cập nhật 1 bản ghi theo id (patch: {points, absent, star...}).
+      updateRecord: function (className, id, patch) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].id === id) {
+            Object.keys(patch || {}).forEach(function (k) { recs[i][k] = patch[k]; });
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
+      },
+      // Cộng/trừ điểm theo id (đường chính từ 19/11 — thay addPoints
+      // theo tên và setPointsAt theo vị trí).
+      addPointsById: function (className, id, delta) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].id === id) {
+            recs[i].points = (recs[i].points || 0) + delta;
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
+      },
+      setPointsById: function (className, id, points) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].id === id) {
+            recs[i].points = points;
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
+      },
+      // Đặt cờ vắng theo id (Điểm danh + ngăn lớp dùng từ 19/11).
+      setAbsentById: function (className, id, absent) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].id === id) {
+            recs[i].absent = !!absent;
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
+      },
+      // Đặt sao theo id (ngăn lớp + bảng lớp dùng từ 19/11).
+      setStarById: function (className, id, star) {
+        var map = gvLoadClasses();
+        var recs = map[String(className || '').trim()];
+        if (!recs) return false;
+        for (var i = 0; i < recs.length; i++) {
+          if (recs[i].id === id) {
+            recs[i].star = !!star;
+            return gvSaveClasses(map);
+          }
+        }
+        return false;
       },
       saveRecords: function (name, records) {
         var map = gvLoadClasses();

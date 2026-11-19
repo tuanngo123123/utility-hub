@@ -19,7 +19,7 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></span><div><h2>Đo độ ồn lớp học</h2><p class="muted">Bóng nảy càng mạnh khi lớp càng ồn — cả lớp tự nhìn thấy mình đang ồn mà không cần cô nhắc.</p></div></div>
-  <p class="note"><strong>Chỉ đo ĐỘ TO, không ghi âm:</strong> công cụ chỉ tính mức độ to của tiếng ồn qua micro — không nghe nội dung, không lưu lại, âm thanh không rời khỏi máy của bạn.</p>
+  <p class="note gv-prep-only"><strong>Chỉ đo ĐỘ TO, không ghi âm:</strong> công cụ chỉ tính mức độ to của tiếng ồn qua micro — không nghe nội dung, không lưu lại, âm thanh không rời khỏi máy của bạn.</p>
   <div class="gv-noise-stage" id="on-stage">
     <span class="gv-ball gv-ball-b0" id="on-ball-0"></span>
     <span class="gv-ball gv-ball-b1" id="on-ball-1"></span>
@@ -41,7 +41,7 @@ export function body() {
     <button type="button" class="btn" id="on-demo">Xem thử giao diện (không cần micro)</button>
     <button type="button" class="btn btn-ghost" id="on-stop" data-uh-reset="1" style="display:none">Dừng đo</button>
   </div>
-  <div class="field"><label for="on-activity">Hoạt động đang diễn ra (đặt ngưỡng ồn phù hợp)</label>
+  <div class="field gv-prep-only"><label for="on-activity">Hoạt động đang diễn ra (đặt ngưỡng ồn phù hợp)</label>
     <select id="on-activity">
       <option value="quiet" selected>Đọc thầm / làm bài cá nhân</option>
       <option value="pair">Thảo luận cặp đôi</option>
@@ -49,13 +49,13 @@ export function body() {
       <option value="custom">Tùy chỉnh (chỉnh ngưỡng tay)</option>
     </select>
   </div>
-  <div class="field"><label for="on-thr-yellow">Ngưỡng "Hơi ồn" (đèn vàng): <span id="on-thr-yellow-val">35%</span></label>
+  <div class="field gv-prep-only"><label for="on-thr-yellow">Ngưỡng "Hơi ồn" (đèn vàng): <span id="on-thr-yellow-val">35%</span></label>
     <input type="range" id="on-thr-yellow" min="10" max="90" value="35" step="5" style="width:100%">
   </div>
-  <div class="field"><label for="on-thr-red">Ngưỡng "Quá ồn" (đèn đỏ): <span id="on-thr-red-val">55%</span></label>
+  <div class="field gv-prep-only"><label for="on-thr-red">Ngưỡng "Quá ồn" (đèn đỏ): <span id="on-thr-red-val">55%</span></label>
     <input type="range" id="on-thr-red" min="20" max="95" value="55" step="5" style="width:100%">
   </div>
-  <div class="field"><label for="on-sens">Độ nhạy micro: <span id="on-sens-val">100%</span></label>
+  <div class="field gv-prep-only"><label for="on-sens">Độ nhạy micro: <span id="on-sens-val">100%</span></label>
     <input type="range" id="on-sens" min="50" max="200" value="100" step="10" style="width:100%">
     <p class="muted">Micro xa lớp thì tăng độ nhạy; micro gần loa thì giảm.</p>
   </div>

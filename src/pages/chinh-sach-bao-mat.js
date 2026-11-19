@@ -53,6 +53,7 @@ export function body() {
       <li><strong>Danh sách lớp đã lưu</strong> (khóa <code>uh_gv_lop</code>): các lớp học giáo viên tự tạo trong mục Giáo viên (tên lớp và danh sách học sinh, gồm giới tính, đánh dấu sao, vắng mặt và điểm nếu có).</li>
       <li><strong>Lớp đang dùng trong Bàn giáo viên</strong> (khóa <code>uh_gv_lop_active</code>): tên lớp giáo viên đang chọn trong trang Bàn giáo viên, để lần mở sau vào đúng lớp đó.</li>
       <li><strong>Chế độ Dạy học</strong> (khóa <code>uh_gv_dayhoc</code>): ghi nhớ giáo viên có đang bật chế độ Dạy học (ẩn header, footer, thanh đáy) để lần mở sau khôi phục đúng bố cục đó.</li>
+      <li><strong>Đã xem hướng dẫn Bàn giáo viên</strong> (khóa <code>uh_gv_huongdan</code>): ghi nhớ giáo viên đã bấm "Đã hiểu" ở hộp hướng dẫn 3 bước lần đầu mở Bàn giáo viên, để không hiện lại nữa.</li>
       <li><strong>Bảng điểm lớp</strong> (khóa <code>uh_bangdiemlop</code>): điểm cộng/trừ của từng học sinh trong công cụ bảng điểm.</li>
       <li><strong>Điểm danh</strong> (khóa <code>uh_gv_diemdanh</code>): trạng thái có mặt/vắng/muộn của từng học sinh theo từng ngày.</li>
       <li><strong>Bộ câu hỏi ôn tập</strong> (khóa <code>uh_gv_cauhoi</code>): các bộ câu hỏi giáo viên tự lưu trong công cụ bốc câu hỏi.</li>

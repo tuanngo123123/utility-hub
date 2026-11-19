@@ -28,7 +28,7 @@ export function body() {
   <div id="dn-pane-timer">
     <div id="dn-display" style="text-align:center"></div>
     <p class="muted" id="dn-status" style="text-align:center">Chọn thời gian rồi bấm Bắt đầu.</p>
-    <div class="field"><label for="dn-view">Kiểu hiển thị</label><select id="dn-view"><option value="big" selected>Số lớn</option><option value="ring">Vòng tròn tiến độ</option><option value="led">Bảng LED (nền đen, số neon)</option></select></div>
+    <div class="field gv-prep-only"><label for="dn-view">Kiểu hiển thị</label><select id="dn-view"><option value="big" selected>Số lớn</option><option value="ring">Vòng tròn tiến độ</option><option value="led">Bảng LED (nền đen, số neon)</option></select></div>
     <div class="field"><label>Thời gian có sẵn (bấm là chạy ngay)</label>
       <div class="gv-timer-presets" id="dn-presets">
         <button type="button" class="btn" data-sec="30">30 giây</button>
@@ -40,7 +40,7 @@ export function body() {
         <button type="button" class="btn" data-sec="900">15 phút</button>
       </div>
     </div>
-    <div class="field"><label for="dn-custom-min">Hoặc nhập tay</label>
+    <div class="field gv-prep-only"><label for="dn-custom-min">Hoặc nhập tay</label>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
         <input id="dn-custom-min" type="number" min="0" max="180" value="" placeholder="Phút" style="width:110px">
         <input id="dn-custom-sec" type="number" min="0" max="59" value="" placeholder="Giây" style="width:110px">

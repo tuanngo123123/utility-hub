@@ -42,8 +42,8 @@ Thảo
 Bình
 An
 Chi</textarea></div>
-  <div class="field"><label for="cn-mode">Chia theo</label><select id="cn-mode"><option value="size" selected>Số bạn mỗi nhóm</option><option value="count">Số nhóm</option></select></div>
-  <div class="field"><label for="cn-num" id="cn-num-label">Số bạn mỗi nhóm</label><input id="cn-num" type="number" min="2" max="50" value="4"></div>
+  <div class="field gv-prep-only"><label for="cn-mode">Chia theo</label><select id="cn-mode"><option value="size" selected>Số bạn mỗi nhóm</option><option value="count">Số nhóm</option></select></div>
+  <div class="field gv-prep-only"><label for="cn-num" id="cn-num-label">Số bạn mỗi nhóm</label><input id="cn-num" type="number" min="2" max="50" value="4"></div>
   <div class="btn-row">
     <button type="button" class="btn btn-primary" id="cn-divide">Chia nhóm</button>
     <button type="button" class="btn" id="cn-stage">Chiếu lớp</button>
@@ -61,7 +61,14 @@ export function init(root) {
   // rời được ẩn đi vì tab Lớp học đã làm việc đó.
   const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const ROLES = ['Nhóm trưởng', 'Thư ký', 'Phản biện', 'Thuyết trình'];
+  // Nhóm lưu theo MỤC {id, name, label}: id là mã cố định của bản ghi
+  // lớp (chế độ app; trang rời id = null), label là tên hiển thị có
+  // đánh số trùng tên ("Bùi Ngọc Lan (1)") — 2 bạn trùng tên vẫn là
+  // 2 mục riêng trong nhóm.
   let groups = [];
+  // Chế độ app: danh sách chia là bản ghi lớp (chỉ bạn không vắng).
+  // Trang rời: null, danh sách đọc từ ô cn-names.
+  let appEntries = null;
   let stageOpen = false;
   let stageEl = null;
 
@@ -114,7 +121,17 @@ export function init(root) {
   }
 
   function nameList() {
+    // Chế độ app: ô cn-names đã bị xóa khỏi DOM, danh sách đọc từ
+    // appEntries — chưa nạp xong thì rỗng.
+    if (IN_APP) return appEntries ? appEntries.map(e => e.name) : [];
     return parseNames($('cn-names').value);
+  }
+
+  // Danh sách chia dạng mục {id, name, label} (app: từ bản ghi lớp;
+  // trang rời: từ ô dán tên, id = null, label = tên).
+  function entryList() {
+    if (IN_APP) return appEntries ? appEntries.slice() : [];
+    return nameList().map(n => ({ id: null, name: n, label: n }));
   }
 
   function download(filename, text) {
@@ -137,7 +154,7 @@ export function init(root) {
     let text = 'Danh sách nhóm — ngày ' + today + '\nTổng: ' + total + ' bạn, ' + groups.length + ' nhóm\n\n';
     groups.forEach((g, i) => {
       text += 'Nhóm ' + (i + 1) + ' (' + g.length + ' bạn)\n';
-      g.forEach((n, j) => { text += '- ' + n + ' (' + roleOf(j) + ')\n'; });
+      g.forEach((e, j) => { text += '- ' + (e.label || e.name) + ' (' + roleOf(j) + ')\n'; });
       text += '\n';
     });
     return text;
@@ -146,7 +163,7 @@ export function init(root) {
   function groupCardsHtml() {
     return '<div class="gv-groups">'
       + groups.map((g, i) => '<div class="gv-group gv-group-c' + (i % 6) + ' gv-group-in" style="animation-delay:' + (i * 80) + 'ms"><h3>Nhóm ' + (i + 1) + ' · ' + g.length + ' bạn</h3><ul>'
-        + g.map((n, j) => '<li>' + esc(n) + ' <span class="gv-role">— ' + roleOf(j) + '</span></li>').join('') + '</ul></div>').join('')
+        + g.map((e, j) => '<li>' + esc(e.label || e.name) + ' <span class="gv-role">— ' + roleOf(j) + '</span></li>').join('') + '</ul></div>').join('')
       + '</div>';
   }
 
@@ -157,8 +174,8 @@ export function init(root) {
       + groupCardsHtml()
       + '<div class="btn-row" style="margin-top:14px">'
       + '<button type="button" class="btn" id="cn-reshuffle">Chia lại</button>'
-      + '<button type="button" class="btn" id="cn-copy">Sao chép kết quả</button>'
-      + '<button type="button" class="btn gv-dl" id="cn-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải danh sách (.txt)</button>'
+      + '<button type="button" class="btn gv-prep-only" id="cn-copy">Sao chép kết quả</button>'
+      + '<button type="button" class="btn gv-dl gv-prep-only" id="cn-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải danh sách (.txt)</button>'
       + '</div>';
     out.hidden = false;
     out.style.display = '';
@@ -190,7 +207,7 @@ export function init(root) {
   }
 
   function divide() {
-    const list = nameList();
+    const list = entryList();
     const out = $('cn-out');
     if (list.length < 2) {
       out.innerHTML = '<p class="error">Cần ít nhất 2 bạn để chia nhóm.</p>';
@@ -219,6 +236,8 @@ export function init(root) {
       groupCount = Math.ceil(list.length / num);
     }
     // Xáo trộn rồi chia vòng tròn — các nhóm lệch nhau tối đa 1 bạn.
+    // Xáo trộn MỤC (mang id) chứ không xáo tên — 2 bạn trùng tên vẫn
+    // là 2 mục riêng, không nhập làm một.
     const shuffled = list.slice();
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -226,7 +245,7 @@ export function init(root) {
     }
     groups = [];
     for (let i = 0; i < groupCount; i++) groups.push([]);
-    shuffled.forEach((n, i) => { groups[i % groupCount].push(n); });
+    shuffled.forEach((e, i) => { groups[i % groupCount].push(e); });
     tick();
     render();
     fanfare();
@@ -282,7 +301,7 @@ export function init(root) {
   $('cn-divide').addEventListener('click', divide);
   $('cn-stage').addEventListener('click', openStage);
 
-  // Nạp lớp đã lưu (lưu trong công cụ Gọi tên, khóa 'uh_gv_lop').
+  // Đọc lớp đã lưu từ khóa 'uh_gv_lop' (trang rời).
   (function initClassLoad() {
     const helper = (typeof window !== 'undefined' && window.UhGvClasses) ? window.UhGvClasses : null;
     const sel = $('cn-class-load');
@@ -334,12 +353,20 @@ export function init(root) {
     if (!helper || typeof helper.getRecords !== 'function' || typeof helper.active !== 'function') return;
     const active = helper.active();
     const recs = active ? helper.getRecords(active) : [];
-    const names = recs.filter(r => !r.absent).map(r => r.name);
-    const sig = active + '\n' + names.join('\n');
+    // Tên hiển thị tính trên TOÀN BỘ lớp (kể cả bạn vắng) để số
+    // (1)/(2) khớp với ngăn lớp/Bảng điểm.
+    const labels = (typeof helper.displayNames === 'function') ? helper.displayNames(recs) : recs.map(r => r.name);
+    const entries = [];
+    recs.forEach((r, i) => {
+      if (r.absent) return;
+      entries.push({ id: r.id, name: r.name, label: labels[i] || r.name });
+    });
+    const names = entries.map(e => e.name);
+    const sig = active + '\n' + entries.map(e => e.id + '|' + e.name).join('\n');
     if (sig === appSig) return;
     appSig = sig;
     // Chưa có lớp (hoặc lớp chưa có bạn nào để chia): hiện đúng 1 nút
-    // dẫn về tab Lớp học, thay cho ô dán danh sách của trang rời.
+    // dẫn về tab Lớp học, thay cho ô nhập tay của trang rời.
     const noClass = $('cn-no-class');
     if (noClass) {
       const show = names.length === 0;
@@ -351,19 +378,22 @@ export function init(root) {
         $('cn-no-class-btn').textContent = active ? 'Mở tab Lớp học' : 'Tạo lớp';
       }
     }
-    $('cn-names').value = names.join('\n');
+    appEntries = entries;
     groups = [];
     $('cn-out').hidden = true;
     updateStage();
   }
 
   if (IN_APP) {
+    // Xóa hẳn khỏi DOM (không chỉ ẩn): khung nạp lớp + câu "(lưu lớp
+    // trong công cụ Gọi tên)" + ô dán tên của trang rời không có chỗ
+    // trong Bàn giáo viên — tab Lớp học đã làm việc đó.
     const loadField = $('cn-class-load').closest('.field');
-    if (loadField) loadField.style.display = 'none';
+    if (loadField) loadField.remove();
     const msg = $('cn-class-msg');
-    if (msg) msg.style.display = 'none';
+    if (msg) msg.remove();
     const namesField = $('cn-names').closest('.field');
-    if (namesField) namesField.style.display = 'none';
+    if (namesField) namesField.remove();
     // Trong app, danh sách lấy từ tab Lớp học — mô tả của trang rời
     // ("Dán danh sách lớp...") không còn đúng nữa nên đổi theo.
     const desc = root.querySelector('.tool-head p');

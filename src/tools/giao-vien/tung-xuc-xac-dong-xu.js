@@ -30,7 +30,7 @@ export function body() {
       <div class="gv-big" id="xx-total">Tổng: —</div>
       <span class="muted" id="xx-prev">Lần trước: chưa tung</span>
     </div>
-    <div class="field"><label for="xx-dice-count">Số viên xúc xắc</label><select id="xx-dice-count"><option value="1">1 viên</option><option value="2" selected>2 viên</option><option value="3">3 viên</option></select></div>
+    <div class="field gv-prep-only"><label for="xx-dice-count">Số viên xúc xắc</label><select id="xx-dice-count"><option value="1">1 viên</option><option value="2" selected>2 viên</option><option value="3">3 viên</option></select></div>
     <div class="btn-row">
       <button type="button" class="btn btn-primary" id="xx-roll">Tung xúc xắc</button>
       <button type="button" class="btn" id="xx-stage">Chiếu lớp</button>

@@ -2246,7 +2246,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .gv-flip { animation: gv-flip 0.9s ease-out; }
 
 /* Thẻ nhóm (chia nhóm ngẫu nhiên) — mỗi nhóm một màu pastel riêng. */
-.gv-groups { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.gv-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
 .gv-group {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -3497,6 +3497,7 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
+  overflow-x: hidden;
   min-height: 0;
   padding: 2px;
   scrollbar-width: thin;
@@ -3558,6 +3559,12 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   border: 1px solid var(--gv-line);
   border-radius: 20px;
   padding: 24px;
+}
+/* Màn hình thấp (máy chiếu 768px): thẻ sân khấu bớt đệm để nội dung
+   vừa 1 màn hình không cuộn trong — chỉ áp cho máy tính (min-width),
+   điện thoại giữ nguyên quy tắc riêng ở cuối file. */
+@media (max-height: 820px) and (min-width: 769px) {
+  .gv-stage-card { padding: 16px; }
 }
 /* Khung công cụ trong app: bỏ khung riêng (thẻ sân khấu đã là khung),
    bỏ tiêu đề riêng (tiêu đề + gợi ý đã ở đầu sân khấu), bỏ nút âm
@@ -3694,10 +3701,40 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   font-weight: 800;
   white-space: nowrap;
 }
-/* Hàng nút Gọi tên: nút chính giữa, nút phụ nhỏ bên dưới. */
-.gv-app #gv-tool-goi-ten .btn-row { flex-direction: column; align-items: center; gap: 12px; }
+/* Hàng nút Gọi tên: nút chính chiếm phần lớn, nút "Gọi lại từ đầu"
+   nằm cạnh (xếp dọc tốn thêm 62px, làm sân khấu cuộn trong ở
+   1366×768 — đo 19/11). */
+.gv-app #gv-tool-goi-ten .btn-row { flex-direction: row; align-items: center; gap: 12px; }
+.gv-app #gv-tool-goi-ten #gt-call { flex: 1; }
+/* Thẻ người thắng trong app gọn lại: nhãn "MỜI BẠN" bớt lề, hàng
+   điểm sát tên hơn, dòng nhắn điểm khi trống không chiếm chỗ. Tên gọi
+   không quấn dòng trong app — JS thu nhỏ tới khi vừa 1 dòng. */
+.gv-app .gv-hero-label { margin: 4px 0; }
+.gv-app .gv-winner-given { white-space: nowrap; }
+.gv-app .gv-points-row { margin-top: 8px; }
+.gv-app #gt-point-msg:empty { margin: 0; }
+/* Công tắc Tên to/Vòng quay trong app gọn lại một chút. */
+.gv-app #gv-tool-goi-ten .tabs { margin-bottom: 12px; }
+.gv-app #gv-tool-goi-ten .tabs .tab { padding: 6px 12px; }
 .gv-app #gv-tool-goi-ten .gv-hero { background: transparent; border: 0; margin: 8px 0; padding: 12px 8px; }
 .gv-app #gv-tool-goi-ten .gv-wheel-wrap { max-width: 320px; }
+/* Hàng gọn dưới nút Gọi tên (chỉ ở chế độ Chuẩn bị; chế độ Dạy ẩn
+   hẳn qua gv-prep-only): "Đã gọi", "Số bạn gọi mỗi lần", "Tải danh
+   sách đã gọi" xếp 1 hàng nhỏ thay vì 3 khối dọc — để sân khấu vừa
+   màn hình 1366×768 sau khi gọi. Trang rời không có quy tắc này nên
+   3 khối giữ nguyên dạng dọc như trước. */
+.gv-app .gv-prep-row { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; margin-top: 14px; }
+.gv-app .gv-prep-row .field { display: flex; align-items: center; gap: 8px; margin: 0; }
+.gv-app .gv-prep-row .field label { margin: 0; white-space: nowrap; font-size: 0.95rem; }
+.gv-app .gv-prep-row .field select { width: auto; min-width: 64px; padding: 8px 10px; }
+.gv-app .gv-prep-row #gt-status { margin: 0; flex: 1 1 220px; }
+/* "Đã gọi": số đếm + chip tên chảy cùng dòng (khối chip không tạo
+   dòng riêng) để hàng chuẩn bị thấp lại; chip nhiều thì tự xuống
+   dòng trong trạng thái. */
+.gv-app .gv-prep-row #gt-status { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.gv-app .gv-prep-row #gt-status p { margin: 0; }
+.gv-app .gv-prep-row #gt-status .gv-chips { display: contents; }
+.gv-app #gv-tool-goi-ten .gv-prep-row .btn-row { margin: 0; flex-direction: row; }
 
 /* Khối "chưa có lớp" trong app: 1 câu + đúng 1 nút dẫn về tab Lớp học. */
 .gv-app-noclass {
@@ -3752,6 +3789,8 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   cursor: pointer;
 }
 .gv-drawer-paste { margin: 0 16px 12px; flex: none; }
+/* Nút lớp mẫu trong ngăn lớp (chỉ hiện khi chưa có lớp nào). */
+.gv-drawer-sample { margin: 12px 16px 0; flex: none; }
 .gv-drawer-list {
   flex: 1;
   min-height: 0;
@@ -3958,8 +3997,12 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 }
 .gv-app-help[hidden] { display: none; }
 .gv-app-help-box {
-  background: var(--gv-surface);
-  color: var(--gv-ink);
+  /* 2 hộp này nằm NGOÀI #gv-app nên biến --gv-* không tới được —
+     thiếu fallback là hộp trong suốt, chữ nền chui qua (bắt bằng
+     mắt ở ảnh chụp hộp hướng dẫn 19/11; hộp Phím tắt cũng bị vậy
+     từ GĐ1). */
+  background: var(--gv-surface, #FFFFFF);
+  color: var(--gv-ink, #0F172A);
   border-radius: 20px;
   padding: 24px;
   max-width: 640px;
@@ -3969,6 +4012,10 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
   box-shadow: 0 16px 40px rgba(15, 23, 42, 0.25);
 }
 .gv-app-help-box h2 { margin: 0 0 12px; }
+/* 3 bước trong hộp hướng dẫn lần đầu mở Bàn giáo viên. */
+.gv-guide-steps { margin: 0 0 16px; padding-left: 24px; font-size: 1.1rem; line-height: 1.6; }
+.gv-guide-steps li { margin-bottom: 8px; }
+.gv-guide-steps li:last-child { margin-bottom: 0; }
 .gv-app-keys { width: 100%; border-collapse: collapse; }
 .gv-app-keys td { padding: 8px 10px; border-bottom: 1px solid var(--gv-line); vertical-align: top; }
 .gv-app-keys td:first-child { white-space: nowrap; width: 150px; }
@@ -3991,6 +4038,10 @@ body.gv-teach .gv-tabs,
 body.gv-teach .gv-drawer,
 body.gv-teach .gv-drawer-open,
 body.gv-teach .gv-drawer-backdrop { display: none; }
+/* Chế độ Dạy không còn nút tròn "Danh sách lớp" nên thẻ không cần
+   đệm đáy 64px nữa — lấy lại chỗ cho nội dung (ở 1024×768 đệm thừa
+   này làm Lớp học/Bảng điểm/Chia nhóm cuộn trong). */
+body.gv-teach .gv-stage-card { padding-bottom: 16px; }
 body.gv-teach .gv-layout { grid-template-columns: minmax(0, 1fr); }
 body.gv-teach .gv-stage-head h2 { font-size: 36px; }
 body.gv-teach .gv-topbar-class,
@@ -4012,6 +4063,33 @@ body.gv-teach .gv-winner-full { font-size: clamp(28px, 5vw, 44px); }
    rồi hãy dạy) để nút Gọi tên vừa trong thẻ, không bị cắt. */
 body.gv-teach .gv-app #gv-tool-goi-ten .tabs { display: none; }
 body.gv-teach .gv-points-row { margin: 12px 0 4px; }
+/* Chế độ Dạy chỉ giữ tên + điểm + nút chính (tiêu chí 19/11: KHÔNG
+   tab nào cuộn trong ở 1366×768 và 1024×768): ẩn dòng gợi ý dưới
+   tiêu đề, công tắc Xúc xắc/Bốc số (chọn ngăn ở Chuẩn bị) và mọi
+   khối đánh dấu gv-prep-only trong markup (nhập lớp, sao lưu, ô
+   chọn lớp, cài đặt ngưỡng, ô câu hỏi, bộ câu hỏi...). !important
+   để thắng cả style display: do JS đặt (vd hàng tải lịch sử). */
+body.gv-teach .gv-stage-head p { display: none; }
+body.gv-teach .gv-merge-toggle { display: none; }
+body.gv-teach .gv-app .gv-prep-only { display: none !important; }
+/* Bảng điểm chế độ Dạy: hàng gọn lại để đủ 8 bạn trong 1 màn hình.
+   Thanh tỉ lệ chiếm 1 dòng riêng mỗi hàng (16px × 8 = 128px) nên ẩn
+   ở chế độ Dạy — thứ hạng + con số đã đủ để cả lớp nhìn. */
+body.gv-teach .gv-app .gv-score-row { padding: 6px 10px; gap: 8px; }
+body.gv-teach .gv-app .gv-score-row + .gv-score-row { margin-top: 6px; }
+body.gv-teach .gv-app .gv-score-num { font-size: 1.6rem; }
+body.gv-teach .gv-app .gv-score-name { font-size: 1.1rem; }
+body.gv-teach .gv-app .gv-score-bar { display: none; }
+/* Bảng lớp chế độ Dạy: hàng gọn lại (bảng 8 bạn vừa 1 màn hình);
+   khung bảng bỏ lề trên/dưới (24px) vì thẻ sân khấu đã có đệm. */
+body.gv-teach .gv-app-table th,
+body.gv-teach .gv-app-table td { padding: 6px 8px; }
+body.gv-teach .gv-app-tablewrap { margin: 0; }
+/* Chia nhóm chế độ Dạy: thẻ nhóm gọn lại. */
+body.gv-teach .gv-app .gv-group { padding: 10px 12px; }
+body.gv-teach .gv-app .gv-group li { font-size: 1.1rem; line-height: 1.5; }
+/* Đo độ ồn chế độ Dạy: sân bóng thấp lại một chút. */
+body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6px; margin: 8px 0 4px; }
 /* Nút chính của Đếm ngược dính đáy thẻ (nội dung tab này dài, nút
    nằm cuối form — dính đáy để lúc nào cũng bấm được). */
 .gv-app #gv-tool-dem-nguoc .btn-row {
@@ -4026,7 +4104,10 @@ body.gv-teach .gv-points-row { margin: 12px 0 4px; }
 @media (max-width: 1100px) {
   .gv-layout { grid-template-columns: 72px minmax(0, 1fr); }
   .gv-app-tab {
-    width: 72px;
+    /* Rộng bằng cột trừ lề (72px cột − 2×2px padding của .gv-tabs):
+       width 72px cố định làm nút tràn 4px, sinh thanh cuộn ngang ở
+       đáy cột (lỗi 19/11). */
+    width: 100%;
     height: 48px;
     padding: 0 6px;
     gap: 6px;
@@ -4080,8 +4161,10 @@ body.gv-teach .gv-points-row { margin: 12px 0 4px; }
   .gv-help-label { display: none; }
   .gv-help-btn { padding: 0 12px; }
   /* Chừa chỗ dưới đáy thẻ để nút tròn "Danh sách lớp" không che
-     mất nội dung cuối thẻ. */
-  .gv-stage-card { padding-bottom: 88px; }
+     mất nội dung cuối thẻ. Nút cao 56px, cách đáy màn hình 16px;
+     thẻ cách đáy màn hình 16px — đệm đáy 64px là vừa (56 + 8 thở).
+     Đừng để 88px: thừa 24px làm nhiều tab cuộn trong ở 1024×768. */
+  .gv-stage-card { padding-bottom: 64px; }
 }
 
 /* ---------- Điện thoại: thanh trên xếp 2 hàng, tab thành dải cuộn

@@ -18,7 +18,7 @@ export function body() {
   return `
 <div class="tool-panel">
   <div class="tool-head"><span><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></span><div><h2>Bảng điểm lớp</h2><p class="muted">Thêm đội hoặc tên bạn, cộng/trừ điểm nhanh — bảng tự xếp hạng theo điểm. Điểm được lưu trên trình duyệt này, tải lại trang vẫn còn.</p></div></div>
-  <div class="tabs" id="bd-mode-tabs" style="display:none">
+  <div class="tabs gv-prep-only" id="bd-mode-tabs" style="display:none">
     <button type="button" class="tab tab-active" id="bd-mode-class">Cá nhân</button>
     <button type="button" class="tab" id="bd-mode-team">Đội</button>
   </div>
@@ -26,7 +26,7 @@ export function body() {
     <p id="bd-no-class-text">Chưa có lớp nào — tạo lớp ở tab Lớp học để chấm điểm cá nhân.</p>
     <button type="button" class="btn btn-primary" id="bd-no-class-btn">Tạo lớp</button>
   </div>
-  <div class="field"><label for="bd-name">Tên đội hoặc tên bạn</label>
+  <div class="field gv-prep-only"><label for="bd-name">Tên đội hoặc tên bạn</label>
     <div style="display:flex;gap:8px">
       <input id="bd-name" type="text" placeholder="Ví dụ: Tổ 1, Đội Sao Biển…" autocomplete="off" style="flex:1;min-width:0">
       <button type="button" class="btn btn-primary" id="bd-add">Thêm</button>
@@ -34,7 +34,7 @@ export function body() {
   </div>
   <p class="note" id="bd-empty">Chưa có đội nào — gõ tên đội hoặc tên bạn rồi bấm "Thêm".</p>
   <div id="bd-list"></div>
-  <div class="btn-row" style="margin-top:14px">
+  <div class="btn-row gv-prep-only" style="margin-top:14px">
     <button type="button" class="btn gv-dl" id="bd-download" style="display:none"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải bảng điểm (.csv)</button>
     <button type="button" class="btn" id="bd-stage">Chiếu lớp</button>
     <button type="button" class="btn btn-ghost gv-sound-btn" id="bd-sound">Âm thanh: Bật</button>
@@ -53,8 +53,9 @@ export function init(root) {
   const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const KEY = 'uh_bangdiemlop';
   let mode = 'team'; // 'class' = Cá nhân (chỉ trong app), 'team' = Đội
-  let entries = []; // {name, score, recIndex?} — recIndex là vị trí
-  // trong bản ghi lớp (chế độ Cá nhân), để không nhầm 2 bạn trùng tên.
+  let entries = []; // {name, label?, score, recId?} — recId là id bản
+  // ghi lớp (chế độ Cá nhân), label là tên hiển thị có đánh số trùng
+  // tên ("Bùi Ngọc Lan (1)") — để không nhầm 2 bạn trùng tên.
   let clearArmed = false;
   let clearTimer = null;
   let stageOpen = false;
@@ -98,7 +99,8 @@ export function init(root) {
     const h = gvClasses();
     const cls = activeClass();
     const recs = (h && cls && typeof h.getRecords === 'function') ? h.getRecords(cls) : [];
-    entries = recs.map((r, i) => ({ name: r.name, score: r.points || 0, recIndex: i }));
+    const labels = (h && typeof h.displayNames === 'function') ? h.displayNames(recs) : recs.map(r => r.name);
+    entries = recs.map((r, i) => ({ name: r.name, label: labels[i] || r.name, score: r.points || 0, recId: r.id }));
   }
 
   function refresh() {
@@ -156,7 +158,7 @@ export function init(root) {
       const pct = max > 0 ? Math.max(0, Math.round(row.e.score / max * 100)) : 0;
       return '<div class="gv-score-row" data-i="' + row.i + '">'
         + rankBadge(rank + 1)
-        + '<span class="gv-score-name">' + esc(row.e.name) + '</span>'
+        + '<span class="gv-score-name">' + esc(row.e.label || row.e.name) + '</span>'
         + '<span class="gv-score-num' + neg + '">' + row.e.score + '</span>'
         + '<span class="gv-score-btns">'
         + '<button type="button" class="btn gv-mini gv-btn-add" data-act="add" data-i="' + row.i + '" data-v="1">+1</button>'
@@ -236,11 +238,12 @@ export function init(root) {
     if (btn.getAttribute('data-act') === 'add') {
       const v = parseInt(btn.getAttribute('data-v'), 10) || 0;
       if (IN_APP && mode === 'class') {
-        // Ghi thẳng vào bản ghi lớp (theo vị trí, không theo tên — để
-        // không nhầm 2 bạn trùng tên); tab Lớp học thấy ngay lần mở sau.
+        // Ghi thẳng vào bản ghi lớp (theo id, không theo tên/vị trí —
+        // để không nhầm 2 bạn trùng tên); tab Lớp học thấy ngay lần
+        // mở sau.
         const h = gvClasses();
         const next = entries[i].score + v;
-        if (h && typeof h.setPointsAt === 'function') h.setPointsAt(activeClass(), entries[i].recIndex, next);
+        if (h && typeof h.setPointsById === 'function' && entries[i].recId) h.setPointsById(activeClass(), entries[i].recId, next);
         entries[i].score = next;
       } else {
         entries[i].score += v;
@@ -310,7 +313,7 @@ export function init(root) {
   $('bd-download').addEventListener('click', () => {
     let csv = '\uFEFFHạng,Tên,Điểm\n';
     sorted().forEach((row, rank) => {
-      csv += (rank + 1) + ',' + csvCell(row.e.name) + ',' + row.e.score + '\n';
+      csv += (rank + 1) + ',' + csvCell(row.e.label || row.e.name) + ',' + row.e.score + '\n';
     });
     download('bang-diem-lop.csv', csv);
   });
@@ -341,7 +344,7 @@ export function init(root) {
       const pct = max > 0 ? Math.max(0, Math.round(row.e.score / max * 100)) : 0;
       return '<div class="gv-score-row">'
         + rankBadge(rank + 1)
-        + '<span class="gv-score-name">' + esc(row.e.name) + '</span>'
+        + '<span class="gv-score-name">' + esc(row.e.label || row.e.name) + '</span>'
         + '<span class="gv-score-num">' + row.e.score + '</span>'
         + '<span class="gv-score-bar"><span class="gv-score-bar-fill" style="width:' + pct + '%"></span></span>'
         + '</div>';

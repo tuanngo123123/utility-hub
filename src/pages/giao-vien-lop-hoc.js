@@ -74,8 +74,9 @@ export function body(ctx) {
   };
 
   // Khung sân khấu của 1 tab: tiêu đề 28px + 1 dòng gợi ý + thẻ trắng
-  // lớn chứa nội dung công cụ. tool-head riêng của từng công cụ bị ẩn
-  // trong app (CSS) vì tiêu đề + gợi ý đã ở đây.
+  // lớn chứa nội dung công cụ. tool-head riêng của từng công cụ bị
+  // xóa hẳn khỏi DOM khi khởi tạo (tiêu đề + gợi ý đã ở đây) — CSS
+  // chỉ ẩn nó trong khoảng trước khi khởi tạo.
   const stageHead = (t) => `<div class="gv-stage-head"><h2>${esc(t.label)}</h2><p>${esc(t.hint)}</p></div>`;
 
   const toolPanels = TABS.filter((t) => t.tools.length).map((t) => {
@@ -136,12 +137,12 @@ ${TABS.map(tabBtn).join('\n')}
           ${stageHead(TABS[0])}
           <div class="gv-stage-card">
             <div class="tool-panel gv-app-class">
-              <div class="gv-app-classbar">
+              <div class="gv-app-classbar gv-prep-only">
                 <div class="field"><label for="lh-class">Lớp đang dạy</label><select id="lh-class"><option value="">— Chưa có lớp nào —</option></select></div>
                 <div class="field"><label for="lh-new-name">Tạo lớp mới</label><div style="display:flex;gap:8px"><input id="lh-new-name" type="text" placeholder="Ví dụ: 6A" autocomplete="off" style="flex:1;min-width:0"><button type="button" class="btn btn-primary" id="lh-create">Tạo lớp</button></div></div>
                 <button type="button" class="btn btn-ghost" id="lh-delete">Xóa lớp này</button>
               </div>
-              <p class="note" id="lh-msg" style="display:none"></p>
+              <p class="note gv-prep-only" id="lh-msg" style="display:none"></p>
               <div class="gv-app-tablewrap" id="lh-table-wrap" style="display:none">
                 <table class="gv-app-table">
                   <thead><tr><th scope="col">#</th><th scope="col">Tên học sinh</th><th scope="col">Giới tính</th><th scope="col">⭐</th><th scope="col">Vắng</th><th scope="col">Điểm</th><th scope="col"><span class="sr-only">Xóa</span></th></tr></thead>
@@ -149,8 +150,9 @@ ${TABS.map(tabBtn).join('\n')}
                 </table>
               </div>
               <p class="muted" id="lh-empty">Chưa có lớp nào — tạo lớp mới rồi dán danh sách ở ô dưới.</p>
-              <div class="btn-row"><button type="button" class="btn" id="lh-add-row">+ Thêm bạn</button></div>
-              <div class="gv-class-box" id="lh-import-box">
+              <div class="btn-row gv-prep-only" id="lh-sample-row" style="display:none"><button type="button" class="btn btn-primary" id="lh-sample-class">Dùng thử với lớp mẫu</button><span class="muted">Lớp 30 bạn tên giả để thử mọi tab ngay — xóa được bất cứ lúc nào.</span></div>
+              <div class="btn-row gv-prep-only"><button type="button" class="btn" id="lh-add-row">+ Thêm bạn</button></div>
+              <div class="gv-class-box gv-prep-only" id="lh-import-box">
                 <h3>Nhập danh sách lớp</h3>
                 <p class="muted">Dán từ Excel (cột STT tự bỏ, cột Giới tính tự nhận) hoặc tải file .csv / .xlsx có cột Tên, Giới tính. Đọc xong sẽ hiện xem trước — bấm xác nhận mới thêm vào lớp.</p>
                 <div class="field"><label for="lh-paste">Dán danh sách (mỗi bạn một dòng)</label><textarea id="lh-paste" rows="5" placeholder="1. Nguyễn Văn A&#10;2. Trần Thị B"></textarea></div>
@@ -169,7 +171,7 @@ ${TABS.map(tabBtn).join('\n')}
                 </div>
                 <p class="note" id="lh-import-msg" style="display:none"></p>
               </div>
-              <div class="gv-class-box">
+              <div class="gv-class-box gv-prep-only">
                 <h3>Sao lưu &amp; khôi phục</h3>
                 <p class="muted">Dữ liệu chỉ nằm trên trình duyệt của bạn (lớp, điểm, điểm danh, bộ câu hỏi, cài đặt âm thanh) — không gửi lên máy chủ nào. Sao lưu ra 1 file để đổi máy hoặc phòng khi xóa dữ liệu trình duyệt.</p>
                 <div class="btn-row">
@@ -195,6 +197,7 @@ ${toolPanels}
         <button type="button" class="btn btn-primary gv-drawer-paste" id="gv-drawer-paste">+ Dán từ Excel</button>
         <div class="gv-drawer-list" id="gv-drawer-list"></div>
         <p class="muted gv-drawer-empty" id="gv-drawer-empty">Chưa có lớp nào — tạo lớp ở tab Lớp học rồi dán danh sách vào.</p>
+        <button type="button" class="btn btn-primary gv-drawer-sample" id="gv-drawer-sample" style="display:none">Dùng thử với lớp mẫu</button>
       </aside>
     </div>
 
@@ -215,6 +218,19 @@ ${toolPanels}
       </table>
       <p class="muted">Phím tắt không chạy khi đang gõ trong ô nhập — bấm ra ngoài rồi dùng phím.</p>
       <div class="btn-row"><button type="button" class="btn btn-primary" id="gv-app-help-close">Đóng</button></div>
+    </div>
+  </div>
+
+  <div class="gv-app-help" id="gv-app-guide" hidden>
+    <div class="gv-app-help-box" role="dialog" aria-modal="true" aria-labelledby="gv-app-guide-title">
+      <h2 id="gv-app-guide-title">Bắt đầu trong 3 bước</h2>
+      <ol class="gv-guide-steps">
+        <li><strong>Dán danh sách lớp</strong> ở tab Lớp học.</li>
+        <li><strong>Chọn công cụ bên trái</strong> — gọi tên, chia nhóm, bảng điểm…</li>
+        <li><strong>Bấm Dạy (F)</strong> khi chiếu lên lớp.</li>
+      </ol>
+      <p class="muted">Chưa có danh sách? Bấm “Dùng thử với lớp mẫu” để thử mọi tab ngay, không cần dán gì cả.</p>
+      <div class="btn-row"><button type="button" class="btn btn-primary" id="gv-app-guide-close">Đã hiểu</button></div>
     </div>
   </div>
 
@@ -260,12 +276,19 @@ ${inits}
       // nhất là bản ghi lớp trong UhGvClasses) ----------
       var drawerList = document.getElementById('gv-drawer-list');
       var drawerEmpty = document.getElementById('gv-drawer-empty');
-      var calledRecIdx = -1; // vị trí bạn đang được gọi (tô nền #E8EEFF)
+      var calledId = ''; // id bạn đang được gọi (tô nền #E8EEFF)
 
       function refreshSideUI() {
         var helper = gvClasses();
         var active = helper ? helper.active() : '';
         var recs = (helper && active) ? helper.getRecords(active) : [];
+        // Nút "Dùng thử với lớp mẫu" ở ngăn lớp chỉ hiện khi chưa có
+        // lớp nào (lớp đang dạy trống bạn thì chưa phải lúc hiện nó).
+        var drawerSample = document.getElementById('gv-drawer-sample');
+        if (drawerSample) {
+          var hasClasses = helper && Object.keys(helper.list()).length > 0;
+          drawerSample.style.display = hasClasses ? 'none' : '';
+        }
         var present = recs.filter(function (r) { return !r.absent; }).length;
         var countEl = document.getElementById('gv-attend-count');
         countEl.textContent = active ? ('Có mặt ' + present + '/' + recs.length) : 'Chưa có lớp';
@@ -282,10 +305,14 @@ ${inits}
         }
         drawerEmpty.style.display = 'none';
         drawerList.style.display = '';
+        // Tên hiển thị đánh số trùng tên ("Bùi Ngọc Lan (1)/(2)"); hàng
+        // mang data-id để sửa sao/vắng đúng bạn, không theo tên/vị trí.
+        var labels = (helper && helper.displayNames) ? helper.displayNames(recs) : recs.map(function (r) { return r.name; });
         drawerList.innerHTML = recs.map(function (r, i) {
-          return '<div class="gv-drawer-row' + (i === calledRecIdx ? ' gv-drawer-row-called' : '') + '" data-i="' + i + '">'
-            + '<button type="button" class="gv-drawer-star' + (r.star ? ' gv-drawer-star-on' : '') + '" aria-pressed="' + (r.star ? 'true' : 'false') + '" aria-label="Đánh dấu sao cho ' + escHtml(r.name) + '">' + (r.star ? '★' : '☆') + '</button>'
-            + '<span class="gv-drawer-name' + (r.absent ? ' gv-drawer-name-absent' : '') + '" title="' + escHtml(r.name) + '">' + escHtml(r.name) + '</span>'
+          var label = labels[i] || r.name;
+          return '<div class="gv-drawer-row' + (r.id && r.id === calledId ? ' gv-drawer-row-called' : '') + '" data-id="' + escHtml(r.id || '') + '">'
+            + '<button type="button" class="gv-drawer-star' + (r.star ? ' gv-drawer-star-on' : '') + '" aria-pressed="' + (r.star ? 'true' : 'false') + '" aria-label="Đánh dấu sao cho ' + escHtml(label) + '">' + (r.star ? '★' : '☆') + '</button>'
+            + '<span class="gv-drawer-name' + (r.absent ? ' gv-drawer-name-absent' : '') + '" title="' + escHtml(label) + '">' + escHtml(label) + '</span>'
             + '<span class="gv-drawer-points" title="' + (r.points || 0) + ' điểm">' + (r.points || 0) + '</span>'
             + '<button type="button" class="gv-drawer-absent' + (r.absent ? ' gv-drawer-absent-on' : '') + '" aria-pressed="' + (r.absent ? 'true' : 'false') + '">' + (r.absent ? 'Vắng' : 'Có mặt') + '</button>'
             + '</div>';
@@ -298,32 +325,34 @@ ${inits}
       // có kiểm tra tồn tại nên trang rời (không có UhGvApp) vẫn chạy.
       window.UhGvApp = {
         refresh: refreshSideUI,
-        setCalled: function (recIdx) {
-          calledRecIdx = (typeof recIdx === 'number' && recIdx >= 0) ? recIdx : -1;
+        setCalled: function (id) {
+          calledId = (typeof id === 'string') ? id : '';
           refreshSideUI();
         },
-        clearCalled: function () { calledRecIdx = -1; refreshSideUI(); }
+        clearCalled: function () { calledId = ''; refreshSideUI(); }
       };
 
       // Sửa ở ngăn lớp (sao/vắng): đọc mới từ nguồn duy nhất, sửa theo
-      // vị trí (không theo tên — 2 bạn trùng tên không nhầm nhau), lưu
-      // lại, rồi đồng bộ cả bản ghi làm việc của tab Lớp học để lần
-      // sửa bảng sau không ghi đè mất thay đổi ở ngăn này.
+      // id (không theo tên/vị trí — 2 bạn trùng tên không nhầm nhau),
+      // lưu lại, rồi đồng bộ cả bản ghi làm việc của tab Lớp học để
+      // lần sửa bảng sau không ghi đè mất thay đổi ở ngăn này.
       drawerList.addEventListener('click', function (ev) {
         var row = ev.target.closest('.gv-drawer-row');
         if (!row) return;
-        var i = parseInt(row.getAttribute('data-i'), 10);
+        var id = row.getAttribute('data-id') || '';
         var helper = gvClasses();
         var active = helper ? helper.active() : '';
-        if (!helper || !active || isNaN(i)) return;
+        if (!helper || !active || !id) return;
         var recs = helper.getRecords(active);
-        if (!recs[i]) return;
+        var rec = null;
+        for (var j = 0; j < recs.length; j++) { if (recs[j].id === id) { rec = recs[j]; break; } }
+        if (!rec) return;
         var btn = ev.target.closest('button');
         if (!btn) return;
         if (btn.classList.contains('gv-drawer-star')) {
-          recs[i].star = !recs[i].star;
+          rec.star = !rec.star;
         } else if (btn.classList.contains('gv-drawer-absent')) {
-          recs[i].absent = !recs[i].absent;
+          rec.absent = !rec.absent;
         } else return;
         helper.saveRecords(active, recs);
         syncRecordsFromHelper();
@@ -379,6 +408,7 @@ ${inits}
           if (!soundInited) {
             var root = document.getElementById('gv-tool-am-thanh');
             try { GV_INITS['am-thanh-lop-hoc'](root); } catch (e) { console.error('Không khởi tạo được khung âm thanh', e); }
+            dropToolHead(root);
             soundInited = true;
           }
           paintSoundBtn();
@@ -438,6 +468,9 @@ ${inits}
         } else if (!teachMode && !opts.noFullscreen && document.fullscreenElement && document.exitFullscreen) {
           try { document.exitFullscreen(); } catch (e) { /* bỏ qua */ }
         }
+        // Báo cho các công cụ biết chế độ đã đổi (Gọi tên dùng để ẩn
+        // khung vòng quay khi đã công bố người thắng ở chế độ Dạy).
+        try { document.dispatchEvent(new CustomEvent('gv-teach', { detail: { teach: teachMode } })); } catch (e) { /* bỏ qua */ }
       }
 
       // ---------- Tab gộp Xúc xắc & bốc số ----------
@@ -473,10 +506,21 @@ ${inits}
       });
 
       // ---------- Chuyển tab (khởi tạo lười + làm mới khi mở lại) ----------
+      // Tiêu đề + mô tả riêng của trang rời (tool-head) đã ẩn bằng CSS
+      // trong app — xóa hẳn khỏi DOM sau khi công cụ khởi tạo xong
+      // (một số công cụ đổi chữ mô tả trong init nên không xóa trước).
+      // Sân khấu đã có tiêu đề tab riêng; để lại thì chuỗi "Gọi tên
+      // ngẫu nhiên" vẫn nằm trong DOM app.
+      function dropToolHead(root) {
+        var head = root.querySelector('.tool-head');
+        if (head) head.remove();
+      }
+
       function initToolRoot(root) {
         var slug = root.getAttribute('data-tool');
         if (!slug || inited[slug]) return;
         try { GV_INITS[slug](root); } catch (e) { console.error('Không khởi tạo được công cụ ' + slug, e); }
+        dropToolHead(root);
         inited[slug] = true;
       }
 
@@ -494,11 +538,17 @@ ${inits}
           var p = document.getElementById('gv-panel-' + t);
           if (p) p.hidden = (t !== id);
         });
-        if (id === 'lop-hoc') {
-          refreshClassTab();
-        } else if (id === 'xuc-xac-boc-so') {
+        // Đồng bộ lớp đang dạy ở MỌI tab (trước khi khởi tạo/làm mới
+        // công cụ của tab): 2 ô chọn lớp phải đọc cùng nguồn với ngăn
+        // lớp. Bản cũ chỉ đồng bộ khi mở tab Lớp học nên mở trang bằng
+        // deep-link (?tab=goi-ten...) ô chọn vẫn hiện "— Chưa có lớp
+        // nào —" dù lớp đã lưu (lỗi nặng 19/11). loadClass chỉ xóa
+        // lượt gọi/tô sáng khi lớp THỰC SỰ đổi nên chuyển tab không
+        // làm mất lượt đang gọi.
+        refreshClassTab();
+        if (id === 'xuc-xac-boc-so') {
           setMergeView(mergeView, { silent: true });
-        } else {
+        } else if (id !== 'lop-hoc') {
           var panel = document.getElementById('gv-panel-' + id);
           if (panel) {
             panel.querySelectorAll('[data-tool]').forEach(function (root) {
@@ -592,6 +642,25 @@ ${inits}
       document.getElementById('gv-app-help-close').addEventListener('click', closeHelp);
       helpPanel.addEventListener('click', function (e) { if (e.target === helpPanel) closeHelp(); });
 
+      // ---------- Hộp hướng dẫn 3 bước (chỉ hiện lần đầu mở trang;
+      // bấm "Đã hiểu" — hay Esc, hay bấm ra ngoài — thì ghi cờ và
+      // không hiện lại nữa) ----------
+      var guidePanel = document.getElementById('gv-app-guide');
+      var GUIDE_KEY = 'uh_gv_huongdan';
+      function dismissGuide() {
+        try { localStorage.setItem(GUIDE_KEY, '1'); } catch (e) { /* bỏ qua */ }
+        guidePanel.hidden = true;
+      }
+      function maybeShowGuide() {
+        var done = false;
+        try { done = localStorage.getItem(GUIDE_KEY) === '1'; } catch (e) { /* bỏ qua */ }
+        if (done) return;
+        guidePanel.hidden = false;
+        document.getElementById('gv-app-guide-close').focus();
+      }
+      document.getElementById('gv-app-guide-close').addEventListener('click', dismissGuide);
+      guidePanel.addEventListener('click', function (e) { if (e.target === guidePanel) dismissGuide(); });
+
       function anyStageOpen() {
         var stages = document.querySelectorAll('.gv-stage');
         for (var i = 0; i < stages.length; i++) {
@@ -603,7 +672,8 @@ ${inits}
       // ---------- Phím tắt toàn trang ----------
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
-          if (!helpPanel.hidden) closeHelp();
+          if (!guidePanel.hidden) dismissGuide();
+          else if (!helpPanel.hidden) closeHelp();
           else if (!soundPop.hidden) setSoundPop(false);
           else if (drawer.classList.contains('gv-drawer-show')) setDrawerOpen(false);
           // Thoát chế độ Dạy khi không ở toàn màn hình (đang toàn màn
@@ -612,7 +682,7 @@ ${inits}
           else if (teachMode && !document.fullscreenElement) setTeachMode(false);
           return; // đóng sân khấu Chiếu lớp do chính công cụ xử lý
         }
-        if (!helpPanel.hidden || anyStageOpen()) return;
+        if (!helpPanel.hidden || !guidePanel.hidden || anyStageOpen()) return;
         var t = e.target;
         var tag = t && t.tagName;
         if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
@@ -765,12 +835,29 @@ ${inits}
         topClassSel.value = val;
       }
 
+      // Xóa lượt đang gọi ở tab Gọi tên khi danh sách lớp đổi giữa
+      // chừng (thêm/xóa/sửa tên/đổi lớp): danh sách đã gọi + thẻ người
+      // thắng biến mất nên nút +1 không mở lại được (lỗi 19/11).
+      // Sửa sao/vắng/điểm KHÔNG xóa lượt (không đổi thành viên).
+      function clearCallRound() {
+        var root = document.getElementById('gv-tool-goi-ten');
+        if (root && typeof root._gvClearRound === 'function') {
+          try { root._gvClearRound(); } catch (e) { /* bỏ qua */ }
+        }
+        calledId = '';
+        refreshSideUI();
+      }
+
       function loadClass(name) {
         var helper = gvClasses();
+        // Chỉ khi lớp THỰC SỰ đổi mới xóa lượt gọi/tô sáng: loadClass
+        // giờ chạy mỗi lần chuyển tab (đồng bộ ô chọn lớp), không
+        // được làm mất lượt đang gọi.
+        var changed = (name || '') !== activeClass;
         activeClass = name || '';
         if (helper) helper.setActive(activeClass);
         records = (helper && activeClass) ? helper.getRecords(activeClass) : [];
-        calledRecIdx = -1;
+        if (changed) clearCallRound();
         // Đồng bộ cả 2 ô chọn lớp (thanh trên + tab Lớp học) với lớp
         // vừa chọn — không thì ô chọn vẫn hiện lớp cũ sau khi tạo lớp
         // mới (tìm ra khi kiểm chứng MẪU 1, 19/11).
@@ -791,6 +878,9 @@ ${inits}
           if (saved && map[saved]) activeClass = saved;
           else if (names.length) activeClass = names[0];
         }
+        // Nút "Dùng thử với lớp mẫu" chỉ hiện khi chưa có lớp nào.
+        var sampleRow = document.getElementById('lh-sample-row');
+        if (sampleRow) sampleRow.style.display = names.length ? 'none' : '';
         refreshClassSelect();
         loadClass(activeClass);
       }
@@ -827,6 +917,69 @@ ${inits}
         if (e.key === 'Enter') { e.preventDefault(); document.getElementById('lh-create').click(); }
       });
 
+      // ---------- Lớp mẫu: 30 bạn tên giả để giáo viên thử ngay mọi
+      // tab mà chưa cần dán danh sách thật. Dùng đúng cấu trúc bản ghi
+      // như lớp thật (id cố định tạo lúc thêm, giới tính, sao, vắng,
+      // điểm) nên mọi tab xử lý y hệt; 2 bạn trùng họ tên để thử luôn
+      // trường hợp trùng tên. Lớp mẫu là 1 lớp bình thường trong
+      // uh_gv_lop — tạo lớp thật không đụng tới nó (lớp mới thành lớp
+      // đang dạy, lớp mẫu vẫn nằm trong danh sách cho tới khi giáo viên
+      // chọn nó rồi bấm "Xóa lớp này").
+      var SAMPLE_NAME = 'Lớp mẫu';
+      var SAMPLE_STUDENTS = [
+        ['Nguyễn Minh Anh', 'nam', true],
+        ['Trần Thị Mai', 'nữ', false],
+        ['Lê Văn Hùng', 'nam', false],
+        ['Phạm Thu Hà', 'nữ', true],
+        ['Hoàng Đức Anh', 'nam', false],
+        ['Vũ Thị Lan', 'nữ', false],
+        ['Đặng Quốc Bảo', 'nam', false],
+        ['Bùi Thị Ngọc', 'nữ', false],
+        ['Đỗ Văn Tuấn', 'nam', false],
+        ['Hồ Thị Phương', 'nữ', false],
+        ['Ngô Minh Quân', 'nam', true],
+        ['Dương Thị Hoa', 'nữ', false],
+        ['Nguyễn Minh Anh', 'nam', false],
+        ['Lý Văn Nam', 'nam', false],
+        ['Trần Quốc Anh', 'nam', false],
+        ['Lê Thị Hồng', 'nữ', false],
+        ['Phạm Văn Đức', 'nam', false],
+        ['Hoàng Thị Linh', 'nữ', true],
+        ['Vũ Minh Trí', 'nam', false],
+        ['Đặng Thị Thu', 'nữ', false],
+        ['Bùi Văn Sơn', 'nam', false],
+        ['Đỗ Thị Hạnh', 'nữ', false],
+        ['Hồ Văn Khánh', 'nam', false],
+        ['Ngô Thị Trang', 'nữ', false],
+        ['Dương Văn Phúc', 'nam', false],
+        ['Lý Thị Mai Anh', 'nữ', false],
+        ['Trần Văn Hải', 'nam', false],
+        ['Lê Quốc Huy', 'nam', true],
+        ['Phạm Thị Yến', 'nữ', false],
+        ['Hoàng Văn Long', 'nam', false],
+      ];
+      function createSampleClass() {
+        var helper = gvClasses();
+        if (!helper) { showMsg(lhMsg, 'Trình duyệt chưa nạp xong phần lưu lớp — tải lại trang rồi thử lại nhé.'); return; }
+        if (helper.list()[SAMPLE_NAME]) {
+          // Đã có lớp mẫu rồi (giáo viên tạo trước đó): chỉ chọn nó,
+          // không ghi đè — điểm/vắng đã thử vẫn còn nguyên.
+          refreshClassSelect();
+          loadClass(SAMPLE_NAME);
+          return;
+        }
+        var recs = SAMPLE_STUDENTS.map(function (s) {
+          return { id: helper.newId(), name: s[0], gender: s[1], star: !!s[2], absent: false, points: 0 };
+        });
+        helper.saveRecords(SAMPLE_NAME, recs);
+        refreshClassSelect();
+        loadClass(SAMPLE_NAME);
+        refreshClassTab(); // ẩn nút lớp mẫu (đã có lớp) + đồng bộ 2 ô chọn
+        showMsg(lhMsg, 'Đã tạo lớp mẫu 30 bạn — thử gọi tên, chia nhóm, điểm danh thoải mái. Khi có lớp thật, tạo lớp mới rồi chọn lớp mẫu và bấm "Xóa lớp này".');
+      }
+      document.getElementById('lh-sample-class').addEventListener('click', createSampleClass);
+      document.getElementById('gv-drawer-sample').addEventListener('click', createSampleClass);
+
       var delClassArmed = false;
       var delClassTimer = null;
       document.getElementById('lh-delete').addEventListener('click', function () {
@@ -854,11 +1007,14 @@ ${inits}
 
       document.getElementById('lh-add-row').addEventListener('click', function () {
         if (!activeClass) { showMsg(lhMsg, 'Tạo lớp trước đã nhé.'); return; }
+        var helper = gvClasses();
         var name = 'Bạn mới';
         var i = 2;
         while (records.some(function (r) { return r.name === name; })) { name = 'Bạn mới ' + i; i++; }
-        records.push({ name: name, gender: '', star: false, absent: false, points: 0 });
+        // Gán id ngay lúc tạo để mảng làm việc có id trước khi lưu.
+        records.push({ id: (helper && helper.newId) ? helper.newId() : '', name: name, gender: '', star: false, absent: false, points: 0 });
         saveRecords();
+        clearCallRound(); // thêm thành viên giữa chừng → xóa lượt gọi
         renderTable();
         refreshSideUI();
         var input = lhTbody.querySelector('tr:last-child .lh-name');
@@ -882,6 +1038,7 @@ ${inits}
           // Lớp hay có 2 bạn trùng họ tên — không chặn trùng tên nữa.
           rec.name = v;
           saveRecords();
+          clearCallRound(); // sửa tên giữa chừng → xóa lượt gọi
           refreshSideUI();
           showMsg(lhMsg, '');
           return;
@@ -952,6 +1109,7 @@ ${inits}
           var gone = rec.name;
           records.splice(i, 1);
           saveRecords();
+          clearCallRound(); // xóa thành viên giữa chừng → xóa lượt gọi
           renderTable();
           refreshSideUI();
           showMsg(lhMsg, 'Đã xóa ' + gone + ' khỏi lớp ' + activeClass + '.');
@@ -964,12 +1122,18 @@ ${inits}
       // bạn trùng họ tên, giữ cả hai); bước xem trước là chỗ giáo viên
       // kiểm tra trước khi thêm.
       function mergeStudents(list) {
+        var helper = gvClasses();
         var added = 0;
         list.forEach(function (item) {
-          records.push({ name: item.name, gender: item.gender || '', star: false, absent: false, points: 0 });
+          // Mỗi bạn mới có id cố định riêng ngay lúc thêm (kể cả 2
+          // bạn trùng họ tên — id khác nhau).
+          records.push({ id: (helper && helper.newId) ? helper.newId() : '', name: item.name, gender: item.gender || '', star: false, absent: false, points: 0 });
           added++;
         });
-        if (added) saveRecords();
+        if (added) {
+          saveRecords();
+          clearCallRound(); // nhập thêm bạn giữa chừng → xóa lượt gọi
+        }
         return { added: added };
       }
 
@@ -1124,7 +1288,7 @@ ${inits}
       });
 
       // ---------- Sao lưu / khôi phục ----------
-      var BACKUP_KEYS = ['uh_gv_lop', 'uh_bangdiemlop', 'uh_gv_diemdanh', 'uh_gv_cauhoi', 'uh_gv_cauhoi_asked', 'uh_gv_sound', 'uh_gv_vol', 'uh_gv_lop_active', 'uh_gv_dayhoc'];
+      var BACKUP_KEYS = ['uh_gv_lop', 'uh_bangdiemlop', 'uh_gv_diemdanh', 'uh_gv_cauhoi', 'uh_gv_cauhoi_asked', 'uh_gv_sound', 'uh_gv_vol', 'uh_gv_lop_active', 'uh_gv_dayhoc', 'uh_gv_huongdan'];
       var restorePayload = null;
       var restoreTimer = null;
 
@@ -1217,6 +1381,8 @@ ${inits}
         if (view === 'boc-so' || view === 'xuc-xac') mergeView = view;
         activateTab(tab);
       })();
+      // Hộp hướng dẫn 3 bước chỉ hiện lần đầu mở trang.
+      maybeShowGuide();
     });
   })();
   </script>`;

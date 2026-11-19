@@ -30,12 +30,12 @@ export function body() {
     <button type="button" class="btn btn-ghost" id="bs-reset" data-uh-reset="1">Bốc lại từ đầu</button>
   </div>
   <div id="bs-status"></div>
-  <div class="btn-row" id="bs-dl-row" style="display:none">
+  <div class="btn-row gv-prep-only" id="bs-dl-row" style="display:none">
     <button type="button" class="btn gv-dl" id="bs-download"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Tải lịch sử (.txt)</button>
   </div>
-  <div class="field"><label for="bs-from">Từ số</label><input id="bs-from" type="number" value="1"></div>
-  <div class="field"><label for="bs-to">Đến số</label><input id="bs-to" type="number" value="100"></div>
-  <div class="field"><label><input type="checkbox" id="bs-norepeat" checked> Không lặp lại (số đã bốc sẽ không bốc lại)</label></div>
+  <div class="field gv-prep-only"><label for="bs-from">Từ số</label><input id="bs-from" type="number" value="1"></div>
+  <div class="field gv-prep-only"><label for="bs-to">Đến số</label><input id="bs-to" type="number" value="100"></div>
+  <div class="field gv-prep-only"><label><input type="checkbox" id="bs-norepeat" checked> Không lặp lại (số đã bốc sẽ không bốc lại)</label></div>
 </div>`;
 }
 

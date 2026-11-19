@@ -43,8 +43,12 @@ export function init(root) {
   // chọn lớp của trang rời được ẩn đi.
   const IN_APP = !!(root && root.dataset && root.dataset.gvApp === '1');
   const KEY = 'uh_gv_diemdanh';
-  let marks = {}; // tên → 'vang' | 'muon' (không có trong marks = có mặt)
-  let names = [];
+  // id → 'vang' | 'muon' (không có trong marks = có mặt). Lịch sử cũ
+  // (trước 19/11) lưu theo TÊN — khóa tên giữ nguyên khi không chuyển
+  // được sang id (2 bạn trùng tên), markFor() áp cho cả 2 bạn đó.
+  let marks = {};
+  let recs = []; // bản ghi của lớp đang chọn (có id)
+  let labels = []; // tên hiển thị có đánh số trùng tên, cùng thứ tự recs
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -83,10 +87,26 @@ export function init(root) {
     try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) { /* bỏ qua */ }
   }
 
-  function currentClass() { return $('dd-class').value; }
+  // Chế độ app: lớp lấy từ lớp đang chọn ở tab Lớp học (ô chọn lớp
+  // của trang rời đã bị xóa khỏi DOM); trang rời: đọc ô chọn lớp.
+  function currentClass() {
+    if (IN_APP) {
+      const helper = gvClasses();
+      return (helper && typeof helper.active === 'function') ? helper.active() : '';
+    }
+    return $('dd-class').value;
+  }
   function currentDate() { return $('dd-date').value || todayLocal(); }
 
   function isToday() { return currentDate() === todayLocal(); }
+
+  // Trạng thái điểm danh của 1 bạn: khóa id trước, khóa tên cũ sau
+  // (lịch sử trước 19/11 lưu theo tên — áp cho mọi bạn trùng tên đó).
+  function markFor(r) {
+    if (marks[r.id]) return marks[r.id];
+    if (marks[r.name]) return marks[r.name];
+    return '';
+  }
 
   function loadMarks() {
     const all = loadAll();
@@ -94,22 +114,43 @@ export function init(root) {
     const saved = (cls && cls[currentDate()] && typeof cls[currentDate()] === 'object')
       ? Object.assign({}, cls[currentDate()])
       : {};
+    const helper = gvClasses();
+    const cur = (helper && currentClass() && typeof helper.getRecords === 'function')
+      ? helper.getRecords(currentClass()) : [];
+    // Lịch sử cũ lưu theo TÊN — chuyển sang id khi tên khớp đúng 1
+    // bạn trong lớp hiện tại; tên trùng (khớp nhiều bạn) giữ nguyên
+    // khóa tên để vẫn hiển thị đúng; tên không còn trong lớp thì bỏ.
+    const migrated = {};
+    let changed = false;
+    Object.keys(saved).forEach(k => {
+      const v = saved[k];
+      if (v !== 'vang' && v !== 'muon') return;
+      if (cur.some(r => r.id === k)) { migrated[k] = v; return; }
+      const matches = cur.filter(r => r.name === k);
+      if (matches.length === 1) { migrated[matches[0].id] = v; changed = true; }
+      else if (matches.length > 1) { migrated[k] = v; }
+      else changed = true;
+    });
     if (isToday()) {
       // Hôm nay: cờ Vắng trong bản ghi lớp là nguồn duy nhất — trạng
       // thái Vắng lấy từ cột Vắng ở tab Lớp học (đánh vắng ở đâu cũng
       // hiện ở chỗ kia); chỉ "Muộn" lấy từ nhật ký vì bản ghi lớp
       // không có trạng thái Muộn. Ngày khác thì đọc nhật ký như cũ.
       marks = {};
-      const helper = gvClasses();
-      const recs = (helper && currentClass() && typeof helper.getRecords === 'function')
-        ? helper.getRecords(currentClass()) : [];
-      recs.forEach(r => {
-        if (r.absent) marks[r.name] = 'vang';
-        else if (saved[r.name] === 'muon') marks[r.name] = 'muon';
+      cur.forEach(r => {
+        if (r.absent) marks[r.id] = 'vang';
+        else if (migrated[r.id] === 'muon') marks[r.id] = 'muon';
+      });
+      // Khóa tên cũ còn 'muon' (2 bạn trùng tên, không phân biệt
+      // được): áp muộn cho mọi bạn trùng tên chưa có đánh dấu.
+      Object.keys(migrated).forEach(k => {
+        if (migrated[k] !== 'muon' || cur.some(r => r.id === k)) return;
+        cur.forEach(r => { if (r.name === k && !marks[r.id]) marks[r.id] = 'muon'; });
       });
     } else {
-      marks = saved;
+      marks = migrated;
     }
+    if (changed) saveMarks(); // lưu lại dạng đã chuyển sang id
   }
 
   function saveMarks() {
@@ -134,20 +175,26 @@ export function init(root) {
   function counts() {
     let vang = 0;
     let muon = 0;
-    names.forEach(n => {
-      if (marks[n] === 'vang') vang++;
-      else if (marks[n] === 'muon') muon++;
+    recs.forEach(r => {
+      const m = markFor(r);
+      if (m === 'vang') vang++;
+      else if (m === 'muon') muon++;
     });
-    return { total: names.length, vang, muon, ok: names.length - vang - muon };
+    return { total: recs.length, vang, muon, ok: recs.length - vang - muon };
   }
 
   function render() {
     const cls = currentClass();
     const helper = gvClasses();
-    names = (helper && cls) ? helper.get(cls) : [];
+    recs = (helper && cls && typeof helper.getRecords === 'function') ? helper.getRecords(cls) : [];
+    // Dự phòng khi helper chưa có getRecords: tên thường, id = tên.
+    if (!recs.length && helper && cls) {
+      recs = helper.get(cls).map(n => ({ id: n, name: n, absent: false }));
+    }
+    labels = (helper && typeof helper.displayNames === 'function') ? helper.displayNames(recs) : recs.map(r => r.name);
     const grid = $('dd-grid');
     const sum = $('dd-summary');
-    if (!cls || !names.length) {
+    if (!cls || !recs.length) {
       grid.innerHTML = '';
       sum.style.display = 'none';
       $('dd-actions').style.display = 'none';
@@ -162,11 +209,11 @@ export function init(root) {
       + '<span class="gv-sum-muon">Muộn ' + c.muon + '</span>';
     sum.style.display = '';
     $('dd-actions').style.display = '';
-    grid.innerHTML = names.map(n => {
-      const m = marks[n];
+    grid.innerHTML = recs.map((r, i) => {
+      const m = markFor(r);
       const clsName = m === 'vang' ? 'gv-att gv-att-vang' : m === 'muon' ? 'gv-att gv-att-muon' : 'gv-att';
       const label = m === 'vang' ? 'Vắng' : m === 'muon' ? 'Muộn' : 'Có mặt';
-      return '<button type="button" class="' + clsName + '" data-name="' + esc(n) + '">' + esc(n) + '<small>' + label + '</small></button>';
+      return '<button type="button" class="' + clsName + '" data-id="' + esc(r.id) + '" data-name="' + esc(r.name) + '">' + esc(labels[i]) + '<small>' + label + '</small></button>';
     }).join('');
     renderSavedDates();
   }
@@ -184,19 +231,26 @@ export function init(root) {
   }
 
   $('dd-grid').addEventListener('click', (ev) => {
-    const btn = ev.target.closest('button[data-name]');
+    const btn = ev.target.closest('button[data-id]');
     if (!btn) return;
+    const id = btn.getAttribute('data-id');
     const name = btn.getAttribute('data-name');
+    const rec = recs.find(r => r.id === id);
+    if (!rec) return;
+    const cur = markFor(rec);
+    // Xóa khóa tên cũ (lịch sử trước 19/11) của bạn này — từ giờ ghi
+    // theo id; bạn trùng tên còn lại trở về chưa đánh dấu.
+    if (marks[name]) delete marks[name];
     // Có mặt → Vắng → Muộn → Có mặt…
-    if (!marks[name]) marks[name] = 'vang';
-    else if (marks[name] === 'vang') marks[name] = 'muon';
-    else delete marks[name];
-    // Hôm nay: ghi ngược cờ Vắng vào bản ghi lớp để tab Lớp học thấy
-    // ngay; ngày khác chỉ là nhật ký, không đụng vào cờ lớp.
+    if (!cur) marks[id] = 'vang';
+    else if (cur === 'vang') marks[id] = 'muon';
+    else delete marks[id];
+    // Hôm nay: ghi ngược cờ Vắng vào bản ghi lớp (theo id) để tab Lớp
+    // học thấy ngay; ngày khác chỉ là nhật ký, không đụng vào cờ lớp.
     if (isToday()) {
       const helper = gvClasses();
-      if (helper && typeof helper.setAbsent === 'function') {
-        helper.setAbsent(currentClass(), name, marks[name] === 'vang');
+      if (helper && typeof helper.setAbsentById === 'function') {
+        helper.setAbsentById(currentClass(), id, marks[id] === 'vang');
       }
     }
     saveMarks();
@@ -227,9 +281,15 @@ export function init(root) {
     const cls = currentClass();
     const date = currentDate();
     const c = counts();
-    const vang = names.filter(n => marks[n] === 'vang');
-    const muon = names.filter(n => marks[n] === 'muon');
-    const ok = names.filter(n => !marks[n]);
+    const vang = [];
+    const muon = [];
+    const ok = [];
+    recs.forEach((r, i) => {
+      const m = markFor(r);
+      if (m === 'vang') vang.push(labels[i]);
+      else if (m === 'muon') muon.push(labels[i]);
+      else ok.push(labels[i]);
+    });
     let text = 'Điểm danh lớp ' + cls + ' — ngày ' + fmtDate(date) + '\n'
       + 'Tổng: ' + c.total + ' bạn · Có mặt ' + c.ok + ' · Vắng ' + c.vang + ' · Muộn ' + c.muon + '\n\n';
     text += 'Vắng (' + vang.length + '):\n' + (vang.length ? vang.map(n => '- ' + n + '\n').join('') : 'Không có.\n') + '\n';
@@ -243,7 +303,6 @@ export function init(root) {
   // vốn chỉ đường về trang Gọi tên rời, không đúng trong app).
   function syncNoClassBlock() {
     if (!IN_APP) return;
-    $('dd-no-class').style.display = 'none';
     const block = $('dd-no-class-app');
     if (!block) return;
     const helper = gvClasses();
@@ -271,39 +330,56 @@ export function init(root) {
   function refreshFromActiveClass() {
     const helper = gvClasses();
     if (!helper) return;
-    const map = helper.list();
-    const sel = $('dd-class');
-    const classNames = Object.keys(map).sort();
-    const cur = sel.value;
-    sel.innerHTML = '<option value="">— Chọn lớp —</option>';
-    classNames.forEach(n => {
-      const opt = document.createElement('option');
-      opt.value = n;
-      opt.textContent = n + ' (' + map[n].length + ' bạn)';
-      sel.appendChild(opt);
-    });
-    const active = (typeof helper.active === 'function') ? helper.active() : '';
-    if (active && map[active]) sel.value = active;
-    else if (cur && map[cur]) sel.value = cur;
-    else if (classNames.length) sel.value = classNames[0];
-    if (!IN_APP) $('dd-no-class').style.display = classNames.length ? 'none' : '';
+    if (!IN_APP) {
+      // Trang rời: nạp lại danh sách lớp vào ô chọn.
+      const map = helper.list();
+      const sel = $('dd-class');
+      const classNames = Object.keys(map).sort();
+      const cur = sel.value;
+      sel.innerHTML = '<option value="">— Chọn lớp —</option>';
+      classNames.forEach(n => {
+        const opt = document.createElement('option');
+        opt.value = n;
+        opt.textContent = n + ' (' + map[n].length + ' bạn)';
+        sel.appendChild(opt);
+      });
+      if (cur && map[cur]) sel.value = cur;
+      else if (classNames.length) sel.value = classNames[0];
+      $('dd-no-class').style.display = classNames.length ? 'none' : '';
+    }
+    // Chế độ app: lớp lấy từ lớp đang chọn (currentClass), không có ô
+    // chọn để nạp lại.
     loadMarks();
     render();
   }
 
   (function setup() {
     $('dd-date').value = todayLocal();
+    const helper = gvClasses();
+    const map = helper ? helper.list() : {};
+    const classNames = Object.keys(map).sort();
     if (IN_APP) {
+      // Xóa hẳn ô chọn lớp + câu chỉ đường cũ ("vào Gọi tên ngẫu
+      // nhiên...") khỏi DOM — lớp lấy từ tab Lớp học; câu đó không
+      // đúng trong Bàn giáo viên (trang rời giữ nguyên).
+      const field = $('dd-class').closest('.field');
+      if (field) field.remove();
+      const nc = $('dd-no-class');
+      if (nc) nc.remove();
       const noClassBtn = $('dd-no-class-btn');
       if (noClassBtn) noClassBtn.addEventListener('click', () => {
         const tab = document.getElementById('gv-tab-lop-hoc');
         if (tab) tab.click();
       });
+      // Vẫn gắn hook để khi giáo viên tạo lớp ở tab Lớp học rồi quay
+      // lại, tab này tự nạp lớp mới.
+      root._gvRefresh = refreshFromActiveClass;
+      if (!classNames.length) { syncNoClassBlock(); return; }
+      loadMarks();
+      render();
+      return;
     }
-    const helper = gvClasses();
-    const map = helper ? helper.list() : {};
     const sel = $('dd-class');
-    const classNames = Object.keys(map).sort();
     classNames.forEach(n => {
       const opt = document.createElement('option');
       opt.value = n;
@@ -311,25 +387,10 @@ export function init(root) {
       sel.appendChild(opt);
     });
     if (!classNames.length) {
-      if (IN_APP) {
-        syncNoClassBlock();
-        // Vẫn gắn hook để khi giáo viên tạo lớp ở tab Lớp học rồi quay
-        // lại, tab này tự nạp lớp mới.
-        root._gvRefresh = refreshFromActiveClass;
-      } else {
-        $('dd-no-class').style.display = '';
-      }
+      $('dd-no-class').style.display = '';
       return;
     }
-    if (IN_APP) {
-      const active = (helper && typeof helper.active === 'function') ? helper.active() : '';
-      sel.value = (active && map[active]) ? active : classNames[0];
-      const field = sel.closest('.field');
-      if (field) field.style.display = 'none';
-      root._gvRefresh = refreshFromActiveClass;
-    } else {
-      sel.value = classNames[0];
-    }
+    sel.value = classNames[0];
     loadMarks();
     render();
   })();
