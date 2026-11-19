@@ -301,6 +301,32 @@ const TOOL_VENDOR_SCRIPTS = {
   // 'anh-sang-pdf' không cần thư viện: canvas + trình ghi PDF viết tay.
 };
 
+// MẪU 2 (19/11, Claude duyệt bản thí điểm Lương Gross⇄Net 14:32 19/11
+// rồi nhân khuôn cho 8 công cụ tiền/lương/thuế): đầu trang chỉ có link
+// về hạng mục, H1, 1 dòng mô tả ngắn + dòng căn cứ pháp lý + ngày cập
+// nhật; intro (mô tả dài) chuyển xuống dưới công cụ; ví dụ dùng link
+// chữ "Điền vào công cụ ↑" thay nút to; disclaimer riêng cho công cụ
+// tiền ("Kết quả chỉ để tham khảo, không thay tư vấn thuế/pháp lý").
+// Công thức thuần (src/money-formulas.js) được chèn nguyên văn vào
+// trang MẪU 2 (trừ dòng export cuối) để init() gọi qua window.M2_CALC
+// — build chỉ nhúng init() bằng toString nên không chèn thì công thức
+// ngoài init() sẽ bị rớt. Test scripts/test-money-tools.mjs kiểm cùng
+// file này nên công thức trên trang và trong test là một.
+const M2_SLUGS = new Set([
+  'luong-gross-net', 'thue-thu-nhap-ca-nhan', 'bhxh-mot-lan', 'luong-huu',
+  'tien-dien-bac-thang', 'lai-vay', 'luong-thang-13', 'tro-cap-thoi-viec-bhtn',
+]);
+const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let m2FormulasSrc = null;
+function getM2FormulasSrc() {
+  if (m2FormulasSrc !== null) return m2FormulasSrc;
+  const src = fs.readFileSync(path.join(SRC, 'money-formulas.js'), 'utf8');
+  const stripped = src.replace(M2_FORMULAS_EXPORT_RE, '');
+  if (stripped === src) fail('money-formulas.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  m2FormulasSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return m2FormulasSrc;
+}
+
 function toolPageHtml(tool, index, noscriptLinks) {
   // init() tự chứa hoàn toàn (không import) nên nhúng được bằng toString().
   // Escape </script> để mã nguồn init không phá vỡ thẻ script.
@@ -308,11 +334,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // Nội dung giới thiệu + FAQ cho các công cụ chính (src/tool-content.js).
   // Công cụ không có trong TOOL_CONTENT thì các chuỗi dưới rỗng, trang giữ nguyên.
   const content = TOOL_CONTENT[tool.slug] || null;
-  // MẪU 2 (19/11, thí điểm trang Lương Gross⇄Net — nhân khuôn sau khi
-  // Claude duyệt): đầu trang chỉ có link về hạng mục, H1, 1 dòng mô tả
-  // ngắn + dòng căn cứ pháp lý; intro (mô tả dài) chuyển xuống dưới
-  // công cụ; ví dụ dùng link chữ "Điền vào công cụ ↑" thay nút to.
-  const isM2 = tool.slug === 'luong-gross-net';
+  const isM2 = M2_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -325,9 +347,10 @@ function toolPageHtml(tool, index, noscriptLinks) {
     ? `<p class="note tool-legal">${esc(content.legalBasis)}</p>`
     : '';
   // Dòng tham khảo khi finance = true; công cụ có disclaimer riêng (điện,
-  // nước, BHXH...) thì dùng câu đó thay cho câu mặc định của trang tài chính.
+  // nước, BHXH...) thì dùng câu đó thay cho câu mặc định. Trang MẪU 2
+  // không có câu riêng dùng câu chuẩn ngắn (Claude 15:01 19/11).
   const disclaimerHtml = content && content.finance
-    ? `<p class="note tool-disclaimer">${esc(content.disclaimer || 'Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.')}</p>`
+    ? `<p class="note tool-disclaimer">${esc(content.disclaimer || (isM2 ? 'Kết quả chỉ để tham khảo, không thay tư vấn thuế/pháp lý.' : 'Kết quả chỉ mang tính tham khảo, không thay thế tư vấn của cơ quan thuế/ngân hàng.'))}</p>`
     : '';
   // KHÔNG còn khối "3 bước dùng nhanh" (đợt sửa UX 19/11): khối rập khuôn
   // chung chung ("Nhập thông tin hoặc chọn mục cần xem…", "Bấm nút chính
@@ -449,9 +472,10 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // MẪU 2: đầu trang luôn có dòng mô tả ngắn (tool.desc) + dòng căn cứ
   // pháp lý lấy nguyên văn legalBasis của trang (không bịa ngày mới —
   // ngày duy nhất trang ghi là 01/7/2026 của trần BHXH, nằm trong câu
-  // đó đúng ngữ cảnh). Trang thường giữ luật cũ (có intro thì bỏ desc).
+  // đó đúng ngữ cảnh) + ngày cập nhật (content.updatedAt, ngày rà lại
+  // số liệu của công cụ). Trang thường giữ luật cũ (có intro thì bỏ desc).
   const headDescHtml = isM2
-    ? `<p class="m2-head-desc">${esc(tool.desc)}</p>${content && content.legalBasis ? `<p class="m2-head-legal">${esc(content.legalBasis)}</p>` : ''}`
+    ? `<p class="m2-head-desc">${esc(tool.desc)}</p>${content && content.legalBasis ? `<p class="m2-head-legal">${esc(content.legalBasis)}${content.updatedAt ? ` Cập nhật ${esc(content.updatedAt)}.` : ''}</p>` : ''}`
     : (content ? '' : `<p class="muted">${esc(tool.desc)}</p>`);
   // Ví dụ tính sẵn + nút "Thử với số này" (SEO lô 1): khối SSR để Google
   // đọc được, nút điền số ví dụ vào form qua data-uh-example-fill (app.js
@@ -489,7 +513,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   }
   const schemaHead = jsonLdScript({ '@context': 'https://schema.org', '@graph': schemaGraph });
   const bodyInner = `
-  <nav class="breadcrumb" aria-label="Đường dẫn">${isM2 ? `<a href="/cong-cu/?cat=tai-chinh">← Tài chính</a>` : `<a href="/cong-cu/">← Tất cả công cụ</a>`}</nav>
+  <nav class="breadcrumb" aria-label="Đường dẫn">${isM2 ? `<a href="/cong-cu/?cat=${esc(tool.categorySlug)}">← ${esc(tool.categoryLabel)}</a>` : `<a href="/cong-cu/">← Tất cả công cụ</a>`}</nav>
   <header class="tool-page-head">
     <h1>${esc(tool.name)}</h1>
     ${headDescHtml}
@@ -500,6 +524,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
   </div>
+  ${isM2 ? `<script>\n${getM2FormulasSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');

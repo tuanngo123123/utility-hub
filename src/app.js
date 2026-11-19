@@ -419,6 +419,321 @@
     }
   }
 
+  /* ---------------- Thành phần dùng chung MẪU 2 (19/11/2026) ---------------- */
+  // Build chỉ nhúng init() của mỗi công cụ (toString) nên thành phần dùng
+  // chung KHÔNG được để trong file công cụ — đặt ở đây (window.UH.m2) để
+  // init() gọi tới. Các hàm chỉ chạm DOM khi được gọi, không chạy lúc nạp.
+  // Công cụ MẪU 2 chỉ cần khai báo: ô nhập (body) + công thức (M2_CALC) +
+  // cấu hình thẻ kết quả (m2RenderResult) — không tự viết lại nút Chép /
+  // Zalo / Tải ảnh, bảng từng bước hay thanh dính đáy.
+  function m2Debounce(fn, ms) {
+    var timer = null;
+    return function () {
+      var args = arguments;
+      var self = this;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(function () { fn.apply(self, args); }, ms == null ? 400 : ms);
+    };
+  }
+  function m2Esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  // Ô tiền tự thêm dấu chấm phân cách nghìn khi gõ (gõ 45000000 →
+  // 45.000.000), giữ nguyên vị trí con trỏ.
+  function m2BindMoneyFormat(el) {
+    if (!el) return;
+    function format() {
+      var digits = el.value.replace(/[^\d]/g, '');
+      el.value = digits ? fmtNum(parseInt(digits, 10)) : '';
+    }
+    el.addEventListener('blur', format);
+    el.addEventListener('input', function () {
+      var pos = el.selectionStart == null ? el.value.length : el.selectionStart;
+      var digitsBefore = el.value.slice(0, pos).replace(/[^\d]/g, '').length;
+      format();
+      var seen = 0, i = 0;
+      while (i < el.value.length && seen < digitsBefore) { if (/\d/.test(el.value[i])) seen++; i++; }
+      try { el.setSelectionRange(i, i); } catch (e) { /* bỏ qua */ }
+    });
+  }
+  // Bộ tăng/giảm − số + (ô số chỉ đọc): gửi sự kiện input/change để
+  // liveCalc + tool-state (đồng bộ URL) chạy như khi gõ tay.
+  function m2BindStepper(minusBtn, input, plusBtn, opts) {
+    if (!minusBtn || !input || !plusBtn) return;
+    var o = opts || {};
+    var min = o.min == null ? 0 : o.min;
+    var max = o.max == null ? Infinity : o.max;
+    function set(n) {
+      var v = Math.max(min, Math.min(max, Math.floor(n) || 0));
+      input.value = String(v);
+      try {
+        if (typeof Event === 'function') {
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      } catch (e) { /* bỏ qua */ }
+    }
+    minusBtn.addEventListener('click', function () { set(parseInt(input.value, 10) - 1); });
+    plusBtn.addEventListener('click', function () { set(parseInt(input.value, 10) + 1); });
+  }
+  // Vẽ thẻ kết quả MẪU 2: số chính + dòng %, 3 dòng chi tiết, bảng từng
+  // bước (thu gọn), hàng 3 nút Chép / Chia sẻ Zalo / Tải ảnh.
+  // cfg: { label, value, pctLine, rows: [{label, value, strong}],
+  //   steps: [{label, sub, amount}] | null, note,
+  //   copyText, copyMsg, shareTitle,
+  //   image: { title, file, heroLabel, heroValue, pctLine,
+  //     rows: [[label, value, strong]] } | null }
+  // state: { stepsOpen } — công cụ giữ, để bảng bước không tự đóng khi render lại.
+  function m2RenderResult(outEl, cfg, state) {
+    if (!outEl) return;
+    var st = state || {};
+    var stepsHtml = '';
+    if (cfg.steps && cfg.steps.length) {
+      var rowsHtml = cfg.steps.map(function (s, i) {
+        return '<tr><td class="m2-steps-no">' + (i + 1) + '</td><td>' + m2Esc(s.label) + (s.sub ? '<small>' + m2Esc(s.sub) + '</small>' : '') + '</td><td>' + m2Esc(s.amount) + '</td></tr>';
+      }).join('');
+      stepsHtml = '<button type="button" class="m2-steps-toggle" aria-expanded="' + (st.stepsOpen ? 'true' : 'false') + '">' + (st.stepsOpen ? 'Ẩn cách tính từng bước' : 'Xem cách tính từng bước') + '</button>'
+        + '<div class="m2-steps"' + (st.stepsOpen ? '' : ' hidden') + '><table class="m2-steps-table"><tbody>' + rowsHtml + '</tbody></table></div>';
+    }
+    var detailHtml = (cfg.rows || []).map(function (r) {
+      return '<div class="result-row"><span>' + m2Esc(r.label) + '</span>' + (r.strong ? '<strong>' + m2Esc(r.value) + '</strong>' : '<strong>' + m2Esc(r.value) + '</strong>') + '</div>';
+    }).join('');
+    outEl.innerHTML = '<div class="result m2-result">'
+      + '<p class="m2-result-label">' + m2Esc(cfg.label) + '</p>'
+      + '<div class="m2-result-value">' + m2Esc(cfg.value) + '</div>'
+      + (cfg.pctLine ? '<p class="m2-result-pct">' + m2Esc(cfg.pctLine) + '</p>' : '')
+      + (detailHtml ? '<div class="m2-result-rows">' + detailHtml + '</div>' : '')
+      + stepsHtml
+      + (cfg.note ? '<p class="m2-result-note">' + m2Esc(cfg.note) + '</p>' : '')
+      + '<div class="m2-result-actions">'
+      + '<button type="button" class="m2-action-btn m2-action-btn-copy">Chép</button>'
+      + '<button type="button" class="m2-action-btn m2-action-btn-share">Chia sẻ Zalo</button>'
+      + (cfg.image ? '<button type="button" class="m2-action-btn m2-action-btn-download">Tải ảnh</button>' : '')
+      + '</div></div>';
+    var stepsBtn = outEl.querySelector('.m2-steps-toggle');
+    if (stepsBtn) stepsBtn.addEventListener('click', function () {
+      st.stepsOpen = !st.stepsOpen;
+      var box = outEl.querySelector('.m2-steps');
+      if (box) box.hidden = !st.stepsOpen;
+      stepsBtn.setAttribute('aria-expanded', st.stepsOpen ? 'true' : 'false');
+      stepsBtn.textContent = st.stepsOpen ? 'Ẩn cách tính từng bước' : 'Xem cách tính từng bước';
+    });
+    var copyBtn = outEl.querySelector('.m2-action-btn-copy');
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      if (!cfg.copyText) return;
+      var p = copyText(cfg.copyText);
+      if (p && p.then) p.then(function (ok) { if (ok) toast(cfg.copyMsg || 'Đã chép kết quả'); });
+    });
+    var shareBtn = outEl.querySelector('.m2-action-btn-share');
+    if (shareBtn) shareBtn.addEventListener('click', function () {
+      if (!cfg.copyText) return;
+      var url = window.location.href;
+      // Web Share API (điện thoại: mở bảng chia sẻ của máy, có Zalo nếu
+      // đã cài); máy tính không có API thì mở link chia sẻ Zalo với URL
+      // trang hiện tại (URL đã chứa số đang tính nhờ tool-state).
+      if (typeof navigator !== 'undefined' && navigator.share) {
+        navigator.share({ title: cfg.shareTitle || document.title, text: cfg.copyText, url: url }).catch(function () { /* người dùng hủy chia sẻ */ });
+      } else if (typeof window !== 'undefined') {
+        window.open('https://zalo.me/share?url=' + encodeURIComponent(url), '_blank', 'noopener');
+      }
+    });
+    var dlBtn = outEl.querySelector('.m2-action-btn-download');
+    if (dlBtn && cfg.image) dlBtn.addEventListener('click', function () { m2DownloadImage(cfg.image); });
+  }
+  function m2RenderEmpty(outEl, text) {
+    if (!outEl) return;
+    outEl.innerHTML = '<div class="m2-result-empty"><p>' + m2Esc(text || 'Nhập số để xem kết quả tính.') + '</p></div>';
+  }
+  // Ảnh kết quả vẽ tay bằng canvas 880px (KHÔNG dùng html2canvas):
+  // tiêu đề + số chính + dòng % + các dòng chi tiết + chân trang.
+  function m2DownloadImage(cfg) {
+    if (!cfg || typeof document === 'undefined') return;
+    var rows = cfg.rows || [];
+    var W = 880, H = 400 + rows.length * 48;
+    function draw() {
+      var c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      var x = c.getContext('2d');
+      if (!x) return;
+      x.fillStyle = '#FFFFFF';
+      x.fillRect(0, 0, W, H);
+      x.fillStyle = '#1747E6';
+      x.fillRect(0, 0, W, 12);
+      x.textBaseline = 'alphabetic';
+      x.textAlign = 'left';
+      x.fillStyle = '#64748B';
+      x.font = '700 20px "Be Vietnam Pro", sans-serif';
+      x.fillText(cfg.title || '', 48, 58);
+      x.fillStyle = '#475569';
+      x.font = '600 22px "Be Vietnam Pro", sans-serif';
+      x.fillText(cfg.heroLabel || '', 48, 112);
+      x.fillStyle = '#1747E6';
+      x.font = '800 56px "Be Vietnam Pro", sans-serif';
+      x.fillText(cfg.heroValue || '', 48, 178);
+      if (cfg.pctLine) {
+        x.fillStyle = '#64748B';
+        x.font = '400 20px "Be Vietnam Pro", sans-serif';
+        x.fillText(cfg.pctLine, 48, 214);
+      }
+      x.strokeStyle = '#DCE1EA';
+      x.lineWidth = 1;
+      x.beginPath(); x.moveTo(48, 244); x.lineTo(W - 48, 244); x.stroke();
+      var y = 292;
+      rows.forEach(function (row) {
+        x.fillStyle = '#0F172A';
+        x.font = (row[2] ? '800' : '600') + ' 20px "Be Vietnam Pro", sans-serif';
+        x.textAlign = 'left';
+        x.fillText(row[0], 48, y);
+        x.fillStyle = row[2] ? '#1747E6' : '#0F172A';
+        x.textAlign = 'right';
+        x.fillText(row[1], W - 48, y);
+        y += 48;
+      });
+      x.strokeStyle = '#DCE1EA';
+      x.beginPath(); x.moveTo(48, y - 8); x.lineTo(W - 48, y - 8); x.stroke();
+      x.fillStyle = '#64748B';
+      x.font = '400 16px "Be Vietnam Pro", sans-serif';
+      x.textAlign = 'left';
+      x.fillText('tienichhub.io.vn  ·  Kết quả chỉ mang tính tham khảo', 48, y + 36);
+      if (c.toBlob) {
+        c.toBlob(function (blob) {
+          if (!blob) return;
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = cfg.file || 'ket-qua.png';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+          toast('Đã tải ảnh kết quả');
+        }, 'image/png');
+      }
+    }
+    // Đợi phông Be Vietnam Pro tải xong để chữ trong ảnh đúng phông;
+    // lỗi thì vẽ luôn bằng phông dự phòng.
+    if (typeof document !== 'undefined' && document.fonts && document.fonts.load) {
+      Promise.all([
+        document.fonts.load('700 20px "Be Vietnam Pro"'),
+        document.fonts.load('800 56px "Be Vietnam Pro"'),
+      ]).then(draw).catch(draw);
+    } else {
+      draw();
+    }
+  }
+  // Thanh tóm tắt kết quả dính ở đáy (MẪU 2): hiện khi đã có kết quả mà
+  // thẻ kết quả đã cuộn khuất; gồm số chính + nút Chép + nút Chi tiết
+  // (cuộn lên kết quả). Ẩn khi lỗi, khi đang nhập vào ô trong công cụ
+  // (để thanh không che ô đang gõ). opts: { root, resultEl, getCopyText,
+  // copyMsg }. Trả { update(label, valueText), hide() }.
+  function m2SetupSticky(opts) {
+    var o = opts || {};
+    if (typeof document === 'undefined') return { update: function () {}, hide: function () {} };
+    var bar = document.createElement('div');
+    bar.className = 'm2-sticky';
+    bar.hidden = true;
+    bar.innerHTML = '<span class="m2-sticky-value"></span>'
+      + '<button type="button" class="m2-sticky-btn">Chép</button>'
+      + '<button type="button" class="m2-sticky-btn m2-sticky-btn-primary">Chi tiết</button>';
+    document.body.appendChild(bar);
+    var valueEl = bar.querySelector('.m2-sticky-value');
+    var copyBtn = bar.querySelector('.m2-sticky-btn');
+    var detailBtn = bar.querySelector('.m2-sticky-btn-primary');
+    var hasResult = false;
+    var resultInView = true;
+    var inputFocused = false;
+    var lastBarGrowth = 0;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function refresh() {
+      var visible = hasResult && !resultInView && !inputFocused;
+      bar.hidden = !visible;
+      // Đẩy nút Chat AI lên trên thanh khi thanh hiện: CSS
+      // body.uh-netbar-on .aiw nâng nút lên để không đè lên thanh.
+      if (document.body) {
+        document.body.classList.toggle('uh-netbar-on', visible);
+        // Chừa khoảng trống dưới trang khi thanh hiện để footer không bị
+        // thanh che khi cuộn tận cuối: đo từ mép trên của thanh tới đáy
+        // màn hình — bằng chiều cao thanh CỘNG khoảng hở dưới thanh
+        // (24px desktop, 68px mobile vì thanh ngồi trên nav dưới).
+        var gap = 0;
+        if (visible && typeof window !== 'undefined') {
+          gap = Math.ceil(window.innerHeight - bar.getBoundingClientRect().top);
+        }
+        var de = document.documentElement;
+        var wasAtBottom = typeof window !== 'undefined' &&
+          (window.scrollY + window.innerHeight >= de.scrollHeight - 10);
+        var newPad = gap > 0 ? gap + 'px' : '';
+        if (document.body.style.paddingBottom !== newPad) {
+          var oldH = de.scrollHeight;
+          document.body.style.paddingBottom = newPad;
+          lastBarGrowth = Math.max(0, de.scrollHeight - oldH);
+        }
+        if (gap > 0 && wasAtBottom && typeof window !== 'undefined') {
+          window.scrollTo(0, de.scrollHeight);
+        }
+      }
+    }
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      var text = typeof o.getCopyText === 'function' ? o.getCopyText() : '';
+      if (!text) return;
+      var p = copyText(text);
+      if (p && p.then) p.then(function (ok) { if (ok) toast(o.copyMsg || 'Đã chép kết quả'); });
+    });
+    if (detailBtn) detailBtn.addEventListener('click', function () {
+      var target = o.resultEl || o.scrollTarget;
+      if (target) target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+    if (o.resultEl && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        resultInView = entries[0].isIntersecting;
+        refresh();
+      }, { threshold: 0.1 });
+      io.observe(o.resultEl);
+    } else {
+      resultInView = false;
+    }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', refresh);
+      // Kéo nốt tới đáy thật sau khi cuộn dừng: khi thanh hiện giữa lúc
+      // đang cuộn, đích cuộn vẫn là đáy cũ, thiếu đúng khoảng trang dài
+      // thêm khi thanh hiện — chờ cuộn dừng 150ms rồi kéo nốt.
+      var scrollEndTimer = null;
+      window.addEventListener('scroll', function () {
+        if (scrollEndTimer) clearTimeout(scrollEndTimer);
+        scrollEndTimer = setTimeout(function () {
+          if (bar.hidden) return;
+          var de = document.documentElement;
+          var shortfall = (de.scrollHeight - window.innerHeight) - window.scrollY;
+          if (shortfall > 0 && Math.abs(shortfall - lastBarGrowth) <= 4) {
+            window.scrollTo(0, de.scrollHeight);
+          }
+        }, 150);
+      }, { passive: true });
+    }
+    // Đang nhập vào ô trong công cụ thì ẩn thanh (đừng che ô đang gõ).
+    if (o.root) {
+      o.root.addEventListener('focusin', function (e) {
+        var t = e.target;
+        if (t && t.tagName && /^(input|textarea|select)$/i.test(t.tagName)) {
+          inputFocused = true;
+          refresh();
+        }
+      });
+      o.root.addEventListener('focusout', function (e) {
+        var t = e.relatedTarget;
+        if (t && t.tagName && /^(input|textarea|select)$/i.test(t.tagName)) return;
+        inputFocused = false;
+        refresh();
+      });
+    }
+    return {
+      update: function (label, valueText) {
+        if (valueEl) valueEl.textContent = label + ' ' + valueText;
+        hasResult = true;
+        refresh();
+      },
+      hide: function () { hasResult = false; refresh(); },
+    };
+  }
+
   /* ---------------- Đối tượng toàn cục window.UH ---------------- */
 
   var UH = {
@@ -438,6 +753,17 @@
     setBusy: setBusy,
     withBusy: withBusy,
     fillExample: fillExample,
+    // Thành phần dùng chung MẪU 2 (trang công cụ chuẩn, 19/11/2026):
+    // thẻ kết quả + bảng từng bước + 3 nút + thanh dính đáy + ô tiền.
+    m2: {
+      debounce: m2Debounce,
+      bindMoneyFormat: m2BindMoneyFormat,
+      bindStepper: m2BindStepper,
+      renderResult: m2RenderResult,
+      renderEmpty: m2RenderEmpty,
+      downloadImage: m2DownloadImage,
+      setupSticky: m2SetupSticky,
+    },
     // Hàm nội bộ, chỉ để kiểm tra (không dùng trong công cụ):
     _crc16ccitt: crc16ccitt,
     _norm: norm
@@ -493,6 +819,10 @@
     initHeroH1();
     initHeroRotator();
     initDiceButtons();
+    // Migration khóa 'Dùng gần đây' chạy ở MỌI trang (19/11): bản cũ ghi
+    // lịch sử vào khóa tên 'undefined'; nếu chỉ chạy khi mở trang công
+    // cụ thì khóa cũ còn mãi trên các trang khác (Bàn giáo viên...).
+    readVisited();
     recordToolVisit();
     initRecentTools();
     initCardDemos();
@@ -540,7 +870,8 @@
       var calcBtn = root.querySelector('.tool-panel .btn-primary');
       fillExample(root, data.fills || {}, calcBtn);
       setTimeout(function () {
-        var res = root.querySelector('.result');
+        // Trang MẪU 2 không có .result — cuộn lên thẻ kết quả thay thế.
+        var res = root.querySelector('.result') || root.querySelector('.m2-result-card') || root;
         if (res) {
           var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
           res.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });

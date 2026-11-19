@@ -1068,14 +1068,14 @@ button.chip-cat[aria-pressed="true"]:hover,
   .site-header.nav-open .site-nav a, .site-header.nav-open .site-nav .nav-sound { min-height: 44px; display: flex; align-items: center; }
 }
 
-/* Thanh tóm tắt lương Net dính ở đáy (công cụ lương, đợt sửa UX 18/11 +
-   MẪU 2): hiện khi đã có kết quả mà thẻ kết quả đã cuộn khuất; gồm số
-   Net + nút Chép + nút Chi tiết (cuộn lên kết quả). Ngồi TRÊN thanh
-   nav dưới của điện thoại (bottom 68px). Thanh cao ~60px (nút 44px +
-   padding 8px) — nút Chat AI khi thanh hiện được đẩy LÊN TRÊN thanh
-   (body.uh-netbar-on .aiw, xem dưới). z-index 90 — dưới nav dưới (100)
-   và Chat AI (240). */
-.lggn-sticky {
+/* Thanh tóm tắt kết quả dính ở đáy (MẪU 2, dùng chung cho 8 công cụ
+   tiền/lương/thuế — UH.m2.setupSticky tạo): hiện khi đã có kết quả mà
+   thẻ kết quả đã cuộn khuất; gồm số chính + nút Chép + nút Chi tiết
+   (cuộn lên kết quả). Ngồi TRÊN thanh nav dưới của điện thoại (bottom
+   68px). Thanh cao ~60px (nút 44px + padding 8px) — nút Chat AI khi
+   thanh hiện được đẩy LÊN TRÊN thanh (body.uh-netbar-on .aiw, xem
+   dưới). z-index 90 — dưới nav dưới (100) và Chat AI (240). */
+.m2-sticky {
   position: fixed;
   left: 12px;
   right: 24px;
@@ -1090,12 +1090,18 @@ button.chip-cat[aria-pressed="true"]:hover,
   border-radius: 14px;
   box-shadow: var(--shadow);
 }
-.lggn-sticky[hidden] { display: none; }
-.lggn-sticky-net { color: #1747E6; font-weight: 800; white-space: nowrap; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.lggn-sticky-btn { flex: none; min-height: 44px; padding: 8px 14px; border: 1px solid #C5CDDA; border-radius: 12px; background: #fff; color: #0F172A; font: inherit; font-weight: 700; cursor: pointer; }
-.lggn-sticky-btn-primary { background: #1747E6; border-color: #1747E6; color: #fff; }
+.m2-sticky[hidden] { display: none; }
+.m2-sticky-value { color: #1747E6; font-weight: 800; white-space: nowrap; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.m2-sticky-btn { flex: none; min-height: 44px; padding: 8px 14px; border: 1px solid #C5CDDA; border-radius: 12px; background: #fff; color: #0F172A; font: inherit; font-weight: 700; cursor: pointer; }
+.m2-sticky-btn-primary { background: #1747E6; border-color: #1747E6; color: #fff; }
 @media (max-width: 768px) {
-  .lggn-sticky { right: 12px; bottom: 68px; }
+  .m2-sticky { right: 12px; bottom: 68px; }
+}
+@media (max-width: 480px) {
+  /* Thanh dính đáy ở máy hẹp: chữ số chính nhỏ lại + nút gọn lại để
+     "Lương hưu 8.520.000 ₫" không bị cắt thành "8.520.…". */
+  .m2-sticky-value { font-size: 0.9rem; }
+  .m2-sticky-btn { padding: 8px 10px; }
 }
 /* Kết quả lương cuộn tới thì chừa chỗ cho header dính (60px) + lề. */
 #lggn-out { scroll-margin-top: 76px; }
@@ -3694,7 +3700,7 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 }
 .gv-points-btn {
   height: 56px;
-  min-width: 56px;
+  min-width: 72px;
   padding: 0 16px;
   border: 1px solid var(--gv-line-input);
   border-radius: 12px;
@@ -4086,6 +4092,11 @@ body.gv-teach .gv-winner-full { font-size: clamp(28px, 5vw, 44px); }
    rồi hãy dạy) để nút Gọi tên vừa trong thẻ, không bị cắt. */
 body.gv-teach .gv-app #gv-tool-goi-ten .tabs { display: none; }
 body.gv-teach .gv-points-row { margin: 12px 0 4px; }
+/* Chế độ Dạy: nút gọi vừa theo nội dung, căn giữa; nút 'Gọi lại từ
+   đầu' thành nút nhỏ nằm bên dưới (MẪU 1). */
+body.gv-teach .gv-app #gv-tool-goi-ten .btn-row { flex-direction: column; align-items: center; gap: 8px; }
+body.gv-teach .gv-app #gv-tool-goi-ten #gt-call { flex: none; width: auto; }
+body.gv-teach .gv-app #gv-tool-goi-ten #gt-reset { height: 40px; min-height: 40px; padding: 0 16px; font-size: 15px; }
 /* Chế độ Dạy chỉ giữ tên + điểm + nút chính (tiêu chí 19/11: KHÔNG
    tab nào cuộn trong ở 1366×768 và 1024×768): ẩn dòng gợi ý dưới
    tiêu đề, công tắc Xúc xắc/Bốc số (chọn ngăn ở Chuẩn bị) và mọi
@@ -4234,9 +4245,11 @@ body.gv-teach .gv-app .gv-noise-stage { min-height: 150px; padding: 12px 12px 6p
 
 /* ============================================================
    Trang công cụ chuẩn — MẪU 2 (Claude gửi 01:48 19/11/2026)
-   Thí điểm: trang Lương Gross⇄Net (class .m2-page do build.mjs
-   gắn khi slug = 'luong-gross-net'); nhân khuôn cho các công cụ
-   khác sau khi Claude duyệt bản thí điểm.
+   Thí điểm: trang Lương Gross⇄Net; nhân khuôn cho 8 công cụ tiền /
+   lương / thuế 19/11 (class .m2-page do build.mjs gắn khi slug thuộc
+   M2_SLUGS). Thành phần dùng chung: UH.m2 trong src/app.js (thẻ kết
+   quả, bảng từng bước, 3 nút, thanh dính đáy, ô tiền) + công thức
+   thuần trong src/money-formulas.js (build chèn vào trang MẪU 2).
    Bộ token chung: phông Be Vietnam Pro; màu chính #1747E6
    (đậm #0E2FA8 khi ấn/hover); nhấn #F59E0B; chữ #0F172A,
    chữ phụ #475569, chữ mờ #64748B; nền trang #F6F7FB, thẻ
@@ -4382,6 +4395,27 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 }
 .m2-quick-btn:hover { border-color: var(--m2-primary); background: #EEF2FF; }
 
+/* Ô số nhỏ (năm/tháng/lãi suất): cao 48px như select, chữ 18px đậm.
+   Ô có đơn vị dùng .input-unit như ô tiền (padding phải chừa chỗ). */
+.m2-page .field input.m2-num {
+  height: 48px;
+  font-size: 18px;
+  font-weight: 600;
+  border: 1px solid var(--m2-line-input);
+  border-radius: 12px;
+  color: var(--m2-ink);
+  background: var(--m2-surface);
+  width: 100%;
+  padding: 0 12px;
+}
+.m2-page .field .input-unit input.m2-num { padding-right: 56px; }
+.m2-page .field input.m2-num:focus {
+  border-color: var(--m2-primary);
+  box-shadow: none;
+  outline: 3px solid var(--m2-accent);
+  outline-offset: 2px;
+}
+
 /* Hàng 2 cột: Vùng + Người phụ thuộc. */
 .m2-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .m2-page .field select.m2-select {
@@ -4458,10 +4492,12 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 .m2-steps-table .m2-steps-no { color: var(--m2-faint); width: 24px; font-weight: 700; }
 .m2-steps-table small { display: block; color: var(--m2-faint); font-weight: 400; font-size: 0.85rem; line-height: 1.5; }
 
-/* Hàng 3 nút dưới kết quả: Chép | Chia sẻ Zalo | Tải ảnh. */
+/* Hàng 3 nút dưới kết quả: Chép | Chia sẻ Zalo | Tải ảnh. Chép là nút
+   NỀN XANH đặc (hành động dùng nhiều nhất, Claude duyệt 14:32 19/11);
+   Chia sẻ Zalo + Tải ảnh là nút viền. */
 .m2-result-actions { display: flex; gap: 8px; margin-top: 16px; }
 .m2-action-btn {
-  flex: 1 1 0;
+  flex: 1 1 auto;
   min-width: 0;
   min-height: 44px;
   padding: 10px 4px;
@@ -4472,10 +4508,22 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   cursor: pointer;
   white-space: nowrap;
 }
-.m2-action-btn-copy, .m2-action-btn-download { border: 1px solid var(--m2-line-input); background: var(--m2-surface); color: var(--m2-ink); }
-.m2-action-btn-copy:hover, .m2-action-btn-download:hover { border-color: var(--m2-primary); }
-.m2-action-btn-share { border: 1px solid var(--m2-primary); background: var(--m2-primary); color: #fff; }
-.m2-action-btn-share:hover { background: var(--m2-primary-dark); border-color: var(--m2-primary-dark); }
+.m2-action-btn-share, .m2-action-btn-download { border: 1px solid var(--m2-line-input); background: var(--m2-surface); color: var(--m2-ink); }
+.m2-action-btn-share:hover, .m2-action-btn-download:hover { border-color: var(--m2-primary); }
+.m2-action-btn-copy { border: 1px solid var(--m2-primary); background: var(--m2-primary); color: #fff; }
+.m2-action-btn-copy:hover { background: var(--m2-primary-dark); border-color: var(--m2-primary-dark); }
+
+/* Ghi chú nhỏ dưới nút (vd điều kiện rút BHXH, mức sàn lương hưu). */
+.m2-result-note { color: var(--m2-faint); font-size: 0.9rem; line-height: 1.55; margin: 12px 0 0; }
+
+/* Tiêu đề bảng lịch trả nợ (lãi vay) đặt dưới bố cục 2 cột. */
+.m2-schedule-title { font-size: 1.15rem; font-weight: 700; color: var(--m2-ink); margin: 28px 0 12px; }
+/* Gợi ý vuốt ngang bảng lịch (chỉ hiện ở máy hẹp — bảng 5 cột rộng
+   hơn màn hình, .tbl cuộn ngang trong khung). */
+.m2-schedule-hint { display: none; }
+@media (max-width: 640px) {
+  .m2-schedule-hint { display: block; color: var(--m2-faint); font-size: 0.9rem; margin: 0 0 4px; }
+}
 
 /* Link chữ "Điền vào công cụ ↑" trong khối ví dụ (thay nút "Thử với
    số này" theo quyết định 02:06 19/11) — vẫn giữ vùng bấm 44px. */
@@ -4497,10 +4545,13 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 /* Điện thoại + máy tính bảng hẹp (<960px): xếp 1 cột — công tắc, ô
    Lương Gross, ngay dưới là thẻ kết quả, rồi Vùng + Người phụ thuộc.
    Thẻ nhập dùng display:contents để 2 nửa của nó kẹp lấy thẻ kết quả;
-   mỗi nửa tự mang hình thức thẻ ở cỡ này. */
+   mỗi nửa tự mang hình thức thẻ ở cỡ này. min-width: 0 để các thẻ con
+   (là flex item) co vừa khung — không có nó, nút công tắc chữ dài
+   ("Từ thu nhập tính thuế") đẩy thẻ nhập tràn 3px ở 390px. */
 @media (max-width: 959px) {
-  .m2-layout { display: flex; flex-direction: column; gap: 16px; }
+  .m2-layout { display: flex; flex-direction: column; gap: 16px; align-items: stretch; }
   .m2-input-card { display: contents; }
+  .m2-input-top, .m2-input-bottom, .m2-result-card { min-width: 0; }
   .m2-input-top, .m2-input-bottom {
     background: var(--m2-surface);
     border: 1px solid var(--m2-line);
@@ -4519,4 +4570,10 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   .m2-row2 { grid-template-columns: 1fr; }
   .m2-input-top, .m2-input-bottom { padding: 16px; }
   .m2-result-card { padding: 20px; }
+  /* Công tắc chữ dài ("Từ thu nhập tính thuế") được xuống 2 dòng thay
+     vì tràn khỏi nút ở màn hình hẹp. */
+  .m2-toggle-btn { white-space: normal; font-size: 0.9rem; line-height: 1.3; }
+  /* Nút "Chia sẻ Zalo" dài nhất hàng 3 nút — cho xuống dòng ở máy hẹp
+     để không tràn đè lên nút "Tải ảnh". */
+  .m2-action-btn { white-space: normal; line-height: 1.25; }
 }

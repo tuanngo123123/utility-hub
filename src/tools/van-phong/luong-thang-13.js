@@ -1,4 +1,7 @@
 // Tính lương tháng 13 — Utility Hub (Văn phòng)
+// Bố cục MẪU 2: 2 thẻ cạnh nhau, tính trực tiếp khi nhập, không nút Tính /
+// Đặt lại / Điền ví dụ. Công thức ở src/money-formulas.js (M2_CALC); thẻ
+// kết quả, bảng từng bước, 3 nút, thanh dính đáy dùng chung qua UH.m2.
 export const meta = {
   id: 'luong-thang-13',
   name: 'Tính lương tháng 13',
@@ -13,65 +16,149 @@ export const meta = {
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head"><span>🧧</span><div><h2>Tính lương tháng 13</h2><p class="muted">Thưởng tháng 13 + thuế TNCN ước tính trên khoản thưởng.</p></div></div>
-  <div class="grid-2">
-    <div class="field"><label for="lt13-salary">Lương tháng hiện tại (₫)</label><input id="lt13-salary" type="number" min="0" step="100000" value="15000000"></div>
-    <div class="field"><label for="lt13-months">Số tháng làm việc trong năm</label><input id="lt13-months" type="number" min="0" max="12" step="1" value="12"></div>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="field m2-field">
+          <label for="lt13-salary">Lương tháng hiện tại</label>
+          <span class="input-unit"><input id="lt13-salary" class="m2-salary" type="text" inputmode="decimal" value="15.000.000" placeholder="VD: 15.000.000"><span class="unit">₫</span></span>
+        </div>
+        <div class="m2-quick" aria-label="Chọn nhanh mức lương">
+          <button type="button" class="m2-quick-btn" data-lt13-quick="10000000">10 triệu</button>
+          <button type="button" class="m2-quick-btn" data-lt13-quick="15000000">15 triệu</button>
+          <button type="button" class="m2-quick-btn" data-lt13-quick="30000000">30 triệu</button>
+        </div>
+      </div>
+      <div class="m2-input-bottom">
+        <div class="m2-row2">
+          <div class="field m2-field"><label for="lt13-months">Số tháng làm việc trong năm</label><input id="lt13-months" class="m2-num" type="number" min="0" max="12" step="1" value="12"></div>
+          <div class="field m2-field"><label for="lt13-dependents">Số người phụ thuộc</label><input id="lt13-dependents" class="m2-num" type="number" min="0" step="1" value="0"></div>
+        </div>
+        <p class="hint">Giảm trừ 6.200.000₫/người phụ thuộc/tháng.</p>
+        <div class="field m2-field">
+          <label for="lt13-insurance">Bảo hiểm bắt buộc đóng trong tháng nhận thưởng</label>
+          <span class="input-unit"><input id="lt13-insurance" class="m2-money" type="text" inputmode="decimal" value="0" placeholder="VD: 1.575.000"><span class="unit">₫</span></span>
+          <p class="hint">Nhập 0 nếu tháng nhận thưởng không đóng bảo hiểm (ví dụ đã nghỉ việc).</p>
+        </div>
+      </div>
+    </div>
+    <div class="m2-result-card" id="lt13-result-card">
+      <div id="lt13-out"></div>
+    </div>
   </div>
-  <div class="grid-2">
-    <div class="field"><label for="lt13-dependents">Số người phụ thuộc (giảm trừ 6,2 triệu/người)</label><input id="lt13-dependents" type="number" min="0" step="1" value="0"></div>
-    <div class="field"><label for="lt13-insurance">Bảo hiểm bắt buộc đóng trong tháng nhận thưởng (₫)</label><input id="lt13-insurance" type="number" min="0" step="100000" value="0"></div>
-  </div>
-  <button class="btn btn-primary" id="lt13-calc">Tính thưởng tháng 13</button>
-  <div class="result" id="lt13-result" hidden></div>
-  <p class="note">Thuế TNCN tính theo biểu thuế lũy tiến 5 bậc năm 2026 (Luật 109/2025/QH15) trên thu nhập tính thuế của tháng nhận thưởng (lương tháng + thưởng tháng 13, trừ giảm trừ gia cảnh 15,5 triệu cho bản thân và bảo hiểm bắt buộc). Kết quả chỉ là ước tính — số thuế thực tế phụ thuộc vào cách tính của công ty và các khoản giảm trừ khác của bạn.</p>
 </div>`;
 }
 
 export function init(root) {
-  const UH = window.UH || {};
-  const fmtVND = UH.fmtVND || (n => Math.round(n).toLocaleString('vi-VN') + '₫');
-  const fmtNum = UH.fmtNum || (n => Number(n).toLocaleString('vi-VN'));
-  const parseNum = UH.parseNum || (s => { const v = parseFloat(String(s == null ? '' : s).replace(/[^\d.,-]/g, '').replace(/\./g, '').replace(',', '.')); return isNaN(v) ? 0 : v; });
-  const toast = UH.toast || (m => alert(m));
+  const U = (typeof window !== 'undefined' && window.UH) || {};
+  const M2 = U.m2 || null;
+  const C = (typeof window !== 'undefined' && window.M2_CALC) || null;
+  const fmtVND = U.fmtVND || (n => Math.round(n).toLocaleString('vi-VN') + '₫');
+  const fmtNum = U.fmtNum || (n => Math.round(n).toLocaleString('vi-VN'));
+  const parseNum = U.parseNum || (v => { const n = parseFloat(String(v).replace(/[\s.]/g, '').replace(',', '.')); return isNaN(n) ? 0 : n; });
   const $ = id => root.querySelector('#' + id);
-  const salaryEl = $('lt13-salary'), monthsEl = $('lt13-months'), depEl = $('lt13-dependents'), insEl = $('lt13-insurance'), resEl = $('lt13-result');
-
-  // Biểu thuế lũy tiến 5 bậc năm 2026 (Luật 109/2025/QH15, thu nhập tính thuế / tháng)
-  const BRACKETS = [
-    [10000000, 0.05], [30000000, 0.10], [60000000, 0.20],
-    [100000000, 0.30], [Infinity, 0.35]
-  ];
-  function pit(taxable) {
-    if (taxable <= 0) return 0;
-    let tax = 0, prev = 0;
-    for (const [limit, rate] of BRACKETS) {
-      if (taxable <= prev) break;
-      tax += (Math.min(taxable, limit) - prev) * rate;
-      prev = limit;
-    }
-    return tax;
+  const markErr = U.markFieldError || function (el, msg) { $('lt13-out').innerHTML = '<p class="error">' + msg + '</p>'; };
+  const clearErrs = U.clearFieldErrors || function () {};
+  const focusEl = U.focusField || function (el) { if (el) el.focus(); };
+  if (!M2 || !C) {
+    $('lt13-out').innerHTML = '<p class="error">Công cụ chưa tải đủ — bạn tải lại trang nhé.</p>';
+    return;
   }
 
-  $('lt13-calc').addEventListener('click', () => {
-    const salary = parseNum(salaryEl.value);
-    const months = Math.min(12, Math.max(0, parseNum(monthsEl.value)));
-    const dependents = Math.max(0, Math.floor(parseNum(depEl.value)));
-    const insurance = Math.max(0, parseNum(insEl.value));
-    if (salary <= 0) { toast('Vui lòng nhập lương tháng lớn hơn 0.'); return; }
-    const bonus = salary * months / 12;
-    const deduction = 15500000 + dependents * 6200000 + insurance;
-    const taxWith = pit(salary + bonus - deduction);
-    const taxWithout = pit(salary - deduction);
-    const taxOnBonus = Math.max(0, taxWith - taxWithout);
-    const net = bonus - taxOnBonus;
-    resEl.hidden = false;
-    resEl.innerHTML =
-      '<div class="result-row"><span>Thưởng tháng 13 (gộp)</span><strong>' + fmtVND(bonus) + '</strong></div>' +
-      '<div class="result-row"><span>Tỷ lệ hưởng</span><span>' + fmtNum(months) + '/12 tháng</span></div>' +
-      '<div class="result-row"><span>Thuế TNCN ước tính trên khoản thưởng</span><span>' + fmtVND(taxOnBonus) + '</span></div>' +
-      '<div class="result-row"><span>Thực nhận ước tính</span><strong>' + fmtVND(net) + '</strong></div>' +
-      '<div class="result-row"><span>Thu nhập tính thuế tháng nhận thưởng</span><span>' + fmtVND(Math.max(0, salary + bonus - deduction)) + '</span></div>';
+  let lastCopyText = '';
+  const stepsState = { stepsOpen: false };
+
+  const sticky = M2.setupSticky({
+    root,
+    resultEl: $('lt13-result-card'),
+    getCopyText: () => lastCopyText,
+    copyMsg: 'Đã chép kết quả lương tháng 13',
   });
+
+  function render(o, salary, months, dependents, insurance) {
+    lastCopyText = 'Thưởng tháng 13 (gộp): ' + fmtVND(o.bonus)
+      + ' · Thuế TNCN trên thưởng: ' + fmtVND(o.taxOnBonus)
+      + ' · Thực nhận: ' + fmtVND(o.net)
+      + ' · Thu nhập tính thuế tháng nhận thưởng: ' + fmtVND(o.taxableMonth);
+    M2.renderResult($('lt13-out'), {
+      label: 'Thực nhận ước tính',
+      value: fmtVND(o.net),
+      pctLine: 'Thưởng ' + fmtNum(months) + '/12 tháng · thuế trên thưởng ' + fmtVND(o.taxOnBonus),
+      rows: [
+        { label: 'Thưởng tháng 13 (gộp)', value: fmtVND(o.bonus) },
+        { label: 'Thuế TNCN trên khoản thưởng', value: '− ' + fmtVND(o.taxOnBonus) },
+        { label: 'Thu nhập tính thuế', value: fmtVND(o.taxableMonth) },
+      ],
+      steps: [
+        { label: 'Lương tháng hiện tại', sub: '', amount: fmtVND(salary) },
+        { label: 'Thưởng tháng 13 (' + fmtNum(months) + '/12 tháng)', sub: fmtVND(salary) + ' × ' + fmtNum(months) + ' ÷ 12', amount: fmtVND(o.bonus) },
+        { label: 'Thu nhập tháng nhận thưởng', sub: 'Lương ' + fmtVND(salary) + ' + thưởng ' + fmtVND(o.bonus), amount: fmtVND(salary + o.bonus) },
+        { label: 'Giảm trừ gia cảnh + bảo hiểm', sub: 'Bản thân 15.500.000₫' + (dependents ? ' + ' + dependents + ' người phụ thuộc × 6.200.000₫' : '') + (insurance ? ' + bảo hiểm ' + fmtVND(insurance) : ''), amount: '− ' + fmtVND(o.deduction) },
+        { label: 'Thu nhập tính thuế tháng nhận thưởng', sub: '', amount: fmtVND(o.taxableMonth) },
+        { label: 'Thuế của tháng có thưởng', sub: 'Theo biểu lũy tiến 5 bậc 2026', amount: fmtVND(o.taxWith) },
+        { label: 'Thuế của tháng không có thưởng', sub: 'Thu nhập tính thuế ' + fmtVND(o.taxableWithout), amount: '− ' + fmtVND(o.taxWithout) },
+        { label: 'Thuế TNCN trên khoản thưởng', sub: 'Phần chênh lệch thuế của tháng nhận thưởng', amount: fmtVND(o.taxOnBonus) },
+        { label: 'Thực nhận ước tính', sub: '', amount: fmtVND(o.net) },
+      ],
+      note: 'Thuế TNCN tính theo biểu thuế lũy tiến 5 bậc năm 2026 (Luật 109/2025/QH15) trên thu nhập tính thuế của tháng nhận thưởng. Kết quả chỉ là ước tính — số thuế thực tế phụ thuộc vào cách tính của công ty và các khoản giảm trừ khác của bạn.',
+      copyText: lastCopyText,
+      copyMsg: 'Đã chép kết quả lương tháng 13',
+      shareTitle: 'Tính lương tháng 13',
+      image: {
+        title: 'LƯƠNG THÁNG 13',
+        file: 'luong-thang-13.png',
+        heroLabel: 'Thực nhận ước tính',
+        heroValue: fmtVND(o.net),
+        pctLine: 'Thưởng ' + fmtNum(months) + '/12 tháng · thuế trên thưởng ' + fmtVND(o.taxOnBonus),
+        rows: [
+          ['Thưởng tháng 13 (gộp)', fmtVND(o.bonus), false],
+          ['Thuế TNCN trên thưởng', '− ' + fmtVND(o.taxOnBonus), false],
+          ['Thực nhận', fmtVND(o.net), true],
+        ],
+      },
+    }, stepsState);
+    sticky.update('Thực nhận', fmtVND(o.net));
+  }
+
+  function tryRender(showErrors) {
+    clearErrs(root);
+    sticky.hide();
+    const salary = parseNum($('lt13-salary').value);
+    const months = Math.min(12, Math.max(0, Math.floor(parseNum($('lt13-months').value))));
+    const dependents = Math.max(0, Math.floor(parseNum($('lt13-dependents').value)));
+    const insurance = Math.max(0, parseNum($('lt13-insurance').value));
+    if (!(salary > 0)) {
+      if (showErrors) {
+        markErr($('lt13-salary'), 'Ô Lương tháng chưa có số — nhập số lớn hơn 0, ví dụ 15.000.000.');
+        focusEl($('lt13-salary'));
+      }
+      M2.renderEmpty($('lt13-out'), 'Nhập lương tháng để xem thưởng tháng 13.');
+      return false;
+    }
+    render(C.luongThang13(salary, months, dependents, insurance), salary, months, dependents, insurance);
+    return true;
+  }
+
+  M2.bindMoneyFormat($('lt13-salary'));
+  M2.bindMoneyFormat($('lt13-insurance'));
+
+  root.querySelectorAll('[data-lt13-quick]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const el = $('lt13-salary');
+      el.value = fmtNum(parseInt(btn.getAttribute('data-lt13-quick'), 10));
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+      el.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  });
+
+  const liveCalc = M2.debounce(function () { tryRender(false); }, 400);
+  ['lt13-salary', 'lt13-months', 'lt13-dependents', 'lt13-insurance'].forEach(function (id) {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('input', liveCalc);
+    el.addEventListener('change', liveCalc);
+  });
+
+  tryRender(true);
 }
