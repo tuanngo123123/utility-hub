@@ -123,6 +123,37 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "so-diem-lop-tt22": {
+    intro: "Sổ điểm lớp theo Thông tư 22/2021/TT-BGDĐT: nhập điểm thường xuyên, giữa kỳ, cuối kỳ dạng bảng như Excel, công cụ tự tính ĐTB môn học kỳ, ĐTB môn cả năm và xếp loại chung Tốt/Khá/Đạt/Chưa đạt kèm luật điều chỉnh 1 môn. Lấy danh sách lớp từ Bàn giáo viên hoặc dán danh sách, xuất Excel, in sổ điểm.",
+    legalBasis: "Tính theo Thông tư 22/2021/TT-BGDĐT của Bộ Giáo dục và Đào tạo, áp dụng cho học sinh THCS và THPT.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "ĐTB môn học kỳ tính thế nào?",
+        a: "ĐTB môn học kỳ = (tổng điểm thường xuyên + 2 × điểm giữa kỳ + 3 × điểm cuối kỳ) / (số điểm thường xuyên + 5), làm tròn 1 chữ số thập phân. Ví dụ: TX 8, 7, 9; GK 7,5; CK 8 thì (24 + 15 + 24) / 8 = 7,875 → 7,9. Chưa có đủ điểm giữa kỳ và cuối kỳ thì cột ĐTB để trống, tránh hiện số sai giữa kỳ."
+      },
+      {
+        q: "ĐTB môn cả năm tính thế nào?",
+        a: "ĐTB môn cả năm = (ĐTB học kỳ I + 2 × ĐTB học kỳ II) / 3, làm tròn 1 chữ số thập phân, tính từ ĐTB 2 học kỳ đã làm tròn. Học kỳ II nặng gấp đôi nên học sinh tiến bộ ở kỳ sau được lợi rõ rệt. Ví dụ: kỳ I 6,8; kỳ II 7,4 thì (6,8 + 14,8) / 3 = 7,2."
+      },
+      {
+        q: "Xếp loại chung Tốt/Khá/Đạt/Chưa đạt theo quy tắc nào?",
+        a: "Theo khoản 2 Điều 9 Thông tư 22: Tốt khi mọi môn nhận xét đều Đạt, mọi môn có điểm từ 6,5 trở lên, trong đó ít nhất 6 môn từ 8,0 trở lên; Khá khi mọi môn nhận xét đều Đạt, mọi môn có điểm từ 5,0 trở lên, trong đó ít nhất 6 môn từ 6,5 trở lên; Đạt khi tối đa 1 môn nhận xét Chưa đạt, ít nhất 6 môn có điểm từ 5,0 trở lên và không môn nào dưới 3,5; còn lại là Chưa đạt. Vì quy tắc cần ít nhất 6 môn có điểm nên lớp nhập dưới 6 môn sẽ hiện 'Cần thêm môn' thay vì xếp loại sai."
+      },
+      {
+        q: "Luật điều chỉnh 1 môn là gì?",
+        a: "Theo khoản 3 Điều 9 Thông tư 22: nếu mức xếp loại chung bị thấp xuống từ 2 mức trở lên so với mức Tốt/Khá chỉ do kết quả của duy nhất 1 môn thì được điều chỉnh lên mức liền kề. Ví dụ: 7 môn đều trên 8,0 nhưng 1 môn chỉ 3,0 khiến mức chung rơi từ Tốt xuống Chưa đạt thì được nâng lên Đạt. Công cụ tự áp dụng luật này và đánh dấu ↑ kèm tên môn gây ra mức thấp."
+      },
+      {
+        q: "Mức Tốt/Khá/Đạt/Chưa đạt ở từng môn có phải quy định của Thông tư 22 không?",
+        a: "Không. Thông tư 22 chỉ định nghĩa 4 mức cho kết quả học tập chung, không xếp mức từng môn. Cột Mức ở từng môn chỉ là nhãn tham khảo nhanh dùng chung ngưỡng của Thông tư 22 (từ 8,0 là Tốt, từ 6,5 là Khá, từ 5,0 là Đạt, dưới 5,0 là Chưa đạt) để giáo viên nhìn nhanh học sinh nào đang yếu môn nào."
+      },
+      {
+        q: "Dán bảng điểm từ Excel vào được không?",
+        a: "Được. Chép vùng điểm trong Excel (6 cột TX1–TX4, GK, CK), bấm vào ô đầu tiên trong bảng rồi dán — điểm tự chạy vào đúng ô, đúng bạn. Ô nào không phải số từ 0 đến 10 sẽ bị bỏ qua và báo lại. Điểm gõ tay chấp nhận cả dấu phẩy (7,5) lẫn dấu chấm (7.5)."
+      }
+    ]
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,

@@ -2510,6 +2510,45 @@ button.chip-cat[aria-pressed="true"]:hover,
   .td-sheet { padding: 16px; }
 }
 
+/* ---------- Sổ điểm lớp theo TT22 (20/11) ---------- */
+/* Bảng điểm kiểu Excel: ô điểm hẹp, căn giữa; ĐTB đậm; mức là chip
+   màu (Tốt xanh lá, Khá xanh dương, Đạt xám, Chưa đạt đỏ). Bảng cuộn
+   ngang trong khung trên điện thoại (không phá bố cục trang). */
+.sd-wrap { overflow-x: auto; margin: 12px 0; }
+.sd-grid { min-width: 640px; }
+.sd-grid th, .sd-grid td { text-align: center; white-space: nowrap; }
+.sd-grid th:nth-child(2), .sd-grid td:nth-child(2) { text-align: left; white-space: normal; min-width: 140px; }
+.sd-score { width: 64px; text-align: center; padding: 8px 4px; border: 1px solid var(--line-soft); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 1rem; }
+.sd-score:focus { outline: 3px solid #F59E0B; outline-offset: 0; border-color: var(--line); }
+.sd-score.sd-bad { border-color: #DC2626; background: #FEF2F2; }
+.sd-nx { min-width: 130px; padding: 8px; border: 1px solid var(--line-soft); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 1rem; }
+.sd-dtb { font-size: 1.05rem; }
+.sd-bad-text { color: #991B1B; }
+.sd-muc { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+.sd-muc-tot { background: #DCFCE7; color: #166534; }
+.sd-muc-kha { background: #DBEAFE; color: #1E40AF; }
+.sd-muc-dat { background: #F1F5F9; color: #475569; }
+.sd-muc-chua-dat { background: #FEE2E2; color: #991B1B; }
+.sd-adjust { color: #D97706; font-weight: 700; cursor: help; }
+.sd-subject-chip { display: inline-block; background: var(--bg-soft); border: 1px solid var(--line-soft); border-radius: 999px; padding: 6px 6px 6px 14px; margin: 0 6px 6px 0; font-weight: 600; }
+.sd-chip-x { border: none; background: transparent; color: var(--muted); cursor: pointer; font-size: 0.9rem; padding: 4px 8px; border-radius: 999px; min-width: 32px; min-height: 32px; }
+.sd-chip-x:hover { color: #DC2626; background: #FEE2E2; }
+.sd-summary { margin: 12px 0; }
+.sd-warn { background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 12px; padding: 12px 16px; margin-top: 10px; }
+.sd-warn p { margin: 0 0 6px; }
+.sd-warn ul { margin: 0; padding-left: 20px; }
+.sd-sheet { background: #fff; border: 1px solid var(--line-soft); border-radius: 12px; padding: 24px; margin: 12px 0; }
+.sd-sheet-head { text-align: center; border-bottom: 2px solid var(--line); padding-bottom: 12px; margin-bottom: 16px; }
+.sd-sheet-head h4 { margin: 0 0 4px; font-size: 1.1rem; }
+.sd-sheet-head p { margin: 4px 0; }
+/* Tờ in (nút In sổ điểm): JS gắn vào cuối body chỉ khi in, màn hình
+   không hiện; xem quy tắc print dưới. */
+#sd-print-sheet { display: none; }
+@media (max-width: 640px) {
+  .sd-sheet { padding: 16px; }
+  .sd-score { width: 56px; }
+}
+
 /* In mẫu: chỉ in nội dung mẫu, ẩn header/footer/nav/nút. */
 @media print {
   .site-header, .site-footer, .bottom-nav, .skip-link, .aiw,
@@ -2539,6 +2578,12 @@ button.chip-cat[aria-pressed="true"]:hover,
   #td-print-sheet .td-sheet { border: none; box-shadow: none; padding: 0; margin: 0; }
   #td-print-sheet .td-q { break-inside: avoid; }
   #td-print-sheet .tbl th { background: #eee !important; }
+  /* Sổ điểm: khi in (body.sd-printing), chỉ in tờ #sd-print-sheet
+     (bảng điểm đang xem) — ẩn toàn bộ phần còn lại của trang. */
+  body.sd-printing > *:not(#sd-print-sheet) { display: none !important; }
+  body.sd-printing > #sd-print-sheet { display: block !important; }
+  #sd-print-sheet .sd-sheet { border: none; box-shadow: none; padding: 0; margin: 0; }
+  #sd-print-sheet .tbl th { background: #eee !important; }
   a { color: #000; text-decoration: none; }
 }
 
