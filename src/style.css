@@ -218,13 +218,13 @@ a:hover { text-decoration-thickness: 2px; }
 h1, h2, h3, h4 { line-height: 1.25; overflow-wrap: break-word; letter-spacing: -0.02em; }
 h1 { font-size: 1.75rem; letter-spacing: -0.03em; }
 /* Tiêu đề trang danh sách (/cong-cu/): 48px, như H1 trang danh sách 21st.dev. */
-.page-title { font-size: 3rem; font-weight: 650; line-height: 1.05; letter-spacing: -0.02em; }
+.page-title { font-size: 2rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; }
 h2 { font-size: 1.4rem; }
 h3 { font-size: 1.1rem; }
 
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
-.wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; min-width: 0; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; min-width: 0; }
 .main { padding-top: 8px; padding-bottom: 32px; min-width: 0; }
 
 .muted { color: var(--muted); }
@@ -237,7 +237,12 @@ p.error {
   padding: 10px 12px;
 }
 
-/* ---------- Header / nav ---------- */
+/* ---------- Header / nav (MẪU 3, 19/11/2026) ---------- */
+/* Header dính 64px (điện thoại 56px): logo + tên, 5 mục menu, nút
+   sáng/tối. Không nút tìm kiếm (⌘K vẫn mở modal tìm kiếm bằng bàn
+   phím), không nút âm thanh (âm thanh lớp học nằm trong Bàn giáo
+   viên), không nút "Dùng ngay", không menu hamburger — điện thoại
+   dùng thanh đáy 5 mục. Khung 1120px như nội dung trang. */
 
 .site-header {
   position: sticky;
@@ -252,7 +257,7 @@ p.error {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 60px;
+  min-height: 64px;
 }
 
 .brand {
@@ -260,23 +265,19 @@ p.error {
   align-items: center;
   gap: 8px;
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   letter-spacing: -0.02em;
   color: var(--ink);
   text-decoration: none;
   white-space: nowrap;
 }
-.brand-logo { width: 30px; height: 30px; flex: none; }
+.brand-logo { width: 32px; height: 32px; flex: none; }
 .brand-name > span { color: var(--accent); }
-/* Tên web LUÔN hiện, kể cả điện thoại hẹp (đợt sửa UX 19/11): đợt 1 ẩn
-   tên ở ≤480px để hết tràn ngang, nhưng người mới vào chỉ thấy icon "T."
-   thì không biết web tên gì. Chỗ được lấy lại bằng cách dời nút âm thanh
-   khỏi header xuống menu hamburger (dưới 1280px — xem .sound-toggle
-   và .nav-sound dưới đây). Đã đo 0 tràn ngang ở 375px. */
-/* Vùng bấm lên chấm vàng của logo (trứng phục sinh, hướng B đợt 1):
-   chấm vàng nằm góc dưới-phải logo (favicon 64px: tâm 48,48 r=6,5 →
-   trên logo 30px là góc dưới-phải ~12px). Vùng trong suốt, chỉ JS
-   nghe bấm (5 lần trong 2,5s); bấm chỗ khác của logo vẫn về trang chủ. */
+/* Tên web LUÔN hiện, kể cả điện thoại hẹp: người mới vào chỉ thấy
+   icon "T." thì không biết web tên gì. */
+/* Vùng bấm lên chấm vàng của logo (trứng phục sinh): chấm vàng nằm góc
+   dưới-phải logo. Vùng trong suốt, chỉ JS nghe bấm (5 lần trong 2,5s);
+   bấm chỗ khác của logo vẫn về trang chủ. */
 .brand-logo-wrap { position: relative; display: inline-flex; flex: none; line-height: 0; }
 .brand-dot {
   position: absolute;
@@ -289,140 +290,63 @@ p.error {
 
 .header-actions { display: flex; gap: 8px; align-items: center; }
 
-.theme-toggle,
-.sound-toggle,
-.nav-toggle {
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--line);
   background: var(--surface);
   color: var(--ink);
-  border-radius: 999px;
-  padding: 7px 11px;
-  font-size: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
   line-height: 1;
   cursor: pointer;
 }
-.theme-toggle:hover,
-.sound-toggle:hover,
-.nav-toggle:hover { background: var(--bg-soft); }
-/* Nút âm thanh (hướng B đợt 1): icon loa SVG; trạng thái tắt hiện loa
-   gạch chéo (JS gắn class .sound-off + đổi aria-label). */
-.sound-toggle { display: inline-flex; align-items: center; justify-content: center; padding: 7px; }
-.sound-toggle svg { display: block; }
-.sound-toggle .snd-off { display: none; }
-.sound-toggle.sound-off .snd-on { display: none; }
-.sound-toggle.sound-off .snd-off { display: block; }
-.sound-toggle.sound-off { color: var(--muted); }
-/* Nút âm thanh ở header chỉ hiện từ 1280px (nav ngang, header đủ chỗ);
-   dưới 1280px nó dời xuống menu hamburger (mục .nav-sound, cùng khóa
-   uh_gv_sound) để header điện thoại đủ chỗ hiện tên web (đợt sửa UX
-   19/11 — 4 nút 44px + tên chữ làm header tràn 391px ở 375px). */
-@media (max-width: 1279px) {
-  .sound-toggle { display: none; }
-}
-/* Mục âm thanh trong menu hamburger: nút văn bản trông như một mục nav,
-   chỉ hiện khi menu mở dưới 1280px (từ 1280px nav ngang hiện sẵn, nút
-   âm thanh đã ở header nên mục này ẩn). */
-.nav-sound {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font: inherit;
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 8px;
-  text-align: left;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.nav-sound:hover { background: var(--bg-soft); color: var(--ink); }
-@media (max-width: 1279px) {
-  .site-header.nav-open .site-nav .nav-sound { display: flex; align-items: center; }
-}
+.theme-toggle:hover { background: var(--bg-soft); }
 
+/* Nav ngang: 5 mục, mỗi mục cao 44px, đệm 0 12px, bo 10px, chữ 15px.
+   Mục đang chọn: nền #E8EEFF + chữ #1747E6 đậm (MẪU 3). Ẩn dưới
+   769px — điện thoại dùng thanh đáy. */
 .site-nav { display: none; }
+@media (min-width: 769px) {
+  .site-nav { display: flex; gap: 4px; align-items: center; }
+}
 .site-nav a {
-  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  color: var(--ink);
   text-decoration: none;
-  font-weight: 600;
-  padding: 8px 12px;
-  border-radius: 8px;
-  display: block;
+  font-size: 15px;
+  font-weight: 500;
   white-space: nowrap;
 }
-.site-nav a:hover { background: var(--bg-soft); color: var(--ink); }
-/* Mục nav đang chọn: chỉ gạch chân xanh 2px + chữ màu ink (bỏ nền pill). */
-.site-nav a.nav-active { background: transparent; color: var(--ink); border-bottom: 2px solid var(--accent); border-radius: 0; }
-.site-nav a.nav-active:hover { background: var(--bg-soft); }
+.site-nav a:hover { background: var(--bg-soft); }
+.site-nav a.nav-active { background: #E8EEFF; color: #1747E6; font-weight: 700; }
+.site-nav a.nav-active:hover { background: #E8EEFF; }
 
-.site-header.nav-open .site-nav {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
-  padding: 8px 16px 16px;
-  gap: 4px;
+@media (max-width: 768px) {
+  .header-inner { min-height: 56px; }
 }
 
-/* Nút Tìm kiếm header mặc định chỉ hiện icon kính lúp (nhãn chữ + ⌘K
-   chỉ hiện từ 1440px — xem media query dưới): tiết kiệm chỗ cho nav
-   9 mục + nút âm thanh mới, và khỏi tràn header trên mobile.
-   QUY TẮC NÀY PHẢI ĐỨNG TRƯỚC media query 1440px (cùng độ ưu tiên,
-   quy tắc viết sau thắng — đặt sau thì nhãn không bao giờ hiện lại). */
-.header-search-btn .header-search-label,
-.header-search-btn kbd { display: none; }
-.header-search-icon { display: block; }
-
-/* Nav ngang hiện từ 1280px trở lên (hướng B đợt 1 — trước đây 1360px,
-   laptop 1280px chỉ thấy hamburger + khoảng trống giữa header). Để vừa
-   9 mục nav + tìm kiếm + nút "Dùng ngay" + 3 nút tròn trong khung
-   1280px: đệm link nav thu xuống 6px, chữ nav 0,95rem, khoảng cách thu
-   gọn; nút Tìm kiếm chỉ hiện icon kính lúp ở mọi chiều rộng dưới
-   1440px (bấm vẫn mở modal tìm kiếm như cũ — cả trên mobile, vì nút
-   âm thanh mới thêm làm header mobile tràn 8px ở 390px). Từ 1440px
-   trở lên mọi thứ hiện đủ, đệm nav về 8px như cũ. .wrap trang chỉ
-   1200px nên header dùng .wrap rộng riêng 1340px (xem dưới). Dưới
-   1280px dùng menu hamburger (đã có sẵn). Đã đo 0 tràn ngang ở
-   390/1280/1360/1440 (Playwright). */
-@media (min-width: 1280px) {
-  .nav-toggle { display: none; }
-  .site-nav { display: flex; gap: 2px; align-items: center; }
-  .site-nav a { padding: 8px 6px; font-size: 0.95rem; }
-  .header-inner { gap: 8px; }
-  .header-actions { gap: 6px; }
-  .btn-header-cta { white-space: nowrap; }
-}
-@media (min-width: 1440px) {
-  .site-nav { gap: 4px; }
-  .site-nav a { padding: 8px 8px; font-size: 1rem; }
-  .header-search-btn .header-search-label,
-  .header-search-btn kbd { display: inline; }
-  .header-search-btn .header-search-icon { display: none; }
-}
-
-/* Header rộng hơn nội dung trang để đủ chỗ cho 9 mục nav — chỉ
-   áp cho header, nội dung trang vẫn giữ .wrap 1200px. */
-.site-header .wrap { max-width: 1340px; }
-
-/* ---------- Footer ---------- */
+/* ---------- Footer (MẪU 3, 19/11/2026) ---------- */
+/* 3 cột gọn: thương hiệu + mô tả 1 câu; Khác; Chính sách. Nền trắng,
+   đệm 32px. Cột nằm trong .footer-cols (xem dưới). */
 
 .site-footer {
   margin-top: 64px;
   border-top: 1px solid var(--line);
-  background: var(--bg-soft);
-  padding: 40px 0 24px;
+  background: var(--surface);
+  padding: 32px 0 24px;
 }
 .footer-inner { display: flex; flex-direction: column; gap: 8px; }
 .footer-inner p { margin: 0; }
-.footer-brand { font-weight: 700; }
-.footer-nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
-.footer-nav a { color: var(--muted); font-weight: 600; text-decoration: none; }
-.footer-nav a:hover { text-decoration: underline; }
+.footer-brand { font-weight: 700; font-size: 1.125rem; color: var(--ink); }
+.footer-inner .footer-copy { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line-soft); }
 
 /* ---------- Hero / section ---------- */
 
@@ -430,181 +354,189 @@ p.error {
    ngang viewport; nội dung nằm trong .hero-inner (1200px, căn giữa).
    Kỹ thuật margin calc(50% - 50vw): KHÔNG thêm overflow-x:hidden vào
    body/html (làm hỏng header sticky) — đã kiểm 0 tràn ngang ở 390px. */
+/* ---------- Hero + trang chủ (MẪU 3, 19/11/2026) ---------- */
+/* Màu cố định theo file mẫu (như .m2-page): xanh #1747E6, thẻ trắng,
+   viền #DCE1EA, chữ #0F172A / #475569 / #64748B. Không theo chế độ
+   tối. Ô tìm kiếm + chip nằm ở khối "Hero: ô tìm kiếm lớn" dưới đây
+   (gần .hero-search-results) để media query mobile đứng sau quy tắc
+   gốc (cùng độ ưu tiên, quy tắc sau thắng). */
+
 .hero {
-  padding: 64px 0 48px;
-  margin-top: 16px;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  background: linear-gradient(180deg, #f8faff, #eef4ff);
+  padding: 48px 0 8px;
   text-align: center;
-  position: relative;
-  isolation: isolate;
 }
-.hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.hero-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 .hero h1 {
-  font-size: clamp(40px, 5.9vw, 88px);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.05em;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 auto 16px;
+  max-width: 760px;
+  color: #0F172A;
+}
+.hero-sub { color: #475569; font-size: 17px; margin: 0 auto 24px; max-width: 60ch; }
+
+/* Mục trang chủ: tiêu đề 20px đậm, cách nhau 40px. */
+.home-section { margin: 40px 0; }
+.home-section > h2 {
   margin: 0 0 16px;
-  text-wrap: balance; /* cân 2 dòng cho đẹp; trình duyệt cũ bỏ qua */
+  font-size: 20px;
+  font-weight: 700;
+  color: #0F172A;
 }
+.home-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+.home-section-head h2 { margin: 0; font-size: 20px; font-weight: 700; color: #0F172A; }
+.home-section-head a { font-size: 14px; font-weight: 700; color: #1747E6; text-decoration: none; white-space: nowrap; }
+.home-section-head a:hover { text-decoration: underline; }
 
-/* Mỗi từ là một khối không gãy giữa từ — chữ tách ra vẫn xuống dòng
-   đúng theo từ như H1 thường, không gãy giữa từ. */
-.hero h1.h1-chars .h1-word {
-  display: inline-block;
-  white-space: nowrap;
+/* Dùng gần đây: nút 44px + nút xóa lịch sử. */
+.recent-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.recent-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid #DCE1EA;
+  border-radius: 12px;
+  background: #fff;
+  color: #0F172A;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
 }
+.recent-btn:hover { border-color: #1747E6; color: #1747E6; }
+.recent-clear {
+  min-height: 44px;
+  padding: 0 12px;
+  border: none;
+  background: none;
+  color: #64748B;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.recent-clear:hover { color: #0F172A; text-decoration: underline; }
 
-/* Mỗi chữ trượt lên từ dưới + hiện dần, lệch nhau 60ms (delay do JS đặt
-   inline từng chữ). `backwards`: trong lúc chờ delay thì áp dụng trạng
-   thái `from` (ẩn, ở dưới); chạy xong thì về trạng thái tự nhiên (hiện).
-   Chạy 1 lần khi tải trang, không lặp, không gắn với cuộn. */
-.hero h1.h1-chars .h1-char {
-  display: inline-block;
-  animation: hero-h1-char-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+/* Được dùng nhiều nhất: 8 thẻ đều nhau. */
+.most-used-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
 }
+.most-used-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 88px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #DCE1EA;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #0F172A;
+}
+.most-used-card:hover { border-color: #1747E6; box-shadow: var(--shadow-sm); }
+.most-used-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #E8EEFF;
+  color: #1747E6;
+  font-size: 20px;
+  line-height: 1;
+}
+.most-used-name { font-size: 16px; font-weight: 700; overflow-wrap: break-word; }
+.most-used-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 14px; line-height: 1.45; color: #475569; }
 
-@keyframes hero-h1-char-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.55em);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Dành cho bạn: 4 ô lớn, mỗi ô 1 màu nền nhạt. */
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
 }
+.audience-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 140px;
+  padding: 20px;
+  border-radius: 16px;
+  text-decoration: none;
+  color: #0F172A;
+}
+.audience-card:hover { box-shadow: var(--shadow-sm); }
+.audience-card h3 { margin: 0; font-size: 18px; font-weight: 800; }
+.audience-card p { margin: 0; font-size: 14px; line-height: 1.5; color: #334155; flex: 1 1 auto; }
+.audience-link { font-size: 14px; font-weight: 700; color: #1747E6; }
+.audience-work { background: #E8EEFF; }
+.audience-teacher { background: #FEF3C7; }
+.audience-student { background: #E0F2FE; }
+.audience-family { background: #ECFDF5; }
 
-/* Reduced-motion: hiện ngay, không animation. (JS cũng tự bỏ qua việc
-   tách chữ khi reduced-motion — đây là lưới an toàn thứ hai.) */
-@media (prefers-reduced-motion: reduce) {
-  .hero h1.h1-chars .h1-char {
-    animation: none;
-  }
-  .hero-rotator { transition: none; }
-}
-
-/* Từ xoay trong H1 (hướng B đợt 1, ý 8 báo cáo sáng tạo): từ sau dấu
-   "—" đổi mỗi 2,5s (JS), màu đổi theo hạng mục tương ứng (bản đậm, đã
-   đo tương phản ≥ 4,5:1). Inline-block + nowrap để từ không tự gãy;
-   hiệu ứng trượt chỉ chạm transform/opacity. */
-.hero-rotator {
-  display: inline-block;
-  white-space: nowrap;
-  transition: transform 0.25s ease, opacity 0.25s ease;
-}
-.hero-rotator.rot-out { transform: translateY(-0.35em); opacity: 0; }
-.hero-sub { color: var(--muted); font-size: 1.05rem; margin: 0 auto 24px; max-width: 60ch; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
-@media (min-width: 720px) {
-  .hero { padding: 80px 0 64px; }
+/* Hôm nay: 4 ô nhỏ. */
+.today-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 @media (min-width: 960px) {
-  .hero { padding: 96px 0 72px; }
+  .today-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-/* Chế độ tối: gradient tối từ token nền hero sẵn có. */
-[data-theme="dark"] .hero {
-  background: linear-gradient(180deg, #08090c, #0a0f1e);
+.today-card {
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid #DCE1EA;
+  border-radius: 14px;
+  min-width: 0;
 }
+.today-label { margin: 0 0 4px; font-size: 13px; color: #475569; }
+.today-value { font-size: 20px; font-weight: 800; color: #0F172A; overflow-wrap: break-word; }
+.today-source { margin: 6px 0 0; font-size: 12px; color: #64748B; }
+.today-link { margin: 6px 0 0; font-size: 13px; font-weight: 700; }
+.today-link a { color: #1747E6; text-decoration: none; }
+.today-link a:hover { text-decoration: underline; }
 
-/* Ánh sáng hero đi theo chuột (JS cập nhật --mx/--my). */
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(
-    360px circle at var(--mx, 50%) var(--my, 40%),
-    rgba(0, 51, 255, 0.08),
-    rgba(186, 210, 255, 0.12) 45%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
+/* Điểm báo trang chủ: 3 thẻ .news-card trong lưới 3 cột. */
+.home-news-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
 }
-.hero:hover::after,
-.hero:focus-within::after { opacity: 1; }
-
-/* ==========================================================================
-   HERO — ÁNH SÁNG CHUYỂN ĐỘNG (vòng 3, bắt chước 21st.dev)
-   File snippet — điều phối viên gộp vào src/style.css theo INTEGRATION.md.
-   KHÔNG đụng .hero::after (ánh sáng theo chuột đã có) — lớp này dùng
-   ::before, nằm DƯỚI ::after, trên nền gradient của .hero.
-
-   Vì sao CSS thuần, không canvas:
-   - 4 radial-gradient tĩnh được trình duyệt vẽ 1 lần rồi cache thành lớp;
-     animation chỉ chạm transform + opacity (chạy trên compositor, không
-     vẽ lại từng khung hình, không tốn JS, tự dừng khi tab ẩn).
-   - Canvas phải chạy vòng lặp requestAnimationFrame + vẽ lại toàn bộ hero
-     mỗi khung hình + tự xử lý DPR + tự rẽ nhánh reduced-motion — nặng hơn
-     mà không đẹp hơn ở mức độ tinh tế này.
-
-   An toàn tràn ngang: ::before dùng inset:0 + scale/translate nhỏ nên cần
-   .hero { overflow-x: clip } để cắt phần thừa. CHỈ đặt trên .hero (không
-   phải body/html) nên header sticky không bị ảnh hưởng; overflow:clip
-   không tạo scroll container nên càng không phá sticky (đã kiểm bằng
-   Playwright: không tràn ngang ở 1280 + 390, header vẫn dính khi cuộn).
-   ========================================================================== */
-
-/* Cắt ngang phần ánh sáng thừa — dùng clip, KHÔNG dùng hidden ở đây hay
-   ở body/html (luật đứng: hidden làm hỏng header sticky). */
-.hero {
-  overflow-x: clip;
-  overflow-y: visible;
+@media (min-width: 720px) {
+  .home-news-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-/* Lớp ánh sáng xanh động phía sau hero: 4 quầng xanh nhạt, mờ dần xuống
-   dưới theo mask (giống mask gradient của 21st.dev: rõ ở trên, tan hết
-   trước khi tới cuối hero). Opacity thấp — bản sáng tinh tế, không chói. */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(560px 340px at 18% 0%, rgba(59, 130, 246, 0.16), transparent 70%),
-    radial-gradient(720px 420px at 50% -10%, rgba(0, 51, 255, 0.10), transparent 70%),
-    radial-gradient(560px 340px at 82% 0%, rgba(147, 197, 253, 0.30), transparent 70%),
-    radial-gradient(900px 500px at 50% 30%, rgba(191, 219, 254, 0.22), transparent 75%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 92%);
-  mask-image: linear-gradient(180deg, #000 0%, #000 55%, transparent 92%);
-  animation: hero-glow-drift 26s ease-in-out infinite alternate;
-}
-
-/* Trôi rất chậm (26s một chiều): chỉ transform + opacity nên rẻ. */
-@keyframes hero-glow-drift {
-  from {
-    transform: translate3d(-1.5%, -1%, 0) scale(1.02);
-    opacity: 0.85;
-  }
-  to {
-    transform: translate3d(1.5%, 2%, 0) scale(1.05);
-    opacity: 1;
-  }
-}
-
-/* Chế độ tối: xanh đậm hơn trên nền gần đen (nền hero tối của repo là
-   #08090c → #0a0f1e, tương đương token #09090B trong đề bài). */
-[data-theme="dark"] .hero::before {
-  background:
-    radial-gradient(560px 340px at 18% 0%, rgba(54, 94, 255, 0.32), transparent 70%),
-    radial-gradient(720px 420px at 50% -10%, rgba(59, 130, 246, 0.24), transparent 70%),
-    radial-gradient(560px 340px at 82% 0%, rgba(96, 165, 250, 0.22), transparent 70%),
-    radial-gradient(900px 500px at 50% 30%, rgba(37, 99, 235, 0.18), transparent 75%);
-}
-
-/* Tôn trọng người dùng nhạy cảm với chuyển động: tắt chuyển động hẳn,
-   giữ lại ánh sáng tĩnh (vẫn đẹp, không nhấp nháy). Khối reduced-motion
-   toàn cục của repo (style.css ~dòng 1599) cũng đã tắt mọi animation —
-   quy tắc này là để file snippet đứng một mình vẫn đúng. */
-@media (prefers-reduced-motion: reduce) {
-  .hero::before {
-    animation: none;
-  }
+@media (max-width: 768px) {
+  .hero { padding: 32px 0 8px; }
+  .hero h1 { font-size: 28px; line-height: 1.25; }
+  /* Đầu mục xếp dọc: tiêu đề + link "Xem tất cả" không chen nhau
+     trên 1 dòng hẹp (375px tiêu đề gãy 2 dòng, link bị dồn góc). */
+  .home-section-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+  /* Được dùng nhiều nhất thành dòng 64px trong 1 thẻ. */
+  .most-used-grid { display: block; background: #fff; border: 1px solid #DCE1EA; border-radius: 16px; overflow: hidden; }
+  .most-used-card { flex-direction: row; align-items: center; min-height: 64px; border: none; border-bottom: 1px solid #E2E8F0; border-radius: 0; padding: 12px 16px; }
+  .most-used-card:last-child { border-bottom: none; }
+  .most-used-icon { flex: none; }
+  .most-used-body { min-width: 0; }
+  .most-used-name { font-size: 15px; }
+  .most-used-desc { font-size: 13px; }
+  .audience-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .audience-card { min-height: 88px; padding: 14px; }
+  .audience-card h3 { font-size: 15px; }
+  .audience-card p { font-size: 13px; }
+  .today-value { font-size: 17px; }
 }
 
 .section { margin: 88px 0; }
@@ -619,27 +551,6 @@ p.error {
   .section > h2 { font-size: 1.5rem; }
 }
 
-.support-banner {
-  margin: 48px 0;
-  padding: 20px 24px;
-  background: var(--amber);
-  color: #1a2027;
-  border-radius: var(--radius);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-}
-.support-banner p { margin: 0; flex: 1 1 260px; }
-.support-banner .btn {
-  background: #fff;
-  color: #1a2027;
-  border-color: #fff;
-  box-shadow: var(--shadow-sm);
-  flex: 0 0 auto;
-}
-.support-banner .btn:hover { background: #fff7e6; }
 
 /* ---------- Nút bấm ---------- */
 
@@ -676,9 +587,6 @@ p.error {
 .btn-small { padding: 4px 10px; font-size: 0.875rem; min-height: 0; }
 .copy-btn { padding: 6px 12px; font-size: 0.9rem; min-height: 0; }
 
-/* Nút CTA xanh ở header ("Dùng ngay"): gọn hơn nút chính; ẩn dưới 720px
-   vì header mobile thiếu chỗ. */
-.btn-header-cta { min-height: 36px; padding: 8px 16px; font-size: 0.875rem; }
 @media (max-width: 719px) {
   .btn-header-cta { display: none; }
 }
@@ -1047,8 +955,8 @@ button.chip-cat[aria-pressed="true"]:hover,
   /* Nút chép kết quả: rule gốc đặt min-height: 0 (ghi đè .btn) nên chỉ
      cao 32px — khôi phục 44px trên điện thoại. */
   .copy-btn { min-height: 44px; }
-  /* Nút header: tìm kiếm 30px, loa 28px, tối/sáng 32px, menu 32px. */
-  .header-search-btn, .theme-toggle, .sound-toggle, .nav-toggle { min-width: 44px; min-height: 44px; }
+  /* Nút sáng/tối header: 44px. */
+  .theme-toggle { min-width: 44px; min-height: 44px; }
   .brand { min-height: 44px; }
   /* Nút đóng khung chat: 28px → 44px. (Độ ưu tiên cao hơn rule gốc ở
      cuối file — rule .aiw-close thường thua vì đứng trước.) */
@@ -1059,13 +967,12 @@ button.chip-cat[aria-pressed="true"]:hover,
      .site-footer để thắng rule .footer-col a đứng sau trong file.) */
   .site-footer .footer-col a { padding: 11px 0; }
   .site-footer p a { display: inline-block; padding: 12px 0; }
-  .strip-link a { display: inline-block; padding: 12px 0; }
-  .news-card h4 a, .news-featured h3 a, .rank-body h4 a { display: flex; align-items: center; min-height: 44px; }
+  .today-link a { display: inline-block; padding: 12px 0; }
+  .news-card h4 a { display: flex; align-items: center; min-height: 44px; }
   .breadcrumb a { display: inline-block; padding: 10px 0; }
   .aiw-full a { display: inline-block; padding: 12px 0; }
   .news-more a { display: inline-block; padding: 12px 0; }
   .tool-faq summary { min-height: 44px; display: flex; align-items: center; }
-  .site-header.nav-open .site-nav a, .site-header.nav-open .site-nav .nav-sound { min-height: 44px; display: flex; align-items: center; }
 }
 
 /* Thanh tóm tắt kết quả dính ở đáy (MẪU 2, dùng chung cho 8 công cụ
@@ -1095,7 +1002,7 @@ button.chip-cat[aria-pressed="true"]:hover,
 .m2-sticky-btn { flex: none; min-height: 44px; padding: 8px 14px; border: 1px solid #C5CDDA; border-radius: 12px; background: #fff; color: #0F172A; font: inherit; font-weight: 700; cursor: pointer; }
 .m2-sticky-btn-primary { background: #1747E6; border-color: #1747E6; color: #fff; }
 @media (max-width: 768px) {
-  .m2-sticky { right: 12px; bottom: 68px; }
+  .m2-sticky { right: 12px; bottom: 76px; }
 }
 @media (max-width: 480px) {
   /* Thanh dính đáy ở máy hẹp: chữ số chính nhỏ lại + nút gọn lại để
@@ -1104,7 +1011,7 @@ button.chip-cat[aria-pressed="true"]:hover,
   .m2-sticky-btn { padding: 8px 10px; }
 }
 /* Kết quả lương cuộn tới thì chừa chỗ cho header dính (60px) + lề. */
-#lggn-out { scroll-margin-top: 76px; }
+#lggn-out { scroll-margin-top: 80px; }
 
 /* Thống kê nhanh trong công cụ */
 .stat {
@@ -1210,18 +1117,6 @@ button.chip-cat[aria-pressed="true"]:hover,
 }
 .skip-link:focus { top: 0; color: #fff; }
 
-/* ---------- Giá trị dữ liệu (app.js render vào dải hôm nay) ---------- */
-
-.today-value { font-size: 1.3rem; font-weight: 800; line-height: 1.3; letter-spacing: -0.02em; overflow-wrap: break-word; }
-.today-source { margin: 8px 0 0; }
-.coin-price-vnd { color: var(--muted); font-size: 0.875rem; overflow-wrap: break-word; }
-.coin-change { font-weight: 700; font-size: 0.9rem; }
-.coin-change.up { color: var(--good); }
-.coin-change.down { color: var(--bad); }
-.gold-prices { display: flex; flex-wrap: wrap; gap: 8px 32px; }
-.gold-price span { display: block; color: var(--muted); font-size: 0.875rem; }
-.gold-price b { font-size: 1.15rem; overflow-wrap: break-word; }
-
 /* ---------- Điểm báo ---------- */
 
 .news-card {
@@ -1266,172 +1161,6 @@ button.chip-cat[aria-pressed="true"]:hover,
 /* Bảng xếp hạng (hướng B đợt 1 đã dời xuống dưới lưới công cụ — trước
    đây nằm trong vùng hero, chiếm màn hình đầu tiên): panel trắng nổi bật.
    Class giữ tên .hero-ranking để khỏi đụng JS/CSS cũ, chỉ đổi vị trí. */
-.hero-ranking {
-  margin-top: 28px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  padding: 20px 24px;
-  text-align: left;
-}
-.section-ranking .hero-ranking { margin-top: 0; }
-.hero-ranking h2 { margin: 0 0 12px; font-size: 1.4rem; }
-/* Tiêu đề Bảng xếp hạng không gãy giữa cụm từ trên màn hình hẹp. */
-#ranking h2 { white-space: nowrap; }
-
-.rank-row {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 14px 8px;
-  border-bottom: 1px solid var(--line-soft);
-  border-radius: 8px;
-}
-.rank-row:last-child { border-bottom: none; }
-.rank-row:hover { background: var(--bg-soft); }
-.rank-num {
-  font-weight: 800;
-  font-size: 1.75rem;
-  line-height: 1.2;
-  min-width: 36px;
-  text-align: center;
-  flex: 0 0 auto;
-  color: var(--muted);
-}
-.rank-1 .rank-num { color: #d97706; }
-.rank-2 .rank-num { color: #64748b; }
-.rank-3 .rank-num { color: #b45309; }
-.rank-body { min-width: 0; flex: 1 1 auto; }
-.rank-body h4 { margin: 0 0 4px; font-size: 1rem; }
-.rank-body h4 a { color: var(--ink); text-decoration: none; overflow-wrap: break-word; }
-.rank-body h4 a:hover { color: var(--accent); text-decoration: underline; }
-.rank-desc { margin: 0 0 4px; color: var(--muted); font-size: 0.925rem; overflow-wrap: break-word; }
-.rank-meta { margin: 0; font-size: 0.85rem; color: var(--muted); }
-/* Pill ★ số sao ở cuối hàng (điểm xếp hạng trực quan). */
-.rank-pill {
-  flex: 0 0 auto;
-  align-self: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
-  padding: 4px 10px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  white-space: nowrap;
-}
-.hot-chip {
-  display: inline-block;
-  background: #dc2626;
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 2px 8px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  vertical-align: middle;
-  margin-left: 8px;
-}
-
-/* ---------- Dải dữ liệu hôm nay (trên Điểm báo) ---------- */
-
-.section-strips { margin: 88px 0; }
-.strip-date { margin: 0 0 12px; font-size: 0.95rem; font-weight: 600; }
-.strip-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-@media (min-width: 960px) { .strip-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.strip-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-card);
-  padding: 16px;
-  min-width: 0;
-  /* Chừa chiều cao tối thiểu để trang không nhảy hình khi dữ liệu về (CLS). */
-  min-height: 160px;
-}
-.strip-label { margin: 0; font-size: 1rem; }
-.strip-body { flex: 1 1 auto; min-width: 0; }
-.strip-body > :first-child { margin-top: 0; }
-.strip-body > :last-child { margin-bottom: 0; }
-.strip-fng { margin: 0; }
-.strip-link { margin: 0; }
-.strip-link a { font-weight: 700; text-decoration: none; }
-.strip-link a:hover { text-decoration: underline; }
-@media (max-width: 640px) {
-  /* Điện thoại: dải cuộn ngang để trang không quá dài. */
-  .strip-grid {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 8px;
-    margin: 0 -16px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-  .strip-card { flex: 0 0 240px; scroll-snap-align: start; min-height: 150px; }
-}
-
-/* ---------- Thẻ hạng mục (vòng 3): thẻ trắng viền mờ kiểu 21st.dev,
-   chỉ giữ ô icon mang màu riêng từng hạng mục (bỏ ô màu đặc rực). ---------- */
-
-.cat-heading { margin: 28px 0 12px; font-size: 1.4rem; }
-.cat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-bottom: 24px; }
-@media (min-width: 640px) { .cat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (min-width: 960px) { .cat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.cat-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: var(--surface);
-  border: 1px solid #e4e4e7;
-  border-radius: var(--radius);
-  padding: 20px;
-  text-decoration: none;
-  color: var(--ink);
-  min-width: 0;
-  min-height: 150px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-[data-theme="dark"] .cat-card { background: #0b0b0c; border-color: #27272a; }
-.cat-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
-.cat-card:hover .cat-arrow { color: var(--accent); }
-/* Hàng đầu thẻ hạng mục: ô icon + pill số công cụ xếp ngang (Worker C). */
-.cat-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.cat-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--cat-color, #2563eb);
-  font-size: 1.35rem;
-  line-height: 1;
-}
-.cat-count {
-  align-self: flex-start;
-  background: var(--bg-soft);
-  color: var(--muted);
-  border-radius: 999px;
-  padding: 2px 10px;
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-.cat-name { margin: 0; font-size: 1.125rem; font-weight: 700; color: var(--ink); }
-.cat-featured { margin: 0; color: var(--muted); font-size: 0.875rem; overflow-wrap: break-word; flex: 1 1 auto; padding-right: 28px; }
-.cat-arrow {
-  position: absolute;
-  right: 16px;
-  bottom: 12px;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--muted);
-}
-
 /* ---------- Ủng hộ / QR ---------- */
 
 .qr-wrap { text-align: center; margin: 20px 0; }
@@ -1475,21 +1204,30 @@ button.chip-cat[aria-pressed="true"]:hover,
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
-/* ---------- Hero: ô tìm kiếm lớn + chip gợi ý ---------- */
+/* ---------- Hero: ô tìm kiếm lớn + chip gợi ý (MẪU 3) ---------- */
 
-.hero-search-wrap { position: relative; max-width: 640px; margin: 0 auto 20px; text-align: left; }
+.hero-search-wrap { position: relative; max-width: 680px; margin: 0 auto 16px; text-align: left; }
 .hero-search {
   width: 100%;
-  padding: 16px 20px;
+  height: 60px;
+  padding: 0 20px 0 52px;
+  border: 2px solid #1747E6;
+  border-radius: 16px;
+  background: #fff;
+  color: #0F172A;
   font: inherit;
-  font-size: 1.05rem;
-  border: 2px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-  color: var(--ink);
-  box-shadow: 0 8px 24px rgba(0, 51, 255, 0.08);
+  font-size: 17px;
+  box-shadow: 0 8px 24px rgba(23, 71, 230, 0.12);
 }
-.hero-search:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 51, 255, 0.15); outline: none; }
+.hero-search:focus { border-color: #1747E6; box-shadow: 0 0 0 3px rgba(23, 71, 230, 0.18); outline: none; }
+.hero-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B;
+  pointer-events: none;
+}
 .hero-search-results {
   position: absolute;
   top: 100%;
@@ -1521,17 +1259,40 @@ button.chip-cat[aria-pressed="true"]:hover,
 .hero-search-cat { color: var(--muted); font-size: 0.85rem; white-space: nowrap; }
 .hero-search-empty { margin: 0; padding: 12px 14px; color: var(--muted); }
 
-.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; justify-content: center; }
-.hero-chips .chip { text-decoration: none; }
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; justify-content: center; }
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid #C5CDDA;
+  border-radius: 18px;
+  background: #fff;
+  color: #334155;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.hero-chip:hover { border-color: #1747E6; color: #1747E6; }
+@media (max-width: 768px) {
+  .hero-search { height: 52px; padding-left: 44px; border-radius: 14px; font-size: 16px; }
+  .hero-search-icon { left: 14px; }
+  .hero-chips { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; padding-bottom: 4px; margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; }
+  .hero-chips .hero-chip { flex: none; }
+}
 
 /* Ô tìm kiếm trang /cong-cu/ nổi bật hơn. */
 .search-input-large { font-size: 1.05rem; padding: 14px 18px; box-shadow: var(--shadow-sm); }
 
-/* ---------- Thanh nav dưới (chỉ điện thoại ≤768px) ---------- */
+/* ---------- Thanh nav dưới (MẪU 3 — chỉ điện thoại ≤768px) ---------- */
+/* Đúng 5 mục, cao 64px, icon 22px (trong HTML) + chữ 12px. Mục đang
+   chọn: chữ #1747E6 đậm, không nền. */
 
 .bottom-nav { display: none; }
 @media (max-width: 768px) {
-  body { padding-bottom: 64px; }
+  body { padding-bottom: 72px; }
   .bottom-nav {
     display: flex;
     position: fixed;
@@ -1541,7 +1302,7 @@ button.chip-cat[aria-pressed="true"]:hover,
     z-index: 100;
     background: var(--surface);
     border-top: 1px solid var(--line);
-    min-height: 56px;
+    min-height: 64px;
   }
   .bottom-nav a {
     flex: 1 1 0;
@@ -1551,48 +1312,18 @@ button.chip-cat[aria-pressed="true"]:hover,
     justify-content: center;
     gap: 2px;
     padding: 6px 4px;
-    color: var(--ink);
+    color: #475569;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.8rem;
+    font-weight: 500;
+    font-size: 12px;
     line-height: 1.2;
     text-align: center;
     min-width: 0;
-    min-height: 56px;
+    min-height: 64px;
   }
   .bottom-nav a svg { flex: none; }
-  .bottom-nav a.bottom-nav-active { background: var(--accent-soft); color: var(--accent-dark); }
-  .toast { bottom: 76px; }
-}
-/* Màn hình hẹp (4 mục nav dưới, mỗi mục ~94px ở 375px — đã rút từ 6 mục,
-   chuyển Ủng hộ/Code mẫu vào menu hamburger): chữ vẫn đọc được, không cần
-   hạ cỡ như thời 6 mục. */
-@media (max-width: 480px) {
-  .bottom-nav a { font-size: 0.78rem; }
-}
-
-/* ---------- Sơ đồ trang trong footer ---------- */
-
-.footer-sitemap {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 12px 0 4px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line-soft);
-}
-.footer-sitemap-col h3 { margin: 0 0 8px; font-size: 1rem; }
-.footer-sitemap-col a {
-  display: block;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 2px 0;
-  overflow-wrap: break-word;
-}
-.footer-sitemap-col a:hover { color: var(--accent); text-decoration: underline; }
-@media (min-width: 720px) {
-  .footer-sitemap { flex-direction: row; gap: 48px; }
-  .footer-sitemap-col { flex: 1 1 0; min-width: 0; }
+  .bottom-nav a.bottom-nav-active { color: #1747E6; font-weight: 700; }
+  .toast { bottom: 84px; }
 }
 
 /* ---------- Chuyển cảnh mượt cho nút bấm / link ---------- */
@@ -1601,164 +1332,15 @@ button.chip-cat[aria-pressed="true"]:hover,
 .chip,
 .tab,
 .site-nav a,
-.footer-nav a,
 .breadcrumb a,
 .theme-toggle,
-.nav-toggle,
 .amount-btn,
-.header-search-btn,
 .search-modal-item,
 .search-modal-close,
 .card-cta,
 .footer-col a {
   transition: color 0.2s ease, background-color 0.2s ease,
     border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-/* ---------- Linh vật ---------- */
-
-.mascot {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.mascot svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Linh vật trong hero: 64px (vòng 2 thu từ 96px), nằm dưới hàng chip gợi ý, trên bảng xếp hạng. */
-.mascot-hero {
-  width: 64px;
-  height: 64px;
-  margin-top: 12px;
-}
-
-/* Linh vật góc trang: cố định góc dưới-phải, ~64px.
-   z-index 150: trên header sticky (100), dưới toast (200) nên
-   không che thông báo; bottom 24px để không đè lên toast. */
-.mascot-corner {
-  position: fixed;
-  right: 20px;
-  bottom: 24px;
-  width: 64px;
-  height: 64px;
-  z-index: 150;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  box-shadow: 0 6px 18px rgba(18, 40, 62, 0.18);
-  padding: 6px;
-}
-
-.mascot-corner:hover {
-  box-shadow: 0 8px 22px rgba(18, 40, 62, 0.24);
-}
-
-/* Tay vẫy: xoay quanh vai (góc dưới-trái của nhóm tay). */
-.mascot-arm {
-  transform-box: fill-box;
-  transform-origin: 20% 85%;
-}
-
-/* Vẫy tay: xoay nhẹ ±15°, chạy 1 lần 0.9s rồi dừng. */
-.mascot.waving .mascot-arm {
-  animation: mascot-wave 0.9s ease-in-out 1;
-}
-
-@keyframes mascot-wave {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(-15deg); }
-  50% { transform: rotate(12deg); }
-  75% { transform: rotate(-8deg); }
-  100% { transform: rotate(0deg); }
-}
-
-/* Nhảy nhẹ: lên 6px rồi về chỗ cũ, 0.5s, chạy 1 lần. */
-.mascot.jumping {
-  animation: mascot-jump 0.5s ease 1;
-}
-
-@keyframes mascot-jump {
-  0% { transform: translateY(0); }
-  40% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
-/* Trứng phục sinh (hướng B đợt 1, ý 14): bấm chấm vàng logo 5 lần →
-   blob nhảy múa giữa màn hình 3 giây + pháo giấy mini 1 đợt ngắn
-   (JS tạo .egg-blob + .egg-confetti rồi tự xóa). Chỉ transform/opacity;
-   reduced-motion: blob hiện tĩnh, không pháo giấy (JS đã rẽ nhánh). */
-.egg-blob {
-  position: fixed;
-  left: 50%;
-  bottom: 18vh;
-  z-index: 300;
-  width: 110px;
-  height: 110px;
-  margin-left: -55px;
-  pointer-events: none;
-}
-.egg-blob svg { width: 100%; height: 100%; }
-.egg-blob.egg-dance { animation: egg-dance 0.6s ease-in-out 5; }
-@keyframes egg-dance {
-  0%, 100% { transform: translateY(0) rotate(-4deg); }
-  50% { transform: translateY(-22px) rotate(4deg); }
-}
-.egg-confetti {
-  position: fixed;
-  inset: 0;
-  z-index: 299;
-  pointer-events: none;
-  overflow: hidden;
-}
-.egg-confetti i {
-  position: absolute;
-  top: -12px;
-  width: 8px;
-  height: 12px;
-  border-radius: 2px;
-  animation: egg-fall 1.4s ease-in forwards;
-}
-@keyframes egg-fall {
-  to { transform: translateY(105vh) rotate(540deg); opacity: 0.6; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .egg-blob.egg-dance { animation: none; }
-  .egg-confetti { display: none; }
-}
-
-@media (max-width: 600px) {
-  .wrap { padding: 0 16px; }
-
-  .mascot-corner {
-    width: 48px;
-    height: 48px;
-    right: 12px;
-    bottom: 16px;
-  }
-
-  /* Trên điện thoại linh vật hero thu nhỏ còn ~64px. */
-  .mascot-hero {
-    width: 64px;
-    height: 64px;
-  }
-
-  /* Điện thoại: hero + panel xếp hạng gọn lại để hàng xếp hạng đủ rộng.
-     Hero full-bleed: padding ngang 0, .hero-inner lo lề 20px. */
-  .hero { padding: 40px 0 32px; }
-  .hero-ranking { padding: 16px; }
-
-  /* Hàng xếp hạng trên điện thoại: pill ★ xuống dòng dưới nội dung
-     (không chen ngang làm hẹp cột chữ). */
-  .rank-row { flex-wrap: wrap; }
-  .rank-body { flex: 1 1 calc(100% - 48px); }
-  .rank-pill { margin-left: 48px; align-self: flex-start; }
 }
 
 /* ---------- Khung xương (skeleton) + noscript ---------- */
@@ -1809,86 +1391,6 @@ button.chip-cat[aria-pressed="true"]:hover,
 .tool-example h2 { font-size: 1.15rem; margin: 0 0 0.5rem; }
 .tool-example p { margin: 0 0 0.75rem; line-height: 1.6; }
 .tool-legal { margin-top: 1rem; }
-
-/* ============================================================
-   Class MỚI cho đợt làm lại giao diện 21st.dev (18/11/2026).
-   Các worker khác dùng đúng tên này trong HTML — định nghĩa đủ
-   cho cả 2 theme (qua token, tự đổi theo [data-theme="dark"]).
-   ============================================================ */
-
-/* ----- Hero mới: eyebrow + hàng CTA + công cụ phổ biến ----- */
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  margin: 0 0 20px;
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-decoration: none;
-}
-a.hero-eyebrow:hover { filter: brightness(1.05); }
-
-/* Hero đợt 1 chỉ còn 1 nút CTA ("Chọn công cụ, dùng ngay") đặt DƯỚI ô
-   tìm kiếm — ô tìm kiếm là điểm nhấn chính của hero. */
-.hero-cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin: 0;
-}
-
-.hero-popular {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 0 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-.hero-popular .chip { text-decoration: none; }
-
-/* ----- Nút mở tìm kiếm ⌘K ở header ----- */
-
-.header-search-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-btn);
-  background: var(--surface);
-  color: var(--muted);
-  font: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-}
-.header-search-btn:hover { background: var(--bg-soft); color: var(--ink); }
-.header-search-btn kbd {
-  font: inherit;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 2px 6px;
-  border: 1px solid var(--line);
-  border-bottom-width: 2px;
-  border-radius: 6px;
-  background: var(--bg-soft);
-  color: var(--muted);
-}
-@media (max-width: 720px) {
-  /* kbd + nhãn đã ẩn mặc định ở mọi chiều rộng (xem khối nav trên);
-     chỉ thu đệm nút icon cho gọn trên mobile. */
-  .header-search-btn { padding: 8px 10px; }
-}
 
 /* ----- Modal tìm kiếm ⌘K (kiểu 21st.dev) ----- */
 
@@ -2067,25 +1569,15 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   .tool-related-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
-/* ----- Footer nhiều cột ----- */
-/* 5 nhóm (Công cụ / Hỗ trợ / Chính sách / Hạng mục / Công cụ chính):
-   1 cột mobile, 2 cột tablet, 3 cột ở màn vừa (3+2), 5 cột ngang
-   ở desktop rộng — trước đây 2 nhóm cuối dồn trong 1 cột dài, bỏ
-   trống 2/3 chiều rộng (V3). */
+/* ----- Footer 3 cột (MẪU 3): thương hiệu rộng gấp đôi 2 cột link ----- */
 .footer-cols {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 24px;
-  margin: 24px 0;
+  margin: 0 0 8px;
 }
-@media (min-width: 640px) {
-  .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (min-width: 960px) {
-  .footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-@media (min-width: 1200px) {
-  .footer-cols { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (min-width: 720px) {
+  .footer-cols { grid-template-columns: 2fr 1fr 1fr; }
 }
 .footer-col { min-width: 0; }
 .footer-col h3 { margin: 0 0 12px; font-size: 1rem; }
@@ -2739,100 +2231,6 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .prompt-box h2 { margin-top: 0; }
 .prompt-text { font-style: italic; }
 
-/* ==========================================================================
-   RAIL VIDEO "Công cụ nổi bật" trên trang chủ — 18/11/2026, theo đúng cơ
-   chế trang chủ 21st.dev (đã đọc từ code JS của họ + Claude xác nhận):
-   hàng ngang các thẻ, mỗi thẻ có ảnh poster + video chồng lên; video chỉ
-   tải khi phát (preload="none"), app.js initRail() lo xoay + hover.
-   Rail nằm NGAY DƯỚI hero (chứa bảng xếp hạng) để xếp hạng vẫn ở cao.
-   ========================================================================== */
-.section-rail { margin: 88px 0; }
-.section-rail > p.muted { margin: -8px 0 20px; }
-/* Gợi ý rail theo loại màn hình (đợt sửa UX 18/11): điện thoại không có
-   rê chuột nên hiện "Chạm để mở" thay cho "Rê chuột lên thẻ để xem thử". */
-.rail-hint-touch { display: none; }
-@media (pointer: coarse) {
-  .rail-hint-hover { display: none; }
-  .rail-hint-touch { display: inline; }
-}
-
-.rail {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 4px 4px 12px;
-  scrollbar-width: thin;
-}
-.rail-card {
-  flex: 0 0 232px;
-  scroll-snap-align: start;
-  display: block;
-  background: #fff;
-  border: 1px solid #e4e4e7;
-  border-radius: 12px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-}
-.rail-card:hover,
-.rail-card:focus-visible {
-  transform: translateY(-3px);
-  border-color: var(--accent);
-  box-shadow: 0 48px 72px -12px rgba(0, 0, 0, 0.05), 0 32px 44px -12px rgba(0, 0, 0, 0.08);
-}
-.rail-card:active { transform: translateY(0); box-shadow: none; }
-
-/* Vùng media 4/3: ảnh poster bên dưới, video trong suốt chồng lên trên;
-   video chưa phát thì poster hiện ra, phát thì video phủ kín. */
-.rail-media {
-  position: relative;
-  display: block;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background: var(--surface-muted);
-}
-.rail-media img,
-.rail-media video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.rail-media video { background: transparent; }
-
-.rail-name {
-  display: block;
-  padding: 12px 14px 2px;
-  font-weight: 600;
-  font-size: 0.95rem;
-  line-height: 1.35;
-}
-.rail-cat {
-  display: block;
-  padding: 0 14px 12px;
-  color: var(--muted);
-  font-size: 0.85rem;
-}
-
-[data-theme="dark"] .rail-card {
-  background: #0b0b0c;
-  border-color: #27272a;
-}
-[data-theme="dark"] .rail-card:hover,
-[data-theme="dark"] .rail-card:focus-visible {
-  box-shadow: 0 0 0 1px rgba(54, 94, 255, 0.35), 0 24px 48px -12px rgba(0, 0, 0, 0.6);
-}
-
-/* Điện thoại: thẻ hẹp lại một chút, cuộn ngang + snap giữ nguyên; khoảng
-   trắng dưới rail quá lớn (margin 88px) nên thu gọn còn 40px. */
-@media (max-width: 480px) {
-  .rail-card { flex-basis: 200px; }
-  .section-rail { margin: 40px 0; }
-}
-
 /* ============================================================
    Mục Sinh viên (18/11) — /sinh-vien/ + 13 trang mẫu.
    Thẻ theo phong cách thẻ công cụ/code mẫu: nền trắng, viền
@@ -2875,14 +2273,9 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 
 /* Mục lục neo đầu trang /sinh-vien/ (đợt 2, 18/11): trang đã dài,
    chip nhảy nhanh tới từng khối. */
-.sv-toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; }
-
-/* Mục lục neo nhảy tới khối: chừa 80px cho header dính (mẫu
-   scroll-margin-top của .chip-row/#tool-grid), kẻo tiêu đề khối bị
-   header che mất. 8 id này chỉ có trên trang /sinh-vien/. */
-#khoa-hoc, #sach, #hoc-bong, #luyen-thi, #mau-bieu, #viec-lam, #uu-dai, #cong-cu { scroll-margin-top: 80px; }
-/* Mục lục neo trang /hoc-mien-phi/ — cùng lý do header dính. */
-#tieng-anh, #lap-trinh, #ky-nang-khac { scroll-margin-top: 80px; }
+/* (Mục lục neo .sv-toc + scroll-margin cho các id mục sinh viên và
+   nhóm học miễn phí đã gỡ đợt MẪU 3/4, 19/11 — trang Sinh viên chia
+   tab, không còn mục neo nhảy.) */
 
 /* Tiêu đề nhóm con trong khối học bổng: Trong nước / Du học. */
 .sv-sub { margin: 28px 0 14px; font-size: 1.15rem; }
@@ -2918,40 +2311,6 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
 .sv-promo h2 { margin: 0 0 4px; }
 .sv-promo p { margin: 0; }
 
-/* Hàng mục nổi bật gọn (hướng B đợt 1): 4 thẻ nhỏ trong 1 hàng thay vì
-   4 dải .sv-promo full-width giống nhau xếp chồng trên trang chủ. Mỗi
-   thẻ 1 màu riêng (--promo-color cho viền trên, --promo-color-dark cho
-   link — bản đậm đã đo tương phản ≥ 4,5:1). */
-.promo-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 16px;
-  margin: 32px 0;
-}
-@media (min-width: 640px) {
-  .promo-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (min-width: 960px) {
-  .promo-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-.promo-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-top: 4px solid var(--promo-color, var(--accent));
-  border-radius: var(--radius);
-  padding: 20px;
-  text-decoration: none;
-  color: var(--ink);
-  min-width: 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.promo-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
-.promo-card h2 { margin: 0; font-size: 1.1rem; }
-.promo-card p { margin: 0; color: var(--muted); font-size: 0.9rem; flex: 1 1 auto; }
-.promo-link { font-weight: 700; color: var(--promo-color-dark, var(--accent-dark)); font-size: 0.9rem; }
 
 /* Trạng thái trống có linh vật + gợi ý cụ thể (hướng B đợt 1) thay vì
    1 dòng chữ xám — dùng cho #home-tool-empty và #tool-empty. Linh vật
@@ -3064,6 +2423,9 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
   transition: opacity 0.2s ease, visibility 0s linear 0s;
 }
 .aiw[hidden] { display: none; }
+@media (max-width: 768px) {
+  .aiw { right: 16px; bottom: 80px; }
+}
 /* Tự ẩn khi cuộn/nhập (JS gắn .aiw-hidden, đợt sửa UX 18/11): mờ dần rồi
    ẩn hẳn để khỏi đè nội dung; hiện lại thì visibility về ngay, opacity
    mờ dần lên. Không áp khi khung chat đang mở (JS kiểm tra). */
@@ -3217,7 +2579,7 @@ a.hero-eyebrow:hover { filter: brightness(1.05); }
    hay khung chat đang mở. */
 body.uh-netbar-on .aiw { bottom: 100px; }
 @media (max-width: 768px) {
-  body.uh-netbar-on .aiw { bottom: 144px; }
+  body.uh-netbar-on .aiw { bottom: 148px; }
 }
 
 /* ==========================================================================
@@ -4576,4 +3938,204 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   /* Nút "Chia sẻ Zalo" dài nhất hàng 3 nút — cho xuống dòng ở máy hẹp
      để không tràn đè lên nút "Tải ảnh". */
   .m2-action-btn { white-space: normal; line-height: 1.25; }
+}
+
+/* ============================================================
+   MẪU 4 — Trang Tất cả công cụ + hộp thoại Báo sai số liệu
+   + trang Giới thiệu (19/11/2026). Màu cố định theo file mẫu
+   (như .m2-page), không theo chế độ tối.
+   ============================================================ */
+
+/* --- Thanh lọc dính khi cuộn: ô lọc 48px + chip nhóm --- */
+.cat-filter-bar {
+  position: sticky;
+  top: 64px;
+  z-index: 40;
+  background: var(--bg);
+  padding: 8px 0 12px;
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media (max-width: 768px) {
+  .cat-filter-bar { top: 56px; }
+}
+.cat-filter-wrap { position: relative; max-width: 560px; }
+.cat-filter-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px 0 44px;
+  border: 1px solid #C5CDDA;
+  border-radius: 12px;
+  background: #fff;
+  color: #0F172A;
+  font: inherit;
+  font-size: 16px;
+}
+.cat-filter-input:focus { border-color: #1747E6; box-shadow: 0 0 0 3px rgba(23, 71, 230, 0.15); outline: none; }
+.cat-filter-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748B;
+  pointer-events: none;
+}
+.cat-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid #C5CDDA;
+  border-radius: 20px;
+  background: #fff;
+  color: #334155;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.cat-chip:hover { border-color: #1747E6; color: #1747E6; }
+.cat-chip[aria-pressed="true"] { background: #1747E6; border-color: #1747E6; color: #fff; }
+.cat-chip-count { opacity: 0.7; font-weight: 500; }
+
+/* --- Nhóm công cụ: tiêu đề 20px + dòng gọn 64px --- */
+.cat-group { margin: 0 0 32px; scroll-margin-top: 200px; }
+.cat-group-title { margin: 0 0 12px; font-size: 20px; font-weight: 700; color: #0F172A; }
+.cat-group-title .cat-group-count { font-size: 15px; font-weight: 500; color: #64748B; }
+.cat-rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 8px;
+}
+.tool-row {
+  display: block;
+  min-height: 64px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #DCE1EA;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #0F172A;
+}
+.tool-row:hover { border-color: #1747E6; box-shadow: var(--shadow-sm); }
+.tool-row-name { display: block; font-size: 15px; font-weight: 700; overflow-wrap: break-word; }
+.tool-row-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; line-height: 1.45; color: #475569; overflow-wrap: break-word; }
+
+/* --- Không tìm thấy công cụ --- */
+.cat-empty {
+  padding: 32px 16px;
+  text-align: center;
+  background: #fff;
+  border: 1px dashed #C5CDDA;
+  border-radius: 16px;
+  color: #334155;
+  font-size: 16px;
+}
+.cat-empty a { color: #1747E6; font-weight: 700; text-decoration: none; }
+.cat-empty a:hover { text-decoration: underline; }
+.cat-filter-status { margin: 0 0 16px; color: #475569; font-size: 14px; }
+
+/* --- Nút "Báo sai số liệu" + hộp thoại (mọi trang công cụ) --- */
+.uh-report-wrap { margin: 16px 0 0; text-align: right; }
+.uh-report-btn {
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid #C5CDDA;
+  border-radius: 12px;
+  background: #fff;
+  color: #475569;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.uh-report-btn:hover { border-color: #1747E6; color: #1747E6; }
+.uh-report-dialog {
+  border: 1px solid #DCE1EA;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 520px;
+  width: calc(100vw - 32px);
+  color: #0F172A;
+  background: #fff;
+}
+.uh-report-dialog::backdrop { background: rgba(15, 23, 42, 0.45); }
+.uh-report-dialog h2 { margin: 0 0 8px; font-size: 20px; font-weight: 700; }
+.uh-report-dialog p { margin: 0 0 16px; color: #475569; font-size: 15px; line-height: 1.5; }
+.uh-report-field { margin: 0 0 16px; }
+.uh-report-field label { display: block; margin: 0 0 6px; font-weight: 700; font-size: 15px; }
+.uh-report-field textarea {
+  width: 100%;
+  min-height: 88px;
+  padding: 10px 12px;
+  border: 1px solid #C5CDDA;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 15px;
+  resize: vertical;
+}
+.uh-report-field textarea:focus { border-color: #1747E6; box-shadow: 0 0 0 3px rgba(23, 71, 230, 0.15); outline: none; }
+.uh-report-check { display: flex; gap: 8px; align-items: flex-start; margin: 0 0 16px; font-size: 15px; line-height: 1.5; color: #334155; cursor: pointer; }
+.uh-report-check input { margin-top: 3px; flex: none; width: 18px; height: 18px; accent-color: #1747E6; }
+.uh-report-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+
+/* --- Trang Giới thiệu --- */
+.about-page h2 { margin: 32px 0 12px; font-size: 20px; font-weight: 700; color: #0F172A; }
+.about-page p, .about-page li { font-size: 16px; line-height: 1.6; color: #334155; }
+.about-lib { margin: 0 0 12px; padding: 16px; background: #fff; border: 1px solid #DCE1EA; border-radius: 12px; }
+.about-lib h3 { margin: 0 0 4px; font-size: 16px; font-weight: 700; color: #0F172A; }
+.about-lib p { margin: 0; font-size: 14px; color: #475569; }
+.about-lib .about-license { display: inline-block; margin-top: 8px; padding: 2px 10px; border-radius: 999px; background: #E8EEFF; color: #1747E6; font-size: 13px; font-weight: 700; }
+
+/* Trứng phục sinh (hướng B đợt 1, ý 14): bấm chấm vàng logo 5 lần →
+   blob nhảy múa giữa màn hình 3 giây + pháo giấy mini 1 đợt ngắn
+   (JS tạo .egg-blob + .egg-confetti rồi tự xóa). Chỉ transform/opacity;
+   reduced-motion: blob hiện tĩnh, không pháo giấy (JS đã rẽ nhánh).
+   (Giữ lại khi gỡ CSS linh vật đợt MẪU 3 — trứng phục sinh vẫn dùng.) */
+.egg-blob {
+  position: fixed;
+  left: 50%;
+  bottom: 18vh;
+  z-index: 300;
+  width: 110px;
+  height: 110px;
+  margin-left: -55px;
+  pointer-events: none;
+}
+.egg-blob svg { width: 100%; height: 100%; }
+.egg-blob.egg-dance { animation: egg-dance 0.6s ease-in-out 5; }
+@keyframes egg-dance {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-22px) rotate(4deg); }
+}
+.egg-confetti {
+  position: fixed;
+  inset: 0;
+  z-index: 299;
+  pointer-events: none;
+  overflow: hidden;
+}
+.egg-confetti i {
+  position: absolute;
+  top: -12px;
+  width: 8px;
+  height: 12px;
+  border-radius: 2px;
+  animation: egg-fall 1.4s ease-in forwards;
+}
+@keyframes egg-fall {
+  to { transform: translateY(105vh) rotate(540deg); opacity: 0.6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .egg-blob.egg-dance { animation: none; }
+  .egg-confetti { display: none; }
+}
+
+/* Điện thoại hẹp: khung trang thu lề còn 16px. */
+@media (max-width: 600px) {
+  .wrap { padding: 0 16px; }
 }

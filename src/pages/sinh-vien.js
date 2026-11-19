@@ -1,14 +1,18 @@
 // Trang Sinh viên (/sinh-vien/ + /sinh-vien/<mau>/): mục riêng cho sinh
-// viên — khóa học miễn phí, mẫu biểu tự viết, ưu đãi sinh viên, công cụ
-// cho sinh viên (18/11/2026, theo báo cáo nghiên cứu
-// ~/workspace/nghien-cuu-sinh-vien/bao-cao.md §2.8).
-// Dữ liệu trong sinh-vien-data.js (chỉ chạy lúc build, không fetch lúc
-// chạy). Nút "In mẫu" dùng [data-print] + setupPrintButtons trong app.js
-// (theo mẫu [data-copy] của trang Code mẫu).
+// viên — công cụ, khóa học miễn phí, tài liệu học, sách giáo khoa, học
+// bổng, luyện thi IELTS/TOEIC, mẫu biểu, việc làm thêm, ưu đãi sinh viên.
+// Dữ liệu trong sinh-vien-data.js + hoc-mien-phi-data.js (chỉ chạy lúc
+// build, không fetch lúc chạy). Nút "In mẫu" dùng [data-print] +
+// setupPrintButtons trong app.js (theo mẫu [data-copy] của trang Code
+// mẫu). Chia tab từ đợt menu MẪU 3/4 (19/11/2026): trang đã dài, tab
+// giúp người đọc tới thẳng mục cần; tab mở theo hash (#tai-lieu-hoc...)
+// nhờ setupTabs trong app.js — địa chỉ cũ /hoc-mien-phi/ chuyển hướng
+// 301 tới /sinh-vien/#tai-lieu-hoc (xem _redirects trong build.mjs).
 // Ranh giới pháp lý (§2.5): chỉ link nguồn miễn phí CHÍNH THỨC + nội dung
 // gốc tự viết; không sách lậu/khóa lậu/tài khoản dùng chung.
 import { esc, toolCard } from '../tool-card.js';
 import { COURSES, DEALS, SEASONAL_DEAL, TEMPLATES, STUDENT_TOOL_SLUGS, SCHOLARSHIPS_DOMESTIC, SCHOLARSHIPS_ABROAD, BOOKS, EXAM_PREP, JOBS, JOB_SCAM } from './sinh-vien-data.js';
+import { GROUPS } from './hoc-mien-phi-data.js';
 
 // Link ngoài: luôn mở tab mới + rel noopener (mẫu newsCardHtml trong
 // home.js). target="_blank" KHÔNG dùng cho link nội bộ.
@@ -31,15 +35,41 @@ function courseCard(c, fallbackCta) {
 </article>`;
 }
 
-// Thẻ học bổng: mức hỗ trợ + lưu ý (chu kỳ, điều kiện, cảnh báo).
-// links rỗng = không có trang nộp đơn cố định (ghi rõ cách theo dõi
-// trong note, ví dụ Panasonic); 2 links = NUS + NTU trong 1 thẻ.
+// Thẻ học bổng: mức hỗ trợ + hạn nộp (nếu có nguồn) + lưu ý.
+// Chỉ 2 học bổng có chu kỳ hằng năm ghi trong dữ liệu (CSC, Taiwan
+// MOE) — tách "Hạn hằng năm: ..." ra thành dòng riêng cho dễ thấy;
+// các học bổng còn lại không bịa hạn, chỉ ghi "kiểm tra lịch mở hiện
+// tại trên trang chính thức" ở đầu mục (xem body()).
 function scholarshipCard(s) {
+  let note = s.note;
+  let deadline = '';
+  const m = note.match(/Hạn hằng năm: (.+?)\.?$/);
+  if (m) {
+    deadline = m[1];
+    note = note.slice(0, m.index).trim();
+  }
   return `<article class="sv-card">
   <h3 class="card-title">${esc(s.name)}</h3>
   <p class="sv-free"><strong>Mức hỗ trợ:</strong> ${esc(s.support)}</p>
-  <p class="sv-cond">${esc(s.note)}</p>
+  ${deadline ? `<p class="sv-cond"><strong>Hạn nộp hằng năm:</strong> ${esc(deadline)}</p>` : ''}
+  <p class="sv-cond">${esc(note)}</p>
   ${s.links && s.links.length ? `<p class="sv-cta">${s.links.map((l) => extBtn(l.url, l.label)).join(' ')}</p>` : ''}
+</article>`;
+}
+
+// Thẻ repo học miễn phí (gộp từ trang /hoc-mien-phi/ cũ, 19/11): số
+// sao cập nhật 18/11/2026; repo nào có trang web học trực tiếp thì
+// nút chính là "Học ngay trên web", còn lại mở GitHub.
+function repoCard(r) {
+  const url = `https://github.com/${r.repo}`;
+  const cta = r.live
+    ? `<p class="sv-cta"><a class="btn btn-primary" href="${esc(r.live)}" target="_blank" rel="noopener">Học ngay trên web →</a></p>\n  <p class="sv-cond"><a href="${esc(url)}" target="_blank" rel="noopener">Xem mã nguồn trên GitHub</a></p>`
+    : `<p class="sv-cta"><a class="btn btn-primary" href="${esc(url)}" target="_blank" rel="noopener">Mở trên GitHub →</a></p>`;
+  return `<article class="sv-card">
+  <h3 class="card-title">${esc(r.name)}</h3>
+  <p class="sv-cond">⭐ ${esc(r.stars)} sao · <a href="${esc(url)}" target="_blank" rel="noopener">${esc(r.repo)}</a></p>
+  <p class="card-desc">${esc(r.desc)}</p>
+  ${cta}
 </article>`;
 }
 
@@ -69,11 +99,16 @@ function templateCard(t) {
 </article>`;
 }
 
-// Trang chính /sinh-vien/: thứ tự khối theo báo cáo bổ sung đợt 2 §5 —
-// (1) khóa học (10, thêm Saylor), (2) sách giáo khoa miễn phí ★,
-// (3) học bổng ★, (4) luyện thi IELTS/TOEIC ★, (5) mẫu biểu (13),
-// (6) việc làm thêm & thực tập ★, (7) ưu đãi, (8) công cụ,
-// (9) ghi chú pháp lý. Mục lục neo ở đầu trang vì trang đã dài.
+// Trang chính /sinh-vien/: chia tab (đợt menu MẪU 3/4, 19/11) —
+// (1) công cụ lên TRƯỚC (GPA, quy đổi điểm, điểm thi THPT, IELTS,
+// học từ vựng...), (2) khóa học, (3) tài liệu học (gộp từ
+// /hoc-mien-phi/ cũ), (4) sách giáo khoa miễn phí, (5) học bổng,
+// (6) luyện thi IELTS/TOEIC, (7) mẫu biểu, (8) việc làm thêm &
+// thực tập, (9) ưu đãi. Tab đầu mở sẵn; tab khác mở theo hash
+// (#tai-lieu-hoc...) nhờ setupTabs trong app.js. Không JS thì tab
+// đầu vẫn hiện (panel còn lại hidden) — nội dung vẫn đọc được phần
+// công cụ; các mục khác cần JS (giới hạn đã biết, chấp nhận vì
+// toàn bộ công cụ trên web đều cần JS).
 export function body({ tools = [] } = {}) {
   const bySlug = new Map(tools.map((t) => [t.slug, t]));
   const missing = STUDENT_TOOL_SLUGS.filter((s) => !bySlug.has(s));
@@ -85,95 +120,116 @@ export function body({ tools = [] } = {}) {
   return `
   <header class="tool-page-head">
     <h1>Dành cho sinh viên</h1>
-    <p class="muted">Khóa học miễn phí, sách giáo khoa, học bổng, luyện thi IELTS/TOEIC, mẫu CV/báo cáo, việc làm thêm, ưu đãi phần mềm và công cụ học tập — gom một chỗ. Chỉ link tới nguồn miễn phí chính thức; mẫu biểu do Tiện Ích Hub tự viết.</p>
-    <nav class="sv-toc" aria-label="Mục lục trang">
-      <a class="chip" href="#khoa-hoc">Khóa học</a>
-      <a class="chip" href="#sach">Sách miễn phí</a>
-      <a class="chip" href="#hoc-bong">Học bổng</a>
-      <a class="chip" href="#luyen-thi">IELTS/TOEIC</a>
-      <a class="chip" href="#mau-bieu">Mẫu biểu</a>
-      <a class="chip" href="#viec-lam">Việc làm thêm</a>
-      <a class="chip" href="#uu-dai">Ưu đãi</a>
-      <a class="chip" href="#cong-cu">Công cụ</a>
-    </nav>
+    <p class="muted">Công cụ học tập, khóa học miễn phí, tài liệu học, sách giáo khoa, học bổng, luyện thi IELTS/TOEIC, mẫu CV/báo cáo, việc làm thêm và ưu đãi phần mềm — gom một chỗ. Chỉ link tới nguồn miễn phí chính thức; mẫu biểu do Tiện Ích Hub tự viết.</p>
   </header>
 
-  <section class="section" id="khoa-hoc" aria-label="Khóa học miễn phí">
-    <h2>Khóa học miễn phí</h2>
-    <p class="muted">Học online từ các nền tảng lớn — mức miễn phí ghi đúng như trang chính thức công bố (kể cả giới hạn, nếu có).</p>
-    <div class="sv-grid">
-${COURSES.map((c) => courseCard(c, 'Học ngay →')).join('\n')}
+  <section class="section" aria-label="Các mục cho sinh viên">
+    <div class="tabs" role="tablist" aria-label="Chọn mục">
+      <button type="button" class="tab tab-active" data-tab-target="cong-cu" role="tab">Công cụ</button>
+      <button type="button" class="tab" data-tab-target="khoa-hoc" role="tab">Khóa học</button>
+      <button type="button" class="tab" data-tab-target="tai-lieu-hoc" role="tab">Tài liệu học</button>
+      <button type="button" class="tab" data-tab-target="sach" role="tab">Sách miễn phí</button>
+      <button type="button" class="tab" data-tab-target="hoc-bong" role="tab">Học bổng</button>
+      <button type="button" class="tab" data-tab-target="luyen-thi" role="tab">IELTS/TOEIC</button>
+      <button type="button" class="tab" data-tab-target="mau-bieu" role="tab">Mẫu biểu</button>
+      <button type="button" class="tab" data-tab-target="viec-lam" role="tab">Việc làm thêm</button>
+      <button type="button" class="tab" data-tab-target="uu-dai" role="tab">Ưu đãi</button>
     </div>
-    <p class="muted">Ngoài khóa học, GitHub còn rất nhiều kho tài liệu học miễn phí — xem mục <a href="/hoc-mien-phi/">Học miễn phí</a> (repo học tiếng Anh, lập trình, thiết kế… kèm mô tả tiếng Việt và số sao).</p>
-  </section>
 
-  <section class="section" id="sach" aria-label="Sách giáo khoa miễn phí">
-    <h2>Sách giáo khoa miễn phí</h2>
-    <p class="muted">Sách giáo khoa và sách tham khảo miễn phí hợp pháp (giấy phép mở) — thay cho giáo trình photo. Sách tiếng Anh là chính.</p>
-    <div class="sv-grid">
-${BOOKS.map((c) => courseCard(c, 'Đọc sách →')).join('\n')}
-    </div>
-  </section>
-
-  <section class="section" id="hoc-bong" aria-label="Học bổng">
-    <h2>Học bổng</h2>
-    <p class="muted">Hầu hết các đợt 2026–27 đã đóng — dưới đây chỉ ghi chu kỳ hằng năm; kiểm tra lịch mở hiện tại trên trang chính thức của từng chương trình.</p>
-    <p class="muted">Phân biệt đối tượng: nhiều học bổng du học yêu cầu đã tốt nghiệp ĐH + 2 năm kinh nghiệm (Chevening, Fulbright, Australia Awards, Ireland Fellows, DAAD EPOS) — không dành cho sinh viên năm 1–2. Nhóm dành cho sinh viên đang học ĐH: học bổng trong nước + bậc ĐH ở nước ngoài (MEXT ĐH, GKS-U, Taiwan MOE ĐH, NUS/NTU, CSC ĐH).</p>
-    <p class="note">⚠ Học bổng chính phủ không thu phí hồ sơ — trang nào thu tiền là lừa đảo.</p>
-    <h3 class="sv-sub">Trong nước</h3>
-    <div class="sv-grid">
-${SCHOLARSHIPS_DOMESTIC.map(scholarshipCard).join('\n')}
-    </div>
-    <h3 class="sv-sub">Du học</h3>
-    <div class="sv-grid">
-${SCHOLARSHIPS_ABROAD.map(scholarshipCard).join('\n')}
-    </div>
-  </section>
-
-  <section class="section" id="luyen-thi" aria-label="Luyện thi IELTS và TOEIC miễn phí">
-    <h2>Luyện thi IELTS/TOEIC miễn phí</h2>
-    <p class="muted">Chỉ nguồn chính thức của đơn vị tổ chức thi (British Council, IELTS, ETS, IDP, IIG, Cambridge) — không có đề thi thật bị rò rỉ hay tài liệu lậu.</p>
-    <div class="sv-grid">
-${EXAM_PREP.map((c) => courseCard(c, 'Luyện ngay →')).join('\n')}
-    </div>
-  </section>
-
-  <section class="section" id="mau-bieu" aria-label="Mẫu biểu và tài liệu">
-    <h2>Mẫu biểu &amp; tài liệu</h2>
-    <p class="muted">13 mẫu do Tiện Ích Hub tự viết — đọc online, bấm "In mẫu" để in hoặc lưu PDF. Thay các phần trong [ngoặc vuông] bằng thông tin của bạn và đối chiếu quy định của trường mình.</p>
-    <div class="sv-grid">
-${TEMPLATES.map(templateCard).join('\n')}
-    </div>
-  </section>
-
-  <section class="section" id="viec-lam" aria-label="Việc làm thêm và thực tập">
-    <h2>Việc làm thêm &amp; thực tập</h2>
-    <p class="muted">Kênh tìm việc làm thêm và thực tập uy tín — tất cả đều miễn phí cho người tìm việc.</p>
-    <div class="sv-grid">
-${JOBS.map(jobCard).join('\n')}
-    </div>
-    <p class="note">${esc(JOB_SCAM.text)} <a href="${esc(JOB_SCAM.sourceUrl)}" target="_blank" rel="noopener">${esc(JOB_SCAM.sourceLabel)} →</a></p>
-  </section>
-
-  <section class="section" id="uu-dai" aria-label="Ưu đãi sinh viên">
-    <h2>Ưu đãi sinh viên</h2>
-    <div class="sv-seasonal" role="note">
-      <p><span class="chip sv-chip-season">Ưu đãi theo mùa — ${esc(SEASONAL_DEAL.deadline)}</span></p>
-      <h3>${esc(SEASONAL_DEAL.name)}</h3>
-      <p>${esc(SEASONAL_DEAL.text)}</p>
-      <p>${extBtn(SEASONAL_DEAL.url, 'Đăng ký tại Google →')}</p>
-    </div>
-    <p class="muted">Các ưu đãi dưới đây cần xác minh sinh viên — nhiều ưu đãi dùng SheerID: trường bạn phải có trong danh sách SheerID thì mới đăng ký được.</p>
-    <div class="sv-grid">
-${DEALS.map(dealCard).join('\n')}
-    </div>
-  </section>
-
-  <section class="section" id="cong-cu" aria-label="Công cụ cho sinh viên">
-    <h2>Công cụ cho sinh viên</h2>
-    <p class="muted">Công cụ có sẵn trên web, hợp sinh viên nhất — tính điểm, quản lý thời gian, chia tiền, làm tài liệu.</p>
-    <div class="grid-3">
+    <div class="tab-panel" data-tab-panel="cong-cu">
+      <h2>Công cụ cho sinh viên</h2>
+      <p class="muted">Công cụ có sẵn trên web, hợp sinh viên nhất — tính điểm, học từ vựng, quản lý thời gian, chia tiền, làm tài liệu.</p>
+      <div class="grid-3">
 ${studentTools.map((tool, i) => toolCard(tool, i)).join('\n')}
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="khoa-hoc" hidden>
+      <h2>Khóa học miễn phí</h2>
+      <p class="muted">Học online từ các nền tảng lớn — mức miễn phí ghi đúng như trang chính thức công bố (kể cả giới hạn, nếu có).</p>
+      <div class="sv-grid">
+${COURSES.map((c) => courseCard(c, 'Học ngay →')).join('\n')}
+      </div>
+      <p class="muted">Ngoài khóa học, GitHub còn rất nhiều kho tài liệu học miễn phí — xem tab <a href="#tai-lieu-hoc">Tài liệu học</a> trong trang này (repo học tiếng Anh, lập trình, thiết kế… kèm mô tả tiếng Việt và số sao).</p>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="tai-lieu-hoc" hidden>
+      <h2>Tài liệu học</h2>
+      <p class="muted">Repo GitHub học miễn phí, mô tả bằng tiếng Việt — tiếng Anh, lập trình, thiết kế và hơn nữa. Tất cả đều miễn phí thật, không cần đăng ký tài khoản trả phí. Mục nào có nút <strong>Học ngay trên web</strong> thì mở ra học luôn trên trình duyệt, không cần cài đặt gì. Muốn xem chi tiết sao/fork/ngôn ngữ của repo nào, dùng <a href="/cong-cu/tra-cuu-github/">công cụ Tra cứu GitHub</a>.</p>
+      <div class="result">
+        <h3 style="margin-top:0">Học từ vựng tiếng Anh ngay trên web này</h3>
+        <p class="muted">400 từ tiếng Anh thông dụng nhất, nghĩa tiếng Việt, ví dụ kèm dịch — học bằng thẻ từ có phát âm, gõ từ theo nghĩa hoặc trắc nghiệm. Không cần cài đặt gì, tiến độ được lưu lại trên trình duyệt của bạn.</p>
+        <p><a class="btn btn-primary" href="/cong-cu/hoc-tu-vung-tieng-anh/">Học ngay trên web này →</a></p>
+      </div>
+${GROUPS.map((g) => `
+      <h3 class="sv-sub">${esc(g.title)}</h3>
+      <p class="muted">${esc(g.intro)}</p>
+      <div class="sv-grid">
+${g.repos.map(repoCard).join('\n')}
+      </div>`).join('')}
+      <p class="note">Số sao cập nhật ngày 18/11/2026 — số sao trên GitHub thay đổi theo thời gian, bấm vào repo để xem số mới nhất. Trang này chỉ giới thiệu repo, không sao chép nội dung của repo; mọi repo đều mở và miễn phí theo giấy phép của tác giả. Repo vi phạm điều khoản dịch vụ (hack trial, crack, lách luật) không bao giờ được đưa vào trang này.</p>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="sach" hidden>
+      <h2>Sách giáo khoa miễn phí</h2>
+      <p class="muted">Sách giáo khoa và sách tham khảo miễn phí hợp pháp (giấy phép mở) — thay cho giáo trình photo. Sách tiếng Anh là chính.</p>
+      <div class="sv-grid">
+${BOOKS.map((c) => courseCard(c, 'Đọc sách →')).join('\n')}
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="hoc-bong" hidden>
+      <h2>Học bổng</h2>
+      <p class="muted">Hầu hết các đợt 2026–27 đã đóng — dưới đây chỉ ghi chu kỳ hằng năm; kiểm tra lịch mở hiện tại trên trang chính thức của từng chương trình.</p>
+      <p class="muted">Phân biệt đối tượng: nhiều học bổng du học yêu cầu đã tốt nghiệp ĐH + 2 năm kinh nghiệm (Chevening, Fulbright, Australia Awards, Ireland Fellows, DAAD EPOS) — không dành cho sinh viên năm 1–2. Nhóm dành cho sinh viên đang học ĐH: học bổng trong nước + bậc ĐH ở nước ngoài (MEXT ĐH, GKS-U, Taiwan MOE ĐH, NUS/NTU, CSC ĐH).</p>
+      <p class="note">⚠ Học bổng chính phủ không thu phí hồ sơ — trang nào thu tiền là lừa đảo.</p>
+      <h3 class="sv-sub">Trong nước</h3>
+      <div class="sv-grid">
+${SCHOLARSHIPS_DOMESTIC.map(scholarshipCard).join('\n')}
+      </div>
+      <h3 class="sv-sub">Du học</h3>
+      <div class="sv-grid">
+${SCHOLARSHIPS_ABROAD.map(scholarshipCard).join('\n')}
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="luyen-thi" hidden>
+      <h2>Luyện thi IELTS/TOEIC miễn phí</h2>
+      <p class="muted">Chỉ nguồn chính thức của đơn vị tổ chức thi (British Council, IELTS, ETS, IDP, IIG, Cambridge) — không có đề thi thật bị rò rỉ hay tài liệu lậu.</p>
+      <div class="sv-grid">
+${EXAM_PREP.map((c) => courseCard(c, 'Luyện ngay →')).join('\n')}
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="mau-bieu" hidden>
+      <h2>Mẫu biểu &amp; tài liệu</h2>
+      <p class="muted">13 mẫu do Tiện Ích Hub tự viết — đọc online, bấm "In mẫu" để in hoặc lưu PDF. Thay các phần trong [ngoặc vuông] bằng thông tin của bạn và đối chiếu quy định của trường mình.</p>
+      <div class="sv-grid">
+${TEMPLATES.map(templateCard).join('\n')}
+      </div>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="viec-lam" hidden>
+      <h2>Việc làm thêm &amp; thực tập</h2>
+      <p class="muted">Kênh tìm việc làm thêm và thực tập uy tín — tất cả đều miễn phí cho người tìm việc.</p>
+      <div class="sv-grid">
+${JOBS.map(jobCard).join('\n')}
+      </div>
+      <p class="note">${esc(JOB_SCAM.text)} <a href="${esc(JOB_SCAM.sourceUrl)}" target="_blank" rel="noopener">${esc(JOB_SCAM.sourceLabel)} →</a></p>
+    </div>
+
+    <div class="tab-panel" data-tab-panel="uu-dai" hidden>
+      <h2>Ưu đãi sinh viên</h2>
+      <div class="sv-seasonal" role="note">
+        <p><span class="chip sv-chip-season">Ưu đãi theo mùa — ${esc(SEASONAL_DEAL.deadline)}</span></p>
+        <h3>${esc(SEASONAL_DEAL.name)}</h3>
+        <p>${esc(SEASONAL_DEAL.text)}</p>
+        <p>${extBtn(SEASONAL_DEAL.url, 'Đăng ký tại Google →')}</p>
+      </div>
+      <p class="muted">Các ưu đãi dưới đây cần xác minh sinh viên — nhiều ưu đãi dùng SheerID: trường bạn phải có trong danh sách SheerID thì mới đăng ký được.</p>
+      <div class="sv-grid">
+${DEALS.map(dealCard).join('\n')}
+      </div>
     </div>
   </section>
 

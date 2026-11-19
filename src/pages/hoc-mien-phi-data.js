@@ -1,5 +1,7 @@
-// Dữ liệu mục Học miễn phí (/hoc-mien-phi/) — repo GitHub học miễn
-// phí, chia 3 nhóm (tiếng Anh đầu tiên, nhiều mục nhất). Mọi repo đã
+// Dữ liệu tab Tài liệu học trong Sinh viên (trước đây là trang riêng
+// /hoc-mien-phi/, gộp vào /sinh-vien/#tai-lieu-hoc đợt menu MẪU 3/4,
+// 19/11) — repo GitHub học miễn phí, chia 3 nhóm (tiếng Anh đầu tiên,
+// nhiều mục nhất). Mọi repo đã
 // KIỂM CHỨNG THẬT qua api.github.com ngày 18/11/2026: repo tồn tại,
 // số sao ghi đúng lúc kiểm chứng, còn cập nhật gần đây, miễn phí
 // thật, không vi phạm điều khoản dịch vụ. Mô tả TIẾNG VIỆT tự viết —

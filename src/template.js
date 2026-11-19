@@ -6,10 +6,11 @@
 //  - canonical: URL tuyệt đối của trang
 //  - body: HTML nội dung trong <main>
 //  - extraHead: HTML thêm vào <head> (nếu cần)
-//  - navActive: 'home' | 'cong-cu' | 'sinh-vien' | 'huong-dan' | 'hoc-mien-phi' | 'giao-vien' | 'code-mau' | 'diem-bao' | 'ung-ho' | '' — tô sáng mục nav tương ứng
-//    (Học miễn phí KHÔNG có trong nav chính: thêm mục thứ 8 làm header
-//    tràn 57px ở 1280px — đã đo thật 18/11/2026; chỉ link từ trang chủ,
-//    trang Sinh viên và chân trang.)
+//  - navActive: 'home' | 'cong-cu' | 'giao-vien' | 'sinh-vien' | 'huong-dan' | 'diem-bao' | '' — tô sáng mục nav tương ứng
+//    (MẪU 3, 19/11/2026: chỉ 5 mục menu — Công cụ · Giáo viên · Sinh viên ·
+//    Bài viết · Điểm báo. Trang chủ không có mục riêng trong menu; các trang
+//    Code mẫu / Ủng hộ / Liên hệ / Giới thiệu / chính sách nằm ở footer,
+//    navActive = ''.)
 //  - noscriptLinks: HTML danh sách link công cụ cho khối <noscript> (build.mjs sinh;
 //    để trống thì chỉ hiện thông báo, không có danh sách)
 //  - needsQR: true thì nạp thêm /assets/vendor/qrcode-generator.js — chỉ trang
@@ -23,22 +24,8 @@
 // Ngân sách hiệu năng (worker W11): 1 CSS (style.css đã gộp effects.css) + 1 JS
 // (app.js đã gộp mascot.js) trên mọi trang; trang từng công cụ nạp thêm
 // tool-state.js (lưu trạng thái qua URL + nút Đặt lại); QR chỉ nạp khi needsQR.
-import { CATEGORIES } from './categories.js';
 
 const SITE_NAME = 'Tiện Ích Hub';
-const CONTACT_EMAIL = 'ngotuantdmu97@gmail.com';
-
-// 8 công cụ chính trong sơ đồ footer (slug + tên = meta.id/meta.name đã đối chiếu).
-const FOOTER_TOOLS = [
-  { slug: 'luong-gross-net', name: 'Tính lương Gross ⇄ Net' },
-  { slug: 'tien-dien-bac-thang', name: 'Tính tiền điện bậc thang' },
-  { slug: 'vietqr-wifi-qr', name: 'Tạo VietQR & WiFi QR' },
-  { slug: 'lich-am', name: 'Lịch âm hôm nay & lịch tháng' },
-  { slug: 'lai-vay', name: 'Tính lãi vay & lịch trả nợ' },
-  { slug: 'phan-tram', name: 'Tính phần trăm & giá sau giảm' },
-  { slug: 'bmi', name: 'Tính BMI & cân nặng lý tưởng' },
-  { slug: 'doi-don-vi-nhanh', name: 'Đổi đơn vị nhanh' },
-];
 
 // Favicon là FILE thật (src/logo/) — Google Search không đọc được favicon
 // dạng data URI nên trước đây kết quả tìm kiếm chỉ hiện quả cầu mặc định.
@@ -51,11 +38,34 @@ const OG_IMAGE = 'https://tienichhub.io.vn/assets/og-image.png';
 // Script chống nháy giao diện tối: chạy trước CSS, đọc lựa chọn đã lưu.
 const THEME_BOOT = `<script>try{var t=localStorage.getItem('uh-theme');if(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>`;
 
+// 5 mục menu chính (MẪU 3) — dùng chung cho nav header (máy tính) và
+// thanh đáy (điện thoại). Icon SVG nét 22px, stroke currentColor.
+const NAV_ITEMS = [
+  {
+    key: 'cong-cu', href: '/cong-cu/', label: 'Công cụ',
+    icon: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+  },
+  {
+    key: 'giao-vien', href: '/giao-vien/', label: 'Giáo viên',
+    icon: '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 9h6"/><path d="M7 12.5h4"/><path d="M12 16v4"/><path d="M8 20h8"/>',
+  },
+  {
+    key: 'sinh-vien', href: '/sinh-vien/', label: 'Sinh viên',
+    icon: '<path d="M12 4 2 8.5 12 13l10-4.5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/>',
+  },
+  {
+    key: 'huong-dan', href: '/huong-dan/', label: 'Bài viết',
+    icon: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>',
+  },
+  {
+    key: 'diem-bao', href: '/diem-bao/', label: 'Điểm báo',
+    icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h10M7 16h7"/>',
+  },
+];
+
 export function shell({ title, desc, keywords = '', canonical, body, extraHead = '', navActive = '', noscriptLinks = '', needsQR = false, vendorScripts = [], hideChat = false, hideChrome = false, themeColor = '#0033FF' }) {
-  const active = (key) => (navActive === key ? ' nav-active' : '');
+  const active = (key) => (navActive === key ? 'nav-active' : '');
   const keywordsMeta = keywords ? `\n  <meta name="keywords" content="${keywords}">` : '';
-  const categoryLinks = CATEGORIES.map((c) => `<a href="/cong-cu/?cat=${c.slug}">${c.label}</a>`).join('\n        ');
-  const footerToolLinks = FOOTER_TOOLS.map((t) => `<a href="/cong-cu/${t.slug}/">${t.name}</a>`).join('\n        ');
   const qrScript = needsQR ? '\n  <script src="/assets/vendor/qrcode-generator.js" defer></script>' : '';
   // Thư viện vendor riêng theo trang (Ví dụ: pdf.js/pdf-lib chỉ cho trang PDF) —
   // defer như QR: chạy xong trước DOMContentLoaded nên init() dùng được ngay.
@@ -96,46 +106,38 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
   // Trang ứng dụng toàn màn hình (Bàn giáo viên, MẪU 1): không có
   // header/footer/thanh đáy của site — trang tự có thanh trên riêng.
   // Mặc định các trang khác vẫn có đủ khung site.
+  // Header MẪU 3 (19/11/2026): logo + tên, 5 mục menu, nút sáng/tối.
+  // Không còn nút Tìm kiếm (⌘K vẫn mở modal tìm kiếm bằng bàn phím),
+  // không nút âm thanh (âm thanh lớp học nằm trong Bàn giáo viên),
+  // không nút "Dùng ngay", không menu hamburger — điện thoại dùng
+  // thanh đáy 5 mục.
+  const headerNav = NAV_ITEMS.map((item) => `<a href="${item.href}" class="${active(item.key)}">${item.label}</a>`).join('\n        ');
   const siteHeader = hideChrome ? '' : `
   <header class="site-header" id="site-header">
     <div class="wrap header-inner">
       <a class="brand" href="/" aria-label="Tiện Ích Hub — trang chủ"><span class="brand-logo-wrap"><img class="brand-logo" src="/favicon.svg" alt="" width="30" height="30"><span class="brand-dot" aria-hidden="true"></span></span><span class="brand-name">Tiện Ích <span>Hub</span></span></a>
       <nav class="site-nav" id="site-nav" aria-label="Điều hướng chính">
-        <a href="/" class="${active('home') ? 'nav-active' : ''}">Trang chủ</a>
-        <a href="/cong-cu/" class="${active('cong-cu') ? 'nav-active' : ''}">Công cụ</a>
-        <a href="/sinh-vien/" class="${active('sinh-vien') ? 'nav-active' : ''}">Sinh viên</a>
-        <a href="/huong-dan/" class="${active('huong-dan') ? 'nav-active' : ''}">Hướng dẫn</a>
-        <a href="/hoc-mien-phi/" class="${active('hoc-mien-phi') ? 'nav-active' : ''}">Học miễn phí</a>
-        <a href="/giao-vien/" class="${active('giao-vien') ? 'nav-active' : ''}">Giáo viên</a>
-        <a href="/code-mau/" class="${active('code-mau') ? 'nav-active' : ''}">Code mẫu</a>
-        <a href="/diem-bao/" class="${active('diem-bao') ? 'nav-active' : ''}">Điểm báo</a>
-        <a href="/ung-ho/" class="${active('ung-ho') ? 'nav-active' : ''}">Ủng hộ</a>
-        <button type="button" class="nav-sound" id="nav-sound-toggle" aria-pressed="true">Âm thanh: Bật</button>
+        ${headerNav}
       </nav>
       <div class="header-actions">
-        <button type="button" class="header-search-btn" id="header-search-btn" aria-label="Tìm kiếm công cụ"><svg class="header-search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><span class="header-search-label">Tìm kiếm</span> <kbd>⌘K</kbd></button>
-        <a class="btn btn-primary btn-header-cta" href="/cong-cu/">Dùng ngay</a>
-        <button type="button" class="sound-toggle" id="sound-toggle" aria-label="Bật/tắt âm thanh" aria-pressed="true"><svg class="snd-on" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg><svg class="snd-off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/><path d="M22 9l-6 6"/><path d="M16 9l6 6"/></svg></button>
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Đổi giao diện sáng/tối">🌙</button>
-        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="site-nav">☰</button>
       </div>
     </div>
   </header>`;
+  // Footer MẪU 3: 3 cột gọn — mô tả 1 câu; Khác; Chính sách.
+  const bottomNav = NAV_ITEMS.map((item) => `<a href="${item.href}" class="${navActive === item.key ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${item.icon}</svg><span>${item.label}</span></a>`).join('\n    ');
   const siteFooter = hideChrome ? '' : `
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <p class="footer-brand">${SITE_NAME} — công cụ miễn phí, chạy ngay trên trình duyệt của bạn.</p>
       <div class="footer-cols">
-        <div class="footer-col">
-          <h3>Công cụ</h3>
-          <a href="/">Trang chủ</a>
-          <a href="/cong-cu/">Công cụ</a>
-          <a href="/code-mau/">Code mẫu</a>
-          <a href="/hoc-mien-phi/">Học miễn phí</a>
-          <a href="/giao-vien/">Giáo viên</a>
+        <div class="footer-col footer-brand-col">
+          <p class="footer-brand">${SITE_NAME}</p>
+          <p class="muted">133 công cụ tính toán miễn phí cho người Việt — chạy ngay trên trình duyệt, không cần đăng ký.</p>
         </div>
         <div class="footer-col">
-          <h3>Hỗ trợ</h3>
+          <h3>Khác</h3>
+          <a href="/gioi-thieu/">Giới thiệu</a>
+          <a href="/code-mau/">Code mẫu</a>
           <a href="/ung-ho/">Ủng hộ</a>
           <a href="/lien-he/">Liên hệ</a>
         </div>
@@ -144,24 +146,12 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
           <a href="/dieu-khoan/">Điều khoản sử dụng</a>
           <a href="/chinh-sach-bao-mat/">Chính sách bảo mật</a>
         </div>
-        <div class="footer-col">
-          <h3>Hạng mục</h3>
-          ${categoryLinks}
-        </div>
-        <div class="footer-col">
-          <h3>Công cụ chính</h3>
-          ${footerToolLinks}
-        </div>
       </div>
-      <p class="muted small">Liên hệ: <a href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a></p>
-      <p class="muted small">© 2026 ${SITE_NAME} — Ngô Minh Tuấn. Mọi tính toán trong công cụ chạy trên trình duyệt và không gửi dữ liệu của bạn lên máy chủ.</p>
+      <p class="muted small footer-copy">© 2026 ${SITE_NAME} — Ngô Minh Tuấn. Mọi tính toán trong công cụ chạy trên trình duyệt và không gửi dữ liệu của bạn lên máy chủ.</p>
     </div>
   </footer>
   <nav class="bottom-nav" aria-label="Điều hướng dưới cùng">
-    <a href="/" class="${navActive === 'home' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 9.5V21h14V9.5"/></svg><span>Trang chủ</span></a>
-    <a href="/cong-cu/" class="${navActive === 'cong-cu' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>Công cụ</span></a>
-    <a href="/sinh-vien/" class="${navActive === 'sinh-vien' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 8.5 12 13l10-4.5z"/><path d="M6 10.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-5.5"/></svg><span>Sinh viên</span></a>
-    <a href="/diem-bao/" class="${navActive === 'diem-bao' ? 'bottom-nav-active' : ''}"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h6M7 12h10M7 16h7"/></svg><span>Điểm báo</span></a>
+    ${bottomNav}
   </nav>`;
   return `<!DOCTYPE html>
 <html lang="vi">

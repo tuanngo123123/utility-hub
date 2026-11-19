@@ -58,3 +58,13 @@ export function toolCard(tool, index) {
   <span class="card-cta">Dùng ngay →</span>
 </a>`;
 }
+
+// Dòng công cụ gọn trong trang /cong-cu/ (MẪU 4, 19/11/2026): tên đậm +
+// 1 dòng mô tả, không ảnh, không nhãn "Miễn phí". Các thuộc tính data-*
+// để app.js lọc lúc chạy (như toolCard).
+export function toolRow(tool) {
+  return `<a class="tool-row" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc || '')}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
+  <span class="tool-row-name">${esc(tool.name)}</span>
+  <span class="tool-row-desc">${esc(tool.desc || '')}</span>
+</a>`;
+}

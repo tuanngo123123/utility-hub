@@ -23,7 +23,14 @@
 //     "về mặc định"; nay sửa cho khớp chú thích — worker C.)
 //     Panel mang data-uh-no-reset (MẪU 2, vd Lương Gross⇄Net) thì
 //     KHÔNG chèn nút Đặt lại.
-// An toàn: không có .tool-panel thì không làm gì. Chỉ tác động lên
+//  4. Hộp thoại "Báo sai số liệu" (MẪU 3/4, 19/11): nút + <dialog> do
+//     build sinh trong toolPageHtml (mọi trang công cụ). Bấm "Soạn
+//     email" thì soạn mailto tới ngotuantdmu97@gmail.com — tên công cụ
+//     tự điền sẵn; số liệu đã nhập CHỈ gửi khi người dùng chọn ô
+//     "Gửi kèm số liệu tôi đã nhập". Không có nút thì bỏ qua (trang
+//     bài viết nhúng công cụ không có nút này).
+// An toàn: không có .tool-panel thì không làm gì (trừ hộp thoại Báo
+// sai, chạy độc lập vì có công cụ không dùng .tool-panel). Chỉ tác động lên
 // input/select/textarea/button có sẵn trong panel; không ép bấm nút khi
 // panel không có .btn-primary (Pomodoro/bấm giờ/quay số... không bị đụng).
 // KHÔNG dùng localStorage.
@@ -230,9 +237,85 @@
   }
 
   function init() {
+    setupReport();
     var panels = document.querySelectorAll('.tool-panel');
     if (!panels || panels.length === 0) return;
     for (var i = 0; i < panels.length; i++) setupPanel(panels[i]);
+  }
+
+  // Hộp thoại "Báo sai số liệu" (xem chú thích đầu file, mục 4).
+  function setupReport() {
+    var btn = document.querySelector('[data-uh-report]');
+    var dialog = document.querySelector('[data-uh-report-dialog]');
+    if (!btn || !dialog) return;
+    var includeBox = dialog.querySelector('[data-uh-report-include]');
+    var notesBox = dialog.querySelector('[data-uh-report-notes]');
+    var cancelBtn = dialog.querySelector('[data-uh-report-cancel]');
+    var sendBtn = dialog.querySelector('[data-uh-report-send]');
+    var toolName = dialog.getAttribute('data-uh-tool-name') || 'Công cụ';
+    var toolSlug = dialog.getAttribute('data-uh-tool-slug') || '';
+
+    function open() {
+      if (typeof dialog.showModal === 'function') dialog.showModal();
+      else dialog.setAttribute('open', '');
+    }
+    function close() {
+      if (typeof dialog.close === 'function') dialog.close();
+      else dialog.removeAttribute('open');
+    }
+    // Nhãn của một trường: <label for="id">, hoặc label bao quanh, hoặc
+    // chính id nếu không tìm thấy.
+    function fieldLabel(el) {
+      try {
+        if (el.id) {
+          var lab = document.querySelector('label[for="' + el.id + '"]');
+          if (lab) return lab.textContent.trim();
+        }
+        var parent = el.closest ? el.closest('label') : null;
+        if (parent) return parent.textContent.trim();
+      } catch (e) { /* id lạ làm querySelector lỗi: dùng id */ }
+      return el.id || '';
+    }
+    // Số liệu đã nhập trong #tool-root (chỉ gửi khi người dùng chọn ô
+    // "Gửi kèm số liệu tôi đã nhập").
+    function enteredValues() {
+      var root = document.getElementById('tool-root');
+      if (!root) return '';
+      var out = [];
+      var fields = root.querySelectorAll('input, select, textarea');
+      for (var i = 0; i < fields.length; i++) {
+        var el = fields[i];
+        if (!isSyncable(el)) continue;
+        var v = fieldValue(el);
+        if (v === null) continue;
+        out.push(fieldLabel(el) + ': ' + v);
+      }
+      return out.join('\n');
+    }
+
+    btn.addEventListener('click', open);
+    if (cancelBtn) cancelBtn.addEventListener('click', close);
+    // Bấm ra ngoài hộp thoại (nền mờ) thì đóng.
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog) close();
+    });
+    if (sendBtn) sendBtn.addEventListener('click', function () {
+      var lines = [];
+      lines.push('Công cụ: ' + toolName);
+      if (toolSlug) lines.push('Trang: /cong-cu/' + toolSlug + '/');
+      var notes = notesBox ? notesBox.value.trim() : '';
+      if (notes) { lines.push(''); lines.push(notes); }
+      if (includeBox && includeBox.checked) {
+        var vals = enteredValues();
+        if (vals) { lines.push(''); lines.push('Số liệu tôi đã nhập:'); lines.push(vals); }
+      }
+      var subject = 'Báo sai số liệu: ' + toolName;
+      var href = 'mailto:ngotuantdmu97@gmail.com' +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(lines.join('\n'));
+      close();
+      window.location.href = href;
+    });
   }
 
   if (document.readyState === 'loading') {

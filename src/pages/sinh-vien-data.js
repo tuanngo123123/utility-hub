@@ -1109,6 +1109,7 @@ export const STUDENT_TOOL_SLUGS = [
   'quy-doi-diem',
   'tinh-diem-thi-thpt',
   'tinh-diem-ielts',
+  'hoc-tu-vung-tieng-anh',
   'pomodoro',
   'dem-nguoc-su-kien',
   'test-go-phim',

@@ -1,9 +1,14 @@
-// Trang Hướng dẫn (/huong-dan/ + /huong-dan/<slug>/): bài viết gốc do
+// Trang Bài viết (/huong-dan/ + /huong-dan/<slug>/): bài viết gốc do
 // Tiện Ích Hub tự viết — hướng dẫn cách tính, cách làm gắn với công cụ
-// trên web (18/11/2026). Dữ liệu trong huong-dan-data.js (chỉ chạy lúc
-// build, không fetch lúc chạy). Bố cục bài theo mẫu trang mẫu sinh viên
+// trên web (18/11/2026). Tên hiển thị đổi từ "Hướng dẫn" thành "Bài
+// viết" đợt menu MẪU 3/4 (19/11); địa chỉ /huong-dan/ GIỮ NGUYÊN.
+// Dữ liệu trong huong-dan-data.js (chỉ chạy lúc build, không fetch lúc
+// chạy). Bố cục bài theo mẫu trang mẫu sinh viên
 // (sinh-vien.js + class .sv-doc, max-width ~72ch); thẻ bài dùng chung
 // .sv-grid/.sv-card để đồng bộ giao diện với mục Sinh viên.
+// Bài có công cụ liên quan (11 bài trong GUIDE_LINKS ở build.mjs) thì
+// nhúng công cụ ở đầu bài qua embedHtml (build sinh sẵn); bài không có
+// công cụ liên quan (phạt nguội, CV) thì embedHtml rỗng.
 import { esc } from '../tool-card.js';
 import { ARTICLES } from './huong-dan-data.js';
 
@@ -20,28 +25,30 @@ function articleCard(a) {
 export function body({ articles = ARTICLES } = {}) {
   return `
   <header class="tool-page-head">
-    <h1>Hướng dẫn</h1>
+    <h1>Bài viết</h1>
     <p class="muted">Cách tính lương, thuế TNCN, lãi vay, lãi tiết kiệm, tiền điện, tiền nước, lương tăng ca, lương hưu, lương tháng 13 và thưởng Tết, BHXH một lần, lệ phí môn bài, tra cứu phạt nguội và cách viết CV — viết ngắn gọn, số liệu theo quy định hiện hành, kèm công cụ tính ngay. Tất cả bài do Tiện Ích Hub tự viết.</p>
   </header>
 
-  <section class="section" aria-label="Tất cả bài hướng dẫn">
+  <section class="section" aria-label="Tất cả bài viết">
     <div class="sv-grid">
 ${articles.map(articleCard).join('\n')}
     </div>
   </section>`;
 }
 
-// Trang bài /huong-dan/<slug>/: nội dung + hộp CTA tới công cụ/mẫu liên
-// quan + nguồn văn bản + ngày đăng + bài khác.
-export function detailBody({ article, articles = ARTICLES } = {}) {
+// Trang bài /huong-dan/<slug>/: công cụ nhúng ở đầu bài (nếu có) +
+// nội dung + hộp CTA tới công cụ/mẫu liên quan + nguồn văn bản +
+// ngày đăng + bài khác.
+export function detailBody({ article, articles = ARTICLES, embedHtml = '' } = {}) {
   const others = articles.filter((a) => a.slug !== article.slug);
   return `
-  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/huong-dan/">← Mục hướng dẫn</a></nav>
+  <nav class="breadcrumb" aria-label="Đường dẫn"><a href="/huong-dan/">← Mục bài viết</a></nav>
   <header class="tool-page-head">
     <h1>${esc(article.title)}</h1>
     <p class="muted">${esc(article.desc)}</p>
     <p class="muted small">Ngày đăng: ${esc(article.date)}</p>
   </header>
+  ${embedHtml}
   <div class="sv-doc">
 ${article.body}
   </div>

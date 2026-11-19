@@ -6,10 +6,10 @@
      dùng chỉ mục /data/search-index.json (build sinh) khi tải được, xếp
      hạng khớp tên > đồng nghĩa > từ khóa > mô tả; lỗi thì dự phòng lọc
      từ thẻ đã render sẵn
-   - Tìm kiếm hero + lọc lưới trang chủ (trang chủ)
+   - Tìm kiếm hero (trang chủ)
    - Modal tìm kiếm ⌘K toàn trang (đổi giao diện 18/11, phong cách 21st.dev):
-     mở bằng Ctrl/Cmd+K hoặc nút #header-search-btn, dùng chung chỉ mục +
-     xếp hạng với ô tìm kiếm hero, kết quả nhóm theo hạng mục
+     mở bằng Ctrl/Cmd+K (MẪU 3 không còn nút tìm kiếm ở header), dùng chung
+     chỉ mục + xếp hạng với ô tìm kiếm hero, kết quả nhóm theo hạng mục
    - Tabs chung (chỉ các .tab có data-tab-target — không can thiệp tab riêng
      bên trong công cụ)
    - Trang chủ: dải dữ liệu hôm nay (crypto, vàng, tỷ giá, xổ số, lịch âm, tử vi),
@@ -786,17 +786,16 @@
   var SUPPORT_ACCOUNT = '883866666';
   var SUPPORT_MEMO = 'UNG HO TIEN ICH HUB';
 
-  // Hằng số lịch âm + tử vi — PHẢI khai báo TRƯỚC khối onReady bên dưới:
+  // Hằng số lịch âm — PHẢI khai báo TRƯỚC khối onReady bên dưới:
   // script nạp dạng defer nên onReady chạy ngay khi thực thi tới đây, và
-  // initLunar()/initHoroscope() tính đồng bộ (không qua fetch) nên nếu
-  // để sau thì các mảng này vẫn là undefined lúc dùng. (Các hàm la*/tv*
-  // là function declaration nên được hoist, chỉ các var này cần dời lên.)
+  // initLunar() tính đồng bộ (không qua fetch) nên nếu để sau thì các
+  // mảng này vẫn là undefined lúc dùng. (Các hàm la* là function
+  // declaration nên được hoist, chỉ các var này cần dời lên.)
   var LA_PI = Math.PI;
   var LA_TZ = 7;
   var LA_STEMS = ['Giáp', 'Ất', 'Bính', 'Đinh', 'Mậu', 'Kỷ', 'Canh', 'Tân', 'Nhâm', 'Quý'];
   var LA_BRANCHES = ['Tý', 'Sửu', 'Dần', 'Mão', 'Thìn', 'Tỵ', 'Ngọ', 'Mùi', 'Thân', 'Dậu', 'Tuất', 'Hợi'];
   var LA_MONTH_NAMES = ['', 'Giêng', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'Tám', 'Chín', 'Mười', 'Mười một', 'Chạp'];
-  var TV_NAMES = ['Tý — Chuột', 'Sửu — Trâu', 'Dần — Hổ', 'Mão — Mèo', 'Thìn — Rồng', 'Tỵ — Rắn', 'Ngọ — Ngựa', 'Mùi — Dê', 'Thân — Khỉ', 'Dậu — Gà', 'Tuất — Chó', 'Hợi — Heo'];
 
   // Khóa "Dùng gần đây" + xúc xắc — PHẢI khai báo TRƯỚC khối onReady
   // bên dưới, cùng lý do như mảng lịch âm: script nạp dạng defer nên
@@ -806,19 +805,13 @@
   // 19/11 khi sửa Bàn giáo viên). visitedMigrated cũng ở đây để lần
   // migration đầu tiên không bị var gán lại false sau đó.
   var VISITED_KEY = 'uh_visited_tools';
-  var DICE_LAST_KEY = 'uh_dice_last';
   var visitedMigrated = false;
 
   onReady(function () {
-    setupNav();
     setupTheme();
-    setupSoundToggle();
     setupSearchFilter();
     setupCodeMauFilter();
     setupHeroSearch();
-    initHeroH1();
-    initHeroRotator();
-    initDiceButtons();
     // Migration khóa 'Dùng gần đây' chạy ở MỌI trang (19/11): bản cũ ghi
     // lịch sử vào khóa tên 'undefined'; nếu chỉ chạy khi mở trang công
     // cụ thì khóa cũ còn mãi trên các trang khác (Bàn giáo viên...).
@@ -829,21 +822,15 @@
     initToolSound();
     initEasterEgg();
     setupSearchModal();
-    setupHomeFilter();
     setupTabs();
     setupCopyButtons();
     setupPrintButtons();
     setupExampleFill();
-    initHomNayTitle();
-    initCrypto();
     initGold();
     initFx();
     initLottery();
     initLunar();
-    initHoroscope();
-    initFearGreed();
-    initNewsAndHot();
-    initRail();
+    initHomeNews();
     initSupport();
     initAiChatWidget();
   });
@@ -876,18 +863,6 @@
           res.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         }
       }, 500);
-    });
-  }
-
-  /* Nav mobile */
-  function setupNav() {
-    var toggle = $('#nav-toggle');
-    var header = $('#site-header');
-    if (!toggle || !header) return;
-    toggle.addEventListener('click', function () {
-      var open = header.classList.toggle('nav-open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.textContent = open ? '✕' : '☰';
     });
   }
 
@@ -1285,24 +1260,30 @@
     return scored.map(function (s) { return s.tool; });
   }
 
-  /* Tìm kiếm + lọc công cụ (trang /cong-cu/) */
+  /* Tìm kiếm + lọc công cụ (trang /cong-cu/, MẪU 4): công cụ chia theo
+     nhóm (.cat-group), mỗi nhóm có các dòng gọn (.tool-row). Gõ thì lọc
+     ngay (xếp hạng bằng chỉ mục khi có, dự phòng lọc chuỗi con); chip
+     nhóm lọc theo nhóm; nhóm nào không còn dòng nào thì ẩn. Không tìm
+     thấy thì hiện "Chưa có công cụ …" + link gợi ý (mailto) và đếm ẩn
+     danh từ khóa vào localStorage (chỉ đếm từ khóa, không lưu gì của
+     người dùng). Đọc ?q=/?cat= như trước. */
   function setupSearchFilter() {
     var input = $('#tool-search');
-    var grid = $('#tool-grid');
-    if (!input || !grid) return;
-    var cards = $all('.catalog-card', grid);
+    var groupsWrap = $('#tool-groups');
+    if (!input || !groupsWrap) return;
+    var groups = $all('.cat-group', groupsWrap);
+    var rows = $all('.tool-row', groupsWrap);
     var empty = $('#tool-empty');
-    var count = $('#tool-count');
-    // Khối thẻ hạng mục + dòng trạng thái lọc: khi đang lọc (chọn hạng mục
-    // hoặc gõ tìm) thì ẩn 11 thẻ hạng mục để kết quả nhảy lên ngay đầu
-    // trang, khỏi bắt người dùng kéo qua cả dãy thẻ mới thấy thứ cần tìm.
-    var catSection = $('#cat-section');
+    var emptyQ = $('#tool-empty-q');
+    var suggestLink = $('#tool-suggest-link');
     var chipRow = $('#filter-chips');
     var statusLine = $('#filter-status');
     var statusText = $('#filter-status-text');
     var clearBtn = $('#filter-clear');
-    var origCountText = count ? count.textContent : '';
     var activeCat = 'all';
+    var NO_RESULT_KEY = 'uh_no_result_keywords';
+    var countedThisPage = {};
+    var countTimer = null;
 
     // Đồng bộ URL với trạng thái lọc hiện tại (replaceState, không thêm
     // lịch sử) để link lọc chia sẻ được và tải lại trang không bị lệch.
@@ -1318,67 +1299,117 @@
       } catch (e) { /* trình duyệt cũ: bỏ qua */ }
     }
 
-    // Chuẩn hóa trước văn bản của mỗi thẻ để gõ tìm được nhanh (dự phòng
+    // Chuẩn hóa trước văn bản của mỗi dòng để gõ tìm được nhanh (dự phòng
     // khi không có chỉ mục) + nhớ slug/thứ tự gốc để xếp hạng/khôi phục.
-    cards.forEach(function (card, i) {
-      card._searchText = norm(
-        (card.getAttribute('data-name') || '') + ' ' +
-        (card.getAttribute('data-desc') || '') + ' ' +
-        (card.getAttribute('data-keywords') || '')
+    rows.forEach(function (row, i) {
+      row._searchText = norm(
+        (row.getAttribute('data-name') || '') + ' ' +
+        (row.getAttribute('data-desc') || '') + ' ' +
+        (row.getAttribute('data-keywords') || '')
       );
-      card._origOrder = i;
-      var m = (card.getAttribute('href') || '').match(/\/cong-cu\/([^/]+)\//);
-      card._slug = m ? m[1] : '';
+      row._origOrder = i;
+      var m = (row.getAttribute('href') || '').match(/\/cong-cu\/([^/]+)\//);
+      row._slug = m ? m[1] : '';
     });
 
+    // Đếm ẩn danh từ khóa không ra kết quả (chỉ đếm từ khóa): mỗi từ khóa
+    // chỉ đếm 1 lần trong 1 lần mở trang, tối đa 100 từ khóa distinct.
+    function countNoResult(rawQ) {
+      var q = (rawQ || '').trim().toLowerCase();
+      if (!q || countedThisPage[q]) return;
+      countedThisPage[q] = true;
+      try {
+        var map = JSON.parse(localStorage.getItem(NO_RESULT_KEY) || '{}');
+        if (!map || typeof map !== 'object') map = {};
+        map[q] = (map[q] || 0) + 1;
+        var keys = Object.keys(map);
+        if (keys.length > 100) delete map[keys[0]];
+        localStorage.setItem(NO_RESULT_KEY, JSON.stringify(map));
+      } catch (e) { /* bộ nhớ đầy/khóa: bỏ qua */ }
+    }
+
+    // Đợi người dùng ngừng gõ 800ms mới đếm (tránh đếm từng phím khi gõ).
+    function scheduleCount(rawQ, shown) {
+      if (countTimer) clearTimeout(countTimer);
+      if (!rawQ || shown !== 0) return;
+      countTimer = setTimeout(function () { countNoResult(rawQ); }, 800);
+    }
+
     function applyFilter() {
-      var q = norm(input.value.trim());
+      var rawQ = input.value.trim();
+      var q = norm(rawQ);
       var shown = 0;
       if (q && searchIndexData) {
-        // Có chỉ mục: xếp hạng rồi hiện + sắp thẻ theo hạng.
+        // Có chỉ mục: xếp hạng rồi hiện; xếp hạng trong từng nhóm (giữ
+        // bố cục nhóm, dòng khớp nhất lên đầu nhóm).
         var ranked = rankSearch(searchIndexData, q);
         var order = {};
         ranked.forEach(function (t, i) { order[t.id] = i; });
-        var visible = [];
-        cards.forEach(function (card) {
-          var okCat = activeCat === 'all' || card.getAttribute('data-category') === activeCat;
-          var show = okCat && card._slug && order[card._slug] != null;
-          card.style.display = show ? '' : 'none';
-          if (show) { visible.push(card); shown++; }
+        rows.forEach(function (row) {
+          var okCat = activeCat === 'all' || row.getAttribute('data-category') === activeCat;
+          var show = okCat && row._slug && order[row._slug] != null;
+          row.style.display = show ? '' : 'none';
+          if (show) shown++;
         });
-        visible.sort(function (a, b) { return order[a._slug] - order[b._slug]; });
-        visible.forEach(function (card) { grid.appendChild(card); });
+        groups.forEach(function (g) {
+          var box = g.querySelector('.cat-rows');
+          if (!box) return;
+          var visible = $all('.tool-row', box).filter(function (r) { return r.style.display !== 'none'; });
+          visible.sort(function (a, b) { return order[a._slug] - order[b._slug]; });
+          visible.forEach(function (r) { box.appendChild(r); });
+        });
       } else {
         // Dự phòng (chưa có chỉ mục hoặc ô tìm trống): lọc chuỗi con.
-        // Ô tìm trống thì khôi phục thứ tự gốc của lưới.
+        // Ô tìm trống thì khôi phục thứ tự gốc trong từng nhóm.
         if (!q) {
-          cards.slice().sort(function (a, b) { return a._origOrder - b._origOrder; })
-            .forEach(function (card) { grid.appendChild(card); });
+          groups.forEach(function (g) {
+            var box = g.querySelector('.cat-rows');
+            if (!box) return;
+            $all('.tool-row', box).slice().sort(function (a, b) { return a._origOrder - b._origOrder; })
+              .forEach(function (r) { box.appendChild(r); });
+          });
         }
-        cards.forEach(function (card) {
-          var okCat = activeCat === 'all' || card.getAttribute('data-category') === activeCat;
-          var okText = !q || card._searchText.indexOf(q) !== -1;
+        rows.forEach(function (row) {
+          var okCat = activeCat === 'all' || row.getAttribute('data-category') === activeCat;
+          var okText = !q || row._searchText.indexOf(q) !== -1;
           var show = okCat && okText;
-          card.style.display = show ? '' : 'none';
+          row.style.display = show ? '' : 'none';
           if (show) shown++;
         });
       }
-      if (empty) empty.hidden = shown !== 0;
-      // Đang lọc thì ẩn dãy thẻ hạng mục (kết quả lên ngay đầu trang) và
-      // hiện dòng trạng thái "Học tập — 9 công cụ" + nút Xóa lọc; hết lọc
-      // thì trả lại câu đếm gốc + hiện lại thẻ hạng mục.
+      // Ẩn nhóm không còn dòng nào.
+      groups.forEach(function (g) {
+        var any = $all('.tool-row', g).some(function (r) { return r.style.display !== 'none'; });
+        g.style.display = any ? '' : 'none';
+      });
+      // Không tìm thấy: hiện "Chưa có công cụ …" + link gợi ý (mailto
+      // kèm từ khóa) + đếm ẩn danh từ khóa.
+      if (empty) {
+        var noResult = shown === 0 && rawQ !== '';
+        empty.hidden = !noResult;
+        if (noResult) {
+          if (emptyQ) emptyQ.textContent = rawQ;
+          if (suggestLink) {
+            suggestLink.href = 'mailto:ngotuantdmu97@gmail.com' +
+              '?subject=' + encodeURIComponent('Gợi ý công cụ: ' + rawQ) +
+              '&body=' + encodeURIComponent('Tôi muốn gợi ý công cụ: ' + rawQ + '\n\nCông cụ này dùng để làm gì: ');
+          }
+          scheduleCount(rawQ, shown);
+        }
+      }
+      // Dòng trạng thái "Tài chính · “lương” — 3 công cụ" + nút Xóa lọc.
       var filterActive = activeCat !== 'all' || q !== '';
-      if (catSection) catSection.hidden = filterActive;
-      if (count) count.textContent = filterActive ? (shown + ' công cụ') : origCountText;
       if (statusLine && statusText) {
         if (filterActive) {
           var parts = [];
           if (activeCat !== 'all') {
-            var activeChip = document.querySelector('.chip[data-filter="' + activeCat + '"]');
-            if (activeChip) parts.push(activeChip.textContent.trim());
+            var activeChip = document.querySelector('.cat-chip[data-filter="' + activeCat + '"]');
+            // Tên nhóm là text node đầu của chip (sau đó là span số lượng).
+            if (activeChip && activeChip.childNodes.length) {
+              parts.push(activeChip.childNodes[0].textContent.trim());
+            }
           }
-          var qv = input.value.trim();
-          if (qv) parts.push('“' + qv + '”');
+          if (rawQ) parts.push('“' + rawQ + '”');
           statusText.textContent = (parts.length ? parts.join(' · ') + ' — ' : '') + shown + ' công cụ';
           statusLine.hidden = false;
         } else {
@@ -1398,26 +1429,24 @@
     }
 
     input.addEventListener('input', onInput);
-    $all('.chip[data-filter]').forEach(function (chip) {
+    $all('.cat-chip[data-filter]').forEach(function (chip) {
       chip.addEventListener('click', function () {
         activeCat = chip.getAttribute('data-filter');
-        $all('.chip[data-filter]').forEach(function (c) {
+        $all('.cat-chip[data-filter]').forEach(function (c) {
           c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
-          c.classList.toggle('chip-active', c === chip);
         });
         applyFilter();
       });
     });
 
-    // Nút "Xóa lọc": về Tất cả + xóa ô tìm + hiện lại thẻ hạng mục.
+    // Nút "Xóa lọc": về Tất cả + xóa ô tìm.
     if (clearBtn) {
       clearBtn.addEventListener('click', function () {
         activeCat = 'all';
         input.value = '';
-        $all('.chip[data-filter]').forEach(function (c) {
+        $all('.cat-chip[data-filter]').forEach(function (c) {
           var isAll = c.getAttribute('data-filter') === 'all';
           c.setAttribute('aria-pressed', isAll ? 'true' : 'false');
-          c.classList.toggle('chip-active', isAll);
         });
         applyFilter();
         window.scrollTo(0, 0);
@@ -1425,7 +1454,7 @@
     }
 
     // Đọc tham số URL: ?q=<từ khóa> điền ô tìm kiếm + lọc ngay;
-    // ?cat=<slug> chọn chip hạng mục + lọc ngay. Slug lạ thì bỏ qua.
+    // ?cat=<slug> chọn chip nhóm + lọc ngay. Slug lạ thì bỏ qua.
     var fromUrlFilter = false;
     try {
       var params = new URLSearchParams(window.location.search);
@@ -1433,12 +1462,11 @@
       if (q) { input.value = q; fromUrlFilter = true; }
       var cat = params.get('cat');
       if (cat) {
-        var chip = document.querySelector('.chip[data-filter="' + cat + '"]');
+        var chip = document.querySelector('.cat-chip[data-filter="' + cat + '"]');
         if (chip) {
           activeCat = cat;
-          $all('.chip[data-filter]').forEach(function (c) {
+          $all('.cat-chip[data-filter]').forEach(function (c) {
             c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
-            c.classList.toggle('chip-active', c === chip);
           });
           fromUrlFilter = true;
         }
@@ -1449,7 +1477,7 @@
       loadSearchIndex().then(function () { applyFilter(); });
     }
     applyFilter();
-    // Vào trang đã lọc sẵn (?q=/?cat=): cuộn thẳng tới dãy chip + kết quả
+    // Vào trang đã lọc sẵn (?q=/?cat=): cuộn thẳng tới thanh lọc + kết quả
     // để người dùng thấy ngay thứ mình tìm, khỏi kéo qua phần trên.
     if (fromUrlFilter && chipRow && chipRow.scrollIntoView) {
       chipRow.scrollIntoView();
@@ -1570,110 +1598,12 @@
     applyFilter();
   }
 
-  /* H1 hero — hiệu ứng hiện từng chữ (vòng 3, kiểu 21st.dev).
-     An toàn: không JS → H1 là chữ thường, hiện bình thường; reduced-motion
-     → bỏ qua hẳn; chỉ tách khi H1 là chữ thuần; chạy 1 lần khi tải trang.
-     Tên riêng heroH1PrefersReducedMotion để không đụng prefersReducedMotion()
-     trong IIFE mascot cuối file. */
+  /* Kiểm tra reduced-motion dùng chung (initCardDemos, initEasterEgg).
+     Tên riêng để khỏi đụng prefersReducedMotion() của IIFE mascot. */
   function heroH1PrefersReducedMotion() {
     return typeof window !== 'undefined' &&
       window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  function initHeroH1() {
-    if (typeof document === 'undefined') return;
-    var h1 = document.querySelector('.hero h1');
-    if (!h1) return;
-    if (h1.getAttribute('data-uh-h1-done') === '1') return;
-    if (heroH1PrefersReducedMotion()) return;
-    /* H1 có thể chứa <span class="hero-rotator"> (từ xoay, hướng B đợt 1):
-       chỉ tách các text node thành chữ, GIỮ NGUYÊN các phần tử con (từ xoay
-       do initHeroRotator quản lý, không được tách). Tách theo khoảng trắng
-       THƯỜNG (' ') — không tách theo \s (vì \s gồm cả nbsp trong "miễn phí",
-       cụm này phải giữ nguyên 1 từ để không gãy dòng thành "miễn / phí"). */
-    var textNodes = [];
-    Array.prototype.forEach.call(h1.childNodes, function (n) {
-      if (n.nodeType === 3 && n.textContent.trim()) textNodes.push(n);
-    });
-    if (!textNodes.length) return;
-
-    /* Trình đọc màn hình: các span ký tự dưới đây là trang trí — ẩn hết
-       khỏi cây trợ năng (aria-hidden trên từng span từ, con của nó theo
-       luôn) và để h1 mang aria-label là câu đầy đủ, trình đọc nghe được
-       "133 công cụ miễn phí" MỘT lần thay vì từng chữ rời (đợt sửa UX
-       19/11). SSR đã ghi aria-label, đây là lớp dự phòng khi SSR đổi. */
-    var fullLabel = textNodes.map(function (n) { return n.textContent; }).join('')
-      .replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
-    if (fullLabel) h1.setAttribute('aria-label', fullLabel);
-
-    var charIndex = 0;
-    textNodes.forEach(function (node) {
-      var frag = document.createDocumentFragment();
-      /* Tách theo từ để không gãy giữa từ khi xuống dòng; khoảng trắng
-         giữa các từ giữ dạng text node thường (không tách, không delay). */
-      var words = node.textContent.split(' ');
-      words.forEach(function (word, wi) {
-        if (wi > 0) frag.appendChild(document.createTextNode(' '));
-        if (!word) return;
-        var wordEl = document.createElement('span');
-        wordEl.className = 'h1-word';
-        wordEl.setAttribute('aria-hidden', 'true');
-        /* Array.from để không vỡ ký tự ngoài BMP; tiếng Việt có dấu là
-           1 code point nên vẫn tách đúng từng chữ. */
-        Array.from(word).forEach(function (ch) {
-          var charEl = document.createElement('span');
-          charEl.className = 'h1-char';
-          charEl.textContent = ch;
-          charEl.style.animationDelay = (charIndex * 60) + 'ms';
-          charIndex++;
-          wordEl.appendChild(charEl);
-        });
-        frag.appendChild(wordEl);
-      });
-      node.parentNode.replaceChild(frag, node);
-    });
-
-    /* Thêm class SAU khi đã tách xong — CSS chỉ ẩn chữ khi có class này
-       nên không có khoảng trống nào H1 bị ẩn mà chưa có chữ. */
-    h1.classList.add('h1-chars');
-    h1.setAttribute('data-uh-h1-done', '1');
-  }
-
-  /* Chữ xoay trong H1 trang chủ (hướng B đợt 1, ý 8 báo cáo sáng tạo):
-     từ sau "133 công cụ miễn phí" đổi mỗi 2,5 giây, màu từ đổi theo
-     màu hạng mục tương ứng (bản đậm, đã đo tương phản ≥ 4,5:1). Từ đầu
-     ("— tính lương") có sẵn trong HTML nên không JS vẫn thấy H1 đầy đủ.
-     Span xoay là trang trí: H1 mang aria-hidden="true" (đợt sửa UX
-     18/11) nên trình đọc màn hình chỉ nghe "133 công cụ miễn phí" —
-     H1 đứng yên, đủ nghĩa cho Google. Dấu "—" nằm TRONG span xoay để
-     H1 tĩnh không thừa dấu gạch ngang.
-     prefers-reduced-motion: giữ từ đầu tiên, không xoay. */
-  var HERO_ROTATOR_WORDS = [
-    { t: 'tính lương', c: '#1d4ed8' },
-    { t: 'tạo VietQR', c: '#4f46e5' },
-    { t: 'xem lịch âm', c: '#92400e' },
-    { t: 'nén ảnh', c: '#5546c0' },
-    { t: 'đổi đơn vị', c: '#3f6212' },
-  ];
-
-  function initHeroRotator() {
-    if (typeof document === 'undefined') return;
-    var el = $('#hero-rotator');
-    if (!el) return;
-    if (heroH1PrefersReducedMotion()) return;
-    var idx = 0;
-    setInterval(function () {
-      if (document.hidden) return;
-      idx = (idx + 1) % HERO_ROTATOR_WORDS.length;
-      var next = HERO_ROTATOR_WORDS[idx];
-      el.classList.add('rot-out');
-      setTimeout(function () {
-        el.textContent = '— ' + next.t;
-        el.style.color = next.c;
-        el.classList.remove('rot-out');
-      }, 250);
-    }, 2500);
   }
 
   /* Lịch sử công cụ đã thăm (localStorage) — phục vụ nút xúc xắc ưu tiên
@@ -1719,69 +1649,43 @@
     } catch (e) { /* bộ nhớ đầy/khóa: bỏ qua */ }
   }
 
-  /* Hàng "Dùng gần đây" trên trang chủ (đợt sửa UX 18/11): lấy 6 công cụ
-     mở gần nhất từ uh_visited_tools, nhân bản thẻ .catalog-card có sẵn
-     trong lưới trang chủ (không cần fetch thêm dữ liệu). Không có lịch
-     sử thì cả hàng giữ hidden. Chạy TRƯỚC initCardDemos để thẻ nhân bản
-     cũng được gắn mini-demo khi lăn vào màn hình trên điện thoại. */
+  /* Hàng "Dùng gần đây" trên trang chủ (MẪU 3): lấy 6 công cụ mở gần
+     nhất từ uh_visited_tools, tra tên qua chỉ mục /data/search-index.json
+     (trang chủ không còn lưới công cụ để nhân bản thẻ), hiện dạng nút
+     44px + nút "Xóa lịch sử". Không có lịch sử thì cả hàng giữ hidden. */
   function initRecentTools() {
     if (typeof document === 'undefined') return;
     var section = document.getElementById('recent-tools');
     var grid = document.getElementById('recent-grid');
+    var clearBtn = document.getElementById('recent-clear');
     if (!section || !grid) return;
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        try { localStorage.removeItem(VISITED_KEY); } catch (e) { /* bỏ qua */ }
+        grid.innerHTML = '';
+        section.hidden = true;
+      });
+    }
     var recent = readVisited().slice(-6).reverse();
     if (!recent.length) return;
-    var made = 0;
-    recent.forEach(function (slug) {
-      var src = document.querySelector('.catalog-card[href="/cong-cu/' + slug + '/"]');
-      if (!src || grid.querySelector('[href="/cong-cu/' + slug + '/"]')) return;
-      var clone = src.cloneNode(true);
-      clone.removeAttribute('id');
-      grid.appendChild(clone);
-      made++;
-    });
-    if (made) section.hidden = false;
-  }
-
-  /* Nút xúc xắc "Thử công cụ ngẫu nhiên" (hướng B đợt 1, ý 15 báo cáo
-     sáng tạo): có ở trang chủ + /cong-cu/. Bấm → xúc xắc lắc 0,5s →
-     mở 1 công cụ chưa thử (ưu tiên theo lịch sử localStorage), tránh mở
-     cùng công cụ 2 lần liên tiếp. Danh sách lấy từ thẻ .catalog-card
-     trên chính trang đó (đã render sẵn lúc build). */
-  function initDiceButtons() {
-    if (typeof document === 'undefined') return;
-    $all('.dice-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        if (btn.getAttribute('data-rolling') === '1') return;
-        var cards = $all('.catalog-card');
-        if (!cards.length) return;
-        btn.setAttribute('data-rolling', '1');
-        btn.classList.add('dice-rolling');
-        var visited = readVisited();
-        var last = null;
-        try { last = localStorage.getItem(DICE_LAST_KEY); } catch (e) { /* bỏ qua */ }
-        var pool = cards.map(function (card) {
-          var a = card.getAttribute('href') || '';
-          var name = (card.querySelector('.card-title') || {}).textContent || '';
-          var slug = (a.match(/^\/cong-cu\/([^\/]+)\/$/) || [])[1] || a;
-          return { href: a, name: name, slug: slug };
-        }).filter(function (c) { return c.href && c.slug !== last; });
-        var fresh = pool.filter(function (c) { return visited.indexOf(c.slug) === -1; });
-        var pickFrom = fresh.length ? fresh : pool;
-        var pick = pickFrom[Math.floor(Math.random() * pickFrom.length)];
-        if (!pick) {
-          btn.removeAttribute('data-rolling');
-          btn.classList.remove('dice-rolling');
-          return;
-        }
-        var label = btn.querySelector('.dice-label');
-        setTimeout(function () {
-          if (label) label.textContent = 'Hôm nay thử: ' + pick.name;
-          try { localStorage.setItem(DICE_LAST_KEY, pick.slug); } catch (e) { /* bỏ qua */ }
-          window.location.href = pick.href;
-        }, 550);
+    function render(tools) {
+      var byId = {};
+      (tools || []).forEach(function (t) { byId[t.id || t.slug] = t; });
+      var made = 0;
+      recent.forEach(function (slug) {
+        var t = byId[slug];
+        if (!t) return;
+        var a = document.createElement('a');
+        a.className = 'recent-btn';
+        a.href = '/cong-cu/' + slug + '/';
+        a.textContent = t.name;
+        grid.appendChild(a);
+        made++;
       });
-    });
+      if (made) section.hidden = false;
+    }
+    if (searchIndexData) render(searchIndexData.tools);
+    else loadSearchIndex().then(function (idx) { if (idx) render(idx.tools); });
   }
 
   /* "Thẻ sống" trên mobile (hướng B đợt 1, ý 9): cảm ứng không có hover
@@ -1830,42 +1734,6 @@
     });
   }
 
-  /* Nút bật/tắt âm thanh: 2 nút cùng 1 cài đặt uh_gv_sound — nút icon ở
-     header (chỉ hiện từ 1280px) và mục văn bản "Âm thanh: Bật/Tắt" trong
-     menu hamburger (dưới 1280px, đợt sửa UX 19/11 để header điện thoại
-     đủ chỗ hiện tên web). Cả hai đồng bộ trạng thái qua sync(). */
-  function setupSoundToggle() {
-    var btn = $('#sound-toggle');
-    var navBtn = $('#nav-sound-toggle');
-    if (!btn && !navBtn) return;
-    function sync() {
-      var on = true;
-      try {
-        on = window.UhGvSound ? window.UhGvSound.enabled()
-          : localStorage.getItem('uh_gv_sound') !== '0';
-      } catch (e) { /* bỏ qua */ }
-      if (btn) {
-        btn.classList.toggle('sound-off', !on);
-        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        btn.setAttribute('aria-label', on ? 'Tắt âm thanh' : 'Bật âm thanh');
-      }
-      if (navBtn) {
-        navBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        navBtn.textContent = on ? 'Âm thanh: Bật' : 'Âm thanh: Tắt';
-      }
-    }
-    function toggle() {
-      try {
-        if (window.UhGvSound) window.UhGvSound.toggle();
-        else localStorage.setItem('uh_gv_sound', localStorage.getItem('uh_gv_sound') === '0' ? '1' : '0');
-      } catch (e) { /* bỏ qua */ }
-      sync();
-    }
-    sync();
-    if (btn) btn.addEventListener('click', toggle);
-    if (navBtn) navBtn.addEventListener('click', toggle);
-  }
-
   /* Trứng phục sinh (hướng B đợt 1, ý 14): bấm chấm vàng của logo
      (vùng .brand-dot phủ lên chấm vàng) 5 lần trong 2,5 giây → blob nhảy
      múa 3 giây + pháo giấy mini 1 đợt ngắn. Không quảng cáo trong giao
@@ -1912,28 +1780,16 @@
     });
   }
 
-  /* Tìm kiếm hero (trang chủ): gõ thì hiện dropdown tối đa 8 kết quả,
-     xếp hạng bằng chỉ mục /data/search-index.json (khớp tên > đồng nghĩa
-     > từ khóa > mô tả, không phân biệt dấu); chưa tải được chỉ mục thì
-     dự phòng lọc từ lưới công cụ trang chủ (như trước). Bấm vào đi thẳng
-     tới trang công cụ; Enter thì sang /cong-cu/?q=<từ khóa>. */
+  /* Tìm kiếm hero (trang chủ, MẪU 3): gõ thì hiện dropdown tối đa 8 kết
+     quả, xếp hạng bằng chỉ mục /data/search-index.json (khớp tên > đồng
+     nghĩa > từ khóa > mô tả, không phân biệt dấu). Chưa tải được chỉ mục
+     thì hiện "Đang tìm…" rồi render khi tải xong; tải lỗi thì hiện câu
+     gợi ý như khi không có kết quả. Bấm vào đi thẳng tới trang công cụ;
+     Enter thì sang /cong-cu/?q=<từ khóa>. */
   function setupHeroSearch() {
     var input = $('#hero-search');
     var box = $('#hero-search-results');
-    var grid = $('#home-tool-grid');
-    if (!input || !box || !grid) return;
-    var cards = $all('.catalog-card', grid).map(function (card) {
-      return {
-        href: card.getAttribute('href'),
-        name: card.getAttribute('data-name') || '',
-        cat: (card.querySelector('.card-cat') || {}).textContent || '',
-        searchText: norm(
-          (card.getAttribute('data-name') || '') + ' ' +
-          (card.getAttribute('data-desc') || '') + ' ' +
-          (card.getAttribute('data-keywords') || '')
-        )
-      };
-    });
+    if (!input || !box) return;
 
     function close() {
       box.hidden = true;
@@ -1960,17 +1816,17 @@
         renderItems(ranked.map(function (t) {
           return { href: '/cong-cu/' + t.slug + '/', name: t.name, cat: t.categoryLabel || '' };
         }));
+      } else if (searchIndexFailed) {
+        renderItems([]);
       } else {
-        // Dự phòng: lọc chuỗi con từ lưới đã render sẵn.
-        var hits = cards.filter(function (c) { return c.searchText.indexOf(q) !== -1; }).slice(0, 8);
-        renderItems(hits);
-        // Nạp lười chỉ mục; tải xong thì render lại bằng xếp hạng
+        // Chưa có chỉ mục: hiện "Đang tìm…" rồi render khi tải xong
         // (chỉ khi truy vấn chưa đổi và dropdown vẫn mở).
-        if (!searchIndexFailed) {
-          loadSearchIndex().then(function () {
-            if (searchIndexData && norm(input.value.trim()) === q && !box.hidden) render();
-          });
-        }
+        box.innerHTML = '<p class="hero-search-empty">Đang tìm…</p>';
+        box.hidden = false;
+        input.setAttribute('aria-expanded', 'true');
+        loadSearchIndex().then(function () {
+          if (norm(input.value.trim()) === q && !box.hidden) render();
+        });
       }
     }
 
@@ -1995,9 +1851,8 @@
   }
 
   /* Modal tìm kiếm ⌘K toàn trang (đổi giao diện 18/11, phong cách 21st.dev).
-     Mở bằng Ctrl+K / Cmd+K hoặc nút #header-search-btn (nút do Worker B
-     thêm vào header — kiểm tra tồn tại trước khi gắn sự kiện, vì lúc chạy
-     thử nút có thể chưa có). Đóng bằng Esc, bấm nền mờ, nút đóng.
+     Mở bằng Ctrl+K / Cmd+K (MẪU 3 không còn nút tìm kiếm ở header).
+     Đóng bằng Esc, bấm nền mờ, nút đóng.
      Modal chèn vào DOM bằng JS lúc init (không sửa template.js).
      Dùng LẠI đúng chỉ mục + logic xếp hạng + chuẩn hóa của ô tìm kiếm hero
      (loadSearchIndex / rankSearch / norm) nên tìm đồng nghĩa vẫn đúng
@@ -2210,46 +2065,15 @@
     });
     closeBtn.addEventListener('click', close);
 
-    // Nút tìm kiếm ở header (Worker B thêm vào template.js) — có thể
-    // chưa tồn tại lúc chạy thử nên kiểm tra trước khi gắn sự kiện.
-    var headerBtn = $('#header-search-btn');
-    if (headerBtn) headerBtn.addEventListener('click', open);
-  }
-
-  /* Lọc lưới trang chủ theo chip hạng mục (chỉ lọc lưới trang chủ). */
-  function setupHomeFilter() {
-    var grid = $('#home-tool-grid');
-    if (!grid) return;
-    var cards = $all('.catalog-card', grid);
-    var empty = $('#home-tool-empty');
-    var count = $('#home-tool-count');
-    var chips = $all('.chip[data-home-filter]');
-    if (!chips.length) return;
-    function apply(cat) {
-      var shown = 0;
-      cards.forEach(function (card) {
-        var show = cat === 'all' || card.getAttribute('data-category') === cat;
-        card.style.display = show ? '' : 'none';
-        if (show) shown++;
-      });
-      if (empty) empty.hidden = shown !== 0;
-      if (count) count.textContent = shown + ' công cụ';
-    }
-    chips.forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        chips.forEach(function (c) {
-          c.setAttribute('aria-pressed', c === chip ? 'true' : 'false');
-          c.classList.toggle('chip-active', c === chip);
-        });
-        apply(chip.getAttribute('data-home-filter'));
-      });
-    });
+    // MẪU 3: không còn nút tìm kiếm ở header — chỉ mở bằng ⌘K/Ctrl+K.
   }
 
   /* Tabs chung — chỉ các .tab có data-tab-target (tab riêng trong công cụ
      tự quản lý, không dùng thuộc tính này nên không bị can thiệp).
-     Panel chỉ đổi trong cùng <section> với tab — trang chủ có 2 nhóm tab
-     (Điểm báo + Bảng xếp hạng), bấm tab nhóm này không được ẩn panel nhóm kia. */
+     Panel chỉ đổi trong cùng <section> với tab — một trang có thể có
+     nhiều nhóm tab, bấm tab nhóm này không được ẩn panel nhóm kia.
+     Hỗ trợ hash: vào trang với #<tên-tab> thì mở sẵn tab đó (vd
+     /sinh-vien/#tai-lieu-hoc); bấm tab thì cập nhật hash (replaceState). */
   function setupTabs() {
     $all('.tab[data-tab-target]').forEach(function (tab) {
       tab.addEventListener('click', function () {
@@ -2264,8 +2088,29 @@
         $all('.tab-panel[data-tab-panel]', scope).forEach(function (panel) {
           panel.hidden = panel.getAttribute('data-tab-panel') !== target;
         });
+        // Bấm tab thì cập nhật hash (không thêm lịch sử) để link chia sẻ
+        // được vị trí tab hiện tại.
+        try {
+          if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, '', '#' + target);
+          }
+        } catch (e) { /* bỏ qua */ }
       });
     });
+    // Mở sẵn tab theo hash (#tai-lieu-hoc...); không có tab nào khớp thì thôi.
+    // Lắng nghe cả hashchange để link trong trang (#tai-lieu-hoc) cũng mở
+    // được tab mà không cần tải lại.
+    function openTabFromHash() {
+      try {
+        var hash = (window.location.hash || '').replace(/^#/, '');
+        if (hash) {
+          var targetTab = document.querySelector('.tab[data-tab-target="' + hash + '"]');
+          if (targetTab) targetTab.click();
+        }
+      } catch (e) { /* bỏ qua */ }
+    }
+    openTabFromHash();
+    window.addEventListener('hashchange', openTabFromHash);
   }
 
   /* Nút chép chung: [data-copy="giá trị"] + [data-copy-msg] (tùy chọn) */
@@ -2311,62 +2156,9 @@
       '" aria-label="Thử tải lại ' + escHtml(label) + '">Thử lại</button></p>';
   }
 
-  // Dòng ngày trên khối dải dữ liệu: "Hôm nay, thứ ba 17/11/2026" (tính lúc tải trang).
-  function initHomNayTitle() {
-    var el = $('#hom-nay-title');
-    if (!el) return;
-    var days = ['Chủ nhật', 'thứ hai', 'thứ ba', 'thứ tư', 'thứ năm', 'thứ sáu', 'thứ bảy'];
-    var d = new Date();
-    el.textContent = 'Hôm nay, ' + days[d.getDay()] + ' ' +
-      d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear();
-  }
-
-  /* Thẻ Crypto: giá BTC + đổi 24h, đọc /data/crypto.json (snapshot, làm mới mỗi 30 phút). */
-  function initCrypto() {
-    var strip = $('#crypto-strip');
-    if (!strip) return;
-    function load() {
-      strip.innerHTML = '<p class="muted">Đang tải giá…</p>';
-      fetch('/data/crypto.json', { cache: 'no-store' })
-        .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-        .then(function (data) {
-          var coins = (data && Array.isArray(data.coins)) ? data.coins : [];
-          var d = null;
-          for (var i = 0; i < coins.length; i++) {
-            if (coins[i].id === 'bitcoin') { d = coins[i]; break; }
-          }
-          if (!d || d.priceUsd == null) throw new Error('Thiếu dữ liệu');
-          var usd = '$' + Number(d.priceUsd).toLocaleString('en-US', { maximumFractionDigits: 2 });
-          var change = d.change24h;
-          var changeHtml = '';
-          if (typeof change === 'number' && isFinite(change)) {
-            var cls = change >= 0 ? 'up' : 'down';
-            var sign = change >= 0 ? '+' : '';
-            changeHtml = '<div class="coin-change ' + cls + '">' + sign + change.toFixed(2) + '% (24h)</div>';
-          }
-          var timeHtml = '';
-          if (data.updatedAt) {
-            var t = new Date(data.updatedAt);
-            if (!isNaN(t.getTime())) timeHtml = ' · ' + escHtml(fmtDateTime(t));
-          }
-          strip.innerHTML =
-            '<div class="today-value">' + escHtml(usd) + '</div>' +
-            '<div class="coin-price-vnd">' + escHtml(fmtVND(d.priceVnd)) + '</div>' +
-            changeHtml +
-            '<p class="muted small today-source">Nguồn: ' + escHtml(data.source || 'CoinGecko') + timeHtml + '</p>';
-        })
-        .catch(function () {
-          strip.innerHTML = todayErrorHtml('crypto-retry', 'giá crypto');
-          var retry = $('#crypto-retry');
-          if (retry) retry.addEventListener('click', load);
-        });
-    }
-    load();
-  }
-
   /* ---------------- Trang chủ: Giá vàng lúc này ---------------- */
-  // Đọc /data/gold.json (file tĩnh, làm mới hằng ngày). Hiện giá mua/bán
-  // SJC miếng + giờ cập nhật. Lỗi hoặc thiếu dữ liệu thì báo + nút thử lại,
+  // Đọc /data/gold.json (file tĩnh, làm mới hằng ngày). Hiện giá bán ra
+  // SJC miếng + giờ cập nhật (ô nhỏ MẪU 3). Lỗi hoặc thiếu dữ liệu thì báo
   // KHÔNG bịa số.
 
   function initGold() {
@@ -2400,11 +2192,9 @@
                 escHtml(data.source || 'vang.today') + ' · ' + escHtml(fmtDateTime(d)) + '</p>';
             }
           }
+          // Ô nhỏ MẪU 3: chỉ giá bán ra + tên loại vàng + nguồn/giờ.
           box.innerHTML = '<div class="today-value">' + escHtml(fmtVND(item.sell)) + '</div>' +
-            '<div class="gold-prices">' +
-            '<div class="gold-price"><span>Mua vào</span><b>' + escHtml(fmtVND(item.buy)) + '</b></div>' +
-            '<div class="gold-price"><span>Bán ra</span><b>' + escHtml(fmtVND(item.sell)) + '</b></div>' +
-            '</div><p class="muted small" style="margin: 8px 0 0;">' + escHtml(item.name || 'Vàng SJC') + ' · đồng/lượng.</p>' +
+            '<p class="today-source">Bán ra · ' + escHtml(item.name || 'Vàng SJC') + ' · đồng/lượng</p>' +
             timeHtml;
         })
         .catch(function () {
@@ -2585,99 +2375,14 @@
     }
   }
 
-  /* ---------------- Thẻ Tử vi: tuổi có điểm cao nhất hôm nay.
-     Copy hàm băm xác định theo ngày (FNV-1a + mulberry32) từ
-     src/tools/hang-ngay/tu-vi-12-con-giap.js — cùng ngày + cùng tuổi
-     luôn ra cùng điểm như trong công cụ. Chỉ hiện tên tuổi + điểm tổng.
-     (TV_NAMES khai báo trước onReady — xem ghi chú ở đó.) ---------------- */
-
-  function tvHashStr(s) {
-    var h = 2166136261;
-    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-    return h >>> 0;
-  }
-  function tvRng(seed) {
-    var a = seed >>> 0;
-    return function () {
-      a |= 0; a = (a + 0x6D2B79F5) | 0;
-      var t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
-  }
-  function tvFortuneTotal(zodiacIdx) {
-    var n = new Date();
-    var key = n.getFullYear() + '-' + (n.getMonth() + 1) + '-' + n.getDate();
-    var r = tvRng(tvHashStr(key + '|' + zodiacIdx));
-    // Điểm 1–5 sao, phân phối nghiêng về 3–4 sao — giống hệt công cụ.
-    function star() { return Math.max(1, Math.min(5, Math.round(3 + (r() + r() + r() - 1.5) * 1.6))); }
-    return star() + star() + star() + star();
-  }
-
-  function initHoroscope() {
-    var box = $('#horoscope-content');
-    if (!box) return;
-    try {
-      var bestIdx = 0, bestTotal = -1;
-      for (var i = 0; i < 12; i++) {
-        var total = tvFortuneTotal(i);
-        if (total > bestTotal) { bestTotal = total; bestIdx = i; }
-      }
-      box.innerHTML = '<div class="today-value">Tuổi ' + escHtml(TV_NAMES[bestIdx]) + '</div>' +
-        '<p class="muted small">Điểm cao nhất hôm nay: ' + bestTotal + '/20 · chỉ mang tính giải trí.</p>';
-    } catch (e) {
-      box.innerHTML = '<p>Chưa tính được tử vi.</p>';
-    }
-  }
-
-  /* ---------------- Trang chủ: chỉ số Fear & Greed ---------------- */
-  // Hiển thị trong dải Crypto (dòng #fng-line, nằm NGOÀI #crypto-strip
-  // nên initCrypto thay innerHTML không xóa được).
-  // Đọc /data/fng.json (snapshot cùng tên miền): giá trị + nhãn tiếng Việt
-  // (FNG_LABELS) + giờ cập nhật. Lỗi/thiếu dữ liệu thì giữ dòng ẩn —
-  // không làm hỏng thẻ Crypto.
-
-  var FNG_LABELS = {
-    'Extreme Fear': 'Sợ hãi cực độ',
-    'Fear': 'Sợ hãi',
-    'Neutral': 'Trung lập',
-    'Greed': 'Tham lam',
-    'Extreme Greed': 'Tham lam cực độ'
-  };
-
-  function initFearGreed() {
-    var line = $('#fng-line');
-    if (!line) return;
-    fetch('/data/fng.json', { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-      .then(function (data) {
-        if (!data || data.value == null) throw new Error('Thiếu dữ liệu');
-        var value = Number(data.value);
-        if (!isFinite(value)) throw new Error('Thiếu dữ liệu');
-        var label = FNG_LABELS[data.label] || data.label || '';
-        var text = 'Fear & Greed: ' + value + (label ? ' — ' + label : '');
-        if (data.updatedAt) {
-          var d = new Date(data.updatedAt);
-          if (!isNaN(d.getTime())) text += ' · cập nhật ' + fmtDateTime(d);
-        }
-        line.textContent = text;
-        line.hidden = false;
-      })
-      .catch(function () {
-        // Lỗi thì giữ dòng ẩn (đã hidden sẵn) — thẻ Crypto không bị ảnh hưởng.
-        line.hidden = true;
-      });
-  }
-
-  /* ---------------- Trang chủ: Điểm báo + Tin hot ---------------- */
+  /* ---------------- Trang chủ: Điểm báo (3 tin mới nhất) ---------------- */
 
   var NEWS_GROUPS = [
     { id: 'ai', label: 'AI' },
     { id: 'chung-khoan', label: 'Chứng khoán' },
     { id: 'crypto', label: 'Crypto' }
   ];
-  var NEWS_PER_GROUP = 2; // Đồng bộ với home.js (SSR): trang chủ chỉ hiện 2 tin/tab + 1 tin nổi bật.
-  var HOT_COUNT = 6;
+  var HOME_NEWS_COUNT = 3; // Đồng bộ với home.js (SSR): trang chủ chỉ hiện 3 tin mới nhất.
 
   // news.json có thể ở 1 trong 2 dạng: groups là mảng [{id,label,items}] hoặc
   // object {ai:[...], 'chung-khoan':[...], crypto:[...]}. Tin dùng `url` hoặc `link`.
@@ -2729,20 +2434,6 @@
       '</article>';
   }
 
-  function newsFeaturedHtml(item) {
-    var summary = truncateSummary(item.summary);
-    var date = newsItemDate(item);
-    var meta = [item.source || '', date ? formatDate(date) : ''].filter(Boolean).join(' · ');
-    return '<article class="news-card news-featured">' +
-      '<p class="news-featured-tag">Tin nổi bật</p>' +
-      '<h3><a href="' + escHtml(newsItemUrl(item)) + '" target="_blank" rel="noopener">' +
-      escHtml(newsTitle(item) || '(không có tiêu đề)') + '</a></h3>' +
-      (summary ? '<p class="news-summary">' + escHtml(summary) + '</p>' : '') +
-      (item.why ? '<p class="news-why">' + escHtml(item.why) + '</p>' : '') +
-      (meta ? '<p class="news-meta">' + escHtml(meta) + '</p>' : '') +
-      '</article>';
-  }
-
   // SSR (worker W11): home.js đã render sẵn nội dung từ JSON lúc build
   // (data-ssr="1" + data-updated-at). Lúc tải trang chỉ fetch JSON để kiểm
   // tra mới hơn: JSON mới hơn SSR thì render lại, còn không thì giữ SSR
@@ -2783,85 +2474,30 @@
     if (btn) btn.addEventListener('click', onRetry);
   }
 
-  function initNewsAndHot() {
-    var featuredEl = $('#news-featured');
-    var groupsEl = $('#news-groups');
-    var hotEl = $('#rank-hot');
-    if (!groupsEl && !hotEl && !featuredEl) return;
+  function initHomeNews() {
+    var listEl = $('#home-news-list');
+    if (!listEl) return;
 
     function render(data) {
       var groups = normalizeNews(data);
       var allItems = [];
       groups.forEach(function (g) { g.items.forEach(function (it) { allItems.push(it); }); });
-      // Tin nổi bật (V1): chỉ chọn tin CÓ tóm tắt tiếng Việt — ưu tiên tin
-      // đầu tiên có tóm tắt trong nhóm AI, rồi tin đầu tiên có tóm tắt trong
-      // toàn bộ tin; không có tin nào có tóm tắt thì không hiện thẻ nổi bật.
-      // Đồng bộ với home.js (SSR).
-      var hasSummary = function (it) { return String((it && it.summary) || '').trim() !== ''; };
-      var aiGroup = null;
-      groups.forEach(function (g) { if (g.id === 'ai') aiGroup = g; });
-      var featuredItem = null;
-      var k, pool = (aiGroup && aiGroup.items) || [];
-      for (k = 0; k < pool.length; k++) { if (hasSummary(pool[k])) { featuredItem = pool[k]; break; } }
-      if (!featuredItem) {
-        for (k = 0; k < allItems.length; k++) { if (hasSummary(allItems[k])) { featuredItem = allItems[k]; break; } }
-      }
-      if (featuredEl) {
-        featuredEl.innerHTML = featuredItem
-          ? newsFeaturedHtml(featuredItem)
-          : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
-      }
-      if (groupsEl) {
-        if (allItems.length === 0) {
-          groupsEl.innerHTML = '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
-        } else {
-          // Mỗi nhóm một panel theo tab AI / Chứng khoán / Crypto;
-          // cùng lúc chỉ hiện 1 nhóm (tối đa 2 tin) + 1 tin nổi bật.
-          groupsEl.innerHTML = NEWS_GROUPS.map(function (def, idx) {
-            var g = null;
-            groups.forEach(function (x) { if (x.id === def.id) g = x; });
-            // Loại tin nổi bật khỏi danh sách tab để tin không hiện 2 lần (V1).
-            var items = g ? g.items.filter(function (it) { return it !== featuredItem; }).slice(0, NEWS_PER_GROUP) : [];
-            return '<div class="tab-panel" data-tab-panel="news-' + def.id + '"' +
-              (idx === 0 ? '' : ' hidden') + '>' +
-              (items.length
-                ? items.map(newsCardHtml).join('')
-                : '<p class="muted">Chưa có tin ' + escHtml(def.label) + '.</p>') +
-              '</div>';
-          }).join('');
-        }
-      }
-      if (hotEl) {
-        if (allItems.length === 0) {
-          hotEl.innerHTML = '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
-        } else {
-          var hot = allItems.slice().sort(function (a, b) {
-            var da = newsItemDate(a), db = newsItemDate(b);
-            var ta = da ? da.getTime() : 0, tb = db ? db.getTime() : 0;
-            return tb - ta;
-          }).slice(0, HOT_COUNT);
-          hotEl.innerHTML = hot.map(function (item, i) {
-            // Tin hot cũng hiện tóm tắt tiếng Việt như thẻ Điểm báo (dùng lại
-            // class .rank-desc của hàng GitHub) — đồng bộ với hotRowHtml SSR.
-            var summary = truncateSummary(item.summary);
-            return '<div class="rank-row rank-' + (i + 1) + '">' +
-              '<div class="rank-num">' + (i + 1) + '</div>' +
-              '<div class="rank-body"><h4><a href="' + escHtml(newsItemUrl(item)) +
-              '" target="_blank" rel="noopener">' + escHtml(newsTitle(item) || '') + '</a></h4>' +
-              (summary ? '<p class="rank-desc">' + escHtml(summary) + '</p>' : '') +
-              '<p class="rank-meta">' + escHtml([item.source || '', (function () { var d = newsItemDate(item); return d ? formatDate(d) : ''; })()].filter(Boolean).join(' · ')) + '</p>' +
-              '</div></div>';
-          }).join('');
-        }
+      if (allItems.length === 0) {
+        listEl.innerHTML = '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
+      } else {
+        var latest = allItems.slice().sort(function (a, b) {
+          var da = newsItemDate(a), db = newsItemDate(b);
+          var ta = da ? da.getTime() : 0, tb = db ? db.getTime() : 0;
+          return tb - ta;
+        }).slice(0, HOME_NEWS_COUNT);
+        listEl.innerHTML = latest.map(newsCardHtml).join('');
       }
       // Ghi dấu nội dung mới để lần thử lại sau không render thừa.
       var stamp = (data && data.updatedAt) || '';
-      [featuredEl, groupsEl, hotEl].forEach(function (el) {
-        if (el && stamp) {
-          el.setAttribute('data-ssr', '1');
-          el.setAttribute('data-updated-at', stamp);
-        }
-      });
+      if (stamp) {
+        listEl.setAttribute('data-ssr', '1');
+        listEl.setAttribute('data-updated-at', stamp);
+      }
     }
 
     function load() {
@@ -2869,7 +2505,7 @@
         .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
         .then(function (data) {
           var fresh = Date.parse((data && data.updatedAt) || '') || 0;
-          var ssr = Math.max(ssrTime(featuredEl), ssrTime(groupsEl), ssrTime(hotEl));
+          var ssr = ssrTime(listEl);
           // JSON không mới hơn SSR thì giữ SSR (nội dung như nhau).
           // Không có updatedAt để so (fresh = 0) thì render để chắc chắn.
           if (fresh > 0 && fresh <= ssr) return;
@@ -2877,101 +2513,15 @@
         })
         .catch(function () {
           // Giữ SSR + nút thử lại nhỏ; không có SSR thì hiện lỗi chuẩn.
-          [featuredEl, groupsEl, hotEl].forEach(function (el) {
-            if (!el) return;
-            if (el.getAttribute('data-ssr') === '1') {
-              appendSsrRetry(el, 'Không tải được tin mới — đang hiển thị tin đã lưu.', load);
-            } else {
-              renderFetchError(el, load);
-            }
-          });
+          if (listEl.getAttribute('data-ssr') === '1') {
+            appendSsrRetry(listEl, 'Không tải được tin mới — đang hiển thị tin đã lưu.', load);
+          } else {
+            renderFetchError(listEl, load);
+          }
         });
     }
     load();
   }
-  /* ---------------- Rail video "Công cụ nổi bật" (trang chủ) ----------------
-     Cơ chế đúng như trang chủ 21st.dev (đã đọc từ code JS của họ + Claude
-     xác nhận 18/11/2026):
-     - Mỗi thẻ có sẵn ảnh poster + <video preload="none"> chồng lên; video
-       chỉ tải khi phát lần đầu.
-     - Khi rail vào viewport (≥30%) thì vòng xoay tự chạy: mỗi 4 giây phát
-       video của 1 trong 4 thẻ đầu, chỉ 1 video phát tại 1 thời điểm.
-     - Rê chuột (chỉ chuột thật) lên thẻ nào thì video thẻ đó phát ngay và
-       vòng xoay tạm dừng; rời chuột thì xoay tiếp từ thẻ kế tiếp.
-     - Video ra khỏi/gần khỏi viewport thì pause (IntersectionObserver 100px).
-     - prefers-reduced-motion: tắt cả xoay lẫn hover-phát, chỉ hiện poster.
-     - Mobile (không hover): vòng xoay vẫn chạy (muted + playsInline cho
-       phép autoplay); chạm vào thẻ thì mở trang công cụ như link thường. */
-  function initRail() {
-    var rail = document.getElementById('rail');
-    if (!rail) return;
-    var cards = Array.prototype.slice.call(rail.querySelectorAll('.rail-card'));
-    if (!cards.length) return;
-    var videos = cards.map(function (c) { return c.querySelector('video'); });
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var ROTATE_MS = 4000;
-    var ROTATE_COUNT = Math.min(4, videos.length);
-    var current = -1; // index video đang phát theo vòng xoay (-1 = chưa phát)
-    var timer = null;
-    var railVisible = false;
-    var hovered = false;
-
-    function pauseAll(except) {
-      videos.forEach(function (v, i) { if (v && i !== except) v.pause(); });
-    }
-    function playAt(i) {
-      var v = videos[i];
-      if (!v) return;
-      pauseAll(i);
-      current = i;
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {});
-    }
-    function startRotation() {
-      if (timer || !railVisible || hovered) return;
-      if (current < 0) playAt(0);
-      timer = setInterval(function () {
-        playAt((current + 1) % ROTATE_COUNT);
-      }, ROTATE_MS);
-    }
-    function stopRotation() {
-      if (timer) { clearInterval(timer); timer = null; }
-    }
-
-    // Rail vào viewport thì bật xoay; ra khỏi thì dừng + pause hết.
-    var railObserver = new IntersectionObserver(function (entries) {
-      railVisible = entries[0].isIntersecting;
-      if (railVisible) startRotation();
-      else { stopRotation(); pauseAll(-1); }
-    }, { threshold: 0.3 });
-    railObserver.observe(rail);
-
-    // Mỗi video ra khỏi vùng gần viewport thì pause.
-    var videoObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) { if (!e.isIntersecting) e.target.pause(); });
-    }, { rootMargin: '100px' });
-    videos.forEach(function (v) { if (v) videoObserver.observe(v); });
-
-    // Hover (chỉ chuột): phát video thẻ đó + dừng xoay; rời chuột: xoay
-    // tiếp từ thẻ kế tiếp sau thẻ vừa hover.
-    cards.forEach(function (card, i) {
-      card.addEventListener('pointerenter', function (e) {
-        if (e.pointerType !== 'mouse') return;
-        hovered = true;
-        stopRotation();
-        playAt(i);
-      });
-      card.addEventListener('pointerleave', function () {
-        if (!hovered) return;
-        hovered = false;
-        if (!railVisible) return;
-        playAt((i + 1) % ROTATE_COUNT);
-        startRotation();
-      });
-    });
-  }
-
   /* ---------------- Trang Ủng hộ: VietQR ---------------- */
 
   function initSupport() {
@@ -3048,7 +2598,6 @@
    API công khai (window.UHMascot):
      - mascotSVG    : chuỗi SVG inline của linh vật
      - initMascot() : chèn linh vật vào mọi [data-mascot], gắn tương tác
-     - initHeroGlow(): ánh sáng hero đi theo chuột (biến --mx/--my)
      - initTouchCards(): hiệu ứng chạm cho thẻ công cụ (.is-touched)
 
    Cả ba hàm tự chạy khi DOMContentLoaded nên không cần gọi thêm gì
@@ -3144,45 +2693,6 @@
       // click bao cả chạm cảm ứng; không gắn thêm touchstart để tránh
       // chạy 2 lần (touchstart rồi click tổng hợp).
       slot.addEventListener('click', play);
-    });
-  }
-
-  /* ---------------- initHeroGlow ---------------- */
-  /* Ánh sáng hero đi theo chuột: cập nhật --mx/--my trên .hero.
-     Dùng nội suy (lerp) qua requestAnimationFrame để ánh sáng trượt
-     mượt theo chuột thay vì nhảy từng pixel. Chỉ chạy khi chuột di
-     chuyển trong hero; không chạy trên cảm ứng (không có hover). */
-
-  function initHeroGlow() {
-    if (typeof document === 'undefined') return;
-    if (prefersReducedMotion()) return;
-    var hero = document.querySelector('.hero');
-    if (!hero) return;
-    if (typeof window === 'undefined' || !window.requestAnimationFrame) return;
-
-    var targetX = 50, targetY = 40; // % mặc định: giữa-trên hero
-    var curX = 50, curY = 40;
-    var rafId = null;
-
-    function tick() {
-      curX += (targetX - curX) * 0.12;
-      curY += (targetY - curY) * 0.12;
-      hero.style.setProperty('--mx', curX.toFixed(2) + '%');
-      hero.style.setProperty('--my', curY.toFixed(2) + '%');
-      // Dừng vòng lặp khi đã gần tới đích (sai số < 0.1%) để khỏi chạy nền.
-      if (Math.abs(targetX - curX) > 0.1 || Math.abs(targetY - curY) > 0.1) {
-        rafId = window.requestAnimationFrame(tick);
-      } else {
-        rafId = null;
-      }
-    }
-
-    hero.addEventListener('mousemove', function (e) {
-      var rect = hero.getBoundingClientRect();
-      if (rect.width === 0 || rect.height === 0) return;
-      targetX = ((e.clientX - rect.left) / rect.width) * 100;
-      targetY = ((e.clientY - rect.top) / rect.height) * 100;
-      if (rafId === null) rafId = window.requestAnimationFrame(tick);
     });
   }
 
@@ -3764,7 +3274,6 @@
 
   function initAll() {
     initMascot();
-    initHeroGlow();
     initTouchCards();
   }
 
@@ -3780,7 +3289,6 @@
   var api = {
     mascotSVG: mascotSVG,
     initMascot: initMascot,
-    initHeroGlow: initHeroGlow,
     initTouchCards: initTouchCards
   };
   if (typeof window !== 'undefined') window.UHMascot = api;

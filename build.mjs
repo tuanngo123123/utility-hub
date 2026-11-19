@@ -28,7 +28,6 @@ import * as sinhVienPage from './src/pages/sinh-vien.js';
 import { TEMPLATES as SINH_VIEN_TEMPLATES } from './src/pages/sinh-vien-data.js';
 import * as huongDanPage from './src/pages/huong-dan.js';
 import { ARTICLES as HUONG_DAN_ARTICLES } from './src/pages/huong-dan-data.js';
-import * as hocMienPhiPage from './src/pages/hoc-mien-phi.js';
 import { GROUPS as HOC_MIEN_PHI_GROUPS } from './src/pages/hoc-mien-phi-data.js';
 import * as giaoVienPage from './src/pages/giao-vien.js';
 import * as giaoVienLopHocPage from './src/pages/giao-vien-lop-hoc.js';
@@ -36,6 +35,7 @@ import * as ungHoPage from './src/pages/ung-ho.js';
 import * as dieuKhoanPage from './src/pages/dieu-khoan.js';
 import * as privacyPage from './src/pages/chinh-sach-bao-mat.js';
 import * as lienHePage from './src/pages/lien-he.js';
+import * as gioiThieuPage from './src/pages/gioi-thieu.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const SRC = path.join(ROOT, 'src');
@@ -327,6 +327,56 @@ function getM2FormulasSrc() {
   return m2FormulasSrc;
 }
 
+// Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 11 công cụ
+// có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
+// kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
+// (bài → công cụ) khi nhúng công cụ ở đầu bài viết (MẪU 3/4, 19/11).
+const GUIDE_LINKS = {
+  'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
+  'tien-dien-bac-thang': { url: '/huong-dan/cach-tinh-tien-dien-bac-thang-2026/', title: 'Cách tính tiền điện bậc thang 2026' },
+  'le-phi-mon-bai': { url: '/huong-dan/le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien/', title: 'Lệ phí môn bài bãi bỏ từ 2026: ai còn phải nộp?' },
+  'bhxh-mot-lan': { url: '/huong-dan/cach-tinh-bhxh-mot-lan-2026/', title: 'Cách tính BHXH một lần 2026' },
+  'lai-vay': { url: '/huong-dan/cach-tinh-lai-vay-tra-gop-du-no-giam-dan/', title: 'Cách tính lãi vay trả góp theo dư nợ giảm dần' },
+  'lai-kep': { url: '/huong-dan/cach-tinh-lai-suat-tiet-kiem-ngan-hang/', title: 'Cách tính lãi suất tiết kiệm ngân hàng' },
+  'thue-thu-nhap-ca-nhan': { url: '/huong-dan/cach-tinh-thue-thu-nhap-ca-nhan-2026/', title: 'Cách tính thuế thu nhập cá nhân 2026' },
+  'tien-nuoc-bac-thang': { url: '/huong-dan/cach-tinh-tien-nuoc-bac-thang-2026/', title: 'Cách tính tiền nước bậc thang 2026' },
+  'luong-tang-ca': { url: '/huong-dan/cach-tinh-luong-tang-ca-2026/', title: 'Cách tính lương tăng ca 2026' },
+  'luong-huu': { url: '/huong-dan/cach-tinh-luong-huu-bhxh-2026/', title: 'Cách tính lương hưu BHXH 2026' },
+  'luong-thang-13': { url: '/huong-dan/luong-thang-13-thuong-tet-2027/', title: 'Lương tháng 13 & thưởng Tết 2027: có bắt buộc không, tính thuế thế nào' },
+};
+
+// Khối nhúng công cụ ở đầu bài viết (MẪU 3/4, 19/11): cùng khung dùng
+// thử + init() như trang công cụ, thêm tiêu đề + link tới trang riêng.
+// Chỉ dùng cho 11 bài có GUIDE_LINKS; bài không có công cụ liên quan
+// (phạt nguội, CV) thì không nhúng gì. tool-state.js nạp kèm để khung
+// nhúng có đủ nút Đặt lại + lưu trạng thái qua URL như trang công cụ
+// (an toàn trên trang bài: không có nút Báo sai nên logic hộp thoại
+// trong tool-state.js tự bỏ qua). Công cụ MẪU 2 cần thêm class
+// .m2-page trên <section> — mọi style MẪU 2 (biến --m2-*, nút Chép
+// nền xanh, ô nhập 56px...) đều nằm dưới .m2-page; thiếu nó thì nút
+// Chép mất nền (bắt được khi xem ảnh chụp bài nhúng, 19/11).
+function toolEmbedHtml(tool) {
+  const initSrc = tool.initSource.replace(/<\/script/gi, '<\\/script');
+  const isM2 = M2_SLUGS.has(tool.slug);
+  const catColor = categoryColor(tool.categorySlug);
+  const catColorDark = categoryColorDark(tool.categorySlug);
+  return `<section class="hd-tool${isM2 ? ' m2-page' : ''}" aria-label="Thử công cụ ngay">
+  <h2>Thử ngay: ${esc(tool.name)}</h2>
+  <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
+    <div id="tool-root">${tool.bodyHtml}</div>
+  </div>
+  ${isM2 ? `<script>\n${getM2FormulasSrc()}\n</script>` : ''}
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var root = document.getElementById('tool-root');
+    (${initSrc})(root);
+  });
+  </script>
+  <script src="/assets/tool-state.js" defer></script>
+  <p class="muted">Mở trang riêng của công cụ: <a href="/cong-cu/${esc(tool.slug)}/">${esc(tool.name)} →</a></p>
+</section>`;
+}
+
 function toolPageHtml(tool, index, noscriptLinks) {
   // init() tự chứa hoàn toàn (không import) nên nhúng được bằng toString().
   // Escape </script> để mã nguồn init không phá vỡ thẻ script.
@@ -412,25 +462,11 @@ function toolPageHtml(tool, index, noscriptLinks) {
     if (!items.length) return '';
     return `<section class="tool-related"><h2>Công cụ liên quan</h2><div class="tool-related-grid">${items.map((r) => toolCard({ slug: r.id, name: r.name, desc: r.desc, icon: r.icon, categorySlug: r.categorySlug, keywords: '' }, 0)).join('')}</div></section>`;
   })();
-  // Link tới bài hướng dẫn (mục /huong-dan/) ở cuối trang công cụ —
-  // 11 công cụ có bài hướng dẫn tương ứng. Slug bài phải khớp
-  // huong-dan-data.js (kiểm tra bằng tay khi thêm bài mới).
-  const GUIDE_LINKS = {
-    'luong-gross-net': { url: '/huong-dan/cach-tinh-luong-gross-net-2026/', title: 'Cách tính lương Gross sang Net 2026' },
-    'tien-dien-bac-thang': { url: '/huong-dan/cach-tinh-tien-dien-bac-thang-2026/', title: 'Cách tính tiền điện bậc thang 2026' },
-    'le-phi-mon-bai': { url: '/huong-dan/le-phi-mon-bai-2026-ho-kinh-doanh-duoc-mien/', title: 'Lệ phí môn bài bãi bỏ từ 2026: ai còn phải nộp?' },
-    'bhxh-mot-lan': { url: '/huong-dan/cach-tinh-bhxh-mot-lan-2026/', title: 'Cách tính BHXH một lần 2026' },
-    'lai-vay': { url: '/huong-dan/cach-tinh-lai-vay-tra-gop-du-no-giam-dan/', title: 'Cách tính lãi vay trả góp theo dư nợ giảm dần' },
-    'lai-kep': { url: '/huong-dan/cach-tinh-lai-suat-tiet-kiem-ngan-hang/', title: 'Cách tính lãi suất tiết kiệm ngân hàng' },
-    'thue-thu-nhap-ca-nhan': { url: '/huong-dan/cach-tinh-thue-thu-nhap-ca-nhan-2026/', title: 'Cách tính thuế thu nhập cá nhân 2026' },
-    'tien-nuoc-bac-thang': { url: '/huong-dan/cach-tinh-tien-nuoc-bac-thang-2026/', title: 'Cách tính tiền nước bậc thang 2026' },
-    'luong-tang-ca': { url: '/huong-dan/cach-tinh-luong-tang-ca-2026/', title: 'Cách tính lương tăng ca 2026' },
-    'luong-huu': { url: '/huong-dan/cach-tinh-luong-huu-bhxh-2026/', title: 'Cách tính lương hưu BHXH 2026' },
-    'luong-thang-13': { url: '/huong-dan/luong-thang-13-thuong-tet-2027/', title: 'Lương tháng 13 & thưởng Tết 2027: có bắt buộc không, tính thuế thế nào' },
-  };
+  // Link tới bài viết ở cuối trang công cụ (GUIDE_LINKS ở phạm vi
+  // module, dùng chung cho cả nhúng công cụ ở đầu bài viết).
   const guide = GUIDE_LINKS[tool.slug];
   const guideHtml = guide
-    ? `<section class="tool-guide" aria-label="Đọc hướng dẫn"><h2>Đọc hướng dẫn</h2><p>Muốn hiểu cách tính từng bước, kèm ví dụ tính sẵn? Đọc bài <a href="${guide.url}">${esc(guide.title)} →</a></p></section>`
+    ? `<section class="tool-guide" aria-label="Đọc bài viết"><h2>Đọc bài viết</h2><p>Muốn hiểu cách tính từng bước, kèm ví dụ tính sẵn? Đọc bài <a href="${guide.url}">${esc(guide.title)} →</a></p></section>`
     : '';
   // Hướng B đợt 1: (1) CHỈ GIỮ 1 đoạn mô tả dưới H1 — công cụ có intro
   // (TOOL_CONTENT) thì bỏ dòng desc ngắn (2 đoạn lặp lại cùng thông tin,
@@ -512,6 +548,25 @@ function toolPageHtml(tool, index, noscriptLinks) {
     });
   }
   const schemaHead = jsonLdScript({ '@context': 'https://schema.org', '@graph': schemaGraph });
+  // Nút "Báo sai số liệu" (MẪU 3/4, 19/11) trên MỌI trang công cụ: mở
+  // hộp thoại <dialog> — tên công cụ tự điền sẵn, ô ghi chú, ô chọn
+  // "Gửi kèm số liệu tôi đã nhập" (mặc định KHÔNG chọn). Logic mở/đóng
+  // + soạn mailto tới ngotuantdmu97@gmail.com nằm trong
+  // src/tool-state.js (nạp kèm mọi trang công cụ).
+  const reportHtml = `<p class="uh-report-wrap"><button type="button" class="uh-report-btn" data-uh-report>⚠ Báo sai số liệu</button></p>
+  <dialog class="uh-report-dialog" data-uh-report-dialog data-uh-tool-name="${esc(tool.name)}" data-uh-tool-slug="${esc(tool.slug)}">
+    <h2>Báo sai số liệu</h2>
+    <p>Công cụ: <strong>${esc(tool.name)}</strong></p>
+    <label class="uh-report-check"><input type="checkbox" data-uh-report-include> Gửi kèm số liệu tôi đã nhập</label>
+    <div class="uh-report-field">
+      <label for="uh-report-notes">Số liệu nào sai? (không bắt buộc)</label>
+      <textarea id="uh-report-notes" data-uh-report-notes placeholder="Ví dụ: tôi nhập lương 30 triệu, kết quả thuế khác với bảng lương công ty."></textarea>
+    </div>
+    <div class="uh-report-actions">
+      <button type="button" class="btn btn-ghost" data-uh-report-cancel>Đóng</button>
+      <button type="button" class="btn btn-primary" data-uh-report-send>Soạn email</button>
+    </div>
+  </dialog>`;
   const bodyInner = `
   <nav class="breadcrumb" aria-label="Đường dẫn">${isM2 ? `<a href="/cong-cu/?cat=${esc(tool.categorySlug)}">← ${esc(tool.categoryLabel)}</a>` : `<a href="/cong-cu/">← Tất cả công cụ</a>`}</nav>
   <header class="tool-page-head">
@@ -524,6 +579,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   <div class="tool-try" style="--cat-color: ${esc(catColor)}; --cat-color-dark: ${esc(catColorDark)}">
     <div id="tool-root">${tool.bodyHtml}</div>
   </div>
+  ${reportHtml}
   ${isM2 ? `<script>\n${getM2FormulasSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
@@ -696,7 +752,7 @@ function codeSamplePageHtml(sample, samples, topics) {
     desc: sample.desc,
     keywords: `code mẫu, ${sample.title}, ${sample.lang}${topic ? `, ${topic.label}` : ''}`,
     canonical: `${BASE_URL}/code-mau/${sample.id}/`,
-    navActive: 'code-mau',
+    navActive: '',
     body: codeMauPage.detailBody({ sample, samples, topics }),
   });
 }
@@ -739,9 +795,6 @@ async function main() {
       canonical: `${BASE_URL}/`,
       navActive: 'home',
       body: homePage.body(ctx),
-      // Rail video trang chủ: preload 2 poster đầu (như 21st.dev preload
-      // poster của thẻ nổi bật với fetchpriority cao); 6 poster còn lại lazy.
-      extraHead: '<link rel="preload" as="image" href="/assets/rail/luong-gross-net.jpg" fetchpriority="high"><link rel="preload" as="image" href="/assets/rail/tien-dien-bac-thang.jpg">',
       noscriptLinks,
     }),
     `${BASE_URL}/`
@@ -768,7 +821,7 @@ async function main() {
       desc: 'Ủng hộ tự nguyện để duy trì Tiện Ích Hub (tên miền, hosting) qua chuyển khoản VietQR — không phải quyên góp từ thiện, không có lợi ích đổi lại.',
       keywords: 'ủng hộ, donate, VietQR',
       canonical: `${BASE_URL}/ung-ho/`,
-      navActive: 'ung-ho',
+      navActive: '',
       body: ungHoPage.body(ctx),
       noscriptLinks,
       needsQR: true, // trang Ủng hộ vẽ mã VietQR
@@ -833,7 +886,7 @@ async function main() {
       desc: `${codeSamples.length} mẫu code sao chép-dán cho lập trình viên: VietQR, CRC16, kiểm tra SĐT/CCCD/mã số thuế, đọc số thành chữ, slug tiếng Việt, JWT, debounce — đã chạy thử, kèm prompt cho AI.`,
       keywords: 'code mẫu, snippet, VietQR, CRC16, JavaScript, Python',
       canonical: `${BASE_URL}/code-mau/`,
-      navActive: 'code-mau',
+      navActive: '',
       body: codeMauPage.body({ samples: codeSamples, topics: codeTopics }),
       noscriptLinks,
     }),
@@ -914,12 +967,24 @@ async function main() {
       fail(`huong-dan-data.js: bài "${a.slug}" thiếu cta (url/label/text).`);
     }
   }
+  // Nhúng công cụ liên quan ở đầu bài viết (MẪU 3/4, 19/11): đảo
+  // GUIDE_LINKS (công cụ → bài) thành (bài → công cụ). Bài không có
+  // công cụ liên quan (phạt nguội, CV) thì embedHtml rỗng, bài giữ
+  // nguyên. GUIDE_LINKS trỏ tới bài không tồn tại thì fail build.
+  const toolsBySlug = new Map(tools.map((t) => [t.slug, t]));
+  const guideByArticle = new Map();
+  for (const [toolSlug, g] of Object.entries(GUIDE_LINKS)) {
+    const m = g.url.match(/^\/huong-dan\/([^/]+)\/$/);
+    if (!m) fail(`GUIDE_LINKS: "${toolSlug}" có URL bài không đúng dạng /huong-dan/<slug>/: "${g.url}".`);
+    guideByArticle.set(m[1], toolSlug);
+  }
+  for (const slug of guideByArticle.keys()) {
+    if (!huongDanSlugs.has(slug)) fail(`GUIDE_LINKS: trỏ tới bài không tồn tại: "${slug}".`);
+  }
   addPage(
     'huong-dan/index.html',
     shell({
-      title: `Hướng dẫn — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, lương tháng 13, phạt nguội | ${SITE_NAME}`,
-      desc: 'Hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, lương tháng 13 và thưởng Tết, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',
-      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, lương tháng 13, thưởng Tết 2027, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
+      title: `Bài viết — Cách tính lương, thuế, lãi vay, tiết kiệm, tiền điện, tiền nước, lương hưu, lương tháng 13, phạt nguội | ${SITE_NAME}`,      desc: 'Bài viết hướng dẫn cách tính lương Gross–Net, thuế TNCN 2026, lãi vay trả góp, lãi tiết kiệm, tiền điện và tiền nước bậc thang, lương hưu BHXH, lương tháng 13 và thưởng Tết, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026 và cách viết CV sinh viên — tự viết, số liệu theo quy định hiện hành, kèm công cụ tính ngay.',      keywords: 'hướng dẫn, cách tính lương gross net, cách tính thuế tncn 2026, cách tính lãi vay, cách tính lãi tiết kiệm, cách tính tiền điện, cách tính tiền nước, lương tăng ca, cách tính lương hưu, lương tháng 13, thưởng Tết 2027, tra cứu phạt nguội, BHXH một lần, lệ phí môn bài 2026, cách viết CV',
       canonical: `${BASE_URL}/huong-dan/`,
       navActive: 'huong-dan',
       body: huongDanPage.body({ articles: HUONG_DAN_ARTICLES }),
@@ -928,6 +993,14 @@ async function main() {
     `${BASE_URL}/huong-dan/`
   );
   for (const a of HUONG_DAN_ARTICLES) {
+    // Nhúng công cụ liên quan ở đầu bài (nếu có trong GUIDE_LINKS).
+    const embedToolSlug = guideByArticle.get(a.slug);
+    let embedHtml = '';
+    if (embedToolSlug) {
+      const embedTool = toolsBySlug.get(embedToolSlug);
+      if (!embedTool) fail(`GUIDE_LINKS: bài "${a.slug}" trỏ tới công cụ không tồn tại: "${embedToolSlug}".`);
+      embedHtml = toolEmbedHtml(embedTool);
+    }
     // Schema Article (SEO lô 1): sinh tự động từ dữ liệu bài — headline,
     // ngày đăng (đổi sang ISO), tác giả/nhà xuất bản là Tiện Ích Hub.
     const articleSchema = {
@@ -949,21 +1022,19 @@ async function main() {
     addPage(
       `huong-dan/${a.slug}/index.html`,
       shell({
-        title: `${a.title} — Hướng dẫn | ${SITE_NAME}`,
-        desc: a.desc,
+        title: `${a.title} — Bài viết | ${SITE_NAME}`,        desc: a.desc,
         keywords: `hướng dẫn, ${a.title}`,
         canonical: `${BASE_URL}/huong-dan/${a.slug}/`,
         navActive: 'huong-dan',
-        body: huongDanPage.detailBody({ article: a, articles: HUONG_DAN_ARTICLES }),
-        noscriptLinks,
+        body: huongDanPage.detailBody({ article: a, articles: HUONG_DAN_ARTICLES, embedHtml }),        noscriptLinks,
         extraHead: jsonLdScript(articleSchema),
       }),
       `${BASE_URL}/huong-dan/${a.slug}/`
     );
   }
-  console.log(`   - Hướng dẫn: ${HUONG_DAN_ARTICLES.length} bài, ${HUONG_DAN_ARTICLES.length + 1} trang`);
-
-  // Trang Học miễn phí: 1 trang duy nhất (không trang con). Dữ liệu từ
+  console.log(`   - Bài viết: ${HUONG_DAN_ARTICLES.length} bài (${guideByArticle.size} bài có nhúng công cụ), ${HUONG_DAN_ARTICLES.length + 1} trang`);
+  // Tab Tài liệu học trong Sinh viên (gộp từ trang /hoc-mien-phi/ cũ,
+  // đợt menu MẪU 3/4, 19/11): dữ liệu từ
   // src/pages/hoc-mien-phi-data.js — repo đã kiểm chứng thật qua GitHub
   // API 18/11/2026, mô tả tiếng Việt tự viết. Repo KHÔNG phải công cụ.
   const hocMienPhiRepos = new Set();
@@ -992,20 +1063,28 @@ async function main() {
       }
     }
   }
+  // Không còn trang riêng /hoc-mien-phi/ — nội dung hiện trong tab
+  // Tài liệu học ở /sinh-vien/; địa chỉ cũ chuyển hướng 301 (xem
+  // file _redirects ghi ở cuối main()).
+  console.log(`   - Tài liệu học (trong Sinh viên): ${hocMienPhiCount} repo`);
+
+  // Trang Giới thiệu: người làm, mục đích của web, mục Nguồn mở
+  // (MẪU 3/4, 19/11). CHƯA có mục liên hệ — Tuấn chưa chọn ghi email
+  // hay Zalo (TODO trong src/pages/gioi-thieu.js). Link từ footer.
   addPage(
-    'hoc-mien-phi/index.html',
+    'gioi-thieu/index.html',
     shell({
-      title: `Học miễn phí — Repo GitHub học tiếng Anh, lập trình, thiết kế | ${SITE_NAME}`,
-      desc: 'Repo GitHub học miễn phí, mô tả bằng tiếng Việt: học tiếng Anh (từ vựng, IELTS), lập trình (freeCodeCamp, sách miễn phí, lộ trình), thiết kế và bài báo khoa học — kèm số sao và link gốc.',
-      keywords: 'học miễn phí, học tiếng anh miễn phí, repo github học lập trình, học lập trình miễn phí, tài liệu miễn phí',
-      canonical: `${BASE_URL}/hoc-mien-phi/`,
-      navActive: 'hoc-mien-phi',
-      body: hocMienPhiPage.body(),
+      title: `Giới thiệu | ${SITE_NAME}`,
+      desc: 'Tiện Ích Hub do Ngô Minh Tuấn làm — công cụ tính toán miễn phí chạy ngay trên trình duyệt, không cần đăng ký, không thu thập dữ liệu. Xem các thư viện nguồn mở web đang dùng.',
+      keywords: 'giới thiệu, tiện ích hub, ngô minh tuấn, công cụ miễn phí, nguồn mở',
+      canonical: `${BASE_URL}/gioi-thieu/`,
+      navActive: '',
+      body: gioiThieuPage.body(),
       noscriptLinks,
     }),
-    `${BASE_URL}/hoc-mien-phi/`
+    `${BASE_URL}/gioi-thieu/`
   );
-  console.log(`   - Học miễn phí: ${hocMienPhiCount} repo, 1 trang`);
+  console.log('   - Giới thiệu: 1 trang');
 
   // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 10 công cụ hạng mục
   // giao-vien (danh sách trong src/pages/giao-vien.js).
@@ -1100,14 +1179,8 @@ async function main() {
   copyFile('logo/favicon-512-maskable.png', 'assets/favicon-512-maskable.png');
   copyFile('logo/og-image.png', 'assets/og-image.png');
   copyFile('tool-state.js', 'assets/tool-state.js');
-  // Rail video trang chủ (18/11, theo cơ chế 21st.dev): 8 clip mp4 + 8
-  // poster jpg trong src/rail/. Thiếu file nào thì build dừng ngay để
-  // khỏi đăng rail thiếu video.
-  const RAIL_FILES = ['luong-gross-net', 'tien-dien-bac-thang', 'vietqr-wifi-qr', 'lich-am', 'bhxh-mot-lan', 'lai-vay', 'doi-dia-chi-cu-moi', 'tao-bieu-do'];
-  for (const slug of RAIL_FILES) {
-    copyFile(`rail/${slug}.mp4`, `assets/rail/${slug}.mp4`);
-    copyFile(`rail/${slug}.jpg`, `assets/rail/${slug}.jpg`);
-  }
+  // Rail video trang chủ đã gỡ đợt MẪU 3 (19/11) — không chép nữa;
+  // file gốc vẫn giữ trong src/rail/ (không xóa, để sau này dùng lại).
   copyFile('vendor/qrcode-generator.js', 'assets/vendor/qrcode-generator.js');
   copyFile('vendor/pdf.min.js', 'assets/vendor/pdf.min.js');
   // File worker của pdf.js: pdf.js tự nạp lúc chạy (Web Worker) khi trích
@@ -1174,6 +1247,11 @@ async function main() {
   // bản mới lên chậm. File _headers ở gốc dist ép trình duyệt kiểm tra
   // lại SW mỗi lần mở trang (chỉ riêng file này, không đụng asset khác).
   writeFile('_headers', '/giao-vien/lop-hoc/sw.js\n  Cache-Control: no-cache\n');
+  // Chuyển hướng 301: /hoc-mien-phi/ gộp vào tab Tài liệu học trong
+  // Sinh viên (đợt menu MẪU 3/4, 19/11). Cloudflare Pages đọc file
+  // _redirects ở gốc dist; fragment #tai-lieu-hoc giữ nguyên trong
+  // Location để trình duyệt mở đúng tab (setupTabs mở tab theo hash).
+  writeFile('_redirects', '/hoc-mien-phi/ /sinh-vien/#tai-lieu-hoc 301\n');
   console.log(`   - PWA Bàn giáo viên: manifest + SW (${gvPrecache.length} URL cache trước)`);
 
   console.log(`✅ Build xong trong ${Date.now() - started}ms:`);

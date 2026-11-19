@@ -1,62 +1,77 @@
-// Trang chủ — KHÔI PHỤC BỐ CỤC TRƯỚC ĐỢT 1 (Tuấn yêu cầu 18/11, thấy bản
-// cũ đẹp hơn bản wave 1), phủ giao diện mới kiểu web nước ngoài
-// (iLovePDF + TinyWow + Product Hunt).
-// Thứ tự (sau đợt sửa UX 18/11, theo góp ý rà soát điện thoại 375px):
-// hero (H1 tĩnh + từ xoay trang trí + tìm kiếm làm tâm điểm + 1 nút CTA)
-// → rail Công cụ nổi bật (công cụ hay dùng) → Dùng gần đây (đọc
-// localStorage uh_visited_tools, trống thì ẩn) → hàng mục nổi bật gọn
-// (Sinh viên / Hướng dẫn / Học miễn phí / Giáo viên) → dải dữ liệu hôm
-// nay (crypto, vàng, tỷ giá, xổ số, lịch âm, tử vi) → Điểm báo thu gọn
-// (1 tin nổi bật + 2 tin/tab + link xem thêm) → lưới đủ công cụ (+ nút
-// xúc xắc "Thử công cụ ngẫu nhiên") → Tin hot (đã dời xuống dưới
-// lưới công cụ — trước đây nằm trong vùng hero, chiếm màn hình đầu tiên)
-// → banner Ủng hộ.
-// KHÔNG còn khối "Hôm nay" riêng, hàng "công cụ hay dùng" riêng, thẻ hạng
-// mục riêng như wave 1 (thẻ hạng mục đặc màu chuyển sang trang /cong-cu/).
-// SSR (worker W11): Điểm báo (tin nổi bật + cụm tin theo chủ đề) và Tin hot
-// được render SẴN trong HTML lúc build từ src/data/news.json (build.mjs
-// truyền qua ctx.news), kèm data-updated-at. app.js lúc tải trang fetch JSON
-// và CHỈ render lại nếu JSON mới hơn SSR; nếu fetch lỗi thì giữ SSR + hiện
-// nút thử lại. Các dải dữ liệu do app.js điền lúc chạy, khung tải có
-// skeleton (xám mờ) thay bằng nội dung khi tải xong.
-// Khối "Xu hướng GitHub" đã gỡ khỏi trang chủ 19/11/2026 (tự hiện mô tả
-// tiếng Trung chưa dịch + repo lách đăng ký/mã mời) — xem trang công cụ
-// /cong-cu/github-trending/ (chỉ hiện repo đã có mô tả tiếng Việt).
-// Lưới công cụ render sẵn lúc build từ danh sách build.mjs quét được.
-import { toolCard, esc } from '../tool-card.js';
-import { CATEGORIES, categoryLabel, categoryColor, categoryColorDark } from '../categories.js';
+// Trang chủ — MẪU 3 (19/11/2026).
+// Thứ tự: hero (H1 + 1 dòng phụ + ô tìm kiếm + 6 chip từ khóa hot)
+// → Dùng gần đây (đọc localStorage uh_visited_tools, trống thì ẩn)
+// → Được dùng nhiều nhất (8 thẻ đều nhau) → Dành cho bạn (4 ô lớn)
+// → Hôm nay (4 ô nhỏ: vàng, USD, âm lịch, xổ số) → Điểm báo (3 tin).
+// Đã bỏ: chữ chạy trong H1, mascot giọt nước, nút "Chọn công cụ, dùng
+// ngay", rail video, hàng mục nổi bật, dải crypto/tử vi, lưới đủ 133
+// công cụ, Tin hot, banner Ủng hộ, khối Xu hướng GitHub (đã gỡ 19/11).
+// SSR (worker W11): Điểm báo render SẴN trong HTML lúc build từ
+// src/data/news.json (build.mjs truyền qua ctx.news), kèm
+// data-updated-at. app.js lúc tải trang fetch JSON và CHỈ render lại
+// nếu JSON mới hơn SSR; nếu fetch lỗi thì giữ SSR. Các ô "Hôm nay" do
+// app.js điền lúc chạy, khung tải có skeleton (xám mờ) thay bằng nội
+// dung khi tải xong.
+import { esc } from '../tool-card.js';
+import { CATEGORIES } from '../categories.js';
 
-// Dải dữ liệu hôm nay: nhãn + vùng dữ liệu (app.js điền lúc chạy) + link
-// chi tiết. id crypto-strip / gold-content… giữ nguyên như trước, chỉ đặt
-// vào trong dải; app.js không cần sửa.
-// Khung tải có 2 thanh skeleton xám mờ; app.js thay toàn bộ innerHTML khi
-// dữ liệu về nên skeleton tự biến mất, không cần sửa hàm dữ liệu.
-// extraHtml (tùy chọn): HTML thêm giữa vùng dữ liệu và link chi tiết —
-// dùng cho dòng Fear & Greed trong dải Crypto (nằm NGOÀI #crypto-strip
-// nên initCrypto thay innerHTML không xóa được).
-function stripCard(label, contentId, loadingText, detailHref, detailText, extraHtml) {
-  return `<article class="strip-card">
-  <h3 class="strip-label">${esc(label)}</h3>
-  <div class="strip-body" id="${contentId}"><div class="skeleton skeleton-value" aria-hidden="true"></div><div class="skeleton skeleton-line" aria-hidden="true"></div><p class="muted">${esc(loadingText)}</p></div>
-  ${extraHtml || ''}
-  <p class="strip-link"><a href="${esc(detailHref)}">${esc(detailText)}</a></p>
+// "Được dùng nhiều nhất" — THỨ TỰ MẶC ĐỊNH, chưa phải số liệu thật.
+// Báo cáo tuần 17–19/11/2026 (bao-cao-tuan.json): 91 lượt thăm, phần
+// lớn là lượt tự kiểm thử của đội làm web, chưa đủ tin để xếp hạng
+// công cụ theo lượt dùng thật. Khi có số liệu thật (Cloudflare +
+// tách lượt nội bộ bằng cờ uh_internal), thay danh sách này bằng
+// top 8 theo lượt dùng và xóa ghi chú này. Đừng bịa số lượt dùng.
+const MOST_USED_SLUGS = [
+  'luong-gross-net',
+  'tien-dien-bac-thang',
+  'vietqr-wifi-qr',
+  'lich-am',
+  'bhxh-mot-lan',
+  'lai-vay',
+  'doi-dia-chi-cu-moi',
+  'thue-thu-nhap-ca-nhan',
+];
+
+// 6 từ khóa hot trong hero (link thẳng tới công cụ). File mẫu ghi
+// "Ảnh thẻ 3×4" nhưng công cụ đó chưa có nên thay bằng Lương hưu.
+const HOT_CHIPS = [
+  { label: 'Lương net', href: '/cong-cu/luong-gross-net/' },
+  { label: 'Tiền điện', href: '/cong-cu/tien-dien-bac-thang/' },
+  { label: 'VietQR', href: '/cong-cu/vietqr-wifi-qr/' },
+  { label: 'Lịch âm', href: '/cong-cu/lich-am/' },
+  { label: 'BHXH một lần', href: '/cong-cu/bhxh-mot-lan/' },
+  { label: 'Lương hưu', href: '/cong-cu/luong-huu/' },
+];
+
+function categoryIcon(slug) {
+  const found = CATEGORIES.find((c) => c.slug === slug);
+  return found ? found.icon : '🧰';
+}
+
+// Ô "Hôm nay": nhãn + vùng dữ liệu (app.js điền lúc chạy) + link chi
+// tiết. id gold-content / fx-content / lunar-content / lottery-content
+// giữ nguyên như trước để app.js không cần đổi id — chỉ rút gọn nội
+// dung app.js chèn vào cho vừa ô nhỏ (giá + nguồn/giờ, không thêm hộp
+// mua/bán).
+function todayCard(label, contentId, loadingText, detailHref, detailText) {
+  return `<article class="today-card">
+  <h3 class="today-label">${esc(label)}</h3>
+  <div id="${contentId}"><div class="skeleton skeleton-value" aria-hidden="true"></div><p class="muted small">${esc(loadingText)}</p></div>
+  <p class="today-link"><a href="${esc(detailHref)}">${esc(detailText)}</a></p>
 </article>`;
 }
 
 // ---------------------------------------------------------------------------
-// SSR Điểm báo + Tin hot — bản sao lúc build của logic render trong
-// src/app.js (initNewsAndHot): cùng markup, cùng quy tắc (tin nổi bật = tin
-// đầu tiên CÓ tóm tắt, ưu tiên nhóm AI, và bị loại khỏi danh sách tab; mỗi
-// nhóm tối đa 2 tin; tin hot = 6 tin mới nhất mọi nhóm). Giữ hai bên đồng
-// bộ khi sửa một bên.
+// SSR Điểm báo — bản sao lúc build của logic render trong src/app.js
+// (initHomeNews): cùng markup, cùng quy tắc (3 tin mới nhất mọi nhóm).
+// Giữ hai bên đồng bộ khi sửa một bên.
 // ---------------------------------------------------------------------------
 const NEWS_GROUPS = [
   { id: 'ai', label: 'AI' },
   { id: 'chung-khoan', label: 'Chứng khoán' },
   { id: 'crypto', label: 'Crypto' },
 ];
-const NEWS_PER_GROUP = 2; // Trang chủ chỉ hiện 2 tin/tab (+ 1 tin nổi bật = 3 tin) — thu gọn theo góp ý UX 18/11; xem đủ ở /diem-bao/.
-const HOT_COUNT = 6;
+const HOME_NEWS_COUNT = 3;
 
 // news.json có thể ở 1 trong 2 dạng: groups là mảng [{id,label,items}] hoặc
 // object {ai:[...], 'chung-khoan':[...], crypto:[...]}. Tin dùng `url` hoặc `link`.
@@ -108,213 +123,116 @@ function newsCardHtml(item) {
     '</article>';
 }
 
-function newsFeaturedHtml(item) {
-  const summary = truncateSummary(item.summary);
-  const date = newsItemDate(item);
-  const meta = [item.source || '', date ? formatDate(date) : ''].filter(Boolean).join(' · ');
-  return '<article class="news-card news-featured">' +
-    '<p class="news-featured-tag">Tin nổi bật</p>' +
-    '<h3><a href="' + esc(newsItemUrl(item)) + '" target="_blank" rel="noopener">' +
-    esc(newsTitle(item) || '(không có tiêu đề)') + '</a></h3>' +
-    (summary ? '<p class="news-summary">' + esc(summary) + '</p>' : '') +
-    (item.why ? '<p class="news-why">' + esc(item.why) + '</p>' : '') +
-    (meta ? '<p class="news-meta">' + esc(meta) + '</p>' : '') +
-    '</article>';
-}
-
-function hotRowHtml(item, i) {
-  const date = newsItemDate(item);
-  const meta = [item.source || '', date ? formatDate(date) : ''].filter(Boolean).join(' · ');
-  // Tin hot cũng hiện tóm tắt tiếng Việt như thẻ Điểm báo (dùng lại class
-  // .rank-desc của hàng GitHub) — trước đây chỉ có tiêu đề tiếng Anh + nguồn.
-  const summary = truncateSummary(item.summary);
-  return '<div class="rank-row rank-' + (i + 1) + '">' +
-    '<div class="rank-num">' + (i + 1) + '</div>' +
-    '<div class="rank-body"><h4><a href="' + esc(newsItemUrl(item)) +
-    '" target="_blank" rel="noopener">' + esc(newsTitle(item) || '') + '</a></h4>' +
-    (summary ? '<p class="rank-desc">' + esc(summary) + '</p>' : '') +
-    (meta ? '<p class="rank-meta">' + esc(meta) + '</p>' : '') +
-    '</div></div>';
-}
-
-export function body({ tools = [], categories = [], news = null } = {}) {
-  const cats = categories.length ? categories : CATEGORIES;
-
-  // Lưới đầy đủ công cụ + chip lọc riêng cho trang chủ.
-  // Chip hạng mục tô màu hạng mục (hướng B): biến --cat-color đặt inline
-  // theo từng chip; chip "Tất cả" giữ xanh mặc định của web.
-  const homeChips = [`<button type="button" class="chip chip-active" data-home-filter="all" aria-pressed="true">Tất cả</button>`]
-    .concat(cats.map((c) => `<button type="button" class="chip chip-cat" data-home-filter="${c.slug}" aria-pressed="false" style="--cat-color: ${esc(categoryColor(c.slug))}; --cat-color-dark: ${esc(categoryColorDark(c.slug))}">${esc(c.label)}</button>`))
-    .join('\n      ');
-  const allGrid = tools.length
-    ? `<div class="grid-3" id="home-tool-grid">
-${tools.map((tool, i) => toolCard(tool, i)).join('\n')}
-</div>
-<div id="home-tool-empty" class="empty-state" hidden><div data-mascot="empty" aria-hidden="true"></div><p><strong>Không tìm thấy công cụ nào trong hạng mục này.</strong></p><p class="muted">Thử tìm: <a href="/cong-cu/luong-gross-net/">tính lương net</a> hoặc bấm <a href="/cong-cu/">xem tất cả công cụ</a>.</p></div>`
-    : `<p class="muted">Chưa có công cụ nào — đang cập nhật.</p>`;
-
-  // (SSR) Điểm báo + bảng xếp hạng render sẵn từ JSON lúc build.
-  // Mỗi khối có data-ssr="1" + data-updated-at để app.js so sánh với JSON
-  // mới lúc tải trang; không có dữ liệu thì giữ khung tải như cũ.
+export function body({ tools = [], news = null } = {}) {
+  // (SSR) Điểm báo: 3 tin mới nhất mọi nhóm, render sẵn từ JSON lúc build.
+  // Khối có data-ssr="1" + data-updated-at để app.js so sánh với JSON mới
+  // lúc tải trang; không có dữ liệu thì giữ khung tải như cũ.
   const newsGroups = normalizeNewsGroups(news);
   const allNewsItems = [];
   newsGroups.forEach((g) => g.items.forEach((it) => allNewsItems.push(it)));
   const newsUpdatedAt = (news && news.updatedAt) || '';
   const newsAttrs = newsUpdatedAt
     ? ` data-ssr="1" data-updated-at="${esc(newsUpdatedAt)}"` : '';
-  const aiGroup = newsGroups.find((g) => g.id === 'ai');
-  // Tin nổi bật (V1): chỉ chọn tin CÓ tóm tắt tiếng Việt — ưu tiên tin đầu
-  // tiên có tóm tắt trong nhóm AI, rồi tin đầu tiên có tóm tắt trong toàn
-  // bộ tin; không có tin nào có tóm tắt thì không hiện thẻ nổi bật.
-  const hasSummary = (it) => String((it && it.summary) || '').trim() !== '';
-  const featuredItem = (aiGroup && aiGroup.items.find(hasSummary))
-    || allNewsItems.find(hasSummary);
-  const featuredHtml = featuredItem
-    ? newsFeaturedHtml(featuredItem)
-    : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
-  const groupsHtml = allNewsItems.length === 0
-    ? '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>'
-    : NEWS_GROUPS.map((def, idx) => {
-        const g = newsGroups.find((x) => x.id === def.id);
-        // Loại tin nổi bật khỏi danh sách tab để tin không hiện 2 lần (V1).
-        const items = g ? g.items.filter((it) => it !== featuredItem).slice(0, NEWS_PER_GROUP) : [];
-        return '<div class="tab-panel" data-tab-panel="news-' + def.id + '"' +
-          (idx === 0 ? '' : ' hidden') + '>' +
-          (items.length
-            ? items.map(newsCardHtml).join('')
-            : '<p class="muted">Chưa có tin ' + esc(def.label) + '.</p>') +
-          '</div>';
-      }).join('');
-  const hotItems = allNewsItems.slice().sort((a, b) => {
+  const homeNewsItems = allNewsItems.slice().sort((a, b) => {
     const da = newsItemDate(a), db = newsItemDate(b);
     return (db ? db.getTime() : 0) - (da ? da.getTime() : 0);
-  }).slice(0, HOT_COUNT);
-  const hotHtml = hotItems.length
-    ? hotItems.map(hotRowHtml).join('')
+  }).slice(0, HOME_NEWS_COUNT);
+  const newsHtml = homeNewsItems.length
+    ? homeNewsItems.map(newsCardHtml).join('')
     : '<p class="muted">Chưa có tin — dữ liệu làm mới hằng ngày.</p>';
 
-
-  // Rail video "Công cụ nổi bật" (18/11, theo đúng cơ chế trang chủ 21st.dev
-  // đã đọc từ code JS của họ + Claude xác nhận): mỗi thẻ có sẵn ảnh poster
-  // + thẻ <video> chồng lên (preload="none" nên chưa tải gì khi mở trang);
-  // app.js initRail() xoay tự động 4 giây giữa 4 thẻ đầu + hover phát ngay.
-  // Thứ tự cố định — 4 thẻ đầu tham gia vòng xoay, 4 thẻ sau chỉ phát khi hover.
-  const RAIL_SLUGS = ['luong-gross-net', 'tien-dien-bac-thang', 'vietqr-wifi-qr', 'lich-am', 'bhxh-mot-lan', 'lai-vay', 'doi-dia-chi-cu-moi', 'tao-bieu-do'];
-  const railTools = RAIL_SLUGS.map((slug) => tools.find((t) => t.slug === slug)).filter(Boolean);
-  const railHtml = railTools.map((tool, i) => `
-    <a class="rail-card" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-rail-index="${i}">
-      <span class="rail-media">
-        <img src="/assets/rail/${esc(tool.slug)}.jpg" alt="Minh họa công cụ ${esc(tool.name)}" width="480" height="360" loading="${i < 2 ? 'eager' : 'lazy'}">
-        <video preload="none" muted loop playsinline src="/assets/rail/${esc(tool.slug)}.mp4" aria-hidden="true" tabindex="-1"></video>
+  // Được dùng nhiều nhất: 8 thẻ (icon hạng mục + tên đậm + 1 dòng mô tả).
+  const mostUsedTools = MOST_USED_SLUGS
+    .map((slug) => tools.find((t) => t.slug === slug))
+    .filter(Boolean);
+  const mostUsedHtml = mostUsedTools.map((tool) => `
+    <a class="most-used-card" href="/cong-cu/${esc(tool.slug)}/">
+      <span class="most-used-icon" aria-hidden="true">${esc(categoryIcon(tool.categorySlug))}</span>
+      <span class="most-used-body">
+        <span class="most-used-name">${esc(tool.name)}</span>
+        <span class="most-used-desc">${esc(tool.desc || '')}</span>
       </span>
-      <span class="rail-name">${esc(tool.name)}</span>
-      <span class="rail-cat">${esc(categoryLabel(tool.categorySlug))}</span>
     </a>`).join('');
+
+  const hotChipsHtml = HOT_CHIPS.map((c) =>
+    `<a class="hero-chip" href="${esc(c.href)}">${esc(c.label)}</a>`).join('\n      ');
 
   return `
   <section class="hero">
     <div class="hero-inner">
-    <p class="hero-eyebrow">Miễn phí — dùng ngay, không cần đăng ký</p>
-    <h1 aria-label="${tools.length} công cụ miễn phí">${tools.length} công cụ miễn&nbsp;phí <span class="hero-rotator" id="hero-rotator" aria-hidden="true" style="color: #1d4ed8">— tính lương</span></h1>
-    <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt.</p>
+    <h1>Công cụ tính toán miễn phí cho người Việt</h1>
+    <p class="hero-sub">Tính lương, tiền điện, VietQR, lịch âm… tất cả chạy ngay trên trình duyệt, không cần đăng ký.</p>
     <div class="hero-search-wrap">
-      <label class="small muted" for="hero-search">Tìm công cụ</label>
-      <input type="search" id="hero-search" class="hero-search" placeholder="Tìm công cụ… ví dụ: tính lương net" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="hero-search-results">
+      <svg class="hero-search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="search" id="hero-search" class="hero-search" placeholder="Tìm công cụ… ví dụ: tính lương net" autocomplete="off" role="combobox" aria-label="Tìm công cụ" aria-expanded="false" aria-controls="hero-search-results">
       <div id="hero-search-results" class="hero-search-results" role="listbox" hidden></div>
     </div>
-    <div class="hero-cta-row">
-      <a class="btn btn-primary" href="/cong-cu/">Chọn công cụ, dùng ngay</a>
+    <div class="hero-chips" aria-label="Từ khóa gợi ý">
+      ${hotChipsHtml}
     </div>
-    <div class="hero-chips hero-popular" aria-label="Từ khóa gợi ý">
-      <a class="chip" href="/cong-cu/luong-gross-net/">Tính lương net</a>
-      <a class="chip" href="/cong-cu/tien-dien-bac-thang/">Tiền điện</a>
-      <a class="chip" href="/cong-cu/vietqr-wifi-qr/">VietQR</a>
-      <a class="chip" href="/cong-cu/lich-am/">Lịch âm</a>
-    </div>
-    <div data-mascot="hero" aria-hidden="true"></div>
     </div>
   </section>
 
-  <section class="section section-rail" aria-label="Công cụ nổi bật">
-    <h2>Công cụ nổi bật</h2>
-    <p class="muted"><span class="rail-hint-hover">Rê chuột lên thẻ để xem thử.</span><span class="rail-hint-touch">Chạm để mở.</span></p>
-    <div class="rail" id="rail">
-${railHtml}
+  <section class="home-section" id="recent-tools" aria-label="Công cụ dùng gần đây" hidden>
+    <div class="home-section-head">
+      <h2>Dùng gần đây</h2>
+      <button type="button" class="recent-clear" id="recent-clear">Xóa lịch sử</button>
+    </div>
+    <div class="recent-row" id="recent-grid"></div>
+  </section>
+
+  <section class="home-section" aria-label="Được dùng nhiều nhất">
+    <div class="home-section-head">
+      <h2>Được dùng nhiều nhất</h2>
+      <a href="/cong-cu/">Xem tất cả ${tools.length} công cụ →</a>
+    </div>
+    <div class="most-used-grid">
+${mostUsedHtml}
     </div>
   </section>
 
-  <section class="section section-recent" id="recent-tools" aria-label="Công cụ dùng gần đây" hidden>
-    <h2>Dùng gần đây</h2>
-    <div class="grid-3" id="recent-grid"></div>
-  </section>
-
-  <section class="promo-row" aria-label="Các mục nổi bật">
-    <a class="promo-card" href="/sinh-vien/" style="--promo-color: #2563eb; --promo-color-dark: #1d4ed8">
-      <h2>Dành cho sinh viên</h2>
-      <p>Khóa học miễn phí, mẫu CV/báo cáo, ưu đãi phần mềm — gom một chỗ.</p>
-      <span class="promo-link">Xem ngay →</span>
-    </a>
-    <a class="promo-card" href="/huong-dan/" style="--promo-color: #6a5ae0; --promo-color-dark: #5546c0">
-      <h2>Hướng dẫn</h2>
-      <p>Cách tính lương, tiền điện, BHXH… viết ngắn gọn, kèm ví dụ tính sẵn.</p>
-      <span class="promo-link">Đọc hướng dẫn →</span>
-    </a>
-    <a class="promo-card" href="/hoc-mien-phi/" style="--promo-color: #d81b60; --promo-color-dark: #be185d">
-      <h2>Học miễn phí</h2>
-      <p>Repo GitHub học tiếng Anh, lập trình, thiết kế — mô tả tiếng Việt.</p>
-      <span class="promo-link">Xem kho học →</span>
-    </a>
-    <a class="promo-card" href="/giao-vien/" style="--promo-color: #0d9488; --promo-color-dark: #0f766e">
-      <h2>Giáo viên</h2>
-      <p>Gọi tên, chia nhóm, bốc thăm, bảng điểm — mở lên là dùng ngay trước lớp.</p>
-      <span class="promo-link">Xem công cụ →</span>
-    </a>
-  </section>
-
-  <section class="section section-strips" aria-label="Dữ liệu hôm nay">
-    <p class="strip-date muted" id="hom-nay-title">Hôm nay</p>
-    <div class="strip-grid">
-      ${stripCard('Crypto — Bitcoin', 'crypto-strip', 'Đang tải giá…', '/cong-cu/?cat=hang-ngay', 'Xem công cụ →', '<p class="muted small strip-fng" id="fng-line" hidden></p>')}
-      ${stripCard('Giá vàng SJC', 'gold-content', 'Đang tải giá vàng…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
-      ${stripCard('Tỷ giá USD', 'fx-content', 'Đang tải tỷ giá…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
-      ${stripCard('Xổ số miền Bắc', 'lottery-content', 'Đang tải kết quả…', '/cong-cu/ket-qua-xo-so/', 'Xem chi tiết →')}
-      ${stripCard('Lịch âm', 'lunar-content', 'Đang tính lịch âm…', '/cong-cu/lich-am/', 'Xem chi tiết →')}
-      ${stripCard('Tử vi hôm nay', 'horoscope-content', 'Đang tính tử vi…', '/cong-cu/tu-vi-12-con-giap/', 'Xem chi tiết →')}
+  <section class="home-section" aria-label="Dành cho bạn">
+    <h2>Dành cho bạn</h2>
+    <div class="audience-grid">
+      <a class="audience-card audience-work" href="/cong-cu/?cat=van-phong">
+        <h3>Người đi làm</h3>
+        <p>Lương, thuế, bảo hiểm, chấm công, phép năm, PDF.</p>
+        <span class="audience-link">Xem công cụ văn phòng →</span>
+      </a>
+      <a class="audience-card audience-teacher" href="/giao-vien/lop-hoc/">
+        <h3>Giáo viên</h3>
+        <p>Bàn giáo viên trên lớp + chấm điểm, trộn đề, nhận xét.</p>
+        <span class="audience-link">Mở Bàn giáo viên →</span>
+      </a>
+      <a class="audience-card audience-student" href="/sinh-vien/">
+        <h3>Sinh viên</h3>
+        <p>GPA, quy đổi điểm, điểm xét tuyển, tài liệu học miễn phí.</p>
+        <span class="audience-link">Xem góc sinh viên →</span>
+      </a>
+      <a class="audience-card audience-family" href="/cong-cu/?cat=doi-song">
+        <h3>Gia đình</h3>
+        <p>Tiền điện nước, vàng, đi chợ, du lịch, sức khỏe.</p>
+        <span class="audience-link">Xem công cụ đời sống →</span>
+      </a>
     </div>
   </section>
 
-  <section class="section" id="diem-bao" aria-label="Điểm báo">
-    <h2>Điểm báo</h2>
-    <p class="note">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
-    <div id="news-featured"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? featuredHtml : '<p class="muted">Đang tải tin…</p>'}</div>
-    <div class="tabs" role="tablist" aria-label="Lọc tin theo chủ đề">
-      <button type="button" class="tab tab-active" data-tab-target="news-ai" role="tab">AI</button>
-      <button type="button" class="tab" data-tab-target="news-chung-khoan" role="tab">Chứng khoán</button>
-      <button type="button" class="tab" data-tab-target="news-crypto" role="tab">Crypto</button>
-    </div>
-    <div id="news-groups"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? groupsHtml : '<p class="muted">Đang tải tin…</p>'}</div>
-    <p class="news-more"><a href="/diem-bao/">Xem thêm điểm báo →</a></p>
-  </section>
-
-  <section class="section" aria-label="Tất cả công cụ">
-    <h2>Tất cả công cụ</h2>
-    <p class="muted" id="home-tool-count">${tools.length} công cụ — miễn phí, chạy ngay trên trình duyệt, không cần đăng nhập.</p>
-    <p><button type="button" class="btn dice-btn" id="dice-home"><svg class="dice-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.4" fill="currentColor" stroke="none"/></svg><span class="dice-label">Thử công cụ ngẫu nhiên</span></button></p>
-    <div class="chip-row" role="group" aria-label="Lọc theo hạng mục">
-      ${homeChips}
-    </div>
-    ${allGrid}
-  </section>
-
-  <section class="section section-ranking" aria-label="Tin hot">
-    <div class="hero-ranking" id="ranking">
-      <h2>Tin hot</h2>
-      <div id="rank-hot"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? hotHtml : '<p class="muted">Đang tải…</p>'}</div>
+  <section class="home-section" aria-label="Hôm nay">
+    <h2>Hôm nay</h2>
+    <div class="today-grid">
+      ${todayCard('Vàng SJC', 'gold-content', 'Đang tải giá vàng…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
+      ${todayCard('USD', 'fx-content', 'Đang tải tỷ giá…', '/cong-cu/gia-vang-ty-gia/', 'Xem chi tiết →')}
+      ${todayCard('Âm lịch', 'lunar-content', 'Đang tính lịch âm…', '/cong-cu/lich-am/', 'Xem chi tiết →')}
+      ${todayCard('Xổ số miền Bắc', 'lottery-content', 'Đang tải kết quả…', '/cong-cu/ket-qua-xo-so/', 'Xem chi tiết →')}
     </div>
   </section>
 
-  <section class="support-banner" aria-label="Ủng hộ trang web">
-    <p><strong>Trang này miễn phí và không có quảng cáo.</strong> Nếu thấy hữu ích, bạn có thể ủng hộ để duy trì tên miền và hosting.</p>
-    <a class="btn" href="/ung-ho/">Ủng hộ</a>
+  <section class="home-section" id="diem-bao" aria-label="Điểm báo">
+    <div class="home-section-head">
+      <h2>Điểm báo</h2>
+      <a href="/diem-bao/">Xem thêm →</a>
+    </div>
+    <p class="muted small">Tin tóm tắt tham khảo, không phải lời khuyên đầu tư.</p>
+    <div class="home-news-list" id="home-news-list"${allNewsItems.length ? newsAttrs : ''}>${allNewsItems.length ? newsHtml : '<p class="muted">Đang tải tin…</p>'}</div>
   </section>`;
 }
