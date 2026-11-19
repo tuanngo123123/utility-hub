@@ -2549,6 +2549,28 @@ button.chip-cat[aria-pressed="true"]:hover,
   .sd-score { width: 56px; }
 }
 
+/* Gợi ý lời nhận xét học sinh (.nx-*): chip chọn môn/mức/phẩm chất,
+   thẻ lời gợi ý bấm để thêm vào ô soạn, danh sách lời đã soạn. */
+.nx-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.nx-chip { min-height: 44px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font: inherit; font-size: 0.95rem; cursor: pointer; }
+.nx-chip:hover { border-color: var(--accent); }
+.nx-chip-on { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.nx-sugg { display: flex; flex-direction: column; align-items: stretch; gap: 4px; width: 100%; text-align: left; background: #fff; border: 1px solid var(--line-soft); border-radius: 12px; padding: 12px 16px; margin: 0 0 8px; font: inherit; cursor: pointer; }
+.nx-sugg:hover { border-color: var(--accent); }
+.nx-sugg-added { background: #F0FDF4; border-color: #86EFAC; }
+.nx-sugg-kind { font-size: 0.8rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em; }
+.nx-sugg-text { color: var(--ink); line-height: 1.5; }
+.nx-sugg-add { align-self: flex-end; font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+.nx-sugg-added .nx-sugg-add { color: #15803D; }
+.nx-saved-row { border: 1px solid var(--line-soft); border-radius: 12px; padding: 12px 16px; margin: 0 0 8px; background: #fff; }
+.nx-saved-check { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; cursor: pointer; }
+.nx-saved-check input { width: 18px; height: 18px; accent-color: var(--accent); flex: none; }
+.nx-saved-name { font-weight: 700; }
+.nx-saved-meta { color: var(--muted); font-size: 0.85rem; }
+.nx-saved-text { margin: 8px 0; color: var(--ink-soft); line-height: 1.5; }
+.nx-saved-actions { display: flex; gap: 8px; }
+.nx-saved-actions .btn { min-height: 36px; padding: 6px 12px; font-size: 0.9rem; }
+
 /* In mẫu: chỉ in nội dung mẫu, ẩn header/footer/nav/nút. */
 @media print {
   .site-header, .site-footer, .bottom-nav, .skip-link, .aiw,

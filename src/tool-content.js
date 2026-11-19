@@ -154,6 +154,37 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "goi-y-loi-nhan-xet-hoc-sinh": {
+    intro: "Gợi ý lời nhận xét học sinh THCS, THPT theo Thông tư 22/2021/TT-BGDĐT: chọn môn Toán, Ngữ văn, Tiếng Anh, mức kết quả Tốt/Khá/Đạt/Chưa đạt và điểm mạnh, điểm cần cải thiện — nhận 3–5 lời nhận xét cụ thể, có hướng khắc phục, ghép câu không trùng nhau, sửa trực tiếp rồi chép hoặc lưu theo từng học sinh.",
+    legalBasis: "Lời nhận xét theo Thông tư 22/2021/TT-BGDĐT của Bộ Giáo dục và Đào tạo: nhận xét sự tiến bộ, ưu điểm nổi bật và hạn chế chủ yếu của học sinh (Điều 5); mức kết quả Tốt/Khá/Đạt/Chưa đạt theo khoản 2 Điều 9.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "Lời nhận xét lấy từ đâu, có phải do AI viết không?",
+        a: "Không phải AI. Ngân hàng 84 lời nhận xét được viết sẵn tay theo quy ước nhận xét của Thông tư 22: cụ thể (nêu việc làm được hoặc chưa được), mang tính định hướng phát triển, luôn kèm hướng khắc phục ở mức Chưa đạt. Công cụ chỉ chọn và ghép lời phù hợp với môn, mức và phẩm chất bạn chọn — giáo viên vẫn là người sửa câu chữ cuối cùng cho đúng với từng em."
+      },
+      {
+        q: "Làm sao để cả lớp không bị trùng câu nhận xét?",
+        a: "Công cụ nhớ những câu đã dùng cho học sinh khác và ưu tiên gợi ý câu chưa dùng, tới khi hết câu mới trong ô đó mới dùng lại từ đầu. Nếu muốn bắt đầu lại (sang học kỳ mới chẳng hạn), bấm nút 'Quên các câu đã dùng' ở cuối trang."
+      },
+      {
+        q: "Lời nhận xét mức Chưa đạt viết thế nào cho đúng?",
+        a: "Theo Thông tư 22, nhận xét phải nêu hạn chế chủ yếu kèm hướng khắc phục, không chê bai hay dán nhãn học sinh. Ví dụ đúng: nêu rõ em mới nắm được phần nào, còn lúng túng ở đâu, rồi gợi ý việc cụ thể cần làm (ôn lại từng dạng bài, làm lại bài đã chữa, nhờ thầy cô giảng lại phần chưa rõ). Ngân hàng lời của công cụ đều viết theo cách này và không chứa từ ngữ chê bai."
+      },
+      {
+        q: "Nhận xét theo môn khác nhận xét chung cuối kỳ thế nào?",
+        a: "Nhận xét theo môn do giáo viên bộ môn viết, nói về năng lực đặc thù của môn đó (Toán: tư duy và lập luận; Ngữ văn: đọc hiểu và viết; Tiếng Anh: nghe, nói, đọc, viết). Nhận xét chung cuối kỳ do giáo viên chủ nhiệm ghi vào học bạ, tổng kết cả kết quả học tập lẫn rèn luyện của học sinh trong học kỳ. Công cụ gợi ý cả hai loại để bạn ghép thành lời hoàn chỉnh."
+      },
+      {
+        q: "Lời đã soạn lưu ở đâu, có mất khi tắt trình duyệt không?",
+        a: "Lời đã soạn lưu trên trình duyệt của chính bạn (không gửi lên máy chủ), tắt trình duyệt rồi mở lại vẫn còn. Mỗi học sinh lưu 1 lời; mở lại lời cũ bằng nút Mở trong danh sách 'Lời đã soạn'. Muốn chép nhiều lời cùng lúc thì đánh dấu vào ô vuông rồi bấm 'Chép tất cả đã chọn'."
+      },
+      {
+        q: "Chọn học sinh từ Bàn giáo viên thế nào?",
+        a: "Nếu bạn đã có danh sách lớp trong Bàn giáo viên, chọn lớp rồi bấm 'Nạp lớp này', sau đó chọn tên học sinh trong danh sách xổ xuống — tên sẽ tự điền vào ô học sinh. Không có lớp thì gõ tên trực tiếp vào ô, công cụ vẫn gợi ý và lưu bình thường."
+      }
+    ]
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,
