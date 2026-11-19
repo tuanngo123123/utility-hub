@@ -205,6 +205,51 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "thue-phi-mua-ban-nha-dat": {
+    intro: "Tính toàn bộ thuế phí phải nộp khi mua bán, sang tên nhà đất: thuế TNCN 2%, lệ phí trước bạ 0,5%, phí công chứng theo biểu phí, phí thẩm định hồ sơ và lệ phí cấp Giấy chứng nhận — kèm chia rõ bên bán, bên mua phải nộp theo thông lệ hoặc theo thỏa thuận. Nhập giá trên hợp đồng và (nếu biết) giá theo bảng giá tỉnh để công cụ lấy giá cao hơn làm giá tính.",
+    finance: true,
+    legalBasis: "Cập nhật theo Luật Thuế TNCN 109/2025/QH15 (Điều 4, Điều 14) và Nghị định 253/2026/NĐ-CP (từ 01/7/2026), Nghị định 10/2022/NĐ-CP sửa bởi Nghị định 175/2025/NĐ-CP (lệ phí trước bạ 0,5%), Nghị quyết 66.22/2026/NQ-CP và Thông tư 117/2026/TT-BTC (giảm 10% lệ phí trước bạ khi khai điện tử, đến 28/02/2027), Thông tư 257/2016/TT-BTC sửa bởi Thông tư 111/2017/TT-BTC (phí công chứng), Thông tư 85/2019/TT-BTC (phí thẩm định, lệ phí cấp Giấy chứng nhận do từng tỉnh quy định).",
+    updatedAt: "20/11/2026",
+    disclaimer: "Kết quả chỉ để tham khảo — đối chiếu với cơ quan thuế, văn phòng công chứng và cơ quan đăng ký đất đai địa phương trước khi giao dịch; phí thẩm định và lệ phí cấp Giấy chứng nhận khác nhau theo từng tỉnh.",
+    example: {
+      text: "Ví dụ: mua nhà ở giá 3.000.000.000₫, không thuộc diện miễn thuế → thuế TNCN 2% × 3.000.000.000₫ = 60.000.000₫; lệ phí trước bạ 0,5% × 3.000.000.000₫ = 15.000.000₫; phí công chứng 1.000.000₫ + 0,06% × 2.000.000.000₫ = 2.200.000₫; phí thẩm định 0,15% × 3.000.000.000₫ = 4.500.000₫; lệ phí cấp sổ 100.000₫; tổng chi phí sang tên 81.800.000₫ (bên bán nộp 60.000.000₫, bên mua nộp 21.800.000₫).",
+      fills: { "tnnd-gia": "3.000.000.000", "tnnd-loai": "nha-o" }
+    },
+    faqs: [
+      {
+        q: "Thuế TNCN khi bán nhà đất tính thế nào?",
+        a: "Thuế TNCN bằng 2% trên giá chuyển nhượng (Điều 14 Luật Thuế TNCN 109/2025, Điều 57 Nghị định 253/2026) — tính trên toàn bộ giá bán, không tính trên lãi. Ví dụ bán nhà 3 tỷ đồng thì thuế TNCN là 60.000.000₫. Chưa áp dụng cách tính theo thời gian nắm giữ hay theo lãi. Giá tính là giá hợp đồng, nhưng không thấp hơn giá theo bảng giá của tỉnh — xem câu hỏi về giá tính bên dưới."
+      },
+      {
+        q: "Trường hợp nào được miễn thuế TNCN khi bán nhà đất?",
+        a: "Theo Điều 4 Luật Thuế TNCN 109/2025, được miễn thuế TNCN khi: (1) chuyển nhượng, thừa kế, tặng cho nhà đất giữa vợ với chồng; cha mẹ đẻ, cha mẹ nuôi với con đẻ, con nuôi; cha mẹ chồng với con dâu; cha mẹ vợ với con rể; ông bà nội, ông bà ngoại với cháu nội, cháu ngoại; anh, chị, em ruột với nhau. (2) Bán nhà ở, đất ở duy nhất — phải đủ cả 3 điều kiện cùng lúc: chỉ có một nhà ở hoặc một thửa đất ở duy nhất tại Việt Nam tại thời điểm chuyển nhượng; đã sở hữu từ đủ 183 ngày tính từ ngày cấp Giấy chứng nhận; chuyển nhượng toàn bộ nhà, đất đó. Lưu ý: được miễn thuế TNCN không có nghĩa được miễn lệ phí trước bạ — lệ phí trước bạ chỉ miễn khi nhận thừa kế, quà tặng giữa người thân, còn mua bán thì vẫn nộp 0,5%."
+      },
+      {
+        q: "Giá tính thuế lấy theo giá hợp đồng hay bảng giá đất của tỉnh?",
+        a: "Lấy giá cao hơn trong hai giá. Nếu giá ghi trên hợp đồng thấp hơn giá theo bảng giá đất (đối với đất) và giá tính lệ phí trước bạ nhà (đối với nhà) do UBND cấp tỉnh ban hành thì cơ quan thuế tính theo bảng giá tỉnh; giá hợp đồng cao hơn thì tính theo hợp đồng (Điều 7 Nghị định 10/2022, sửa bởi Nghị định 175/2025). Ví dụ hợp đồng ghi 2 tỷ đồng nhưng giá theo bảng giá tỉnh là 2,5 tỷ đồng thì thuế TNCN tính trên 2,5 tỷ đồng, tức 50.000.000₫ thay vì 40.000.000₫. Giá theo bảng giá: đất lấy diện tích × giá 1 m² trong bảng giá đất; nhà lấy diện tích sàn × giá 1 m² × tỷ lệ chất lượng còn lại. Công cụ dùng giá tính này cho cả thuế TNCN, lệ phí trước bạ, phí công chứng và phí thẩm định."
+      },
+      {
+        q: "Lệ phí trước bạ là bao nhiêu, có được giảm không?",
+        a: "Lệ phí trước bạ khi sang tên nhà đất là 0,5% trên giá tính (khoản 1 Điều 8 Nghị định 10/2022, sửa bởi Nghị định 175/2025), bên mua nộp. Ví dụ nhà 3 tỷ đồng thì lệ phí trước bạ là 15.000.000₫. Từ 15/8/2026 đến 28/02/2027, khai và nộp lệ phí trước bạ hoàn toàn bằng phương thức điện tử (định danh mức 2 trên VNeID) được giảm 10% số lệ phí phải nộp, tối đa 5 lần lương cơ sở = 12.650.000₫ (Nghị quyết 66.22/2026/NQ-CP, Thông tư 117/2026/TT-BTC). Ví dụ nhà 3 tỷ đồng: lệ phí trước bạ 15.000.000₫, giảm 1.500.000₫, còn nộp 13.500.000₫. Công cụ có ô chọn để tính mức giảm này."
+      },
+      {
+        q: "Phí công chứng hợp đồng mua bán nhà đất tính thế nào?",
+        a: "Phí công chứng tính theo giá trị hợp đồng (khoản 2 Điều 4 Thông tư 257/2016/TT-BTC, sửa bởi Thông tư 111/2017): dưới 50 triệu đồng là 50.000₫; 50–100 triệu đồng là 100.000₫; trên 100 triệu đồng đến 1 tỷ đồng là 0,1%; trên 1–3 tỷ đồng là 1.000.000₫ + 0,06% phần vượt 1 tỷ đồng; trên 3–5 tỷ đồng là 2.200.000₫ + 0,05% phần vượt 3 tỷ đồng; trên 5–10 tỷ đồng là 3.200.000₫ + 0,04% phần vượt 5 tỷ đồng; trên 10–100 tỷ đồng là 5.200.000₫ + 0,03% phần vượt 10 tỷ đồng; trên 100 tỷ đồng là 32.200.000₫ + 0,02% phần vượt 100 tỷ đồng, tối đa 70.000.000₫ mỗi trường hợp. Ví dụ hợp đồng 1,5 tỷ đồng thì phí công chứng là 1.300.000₫; hợp đồng 4 tỷ đồng thì phí là 2.700.000₫. Nếu giá thỏa thuận thấp hơn giá Nhà nước thì tính theo giá Nhà nước. Chưa gồm thù lao soạn thảo, đánh máy hợp đồng (thu thêm theo mức trần của từng tỉnh) — công cụ không tính khoản này."
+      },
+      {
+        q: "Phí thẩm định hồ sơ và lệ phí cấp sổ đỏ là bao nhiêu?",
+        a: "Hai khoản này do HĐND từng tỉnh quyết định (Thông tư 85/2019/TT-BTC) nên mỗi địa phương một mức — công cụ dùng mức Hà Nội và mức phổ biến để bạn ước tính, cần đối chiếu với địa phương nơi có nhà đất. Phí thẩm định hồ sơ cấp Giấy chứng nhận ở Hà Nội là 0,15% giá trị chuyển nhượng, tối đa 5.000.000₫ mỗi hồ sơ (Nghị quyết 06/2020/NQ-HĐND): nhà 3 tỷ đồng thì phí thẩm định là 4.500.000₫, nhà 4 tỷ đồng thì chạm trần 5.000.000₫. Lệ phí cấp Giấy chứng nhận mới cho cá nhân, hộ gia đình thường từ 10.000₫ đến 100.000₫ tùy khu vực (Hà Nội) — công cụ dùng 100.000₫ làm mức phổ biến."
+      },
+      {
+        q: "Bên bán và bên mua chịu khoản nào?",
+        a: "Theo thông lệ: bên bán chịu thuế TNCN 2%; bên mua chịu lệ phí trước bạ 0,5%, phí công chứng, phí thẩm định hồ sơ và lệ phí cấp Giấy chứng nhận. Nhưng pháp luật không bắt buộc cách chia này — hai bên có thể thỏa thuận khác trong hợp đồng, ví dụ bên mua chịu cả thuế TNCN. Công cụ có nút chọn bên chịu thuế TNCN để chia lại; tổng chi phí không đổi. Ví dụ nhà 3 tỷ đồng không miễn thuế: tổng 81.800.000₫, theo thông lệ bên bán nộp 60.000.000₫, bên mua nộp 21.800.000₫; nếu bên mua chịu cả thuế TNCN thì bên mua nộp toàn bộ 81.800.000₫."
+      },
+      {
+        q: "Ngoài các khoản trên còn phí nào khác không?",
+        a: "Có thể có thêm: phí đo đạc lại thửa đất (chỉ khi cần đo lại, mức phí theo từng tỉnh), thù lao soạn thảo và đánh máy hợp đồng tại văn phòng công chứng (thu thêm ngoài phí công chứng, theo mức trần của UBND cấp tỉnh), phí đăng ký biến động và lệ phí cấp đổi Giấy chứng nhận nếu làm thủ tục đổi sổ mới. Ngoài ra, thay vì công chứng tại văn phòng công chứng, hai bên có thể chứng thực hợp đồng tại UBND cấp xã với mức phí 50.000₫ mỗi hợp đồng. Các khoản này không có trong công cụ vì khác nhau theo địa phương và theo từng trường hợp — hỏi trước tại văn phòng công chứng hoặc cơ quan đăng ký đất đai địa phương."
+      }
+    ]
+  },
   "tron-de-trac-nghiem": {
     intro: "Trộn đề trắc nghiệm thành nhiều mã đề khác nhau để chống quay cóp: dán đề gốc hoặc tải file Word, đánh dấu đáp án đúng bằng *, chọn số mã đề rồi nhận đề đã trộn kèm bảng đáp án để in và chấm.",
     faqs: [

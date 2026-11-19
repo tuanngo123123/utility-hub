@@ -316,6 +316,7 @@ const M2_SLUGS = new Set([
   'luong-gross-net', 'thue-thu-nhap-ca-nhan', 'bhxh-mot-lan', 'luong-huu',
   'tien-dien-bac-thang', 'lai-vay', 'luong-thang-13', 'tro-cap-thoi-viec-bhtn',
   'quyet-toan-thue-tncn-2026', 'diem-xet-tuyen-dai-hoc', 'tien-thai-san-bhxh', 'thue-ho-kinh-doanh',
+  'thue-phi-mua-ban-nha-dat',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;
@@ -494,6 +495,21 @@ function getThueHkdLogicSrc() {
   return thueHkdLogicSrc;
 }
 
+// src/thue-nha-dat-logic.js được chèn vào trang công cụ này và tiếp cận
+// qua window.UH_THUENHADAT — cùng mẫu THUEHKD ở trên.
+// Bộ kiểm scripts/test-thue-nha-dat.mjs kiểm cùng file này.
+const THUENHADAT_SLUGS = new Set(['thue-phi-mua-ban-nha-dat']);
+const THUENHADAT_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let thueNhaDatLogicSrc = null;
+function getThueNhaDatLogicSrc() {
+  if (thueNhaDatLogicSrc !== null) return thueNhaDatLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'thue-nha-dat-logic.js'), 'utf8');
+  const stripped = src.replace(THUENHADAT_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('thue-nha-dat-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  thueNhaDatLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return thueNhaDatLogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -563,6 +579,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isDiemDh = DIEMDH_SLUGS.has(tool.slug);
   const isThaiSan = THAISAN_SLUGS.has(tool.slug);
   const isThueHkd = THUEHKD_SLUGS.has(tool.slug);
+  const isThueNhaDat = THUENHADAT_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -607,6 +624,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
     'diem-xet-tuyen-dai-hoc': ['tinh-diem-thi-thpt', 'gpa-tin-chi', 'quy-doi-diem', 'tinh-diem-ielts'],
     'tien-thai-san-bhxh': ['bhxh-mot-lan', 'luong-huu', 'tro-cap-thoi-viec-bhtn', 'luong-gross-net'],
     'thue-ho-kinh-doanh': ['thue-thu-nhap-ca-nhan', 'quyet-toan-thue-tncn-2026', 'le-phi-mon-bai', 'luong-gross-net'],
+    'thue-phi-mua-ban-nha-dat': ['thue-thu-nhap-ca-nhan', 'quyet-toan-thue-tncn-2026', 'dat-dai', 'luong-gross-net'],
   };
   const relatedHtml = (() => {
     const cache = toolPageHtml._metaCache || (toolPageHtml._metaCache = (() => {
@@ -777,6 +795,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isDiemDh ? `<script>\n${getDiemDhLogicSrc()}\n</script>` : ''}
   ${isThaiSan ? `<script>\n${getThaiSanLogicSrc()}\n</script>` : ''}
   ${isThueHkd ? `<script>\n${getThueHkdLogicSrc()}\n</script>` : ''}
+  ${isThueNhaDat ? `<script>\n${getThueNhaDatLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');
