@@ -394,6 +394,23 @@ function getMaTranLogicSrc() {
   return maTranLogicSrc;
 }
 
+// 3 công cụ "Trên lớp" (20/11): logic xếp chỗ/ghép cặp/xếp hạng
+// src/lop-hoc-3-logic.js được chèn nguyên văn vào 3 trang công cụ
+// (trừ dòng export cuối) để init() gọi qua window.UH_LOPHOC3 — cùng
+// mẫu SODIEM/NHANXET/MATRAN ở trên.
+// Bộ kiểm scripts/test-lop-hoc-3.mjs kiểm cùng file này.
+const LOPHOC3_SLUGS = new Set(['so-do-cho-ngoi', 'ghep-cap-thao-luan', 'bang-vinh-danh']);
+const LOPHOC3_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let lopHoc3LogicSrc = null;
+function getLopHoc3LogicSrc() {
+  if (lopHoc3LogicSrc !== null) return lopHoc3LogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'lop-hoc-3-logic.js'), 'utf8');
+  const stripped = src.replace(LOPHOC3_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('lop-hoc-3-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  lopHoc3LogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return lopHoc3LogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -457,6 +474,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isSoDiem = SODIEM_SLUGS.has(tool.slug);
   const isNhanXet = NHANXET_SLUGS.has(tool.slug);
   const isMaTran = MATRAN_SLUGS.has(tool.slug);
+  const isLopHoc3 = LOPHOC3_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -662,6 +680,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isSoDiem ? `<script>\n${getSoDiemLogicSrc()}\n</script>` : ''}
   ${isNhanXet ? `<script>\n${getNhanXetLogicSrc()}\n</script>` : ''}
   ${isMaTran ? `<script>\n${getMaTranLogicSrc()}\n</script>` : ''}
+  ${isLopHoc3 ? `<script>\n${getLopHoc3LogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');
@@ -1214,14 +1233,14 @@ async function main() {
   );
   console.log('   - Giới thiệu: 1 trang');
 
-  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 14 công cụ hạng mục
+  // Trang mục Giáo viên: 1 trang duy nhất, liệt kê 17 công cụ hạng mục
   // giao-vien (danh sách trong src/pages/giao-vien.js).
   addPage(
     'giao-vien/index.html',
     shell({
-      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm, trộn đề, sổ điểm, nhận xét, ma trận đề | ${SITE_NAME}`,
-      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi, trộn đề trắc nghiệm, sổ điểm lớp theo TT22, gợi ý lời nhận xét học sinh, ma trận và bản đặc tả đề kiểm tra — chạy ngay trên trình duyệt, không cần đăng ký.',
-      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh, trộn đề trắc nghiệm, sổ điểm lớp TT22, nhận xét học sinh, lời nhận xét học bạ, ma trận đề kiểm tra, bản đặc tả đề',
+      title: `Giáo viên — Gọi tên, chia nhóm, bốc thăm, bảng điểm, trộn đề, sổ điểm, nhận xét, ma trận đề, sơ đồ chỗ ngồi, ghép cặp, vinh danh | ${SITE_NAME}`,
+      desc: 'Công cụ miễn phí cho giáo viên: gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, tung xúc xắc & đồng xu, bốc thăm số, bảng điểm lớp, đếm ngược, đo độ ồn, điểm danh, bốc câu hỏi, trộn đề trắc nghiệm, sổ điểm lớp theo TT22, gợi ý lời nhận xét học sinh, ma trận và bản đặc tả đề kiểm tra, sơ đồ chỗ ngồi, ghép cặp thảo luận, bảng vinh danh — chạy ngay trên trình duyệt, không cần đăng ký.',
+      keywords: 'công cụ giáo viên, gọi tên ngẫu nhiên, chia nhóm ngẫu nhiên, bảng điểm lớp, bốc thăm số, tung xúc xắc, đếm ngược lớp học, điểm danh, trộn đề trắc nghiệm, sổ điểm lớp TT22, nhận xét học sinh, lời nhận xét học bạ, ma trận đề kiểm tra, bản đặc tả đề, sơ đồ chỗ ngồi, ghép cặp thảo luận, bảng vinh danh',
       canonical: `${BASE_URL}/giao-vien/`,
       navActive: 'giao-vien',
       body: giaoVienPage.body(),
@@ -1229,7 +1248,7 @@ async function main() {
     }),
     `${BASE_URL}/giao-vien/`
   );
-  console.log('   - Giáo viên: 14 công cụ, 1 trang');
+  console.log('   - Giáo viên: 17 công cụ, 1 trang');
 
   // Trang Bàn giáo viên: 1 trang ứng dụng gom cả 10 công cụ Giáo viên
   // + quản lý lớp học (KHÔNG phải công cụ mới — không tính vào số

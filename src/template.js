@@ -133,7 +133,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
       <div class="footer-cols">
         <div class="footer-col footer-brand-col">
           <p class="footer-brand">${SITE_NAME}</p>
-          <p class="muted">138 công cụ tính toán miễn phí cho người Việt — chạy ngay trên trình duyệt, không cần đăng ký.</p>
+          <p class="muted">141 công cụ tính toán miễn phí cho người Việt — chạy ngay trên trình duyệt, không cần đăng ký.</p>
         </div>
         <div class="footer-col">
           <h3>Khác</h3>

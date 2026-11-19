@@ -53,6 +53,24 @@ const ON_CLASS = [
     desc: 'Bóng nảy theo độ ồn của lớp, đèn Xanh/Vàng/Đỏ. Không ghi âm.',
     icon: 'mic', bg: '#FEE2E2', fg: '#DC2626',
   },
+  {
+    id: 'so-do-cho-ngoi',
+    name: 'Sơ đồ chỗ ngồi',
+    desc: 'Xếp chỗ ngồi cho cả lớp: kéo-thả đổi chỗ, xếp ngẫu nhiên, in ra dán lên bảng.',
+    icon: 'grid', bg: '#DCFCE7', fg: '#16A34A',
+  },
+  {
+    id: 'ghep-cap-thao-luan',
+    name: 'Ghép cặp thảo luận',
+    desc: 'Chia cặp thảo luận ngẫu nhiên, tránh lặp cặp đã ghép ở 2 lần gần nhất.',
+    icon: 'users', bg: '#EDE9FE', fg: '#7C3AED',
+  },
+  {
+    id: 'bang-vinh-danh',
+    name: 'Bảng vinh danh',
+    desc: 'Vinh danh học sinh điểm cao nhất: bục top 3 vàng/bạc/đồng, in ra treo ở lớp.',
+    icon: 'trophy', bg: '#FEF3C7', fg: '#D97706',
+  },
 ];
 
 const GRADING = [

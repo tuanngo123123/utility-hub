@@ -216,6 +216,76 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "so-do-cho-ngoi": {
+    intro: "Xếp chỗ ngồi cho cả lớp theo lưới bàn (mặc định 6 dãy × 5 bàn, chỉnh được số dãy và số bàn mỗi dãy): kéo-thả đổi chỗ bằng chuột, hoặc bấm tên rồi bấm bàn trên điện thoại; xếp ngẫu nhiên toàn lớp hoặc chỉ xáo trộn bàn trống; sơ đồ lưu theo từng lớp, in ra dán lên bảng.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "Xếp chỗ ngồi bằng cách nào?",
+        a: "Có 3 cách: kéo tên bạn từ danh sách 'Chưa xếp chỗ' thả vào bàn trống; kéo bạn từ bàn này sang bàn khác để đổi chỗ cho nhau; hoặc bấm 'Xếp ngẫu nhiên' để máy xếp hết cả lớp trong một lần. Trên điện thoại không kéo được thì bấm tên bạn rồi bấm bàn muốn xếp — bấm lần nữa để bỏ chọn."
+      },
+      {
+        q: "'Xáo trộn chỉ bàn trống' khác 'Xếp ngẫu nhiên' ở chỗ nào?",
+        a: "'Xếp ngẫu nhiên' xếp lại toàn bộ lớp từ đầu. 'Xáo trộn chỉ bàn trống' giữ nguyên các bạn đã ngồi đúng chỗ, chỉ xếp ngẫu nhiên các bạn chưa có chỗ vào bàn còn trống — dùng khi có bạn mới chuyển đến hoặc vài bạn nghỉ học dài ngày, không muốn xáo trộn cả lớp."
+      },
+      {
+        q: "Lớp đông hơn số bàn thì sao?",
+        a: "Số bạn thừa sẽ nằm ở danh sách 'Chưa xếp chỗ' bên dưới sơ đồ. Tăng số dãy hoặc số bàn mỗi dãy (nút +/−) để có thêm bàn rồi xếp tiếp. Giảm số bàn thì bạn ở bàn bị cắt sẽ tự về danh sách chưa xếp, không mất tên ai."
+      },
+      {
+        q: "Sơ đồ lưu ở đâu, đổi lớp có mất không?",
+        a: "Sơ đồ lưu trên trình duyệt của chính bạn, theo từng lớp — đổi sang lớp khác rồi quay lại thì sơ đồ lớp cũ vẫn còn nguyên. Đổi máy hoặc xóa dữ liệu trình duyệt thì sẽ mất, nên in ra hoặc chụp ảnh lại nếu cần giữ lâu."
+      },
+      {
+        q: "In sơ đồ thế nào?",
+        a: "Bấm nút 'In sơ đồ' — tờ in chỉ có tên lớp, ngày, bảng 'BẢNG' và lưới bàn với tên từng bạn, gọn một trang giấy để dán lên bảng hoặc kẹp vào sổ chủ nhiệm."
+      }
+    ]
+  },
+  "ghep-cap-thao-luan": {
+    intro: "Chia lớp thành cặp thảo luận ngẫu nhiên: mỗi lần ghép là một cách chia mới, cặp đã ghép ở 2 lần gần nhất sẽ không lặp lại (trừ khi lớp quá ít bạn, không còn cách ghép khác). Lớp lẻ người thì có 1 nhóm 3. Chép danh sách cặp để dán lên bảng hoặc gửi vào nhóm lớp.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "Công cụ tránh lặp cặp như thế nào?",
+        a: "Mỗi lần ghép, công cụ nhớ lại 2 lần ghép gần nhất của lớp đó và chọn cách chia không dùng lại cặp nào trong 2 lần ấy. Lớp 12 bạn có tới 66 cặp khả thi nên ghép nhiều lần vẫn tránh lặp được. Lớp chỉ có 2–4 bạn thì số cặp khả thi quá ít, tới một lúc sẽ hết cách ghép mới — khi đó công cụ báo rõ có mấy cặp bị lặp."
+      },
+      {
+        q: "Lớp lẻ người thì bạn thừa ghép với ai?",
+        a: "Bạn lẻ sẽ ghép vào cặp cuối cùng thành 1 nhóm 3 (ghi rõ 'nhóm 3' trên thẻ và trong danh sách chép). Lớp chỉ có 3 bạn thì cả 3 thành 1 nhóm. Không có bạn nào bị bỏ lại một mình."
+      },
+      {
+        q: "Đổi danh sách lớp thì lịch sử tránh lặp còn đúng không?",
+        a: "Lịch sử tránh lặp lưu theo vị trí của bạn trong danh sách, nên thêm/bớt bạn hoặc đổi thứ tự danh sách thì lịch sử cũ không còn chính xác — lần ghép sau đó có thể gặp lại cặp cũ. Muốn bắt đầu sạch thì bấm 'Quên lịch sử ghép cặp'."
+      },
+      {
+        q: "Lịch sử ghép cặp lưu ở đâu?",
+        a: "Lưu trên trình duyệt của chính bạn, theo từng lớp, chỉ giữ 2 lần gần nhất. Đổi máy hoặc xóa dữ liệu trình duyệt thì lịch sử mất, nhưng việc ghép cặp vẫn làm được bình thường."
+      }
+    ]
+  },
+  "bang-vinh-danh": {
+    intro: "Vinh danh học sinh có điểm thi đua cao nhất lớp: top 3 lên bục vàng, bạc, đồng kèm huy chương và cấp độ thi đua (Lv.1 Mầm non, Lv.2 Chăm chỉ, Lv.3 Ngôi sao), các hạng tiếp theo xếp trong danh sách. Đồng điểm thì cùng hạng. In bảng ra để treo ở lớp hoặc dán ở bảng tin.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "Điểm vinh danh lấy từ đâu?",
+        a: "Từ đúng cột Điểm của lớp trong Bàn giáo viên (cùng điểm với Bảng điểm lớp và điểm cộng khi gọi tên). Giáo viên chỉ cần ghi điểm một chỗ — cộng điểm ở Gọi tên hay Bảng điểm thì bảng này tự đọc điểm đó, không phải nhập lại."
+      },
+      {
+        q: "Bảng vinh danh theo tuần hay theo tháng?",
+        a: "Bảng điểm lớp hiện chưa lưu ngày cộng điểm nên bảng này xếp theo tổng điểm hiện tại của từng bạn (ghi rõ trên trang). Muốn vinh danh theo tuần/tháng thì đặt lại điểm về 0 ở đầu tuần/tháng trong Bảng điểm lớp, điểm cộng sau đó chính là điểm của kỳ đó."
+      },
+      {
+        q: "Hai bạn đồng điểm thì hạng tính thế nào?",
+        a: "Đồng điểm thì cùng hạng, hạng tiếp theo bỏ qua số đã dùng — ví dụ 2 bạn cùng hạng 2 thì bạn tiếp theo là hạng 4, không có hạng 3. Trên bục top 3, 2 bạn đồng hạng sẽ đứng cùng một bậc."
+      },
+      {
+        q: "Lớp chưa có điểm nào thì bảng hiện gì?",
+        a: "Bảng hiện hướng dẫn ngắn: ghi điểm ở Bảng điểm lớp trước (cộng điểm cho các bạn khi gọi tên đúng, làm bài tốt, giúp bạn…), rồi quay lại đây để xem bảng vinh danh. Lớp chưa có bạn nào thì chọn lớp khác hoặc dùng lớp mẫu để xem thử."
+      }
+    ]
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,
