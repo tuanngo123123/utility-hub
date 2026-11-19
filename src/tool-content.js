@@ -127,6 +127,47 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "tien-thai-san-bhxh": {
+    intro: "Tính tiền thai sản theo Luật BHXH 2024: nhập bình quân lương đóng BHXH 6 tháng gần nhất, số con sinh và số tháng đã đóng BHXH để biết tổng tiền thai sản nhận được — trợ cấp 6 tháng nghỉ sinh (7 tháng khi sinh con thứ hai) + trợ cấp một lần mỗi con — kèm kiểm đủ điều kiện và tiền trợ cấp chồng nghỉ khi vợ sinh con.",
+    finance: true,
+    legalBasis: "Cập nhật theo Luật Bảo hiểm xã hội 41/2024/QH15 (hiệu lực 01/7/2025) — Điều 50, 53, 58, 59; Bộ luật Lao động 2019 Điều 139; Luật Dân số 113/2025/QH15 (sinh con thứ hai: mẹ nghỉ 7 tháng, chồng nghỉ tối thiểu 10 ngày); mức tham chiếu 2.530.000₫/tháng từ 01/7/2026 (NĐ 161/2026/NĐ-CP).",
+    updatedAt: "20/11/2026",
+    disclaimer: "Kết quả chỉ để tham khảo — mức hưởng thực tế do cơ quan BHXH quyết định theo hồ sơ của bạn; đối chiếu với cơ quan BHXH nơi bạn tham gia trước khi làm thủ tục.",
+    example: {
+      text: "Ví dụ: chị Lan đóng BHXH với mức lương 10.000.000₫/tháng, sinh 1 con, đã đóng đủ 12 tháng trong 12 tháng trước khi sinh → nghỉ 6 tháng, nhận 60.000.000₫ trợ cấp thai sản + 5.060.000₫ trợ cấp một lần, tổng cộng 65.060.000₫.",
+      fills: { "tss-me-luong": "10.000.000", "tss-me-con": "1", "tss-me-thang": "12" }
+    },
+    faqs: [
+      {
+        q: "Điều kiện hưởng tiền thai sản là gì?",
+        a: "Lao động nữ sinh con phải đóng BHXH bắt buộc từ đủ 6 tháng trở lên trong 12 tháng liền kề trước khi sinh (khoản 2 Điều 50 Luật BHXH 2024) — thời gian đóng gián đoạn vẫn được cộng dồn. Trường hợp mang thai từ đủ 22 tuần tuổi, buộc phải nghỉ việc để dưỡng thai theo chỉ định của cơ sở khám chữa bệnh thì chỉ cần đóng đủ 3 tháng trong 12 tháng, nhưng phải đã đóng BHXH tổng cộng từ đủ 12 tháng trở lên (khoản 3 Điều 50)."
+      },
+      {
+        q: "Tiền thai sản gồm những khoản nào?",
+        a: "Hai khoản. Thứ nhất, trợ cấp thai sản hằng tháng bằng 100% mức bình quân tiền lương làm căn cứ đóng BHXH bắt buộc của 6 tháng gần nhất trước khi nghỉ, nhân với số tháng nghỉ (6 tháng khi sinh 1 con). Thứ hai, trợ cấp một lần khi sinh bằng 2 lần mức tham chiếu tại tháng sinh, tính cho mỗi con — mức tham chiếu hiện bằng lương cơ sở 2.530.000₫ (từ 01/7/2026 theo NĐ 161/2026), nên mỗi con được 5.060.000₫."
+      },
+      {
+        q: "Sinh con thứ hai được nghỉ thai sản bao lâu?",
+        a: "7 tháng. Từ 01/7/2026, Luật Dân số 2025 sửa khoản 1 Điều 139 Bộ luật Lao động 2019: lao động nữ sinh con thứ hai được nghỉ thai sản 7 tháng thay vì 6 tháng như con đầu (sinh con thứ ba trở lên vẫn nghỉ 6 tháng). Điều kiện: lúc sinh, người mẹ đang có 1 con đẻ còn sống (NĐ 168/2026). Sinh con thứ hai mà sinh đôi thì nghỉ 8 tháng (7 tháng + 1 tháng vì sinh đôi). Chồng cũng được nghỉ tối thiểu 10 ngày làm việc khi vợ sinh con thứ hai."
+      },
+      {
+        q: "Sinh đôi, sinh ba được nghỉ bao lâu?",
+        a: "Lao động nữ nghỉ thai sản 6 tháng (7 tháng nếu sinh con thứ hai); sinh đôi trở lên thì từ con thứ 2 trở đi, mỗi con mẹ được nghỉ thêm 1 tháng (Điều 139 Bộ luật Lao động 2019) — sinh đôi nghỉ 7 tháng, sinh ba nghỉ 8 tháng; sinh con thứ hai mà sinh đôi nghỉ 8 tháng. Thời gian nghỉ trước khi sinh tối đa 2 tháng. Trợ cấp một lần cũng tính cho mỗi con: sinh đôi được 10.120.000₫, sinh ba được 15.180.000₫."
+      },
+      {
+        q: "Chồng được nghỉ bao nhiêu ngày khi vợ sinh con?",
+        a: "Theo khoản 2 Điều 53 Luật BHXH 2024, tính theo ngày làm việc: vợ sinh thường 1 con nghỉ 5 ngày; vợ sinh phải phẫu thuật hoặc sinh con dưới 32 tuần tuổi nghỉ 7 ngày; vợ sinh đôi nghỉ 10 ngày; vợ sinh đôi phải phẫu thuật nghỉ 14 ngày; sinh ba trở lên thêm 3 ngày cho mỗi con từ con thứ 3. Từ 01/7/2026, vợ sinh con thứ hai (vợ có 1 con đẻ còn sống) thì chồng được nghỉ tối thiểu 10 ngày làm việc (Luật Dân số 2025) — mức 10 ngày là sàn: vợ sinh con thứ hai mà sinh đôi phải phẫu thuật thì chồng vẫn nghỉ 14 ngày, sinh ba thường thì nghỉ 13 ngày. Ngày bắt đầu nghỉ phải trong 60 ngày kể từ ngày vợ sinh. Chồng nghỉ hưởng chế độ không cần điều kiện đóng đủ 6 tháng."
+      },
+      {
+        q: "Vợ không tham gia BHXH thì chồng có được hưởng gì không?",
+        a: "Có. Nếu vợ không tham gia BHXH hoặc không đủ điều kiện hưởng thai sản, người chồng đang tham gia BHXH bắt buộc và đóng đủ 6 tháng trong 12 tháng trước khi vợ sinh sẽ được nhận trợ cấp một lần bằng 2 lần mức tham chiếu cho mỗi con (khoản 1 Điều 58) — hiện là 5.060.000₫ mỗi con. Chồng vẫn được nghỉ hưởng chế độ theo số ngày quy định và nhận tiền trợ cấp theo ngày nghỉ."
+      },
+      {
+        q: "Đóng BHXH tự nguyện có được hưởng thai sản không?",
+        a: "Có, từ 01/7/2025 Luật BHXH 2024 mở rộng chế độ thai sản cho người tham gia BHXH tự nguyện: lao động nữ đóng đủ 6 tháng trong 12 tháng trước khi sinh được hưởng trợ cấp 2.000.000₫ cho mỗi con sinh ra (Điều 95). Công cụ này tính cho BHXH bắt buộc; nếu bạn tham gia BHXH tự nguyện thì mức hưởng là 2.000.000₫/con, không theo lương đóng."
+      }
+    ]
+  },
   "tron-de-trac-nghiem": {
     intro: "Trộn đề trắc nghiệm thành nhiều mã đề khác nhau để chống quay cóp: dán đề gốc hoặc tải file Word, đánh dấu đáp án đúng bằng *, chọn số mã đề rồi nhận đề đã trộn kèm bảng đáp án để in và chấm.",
     faqs: [

@@ -4545,6 +4545,23 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   cursor: pointer;
 }
 .m2-step-btn:hover { border-color: var(--m2-primary); background: #EEF2FF; }
+
+/* Ô chọn (checkbox) trong khung MẪU 2 — dùng cho "Nghỉ dưỡng thai"
+   ở công cụ tiền thai sản: chữ đậm như nhãn, ô chọn 22px dễ bấm. */
+.m2-check {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-weight: 600;
+  cursor: pointer;
+}
+.m2-check input[type="checkbox"] {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  accent-color: var(--m2-primary);
+}
 .m2-page .field input.m2-step-num {
   flex: 1 1 0;
   min-width: 0;
