@@ -316,6 +316,36 @@ export const TOOL_CONTENT = {
       }
     ]
   },
+  "anh-the-3x4-4x6": {
+    intro: "Cắt ảnh chân dung thành ảnh thẻ 3×4, 4×6 hoặc 2×3 đúng chuẩn 300 DPI (354×472 px, 472×709 px, 236×354 px), tải tờ in 10×15 chứa nhiều ảnh để in ra cắt, và nén ảnh JPG nhẹ đi để gửi Zalo hay email. Mọi xử lý chạy ngay trên trình duyệt, ảnh không rời khỏi máy bạn.",
+    updatedAt: "20/11/2026",
+    faqs: [
+      {
+        q: "Ảnh thẻ làm ra có đúng chuẩn nộp hồ sơ không?",
+        a: "Ảnh đúng kích thước và độ phân giải chuẩn: 3×4 cm là 354×472 px, 4×6 cm là 472×709 px, 2×3 cm là 236×354 px, đều ở 300 DPI. Tuy nhiên mỗi nơi nộp hồ sơ có yêu cầu riêng về màu nền (trắng hay xanh dương), thời gian chụp (thường trong 6 tháng), trang phục và tư thế — bạn kiểm lại với nơi nộp trước khi in."
+      },
+      {
+        q: "Tờ in 10×15 in ở đâu, in thế nào cho đúng cỡ?",
+        a: "Đem file tờ in ra tiệm in ảnh, hoặc in bằng máy in màu tại nhà trên giấy ảnh khổ 10×15 cm. Khi in, chọn đúng khổ giấy 10×15 và in 100% (không chọn 'vừa trang' hay 'thu nhỏ cho vừa'), nếu không ảnh sẽ lệch cỡ. Tờ 3×4 có 9 ảnh, tờ 4×6 có 4 ảnh, tờ 2×3 có 21 ảnh (xếp xoay cho vừa nhiều), các ảnh cách nhau khoảng 1 mm để cắt cho dễ."
+      },
+      {
+        q: "Chọn nền trắng hay xanh dương có tác dụng gì?",
+        a: "Nền trắng/xanh dương chỉ tô nền khi ảnh của bạn là PNG nền trong suốt. Ảnh chụp thường đã có nền sẵn (tường, rèm, phông nền) nên chọn nền nào cũng không đổi gì — công cụ không tách nền, không thay được nền của ảnh chụp. Muốn ảnh thẻ nền trắng/xanh đúng chuẩn thì chụp trước phông nền trơn màu đó."
+      },
+      {
+        q: "Ảnh HEIC của iPhone thì làm sao?",
+        a: "Công cụ chưa hỗ trợ ảnh HEIC (định dạng mặc định của iPhone). Để ảnh chụp mới lưu dạng JPG: trên iPhone vào Cài đặt → Máy ảnh → Định dạng → chọn 'Tương thích nhất'. Với ảnh HEIC có sẵn, bạn đổi sang JPG bằng cách mở ảnh trong ứng dụng Ảnh rồi chia sẻ qua một ứng dụng nhắn tin (ảnh gửi đi thường tự đổi sang JPG), hoặc dùng một trang đổi HEIC sang JPG rồi tải ảnh JPG lên đây."
+      },
+      {
+        q: "Nén ảnh có làm mờ ảnh không?",
+        a: "Mức nhẹ (90%) gần như không thấy khác bằng mắt thường; mức vừa (70%) vẫn tốt cho gửi Zalo, email hay tải lên hồ sơ; mức mạnh (50%) cho file nhỏ nhất nhưng có thể thấy vỡ ở vùng nhiều chi tiết. Ảnh nén ra lưu dạng JPG và giữ nguyên kích thước (ảnh quá lớn thì thu nhỏ còn tối đa 4.000 px chiều dài nhất). Ảnh PNG nền trong suốt sau khi nén thành nền trắng vì JPG không có kênh trong suốt."
+      },
+      {
+        q: "Ảnh của tôi có bị tải lên mạng không?",
+        a: "Không. Mọi việc — đọc ảnh, cắt khung, xuất ảnh thẻ, in tờ 10×15, nén ảnh — đều chạy bằng trình duyệt trên máy của bạn, ảnh không gửi đi đâu cả. Tắt trang là ảnh biến mất khỏi bộ nhớ trình duyệt."
+      }
+    ]
+  },
   "bhxh-mot-lan": {
     intro: "Ước tính số tiền rút bảo hiểm xã hội một lần theo Điều 70 Luật BHXH 2024: 1,5 tháng lương bình quân cho mỗi năm đóng trước 2014, 2 tháng cho mỗi năm từ 2014 trở đi. Nhập lương bình quân, thời gian đóng từng giai đoạn và mốc bắt đầu đóng để xem số tiền ước tính và điều kiện rút.",
     finance: true,

@@ -428,6 +428,23 @@ function getChuyenMaLogicSrc() {
   return chuyenMaLogicSrc;
 }
 
+// Ảnh thẻ 3×4/4×6/2×3 + nén ảnh (20/11): kích thước/tỷ lệ/tờ in
+// src/anh-the-logic.js được chèn nguyên văn vào trang công cụ (trừ
+// dòng export cuối) để init() gọi qua window.UH_ANHTHE — cùng mẫu
+// SODIEM/NHANXET/MATRAN ở trên.
+// Bộ kiểm scripts/test-anh-the.mjs kiểm cùng file này.
+const ANHTHE_SLUGS = new Set(['anh-the-3x4-4x6']);
+const ANHTHE_LOGIC_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
+let anhTheLogicSrc = null;
+function getAnhTheLogicSrc() {
+  if (anhTheLogicSrc !== null) return anhTheLogicSrc;
+  const src = fs.readFileSync(path.join(SRC, 'anh-the-logic.js'), 'utf8');
+  const stripped = src.replace(ANHTHE_LOGIC_EXPORT_RE, '');
+  if (stripped === src) fail('anh-the-logic.js: không gỡ được dòng export cuối (định dạng dòng export đã đổi?).');
+  anhTheLogicSrc = stripped.replace(/<\/script/gi, '<\\/script');
+  return anhTheLogicSrc;
+}
+
 // Link tới bài viết (mục /huong-dan/) ở cuối trang công cụ — 12 công cụ
 // có bài viết tương ứng. Slug bài phải khớp huong-dan-data.js (build
 // kiểm tra ở main()). Đặt ở phạm vi module để main() đảo ngược thành
@@ -493,6 +510,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   const isMaTran = MATRAN_SLUGS.has(tool.slug);
   const isLopHoc3 = LOPHOC3_SLUGS.has(tool.slug);
   const isChuyenMa = CHUYENMA_SLUGS.has(tool.slug);
+  const isAnhThe = ANHTHE_SLUGS.has(tool.slug);
   const introHtml = content
     ? `<p class="tool-intro">${esc(content.intro)}</p>`
     : '';
@@ -700,6 +718,7 @@ function toolPageHtml(tool, index, noscriptLinks) {
   ${isMaTran ? `<script>\n${getMaTranLogicSrc()}\n</script>` : ''}
   ${isLopHoc3 ? `<script>\n${getLopHoc3LogicSrc()}\n</script>` : ''}
   ${isChuyenMa ? `<script>\n${getChuyenMaLogicSrc()}\n</script>` : ''}
+  ${isAnhThe ? `<script>\n${getAnhTheLogicSrc()}\n</script>` : ''}
   <script>
   document.addEventListener('DOMContentLoaded', function () {
     var root = document.getElementById('tool-root');

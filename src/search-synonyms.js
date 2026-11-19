@@ -324,6 +324,21 @@ export const SYNONYMS = {
   'đổi mã': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
   'mã abc': ['chuyen-ma-tieng-viet-tcvn3-vni-unicode'],
 
+  // Ảnh thẻ + nén ảnh
+  'ảnh thẻ': ['anh-the-3x4-4x6'],
+  'anh the': ['anh-the-3x4-4x6'],
+  'ảnh 3x4': ['anh-the-3x4-4x6'],
+  'ảnh 3×4': ['anh-the-3x4-4x6'],
+  'ảnh 4x6': ['anh-the-3x4-4x6'],
+  'ảnh 2x3': ['anh-the-3x4-4x6'],
+  'làm ảnh thẻ': ['anh-the-3x4-4x6'],
+  'cắt ảnh thẻ': ['anh-the-3x4-4x6'],
+  'in ảnh thẻ': ['anh-the-3x4-4x6'],
+  'nén ảnh': ['anh-the-3x4-4x6'],
+  'nen anh': ['anh-the-3x4-4x6'],
+  'giảm dung lượng ảnh': ['anh-the-3x4-4x6'],
+  'nén jpg': ['anh-the-3x4-4x6'],
+
   // Đời sống / thời gian
   'tuổi': ['tuoi-sinh-nhat', 'tuoi-thu-cung', 'can-chi-menh', 'du-sinh', 'tu-vi-12-con-giap'],
   'tính tuổi': ['tuoi-sinh-nhat'],
