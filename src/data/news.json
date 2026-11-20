@@ -5,15 +5,6 @@
   "groups": {
     "ai": [
       {
-        "title": "Anthropic’s IPO could deliver $156 billion to charity",
-        "titleVi": "Anthropic có thể quyên góp 156 tỷ USD cho từ thiện",
-        "summary": "Với giá cổ phiếu 95 USD, quỹ Public Benefit của Anthropic, đóng góp của nhân viên và khoản bù trừ của công ty có thể đạt 156 tỷ USD.",
-        "why": "Quỹ Public Benefit của Anthropic có thể quyên góp 156 tỷ USD, tương đương 80 tỷ USD vốn mới.",
-        "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-could-deliver-156-billion-to-charity/",
-        "source": "TechCrunch",
-        "publishedAt": "Thu, 19 Nov 2026 19:10:45 +0000"
-      },
-      {
         "title": "Google gives Gemini the ability to use your Mac for you",
         "titleVi": "Google cho Gemini điều khiển Mac",
         "summary": "Cập nhật Gemini cho phép AI agent thực hiện các tác vụ trên Mac như sắp xếp file, điền mẫu và thực hiện quy trình nhiều bước.",
@@ -30,42 +21,6 @@
         "link": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
         "source": "TechCrunch",
         "publishedAt": "Thu, 19 Nov 2026 17:38:40 +0000"
-      },
-      {
-        "title": "Former Alibaba exec’s Everful raises $48.5M to connect retailers with Chinese factories",
-        "titleVi": "Everful huy động 48,5 triệu USD để kết nối bán lẻ với nhà máy Trung Quốc",
-        "summary": "Công ty Everful đã nhận 48,5 triệu USD để mở rộng nền tảng mua hàng trực tiếp từ nhà máy, giúp bán lẻ tìm nguồn hàng từ nhà sản xuất nước ngoài.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
-        "source": "TechCrunch",
-        "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000"
-      },
-      {
-        "title": "Anthropic hits Nasdaq exchanges at $111, 33% above IPO price",
-        "titleVi": "Anthropic lên Nasdaq với giá 111 USD, 33% trên giá IPO",
-        "summary": "Anthropic giao dịch đầu tiên trên Nasdaq với giá 111 USD, vượt 33% so với mức IPO 83 USD, tạo ra hơn 80 tỷ USD vốn mới.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
-        "source": "TechCrunch",
-        "publishedAt": "Thu, 19 Nov 2026 16:59:23 +0000"
-      },
-      {
-        "title": "At Nasdaq opening bell, Anthropic CEO recommits to pacing AI development",
-        "titleVi": "CEO Anthropic cam kết kiểm soát tốc độ phát triển AI",
-        "summary": "Trong lễ rung chuông mở cửa sàn Nasdaq, Giám đốc điều hành Dario Amodei khẳng định Anthropic sẽ tiếp tục điều chỉnh tốc độ phát triển trí tuệ nhân tạo phù hợp, bất chấp các áp lực về kinh doanh hay chính trị.",
-        "why": "Dario Amodei tái khẳng định định hướng kiểm soát tốc độ AI ngay tại sàn Nasdaq.",
-        "link": "https://techcrunch.com/2026/11/19/at-nasdaq-opening-bell-anthropic-ceo-recommits-to-pacing-ai-development/",
-        "source": "TechCrunch",
-        "publishedAt": "Thu, 19 Nov 2026 16:19:41 +0000"
-      },
-      {
-        "title": "Anthropic’s IPO puts AI’s circular financing boom to the test",
-        "titleVi": "Đợt IPO của Anthropic thử thách mô hình tài chính AI",
-        "summary": "Anthropic đối mặt với các cam kết năng lượng tính toán khổng lồ khi chuẩn bị niêm yết cổ phiếu. Các đối tác hạ tầng như Amazon và Google vẫn có thể thu lợi từ trí tuệ nhân tạo dù Anthropic mất vị thế dẫn đầu.",
-        "why": "Amazon và Google tiếp tục thu lợi từ AI bất chấp vị thế dẫn đầu của Anthropic.",
-        "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test/",
-        "source": "TechCrunch",
-        "publishedAt": "Thu, 19 Nov 2026 14:54:39 +0000"
       },
       {
         "title": "Superhuman pushes its Go assistant everywhere",
@@ -147,42 +102,6 @@
         "link": "https://www.wired.com/story/voyager-light-day-away-how-far-that-really-is/",
         "source": "Wired",
         "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000"
-      },
-      {
-        "title": "Palo Alto stock jumps on earnings beat and company's big bet on securing open-weight models",
-        "titleVi": "Palo Alto Networks tăng giá cổ phiếu sau kết quả tốt và hợp đồng 4,5 tỷ USD",
-        "summary": "Palo Alto Networks báo cáo lợi nhuận quý một vượt kỳ vọng và ký hợp đồng 4,5 tỷ USD với công ty AI Applied Compute.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/19/palo-alto-networks-earnings-applied-compute.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 16:28:06 GMT"
-      },
-      {
-        "title": "Trump bought Nvidia, Palantir, SpaceX in September as federal deals, White House ties grew",
-        "titleVi": "Trump mua cổ phiếu Nvidia, SpaceX và Tesla cùng các khoản đầu tư khác",
-        "summary": "Tổng thống Trump công bố mua cổ phiếu Nvidia, nợ SpaceX và cổ phiếu Tesla vào tháng 9, đồng thời đầu tư hàng triệu USD vào các dự án khác.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/19/trump-nvidia-spacex-palantir-stock-trades-september.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 17:59:04 GMT"
-      },
-      {
-        "title": "Anthropic opens for trade at $111.50, up 34% from IPO price",
-        "titleVi": "Anthropic mở cửa giao dịch với giá 111,50 USD, tăng 34% so với giá IPO",
-        "summary": "Anthropic được giao dịch mở cửa với 111,50 USD, tăng 34% so với giá IPO, làm công ty có giá trị hơn 2 nghìn tỷ USD.",
-        "why": "",
-        "link": "https://www.coindesk.com/markets/2026/11/19/anthropic-opens-for-trade-at-usd11-50-up-34-from-ipo-price",
-        "source": "CoinDesk",
-        "publishedAt": "Thu, 19 Nov 2026 17:01:47 +0000"
-      },
-      {
-        "title": "Protesters Arrested Outside Nasdaq as Activists Oppose Anthropic IPO Over AI Bubble Risks",
-        "titleVi": "Bốn người bị bắt ngoài Nasdaq khi phản đối IPO Anthropic vì rủi ro bong bóng AI",
-        "summary": "Bốn người bị bắt ngoài Nasdaq trong khi người biểu tình cảnh báo rằng giá trị AI có thể gây rủi ro cho người hưu trí và nền kinh tế.",
-        "why": "Bốn người bị bắt khi phản đối IPO Anthropic vì lo ngại bong bóng AI.",
-        "link": "https://decrypt.co/383642/protesters-arrested-nasdaq-anthropic-ipo-ai-bubble-risks",
-        "source": "Decrypt",
-        "publishedAt": "Thu, 19 Nov 2026 17:55:38 +0000"
       }
     ],
     "chung-khoan": [
@@ -223,13 +142,85 @@
         "publishedAt": "Thu, 19 Nov 2026 19:13:00 GMT"
       },
       {
-        "title": "Medicare beneficiaries could skip the nursing home for cheaper care at home under new bill",
-        "titleVi": "Mỹ đề xuất dự luật chăm sóc người cao tuổi tại nhà thay vì viện dưỡng lão",
-        "summary": "Dự luật mới tại Mỹ đề xuất cho phép người thụ hưởng chương trình Medicare nhận dịch vụ chăm sóc sức khỏe tại nhà thay vì vào viện dưỡng lão. Kế hoạch này giúp tiết kiệm chi phí và giảm tải hệ thống giường bệnh.",
-        "why": "Kế hoạch mới giúp giải phóng giường bệnh tại các bệnh viện và giảm chi phí chăm sóc y tế.",
-        "link": "https://www.marketwatch.com/story/medicare-beneficiaries-could-skip-the-nursing-home-for-cheaper-care-at-home-under-new-bill-e289c8d0?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Thu, 19 Nov 2026 18:54:00 GMT"
+        "title": "Anthropic’s IPO could deliver $156 billion to charity",
+        "titleVi": "Anthropic có thể quyên góp 156 tỷ USD cho từ thiện",
+        "summary": "Với giá cổ phiếu 95 USD, quỹ Public Benefit của Anthropic, đóng góp của nhân viên và khoản bù trừ của công ty có thể đạt 156 tỷ USD.",
+        "why": "Quỹ Public Benefit của Anthropic có thể quyên góp 156 tỷ USD, tương đương 80 tỷ USD vốn mới.",
+        "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-could-deliver-156-billion-to-charity/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 19:10:45 +0000"
+      },
+      {
+        "title": "Former Alibaba exec’s Everful raises $48.5M to connect retailers with Chinese factories",
+        "titleVi": "Everful huy động 48,5 triệu USD để kết nối bán lẻ với nhà máy Trung Quốc",
+        "summary": "Công ty Everful đã nhận 48,5 triệu USD để mở rộng nền tảng mua hàng trực tiếp từ nhà máy, giúp bán lẻ tìm nguồn hàng từ nhà sản xuất nước ngoài.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000"
+      },
+      {
+        "title": "Anthropic hits Nasdaq exchanges at $111, 33% above IPO price",
+        "titleVi": "Anthropic lên Nasdaq với giá 111 USD, 33% trên giá IPO",
+        "summary": "Anthropic giao dịch đầu tiên trên Nasdaq với giá 111 USD, vượt 33% so với mức IPO 83 USD, tạo ra hơn 80 tỷ USD vốn mới.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 16:59:23 +0000"
+      },
+      {
+        "title": "At Nasdaq opening bell, Anthropic CEO recommits to pacing AI development",
+        "titleVi": "CEO Anthropic cam kết kiểm soát tốc độ phát triển AI",
+        "summary": "Trong lễ rung chuông mở cửa sàn Nasdaq, Giám đốc điều hành Dario Amodei khẳng định Anthropic sẽ tiếp tục điều chỉnh tốc độ phát triển trí tuệ nhân tạo phù hợp, bất chấp các áp lực về kinh doanh hay chính trị.",
+        "why": "Dario Amodei tái khẳng định định hướng kiểm soát tốc độ AI ngay tại sàn Nasdaq.",
+        "link": "https://techcrunch.com/2026/11/19/at-nasdaq-opening-bell-anthropic-ceo-recommits-to-pacing-ai-development/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 16:19:41 +0000"
+      },
+      {
+        "title": "Anthropic’s IPO puts AI’s circular financing boom to the test",
+        "titleVi": "Đợt IPO của Anthropic thử thách mô hình tài chính AI",
+        "summary": "Anthropic đối mặt với các cam kết năng lượng tính toán khổng lồ khi chuẩn bị niêm yết cổ phiếu. Các đối tác hạ tầng như Amazon và Google vẫn có thể thu lợi từ trí tuệ nhân tạo dù Anthropic mất vị thế dẫn đầu.",
+        "why": "Amazon và Google tiếp tục thu lợi từ AI bất chấp vị thế dẫn đầu của Anthropic.",
+        "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 19 Nov 2026 14:54:39 +0000"
+      },
+      {
+        "title": "Palo Alto stock jumps on earnings beat and company's big bet on securing open-weight models",
+        "titleVi": "Palo Alto Networks tăng giá cổ phiếu sau kết quả tốt và hợp đồng 4,5 tỷ USD",
+        "summary": "Palo Alto Networks báo cáo lợi nhuận quý một vượt kỳ vọng và ký hợp đồng 4,5 tỷ USD với công ty AI Applied Compute.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/19/palo-alto-networks-earnings-applied-compute.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 16:28:06 GMT"
+      },
+      {
+        "title": "Trump bought Nvidia, Palantir, SpaceX in September as federal deals, White House ties grew",
+        "titleVi": "Trump mua cổ phiếu Nvidia, SpaceX và Tesla cùng các khoản đầu tư khác",
+        "summary": "Tổng thống Trump công bố mua cổ phiếu Nvidia, nợ SpaceX và cổ phiếu Tesla vào tháng 9, đồng thời đầu tư hàng triệu USD vào các dự án khác.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/19/trump-nvidia-spacex-palantir-stock-trades-september.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 17:59:04 GMT"
+      },
+      {
+        "title": "Anthropic opens for trade at $111.50, up 34% from IPO price",
+        "titleVi": "Anthropic mở cửa giao dịch với giá 111,50 USD, tăng 34% so với giá IPO",
+        "summary": "Anthropic được giao dịch mở cửa với 111,50 USD, tăng 34% so với giá IPO, làm công ty có giá trị hơn 2 nghìn tỷ USD.",
+        "why": "",
+        "link": "https://www.coindesk.com/markets/2026/11/19/anthropic-opens-for-trade-at-usd11-50-up-34-from-ipo-price",
+        "source": "CoinDesk",
+        "publishedAt": "Thu, 19 Nov 2026 17:01:47 +0000"
+      },
+      {
+        "title": "Protesters Arrested Outside Nasdaq as Activists Oppose Anthropic IPO Over AI Bubble Risks",
+        "titleVi": "Bốn người bị bắt ngoài Nasdaq khi phản đối IPO Anthropic vì rủi ro bong bóng AI",
+        "summary": "Bốn người bị bắt ngoài Nasdaq trong khi người biểu tình cảnh báo rằng giá trị AI có thể gây rủi ro cho người hưu trí và nền kinh tế.",
+        "why": "Bốn người bị bắt khi phản đối IPO Anthropic vì lo ngại bong bóng AI.",
+        "link": "https://decrypt.co/383642/protesters-arrested-nasdaq-anthropic-ipo-ai-bubble-risks",
+        "source": "Decrypt",
+        "publishedAt": "Thu, 19 Nov 2026 17:55:38 +0000"
       }
     ],
     "crypto": [
@@ -315,6 +306,15 @@
         "link": "https://www.cnbc.com/2026/11/19/amazon-nyc-delivery-protection-act.html",
         "source": "CNBC",
         "publishedAt": "Thu, 19 Nov 2026 19:29:31 GMT"
+      },
+      {
+        "title": "Medicare beneficiaries could skip the nursing home for cheaper care at home under new bill",
+        "titleVi": "Mỹ đề xuất dự luật chăm sóc người cao tuổi tại nhà thay vì viện dưỡng lão",
+        "summary": "Dự luật mới tại Mỹ đề xuất cho phép người thụ hưởng chương trình Medicare nhận dịch vụ chăm sóc sức khỏe tại nhà thay vì vào viện dưỡng lão. Kế hoạch này giúp tiết kiệm chi phí và giảm tải hệ thống giường bệnh.",
+        "why": "Kế hoạch mới giúp giải phóng giường bệnh tại các bệnh viện và giảm chi phí chăm sóc y tế.",
+        "link": "https://www.marketwatch.com/story/medicare-beneficiaries-could-skip-the-nursing-home-for-cheaper-care-at-home-under-new-bill-e289c8d0?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Thu, 19 Nov 2026 18:54:00 GMT"
       }
     ]
   }

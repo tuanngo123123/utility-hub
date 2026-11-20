@@ -294,34 +294,45 @@ const NEWS_FEEDS = [
   { group: 'crypto', source: 'CoinDesk', url: 'https://www.coindesk.com/arc/outboundfeeds/rss/', take: 3 },
   { group: 'crypto', source: 'Decrypt', url: 'https://decrypt.co/feed', take: 2 },
 ];
-// Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V4): nhóm theo
+// Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V5): nhóm theo
 // NGUỒN RSS hay sai — vd CNBC đăng tin Starshield/sập hệ thống (công nghệ)
 // nhưng bị gắn "chung-khoan", CoinDesk đăng tin Nvidia nhưng bị gắn "crypto".
-// Ưu tiên: crypto (từ khóa rất đặc trưng) → AI/công nghệ → Thời sự → chứng
-// khoán; không khớp từ khóa nào thì giữ nguyên nhóm theo nguồn RSS. AI đứng
-// trước chứng khoán vì tin công nghệ hay nhắc "IPO"/"earnings" (vd "Amazon và
-// Google sẽ sở hữu Anthropic sau IPO" là tin AI, không phải tin chứng khoán —
-// vẫn trúng AI nhờ "anthropic", không nhờ tên công ty).
-// Thời sự đứng trước chứng khoán vì tin chính trị hay nhắc thị trường/cổ
-// phiếu nhưng vẫn là tin chính trị (vd tin Trump gặp Putin nhắc "stocks").
-// Tên công ty lớn (Apple/Microsoft/Google/Amazon/Meta/Tesla) KHÔNG nằm
-// trong danh sách AI: tên công ty không quyết định chủ đề tin — "Amazon
-// phản đối dự luật giao hàng ở New York" là tin Thời sự, không phải AI
-// (Claude báo 20/11). Tin AI thật luôn có từ khóa chủ đề (ai, llm, chip,
-// openai, nvidia, anthropic...) nên bỏ tên công ty không làm mất tin AI.
-// Dùng 4 nhóm ai/chung-khoan/crypto/thoi-su (summarize-news.mjs lọc theo
-// 4 nhóm). Từ khóa khớp theo từ trọn vẹn, không phân biệt hoa/thường
-// (\b…\b) để "AI" không trúng "said", "eth" không trúng "Ethereum".
+// Thứ tự ưu tiên (V5, sửa 20/11 theo góp ý của Claude):
+//   1. crypto (từ khóa rất đặc trưng)
+//   2. dự luật (bill + congress/senate/house of representatives/parliament)
+//      → Thời sự: tin VỀ một dự luật là tin chính trị, dù có nhắc cổ phiếu
+//   3. hành động thị trường → Chứng khoán: tin VỀ mua/bán cổ phiếu, gọi
+//      vốn, IPO là tin chứng khoán dù có nhắc tên công ty AI (vd Trump mua
+//      cổ phiếu Nvidia; Everful gọi vốn 48,5 triệu USD)
+//   4. AI — CHỈ từ chủ đề thật (ai, llm, openai, anthropic...). Tên riêng
+//      công ty/chip (nvidia, spacex, starlink, chip, semiconductor...) đã
+//      BỎ khỏi danh sách: tên riêng không quyết định chủ đề tin. Tin AI
+//      thật luôn có từ khóa chủ đề nên bỏ tên riêng không làm mất tin AI.
+//   5. Thời sự (từ khóa chính trị)
+//   6. Chứng khoán (từ khóa thị trường còn lại)
+//   7. không khớp từ khóa nào thì giữ nguyên nhóm theo nguồn RSS.
+// Từ khóa khớp theo từ trọn vẹn, không phân biệt hoa/thường (\b…\b) để
+// "AI" không trúng "said", "eth" không trúng "Ethereum".
 // Thời sự KHÔNG dùng từ chung dễ nhầm: không "president" trần (còn có
 // chủ tịch Fed/chủ tịch công ty), không "vote" (còn có cổ đông bỏ phiếu),
 // không "minister" trần, không "bill" trần (còn có Bill Gates, "treasury
-// bill", hóa đơn) — chỉ dùng tên lãnh đạo + cụm chính trị rõ ràng.
+// bill", hóa đơn) — "bill" chỉ tính khi đi cùng congress/senate (mục 2).
+// "dự luật" (tiếng Việt) KHÔNG có trong danh sách: bộ phân loại chạy trên
+// tiêu đề + mô tả RSS tiếng Anh, tiếng Việt không bao giờ xuất hiện ở đó.
+// Dùng 4 nhóm ai/chung-khoan/crypto/thoi-su (summarize-news.mjs lọc theo
+// 4 nhóm).
 const GROUP_KEYWORDS = {
   crypto: ['bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'solana', 'sol', 'crypto', 'cryptocurrency', 'token', 'tokens', 'blockchain', 'coinbase', 'binance', 'stablecoin', 'stablecoins', 'defi', 'dogecoin', 'doge', 'cardano', 'ada', 'tether', 'usdt', 'usdc', 'nft', 'nfts', 'web3', 'altcoin', 'altcoins', 'memecoin', 'memecoins', 'satoshi', 'halving'],
-  ai: ['artificial intelligence', 'machine learning', 'deep learning', 'data center', 'data centers', 'hugging face', 'chatgpt', 'openai', 'nvidia', 'anthropic', 'spacex', 'starshield', 'starlink', 'satellite', 'satellites', 'cyberattack', 'cyberattacks', 'cyber attack', 'outage', 'outages', 'semiconductor', 'semiconductors', 'chip', 'chips', 'ai', 'llm', 'gemini', 'copilot', 'robot', 'robots', 'neural', 'quantum', 'android', 'iphone'],
-  'thoi-su': ['summit', 'summits', 'election', 'elections', 'presidential', 'diplomacy', 'diplomatic', 'ceasefire', 'invasion', 'sanctions', 'sanction', 'treaty', 'white house', 'kremlin', 'parliament', 'congress', 'congressional', 'senate', 'house hearing', 'hearing', 'hearings', 'prime minister', 'foreign minister', 'finance minister', 'chancellor', 'embassy', 'ambassador', 'missile', 'missiles', 'military', 'nato', 'ukraine', 'taiwan', 'gaza', 'israel', 'putin', 'trump', 'donald trump', 'xi jinping', 'zelensky', 'zelenskyy', 'netanyahu', 'macron', 'biden', 'referendum', 'coup', 'protest', 'protests', 'war', 'trade war', 'united nations', 'general assembly', 'security council', 'voters', 'campaign', 'beijing', 'apec', 'g20', 'g7', 'fbi', 'mar-a-lago', 'impeachment', 'subpoena', 'testimony', 'state visit', 'republican', 'republicans', 'democrat', 'democrats', 'cabinet', 'veto', 'mamdani', 'legislation', 'lawmaker', 'lawmakers', 'city council', 'mayor', 'mayor-elect'],
+  ai: ['artificial intelligence', 'machine learning', 'deep learning', 'data center', 'data centers', 'hugging face', 'chatgpt', 'openai', 'anthropic', 'cyberattack', 'cyberattacks', 'cyber attack', 'outage', 'outages', 'ai', 'llm', 'gemini', 'copilot', 'robot', 'robots', 'neural', 'quantum', 'android', 'iphone'],
+  'thoi-su': ['summit', 'summits', 'election', 'elections', 'presidential', 'diplomacy', 'diplomatic', 'ceasefire', 'invasion', 'sanctions', 'sanction', 'treaty', 'white house', 'kremlin', 'parliament', 'congress', 'congressional', 'senate', 'house hearing', 'hearing', 'hearings', 'prime minister', 'foreign minister', 'finance minister', 'chancellor', 'embassy', 'ambassador', 'missile', 'missiles', 'military', 'nato', 'ukraine', 'taiwan', 'gaza', 'israel', 'putin', 'trump', 'donald trump', 'xi jinping', 'zelensky', 'zelenskyy', 'netanyahu', 'macron', 'biden', 'referendum', 'coup', 'protest', 'protests', 'war', 'trade war', 'united nations', 'general assembly', 'security council', 'voters', 'campaign', 'beijing', 'apec', 'g20', 'g7', 'fbi', 'mar-a-lago', 'impeachment', 'subpoena', 'testimony', 'state visit', 'republican', 'republicans', 'democrat', 'democrats', 'cabinet', 'veto', 'mamdani', 'legislation', 'lawmaker', 'lawmakers', 'city council', 'mayor', 'mayor-elect', 'medicare', 'medicaid'],
   'chung-khoan': ['federal reserve', 'interest rate', 'interest rates', 'dow jones', 'vn-index', 's&p', 'nasdaq', 'chứng khoán', 'cổ phiếu', 'earnings', 'ipo', 'fed', 'stock', 'stocks', 'shares', 'dividend', 'dividends', 'treasury', 'securities', 'wall street'],
 };
+// Từ khóa hành động thị trường (mục 3): tin chứa các từ này là tin VỀ thị
+// trường, kiểm TRƯỚC AI. Chỉ lấy từ mạnh, tránh nhầm: 'raises $'/'raised $'
+// (có $ — "raises concerns" không trúng), 'bought' (không lấy 'buys'/'sells'
+// — "Best Buy sells Blu-rays" không phải tin chứng khoán), không lấy 'trade'
+// trần ("trade war" là Thời sự).
+const MARKET_ACTION_KEYWORDS = ['ipo', 'raises $', 'raised $', 'funding round', 'funding rounds', 'stock', 'stocks', 'shares', 'earnings', 'nasdaq', 'dow jones', 's&p', 'bought'];
 function keywordRegex(words) {
   const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp('\\b(?:' + words.map(escRe).join('|') + ')\\b', 'i');
@@ -332,12 +343,18 @@ const GROUP_PATTERNS = [
   { group: 'thoi-su', re: keywordRegex(GROUP_KEYWORDS['thoi-su']) },
   { group: 'chung-khoan', re: keywordRegex(GROUP_KEYWORDS['chung-khoan']) },
 ];
+const MARKET_ACTION_RE = keywordRegex(MARKET_ACTION_KEYWORDS);
+const BILL_LAW_RE = /\bbill\b/i;
+const LAWMAKER_RE = /\b(congress|senate|house of representatives|parliament)\b/i;
 function classifyNewsGroup(title, description, fallbackGroup) {
   const text = ((title || '') + ' ' + (description || '')).trim();
   if (!text) return fallbackGroup;
-  for (const p of GROUP_PATTERNS) {
-    if (p.re.test(text)) return p.group;
-  }
+  if (GROUP_PATTERNS[0].re.test(text)) return 'crypto';
+  if (BILL_LAW_RE.test(text) && LAWMAKER_RE.test(text)) return 'thoi-su';
+  if (MARKET_ACTION_RE.test(text)) return 'chung-khoan';
+  if (GROUP_PATTERNS[1].re.test(text)) return 'ai';
+  if (GROUP_PATTERNS[2].re.test(text)) return 'thoi-su';
+  if (GROUP_PATTERNS[3].re.test(text)) return 'chung-khoan';
   return fallbackGroup;
 }
 // Giải mã thực thể HTML trong RSS: số thập phân (&#8217;), số hex (&#x27;),

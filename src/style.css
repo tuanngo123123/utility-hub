@@ -3742,7 +3742,7 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 .gv-app-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 640px;
+  min-width: 720px;
 }
 .gv-app-table th,
 .gv-app-table td {
@@ -3756,7 +3756,7 @@ body:has(.gv-app) { background: #EEF1F7; overflow: hidden; }
 .gv-app-stt { color: var(--gv-muted); font-weight: 700; text-align: center; width: 44px; }
 .gv-app-table .lh-name {
   width: 100%;
-  min-width: 160px;
+  min-width: 220px;
   font: inherit;
   font-size: 1.15rem;
   font-weight: 600;
