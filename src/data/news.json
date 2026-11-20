@@ -167,15 +167,6 @@
         "publishedAt": "Thu, 19 Nov 2026 17:59:04 GMT"
       },
       {
-        "title": "Amazon launches in-app push against Mamdani-backed delivery bill in New York City",
-        "titleVi": "Amazon phản đối dự luật giao hàng mới tại New York",
-        "summary": "Amazon đã khởi động chiến dịch truyền thông ngay trên ứng dụng nhằm phản đối dự luật liên quan đến dịch vụ giao hàng tại New York. Quy định mới này từng nhận được sự hỗ trợ từ chính khách Zohran Mamdani.",
-        "why": "Amazon thực hiện vận động phản đối dự luật quản lý giao hàng ngay trên ứng dụng của mình.",
-        "link": "https://www.cnbc.com/2026/11/19/amazon-nyc-delivery-protection-act.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 19 Nov 2026 19:29:31 GMT"
-      },
-      {
         "title": "Anthropic opens for trade at $111.50, up 34% from IPO price",
         "titleVi": "Anthropic mở cửa giao dịch với giá 111,50 USD, tăng 34% so với giá IPO",
         "summary": "Anthropic được giao dịch mở cửa với 111,50 USD, tăng 34% so với giá IPO, làm công ty có giá trị hơn 2 nghìn tỷ USD.",
@@ -315,6 +306,15 @@
         "link": "https://www.coindesk.com/policy/2026/11/19/trump-s-democratic-sec-pick-suggests-tokenization-policy-deserves-full-rule-process",
         "source": "CoinDesk",
         "publishedAt": "Thu, 19 Nov 2026 18:15:56 +0000"
+      },
+      {
+        "title": "Amazon launches in-app push against Mamdani-backed delivery bill in New York City",
+        "titleVi": "Amazon phản đối dự luật giao hàng mới tại New York",
+        "summary": "Amazon đã khởi động chiến dịch truyền thông ngay trên ứng dụng nhằm phản đối dự luật liên quan đến dịch vụ giao hàng tại New York. Quy định mới này từng nhận được sự hỗ trợ từ chính khách Zohran Mamdani.",
+        "why": "Amazon thực hiện vận động phản đối dự luật quản lý giao hàng ngay trên ứng dụng của mình.",
+        "link": "https://www.cnbc.com/2026/11/19/amazon-nyc-delivery-protection-act.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 19 Nov 2026 19:29:31 GMT"
       }
     ]
   }
