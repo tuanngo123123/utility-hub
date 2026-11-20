@@ -294,13 +294,16 @@ const NEWS_FEEDS = [
   { group: 'crypto', source: 'CoinDesk', url: 'https://www.coindesk.com/arc/outboundfeeds/rss/', take: 3 },
   { group: 'crypto', source: 'Decrypt', url: 'https://decrypt.co/feed', take: 2 },
 ];
-// Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V5): nhóm theo
+// Phân loại lại nhóm tin bằng từ khóa trong tiêu đề + mô tả (V6): nhóm theo
 // NGUỒN RSS hay sai — vd CNBC đăng tin Starshield/sập hệ thống (công nghệ)
 // nhưng bị gắn "chung-khoan", CoinDesk đăng tin Nvidia nhưng bị gắn "crypto".
-// Thứ tự ưu tiên (V5, sửa 20/11 theo góp ý của Claude):
+// Thứ tự ưu tiên (V6, sửa 20/11 theo quyết của Claude):
 //   1. crypto (từ khóa rất đặc trưng)
 //   2. dự luật (bill + congress/senate/house of representatives/parliament)
 //      → Thời sự: tin VỀ một dự luật là tin chính trị, dù có nhắc cổ phiếu
+//   2b. biểu tình (protest/arrested/riot...) → Thời sự, kiểm TRƯỚC hành
+//      động thị trường: tin VỀ biểu tình là tin thời sự dù có nhắc IPO hay
+//      Nasdaq (vd biểu tình phản đối IPO Anthropic ngoài Nasdaq)
 //   3. hành động thị trường → Chứng khoán: tin VỀ mua/bán cổ phiếu, gọi
 //      vốn, IPO là tin chứng khoán dù có nhắc tên công ty AI (vd Trump mua
 //      cổ phiếu Nvidia; Everful gọi vốn 48,5 triệu USD)
@@ -310,7 +313,10 @@ const NEWS_FEEDS = [
 //      thật luôn có từ khóa chủ đề nên bỏ tên riêng không làm mất tin AI.
 //   5. Thời sự (từ khóa chính trị)
 //   6. Chứng khoán (từ khóa thị trường còn lại)
-//   7. không khớp từ khóa nào thì giữ nguyên nhóm theo nguồn RSS.
+//   7. không khớp từ khóa nào → Thời sự. NHÃN MẶC ĐỊNH THEO NGUỒN ĐÃ BỎ
+//      (V6): gắn nhãn theo nguồn gây sai hệ thống — vd tin Best Buy bán
+//      Blu-ray bị gắn "AI" chỉ vì lấy từ TechCrunch. Thời sự là nhóm
+//      chung an toàn nhất cho tin không rõ chủ đề.
 // Từ khóa khớp theo từ trọn vẹn, không phân biệt hoa/thường (\b…\b) để
 // "AI" không trúng "said", "eth" không trúng "Ethereum".
 // Thời sự KHÔNG dùng từ chung dễ nhầm: không "president" trần (còn có
@@ -325,7 +331,7 @@ const GROUP_KEYWORDS = {
   crypto: ['bitcoin', 'btc', 'ethereum', 'eth', 'xrp', 'ripple', 'solana', 'sol', 'crypto', 'cryptocurrency', 'token', 'tokens', 'blockchain', 'coinbase', 'binance', 'stablecoin', 'stablecoins', 'defi', 'dogecoin', 'doge', 'cardano', 'ada', 'tether', 'usdt', 'usdc', 'nft', 'nfts', 'web3', 'altcoin', 'altcoins', 'memecoin', 'memecoins', 'satoshi', 'halving'],
   ai: ['artificial intelligence', 'machine learning', 'deep learning', 'data center', 'data centers', 'hugging face', 'chatgpt', 'openai', 'anthropic', 'cyberattack', 'cyberattacks', 'cyber attack', 'outage', 'outages', 'ai', 'llm', 'gemini', 'copilot', 'robot', 'robots', 'neural', 'quantum', 'android', 'iphone'],
   'thoi-su': ['summit', 'summits', 'election', 'elections', 'presidential', 'diplomacy', 'diplomatic', 'ceasefire', 'invasion', 'sanctions', 'sanction', 'treaty', 'white house', 'kremlin', 'parliament', 'congress', 'congressional', 'senate', 'house hearing', 'hearing', 'hearings', 'prime minister', 'foreign minister', 'finance minister', 'chancellor', 'embassy', 'ambassador', 'missile', 'missiles', 'military', 'nato', 'ukraine', 'taiwan', 'gaza', 'israel', 'putin', 'trump', 'donald trump', 'xi jinping', 'zelensky', 'zelenskyy', 'netanyahu', 'macron', 'biden', 'referendum', 'coup', 'protest', 'protests', 'war', 'trade war', 'united nations', 'general assembly', 'security council', 'voters', 'campaign', 'beijing', 'apec', 'g20', 'g7', 'fbi', 'mar-a-lago', 'impeachment', 'subpoena', 'testimony', 'state visit', 'republican', 'republicans', 'democrat', 'democrats', 'cabinet', 'veto', 'mamdani', 'legislation', 'lawmaker', 'lawmakers', 'city council', 'mayor', 'mayor-elect', 'medicare', 'medicaid'],
-  'chung-khoan': ['federal reserve', 'interest rate', 'interest rates', 'dow jones', 'vn-index', 's&p', 'nasdaq', 'chứng khoán', 'cổ phiếu', 'earnings', 'ipo', 'fed', 'stock', 'stocks', 'shares', 'dividend', 'dividends', 'treasury', 'securities', 'wall street'],
+  'chung-khoan': ['federal reserve', 'interest rate', 'interest rates', 'dow jones', 'vn-index', 's&p', 'nasdaq', 'chứng khoán', 'cổ phiếu', 'earnings', 'ipo', 'fed', 'stock', 'stocks', 'shares', 'dividend', 'dividends', 'treasury', 'securities', 'wall street', 'market crash', 'short-seller', 'short seller'],
 };
 // Từ khóa hành động thị trường (mục 3): tin chứa các từ này là tin VỀ thị
 // trường, kiểm TRƯỚC AI. Chỉ lấy từ mạnh, tránh nhầm: 'raises $'/'raised $'
@@ -333,6 +339,10 @@ const GROUP_KEYWORDS = {
 // — "Best Buy sells Blu-rays" không phải tin chứng khoán), không lấy 'trade'
 // trần ("trade war" là Thời sự).
 const MARKET_ACTION_KEYWORDS = ['ipo', 'raises $', 'raised $', 'funding round', 'funding rounds', 'stock', 'stocks', 'shares', 'earnings', 'nasdaq', 'dow jones', 's&p', 'bought'];
+// Từ khóa biểu tình (mục 2b, V6): tin VỀ biểu tình là tin thời sự, kiểm
+// TRƯỚC hành động thị trường — nếu không, "biểu tình phản đối IPO ngoài
+// Nasdaq" bị gắn Chứng khoán chỉ vì có chữ ipo/nasdaq.
+const PROTEST_KEYWORDS = ['protest', 'protests', 'protester', 'protesters', 'demonstration', 'demonstrations', 'demonstrator', 'demonstrators', 'arrested', 'riot', 'riots'];
 function keywordRegex(words) {
   const escRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   return new RegExp('\\b(?:' + words.map(escRe).join('|') + ')\\b', 'i');
@@ -344,18 +354,20 @@ const GROUP_PATTERNS = [
   { group: 'chung-khoan', re: keywordRegex(GROUP_KEYWORDS['chung-khoan']) },
 ];
 const MARKET_ACTION_RE = keywordRegex(MARKET_ACTION_KEYWORDS);
+const PROTEST_RE = keywordRegex(PROTEST_KEYWORDS);
 const BILL_LAW_RE = /\bbill\b/i;
 const LAWMAKER_RE = /\b(congress|senate|house of representatives|parliament)\b/i;
-function classifyNewsGroup(title, description, fallbackGroup) {
+function classifyNewsGroup(title, description) {
   const text = ((title || '') + ' ' + (description || '')).trim();
-  if (!text) return fallbackGroup;
+  if (!text) return 'thoi-su';
   if (GROUP_PATTERNS[0].re.test(text)) return 'crypto';
   if (BILL_LAW_RE.test(text) && LAWMAKER_RE.test(text)) return 'thoi-su';
+  if (PROTEST_RE.test(text)) return 'thoi-su';
   if (MARKET_ACTION_RE.test(text)) return 'chung-khoan';
   if (GROUP_PATTERNS[1].re.test(text)) return 'ai';
   if (GROUP_PATTERNS[2].re.test(text)) return 'thoi-su';
   if (GROUP_PATTERNS[3].re.test(text)) return 'chung-khoan';
-  return fallbackGroup;
+  return 'thoi-su';
 }
 // Giải mã thực thể HTML trong RSS: số thập phân (&#8217;), số hex (&#x27;),
 // tên (&apos; &rsquo; &mdash;…) và 4 thực thể cơ bản. &amp; giải mã CUỐI
@@ -398,7 +410,7 @@ async function fetchNewsRaw() {
         // tuếch mà model không được bịa thêm — lọc ở đây để feed lấy tin khác).
         if (desc.replace(/\s+/g, ' ').trim().length < 40) continue;
         // Nhóm phân loại lại bằng từ khóa (V4), dự phòng là nhóm theo nguồn RSS.
-        items.push({ title, link, source: feed.source, group: classifyNewsGroup(title, desc, feed.group), publishedAt: pub, description: desc });
+        items.push({ title, link, source: feed.source, group: classifyNewsGroup(title, desc), publishedAt: pub, description: desc });
         n++;
       }
       log(`news-${feed.source}`, true, `${n} tin`);

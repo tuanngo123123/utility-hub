@@ -147,6 +147,36 @@ function looksVietnameseTitle(t) {
   if (VI_DIACRITIC.test(s)) return true;
   return s.toLowerCase().split(/[^a-zà-ỹđ]+/i).some((w) => VI_COMMON_WORDS.has(w));
 }
+// Kiểm neo (V6, 20/11): tóm tắt có đúng tin không? Model đôi khi trả đúng
+// số lượng nhưng gắn tóm tắt của tin này sang tin khác (đã xảy ra thật
+// 20/11: 3 tin MIT Tech Review — gan người, pin Sila, Google Mirror
+// Dimension — bị xoay tóm tắt cho nhau, code cũ ghép theo vị trí nên
+// không phát hiện được). Neo = tên riêng viết hoa + con số trong tít/mô
+// tả gốc (Sila, Panasonic, 156, 48,5...): tóm tắt đúng tin thường giữ
+// lại ít nhất 1 neo nguyên văn. Không có neo nào trúng thì hỏi lại riêng
+// tin đó (đường sửa badIdx đã có) — KHÔNG để trống, vì tóm tắt đúng vẫn
+// có thể không giữ neo nào (vd "U.S. economy" dịch thành "kinh tế Mỹ").
+// Tin gốc không có neo nào thì bỏ qua kiểm (không thể xác minh).
+const ANCHOR_STOP = new Set(['The', 'A', 'An', 'What', 'Why', 'How', 'This', 'That', 'With', 'From', 'After', 'Before', 'Over', 'Under', 'Best', 'Top', 'New']);
+function extractAnchors(item) {
+  const text = ((item.title || '') + ' ' + (item.description || ''));
+  const anchors = new Set();
+  for (const m of text.matchAll(/\b[A-Z][A-Za-z0-9'.-]{1,}\b/g)) {
+    const w = m[0].replace(/[.'-]+$/, '');
+    if (w.length >= 2 && !ANCHOR_STOP.has(w)) anchors.add(w);
+  }
+  for (const m of text.matchAll(/\b\d[\d,.]*\b/g)) {
+    const n = m[0].replace(/,$/, '');
+    if (n.length >= 2) anchors.add(n);
+  }
+  return [...anchors];
+}
+function hasAnchor(item, summary) {
+  const anchors = extractAnchors(item);
+  if (anchors.length === 0) return true;
+  const s = String(summary || '');
+  return anchors.some((a) => s.includes(a));
+}
 const ADVICE_PHRASES = ['nên mua', 'nên bán', 'nên đầu tư', 'nên giữ', 'nên nắm giữ', 'cân nhắc đầu tư', 'cân nhắc mua', 'cân nhắc bán', 'đáng mua', 'đáng đầu tư', 'cơ hội mua', 'khuyến nghị', 'đa dạng hoá danh mục', 'đa dạng hóa danh mục'];
 function stripAdvice(text) {
   const low = String(text || '').toLowerCase();
@@ -428,7 +458,7 @@ const SYSTEM_PROMPT = [
 
 async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '') {
   const numbered = batch.map((it, i) => `${i + 1}. [${it.source}] ${it.title}${it.description ? ' — ' + it.description : ''}`).join('\n');
-  const userText = `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"titleVi", "summary", "why"}):\n${numbered}${extraNote ? '\n' + extraNote : ''}`;
+  const userText = `Tóm tắt ${batch.length} tin sau (trả về mảng JSON gồm đúng ${batch.length} đối tượng {"n", "titleVi", "summary", "why"} — "n" là số thứ tự của tin trong danh sách dưới, BẮT BUỘC ghi đúng để tớ ghép tóm tắt với đúng tin, không được đổi thứ tự tin):\n${numbered}${extraNote ? '\n' + extraNote : ''}`;
   const fetchText = async () => {
     try {
       const res = await callPollinations([
@@ -453,6 +483,21 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
   const parseOut = (text) => {
     const arr = parseJsonArray(text);
     if (!Array.isArray(arr) || arr.length !== batch.length) throw new Error('Model trả JSON không đúng số lượng');
+    // Ghép theo số thứ tự "n" model trả về (chống lệch thứ tự — đã xảy
+    // ra thật 20/11: model trả đúng số lượng nhưng sai thứ tự, code cũ
+    // ghép theo vị trí nên 3 tin MIT bị gắn tóm tắt của nhau). "n" không
+    // hợp lệ (thiếu/trùng/ngoài khoảng) thì giữ nguyên thứ tự trả về;
+    // kiểm neo ở dưới vẫn bắt được lỗi lệch nội dung nếu có.
+    if (arr.every((el) => el && typeof el === 'object' && Number.isInteger(el.n))) {
+      const ns = arr.map((el) => el.n);
+      if (new Set(ns).size === arr.length && ns.every((n) => n >= 1 && n <= arr.length)) {
+        arr.sort((a, b) => a.n - b.n);
+      } else {
+        console.warn('Model trả số thứ tự "n" không hợp lệ (thiếu/trùng) — giữ nguyên thứ tự trả về.');
+      }
+    } else if (arr.some((el) => el && typeof el === 'object')) {
+      console.warn('Model không trả số thứ tự "n" — giữ nguyên thứ tự trả về.');
+    }
     // Chuẩn mới: mỗi phần tử là {titleVi, summary, why}. Dung sai: chuỗi thuần (dạng cũ)
     // thì coi là summary, why rỗng — để một lần trả về lệch định dạng không làm
     // mất cả loạt tóm tắt. Chuỗi lọc (áp cho cả 3 trường): trim -> stripAdvice
@@ -498,9 +543,11 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
   // Sửa từng tin lỗi thay vì bỏ cả batch: gom các tin trả không phải tiếng
   // Việt (hoặc tóm tắt bị lọc thành trống — ví dụ toàn bộ bằng tiếng Anh
   // nên stripEnglishClauses lược hết), tiêu đề tiếng Việt thiếu/sai, số
-  // liệu trong tít Việt lệch tít gốc (titleNumbersMatch), hoặc từng chứa
+  // liệu trong tít Việt lệch tít gốc (titleNumbersMatch), từng chứa
   // cụm bình luận sáo rỗng (cờ _banned — câu đó đã bị lược, hỏi lại để AI
-  // viết lại bằng sự kiện cụ thể thay vì mất nội dung); hỏi lại riêng 1
+  // viết lại bằng sự kiện cụ thể thay vì mất nội dung), hoặc tóm tắt
+  // không giữ neo nào của tin gốc (hasAnchor — dấu hiệu tóm tắt bị gắn
+  // nhầm sang tin khác); hỏi lại riêng 1
   // lần (sau 15s, tôn trọng giới hạn Pollinations), kèm nhắc viết lại câu
   // sáo rỗng bằng sự kiện cụ thể và đối chiếu lại số liệu tít. Vẫn lỗi thì
   // để trống TỪNG TRƯỜNG lỗi (giữ lại trường tốt — trước đây để trống cả
@@ -509,7 +556,8 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
   out.forEach((p, k) => {
     if (!p.summary || !looksVietnamese(p.summary) || !looksVietnamese(p.why) ||
       !p.titleVi || !looksVietnameseTitle(p.titleVi) || p._banned ||
-      (p.titleVi && !titleNumbersMatch(batch[k].title, p.titleVi, batch[k].description))) badIdx.push(k);
+      (p.titleVi && !titleNumbersMatch(batch[k].title, p.titleVi, batch[k].description)) ||
+      !hasAnchor(batch[k], p.summary)) badIdx.push(k);
   });
   if (allowRepair && badIdx.length > 0) {
     console.warn(`Batch có ${badIdx.length}/${batch.length} tin cần hỏi lại (không phải tiếng Việt / thiếu tít Việt / lệch số tít / có cụm sáo rỗng).`);
@@ -550,7 +598,10 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
   // (1) Tít Việt vẫn lệch số so với tít gốc sau 1 lần hỏi lại -> để trống
   // titleVi để trang hiển thị rơi về tít gốc tiếng Anh, thay vì đăng tít
   // Việt sai số. (2) Câu why trùng ý summary -> bỏ hẳn why, tin chỉ hiện
-  // 1 câu tóm tắt là đủ.
+  // 1 câu tóm tắt là đủ. (3) Tóm tắt không giữ neo nào của tin gốc sau
+  // hỏi lại -> chỉ CẢNH BÁO trong log (không để trống, vì tóm tắt đúng
+  // vẫn có thể không giữ neo nào) để người xem log Actions phát hiện
+  // nếu tóm tắt bị gắn nhầm tin.
   out.forEach((p, k) => {
     if (p.titleVi && !titleNumbersMatch(batch[k].title, p.titleVi, batch[k].description)) {
       console.warn(`Tít Việt lệch số sau hỏi lại, giữ tít gốc: "${batch[k].title}" — tít Việt bị bỏ: "${p.titleVi}"`);
@@ -559,6 +610,9 @@ async function summarizeBatch(apiKey, batch, allowRepair = true, extraNote = '')
     if (p.why && whyDuplicatesSummary(p.summary, p.why)) {
       console.warn(`Bỏ câu why trùng ý summary: "${p.why}"`);
       p.why = '';
+    }
+    if (p.summary && !hasAnchor(batch[k], p.summary)) {
+      console.warn(`CẢNH BÁO neo: tóm tắt không giữ neo nào của tin gốc (có thể gắn nhầm tin) — "${batch[k].title}" — tóm tắt: "${p.summary.slice(0, 100)}"`);
     }
   });
   // Gỡ cờ nội bộ trước khi trả về — news.json chỉ chứa titleVi/summary/why.
