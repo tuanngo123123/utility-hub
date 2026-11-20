@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T19:33:10.103Z",
+  "updatedAt": "2026-11-20T07:39:58.598Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,7 +49,47 @@
   ],
   "items": [
     {
-      "title": "Anthropic’s IPO could deliver $156 billion to charity",
+      "title": "Apple may be developing its own AI agent that runs your Mac",
+      "link": "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Fri, 20 Nov 2026 00:56:01 +0000",
+      "description": "The iPhone maker appears to be building agents that can compete with the likes of Meta Muse, Instinct, Claude, and OpenAI Dots."
+    },
+    {
+      "title": "Anthropic’s 7 founders cashed out nearly $2B in record-breaking IPO",
+      "link": "https://techcrunch.com/2026/11/19/anthropics-7-founders-cashed-out-nearly-2b-in-record-breaking-ipo/",
+      "source": "TechCrunch",
+      "group": "chung-khoan",
+      "publishedAt": "Fri, 20 Nov 2026 00:43:50 +0000",
+      "description": "At the upgraded $83/share IPO price, Anthropic's seven founders each pocketed $280 million, while the company nabbed nearly $105 billion."
+    },
+    {
+      "title": "Meta’s new Muse Charm device may cost $300",
+      "link": "https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 21:58:06 +0000",
+      "description": "Meta hasn't denied the reporting from The Information, saying only that it will \"have more to share soon\" about its upcoming AI wearable."
+    },
+    {
+      "title": "These tech outages are giving Y2K, AI agent style",
+      "link": "https://techcrunch.com/2026/11/19/these-tech-outages-are-giving-y2k-ai-agent-style/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 21:42:31 +0000",
+      "description": "Are the recent outages in the airline booking systems, banking platforms, and productivity platforms really a coincidence? There's actually likely something deeper going on, cybersecurity experts say."
+    },
+    {
+      "title": "The unfolding Jensen Huang scandal: a timeline",
+      "link": "https://techcrunch.com/2026/11/19/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 20:18:49 +0000",
+      "description": "Jensen Huang has resigned from Nvidia following an affair, which could have ramifications for national security as the U.S. and China race to develop the most advanced AI infrastructure."
+    },
+    {
+      "title": "Anthropic’s IPO could deliver $156B to charity",
       "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-could-deliver-156-billion-to-charity/",
       "source": "TechCrunch",
       "group": "chung-khoan",
@@ -65,52 +105,12 @@
       "description": "Google's latest update to Gemini brings an AI agent to the Mac that can organize files, fill out forms, and tackle multistep workflows."
     },
     {
-      "title": "Meta’s AI agent Muse is mixing up conversations and exposing private data, report says",
+      "title": "Meta’s AI agent Muse is mixing up conversations and could be exposing private data, report says",
       "link": "https://techcrunch.com/2026/11/19/metas-ai-agent-muse-is-mixing-up-conversations-and-exposing-private-data-report-says/",
       "source": "TechCrunch",
       "group": "ai",
       "publishedAt": "Thu, 19 Nov 2026 17:38:40 +0000",
       "description": "In some of these instances, employees said Muse surfaced messages about childcare requests they never made, career advice they never asked for, product orders they never placed, and bank account balances that didn't belong to them."
-    },
-    {
-      "title": "Former Alibaba exec’s Everful raises $48.5M to connect retailers with Chinese factories",
-      "link": "https://techcrunch.com/2026/11/19/former-alibaba-execs-everful-raises-48-5m-to-connect-retailers-with-chinese-factories/",
-      "source": "TechCrunch",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000",
-      "description": "Everful has raised $48.5 million to expand its factory-direct sourcing platform, helping retailers source products from overseas manufacturers."
-    },
-    {
-      "title": "Anthropic hits Nasdaq exchanges at $111, 33% above IPO price",
-      "link": "https://techcrunch.com/2026/11/19/anthropic-hits-nasdaq-exchanges-at-110-27-above-ipo-price/",
-      "source": "TechCrunch",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 16:59:23 +0000",
-      "description": "Anthropic's IPO price was set at $83, representing more than $80 billion in new capital raised."
-    },
-    {
-      "title": "At Nasdaq opening bell, Anthropic CEO recommits to pacing AI development",
-      "link": "https://techcrunch.com/2026/11/19/at-nasdaq-opening-bell-anthropic-ceo-recommits-to-pacing-ai-development/",
-      "source": "TechCrunch",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 16:19:41 +0000",
-      "description": "In his Nasdaq opening bell speech, Dario Amodei reiterated Anthropic's commitment to pacing AI development, regardless of business or political pressure."
-    },
-    {
-      "title": "Anthropic’s IPO puts AI’s circular financing boom to the test",
-      "link": "https://techcrunch.com/2026/11/19/anthropics-ipo-puts-ais-circular-financing-boom-to-the-test/",
-      "source": "TechCrunch",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 14:54:39 +0000",
-      "description": "Anthropic faces enormous compute commitments as it goes public, but its biggest infrastructure partners, including Amazon and Google, could continue profiting from AI even if Anthropic loses its lead."
-    },
-    {
-      "title": "Superhuman pushes its Go assistant everywhere",
-      "link": "https://techcrunch.com/2026/11/19/superhuman-pushes-its-go-assistant-everywhere/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 14:00:00 +0000",
-      "description": "Superhuman is making Go its central agent and making it available in Docs and Mail."
     },
     {
       "title": "Best Buy sells Blu-rays online and in-store again",
@@ -153,172 +153,172 @@
       "description": "After a tough few years littered with some high-profile failures, there’s some positive news for next-generation batteries in the US. Sila just signed an agreement with Panasonic Energy, a global battery manufacturer, to supply silicon-carbon anode material, a possible key to smaller, lighter batteries. It’s a deal that Sila says could be worth more than…"
     },
     {
-      "title": "Google Built a Giant ‘Mirror Dimension’ Internet to Test Its Chrome AI Agents",
-      "link": "https://www.wired.com/story/google-built-a-giant-mirror-dimension-internet-to-test-its-chrome-ai-agents/",
+      "title": "This 16-Year-Old Founded an AI Missile Startup. He’s Targeting ‘Cost per Kill’",
+      "link": "https://www.wired.com/story/henrijs-dandzbergs-polemos-missiles-ai-warfare/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 17:00:00 +0000",
-      "description": "The company’s alternate-universe internet serves as a massive sandbox that allows the Chrome team to properly train AI browsing agents—without the risk of them going rogue."
+      "publishedAt": "Fri, 20 Nov 2026 07:00:00 +0000",
+      "description": "Henrijs Dandzbergs dropped out of high school to join startup accelerator Y Combinator. With a new breed of missile, he wants to make killing as efficient as possible for the US and its military allies."
     },
     {
-      "title": "21 Best Home Entertainment Gifts (2026): TVs, Lights, and More",
-      "link": "https://www.wired.com/story/best-home-entertainment-gifts-2026/",
+      "title": "Vimeo Promo Codes: 40% Off This November 2026",
+      "link": "https://www.wired.com/story/vimeo-promo-code/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000",
-      "description": "Because staying home can actually mean having the time of your life, whether alone or with friends."
+      "publishedAt": "Fri, 20 Nov 2026 06:00:00 +0000",
+      "description": "Enjoy 25% off a membership, 40% off, plus an additional 10% off annual plans, and more deals to save at Vimeo."
     },
     {
-      "title": "Voyager Is a Light-Day Away. Here’s How Far That Really Is",
-      "link": "https://www.wired.com/story/voyager-light-day-away-how-far-that-really-is/",
+      "title": "Expedia Coupons: 50% Off",
+      "link": "https://www.wired.com/story/expedia-coupon/",
       "source": "Wired",
       "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 12:00:00 +0000",
-      "description": "The distance and forces shaping the venerable craft’s trajectory are mind-boggling reminders of the vastness of space."
+      "publishedAt": "Fri, 20 Nov 2026 06:00:00 +0000",
+      "description": "Book your next getaway with Expedia and get up to 75% off your stay, with or without a promo code."
     },
     {
-      "title": "AMD dives on short-seller report of alleged China exposure",
+      "title": "SoftBank suffers worst day in over two years as AI sell-off hits Asian tech stocks",
+      "link": "https://www.cnbc.com/2026/11/20/softbank-ai-tech-stocks-slide-anthropic-debut.html",
+      "source": "CNBC",
+      "group": "chung-khoan",
+      "publishedAt": "Fri, 20 Nov 2026 07:23:06 GMT",
+      "description": "The declines in Asia come after the tech-heavy Nasdaq Composite fell more than 2% overnight following Anthropic's highly anticipated Wall Street debut."
+    },
+    {
+      "title": "Senate passes BAAJA permitting reform bill backed by AI, energy sectors",
+      "link": "https://www.cnbc.com/2026/11/20/baaja-bill-senate-passes-permitting-reform.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Fri, 20 Nov 2026 03:56:17 GMT",
+      "description": "The permitting bill's Senate passage is a key step to it becoming law, but it would also need to clear the House before heading to President Trump's desk."
+    },
+    {
+      "title": "Forget Anthropic: In Europe, the IPO hype is about a blue lagoon",
+      "link": "https://www.cnbc.com/2026/11/20/anthropic-ipo-iceland-blue-lagoon.html",
+      "source": "CNBC",
+      "group": "chung-khoan",
+      "publishedAt": "Fri, 20 Nov 2026 06:00:01 GMT",
+      "description": "Iceland’s famed Blue Lagoon geothermal spa is going public in a $110 million IPO, tapping investor interest in tourism and the booming wellness industry."
+    },
+    {
+      "title": "AMD dives on short seller report of alleged China exposure",
       "link": "https://www.cnbc.com/2026/11/19/amd-falls-on-short-seller-report-of-alleged-china-exposure.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 18:24:54 GMT",
-      "description": "AMD was slumping after a short-seller alleged that its firmware showed up at a blacklisted Chinese company. The company said it complies with U.S. law."
+      "publishedAt": "Fri, 20 Nov 2026 00:08:34 GMT",
+      "description": "AMD closed down over 7% after a short seller alleged that its firmware showed up at a blacklisted Chinese company. AMD said it complies with U.S. law."
     },
     {
-      "title": "Palo Alto stock jumps on earnings beat and company's big bet on securing open-weight models",
-      "link": "https://www.cnbc.com/2026/11/19/palo-alto-networks-earnings-applied-compute.html",
+      "title": "AI is changing software engineering — and some developers miss the struggle",
+      "link": "https://www.cnbc.com/2026/11/20/ai-coding-tools-software-engineers.html",
+      "source": "CNBC",
+      "group": "ai",
+      "publishedAt": "Fri, 20 Nov 2026 06:00:01 GMT",
+      "description": "AI coding tools are making software engineers faster, but developers tell CNBC the work has lost its \"sense of joy and fun.\""
+    },
+    {
+      "title": "U.K.-India trade deal faces a stiff test over Scotch whisky import taxes",
+      "link": "https://www.cnbc.com/2026/11/20/uk-india-trade-scotch-whisky-tariffs.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 16:28:06 GMT",
-      "description": "Palo Alto Networks reported better-than-expected first-quarter results and inked a $4.5 billion deal for AI startup Applied Compute"
+      "publishedAt": "Fri, 20 Nov 2026 05:09:52 GMT",
+      "description": "In the global spirits markets, while the U.S., Europe, and China are facing volume contraction, India will add nearly 100 million consumers in the next five years."
     },
     {
-      "title": "Kash Patel skips House hearing after Mar-a-Lago gala with $50,000 access",
-      "link": "https://www.cnbc.com/2026/11/18/kash-patel-hearing-mar-a-lago-gala.html",
-      "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Thu, 19 Nov 2026 14:15:18 GMT",
-      "description": "Kash Patel missed a congressional hearing after appearing the night before at a Mar-a-Lago gala offering donors of $50,000 access to top officials."
-    },
-    {
-      "title": "Trump bought Nvidia, Palantir, SpaceX in September as federal deals, White House ties grew",
-      "link": "https://www.cnbc.com/2026/11/19/trump-nvidia-spacex-palantir-stock-trades-september.html",
-      "source": "CNBC",
+      "title": "‘Nvidia’s turmoil has me spooked’: Should I sell my stocks and buy real estate — or ride out the storm?",
+      "link": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
+      "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 17:59:04 GMT",
-      "description": "President Trump disclosed purchases of Nvidia stock, SpaceX debt and Tesla shares in September, alongside millions of dollars in other investments."
+      "publishedAt": "Fri, 20 Nov 2026 03:31:00 GMT",
+      "description": "Tempted to ditch stocks for property or CDs? Take a deep breath before making any sudden moves."
     },
     {
-      "title": "Walmart hikes outlook as CEO tells CNBC retailer aims to keep prices low despite soaring fuel costs",
-      "link": "https://www.cnbc.com/2026/11/19/walmart-wmt-q3-2026-earnings.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 19:19:25 GMT",
-      "description": "Walmart said it saw strength with store-fulfilled pickup and delivery in its fiscal third quarter."
-    },
-    {
-      "title": "Amazon launches in-app push against Mamdani-backed delivery bill in New York City",
-      "link": "https://www.cnbc.com/2026/11/19/amazon-nyc-delivery-protection-act.html",
-      "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Thu, 19 Nov 2026 19:29:31 GMT",
-      "description": "Amazon has lobbied heavily against the proposed legislation, while New York City Mayor Zohran Mamdani backed the bill earlier this year."
-    },
-    {
-      "title": "We’re in our 50s and terrified of a market crash. Should we put $400,000 of our $1 million retirement savings into an annuity?",
+      "title": "I’m terrified of a market crash. Should I put $400,000 of my $1 million retirement savings into an annuity?",
       "link": "https://www.marketwatch.com/story/were-in-our-50s-and-terrified-of-a-market-crash-should-we-put-400-000-of-our-1-million-retirement-savings-into-an-annuity-1943f240?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 19:15:00 GMT",
+      "publishedAt": "Fri, 20 Nov 2026 01:30:00 GMT",
       "description": "“We have a house worth $450,000. Our combined annual income is $125,000.”"
     },
     {
-      "title": "The surprising reason the U.S. economy is speeding up — and might have more room to run",
-      "link": "https://www.marketwatch.com/story/the-surprising-reason-the-u-s-economy-is-speeding-up-and-might-have-more-room-to-run-9016c8db?mod=mw_rss_topstories",
+      "title": "My wife is bankrolling her family’s trips to New York and it’s draining our savings. Should I ask her to stop?",
+      "link": "https://www.marketwatch.com/story/my-wife-pays-thousands-of-dollars-for-her-family-to-visit-from-argentina-how-can-i-convince-her-to-stop-9381351c?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 19:13:00 GMT",
-      "description": "The main engine of U.S. growth is in overdrive."
+      "publishedAt": "Fri, 20 Nov 2026 01:22:00 GMT",
+      "description": "“Hotel rooms can cost as much as $400 per night.”"
     },
     {
-      "title": "Medicare beneficiaries could skip the nursing home for cheaper care at home under new bill",
-      "link": "https://www.marketwatch.com/story/medicare-beneficiaries-could-skip-the-nursing-home-for-cheaper-care-at-home-under-new-bill-e289c8d0?mod=mw_rss_topstories",
+      "title": "After Anthropic’s ‘bittersweet’ IPO, here’s what lies ahead",
+      "link": "https://www.marketwatch.com/story/after-anthropics-bittersweet-ipo-heres-what-lies-ahead-8c32fdb7?mod=mw_rss_topstories",
       "source": "MarketWatch",
-      "group": "thoi-su",
-      "publishedAt": "Thu, 19 Nov 2026 18:54:00 GMT",
-      "description": "The plan would free up hospital and nursing-home beds — and lower costs."
-    },
-    {
-      "title": "Social Security should be shut down, this Republican senator says",
-      "link": "https://www.marketwatch.com/story/social-security-should-be-shut-down-this-republican-senator-says-8f7fef81?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "thoi-su",
-      "publishedAt": "Thu, 19 Nov 2026 18:53:00 GMT",
-      "description": "The program’s trust funds are forecast to run out of money in the next six years."
-    },
-    {
-      "title": "Ethereum’s Glamsterdam upgrade could slip to May 2027 over compatibility concerns",
-      "link": "https://cointelegraph.com/news/ethereum-glamsterdam-could-slip-to-may-2027?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 18:20:49 +0000",
-      "description": "Ethereum developers are weighing changes to gas pricing proposals that could disrupt existing smart contracts, after contacting at least 50 affected companies."
-    },
-    {
-      "title": "Why higher rates could slow Bitcoin buying at treasury firms",
-      "link": "https://cointelegraph.com/news/why-higher-rates-could-slow-bitcoin-buying-at-treasury-firms?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 18:09:32 +0000",
-      "description": "A treasury company can have years of dividends covered and still struggle to sell new shares on terms that make another Bitcoin purchase worthwhile."
-    },
-    {
-      "title": "Bitcoin price ignores Anthropic debut as ANT share price dips below $100",
-      "link": "https://cointelegraph.com/markets/bitcoin-price-ignores-anthropic-debut-ant-share-price-dips-below-100?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 18:06:50 +0000",
-      "description": "Bitcoin dropped toward a third retest of $62,000 as Anthropic debuted on the Nasdaq, hitting highs of $115 per share before dropping below $100."
-    },
-    {
-      "title": "Trump's Democratic SEC pick suggests tokenization policy deserves full rule process",
-      "link": "https://www.coindesk.com/policy/2026/11/19/trump-s-democratic-sec-pick-suggests-tokenization-policy-deserves-full-rule-process",
-      "source": "CoinDesk",
-      "group": "thoi-su",
-      "publishedAt": "Thu, 19 Nov 2026 18:15:56 +0000",
-      "description": "The U.S. Senate Banking Committee held a confirmation hearing for the two nominees — one from each party — as the administration rebuilds the markets regulators."
-    },
-    {
-      "title": "Anthropic opens for trade at $111.50, up 34% from IPO price",
-      "link": "https://www.coindesk.com/markets/2026/11/19/anthropic-opens-for-trade-at-usd11-50-up-34-from-ipo-price",
-      "source": "CoinDesk",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 17:01:47 +0000",
-      "description": "At that opening price, the company would be valued at more than $2 trillion"
+      "publishedAt": "Thu, 19 Nov 2026 23:56:00 GMT",
+      "description": "Retail investors showed up, but Anthropic has so far failed to provide a broad lift to the technology sector."
     },
     {
-      "title": "Binance wins $6.5 billion feezing order against hackers behind crypto's largest theft",
-      "link": "https://www.coindesk.com/business/2026/11/19/binance-wins-usd6-5-billion-feezing-order-against-hackers-behind-crypto-s-largest-theft",
+      "title": "Anthropic’s $81B IPO draws half the net retail buying of SpaceX’s",
+      "link": "https://cointelegraph.com/markets/anthropic-ipo-spacex-retail-buying-first-day-gains?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "chung-khoan",
+      "publishedAt": "Fri, 20 Nov 2026 06:24:41 +0000",
+      "description": "Retail investors traded $772 million in Anthropic shares on Thursday, the most Vanda Research has recorded for a market debut since 2012."
+    },
+    {
+      "title": "Here’s what happened in crypto today",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "crypto",
+      "publishedAt": "Fri, 20 Nov 2026 06:00:00 +0000",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
+    },
+    {
+      "title": "Institutions pile back into US Bitcoin ETFs in Q3 after selling streak",
+      "link": "https://cointelegraph.com/markets/institutional-bitcoin-etf-holdings-clock-record-quarter-after-selling-streak?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "crypto",
+      "publishedAt": "Fri, 20 Nov 2026 03:33:22 +0000",
+      "description": "Asset managers added the equivalent of 49,229 Bitcoin to their US Bitcoin ETF holdings in the third quarter, reversing three quarters of net selling."
+    },
+    {
+      "title": "Here's what's crashing gold and likely weighing on bitcoin too",
+      "link": "https://www.coindesk.com/markets/2026/11/20/here-s-what-s-crashing-gold-and-likely-weighing-on-bitcoin-too",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 15:20:38 +0000",
-      "description": "The crypto exchange said it has already replaced the stolen assets using its own funds and insurance reserves."
+      "publishedAt": "Fri, 20 Nov 2026 06:12:15 +0000",
+      "description": "Gold fell to its lowest level since September 2025 on Friday, and the same catalyst driving its decline is likely also weighing on bitcoin."
     },
     {
-      "title": "Bitcoin Enters Death Cross as Anthropic IPO Fails to Lift Wall Street",
-      "link": "https://decrypt.co/383655/bitcoin-enters-death-cross-anthropic-ipo",
+      "title": "Anthropic shares may fall 5% at Friday’s open, crypto futures suggest",
+      "link": "https://www.coindesk.com/markets/2026/11/20/crypto-traders-have-anthropic-trading-below-its-first-nasdaq-close-on-hyperliquid",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Fri, 20 Nov 2026 06:08:28 +0000",
+      "description": "About $1.7 billion traded through a Hyperliquid contract on the AI company’s shares in 24 hours, and the biggest position heading into Friday’s Nasdaq open is a $30 million short."
+    },
+    {
+      "title": "This Bitcoin miner sold 267 BTC to clear $22 million debt. It still may not survive",
+      "link": "https://www.coindesk.com/markets/2026/11/20/this-bitcoin-miner-sold-267-btc-to-clear-usd22-million-debt-it-still-may-not-survive",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Fri, 20 Nov 2026 05:32:25 +0000",
+      "description": "PowerCompute had its lender sell 267 pledged bitcoin in September, wiping out most of its debt, and ended the month with about $650,000 in cash and a going-concern warning."
+    },
+    {
+      "title": "Citi Says Customers Are Responsible When AI Banking Agents Go Rogue—Even After a Hack",
+      "link": "https://decrypt.co/383677/citi-customers-responsible-ai-banking-agents-rogue-hack",
       "source": "Decrypt",
-      "group": "crypto",
-      "publishedAt": "Thu, 19 Nov 2026 19:08:24 +0000",
-      "description": "Anthropic shares surged on their Nasdaq debut, but stocks slid and Bitcoin fell lower. Its daily chart shows deeply oversold momentum, a strong downtrend, and fragile support."
+      "group": "ai",
+      "publishedAt": "Thu, 19 Nov 2026 22:36:02 +0000",
+      "description": "Citibank’s updated terms put customers on the hook for outside AI agents, including leaked logins."
     },
     {
-      "title": "Protesters Arrested Outside Nasdaq as Activists Oppose Anthropic IPO Over AI Bubble Risks",
-      "link": "https://decrypt.co/383642/protesters-arrested-nasdaq-anthropic-ipo-ai-bubble-risks",
+      "title": "Nvidia, AMD, Micron Sink as Anthropic Closes 17% Above IPO Price",
+      "link": "https://decrypt.co/383669/nvidia-amd-micron-ai-stocks-sink-anthropic-ipo-price",
       "source": "Decrypt",
       "group": "chung-khoan",
-      "publishedAt": "Thu, 19 Nov 2026 17:55:38 +0000",
-      "description": "At least four people were arrested outside Nasdaq during Anthropic’s historic IPO, as protesters warned that AI valuations could leave retirement savers exposed to a potential market crash and broader economic losses."
+      "publishedAt": "Thu, 19 Nov 2026 21:12:06 +0000",
+      "description": "Anthropic shares opened 34% above their $83 IPO price before giving up much of the gain, while Nvidia, AMD and other AI stocks slid across Wall Street."
     }
   ]
 }
