@@ -1,29 +1,20 @@
 {
-  "updatedAt": "2026-11-20T08:43:01.080Z",
+  "updatedAt": "2026-11-20T17:24:12.687Z",
   "source": "vang.today",
   "sourceUrl": "https://vang.today/api/prices?action=current",
-  "sourceTime": "2026-11-20T08:00:03.000Z",
+  "sourceTime": "2026-11-20T17:00:03.000Z",
   "world": {
-    "priceUsdPerOz": 3572.75,
-    "changeUsd": -107.19999999999982
+    "priceUsdPerOz": 3539.15,
+    "changeUsd": -2.199999999999818
   },
   "items": [
     {
-      "code": "VIETTINMSJC",
-      "name": "ViettinBank SJC",
-      "buy": 129200000,
+      "code": "BTSJC",
+      "name": "Bảo Tín SJC",
+      "buy": 128300000,
       "sell": 134200000,
-      "changeBuy": -4000000,
-      "changeSell": -2000000,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "VNGSJC",
-      "name": "VN Gold SJC",
-      "buy": 129200000,
-      "sell": 134200000,
-      "changeBuy": -4000000,
-      "changeSell": -2000000,
+      "changeBuy": 0,
+      "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
@@ -31,53 +22,8 @@
       "name": "Bảo Tín 9999",
       "buy": 128300000,
       "sell": 133300000,
-      "changeBuy": -3500000,
-      "changeSell": -2500000,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "BTSJC",
-      "name": "Bảo Tín SJC",
-      "buy": 128300000,
-      "sell": 134200000,
-      "changeBuy": -3500000,
-      "changeSell": -2000000,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "PQHNVM",
-      "name": "PNJ Hà Nội",
-      "buy": 128700000,
-      "sell": 134200000,
-      "changeBuy": -3800000,
-      "changeSell": -2000000,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "PQHN24NTT",
-      "name": "PNJ 24K",
-      "buy": 128700000,
-      "sell": 132700000,
-      "changeBuy": -3800000,
-      "changeSell": -2800000,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "DOHNL",
-      "name": "DOJI Hà Nội",
-      "buy": 129200000,
-      "sell": 134200000,
-      "changeBuy": -4000000,
-      "changeSell": -2000000,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "DOHCML",
-      "name": "DOJI TP.HCM",
-      "buy": 129200000,
-      "sell": 134200000,
-      "changeBuy": -4000000,
-      "changeSell": -2000000,
+      "changeBuy": 0,
+      "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
@@ -85,8 +31,44 @@
       "name": "DOJI nhẫn nữ trang",
       "buy": 129300000,
       "sell": 133300000,
-      "changeBuy": -2700000,
-      "changeSell": -2700000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "PQHN24NTT",
+      "name": "PNJ 24K",
+      "buy": 128700000,
+      "sell": 132700000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "PQHNVM",
+      "name": "PNJ Hà Nội",
+      "buy": 128700000,
+      "sell": 134200000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "VNGSJC",
+      "name": "VN Gold SJC",
+      "buy": 129200000,
+      "sell": 134200000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "VIETTINMSJC",
+      "name": "ViettinBank SJC",
+      "buy": 129200000,
+      "sell": 134200000,
+      "changeBuy": 0,
+      "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
@@ -94,8 +76,26 @@
       "name": "Nhẫn SJC 9999",
       "buy": 128000000,
       "sell": 134000000,
-      "changeBuy": -4000000,
-      "changeSell": -2000000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "DOHNL",
+      "name": "DOJI Hà Nội",
+      "buy": 129200000,
+      "sell": 134200000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "DOHCML",
+      "name": "DOJI TP.HCM",
+      "buy": 129200000,
+      "sell": 134200000,
+      "changeBuy": 0,
+      "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
@@ -103,8 +103,8 @@
       "name": "SJC 9999 (vàng miếng)",
       "buy": 129200000,
       "sell": 134200000,
-      "changeBuy": -4000000,
-      "changeSell": -2000000,
+      "changeBuy": 0,
+      "changeSell": 0,
       "unit": "đồng/lượng"
     }
   ]
