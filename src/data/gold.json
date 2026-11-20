@@ -1,11 +1,11 @@
 {
-  "updatedAt": "2026-11-20T17:24:12.687Z",
+  "updatedAt": "2026-11-20T23:13:35.961Z",
   "source": "vang.today",
   "sourceUrl": "https://vang.today/api/prices?action=current",
-  "sourceTime": "2026-11-20T17:00:03.000Z",
+  "sourceTime": "2026-11-20T22:30:02.000Z",
   "world": {
-    "priceUsdPerOz": 3539.15,
-    "changeUsd": -2.199999999999818
+    "priceUsdPerOz": 3539,
+    "changeUsd": -2.349999999999909
   },
   "items": [
     {
