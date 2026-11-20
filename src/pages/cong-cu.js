@@ -1,7 +1,9 @@
 // Trang Tất cả công cụ (/cong-cu/) — MẪU 4 (19/11/2026).
-// H1 32px + 1 dòng; thanh lọc dính khi cuộn (ô lọc 48px + chip nhóm
-// có số lượng); công cụ chia theo nhóm, mỗi nhóm tiêu đề 20px + dòng
-// gọn 64px (tên đậm + 1 dòng mô tả), không ảnh, không nhãn "Miễn phí".
+// H1 32px + 1 dòng; ô tìm kiếm dính khi cuộn, chip nhóm cuộn theo
+// trang (20/11: trước đây cả thanh lọc dính lại cao 168px, chắn mất
+// 1/4 màn hình — Tuấn báo); công cụ chia theo nhóm, mỗi nhóm tiêu đề
+// 20px + dòng gọn 64px (tên đậm + 1 dòng mô tả), không ảnh, không nhãn
+// "Miễn phí".
 // Không tìm thấy thì hiện "Chưa có công cụ …" + link gợi ý công cụ
 // (app.js đếm ẩn danh từ khóa vào localStorage + soạn mail).
 // Danh sách công cụ do build.mjs chèn vào lúc build (render sẵn, không
@@ -43,14 +45,14 @@ ${groupsHtml}
   <section class="section">
     <h1 class="page-title">Tất cả công cụ</h1>
     <p class="muted">${tools.length} công cụ miễn phí, chia theo nhóm. Gõ để lọc ngay.</p>
-    <div class="cat-filter-bar" id="cat-filter-bar">
+    <div class="cat-filter-sticky">
       <div class="cat-filter-wrap">
         <svg class="cat-filter-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input type="search" id="tool-search" class="cat-filter-input" placeholder="Lọc công cụ… ví dụ: tính lương net" autocomplete="off" aria-label="Lọc công cụ">
       </div>
-      <div class="cat-chips" id="filter-chips" role="group" aria-label="Lọc theo nhóm">
+    </div>
+    <div class="cat-chips" id="filter-chips" role="group" aria-label="Lọc theo nhóm">
       ${chips}
-      </div>
     </div>
     <p id="filter-status" class="cat-filter-status" hidden><span id="filter-status-text"></span> <button type="button" class="chip" id="filter-clear">✕ Xóa lọc</button></p>
     ${groupsSection}

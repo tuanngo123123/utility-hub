@@ -4701,20 +4701,21 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
    (như .m2-page), không theo chế độ tối.
    ============================================================ */
 
-/* --- Thanh lọc dính khi cuộn: ô lọc 48px + chip nhóm --- */
-.cat-filter-bar {
+/* --- Ô tìm kiếm dính khi cuộn; chip nhóm cuộn theo trang ---
+   Trước đây cả thanh lọc (ô tìm + 2 hàng chip, cao 168px) dính lại,
+   cộng header 65px thành 233px chắn màn hình — thẻ công cụ phía
+   dưới bị cắt nửa (Tuấn báo 20/11). Giờ chỉ ô tìm kiếm dính
+   (~64px), chip cuộn đi theo trang; ô tìm là con trực tiếp của
+   <section> nên dính suốt chiều dài trang. */
+.cat-filter-sticky {
   position: sticky;
   top: 64px;
   z-index: 40;
   background: var(--bg);
-  padding: 8px 0 12px;
-  margin: 0 0 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  padding: 8px 0;
 }
 @media (max-width: 768px) {
-  .cat-filter-bar { top: 56px; }
+  .cat-filter-sticky { top: 56px; }
 }
 .cat-filter-wrap { position: relative; max-width: 560px; }
 .cat-filter-input {
@@ -4737,7 +4738,7 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   color: #64748B;
   pointer-events: none;
 }
-.cat-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px; }
 .cat-chip {
   display: inline-flex;
   align-items: center;
