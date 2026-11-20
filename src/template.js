@@ -189,9 +189,33 @@ ${chatWidget}
        (Chính sách bảo mật mục 11 đã mô tả dịch vụ này: không cookie, không thu thập
        thông tin nhận dạng cá nhân.)
        Tách lượt kiểm thử nội bộ (19/11/2026): chỉ nạp beacon khi trình duyệt
-       KHÔNG có cờ uh_internal=1 trong localStorage. Đặt cờ trên trình duyệt
-       kiểm thử bằng cách mở console gõ: localStorage.setItem('uh_internal','1')
-       — lượt xem từ trình duyệt đó không được tính vào báo cáo. -->
+       KHÔNG có cờ uh_internal=1 trong localStorage. Đặt cờ bằng cách mở bất
+       kỳ trang nào kèm ?internal=1 (bỏ cờ: ?internal=0) — không cần console;
+       lượt xem từ trình duyệt đó không được tính vào báo cáo. -->
+  <!-- Đánh dấu trình duyệt nội bộ: ?internal=1 đặt cờ, ?internal=0 bỏ cờ.
+       Chạy TRƯỚC beacon để lượt xem ngay lần mở link này cũng không tính. -->
+  <script>(function(){try{
+    var p = new URLSearchParams(location.search).get('internal');
+    if (p !== '1' && p !== '0') return;
+    if (p === '1') localStorage.setItem('uh_internal','1');
+    else localStorage.removeItem('uh_internal');
+    var u = new URL(location.href); u.searchParams.delete('internal');
+    history.replaceState(null, '', u.pathname + u.search + u.hash);
+    var t = document.createElement('div');
+    t.setAttribute('role','status');
+    t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:9999;max-width:min(92vw,560px);background:#0F172A;color:#fff;padding:12px 16px;border-radius:12px;font-size:15px;line-height:1.5;box-shadow:0 8px 24px rgba(0,0,0,.25);';
+    t.textContent = p === '1'
+      ? 'Đã đánh dấu trình duyệt này là nội bộ — lượt truy cập của bạn sẽ không tính vào thống kê.'
+      : 'Đã bỏ đánh dấu nội bộ cho trình duyệt này.';
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-label','Đóng thông báo');
+    b.style.cssText = 'margin-left:12px;background:none;border:0;color:#fff;font-size:18px;cursor:pointer;';
+    b.textContent = '✕';
+    b.onclick = function(){ t.remove(); };
+    t.appendChild(b);
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, 8000);
+  }catch(e){}})();</script>
   <!-- Cloudflare Web Analytics --><script>(function(){try{if(localStorage.getItem('uh_internal')==='1')return;}catch(e){}var s=document.createElement('script');s.type='module';s.src='https://static.cloudflareinsights.com/beacon.min.js';s.setAttribute('data-cf-beacon','{"token": "dd0aac1b776f42ec95763e59e4913fc9"}');document.head.appendChild(s);})();</script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
