@@ -1,19 +1,19 @@
 {
-  "updatedAt": "2026-11-19T19:13:15.494Z",
+  "updatedAt": "2026-11-20T01:22:02.771Z",
   "source": "open.er-api.com",
   "sourceUrl": "https://open.er-api.com/v6/latest/USD",
   "base": "USD",
-  "timeLastUpdateUtc": "Thu, 19 Nov 2026 00:02:31 +0000",
+  "timeLastUpdateUtc": "Fri, 20 Nov 2026 00:02:32 +0000",
   "rates": {
     "USD": 1,
-    "EUR": 0.911253,
-    "JPY": 159.360785,
-    "KRW": 1332.216798,
-    "CNY": 6.680778,
-    "GBP": 0.760017,
-    "AUD": 1.488406,
-    "SGD": 1.289354,
-    "THB": 33.964642,
-    "VND": 25703.83069
+    "EUR": 0.910749,
+    "JPY": 159.74951,
+    "KRW": 1330.972965,
+    "CNY": 6.69198,
+    "GBP": 0.762372,
+    "AUD": 1.498714,
+    "SGD": 1.290845,
+    "THB": 33.94469,
+    "VND": 25729.721904
   }
 }
