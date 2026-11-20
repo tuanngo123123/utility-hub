@@ -103,6 +103,58 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
       <p class="aiw-full"><a href="/cong-cu/tro-chuyen-ai/">Mở trang chat đầy đủ →</a></p>
     </section>
   </div>`;
+  // Khung Góp ý / Báo lỗi (MẪU 6, 20/11): có ở MỌI trang có khung site
+  // (trừ Bàn giáo viên — trang app toàn màn hình, không có chân trang)
+  // để dòng mời ở chân trang luôn mở được. Logic mở/đóng + gửi về
+  // Google Form nằm trong initFeedback() ở app.js. Ô "website" là
+  // honeypot chống spam (người không thấy được, bot điền vào thì khung
+  // hiện "Cảm ơn" giả mà không gửi). Không đụng hộp thoại "Báo sai số
+  // liệu" cũ (vẫn ở trang công cụ, gửi qua email).
+  const feedbackWidget = hideChrome ? '' : `
+  <div class="uh-fb-overlay" id="uh-fb-overlay">
+    <div class="uh-fb-dialog" role="dialog" aria-modal="true" aria-labelledby="uh-fb-title">
+      <div class="uh-fb-form" id="uh-fb-form">
+        <div class="uh-fb-head">
+          <div>
+            <h2 id="uh-fb-title">Góp ý cho Tiện Ích Hub</h2>
+            <p class="uh-fb-sub">Mình đọc hết và sửa theo góp ý của bạn.</p>
+          </div>
+          <button class="uh-fb-close" type="button" aria-label="Đóng" data-uh-feedback-close>✕</button>
+        </div>
+        <div class="uh-fb-field">
+          <span class="uh-fb-label" id="uh-fb-type-label">Bạn muốn báo gì?</span>
+          <div class="uh-fb-types" role="radiogroup" aria-labelledby="uh-fb-type-label">
+            <button type="button" role="radio" aria-checked="true" data-i="0">Bị lỗi</button>
+            <button type="button" role="radio" aria-checked="false" data-i="1">Thiếu tính năng</button>
+            <button type="button" role="radio" aria-checked="false" data-i="2">Ý kiến khác</button>
+          </div>
+        </div>
+        <div class="uh-fb-field">
+          <label class="uh-fb-label" for="uh-fb-msg" id="uh-fb-msg-label">Lỗi xảy ra thế nào?</label>
+          <textarea id="uh-fb-msg" rows="4" placeholder="Ví dụ: bấm Tính mà không ra kết quả"></textarea>
+          <span class="uh-fb-err" id="uh-fb-err">Bạn ghi vài chữ giúp mình nhé.</span>
+        </div>
+        <div class="uh-fb-field">
+          <label class="uh-fb-label" for="uh-fb-contact">Email hoặc số Zalo <span class="uh-fb-optional">(không bắt buộc)</span></label>
+          <input id="uh-fb-contact" type="text" placeholder="Để mình báo lại khi sửa xong" autocomplete="off">
+        </div>
+        <div class="uh-fb-hp" aria-hidden="true">
+          <label for="uh-fb-hp-input">Website của bạn</label>
+          <input id="uh-fb-hp-input" type="text" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="uh-fb-info">ⓘ Tự gửi kèm: tên trang này, loại máy và trình duyệt.</div>
+        <p class="uh-fb-err" id="uh-fb-neterr">Không gửi được — kiểm tra mạng rồi bấm Gửi lại giúp mình nhé.</p>
+        <p class="uh-fb-err" id="uh-fb-limit">Bạn gửi nhiều quá rồi, nghỉ vài phút rồi gửi lại giúp mình nhé.</p>
+        <button class="uh-fb-send" type="button" id="uh-fb-send">Gửi góp ý</button>
+      </div>
+      <div class="uh-fb-ok" id="uh-fb-ok">
+        <div class="uh-fb-tick">✓</div>
+        <h2>Cảm ơn bạn!</h2>
+        <p>Mình đã nhận góp ý và sẽ sửa sớm. Nếu bạn để lại email hoặc Zalo, mình sẽ báo khi xong.</p>
+        <button class="btn" type="button" data-uh-feedback-close>Đóng</button>
+      </div>
+    </div>
+  </div>`;
   // Trang ứng dụng toàn màn hình (Bàn giáo viên, MẪU 1): không có
   // header/footer/thanh đáy của site — trang tự có thanh trên riêng.
   // Mặc định các trang khác vẫn có đủ khung site.
@@ -149,6 +201,7 @@ export function shell({ title, desc, keywords = '', canonical, body, extraHead =
         </div>
       </div>
       <p class="muted small footer-copy">© 2026 ${SITE_NAME} — Ngô Minh Tuấn. Mọi tính toán trong công cụ chạy trên trình duyệt và không gửi dữ liệu của bạn lên máy chủ.</p>
+      <p class="muted small footer-feedback">Thấy lỗi hoặc cần thêm công cụ? <button type="button" class="footer-feedback-link" data-uh-feedback-open>Góp ý cho mình</button></p>
     </div>
   </footer>
   <nav class="bottom-nav" aria-label="Điều hướng dưới cùng">
@@ -185,6 +238,7 @@ ${body}
   </main>
 ${siteFooter}
 ${chatWidget}
+${feedbackWidget}
   <!-- Cloudflare Web Analytics: ĐÃ BẬT (18/11/2026, site tienichhub.io.vn).
        (Chính sách bảo mật mục 11 đã mô tả dịch vụ này: không cookie, không thu thập
        thông tin nhận dạng cá nhân.)

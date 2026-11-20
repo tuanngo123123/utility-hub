@@ -477,7 +477,10 @@
     plusBtn.addEventListener('click', function () { set(parseInt(input.value, 10) + 1); });
   }
   // Vẽ thẻ kết quả MẪU 2: số chính + dòng %, 3 dòng chi tiết, bảng từng
-  // bước (thu gọn), hàng 3 nút Chép / Chia sẻ Zalo / Tải ảnh.
+  // bước (thu gọn), hàng nút Chép / Chia sẻ Zalo / Tải ảnh / Góp ý.
+  // Nút "Góp ý / Báo lỗi" (MẪU 6, 20/11) mở khung góp ý qua
+  // [data-uh-feedback-open] — initFeedback() bắt sự kiện bằng ủy quyền
+  // trên document nên nút vẫn mở được dù thẻ vẽ lại mỗi lần tính.
   // cfg: { label, value, pctLine, rows: [{label, value, strong}],
   //   steps: [{label, sub, amount}] | null, note,
   //   copyText, copyMsg, shareTitle,
@@ -509,6 +512,7 @@
       + '<button type="button" class="m2-action-btn m2-action-btn-copy">Chép</button>'
       + '<button type="button" class="m2-action-btn m2-action-btn-share">Chia sẻ Zalo</button>'
       + (cfg.image ? '<button type="button" class="m2-action-btn m2-action-btn-download">Tải ảnh</button>' : '')
+      + '<button type="button" class="m2-action-btn m2-action-btn-feedback" data-uh-feedback-open>💬 Góp ý / Báo lỗi</button>'
       + '</div></div>';
     var stepsBtn = outEl.querySelector('.m2-steps-toggle');
     if (stepsBtn) stepsBtn.addEventListener('click', function () {
@@ -833,6 +837,7 @@
     initHomeNews();
     initSupport();
     initAiChatWidget();
+    initFeedback();
   });
 
   // Nút "Thử với số này" trong khối ví dụ tính sẵn (SEO lô 1): build.mjs
@@ -1132,6 +1137,215 @@
     }
     updateInputState();
     wrap.hidden = false;
+  }
+
+  /* ---------------- Khung Góp ý / Báo lỗi (MẪU 6, 20/11/2026) ----------------
+     Khung thoại do template.js sinh trên MỌI trang có khung site (trừ
+     Bàn giáo viên — trang app toàn màn hình, không có chân trang) để
+     dòng mời ở chân trang luôn mở được. Mở bằng mọi nút mang
+     [data-uh-feedback-open]: nút cam trong hàng chia sẻ (trang công cụ
+     thường), nút thứ tư trong thẻ kết quả MẪU 2, dòng mời ở chân
+     trang. Bắt sự kiện bằng ủy quyền trên document nên nút MẪU 2 —
+     vẽ lại mỗi lần tính — vẫn mở được.
+     Gửi thẳng tới Google Form bằng fetch no-cors (không có khóa/mật
+     khẩu nào trong mã — form ID + entry ID là công khai). no-cors trả
+     về opaque response nên không-ném-lỗi là coi thành công.
+     Chống spam: ô honeypot ẩn (bot điền vào thì hiện "Cảm ơn" giả mà
+     không gửi) + tối đa 3 lần gửi/10 phút/máy (localStorage khóa
+     uh_gy_lan_gui). Lỗi mạng: giữ nguyên nội dung đã gõ, hiện câu lỗi
+     + nút "Gửi lại". */
+  function initFeedback() {
+    var overlay = document.getElementById('uh-fb-overlay');
+    if (!overlay) return;
+    var formView = document.getElementById('uh-fb-form');
+    var okView = document.getElementById('uh-fb-ok');
+    var msgBox = document.getElementById('uh-fb-msg');
+    var msgLabel = document.getElementById('uh-fb-msg-label');
+    var contactBox = document.getElementById('uh-fb-contact');
+    var hpBox = document.getElementById('uh-fb-hp-input');
+    var errEmpty = document.getElementById('uh-fb-err');
+    var errNet = document.getElementById('uh-fb-neterr');
+    var errLimit = document.getElementById('uh-fb-limit');
+    var sendBtn = document.getElementById('uh-fb-send');
+    var typeBtns = overlay.querySelectorAll('.uh-fb-types button');
+    if (!formView || !okView || !msgBox || !sendBtn) return;
+
+    var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfKoX7N6LiumbcbXEBe0RmTT-Wao_E9q-pNLfKHVThRUymebA/formResponse';
+    var TYPE_LABELS = ['Lỗi xảy ra thế nào?', 'Bạn cần thêm gì?', 'Bạn muốn nói gì?'];
+    var TYPE_HINTS = ['Ví dụ: bấm Tính mà không ra kết quả', 'Ví dụ: thêm ô nhập phụ cấp', 'Vài chữ là đủ'];
+    var TYPE_VALUES = ['Bị lỗi', 'Thiếu tính năng', 'Ý kiến khác'];
+    var RATE_KEY = 'uh_gy_lan_gui';
+    var RATE_MAX = 3;
+    var RATE_WINDOW_MS = 10 * 60 * 1000;
+    var selectedType = 0;
+    var lastTrigger = null;
+    var sending = false;
+
+    function show(el) { if (el) el.classList.add('uh-fb-show'); }
+    function hide(el) { if (el) el.classList.remove('uh-fb-show'); }
+    function resetSendBtn() {
+      sendBtn.textContent = 'Gửi góp ý';
+      sendBtn.disabled = false;
+    }
+    function open(trigger) {
+      lastTrigger = trigger || null;
+      formView.classList.remove('uh-fb-hide');
+      hide(okView);
+      hide(errEmpty);
+      hide(errNet);
+      hide(errLimit);
+      resetSendBtn();
+      overlay.classList.add('uh-fb-open');
+      setTimeout(function () { try { msgBox.focus(); } catch (e) { /* bỏ qua */ } }, 50);
+    }
+    function close() {
+      overlay.classList.remove('uh-fb-open');
+      if (lastTrigger && lastTrigger.focus) {
+        try { lastTrigger.focus(); } catch (e) { /* nút đã vẽ lại: bỏ qua */ }
+      }
+    }
+    function showSuccess() {
+      formView.classList.add('uh-fb-hide');
+      show(okView);
+      msgBox.value = '';
+    }
+    function selectType(i) {
+      selectedType = i;
+      for (var k = 0; k < typeBtns.length; k++) {
+        typeBtns[k].setAttribute('aria-checked', k === i ? 'true' : 'false');
+      }
+      if (msgLabel) msgLabel.textContent = TYPE_LABELS[i];
+      msgBox.placeholder = TYPE_HINTS[i];
+    }
+    for (var t = 0; t < typeBtns.length; t++) {
+      (function (btn) {
+        btn.addEventListener('click', function () {
+          selectType(parseInt(btn.getAttribute('data-i'), 10) || 0);
+        });
+      })(typeBtns[t]);
+    }
+
+    // Các lần gửi trong 10 phút gần nhất (để giới hạn 3 lần/10 phút).
+    function recentSends() {
+      var list = [];
+      try {
+        var raw = localStorage.getItem(RATE_KEY);
+        if (raw) list = JSON.parse(raw) || [];
+      } catch (e) { list = []; }
+      var now = Date.now();
+      return list.filter(function (ts) {
+        return typeof ts === 'number' && now - ts < RATE_WINDOW_MS;
+      });
+    }
+    function recordSend() {
+      var list = recentSends();
+      list.push(Date.now());
+      try { localStorage.setItem(RATE_KEY, JSON.stringify(list)); } catch (e) { /* bỏ qua */ }
+    }
+
+    function detectDevice() {
+      var coarse = false;
+      try {
+        coarse = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches);
+      } catch (e) { /* bỏ qua */ }
+      return (coarse || (window.innerWidth || 0) <= 768) ? 'Điện thoại' : 'Máy tính';
+    }
+    function detectBrowser() {
+      var ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
+      if (/coc_coc|coccoc/i.test(ua)) return 'Cốc Cốc';
+      if (/edg\//i.test(ua)) return 'Edge';
+      if (/opr\/|opera/i.test(ua)) return 'Opera';
+      if (/firefox\//i.test(ua)) return 'Firefox';
+      if (/chrome\//i.test(ua)) return 'Chrome';
+      if (/safari\//i.test(ua)) return 'Safari';
+      return ua ? 'Khác: ' + ua.slice(0, 120) : 'Khác';
+    }
+    // Giờ Việt Nam dạng "20/11/2026 15:30" — ngày + giờ format riêng
+    // rồi ghép, tránh dấu phẩy/thứ tự khác nhau theo trình duyệt.
+    function vnNow() {
+      var d = new Date();
+      try {
+        var date = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', day: '2-digit', month: '2-digit', year: 'numeric' }).format(d);
+        var time = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', hour: '2-digit', minute: '2-digit', hour12: false }).format(d);
+        return date + ' ' + time;
+      } catch (e) {
+        return d.toLocaleString('vi-VN');
+      }
+    }
+    function toolName() {
+      var h1 = document.querySelector('h1');
+      var name = h1 ? h1.textContent.trim() : '';
+      if (!name) {
+        name = (document.title || '').replace(/\s*\|\s*Tiện Ích Hub\s*$/, '').trim();
+      }
+      return name || 'Tiện Ích Hub';
+    }
+
+    function submit() {
+      if (sending) return;
+      var msg = msgBox.value.trim();
+      if (!msg) {
+        show(errEmpty);
+        hide(errNet);
+        hide(errLimit);
+        try { msgBox.focus(); } catch (e) { /* bỏ qua */ }
+        return;
+      }
+      hide(errEmpty);
+      hide(errNet);
+      hide(errLimit);
+      // Honeypot có giá trị → bot: hiện "Cảm ơn" giả, không gửi.
+      if (hpBox && hpBox.value) {
+        showSuccess();
+        return;
+      }
+      if (recentSends().length >= RATE_MAX) {
+        show(errLimit);
+        return;
+      }
+      var body = new URLSearchParams();
+      body.set('entry.687035838', TYPE_VALUES[selectedType]);
+      body.set('entry.1073434435', msg);
+      body.set('entry.1106545092', contactBox ? contactBox.value.trim() : '');
+      body.set('entry.1532557469', window.location.href);
+      body.set('entry.532324758', toolName());
+      body.set('entry.619256561', detectDevice());
+      body.set('entry.420781295', detectBrowser());
+      body.set('entry.1168485608', vnNow());
+      sending = true;
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Đang gửi…';
+      fetch(FORM_URL, { method: 'POST', mode: 'no-cors', body: body })
+        .then(function () {
+          sending = false;
+          recordSend();
+          resetSendBtn();
+          showSuccess();
+        })
+        .catch(function () {
+          // Lỗi mạng: giữ nguyên nội dung, hiện câu lỗi + nút Gửi lại.
+          sending = false;
+          sendBtn.disabled = false;
+          sendBtn.textContent = 'Gửi lại';
+          show(errNet);
+        });
+    }
+
+    sendBtn.addEventListener('click', submit);
+    document.addEventListener('click', function (e) {
+      var trigger = e.target && e.target.closest ? e.target.closest('[data-uh-feedback-open]') : null;
+      if (!trigger) return;
+      e.preventDefault();
+      open(trigger);
+    });
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) { close(); return; }
+      var closer = e.target && e.target.closest ? e.target.closest('[data-uh-feedback-close]') : null;
+      if (closer) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('uh-fb-open')) close();
+    });
   }
 
   /* ---------------- Tìm kiếm thật: chỉ mục /data/search-index.json ---------------- */

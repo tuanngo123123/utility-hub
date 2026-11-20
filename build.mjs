@@ -787,12 +787,16 @@ function toolPageHtml(tool, index, noscriptLinks) {
   // "Chép liên kết" chép URL trang hiện tại (URL đã chứa số liệu đang
   // nhập nhờ tool-state đồng bộ) + "Chia sẻ Zalo" (Web Share API trên
   // điện thoại, link zalo.me/share trên máy tính — handler trong
-  // src/tool-state.js). Chỉ trang KHÔNG phải MẪU 2 — công cụ MẪU 2 đã
-  // có Chép/Chia sẻ Zalo trong thẻ kết quả, thêm nữa là trùng nút.
+  // src/tool-state.js) + nút "Góp ý / Báo lỗi" (MẪU 6, dạt phải —
+  // mở khung góp ý, handler trong initFeedback() ở app.js).
+  // Chỉ trang KHÔNG phải MẪU 2 — công cụ MẪU 2 đã có Chép/Chia sẻ Zalo
+  // trong thẻ kết quả, thêm nữa là trùng nút (nút Góp ý của MẪU 2 nằm
+  // trong thẻ kết quả, xem m2RenderResult trong app.js).
   const shareHtml = isM2 ? '' : `<div class="uh-share-row" data-uh-share-row>
   <span class="uh-share-label">Chia sẻ công cụ này:</span>
   <button type="button" class="btn btn-primary uh-share-btn" data-uh-share-copy>Chép liên kết</button>
   <button type="button" class="btn uh-share-btn" data-uh-share-zalo>Chia sẻ Zalo</button>
+  <button type="button" class="btn uh-share-btn uh-feedback-btn" data-uh-feedback-open>💬 Góp ý / Báo lỗi</button>
 </div>`;
   // Dòng Ủng hộ dưới kết quả MỌI công cụ (Tuấn chốt 19/11): chữ
   // 14px, nhẹ, không popup, không che nội dung. Chèn một lần ở đây

@@ -34,6 +34,8 @@
 //     trang KHÔNG phải MẪU 2 (MẪU 2 đã có nút riêng trong thẻ kết quả).
 //     Chép URL hiện tại (đã chứa số liệu đang nhập nhờ mục 2); chia sẻ
 //     dùng Web Share API nếu có, không thì mở link zalo.me/share.
+//     (Nút "Góp ý / Báo lỗi" cùng hàng — MẪU 6 — do initFeedback()
+//     trong app.js xử lý, không phải file này.)
 // An toàn: không có .tool-panel thì không làm gì (trừ hộp thoại Báo
 // sai, chạy độc lập vì có công cụ không dùng .tool-panel). Chỉ tác động lên
 // input/select/textarea/button có sẵn trong panel; không ép bấm nút khi
