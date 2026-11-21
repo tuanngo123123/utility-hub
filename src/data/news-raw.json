@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T07:36:11.645Z",
+  "updatedAt": "2026-11-21T18:07:32.297Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,6 +49,22 @@
   ],
   "items": [
     {
+      "title": "Here are the top AI agents that can live in your text messages",
+      "link": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Sat, 21 Nov 2026 17:00:00 +0000",
+      "description": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work."
+    },
+    {
+      "title": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
+      "link": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Sat, 21 Nov 2026 16:00:00 +0000",
+      "description": "An actor has licensed his face to a microdrama startup — in a trend that's already popular in China. Experts question the long-term consequences if this becomes a trend in Hollywood, too."
+    },
+    {
       "title": "Daniel Ek backs AI researcher’s fusion power startup. Here’s what they’re building.",
       "link": "https://techcrunch.com/2026/11/20/daniel-ek-backs-ai-researchers-fusion-power-startup-heres-what-theyre-building/",
       "source": "TechCrunch",
@@ -97,22 +113,6 @@
       "description": "The iPhone maker appears to be building agents that can compete with the likes of Meta Muse, Instinct, Claude, and OpenAI Dots."
     },
     {
-      "title": "Anthropic’s 7 founders cashed out nearly $2B in record-breaking IPO",
-      "link": "https://techcrunch.com/2026/11/19/anthropics-7-founders-cashed-out-nearly-2b-in-record-breaking-ipo/",
-      "source": "TechCrunch",
-      "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 00:43:50 +0000",
-      "description": "At the upgraded $83/share IPO price, Anthropic's seven founders each pocketed $280 million, while the company nabbed nearly $105 billion."
-    },
-    {
-      "title": "Meta’s new Muse Charm device may cost $300",
-      "link": "https://techcrunch.com/2026/11/19/metas-new-muse-charm-device-may-cost-300/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Thu, 19 Nov 2026 21:58:06 +0000",
-      "description": "Meta hasn't denied the reporting from The Information, saying only that it will \"have more to share soon\" about its upcoming AI wearable."
-    },
-    {
       "title": "The most misunderstood graph in AI just got a major update",
       "link": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/",
       "source": "MIT Tech Review",
@@ -137,172 +137,172 @@
       "description": "This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. A human liver has been kept alive outside the body for a record seven weeks Researchers in Australia claim they’ve kept a human liver alive on life support outside the body…"
     },
     {
-      "title": "Mint Mobile Discounts for November 2026",
-      "link": "https://www.wired.com/story/mint-mobile-promo-code/",
+      "title": "The Outages Are Just Getting Started",
+      "link": "https://www.wired.com/story/brace-yourself-for-years-of-outage-chaos/",
+      "source": "Wired",
+      "group": "ai",
+      "publishedAt": "Sat, 21 Nov 2026 13:00:00 +0000",
+      "description": "AI is forcing companies to patch their systems faster as attackers race to exploit newly discovered vulnerabilities. Welcome to internet outage hell."
+    },
+    {
+      "title": "Best Power Banks (2026): My Picks After Testing Over 100",
+      "link": "https://www.wired.com/gallery/best-portable-chargers-power-banks/",
       "source": "Wired",
       "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 06:00:00 +0000",
-      "description": "Reduce your monthly cell phone bill with these active Mint Mobile coupons and promos, limited-time promotions, and 5G plan savings."
+      "publishedAt": "Sat, 21 Nov 2026 12:01:00 +0000",
+      "description": "Keep your phone, laptop, handheld gaming console, and other electronics running with these travel-friendly power banks."
     },
     {
-      "title": "Mountain Hardwear Coupon Code 15% Off November",
-      "link": "https://www.wired.com/story/mountain-hardwear-promo-codes/",
+      "title": "A Space Probe Returns to Asteroids Where NASA Tested Planetary Defense Systems",
+      "link": "https://www.wired.com/story/a-space-probe-returns-to-astroids-where-nasa-tested-planetary-defense-systems/",
       "source": "Wired",
       "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 06:00:00 +0000",
-      "description": "High-performance mountaineering and hiking apparel doesn't have to break the bank."
+      "publishedAt": "Sat, 21 Nov 2026 12:00:00 +0000",
+      "description": "Several years ago, NASA tested systems for deterring dangerous space rocks. Now, a probe from the European Space Agency is returning to the scene to investigate."
     },
     {
-      "title": "Google Workspace Promo Codes: 14% Off for November 2026",
-      "link": "https://www.wired.com/story/google-workspace-promo-code/",
-      "source": "Wired",
-      "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 06:00:00 +0000",
-      "description": "Boost your productivity and save with exclusive Google Workspace coupons from WIRED. Get up to 14% off plans for three months, including Starter, Standard, and Plus tiers."
-    },
-    {
-      "title": "Nvidia stock plunges 14%, wraps up longest weekly losing streak since 2008 financial crisis",
-      "link": "https://www.cnbc.com/2026/11/20/nvidias-7-week-losing-streak-is-longest-since-2008-financial-crisis.html",
+      "title": "Anthropic’s record IPO collides with tech’s worst week on Wall Street since 2020",
+      "link": "https://www.cnbc.com/2026/11/21/anthropic-ipo-tech-selloff.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 22:59:33 GMT",
-      "description": "Once the most valuable company in the world, Nvidia now ranks fourth behind Apple, Microsoft and Alphabet."
+      "publishedAt": "Sat, 21 Nov 2026 16:40:05 GMT",
+      "description": "Anthropic held its historic Nasdaq debut a day before Nvidia's stock closed out its longest weekly losing streak since 2008."
     },
     {
-      "title": "How China is using summits to expand its global influence",
-      "link": "https://www.cnbc.com/2026/11/21/china-xi-trump-putin-global-diplomacy-shenzhen.html",
+      "title": "Trump says there could be a 'positive spin' from the latest FBI database hack",
+      "link": "https://www.cnbc.com/2026/11/21/trump-fbi-database-hack.html",
       "source": "CNBC",
       "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 06:00:02 GMT",
-      "description": "Chinese President Xi Jinping has helped coordinate yet another photo-op of global significance."
+      "publishedAt": "Sat, 21 Nov 2026 16:57:34 GMT",
+      "description": "This would make the second recent intrusion into the FBI system."
     },
     {
-      "title": "An early breakdown in the polar vortex is threatening already depleted gas stocks",
-      "link": "https://www.cnbc.com/2026/11/21/polar-vortex-europe-gas-prices.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Sat, 21 Nov 2026 06:00:02 GMT",
-      "description": "Colder weather and low wind speeds could strain Europe’s gas market, where storage started winter at its lowest level in more than a decade."
-    },
-    {
-      "title": "A massive bearish trade just happened in the chip stocks",
-      "link": "https://www.cnbc.com/2026/11/20/a-massive-bearish-trade-just-happened-in-the-chip-stocks.html",
-      "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 19:33:31 GMT",
-      "description": "Options traders place big bets that semiconductor stocks have further to fall"
-    },
-    {
-      "title": "Europe's cyber weak spot is the everyday businesses nobody thought to protect",
-      "link": "https://www.cnbc.com/2026/11/21/cyber-attacks-fridges-cybersecurity.html",
+      "title": "Tech outages are fueling a new doomsday economy",
+      "link": "https://www.cnbc.com/2026/11/21/emergency-prep-spending-tech-outages.html",
       "source": "CNBC",
       "group": "ai",
-      "publishedAt": "Sat, 21 Nov 2026 06:00:02 GMT",
-      "description": "Known vulnerabilities are leaving everyday businesses increasingly exposed to cyber sabotage, as AI enables cybercriminals to work better and faster."
+      "publishedAt": "Sat, 21 Nov 2026 15:04:56 GMT",
+      "description": "Recent technology outages have left some worried about AI cyberattacks and the U.S. electricity grid. The doomsday economy is heating up as a result."
     },
     {
-      "title": "Zscaler stock jumps 18% on report that CrowdStrike in talks to buy security vendor",
-      "link": "https://www.cnbc.com/2026/11/20/zscaler-crowdstrike-deal.html",
+      "title": "State and federal battle over prediction markets regulation heats up after midterms",
+      "link": "https://www.cnbc.com/2026/11/21/prediction-market-regulation-kalshi-cftc.html",
       "source": "CNBC",
-      "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 21:35:24 GMT",
-      "description": "Cybersecurity companies have been hunting for acquisitions in the AI era."
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 13:12:41 GMT",
+      "description": "States, Congress and the CFTC are escalating the fight over prediction market regulation after the midterms."
     },
     {
-      "title": "Tech outages are rattling Americans so much that they’re stockpiling cash and supplies",
-      "link": "https://www.marketwatch.com/story/why-are-these-tech-outages-rattling-americans-so-much-that-theyre-stockpiling-cash-and-supplies-07516bdd?mod=mw_rss_topstories",
+      "title": "International first class is over for U.S. airlines. Enter the mega business-class cabin",
+      "link": "https://www.cnbc.com/2026/11/21/us-airlines-first-class-business-class.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 12:00:01 GMT",
+      "description": "Airlines are opting to build giant business-class cabins with ever-more luxurious suites."
+    },
+    {
+      "title": "Warren Buffett quadruples Thanksgiving gifts: A breakdown of how much wealth he's giving away",
+      "link": "https://www.cnbc.com/2026/11/21/warren-buffett-quadruples-thanksgiving-gifts.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 13:01:44 GMT",
+      "description": "Warren Buffett more than quadrupled his Thanksgiving donations to four family foundations this year to $5.5 billion."
+    },
+    {
+      "title": "Is Social Security a Ponzi scheme? No. Don’t get carried away with 1930s-era prophecies of doom.",
+      "link": "https://www.marketwatch.com/story/the-thought-of-living-to-100-terrifies-me-is-social-security-a-giant-ponzi-scheme-84a64e7e?mod=mw_rss_topstories",
       "source": "MarketWatch",
-      "group": "ai",
-      "publishedAt": "Sat, 21 Nov 2026 03:20:00 GMT",
-      "description": "A lack of clarity from world leaders is prompting some people to prepare for the worst."
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 16:50:00 GMT",
+      "description": "Wisconsin Republican Sen. Ron Johnson called Social Security a “scam” and urged lawmakers to shut it down."
     },
     {
-      "title": "Dow, S&P 500 enter correction as Nasdaq suffers worst week since 2020",
-      "link": "https://www.marketwatch.com/story/dow-s-p-500-enter-correction-as-nasdaq-suffers-worst-week-since-2020-bd74dadf?mod=mw_rss_topstories",
+      "title": "‘I’m sick of flying’: I paid for priority boarding, but the overhead bins were full. Was I duped?",
+      "link": "https://www.marketwatch.com/story/im-sick-of-flying-i-paid-for-priority-boarding-but-the-overhead-bins-were-full-was-i-duped-0badcc80?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 16:50:00 GMT",
+      "description": "“Maybe next time I’ll try the other approach: I’ll board whenever I feel like it and drop my suitcase in the first open slot I see.”"
+    },
+    {
+      "title": "Micron and Sandisk stocks might look like bargains, but analysts say that’s actually a red flag",
+      "link": "https://www.marketwatch.com/story/micron-and-sandisk-stocks-might-look-like-bargains-but-analysts-say-thats-actually-a-red-flag-da1f1f5d?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 22:46:00 GMT",
-      "description": "All 11 S&P 500 sectors finished more than 1% lower this week for the first time since April 2025."
+      "publishedAt": "Sat, 21 Nov 2026 15:35:00 GMT",
+      "description": "Cheap valuation multiples for memory stocks have historically been associated with peak pricing levels, according to analysts."
     },
     {
-      "title": "Chip stocks see $2.3 trillion weekly wipeout as panic grips the AI trade",
-      "link": "https://www.marketwatch.com/story/chip-stocks-see-2-3-trillion-weekly-wipeout-as-panic-grips-the-ai-trade-371f2f03?mod=mw_rss_topstories",
+      "title": "‘Nvidia’s turmoil has me spooked’: Is it time to sell my stocks?",
+      "link": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 22:44:00 GMT",
-      "description": "A major semiconductor index just posted its worst weekly performance in 25 years."
+      "publishedAt": "Sat, 21 Nov 2026 15:15:00 GMT",
+      "description": "If you are tempted to ditch stocks for property or CDs, take a deep breath before making any sudden moves."
     },
     {
-      "title": "These stocks were crushed the most this week as the tech wreck accelerated",
-      "link": "https://www.marketwatch.com/story/these-stocks-were-crushed-the-most-this-week-as-the-tech-wreck-accelerated-8d6f7323?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 22:44:00 GMT",
-      "description": "94% of stocks in the S&P 500 declined for the week, 11 of them by at least 20%. But for now, analysts still think you can make a lot of money if you buy them."
-    },
-    {
-      "title": "Hong Kong pushes to bring crypto custodians, advisers under licensing rules",
-      "link": "https://cointelegraph.com/news/hong-kong-crypto-custody-advisory-licensing-bill?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Here’s what happened in crypto today",
+      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Sat, 21 Nov 2026 05:40:35 +0000",
-      "description": "Hong Kong’s securities regulator says the proposal would strengthen investor protections, with the bill set for its first reading in the Legislative Council on Dec. 2."
+      "publishedAt": "Sat, 21 Nov 2026 11:18:52 +0000",
+      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
     },
     {
-      "title": "Wrapped Monero token crashes 99.8% amid suspected $13.5M exploit",
-      "link": "https://cointelegraph.com/news/wrapped-monero-token-crashes-998-amid-suspected-135m-exploit?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "ECB seeks industry partners for tokenized deposits, securities experiments",
+      "link": "https://cointelegraph.com/news/ecb-tokenized-deposits-securities-experiments-appia?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Fri, 20 Nov 2026 19:37:27 +0000",
-      "description": "Bitquery traced $13.5 million in suspicious sales of the wrapped Monero token, as its operator blamed a security breach and promised to reimburse affected traders."
+      "group": "chung-khoan",
+      "publishedAt": "Sat, 21 Nov 2026 09:48:56 +0000",
+      "description": "Industry groups have until Dec. 11 to apply for the ECB’s first experimental exercises under its Appia initiative, with later submissions reviewed on a rolling basis."
     },
     {
-      "title": "Sky Protocol sees $2 billion in stablecoin withdrawals, disputes illicit fund claims",
-      "link": "https://cointelegraph.com/news/sky-protocol-sees-2b-in-stablecoin-withdrawals-disputes-illicit-fund-claims?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "US lawmakers propose up to 30% rewards for prediction market whistleblowers",
+      "link": "https://cointelegraph.com/news/us-prediction-market-whistleblower-rewards-30-percent?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Fri, 20 Nov 2026 18:37:10 +0000",
-      "description": "Sky says its USDS stablecoin held its $1 value despite more than $2 billion in withdrawals, as it disputes a report linking the protocol to illicit activity."
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 07:51:47 +0000",
+      "description": "Whistleblowers could receive 10% to 30% of monetary sanctions in qualifying prediction market fraud cases exceeding $1 million in penalties."
     },
     {
-      "title": "Bitcoin nodes could be stalled by repeating one ID 50,000 times. AI found the bug",
-      "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-nodes-could-be-stalled-by-repeating-one-id-50-000-times-ai-found-the-bug",
+      "title": "Bitcoin bounces 9% from two-year low to retake $60,000 as traders eye Monday’s stock open",
+      "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-bounces-9-from-two-year-low-to-retake-usd60-000-as-traders-eye-monday-s-stock-open",
       "source": "CoinDesk",
       "group": "crypto",
-      "publishedAt": "Sat, 21 Nov 2026 06:16:42 +0000",
-      "description": "Bitcoin Core shipped fixes on Friday for a bug flagged by Loupe, an open-source scanner from Block’s Spiral that uses AI agents to examine bitcoin code."
+      "publishedAt": "Sat, 21 Nov 2026 17:50:00 +0000",
+      "description": "The sell-off wiped out $1.8 billion in leveraged crypto positions, mostly from bullish bets on rising prices."
     },
     {
-      "title": "XRP falls 10% as long bets unwind and ETF assets slip below $1 billion",
-      "link": "https://www.coindesk.com/markets/2026/11/21/xrp-falls-10-as-long-bets-unwind-and-etf-assets-slip-below-usd1-billion",
+      "title": "Cross-chain protocol Chainflip's FLIP tanks 30% after suspected $4.86 million vault drain",
+      "link": "https://www.coindesk.com/business/2026/11/21/cross-chain-protocol-chainflip-s-flip-tanks-30-after-suspected-usd4-86-million-vault-drain",
       "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Sat, 21 Nov 2026 05:59:19 +0000",
-      "description": "The token broke its previous November lows during Saturday's crypto selloff, with long positions accounting for most XRP liquidations and technical indicators showing further weakness."
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 16:41:00 +0000",
+      "description": "The withdrawal carried a valid signature, which Onchain Lens said points to a possible compromise of the key validators use to approve vault payouts."
     },
     {
-      "title": "Bitcoin tanks below $57,000 for the first time in two years, and its not alone",
-      "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-tanks-below-usd57-000-for-the-first-time-in-two-years-and-its-not-alone",
+      "title": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
+      "link": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
       "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Sat, 21 Nov 2026 04:10:07 +0000",
-      "description": "BTC's sell-off deepened on Saturday, with prices hitting two-year lows under $57,000."
+      "group": "chung-khoan",
+      "publishedAt": "Sat, 21 Nov 2026 12:30:00 +0000",
+      "description": "BTCS cut its reported Aave debt by about $10 million in ten days, but falling ether prices are keeping its collateral under pressure."
     },
     {
-      "title": "Claude Claims Historic Math Breakthrough One Day After Anthropic IPO",
-      "link": "https://decrypt.co/383747/claude-historic-math-breakthrough-anthropic-ipo",
+      "title": "GTA 6 Leaker Dangles a PC Port Behind a $15 Million Crypto Pump",
+      "link": "https://decrypt.co/383756/gta-6-leaker-dangles-pc-port-15-million-crypto-pump",
       "source": "Decrypt",
-      "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 21:36:02 +0000",
-      "description": "Levent Alpöge claims Claude helped prove a 167-year-old math conjecture, but independent checks remain pending, and the release just after Anthropic’s IPO has prompted questions about its unusual publication timing."
+      "group": "crypto",
+      "publishedAt": "Sat, 21 Nov 2026 18:01:02 +0000",
+      "description": "The anonymous leaker, Cyberleek, released a 209 GB Xbox build but is withholding the executable that could enable a PC port until its CYBERLEEK token hits $15 million."
     },
     {
-      "title": "Nvidia Shares Sink to 52-Week Low After Report SEC Is Probing Accounting",
-      "link": "https://decrypt.co/383744/nvidia-shares-sink-52-week-low-sec-probing-accounting",
+      "title": "Fraudsters Used Fake Crypto Exchanges to Steal $37 Million, SEC Alleges",
+      "link": "https://decrypt.co/383752/fraudsters-fake-crypto-exchanges-steal-37-million-sec",
       "source": "Decrypt",
-      "group": "chung-khoan",
-      "publishedAt": "Fri, 20 Nov 2026 20:36:54 +0000",
-      "description": "Nvidia shares fell about 13% to a 52-week low after reports that SEC enforcement staff are examining potential accounting issues, adding to pressure on the chipmaker after Jensen Huang’s resignation."
+      "group": "crypto",
+      "publishedAt": "Sat, 21 Nov 2026 17:01:02 +0000",
+      "description": "The agency says eight Colorado-registered entities, likely run from overseas, posed as legitimate advisers and crypto platforms—even faking SEC certificates and filings—to defraud U.S. investors of more than $37 million."
     }
   ]
 }

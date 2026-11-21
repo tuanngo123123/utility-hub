@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T07:36:09.800Z",
+  "updatedAt": "2026-11-21T18:07:30.930Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
@@ -8,49 +8,49 @@
       "name": "erkamyaman/rust-anything",
       "url": "https://github.com/erkamyaman/rust-anything",
       "description": "Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",
-      "stars": 6871,
+      "stars": 7253,
       "language": "Rust",
-      "purpose": "Chuyển toàn bộ ứng dụng sang Rust từng phần, kiểm tra tính đúng với phiên bản gốc."
+      "purpose": "Viết lại toàn bộ ứng dụng bằng Rust từng phần, kiểm tra hành vi so sánh với mã gốc"
     },
     {
       "name": "krisgfx9/Wireless-Device-Battery-Monitor",
       "url": "https://github.com/krisgfx9/Wireless-Device-Battery-Monitor",
       "description": "Show the battery level of wireless mice, headsets, keyboards and controllers on the Windows 10/11 taskbar. Lightweight tray app, no vendor software needed. Supports Logitech, Razer, SteelSeries, Corsair, HyperX, Glorious, PS4/PS5 DualSense, Xbox and Bluetooth devices.",
-      "stars": 5453,
+      "stars": 5729,
       "language": "C++",
-      "purpose": "Hiển thị mức pin thiết bị không dây trên thanh tác vụ Windows, không cần phần mềm nhà sản xuất."
+      "purpose": "Hiển thị mức pin thiết bị không dây trên thanh tác vụ Windows, không cần phần mềm nhà cung cấp"
     },
     {
       "name": "bookwjitchieni1986/blender-ai-mcp-addon",
       "url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
       "description": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
-      "stars": 1868,
+      "stars": 2095,
       "language": "",
-      "purpose": "Trợ lý AI cho Blender: chat trực quan, công cụ cảnh, quy trình đa tác nhân, hỗ trợ GPT, Claude, Gemini, Ollama,"
-    },
-    {
-      "name": "sybil-solutions/inference-optimisation-skill",
-      "url": "https://github.com/sybil-solutions/inference-optimisation-skill",
-      "description": "Agent skill for hill-climbing local LLM serving speed (decode, speculative decoding, prefill, KV, startup, TTFT) on any hardware and quantization",
-      "stars": 1382,
-      "language": "Python",
-      "purpose": "Kỹ năng tối ưu tốc độ phục vụ LLM địa phương bằng hill-climbing, hỗ trợ decode, speculative decoding, prefill, KV,"
+      "purpose": "Trợ lý AI cho Blender: chat trực quan, công cụ cảnh, quy trình đa tác nhân"
     },
     {
       "name": "iamajmeena/neonclipping",
       "url": "https://github.com/iamajmeena/neonclipping",
       "description": "Paste a link, get captioned 9:16 clips in ~2 min. Free, local, open-source clipping engine (audio-first, YouTube captions, local LLM).",
-      "stars": 1380,
+      "stars": 1671,
       "language": "Python",
-      "purpose": "Dán link, lấy clip 9:16 có phụ đề trong ~2 phút, engine cắt clip tự động, audio-first, YouTube captions, LLM địa phương."
+      "purpose": "Cắt clip 9:16 từ liên kết, tự động caption, chạy cục bộ, miễn phí"
+    },
+    {
+      "name": "sybil-solutions/inference-optimisation-skill",
+      "url": "https://github.com/sybil-solutions/inference-optimisation-skill",
+      "description": "Agent skill for hill-climbing local LLM serving speed (decode, speculative decoding, prefill, KV, startup, TTFT) on any hardware and quantization",
+      "stars": 1443,
+      "language": "Python",
+      "purpose": "Tối ưu tốc độ phục vụ LLM cục bộ bằng hill‑climbing, decode, speculative decoding"
     },
     {
       "name": "joshpuckett/allo",
       "url": "https://github.com/joshpuckett/allo",
       "description": "Allo is your friendly neighborhood typeface, free and open source",
-      "stars": 1265,
+      "stars": 1300,
       "language": "Python",
-      "purpose": "Allo là phông chữ thân thiện, miễn phí, mã nguồn mở."
+      "purpose": "Cung cấp phông chữ miễn phí, mã nguồn mở, dễ sử dụng"
     }
   ],
   "purposeSummarized": true,
