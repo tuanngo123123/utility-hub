@@ -1,13 +1,31 @@
 {
-  "updatedAt": "2026-11-22T13:28:55.839Z",
+  "updatedAt": "2026-11-22T20:25:58.649Z",
   "source": "vang.today",
   "sourceUrl": "https://vang.today/api/prices?action=current",
-  "sourceTime": "2026-11-21T17:00:03.000Z",
+  "sourceTime": "2026-11-22T17:00:04.000Z",
   "world": {
     "priceUsdPerOz": 3539,
     "changeUsd": 0
   },
   "items": [
+    {
+      "code": "SJ9999",
+      "name": "Nhẫn SJC 9999",
+      "buy": 127300000,
+      "sell": 133300000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
+    {
+      "code": "SJL1L10",
+      "name": "SJC 9999 (vàng miếng)",
+      "buy": 128500000,
+      "sell": 133500000,
+      "changeBuy": 0,
+      "changeSell": 0,
+      "unit": "đồng/lượng"
+    },
     {
       "code": "BTSJC",
       "name": "Bảo Tín SJC",
@@ -67,24 +85,6 @@
       "name": "PNJ 24K",
       "buy": 128000000,
       "sell": 132000000,
-      "changeBuy": 0,
-      "changeSell": 0,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "SJ9999",
-      "name": "Nhẫn SJC 9999",
-      "buy": 127300000,
-      "sell": 133300000,
-      "changeBuy": 0,
-      "changeSell": 0,
-      "unit": "đồng/lượng"
-    },
-    {
-      "code": "SJL1L10",
-      "name": "SJC 9999 (vàng miếng)",
-      "buy": 128500000,
-      "sell": 133500000,
       "changeBuy": 0,
       "changeSell": 0,
       "unit": "đồng/lượng"
