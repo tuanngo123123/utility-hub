@@ -1,77 +1,68 @@
 {
-  "updatedAt": "2026-11-21T18:17:10.027Z",
+  "updatedAt": "2026-11-22T07:21:50.809Z",
   "summarized": true,
-  "model": "gemini-3.5-flash",
+  "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
+        "title": "Signal restricts mobile screenshots as it confronts ‘existential threat’ of AI surveillance",
+        "titleVi": "Signal hạn chế chụp màn hình vì lo ngại giám sát AI",
+        "summary": "Signal giới hạn khả năng chụp màn hình trên ứng dụng Android và iOS để chống lại mối đe dọa giám sát AI.",
+        "why": "Signal đã cấm chụp màn hình trên cả hai nền tảng để giảm nguy cơ bị giám sát AI.",
+        "link": "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance/",
+        "source": "TechCrunch",
+        "publishedAt": "Sat, 21 Nov 2026 21:37:10 +0000"
+      },
+      {
         "title": "Here are the top AI agents that can live in your text messages",
-        "titleVi": "Top AI Agent hỗ trợ tin nhắn văn bản",
-        "summary": "Danh sách các AI agent nổi bật có thể hoạt động trong tin nhắn văn bản, bao gồm trợ lý tổng quát và các agent dành cho gia đình, du lịch, công việc.",
-        "why": "Các AI agent này mở rộng khả năng tương tác trong giao tiếp hằng ngày qua tin nhắn.",
+        "titleVi": "Danh sách các tác nhân AI nổi bật trong tin nhắn văn bản",
+        "summary": "Một danh sách các tác nhân AI được thiết kế cho trợ lý tổng quát, gia đình, du lịch và công việc đã được tổng hợp để hoạt động trong tin nhắn văn bản.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/",
         "source": "TechCrunch",
         "publishedAt": "Sat, 21 Nov 2026 17:00:00 +0000"
       },
       {
         "title": "Is selling an AI version of your face to this microdrama startup the future of Hollywood?",
-        "titleVi": "Bán phiên bản AI khuôn mặt diễn viên cho startup microdrama",
-        "summary": "Một diễn viên đã cấp phép khuôn mặt của mình cho một startup microdrama, theo xu hướng phổ biến ở Trung Quốc, gây lo ngại về hậu quả lâu dài nếu lan rộng tới Hollywood.",
-        "why": "Việc bán khuôn mặt AI cho nội dung ngắn có thể làm thay đổi cách sản xuất phim và quyền sở hữu hình ảnh.",
+        "titleVi": "Bán phiên bản AI của khuôn mặt diễn viên cho startup microdrama: tương lai Hollywood?",
+        "summary": "Một diễn viên đã cấp phép khuôn mặt của mình cho một startup microdrama, một xu hướng phổ biến ở Trung Quốc, khiến chuyên gia đặt câu hỏi về hậu quả lâu dài nếu xu hướng này lan rộng tới Hollywood.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/21/is-selling-an-ai-version-of-your-face-to-this-microdrama-startup-the-future-of-hollywood/",
         "source": "TechCrunch",
         "publishedAt": "Sat, 21 Nov 2026 16:00:00 +0000"
       },
       {
         "title": "Daniel Ek backs AI researcher’s fusion power startup. Here’s what they’re building.",
-        "titleVi": "Daniel Ek ủng hộ startup năng lượng hạt nhân fusion",
-        "summary": "Nhà sáng lập Spotify, Daniel Ek, đầu tư vào Europa Fusion, một công ty khởi nghiệp fusion được thành lập bởi một nhà nghiên cứu AI, đang xây dựng công nghệ năng lượng hạt nhân.",
-        "why": "Sự đầu tư của một nhân vật công nghệ lớn vào fusion cho thấy tiềm năng chuyển đổi nguồn năng lượng trong tương lai.",
+        "titleVi": "Daniel Ek ủng hộ startup năng lượng hạt nhân của nhà nghiên cứu AI",
+        "summary": "Người sáng lập Spotify Daniel Ek đã đầu tư vào Europa Fusion, một công ty khởi nghiệp năng lượng hạt nhân do nhà nghiên cứu AI thành lập, đang phát triển công nghệ hạt nhân mới.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/20/daniel-ek-backs-ai-researchers-fusion-power-startup-heres-what-theyre-building/",
         "source": "TechCrunch",
         "publishedAt": "Fri, 20 Nov 2026 19:53:41 +0000"
       },
       {
         "title": "AI claimed a solution to the 167-year-old Riemann hypothesis — and a human did, too",
-        "titleVi": "AI và con người cùng giải quyết giả thuyết Riemann 167 năm",
-        "summary": "AI đã đưa ra một giải pháp cho giả thuyết Riemann, trong khi một nhà toán học con người cũng đã công bố giải pháp cạnh tranh, khiến cộng đồng toán học ngạc nhiên.",
-        "why": "Sự xuất hiện giải pháp AI cho một vấn đề toán học cổ điển cho thấy khả năng của trí tuệ nhân tạo trong nghiên cứu khoa học.",
+        "titleVi": "Giả thuyết Riemann 167 năm tuổi xuất hiện đề xuất lời giải từ cả AI và con người",
+        "summary": "Trí tuệ nhân tạo vừa đưa ra phương án giải quyết giả thuyết Riemann tồn tại suốt 167 năm qua. Đồng thời, một nhà toán học cũng độc lập công bố lời giải cho bài toán kinh điển này.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
         "source": "TechCrunch",
         "publishedAt": "Fri, 20 Nov 2026 19:32:08 +0000"
       },
       {
         "title": "Chips can survive the space environment — can their financing?",
-        "titleVi": "Chip có thể chịu môi trường không gian, nhưng vốn vay vẫn lo ngại",
-        "summary": "Các chip có thể hoạt động trong môi trường không gian, nhưng các nhà cho vay không muốn tài sản của SpaceX được đưa lên vệ tinh, đặt ra thách thức cho các trung tâm dữ liệu không gian.",
-        "why": "Khả năng chịu đựng của chip trong không gian mở ra cơ hội xây dựng hạ tầng dữ liệu mới, nhưng rủi ro tài chính vẫn là rào cản.",
+        "titleVi": "Chip có thể tồn tại trong môi trường không gian – nhưng vay vốn khó chấp nhận",
+        "summary": "SpaceX dự định đưa chip vào vệ tinh, nhưng các nhà cho vay lo ngại tài sản bảo đảm sẽ bị rơi vào không gian và mất giá trị.",
+        "why": "SpaceX đã công bố kế hoạch phát hành chip vào vệ tinh.",
         "link": "https://techcrunch.com/2026/11/20/chips-can-survive-the-space-environment-can-their-financing/",
         "source": "TechCrunch",
         "publishedAt": "Fri, 20 Nov 2026 17:40:01 +0000"
       },
       {
-        "title": "Six AI-powered gadgets that could make your home office smarter",
-        "titleVi": "Sáu thiết bị AI nâng cấp văn phòng tại nhà",
-        "summary": "Bài viết giới thiệu sáu thiết bị AI, từ máy ghi chú thông minh, webcam có nhận diện khuôn mặt, loa tự động điều chỉnh âm thanh, đến bàn làm việc có cảm biến chuyển động, giúp làm việc tại nhà hiệu quả hơn.",
-        "why": "Apple vừa ra mắt SmartDesk, một bàn làm việc tích hợp AI, giúp tự động điều chỉnh độ cao và ánh sáng.",
-        "link": "https://techcrunch.com/2026/11/20/6-ai-powered-gadgets-that-could-make-your-home-office-smarter/",
-        "source": "TechCrunch",
-        "publishedAt": "Fri, 20 Nov 2026 14:00:00 +0000"
-      },
-      {
-        "title": "Apple may be developing its own AI agent that runs your Mac",
-        "titleVi": "Apple phát triển công cụ AI mới tự động điều khiển máy tính Mac",
-        "summary": "Apple đang nghiên cứu các công cụ đại lý trí tuệ nhân tạo có khả năng thực hiện tác vụ trực tiếp trên máy Mac. Sản phẩm này được thiết kế nhằm cạnh tranh với giải pháp của Meta, Claude và OpenAI.",
-        "why": "Apple phát triển đại lý AI cạnh tranh trực tiếp với Meta, Claude và OpenAI.",
-        "link": "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/",
-        "source": "TechCrunch",
-        "publishedAt": "Fri, 20 Nov 2026 00:56:01 +0000"
-      },
-      {
         "title": "The most misunderstood graph in AI just got a major update",
-        "titleVi": "Đánh giá mới về tốc độ phát triển và giới hạn năng lực của AI",
-        "summary": "Tổ chức phi lợi nhuận METR cập nhật báo cáo cho thấy năng lực AI tiếp tục tăng trưởng theo cấp số nhân. Tuy nhiên, các mô hình hiện tại vẫn lập trình tốt hơn so với việc xử lý tác vụ đòi hỏi khả năng phán đoán.",
-        "why": "",
+        "titleVi": "Báo cáo mới từ METR cho thấy AI giỏi lập trình hơn khả năng đưa ra phán đoán",
+        "summary": "Tổ chức METR cập nhật biểu đồ theo dõi tiến trình phát triển của trí tuệ nhân tạo. Kết quả cho thấy các mô hình đạt hiệu quả cao khi viết mã lập trình hơn là thực hiện nhiệm vụ đòi hỏi phán đoán.",
+        "why": "Báo cáo mới từ tổ chức METR chỉ ra AI xử lý công việc lập trình tốt hơn các tác vụ cần phán đoán.",
         "link": "https://www.technologyreview.com/2026/11/20/1149399/the-most-misunderstood-graph-in-ai-just-got-a-major-update/",
         "source": "MIT Tech Review",
         "publishedAt": "Fri, 20 Nov 2026 18:15:15 +0000"
@@ -79,8 +70,8 @@
       {
         "title": "The Download: a living liver, a billion-dollar battery deal, and AI hype",
         "titleVi": "",
-        "summary": "Nhóm nghiên cứu tại Úc vừa công bố duy trì thành công sự sống của một lá gan người bên ngoài cơ thể suốt 7 tuần nhờ thiết bị hỗ trợ chuyên dụng. Kết quả này lập kỷ lục mới về thời gian nuôi sống nội tạng ngoài cơ thể con người.",
-        "why": "Nhóm nghiên cứu tại Úc đã giữ cho lá gan người hoạt động bình thường bên ngoài cơ thể suốt 7 tuần liên tục.",
+        "summary": "Các nhà nghiên cứu tại Úc đã duy trì sự sống cho một lá gan người bên ngoài cơ thể suốt 7 tuần nhờ thiết bị hỗ trợ chuyên dụng. Đây là mốc thời gian kỷ lục mới trong công nghệ bảo toàn nội tạng ghép.",
+        "why": "Nghiên cứu mới đã giữ cho một lá gan người sống ngoài cơ thể trong 7 tuần.",
         "link": "https://www.technologyreview.com/2026/11/19/1148979/the-download-liver-kept-alive-sila-battery-deal-ai-hype/",
         "source": "MIT Tech Review",
         "publishedAt": "Thu, 19 Nov 2026 13:10:00 +0000"
@@ -95,9 +86,18 @@
         "publishedAt": "Sat, 21 Nov 2026 13:00:00 +0000"
       },
       {
+        "title": "Quantum computing’s first real-world payoff may come in energy, not drug discovery",
+        "titleVi": "Ứng dụng máy tính lượng tử có thể bắt đầu từ ngành năng lượng",
+        "summary": "Các công ty máy tính lượng tử đang thử nghiệm tối ưu hóa lưới điện, vật liệu pin mặt trời và chất xúc tác hydro nhằm tìm kiếm ứng dụng thực tiễn. Ngành năng lượng có thể trở thành lĩnh vực đầu tiên thu lợi nhuận thay vì phát triển dược phẩm.",
+        "why": "Các doanh nghiệp đang thử nghiệm máy tính lượng tử để tối ưu lưới điện và chế tạo vật liệu hydro.",
+        "link": "https://www.cnbc.com/2026/11/22/quantum-computing-energy-applications.html",
+        "source": "CNBC",
+        "publishedAt": "Sun, 22 Nov 2026 06:00:01 GMT"
+      },
+      {
         "title": "Tech outages are fueling a new doomsday economy",
-        "titleVi": "Sự cố công nghệ đẩy nền kinh tế “kỳ vọng tận thế” lên",
-        "summary": "Các sự cố công nghệ khiến một số người lo ngại về tấn công AI và lưới điện Mỹ, làm tăng nhu cầu kinh tế “kỳ vọng tận thế”.",
+        "titleVi": "Sự cố công nghệ thúc đẩy nền kinh tế “kỳ hạn” mới",
+        "summary": "Những sự cố công nghệ gần đây khiến một số người lo ngại về tấn công AI và lưới điện Mỹ, làm tăng nhu cầu về nền kinh tế “kỳ hạn”.",
         "why": "",
         "link": "https://www.cnbc.com/2026/11/21/emergency-prep-spending-tech-outages.html",
         "source": "CNBC",
@@ -106,10 +106,19 @@
     ],
     "chung-khoan": [
       {
+        "title": "A tale of two Nvidias",
+        "titleVi": "Hai bức tranh khác nhau của Nvidia: báo cáo tài chính và kêu gọi trở lại của lãnh đạo",
+        "summary": "Báo cáo thu nhập mới của Nvidia cho thấy lợi nhuận tăng, trong khi các giám đốc công nghệ kêu gọi CEO Jensen Huang trở lại công ty.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias/",
+        "source": "TechCrunch",
+        "publishedAt": "Sat, 21 Nov 2026 21:07:42 +0000"
+      },
+      {
         "title": "The fallout from Nvidia’s Jensen Huang scandal continues",
-        "titleVi": "Nvidia dừng bán chip H200 tại Trung Quốc sau báo cáo doanh thu mới",
-        "summary": "Nvidia vừa công bố báo cáo tài chính tăng trưởng tốt giữa vụ bê bối liên quan đến cựu CEO Jensen Huang. Doanh nghiệp sản xuất chip này cũng quyết định ngừng bán dòng chip H200 tại thị trường Trung Quốc.",
-        "why": "Nvidia quyết định dừng bán sản phẩm chip H200 tại thị trường Trung Quốc.",
+        "titleVi": "Nvidia dừng bán chip H200 tại Trung Quốc dù báo cáo tài chính tăng trưởng tốt",
+        "summary": "Nvidia vừa công bố báo cáo tài chính với mức tăng trưởng tích cực trong quý vừa qua. Tuy nhiên, hãng sản xuất chip này xác nhận sẽ ngừng bán dòng chip H200 tại thị trường Trung Quốc.",
+        "why": "",
         "link": "https://techcrunch.com/podcast/the-fallout-from-nvidias-jensen-huang-scandal-continues/",
         "source": "TechCrunch",
         "publishedAt": "Fri, 20 Nov 2026 14:55:44 +0000"
@@ -124,36 +133,18 @@
         "publishedAt": "Sat, 21 Nov 2026 16:40:05 GMT"
       },
       {
-        "title": "Micron and Sandisk stocks might look like bargains, but analysts say that’s actually a red flag",
-        "titleVi": "Giá cổ phiếu Micron, Sandisk có vẻ rẻ nhưng thực chất là dấu hiệu cảnh báo",
-        "summary": "Các nhà phân tích cho rằng mức định giá thấp của cổ phiếu bộ nhớ như Micron và Sandisk thường đi kèm với mức giá cao nhất trong lịch sử.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/micron-and-sandisk-stocks-might-look-like-bargains-but-analysts-say-thats-actually-a-red-flag-da1f1f5d?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Sat, 21 Nov 2026 15:35:00 GMT"
-      },
-      {
-        "title": "‘Nvidia’s turmoil has me spooked’: Is it time to sell my stocks?",
-        "titleVi": "Biến động của cổ phiếu Nvidia khiến nhà đầu tư hoảng loạn muốn bán tháo",
-        "summary": "Biến động giá gần đây của Nvidia khiến một số nhà đầu tư lo ngại và tính chuyển vốn sang bất động sản hoặc chứng chỉ tiền gửi. Các chuyên gia lưu ý người tham gia thị trường cần giữ bình tĩnh trước khi thực hiện các giao dịch lớn.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Sat, 21 Nov 2026 15:15:00 GMT"
-      },
-      {
         "title": "ECB seeks industry partners for tokenized deposits, securities experiments",
-        "titleVi": "ECB mời các công ty tài chính tham gia thử nghiệm tiền gửi token",
-        "summary": "ECB cho phép các nhóm ngành nộp đơn vào ngày 11 tháng 12 để tham gia các thử nghiệm đầu tiên của sáng kiến Appia, các đơn vị nộp sau đó sẽ được xem xét theo chu kỳ liên tục.",
-        "why": "ECB mở cửa 11/12 cho các đơn vị tài chính nộp đơn tham gia thử nghiệm tiền gửi token.",
+        "titleVi": "ECB mời các công ty tham gia thử nghiệm tiền điện tử tokenized",
+        "summary": "ECB mở cuộc gọi đăng ký cho các nhóm công nghiệp tham gia thử nghiệm tiền gửi tokenized và chứng khoán, hạn chót 11 tháng 12, các đề xuất sẽ được xem xét theo chu kỳ.",
+        "why": "ECB yêu cầu các công ty nộp hồ sơ cho chương trình thử nghiệm Appia trước 11/12.",
         "link": "https://cointelegraph.com/news/ecb-tokenized-deposits-securities-experiments-appia?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Sat, 21 Nov 2026 09:48:56 +0000"
       },
       {
         "title": "Ether treasury firm BTCS warns SEC its $54 million Aave loan could be liquidated",
-        "titleVi": "BTCS cảnh báo SEC: khoản vay 54 triệu USD Aave có thể bị thanh lý",
-        "summary": "BTCS cảnh báo SEC rằng khoản vay Aave trị giá 54 triệu USD có thể bị thanh lý khi giá ether giảm, mặc dù công ty đã giảm nợ 10 triệu USD trong 10 ngày qua.",
+        "titleVi": "BTCS cảnh báo SEC: khoản vay Aave 54 triệu USD có thể bị thanh lý",
+        "summary": "BTCS giảm khoản vay Aave 10 triệu USD trong 10 ngày, nhưng giá Ether giảm khiến tài sản thế chấp bị áp lực, có nguy cơ thanh lý 54 triệu USD.",
         "why": "",
         "link": "https://www.coindesk.com/markets/2026/11/21/ether-treasury-firm-btcs-warns-sec-its-usd54-million-aave-loan-could-be-liquidated",
         "source": "CoinDesk",
@@ -163,17 +154,17 @@
     "crypto": [
       {
         "title": "Here’s what happened in crypto today",
-        "titleVi": "Tin tức tiền điện tử hôm nay: Xu hướng và sự kiện mới nhất",
-        "summary": "Bản tin cập nhật các xu hướng hằng ngày và sự kiện ảnh hưởng đến giá Bitcoin, blockchain, DeFi, Web3 và quy định tiền điện tử.",
-        "why": "",
+        "titleVi": "Điểm tin thị trường tiền mã hóa hằng ngày",
+        "summary": "CoinTelegraph tổng hợp các sự kiện mới nhất tác động tới giá Bitcoin, công nghệ blockchain, DeFi, Web3 và chính sách quản lý tiền mã hóa. Bản tin cập nhật xu hướng thị trường hằng ngày cho nhà đầu tư.",
+        "why": "Bài viết theo dõi diễn biến giá Bitcoin, sự phát triển của DeFi, Web3 cùng các quy định pháp lý liên quan tới tiền mã hóa.",
         "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
         "publishedAt": "Sat, 21 Nov 2026 11:18:52 +0000"
       },
       {
-        "title": "Bitcoin bounces 9% from two-year low to retake $60,000 as traders eye Monday’s stock open",
-        "titleVi": "Bitcoin trở lại mốc 60.000 USD sau khi hồi phục 9% từ đáy hai năm",
-        "summary": "Giá Bitcoin vừa tăng 9% từ mức thấp nhất trong hai năm qua để vượt lại mốc 60.000 USD. Đợt bán tháo trước đó đã xóa sổ 1,8 tỷ USD từ các vị thế giao dịch đòn bẩy trên thị trường tiền mã hóa.",
+        "title": "Bitcoin rebounds above $60,000 after $1.8 billion crypto liquidation wave",
+        "titleVi": "Bitcoin phục hồi sau đợt thanh lý 1,8 tỷ USD vị thế đòn bẩy",
+        "summary": "Bitcoin tăng trở lại trên 60.000 USD sau khi thị trường thanh lý 1,8 tỷ USD vị thế đòn bẩy, chủ yếu từ những cược tăng giá.",
         "why": "",
         "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-bounces-9-from-two-year-low-to-retake-usd60-000-as-traders-eye-monday-s-stock-open",
         "source": "CoinDesk",
@@ -190,9 +181,9 @@
       },
       {
         "title": "Fraudsters Used Fake Crypto Exchanges to Steal $37 Million, SEC Alleges",
-        "titleVi": "SEC cáo buộc các sàn tiền mã hóa giả mạo chiếm đoạt 37 triệu USD",
-        "summary": "SEC tố cáo 8 thực thể đăng ký tại Colorado, nghi vận hành từ nước ngoài, đã mạo danh sàn tiền mã hóa và cố vấn hợp pháp để chiếm đoạt hơn 37 triệu USD của nhà đầu tư Mỹ. Nhóm này thậm chí còn làm giả giấy chứng nhận và hồ sơ của chính SEC.",
-        "why": "",
+        "titleVi": "Công ty giả mạo sàn tiền điện tử lừa đảo hơn 37 triệu USD",
+        "summary": "SEC cáo buộc tám công ty đăng ký tại Colorado, điều hành từ nước ngoài, đã lừa đảo nhà đầu tư Mỹ bằng cách giả mạo sàn tiền điện tử và tư vấn hợp pháp, chiếm hơn 37 triệu USD.",
+        "why": "SEC công bố 37 triệu USD là số tiền bị lừa đảo, xác nhận 8 thực thể Colorado liên quan.",
         "link": "https://decrypt.co/383752/fraudsters-fake-crypto-exchanges-steal-37-million-sec",
         "source": "Decrypt",
         "publishedAt": "Sat, 21 Nov 2026 17:01:02 +0000"
@@ -201,18 +192,18 @@
     "thoi-su": [
       {
         "title": "The Download: inside the quest to make our minds immortal",
-        "titleVi": "Nghiên cứu mới: Lưu trữ trí tuệ con người qua công nghệ não bộ",
-        "summary": "Bản tin MIT Tech Review trình bày cuộc thảo luận về việc ghi lại dữ liệu não bộ để bảo tồn nhận thức của con người, nhằm mục tiêu giữ lại bản sắc cá nhân vượt qua tuổi thọ sinh học.",
-        "why": "Một nhóm nhà khoa học đã thành công trong việc ghi lại mẫu tín hiệu điện não của một cá thể, chứng minh khả năng lưu trữ dữ liệu não bộ.",
+        "titleVi": "Nghiên cứu bảo tồn não – khát vọng làm cho tâm trí bất tử",
+        "summary": "Các nhà khoa học đang thử nghiệm cách ghi lại và duy trì hoạt động não bộ, nhằm bảo tồn nhận thức của con người vượt qua giới hạn sinh học.",
+        "why": "Một nhóm nghiên cứu đã ghi lại hoạt động não trong 10 năm liên tục trên mô hình động vật.",
         "link": "https://www.technologyreview.com/2026/11/20/1149371/the-download-quest-to-make-minds-immortal/",
         "source": "MIT Tech Review",
         "publishedAt": "Fri, 20 Nov 2026 13:10:00 +0000"
       },
       {
         "title": "Best Power Banks (2026): My Picks After Testing Over 100",
-        "titleVi": "Wired chọn các mẫu pin sạc dự phòng tốt nhất từ hơn 100 thiết bị thử nghiệm",
-        "summary": "Tạp chí Wired lựa chọn những dòng pin sạc dự phòng phù hợp cho điện thoại và máy tính xách tay sau khi kiểm tra hơn 100 thiết bị khác nhau. Các sản phẩm được xếp hạng dựa trên dung lượng thực tế cùng tốc độ sạc khi di chuyển.",
-        "why": "Chuyên gia đã trực tiếp kiểm tra thực tế hiệu năng của hơn 100 mẫu pin sạc dự phòng trước khi đưa ra danh sách chọn lọc.",
+        "titleVi": "Tổng hợp các mẫu pin sạc dự phòng tốt nhất sau thử nghiệm 100 thiết bị",
+        "summary": "Danh sách các mẫu pin sạc dự phòng tốt nhất năm 2026 được tổng hợp sau quá trình thử nghiệm thực tế hơn 100 thiết bị khác nhau. Những sản phẩm này đáp ứng tốt nhu cầu di chuyển cho cả điện thoại, máy tính xách tay lẫn máy chơi game.",
+        "why": "Tác giả đã thử nghiệm thực tế hơn 100 mẫu pin sạc dự phòng khác nhau.",
         "link": "https://www.wired.com/gallery/best-portable-chargers-power-banks/",
         "source": "Wired",
         "publishedAt": "Sat, 21 Nov 2026 12:01:00 +0000"
@@ -228,8 +219,8 @@
       },
       {
         "title": "Trump says there could be a 'positive spin' from the latest FBI database hack",
-        "titleVi": "Trump cho rằng có thể có 'cái nhìn tích cực' từ vụ tấn công dữ liệu FBI mới",
-        "summary": "Donald Trump cho rằng vụ tấn công dữ liệu FBI lần thứ hai có thể mang lại lợi ích tích cực cho chính mình.",
+        "titleVi": "Trump cho rằng hack cơ sở dữ liệu FBI có thể mang lại lợi thế tích cực",
+        "summary": "Donald Trump cho rằng việc tấn công vào cơ sở dữ liệu FBI lần thứ hai có thể được nhìn nhận là một ‘lợi thế tích cực’ cho chính quyền.",
         "why": "",
         "link": "https://www.cnbc.com/2026/11/21/trump-fbi-database-hack.html",
         "source": "CNBC",
@@ -237,8 +228,8 @@
       },
       {
         "title": "State and federal battle over prediction markets regulation heats up after midterms",
-        "titleVi": "Cuộc tranh chấp quy định thị trường dự đoán gia tăng sau cuộc bầu cử giữa bang và liên ban",
-        "summary": "Bang, Quốc hội và CFTC đang leo thang cuộc tranh đấu về quy định thị trường dự đoán sau cuộc bầu cử giữa kỳ.",
+        "titleVi": "Cuộc tranh chấp quy định thị trường dự đoán gia tăng sau cuộc bầu cử giữa kỳ",
+        "summary": "Các bang, Quốc hội và CFTC đang leo thang cuộc tranh luận về quy định thị trường dự đoán sau cuộc bầu cử giữa kỳ.",
         "why": "",
         "link": "https://www.cnbc.com/2026/11/21/prediction-market-regulation-kalshi-cftc.html",
         "source": "CNBC",
@@ -246,54 +237,63 @@
       },
       {
         "title": "International first class is over for U.S. airlines. Enter the mega business-class cabin",
-        "titleVi": "Các hãng hàng không Mỹ khai tử khoang hạng nhất quốc tế để mở rộng hạng thương gia",
-        "summary": "Các hãng hàng không Mỹ đang loại bỏ khoang hạng nhất trên các chuyến bay quốc tế để mở rộng khoang hạng thương gia quy mô lớn. Thay đổi này mang tới các khoang thương gia được trang bị nhiều phòng suite sang trọng nhằm đáp ứng nhu cầu dịch vụ cao cấp.",
-        "why": "Các hãng hàng không Mỹ quyết định khai tử khoang hạng nhất để tập trung phát triển các phòng suite hạng thương gia.",
+        "titleVi": "Hãng bay Mỹ bỏ khoang hạng nhất quốc tế để mở rộng khoang thương gia",
+        "summary": "Nhiều hãng hàng không Mỹ đang loại bỏ khoang hạng nhất trên các chuyến bay quốc tế để tập trung mở rộng cabin thương gia. Những không gian mới này được thiết kế diện tích lớn cùng nhiều tiện nghi sang trọng hơn.",
+        "why": "",
         "link": "https://www.cnbc.com/2026/11/21/us-airlines-first-class-business-class.html",
         "source": "CNBC",
         "publishedAt": "Sat, 21 Nov 2026 12:00:01 GMT"
       },
       {
-        "title": "Warren Buffett quadruples Thanksgiving gifts: A breakdown of how much wealth he's giving away",
-        "titleVi": "Warren Buffett tăng bốn lần quà Giáng Thánh: Tổng số quà tặng lên 5,5 tỷ USD",
-        "summary": "Warren Buffett đã tăng bốn lần quà Giáng Thánh cho bốn quỹ gia đình, tổng số quà tặng lên 5,5 tỷ USD.",
+        "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
+        "titleVi": "Chồng nghỉ hưu 64 tuổi, yêu cầu vợ làm việc",
+        "summary": "Chồng nghỉ hưu 64 tuổi cho vợ nên tiếp tục làm việc, trong khi vợ cảm thấy mệt mỏi với lịch trình làm việc và 50 phút di chuyển.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/21/warren-buffett-quadruples-thanksgiving-gifts.html",
-        "source": "CNBC",
-        "publishedAt": "Sat, 21 Nov 2026 13:01:44 GMT"
-      },
-      {
-        "title": "Is Social Security a Ponzi scheme? No. Don’t get carried away with 1930s-era prophecies of doom.",
-        "titleVi": "Senator Ron Johnson gọi An sinh xã hội là 'lừa đảo' và kêu gọi chấm dứt",
-        "summary": "Senator Ron Johnson của bang Wisconsin cho rằng An sinh xã hội là một ‘lừa đảo’ và yêu cầu các nhà lập pháp ngừng chương trình này.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/the-thought-of-living-to-100-terrifies-me-is-social-security-a-giant-ponzi-scheme-84a64e7e?mod=mw_rss_topstories",
+        "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Sat, 21 Nov 2026 16:50:00 GMT"
+        "publishedAt": "Sun, 22 Nov 2026 01:15:00 GMT"
       },
       {
-        "title": "‘I’m sick of flying’: I paid for priority boarding, but the overhead bins were full. Was I duped?",
-        "titleVi": "Trả thêm phí ưu tiên lên máy bay nhưng vẫn hết chỗ để hành lý",
-        "summary": "Một hành khách chia sẻ sự thất vọng khi đã chi thêm tiền mua dịch vụ lên máy bay ưu tiên nhưng khoang hành lý xách tay vẫn kín chỗ. Người này đang cân nhắc thay đổi thói quen di chuyển bằng cách lên máy bay bất kỳ lúc nào và để hành lý vào khoảng trống đầu",
-        "why": "Nhiều hãng hàng không bán dịch vụ ưu tiên lên máy bay nhưng không đảm bảo đủ chỗ trong khoang hành lý xách tay cho hành khách.",
-        "link": "https://www.marketwatch.com/story/im-sick-of-flying-i-paid-for-priority-boarding-but-the-overhead-bins-were-full-was-i-duped-0badcc80?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Sat, 21 Nov 2026 16:50:00 GMT"
-      },
-      {
-        "title": "US lawmakers propose up to 30% rewards for prediction market whistleblowers",
-        "titleVi": "Đạo luật Mỹ đề nghị thưởng lên tới 30% cho người tố cáo gian lận thị trường dự đoán",
-        "summary": "Các nhà lập pháp Mỹ đề xuất người tố cáo có thể nhận 10%–30% của phạt tiền trong các vụ gian lận thị trường dự đoán vượt 1 triệu USD.",
+        "title": "My wife is bankrolling her family’s trips to New York and it’s draining our savings. Should I ask her to stop?",
+        "titleVi": "Vợ chi tiêu du lịch New York làm lỗ tài chính",
+        "summary": "Vợ chi trả chi phí du lịch New York, với phòng khách sạn lên tới 400 USD/đêm, khiến quỹ tiết kiệm của cặp vợ chồng giảm dần.",
         "why": "",
-        "link": "https://cointelegraph.com/news/us-prediction-market-whistleblower-rewards-30-percent?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://www.marketwatch.com/story/my-wife-pays-thousands-of-dollars-for-her-family-to-visit-from-argentina-how-can-i-convince-her-to-stop-9381351c?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Sun, 22 Nov 2026 00:03:00 GMT"
+      },
+      {
+        "title": "I’m in my 40s. Should I accept a lower pension in exchange for naming my husband or child as a beneficiary?",
+        "titleVi": "Cân nhắc hưu trí thấp hơn đổi tên người thụ hưởng",
+        "summary": "Người trong độ tuổi 40 cân nhắc nhận hưu trí thấp hơn nếu đặt chồng hoặc con làm người thụ hưởng, vì khi tử vong trước chồng, chồng sẽ nhận hưu trí 50–66% đời thường.",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/im-in-my-40s-should-i-accept-a-lower-pension-in-exchange-for-naming-my-husband-or-child-as-a-beneficiary-b2352059?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Sat, 21 Nov 2026 23:05:00 GMT"
+      },
+      {
+        "title": "‘It’s downright dirty’: My brother moved in with our ailing mother and closed her bank account. What can I do?",
+        "titleVi": "Cách xử lý khi người thân tự ý đóng tài khoản ngân hàng của cha mẹ",
+        "summary": "MarketWatch hướng dẫn các bước pháp lý và can thiệp khẩn cấp khi phát hiện thành viên trong gia đình tự ý kiểm soát tài sản của cha mẹ ốm đau. Người dân cần liên hệ cơ quan bảo vệ người cao tuổi và ngân hàng để ngăn chặn hành vi lạm dụng tài chính.",
+        "why": "Chuyên gia khuyên nên báo cáo vụ việc tới Dịch vụ Bảo vệ Người trưởng thành (APS) để xác minh hành vi lạm dụng tài chính người cao tuổi.",
+        "link": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Sat, 21 Nov 2026 20:15:00 GMT"
+      },
+      {
+        "title": "Chainflip confirms $12M hack, offers attacker 10% bounty",
+        "titleVi": "Chainflip công nhận hack 12 triệu USD, đề nghị trả lại 90%",
+        "summary": "Chainflip xác nhận mất 12 triệu USD do hack, đề nghị kẻ tấn công trả lại 90% số tiền và nhận phần thưởng 10%.",
+        "why": "",
+        "link": "https://cointelegraph.com/news/chainflip-12m-crypto-hack-10-percent-bounty?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Sat, 21 Nov 2026 07:51:47 +0000"
+        "publishedAt": "Sun, 22 Nov 2026 05:28:43 +0000"
       },
       {
         "title": "Cross-chain protocol Chainflip's FLIP tanks 30% after suspected $4.86 million vault drain",
-        "titleVi": "Chainflip FLIP giảm 30% sau rò rỉ 4,86 triệu USD từ kho lưu trữ",
-        "summary": "Chainflip FLIP giảm 30% khi một khoản rút tiền trị giá 4,86 triệu USD được thực hiện với chữ ký hợp lệ, cho thấy khả năng bị xâm nhập khóa xác thực của các nhà xác nhận.",
-        "why": "Chainflip FLIP giảm 30% sau khi rò rỉ 4,86 triệu USD từ kho lưu trữ.",
+        "titleVi": "Chainflip FLIP giảm 30% sau rò rỉ kho 4,86 triệu USD",
+        "summary": "Giá token FLIP sụt giảm 30% khi kho 4,86 triệu USD bị rò rỉ, có dấu hiệu của vi phạm khóa xác thực của các validator.",
+        "why": "Chainflip mất 4,86 triệu USD kho do có chữ ký hợp lệ, cho thấy khả năng bị xâm nhập.",
         "link": "https://www.coindesk.com/business/2026/11/21/cross-chain-protocol-chainflip-s-flip-tanks-30-after-suspected-usd4-86-million-vault-drain",
         "source": "CoinDesk",
         "publishedAt": "Sat, 21 Nov 2026 16:41:00 +0000"

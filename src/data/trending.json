@@ -1,58 +1,58 @@
 {
-  "updatedAt": "2026-11-21T18:07:30.930Z",
+  "updatedAt": "2026-11-22T07:17:09.780Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
   "items": [
     {
+      "name": "ItsNotRexed/Leonida",
+      "url": "https://github.com/ItsNotRexed/Leonida",
+      "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
+      "stars": 7709,
+      "language": "Python",
+      "purpose": "Dự án chuyển mã tựa game GTA 6 từ phiên bản Xbox để chạy trực tiếp trên PC."
+    },
+    {
       "name": "erkamyaman/rust-anything",
       "url": "https://github.com/erkamyaman/rust-anything",
       "description": "Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",
-      "stars": 7253,
+      "stars": 7573,
       "language": "Rust",
-      "purpose": "Viết lại toàn bộ ứng dụng bằng Rust từng phần, kiểm tra hành vi so sánh với mã gốc"
+      "purpose": "Công cụ hỗ trợ viết lại ứng dụng sang Rust từng phần và đối chiếu hành vi với bản gốc."
     },
     {
       "name": "krisgfx9/Wireless-Device-Battery-Monitor",
       "url": "https://github.com/krisgfx9/Wireless-Device-Battery-Monitor",
       "description": "Show the battery level of wireless mice, headsets, keyboards and controllers on the Windows 10/11 taskbar. Lightweight tray app, no vendor software needed. Supports Logitech, Razer, SteelSeries, Corsair, HyperX, Glorious, PS4/PS5 DualSense, Xbox and Bluetooth devices.",
-      "stars": 5729,
+      "stars": 5900,
       "language": "C++",
-      "purpose": "Hiển thị mức pin thiết bị không dây trên thanh tác vụ Windows, không cần phần mềm nhà cung cấp"
+      "purpose": "Ứng dụng hiển thị phần trăm pin của các thiết bị không dây trên thanh taskbar Windows 10/11."
     },
     {
       "name": "bookwjitchieni1986/blender-ai-mcp-addon",
       "url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
       "description": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
-      "stars": 2095,
+      "stars": 2690,
       "language": "",
-      "purpose": "Trợ lý AI cho Blender: chat trực quan, công cụ cảnh, quy trình đa tác nhân"
+      "purpose": "Addon trợ lý AI và máy chủ MCP cho Blender hỗ trợ trò chuyện và thao tác với các cảnh 3D."
     },
     {
       "name": "iamajmeena/neonclipping",
       "url": "https://github.com/iamajmeena/neonclipping",
       "description": "Paste a link, get captioned 9:16 clips in ~2 min. Free, local, open-source clipping engine (audio-first, YouTube captions, local LLM).",
-      "stars": 1671,
+      "stars": 1829,
       "language": "Python",
-      "purpose": "Cắt clip 9:16 từ liên kết, tự động caption, chạy cục bộ, miễn phí"
+      "purpose": "Công cụ tự động tạo video ngắn khung hình 9:16 kèm phụ đề chỉ từ một liên kết video."
     },
     {
       "name": "sybil-solutions/inference-optimisation-skill",
       "url": "https://github.com/sybil-solutions/inference-optimisation-skill",
       "description": "Agent skill for hill-climbing local LLM serving speed (decode, speculative decoding, prefill, KV, startup, TTFT) on any hardware and quantization",
-      "stars": 1443,
+      "stars": 1777,
       "language": "Python",
-      "purpose": "Tối ưu tốc độ phục vụ LLM cục bộ bằng hill‑climbing, decode, speculative decoding"
-    },
-    {
-      "name": "joshpuckett/allo",
-      "url": "https://github.com/joshpuckett/allo",
-      "description": "Allo is your friendly neighborhood typeface, free and open source",
-      "stars": 1300,
-      "language": "Python",
-      "purpose": "Cung cấp phông chữ miễn phí, mã nguồn mở, dễ sử dụng"
+      "purpose": "Kỹ năng cho AI agent giúp tối ưu hóa và tăng tốc độ phản hồi của mô hình LLM cục bộ."
     }
   ],
   "purposeSummarized": true,
-  "purposeModel": "pollinations-openai"
+  "purposeModel": "gemini-3.5-flash"
 }

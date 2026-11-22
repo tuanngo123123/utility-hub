@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-21T18:07:32.297Z",
+  "updatedAt": "2026-11-22T07:17:10.734Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,6 +49,22 @@
   ],
   "items": [
     {
+      "title": "Signal restricts mobile screenshots as it confronts ‘existential threat’ of AI surveillance",
+      "link": "https://techcrunch.com/2026/11/21/signal-restricts-mobile-screenshots-as-it-confronts-existential-threat-of-ai-surveillance/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Sat, 21 Nov 2026 21:37:10 +0000",
+      "description": "Signal is limiting users' ability to take screenshots in both its Android and iOS apps."
+    },
+    {
+      "title": "A tale of two Nvidias",
+      "link": "https://techcrunch.com/2026/11/21/a-tale-of-two-nvidias/",
+      "source": "TechCrunch",
+      "group": "chung-khoan",
+      "publishedAt": "Sat, 21 Nov 2026 21:07:42 +0000",
+      "description": "We got two very different pictures of Nvidia — the company’s latest earnings report vs. the tech executives loudly calling for Jensen Huang’s return."
+    },
+    {
       "title": "Here are the top AI agents that can live in your text messages",
       "link": "https://techcrunch.com/2026/11/21/all-the-ai-agents-that-can-live-in-your-text-messages/",
       "source": "TechCrunch",
@@ -95,22 +111,6 @@
       "group": "chung-khoan",
       "publishedAt": "Fri, 20 Nov 2026 14:55:44 +0000",
       "description": "In the midst of dealing with the fallout from its ouster of CEO Jensen Huang, Nvidia delivered its latest earnings report this week, with healthy growth and promises that the good times will continue. At the same time, the chipmaker said it will stop selling its H200 chips in China, and it dismissed calls to […]"
-    },
-    {
-      "title": "Six AI-powered gadgets that could make your home office smarter",
-      "link": "https://techcrunch.com/2026/11/20/6-ai-powered-gadgets-that-could-make-your-home-office-smarter/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Fri, 20 Nov 2026 14:00:00 +0000",
-      "description": "From notetakers to webcams, here are six AI-powered gadgets to upgrade your workspace."
-    },
-    {
-      "title": "Apple may be developing its own AI agent that runs your Mac",
-      "link": "https://techcrunch.com/2026/11/19/apple-may-be-developing-its-own-ai-agent-that-runs-your-mac/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Fri, 20 Nov 2026 00:56:01 +0000",
-      "description": "The iPhone maker appears to be building agents that can compete with the likes of Meta Muse, Instinct, Claude, and OpenAI Dots."
     },
     {
       "title": "The most misunderstood graph in AI just got a major update",
@@ -177,6 +177,14 @@
       "description": "This would make the second recent intrusion into the FBI system."
     },
     {
+      "title": "Quantum computing’s first real-world payoff may come in energy, not drug discovery",
+      "link": "https://www.cnbc.com/2026/11/22/quantum-computing-energy-applications.html",
+      "source": "CNBC",
+      "group": "ai",
+      "publishedAt": "Sun, 22 Nov 2026 06:00:01 GMT",
+      "description": "Quantum computing firms are testing energy-grid optimization, solar materials and hydrogen catalysts as they pursue practical uses."
+    },
+    {
       "title": "Tech outages are fueling a new doomsday economy",
       "link": "https://www.cnbc.com/2026/11/21/emergency-prep-spending-tech-outages.html",
       "source": "CNBC",
@@ -201,44 +209,44 @@
       "description": "Airlines are opting to build giant business-class cabins with ever-more luxurious suites."
     },
     {
-      "title": "Warren Buffett quadruples Thanksgiving gifts: A breakdown of how much wealth he's giving away",
-      "link": "https://www.cnbc.com/2026/11/21/warren-buffett-quadruples-thanksgiving-gifts.html",
-      "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 13:01:44 GMT",
-      "description": "Warren Buffett more than quadrupled his Thanksgiving donations to four family foundations this year to $5.5 billion."
-    },
-    {
-      "title": "Is Social Security a Ponzi scheme? No. Don’t get carried away with 1930s-era prophecies of doom.",
-      "link": "https://www.marketwatch.com/story/the-thought-of-living-to-100-terrifies-me-is-social-security-a-giant-ponzi-scheme-84a64e7e?mod=mw_rss_topstories",
+      "title": "My husband is happily retired at 64 and thinks I should keep working. Is he being fair?",
+      "link": "https://www.marketwatch.com/story/my-husband-is-happily-retired-at-64-and-thinks-i-should-keep-working-is-he-being-fair-325c5f38?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 16:50:00 GMT",
-      "description": "Wisconsin Republican Sen. Ron Johnson called Social Security a “scam” and urged lawmakers to shut it down."
+      "publishedAt": "Sun, 22 Nov 2026 01:15:00 GMT",
+      "description": "“I’m exhausted. My alarm goes off at 6 a.m., and I have a 50-minute commute.”"
     },
     {
-      "title": "‘I’m sick of flying’: I paid for priority boarding, but the overhead bins were full. Was I duped?",
-      "link": "https://www.marketwatch.com/story/im-sick-of-flying-i-paid-for-priority-boarding-but-the-overhead-bins-were-full-was-i-duped-0badcc80?mod=mw_rss_topstories",
+      "title": "My wife is bankrolling her family’s trips to New York and it’s draining our savings. Should I ask her to stop?",
+      "link": "https://www.marketwatch.com/story/my-wife-pays-thousands-of-dollars-for-her-family-to-visit-from-argentina-how-can-i-convince-her-to-stop-9381351c?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 16:50:00 GMT",
-      "description": "“Maybe next time I’ll try the other approach: I’ll board whenever I feel like it and drop my suitcase in the first open slot I see.”"
+      "publishedAt": "Sun, 22 Nov 2026 00:03:00 GMT",
+      "description": "“Hotel rooms can cost as much as $400 per night.”"
     },
     {
-      "title": "Micron and Sandisk stocks might look like bargains, but analysts say that’s actually a red flag",
-      "link": "https://www.marketwatch.com/story/micron-and-sandisk-stocks-might-look-like-bargains-but-analysts-say-thats-actually-a-red-flag-da1f1f5d?mod=mw_rss_topstories",
+      "title": "I’m in my 40s. Should I accept a lower pension in exchange for naming my husband or child as a beneficiary?",
+      "link": "https://www.marketwatch.com/story/im-in-my-40s-should-i-accept-a-lower-pension-in-exchange-for-naming-my-husband-or-child-as-a-beneficiary-b2352059?mod=mw_rss_topstories",
       "source": "MarketWatch",
-      "group": "chung-khoan",
-      "publishedAt": "Sat, 21 Nov 2026 15:35:00 GMT",
-      "description": "Cheap valuation multiples for memory stocks have historically been associated with peak pricing levels, according to analysts."
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 23:05:00 GMT",
+      "description": "“If I die before my husband, he will receive a lifetime pension equal to 50%–66% of my monthly benefit.”"
     },
     {
-      "title": "‘Nvidia’s turmoil has me spooked’: Is it time to sell my stocks?",
-      "link": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
+      "title": "‘It’s downright dirty’: My brother moved in with our ailing mother and closed her bank account. What can I do?",
+      "link": "https://www.marketwatch.com/story/it-is-heartbreaking-exhausting-and-downright-dirty-my-brother-took-over-our-ailing-mothers-life-and-finances-what-can-i-do-b4d48817?mod=mw_rss_topstories",
       "source": "MarketWatch",
-      "group": "chung-khoan",
-      "publishedAt": "Sat, 21 Nov 2026 15:15:00 GMT",
-      "description": "If you are tempted to ditch stocks for property or CDs, take a deep breath before making any sudden moves."
+      "group": "thoi-su",
+      "publishedAt": "Sat, 21 Nov 2026 20:15:00 GMT",
+      "description": "“It is devastating when the people you should be able to trust become the very people you have to protect yourself from.”"
+    },
+    {
+      "title": "Chainflip confirms $12M hack, offers attacker 10% bounty",
+      "link": "https://cointelegraph.com/news/chainflip-12m-crypto-hack-10-percent-bounty?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "thoi-su",
+      "publishedAt": "Sun, 22 Nov 2026 05:28:43 +0000",
+      "description": "Chainflip offered the attacker a 10% bounty to return 90% of the stolen funds by Nov. 23, promising to treat the return as a white-hat recovery and withdraw law enforcement complaints."
     },
     {
       "title": "Here’s what happened in crypto today",
@@ -257,20 +265,12 @@
       "description": "Industry groups have until Dec. 11 to apply for the ECB’s first experimental exercises under its Appia initiative, with later submissions reviewed on a rolling basis."
     },
     {
-      "title": "US lawmakers propose up to 30% rewards for prediction market whistleblowers",
-      "link": "https://cointelegraph.com/news/us-prediction-market-whistleblower-rewards-30-percent?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 07:51:47 +0000",
-      "description": "Whistleblowers could receive 10% to 30% of monetary sanctions in qualifying prediction market fraud cases exceeding $1 million in penalties."
-    },
-    {
-      "title": "Bitcoin bounces 9% from two-year low to retake $60,000 as traders eye Monday’s stock open",
+      "title": "Bitcoin rebounds above $60,000 after $1.8 billion crypto liquidation wave",
       "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-bounces-9-from-two-year-low-to-retake-usd60-000-as-traders-eye-monday-s-stock-open",
       "source": "CoinDesk",
       "group": "crypto",
       "publishedAt": "Sat, 21 Nov 2026 17:50:00 +0000",
-      "description": "The sell-off wiped out $1.8 billion in leveraged crypto positions, mostly from bullish bets on rising prices."
+      "description": "The selloff wiped out $1.8 billion in leveraged crypto positions, mostly from bullish bets on rising prices."
     },
     {
       "title": "Cross-chain protocol Chainflip's FLIP tanks 30% after suspected $4.86 million vault drain",
