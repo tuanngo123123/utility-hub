@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T07:17:09.780Z",
+  "updatedAt": "2026-11-22T18:36:23.871Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
@@ -8,51 +8,51 @@
       "name": "ItsNotRexed/Leonida",
       "url": "https://github.com/ItsNotRexed/Leonida",
       "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
-      "stars": 7709,
+      "stars": 12834,
       "language": "Python",
-      "purpose": "Dự án chuyển mã tựa game GTA 6 từ phiên bản Xbox để chạy trực tiếp trên PC."
+      "purpose": "Leonida là bản tái biên dịch gốc của phiên bản Xbox của GTA 6 cho PC."
     },
     {
       "name": "erkamyaman/rust-anything",
       "url": "https://github.com/erkamyaman/rust-anything",
       "description": "Rewrite your whole app in Rust, one piece at a time, checked against the original's recorded behavior at every step. CLIs, HTTP servers and libraries in TypeScript, Python, C, Go, Ruby and Java.",
-      "stars": 7573,
+      "stars": 7876,
       "language": "Rust",
-      "purpose": "Công cụ hỗ trợ viết lại ứng dụng sang Rust từng phần và đối chiếu hành vi với bản gốc."
-    },
-    {
-      "name": "krisgfx9/Wireless-Device-Battery-Monitor",
-      "url": "https://github.com/krisgfx9/Wireless-Device-Battery-Monitor",
-      "description": "Show the battery level of wireless mice, headsets, keyboards and controllers on the Windows 10/11 taskbar. Lightweight tray app, no vendor software needed. Supports Logitech, Razer, SteelSeries, Corsair, HyperX, Glorious, PS4/PS5 DualSense, Xbox and Bluetooth devices.",
-      "stars": 5900,
-      "language": "C++",
-      "purpose": "Ứng dụng hiển thị phần trăm pin của các thiết bị không dây trên thanh taskbar Windows 10/11."
+      "purpose": "Chuyển toàn bộ ứng dụng sang Rust từng phần, kiểm tra tính đúng đắn với hành vi gốc."
     },
     {
       "name": "bookwjitchieni1986/blender-ai-mcp-addon",
       "url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
       "description": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
-      "stars": 2690,
+      "stars": 2744,
       "language": "",
-      "purpose": "Addon trợ lý AI và máy chủ MCP cho Blender hỗ trợ trò chuyện và thao tác với các cảnh 3D."
+      "purpose": "Trợ lý AI và máy chủ MCP cho Blender: trò chuyện trực quan, công cụ cảnh, quy trình đa tác nhân."
     },
     {
       "name": "iamajmeena/neonclipping",
       "url": "https://github.com/iamajmeena/neonclipping",
       "description": "Paste a link, get captioned 9:16 clips in ~2 min. Free, local, open-source clipping engine (audio-first, YouTube captions, local LLM).",
-      "stars": 1829,
+      "stars": 2048,
       "language": "Python",
-      "purpose": "Công cụ tự động tạo video ngắn khung hình 9:16 kèm phụ đề chỉ từ một liên kết video."
+      "purpose": "Chèn link, lấy clip 9:16 có chú thích trong ~2 phút, chạy offline, mã nguồn mở."
     },
     {
       "name": "sybil-solutions/inference-optimisation-skill",
       "url": "https://github.com/sybil-solutions/inference-optimisation-skill",
       "description": "Agent skill for hill-climbing local LLM serving speed (decode, speculative decoding, prefill, KV, startup, TTFT) on any hardware and quantization",
-      "stars": 1777,
+      "stars": 1914,
       "language": "Python",
-      "purpose": "Kỹ năng cho AI agent giúp tối ưu hóa và tăng tốc độ phản hồi của mô hình LLM cục bộ."
+      "purpose": "Kỹ năng tối ưu tốc độ LLM địa phương bằng hill-climbing: decode, speculative, prefill, KV, startup, TTFT."
+    },
+    {
+      "name": "EL4CTEO/fast-anything",
+      "url": "https://github.com/EL4CTEO/fast-anything",
+      "description": "Don't rewrite it in Rust. Rewrite the 5% that's slow: profile Python, Node or Ruby apps, port the hot functions with your coding agent, prove they behave the same.",
+      "stars": 1561,
+      "language": "Rust",
+      "purpose": "Phân tích hiệu năng Python/Node/Ruby, chuyển 5% chậm nhất sang Rust, bảo đảm hành vi giống."
     }
   ],
   "purposeSummarized": true,
-  "purposeModel": "gemini-3.5-flash"
+  "purposeModel": "pollinations-openai"
 }
