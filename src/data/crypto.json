@@ -1,42 +1,42 @@
 {
-  "updatedAt": "2026-11-22T05:01:55.598Z",
+  "updatedAt": "2026-11-22T13:28:56.071Z",
   "source": "CoinGecko",
   "sourceUrl": "https://api.coingecko.com/api/v3/simple/price",
   "coins": [
     {
       "id": "bitcoin",
       "symbol": "BTC",
-      "priceUsd": 59216,
-      "priceVnd": 1527858986,
-      "change24h": 4.991941153577946
+      "priceUsd": 60674,
+      "priceVnd": 1565489590,
+      "change24h": 1.841806801571894
     },
     {
       "id": "ethereum",
       "symbol": "ETH",
-      "priceUsd": 1661.53,
-      "priceVnd": 42869869,
-      "change24h": 6.304683336426244
+      "priceUsd": 1703.41,
+      "priceVnd": 43950579,
+      "change24h": 1.7167499436201268
     },
     {
       "id": "solana",
       "symbol": "SOL",
-      "priceUsd": 69.35,
-      "priceVnd": 1789365,
-      "change24h": 4.8505848665629525
+      "priceUsd": 70.05,
+      "priceVnd": 1807354,
+      "change24h": 0.5162470720235628
     },
     {
       "id": "binancecoin",
       "symbol": "BNB",
-      "priceUsd": 540.12,
-      "priceVnd": 13935911,
-      "change24h": 5.038089411327649
+      "priceUsd": 553.95,
+      "priceVnd": 14292687,
+      "change24h": 2.721200560917148
     },
     {
       "id": "ripple",
       "symbol": "XRP",
-      "priceUsd": 0.919935,
-      "priceVnd": 23736,
-      "change24h": 4.8061436567963804
+      "priceUsd": 0.921766,
+      "priceVnd": 23783,
+      "change24h": 1.051842593214753
     }
   ]
 }
