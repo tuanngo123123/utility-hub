@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-22T18:36:24.822Z",
+  "updatedAt": "2026-11-23T08:00:39.025Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,6 +49,22 @@
   ],
   "items": [
     {
+      "title": "How Notable Capital, GIC, and Baillie Gifford bet big on Anthropic before its IPO",
+      "link": "https://techcrunch.com/2026/11/22/how-notable-capital-gic-and-baillie-gifford-bet-big-on-anthropic-before-its-ipo/",
+      "source": "TechCrunch",
+      "group": "chung-khoan",
+      "publishedAt": "Mon, 23 Nov 2026 01:25:53 +0000",
+      "description": "Three significant backers share what gave them conviction to bet billions on Anthropic."
+    },
+    {
+      "title": "OpenAI’s chief scientist has thoughts on how to limit AI development",
+      "link": "https://techcrunch.com/2026/11/22/openais-chief-scientist-has-thoughts-on-how-to-limit-ai-development/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Sun, 22 Nov 2026 21:14:07 +0000",
+      "description": "To establish a speed limit on AI development, you need to agree on how to measure speed."
+    },
+    {
       "title": "Why data centers are at the center of the Big Tech backlash",
       "link": "https://techcrunch.com/2026/11/22/why-data-centers-are-at-the-center-of-the-big-tech-backlash/",
       "source": "TechCrunch",
@@ -95,22 +111,6 @@
       "group": "ai",
       "publishedAt": "Fri, 20 Nov 2026 19:53:41 +0000",
       "description": "Spotify founder Daniel Ek is backing Europa Fusion, a fusion power startup founded by an AI researcher. Here's what the startup is building."
-    },
-    {
-      "title": "AI claimed a solution to the 167-year-old Riemann hypothesis — and a human did, too",
-      "link": "https://techcrunch.com/2026/11/20/ai-claimed-a-solution-to-the-167-year-old-riemann-hypothesis-and-a-human-did-too/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Fri, 20 Nov 2026 19:32:08 +0000",
-      "description": "Mathematicians are having their minds blown by the latest AI-driven result — and there's a competing human solution, too."
-    },
-    {
-      "title": "Chips can survive the space environment — can their financing?",
-      "link": "https://techcrunch.com/2026/11/20/chips-can-survive-the-space-environment-can-their-financing/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Fri, 20 Nov 2026 17:40:01 +0000",
-      "description": "Lenders don't want SpaceX shooting their collateral into orbit. What does that mean for space data centers writ large?"
     },
     {
       "title": "The most misunderstood graph in AI just got a major update",
@@ -161,6 +161,22 @@
       "description": "From a calendar that keeps my family organized to a frame that rescues photos from my camera roll, these favorites make thoughtful gifts."
     },
     {
+      "title": "Yemen's Houthis claim attacks on Saudi oil refinery as Trump warns of new strikes next year",
+      "link": "https://www.cnbc.com/2026/11/23/trump-iran-war-hormuz-saudi-.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Mon, 23 Nov 2026 03:52:17 GMT",
+      "description": "Yemen's Iran-aligned Houthis claimed an operation against Saudi Arabia's Rabigh oil refinery, as diplomatic efforts to end the war face long odds."
+    },
+    {
+      "title": "U.S. probes Megaspeed, Alice Huang as new figure emerges in Nvidia chip case",
+      "link": "https://www.cnbc.com/2026/11/23/nvidia-megaspeed-chipmaker-us.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Mon, 23 Nov 2026 05:08:03 GMT",
+      "description": "The U.S. is investigating Megaspeed and Alice Huang after it emerged a former associate of hers was reportedly \"deeply involved\" in the firm's activities"
+    },
+    {
       "title": "Director of National Intelligence Jay Clayton warns Americans of 'bumps in the road' after tech outages",
       "link": "https://www.cnbc.com/2026/11/22/jay-clayton-tech-outages-faa-microsoft-thanksgiving.html",
       "source": "CNBC",
@@ -169,20 +185,12 @@
       "description": "Clayton’s warning comes ahead of Thanksgiving travel, after separate outages disrupted air travel, Microsoft 365 and some bank transactions."
     },
     {
-      "title": "Pizza chains are under pressure. GLP-1 use is only one part of the problem",
-      "link": "https://www.cnbc.com/2026/11/22/pizza-chains-sales-glp-1-demand.html",
+      "title": "How Asian countries are looking to prop up markets as AI downturn sinks stocks",
+      "link": "https://www.cnbc.com/2026/11/23/asia-markets-kospi-taiwan-china-csi300.html",
       "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Sun, 22 Nov 2026 13:00:01 GMT",
-      "description": "Domino's, Papa Johns and Pizza Hut face weaker demand, more delivery competition and changing eating habits, including GLP-1 use."
-    },
-    {
-      "title": "Quantum computing’s first real-world payoff may come in energy, not drug discovery",
-      "link": "https://www.cnbc.com/2026/11/22/quantum-computing-energy-applications.html",
-      "source": "CNBC",
-      "group": "ai",
-      "publishedAt": "Sun, 22 Nov 2026 06:00:01 GMT",
-      "description": "Quantum computing firms are testing energy-grid optimization, solar materials and hydrogen catalysts as they pursue practical uses."
+      "group": "chung-khoan",
+      "publishedAt": "Mon, 23 Nov 2026 06:50:48 GMT",
+      "description": "Market regulators in South Korea, China and Taiwan have introduced new measures to support markets."
     },
     {
       "title": "Anthropic’s record IPO collides with tech’s worst week on Wall Street since 2020",
@@ -193,100 +201,92 @@
       "description": "Anthropic held its historic Nasdaq debut a day before Nvidia's stock closed out its longest weekly losing streak since 2008."
     },
     {
-      "title": "Saudi Arabia, Bahrain report new attacks as Iran says it remains open to a deal with U.S.",
-      "link": "https://www.cnbc.com/2026/11/22/saudi-houthi-bahrain-iran-attacks-araghchi-talks.html",
+      "title": "Employees at Eric Trump-backed robot startup lose health benefits as company's cash crunch deepens",
+      "link": "https://www.cnbc.com/2026/11/22/foundation-future-industries-health-benefits-payroll-base-group.html",
       "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Sun, 22 Nov 2026 13:25:47 GMT",
-      "description": "Saudi Arabia said it destroyed a drone launched by Iran-backed Houthis, while Bahrain said an industrial facility was hit by Iranian projectiles."
+      "group": "ai",
+      "publishedAt": "Sun, 22 Nov 2026 18:55:05 GMT",
+      "description": "Foundation is pursuing an emergency bridge loan and has been in talks with VC firms as it waits for a $150 million investment from South Korea's Base Group."
     },
     {
-      "title": "Trump says there could be a 'positive spin' from the latest FBI database hack",
-      "link": "https://www.cnbc.com/2026/11/21/trump-fbi-database-hack.html",
-      "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 16:57:34 GMT",
-      "description": "This would make the second recent intrusion into the FBI system."
-    },
-    {
-      "title": "These little-known investments could be among the best bargains in a crash",
-      "link": "https://www.marketwatch.com/story/these-little-known-investments-could-be-among-the-best-bargains-in-a-crash-78a379b4?mod=mw_rss_topstories",
+      "title": "The number of 401(k) millionaires drops amid stock-market swings",
+      "link": "https://www.marketwatch.com/story/the-number-of-401-k-millionaires-drops-amid-stock-market-swings-23939b94?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Sun, 22 Nov 2026 18:23:00 GMT",
-      "description": "If this stock market turmoil turns into a full-blown crash, look for low-risk investment bargains among closed-end funds."
+      "publishedAt": "Mon, 23 Nov 2026 05:01:00 GMT",
+      "description": "‘It was a rocky quarter’: 401(k) balances drop and affordability concerns persist, Fidelity says"
     },
     {
-      "title": "Private equity has been buying up hospice centers — with striking consequences",
-      "link": "https://www.marketwatch.com/story/private-equity-has-been-buying-up-hospice-centers-with-striking-consequences-63642545?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "thoi-su",
-      "publishedAt": "Sun, 22 Nov 2026 17:22:00 GMT",
-      "description": "Medicare costs are higher and patients stay longer at hospice providers owned by private-equity firms, new research has found."
-    },
-    {
-      "title": "‘Nvidia’s turmoil has me spooked’: Is it time to sell my stocks and buy real estate?",
-      "link": "https://www.marketwatch.com/story/nvidia-spooked-me-should-i-sell-my-stocks-or-ride-out-the-market-turmoil-560583c6?mod=mw_rss_topstories",
+      "title": "Corporate America hunts for ‘generational’ growth in AI, trading cards and the L.A. airport",
+      "link": "https://www.marketwatch.com/story/corporate-america-hunts-for-generational-growth-in-ai-trading-cards-and-the-l-a-airport-3072eb1a?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Sun, 22 Nov 2026 17:00:00 GMT",
-      "description": "If you are tempted to ditch stocks for property or CDs, take a deep breath before making any sudden moves."
+      "publishedAt": "Sun, 22 Nov 2026 21:51:00 GMT",
+      "description": "There’s been no shortage of trends deemed once-in-a-generation by executives on earnings calls."
     },
     {
-      "title": "I’m terrified of a market crash. Should I put $400,000 of my $1 million retirement savings into an annuity?",
-      "link": "https://www.marketwatch.com/story/were-in-our-50s-and-terrified-of-a-market-crash-should-we-put-400-000-of-our-1-million-retirement-savings-into-an-annuity-1943f240?mod=mw_rss_topstories",
+      "title": "Ron Johnson’s Social Security gaffe buried important news",
+      "link": "https://www.marketwatch.com/story/ron-johnsons-social-security-gaffe-buried-important-news-b96e0ce8?mod=mw_rss_topstories",
       "source": "MarketWatch",
-      "group": "chung-khoan",
-      "publishedAt": "Sun, 22 Nov 2026 16:32:00 GMT",
-      "description": "“We have a house worth $450,000. Our combined annual income is $125,000.”"
+      "group": "thoi-su",
+      "publishedAt": "Sun, 22 Nov 2026 21:28:00 GMT",
+      "description": "The Wisconsin Republican’s remarks overshadowed what might have been a useful Senate committee hearing about fixing Social Security."
     },
     {
-      "title": "The future of onchain FX could start with users, not institutional liquidity",
-      "link": "https://cointelegraph.com/opinion/future-onchain-fx-could-start-with-users-not-institutional-liquidity?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
+      "title": "Social Security should be shut down, this Republican senator says",
+      "link": "https://www.marketwatch.com/story/social-security-should-be-shut-down-this-republican-senator-says-8f7fef81?mod=mw_rss_topstories",
+      "source": "MarketWatch",
       "group": "thoi-su",
-      "publishedAt": "Sun, 22 Nov 2026 14:30:00 +0000",
-      "description": "Onchain FX does not need to recreate the trillion-dollar institutional market to become useful. Real demand can make smaller markets work first."
+      "publishedAt": "Sun, 22 Nov 2026 20:26:00 GMT",
+      "description": "The program’s trust funds are forecast to run out of money in the next six years."
     },
     {
       "title": "Here’s what happened in crypto today",
       "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Sun, 22 Nov 2026 11:25:27 +0000",
+      "publishedAt": "Mon, 23 Nov 2026 06:00:00 +0000",
       "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
     },
     {
-      "title": "Bitcoin briefly drops to $17K on Kraken, exchange upholds trades",
-      "link": "https://cointelegraph.com/news/bitcoin-17k-kraken-canadian-dollar-market-trades-stand?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Trump renews call for Nvidia to rehire Jensen Huang as CEO",
+      "link": "https://cointelegraph.com/news/trump-renews-call-for-nvidia-to-rehire-jensen-huang-as-ceo?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Sun, 22 Nov 2026 09:33:06 +0000",
-      "description": "Kraken said all orders were processed correctly and found no evidence of a security breach or compromised accounts."
-    },
-    {
-      "title": "Bitcoin's quantum security challenge extends to bridges, custodians and millions of coins",
-      "link": "https://www.coindesk.com/tech/2026/11/22/bitcoin-s-quantum-security-challenge-extends-to-bridges-custodians-and-millions-of-coins",
-      "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Sun, 22 Nov 2026 14:00:00 +0000",
-      "description": "Quantum computers can’t break Bitcoin network’s security yet, but Leo Fan warns that upgrading it and moving funds could take longer than expected."
-    },
-    {
-      "title": "Bitcoin rebounds above $60,000 after $1.8 billion crypto liquidation wave",
-      "link": "https://www.coindesk.com/markets/2026/11/21/bitcoin-bounces-9-from-two-year-low-to-retake-usd60-000-as-traders-eye-monday-s-stock-open",
-      "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Sat, 21 Nov 2026 17:50:00 +0000",
-      "description": "The selloff wiped out $1.8 billion in leveraged crypto positions, mostly from bullish bets on rising prices."
-    },
-    {
-      "title": "Cross-chain protocol Chainflip's FLIP tanks 30% after suspected $4.86 million vault drain",
-      "link": "https://www.coindesk.com/business/2026/11/21/cross-chain-protocol-chainflip-s-flip-tanks-30-after-suspected-usd4-86-million-vault-drain",
-      "source": "CoinDesk",
       "group": "thoi-su",
-      "publishedAt": "Sat, 21 Nov 2026 16:41:00 +0000",
-      "description": "The withdrawal carried a valid signature, which Onchain Lens said points to a possible compromise of the key validators use to approve vault payouts."
+      "publishedAt": "Mon, 23 Nov 2026 03:37:20 +0000",
+      "description": "In a Truth Social post on Monday, Trump said rehiring Jensen Huang would benefit both Nvidia and the US."
+    },
+    {
+      "title": "Billionaire Bill Ackman warns Fed will make a rate ‘mistake’ in December",
+      "link": "https://cointelegraph.com/markets/billionaire-bill-ackman-warns-fed-rate-hikes-could-trigger-recession?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "chung-khoan",
+      "publishedAt": "Mon, 23 Nov 2026 02:47:39 +0000",
+      "description": "Markets and economists widely expect the US Federal Reserve to raise interest rates by 25 basis points in its December meeting."
+    },
+    {
+      "title": "Crypto thieves are using online ads to infect iPhones with a single tap, research finds",
+      "link": "https://www.coindesk.com/tech/2026/11/23/moldyroost-malvertizing-campaign-uses-one-tap-iphone-hacks-to-hunt-crypto-wallet-keys-research-shows",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Mon, 23 Nov 2026 07:45:30 +0000",
+      "description": "A malicious ad campaign known as MoldyRoost can compromise vulnerable iPhones with a single tap, putting cryptocurrency wallet seed phrases at risk, according to cybersecurity firm Confiant."
+    },
+    {
+      "title": "This Swedish bitcoin treasury firm lost 30 BTC trading part of its own stack",
+      "link": "https://www.coindesk.com/markets/2026/11/23/this-swedish-bitcoin-treasury-firm-lost-30-btc-trading-part-of-its-own-stack",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Mon, 23 Nov 2026 07:18:45 +0000",
+      "description": "Stockholm-listed H100 moved a slice of its bitcoin into a derivatives book after an August acquisition and has shed nearly $2 million worth of BTC by the end of September."
+    },
+    {
+      "title": "Cardano holders are turning down a $4 million request for running its flagship event",
+      "link": "https://www.coindesk.com/markets/2026/11/23/cardano-holders-are-turning-down-a-usd4-million-request-for-running-its-flagship-event",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Mon, 23 Nov 2026 06:15:45 +0000",
+      "description": "Roughly five times as much voting stake has opposed the Foundation's 2027 conference budget as has backed it, while a developer tools request filed on Nov. 16 faces almost no opposition."
     },
     {
       "title": "Google's Quantum Chip Beats Classical Limits in 'Impossible' Game",
