@@ -1,29 +1,29 @@
 {
-  "updatedAt": "2026-11-23T20:39:41.238Z",
+  "updatedAt": "2026-11-24T05:02:35.452Z",
   "source": "vang.today",
   "sourceUrl": "https://vang.today/api/prices?action=current",
-  "sourceTime": "2026-11-23T20:30:04.000Z",
+  "sourceTime": "2026-11-24T05:00:03.000Z",
   "world": {
-    "priceUsdPerOz": 3641.35,
-    "changeUsd": -30.15000000000009
+    "priceUsdPerOz": 3635.5,
+    "changeUsd": -36
   },
   "items": [
     {
       "code": "BTSJC",
       "name": "Bảo Tín SJC",
-      "buy": 129500000,
+      "buy": 130000000,
       "sell": 135000000,
-      "changeBuy": 0,
+      "changeBuy": 500000,
       "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
       "code": "BT9999NTT",
       "name": "Bảo Tín 9999",
-      "buy": 129500000,
-      "sell": 134500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 130000000,
+      "sell": 135000000,
+      "changeBuy": 500000,
+      "changeSell": 500000,
       "unit": "đồng/lượng"
     },
     {
@@ -56,10 +56,10 @@
     {
       "code": "DOJINHTV",
       "name": "DOJI nhẫn nữ trang",
-      "buy": 129800000,
-      "sell": 134800000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 130000000,
+      "sell": 135000000,
+      "changeBuy": 200000,
+      "changeSell": 200000,
       "unit": "đồng/lượng"
     },
     {
@@ -92,19 +92,19 @@
     {
       "code": "PQHNVM",
       "name": "PNJ Hà Nội",
-      "buy": 129500000,
+      "buy": 129700000,
       "sell": 135000000,
-      "changeBuy": 0,
+      "changeBuy": 200000,
       "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
       "code": "PQHN24NTT",
       "name": "PNJ 24K",
-      "buy": 129500000,
-      "sell": 133500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129700000,
+      "sell": 133700000,
+      "changeBuy": 200000,
+      "changeSell": 200000,
       "unit": "đồng/lượng"
     }
   ]
