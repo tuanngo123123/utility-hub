@@ -1,58 +1,58 @@
 {
-  "updatedAt": "2026-11-23T08:00:38.705Z",
+  "updatedAt": "2026-11-24T10:16:45.593Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
   "items": [
     {
-      "name": "ItsNotRexed/Leonida",
-      "url": "https://github.com/ItsNotRexed/Leonida",
-      "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
-      "stars": 17357,
-      "language": "Python",
-      "purpose": "Công cụ tái biên dịch bản PC gốc của GTA 6 phiên bản Xbox"
+      "name": "Marvisak/VIctory",
+      "url": "https://github.com/Marvisak/VIctory",
+      "description": "An attempt at running GTA VI on PC",
+      "stars": 7274,
+      "language": "Rust",
+      "purpose": "Dự án thử nghiệm chạy tựa game GTA VI trên máy tính PC."
     },
     {
-      "name": "bookwjitchieni1986/blender-ai-mcp-addon",
-      "url": "https://github.com/bookwjitchieni1986/blender-ai-mcp-addon",
-      "description": "AI assistant and MCP server for Blender: visual chat, scene tools, multi-agent workflows. Works with ChatGPT/GPT, Claude, Gemini, Ollama, OpenCode. Blender AI addon, copilot for 3D, bpy Python scripting, MCP integration.",
-      "stars": 2758,
-      "language": "",
-      "purpose": "Add-on AI cho Blender: chat trực quan, công cụ cảnh, làm việc đa tác nhân"
+      "name": "ivall/xcl",
+      "url": "https://github.com/ivall/xcl",
+      "description": "Xbox Series compatibility layer for Windows - runs console game code natively, reimplements the console system libraries and recompiles RDNA2 shaders to DXIL",
+      "stars": 5858,
+      "language": "Rust",
+      "purpose": "Lớp tương thích Xbox Series trên Windows giúp chạy trực tiếp các tựa game console."
     },
     {
       "name": "EL4CTEO/fast-anything",
       "url": "https://github.com/EL4CTEO/fast-anything",
       "description": "Don't rewrite it in Rust. Rewrite the 5% that's slow: profile Python, Node or Ruby apps, port the hot functions with your coding agent, prove they behave the same.",
-      "stars": 2360,
+      "stars": 3388,
       "language": "Rust",
-      "purpose": "Tối ưu hoá phần 5% chậm của ứng dụng Python/Node/Ruby bằng Rust"
+      "purpose": "Công cụ phân tích ứng dụng Python, Node, Ruby để tìm và viết lại các hàm chậm bằng Rust."
+    },
+    {
+      "name": "AFK-surf/xnulinux",
+      "url": "https://github.com/AFK-surf/xnulinux",
+      "description": "XNU as a loadable kernel module inside Linux (macOS personality for arm64 Linux)",
+      "stars": 2739,
+      "language": "Objective-C++",
+      "purpose": "Module nạp nhân XNU của macOS vào bên trong hệ điều hành Linux cho chip arm64."
     },
     {
       "name": "iamajmeena/neonclipping",
       "url": "https://github.com/iamajmeena/neonclipping",
       "description": "Paste a link, get captioned 9:16 clips in ~2 min. Free, local, open-source clipping engine (audio-first, YouTube captions, local LLM).",
-      "stars": 2179,
+      "stars": 2366,
       "language": "Python",
-      "purpose": "Cắt clip 9:16 có phụ đề từ liên kết YouTube trong 2 phút"
-    },
-    {
-      "name": "omonkeyz/xbox-emulator",
-      "url": "https://github.com/omonkeyz/xbox-emulator",
-      "description": "Progress notes for running Xbox Series X|S builds on PC (TomBox + rage9)",
-      "stars": 1411,
-      "language": "Rust",
-      "purpose": "Ghi chú tiến độ chạy Xbox Series X|S trên PC (TomBox + rage9)"
+      "purpose": "Công cụ tự động cắt video từ liên kết thành các đoạn clip 9:16 kèm phụ đề."
     },
     {
       "name": "R0Y00/Xbox2Windows",
       "url": "https://github.com/R0Y00/Xbox2Windows",
-      "description": "GTA VI static recompilation research for x64 Windows. Source-built EXEs run on Windows, and two translated pixel shaders match reference outputs on hardware and WARP. Full-game startup is unverified.",
-      "stars": 1364,
+      "description": "Static recompilation research for Xbox Series X|S software on x64 Windows, with source-built CPU and GPU tests. Full-game startup is unverified.",
+      "stars": 1740,
       "language": "Python",
-      "purpose": "Nghiên cứu tái biên dịch GTA VI cho Windows x64, chạy EXE bản nguồn"
+      "purpose": "Dự án nghiên cứu biên dịch tĩnh phần mềm Xbox Series X|S sang hệ điều hành Windows x64."
     }
   ],
   "purposeSummarized": true,
-  "purposeModel": "pollinations-openai"
+  "purposeModel": "gemini-3.5-flash"
 }
