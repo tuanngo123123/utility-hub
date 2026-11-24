@@ -1,302 +1,302 @@
 {
-  "updatedAt": "2026-11-24T10:23:16.680Z",
+  "updatedAt": "2026-11-24T21:31:31.881Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
-        "title": "Anthropic launches Claude Ship, letting AI agents review, fix, and approve code changes",
-        "titleVi": "Anthropic ra mắt Claude Ship, AI quản lý thay đổi mã nguồn",
-        "summary": "Anthropic giới thiệu Claude Ship, công cụ cho phép AI kiểm tra, sửa lỗi và phê duyệt các thay đổi trong mã nguồn mà không cần can thiệp thủ công.",
-        "why": "Claude Ship cho phép AI thực hiện các bước phê duyệt mã nguồn, giảm thời gian chờ và tăng hiệu suất phát triển phần mềm.",
-        "link": "https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/",
-        "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 22:05:50 +0000"
-      },
-      {
-        "title": "Google Search’s AI Mode can now tap into Drive and Wallet for more personalized responses",
-        "titleVi": "Google mở rộng AI Mode: truy cập Drive và Wallet để cá nhân hoá trả lời",
-        "summary": "Google cho phép AI Mode truy cập dữ liệu trong Drive, Wallet và ứng dụng Gemini, giúp tạo phản hồi tùy chỉnh hơn dựa trên thông tin người dùng đã lưu trong hệ sinh thái của công ty.",
-        "why": "AI Mode giờ có thể lấy dữ liệu từ Drive và Wallet, tăng độ cá nhân hoá của các câu trả lời.",
-        "link": "https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/",
-        "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 19:14:46 +0000"
-      },
-      {
-        "title": "Amazon snaps up Decart’s AI optimization tech for $7.5B as it prepares to sell Trainium chips",
-        "titleVi": "Amazon mua công nghệ tối ưu AI của Decart trị giá 7,5 tỷ USD",
-        "summary": "Amazon đã mua công nghệ tối ưu AI và đội ngũ nghiên cứu của Decart trong một giao dịch 7,5 tỷ USD, đồng thời chuẩn bị bán chip Trainium.",
+        "title": "UK warns AI-driven cyberattacks are exposing years of weak security",
+        "titleVi": "Anh Quốc cảnh báo tấn công mạng AI khai thác lỗ hổng bảo mật",
+        "summary": "Cơ quan an ninh mạng Anh cảnh báo tấn công AI khai thác lỗ hổng bảo mật đơn giản, nhấn mạnh tầm quan trọng xây dựng nền tảng mạnh.",
         "why": "",
-        "link": "https://techcrunch.com/2026/11/23/amazon-snaps-up-decarts-ai-optimization-tech-for-7-5b-as-it-prepares-to-sell-trainium-chips/",
+        "link": "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/",
         "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 17:14:23 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 18:02:59 +0000"
       },
       {
-        "title": "A legendary philosopher isn’t buying Anthropic’s consciousness argument",
-        "titleVi": "Triết gia huyền thoại không mua lập luận nhận thức của Anthropic",
-        "summary": "Một nhà triết học nổi tiếng đã quyết định không mua cổ phần Anthropic sau khi công ty công bố khả năng AI có thể có nhận thức như một yếu tố rủi ro.",
+        "title": "Meta brings its Muse AI assistant directly into Instagram DMs",
+        "titleVi": "Meta tích hợp Muse AI vào tin nhắn Instagram",
+        "summary": "Meta đưa trợ lý Muse AI trực tiếp vào DMs Instagram, loại bỏ nhu cầu chuyển đổi giữa ứng dụng Instagram và Muse.",
         "why": "",
-        "link": "https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument/",
+        "link": "https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/",
+        "source": "TechCrunch",
+        "publishedAt": "Tue, 24 Nov 2026 17:00:00 +0000"
+      },
+      {
+        "title": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
+        "titleVi": "Tidal cấm và gỡ bỏ hàng triệu bài hát AI hoàn chỉnh",
+        "summary": "Tidal sẽ cấm và gỡ bỏ các bài hát hoàn toàn do AI tạo, nhưng vẫn chấp nhận các bài được hỗ trợ AI.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/",
+        "source": "TechCrunch",
+        "publishedAt": "Tue, 24 Nov 2026 16:46:00 +0000"
+      },
+      {
+        "title": "Why a Crusoe investor is betting on solar and batteries to power future AI data centers",
+        "titleVi": "Nhà đầu tư của Crusoe chọn năng lượng mặt trời và pin cho trung tâm dữ liệu AI",
+        "summary": "Các trung tâm dữ liệu AI thế hệ mới cần hàng chục gigawatt điện hằng năm. Một nhà đầu tư của Crusoe nhận định năng lượng mặt trời kết hợp hệ thống lưu trữ là giải pháp tối ưu cho nhu cầu này.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/24/why-a-crusoe-investor-is-betting-on-solar-and-batteries-to-power-future-ai-data-centers/",
+        "source": "TechCrunch",
+        "publishedAt": "Tue, 24 Nov 2026 16:10:00 +0000"
+      },
+      {
+        "title": "Pinterest will now let parents limit the AI-generated content their teens see",
+        "titleVi": "Pinterest cho phép phụ huynh giới hạn nội dung AI trên bảng tin của thiếu niên",
+        "summary": "Pinterest triển khai tính năng cho phép cha mẹ kiểm soát các nội dung do AI tạo ra hiển thị cho con cái. Nền tảng này chọn quản lý bảng tin tự động thay vì tập trung hạn chế các chatbot.",
+        "why": "Pinterest cho phép cha mẹ can thiệp trực tiếp vào các nội dung AI xuất hiện trên bảng tin của con cái.",
+        "link": "https://techcrunch.com/2026/11/24/pinterest-will-now-let-parents-limit-the-ai-generated-content-their-teens-see/",
+        "source": "TechCrunch",
+        "publishedAt": "Tue, 24 Nov 2026 16:02:37 +0000"
+      },
+      {
+        "title": "Raising the stakes for enterprise networks with AI modernization",
+        "titleVi": "Tác vụ do đại lý AI xử lý làm tăng 450% lưu lượng mạng doanh nghiệp",
+        "summary": "Doanh nghiệp đang đối mặt áp lực lớn khi triển khai AI trên hệ thống mạng nội bộ. Các tác vụ do đại lý AI thực hiện tạo ra lưu lượng mạng cao hơn 450% so với công việc tương tự của con người.",
+        "why": "",
+        "link": "https://www.technologyreview.com/2026/11/24/1148091/raising-the-stakes-for-enterprise-networks-with-ai-modernization/",
         "source": "MIT Tech Review",
-        "publishedAt": "Mon, 23 Nov 2026 17:36:08 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 15:15:16 +0000"
       },
       {
-        "title": "The Download: AI’s judgment problem and carbon removal’s crop threat",
-        "titleVi": "Bản tin AI: vấn đề phán quyết và nguy cơ nông trại do loại bỏ carbon",
-        "summary": "Bản tin hôm nay nhấn mạnh vấn đề phán quyết của AI và một báo cáo mới từ METR cho thấy một số khả năng AI đang cải thiện theo cấp số nhân, trong khi mô hình vẫn chưa đạt mức tốt.",
-        "why": "",
-        "link": "https://www.technologyreview.com/2026/11/23/1149548/the-download-ai-judgment-problem-carbon-removal-crop-threat/",
+        "title": "The Download: AI’s gas power boom and a consciousness reality check",
+        "titleVi": "Trung tâm dữ liệu xây dựng nhà máy khí tự nhiên để tăng hiệu suất",
+        "summary": "Các trung tâm dữ liệu đang xây dựng nhà máy điện khí tự nhiên để giảm phụ thuộc vào lưới điện, nâng cao hiệu suất và giảm chi phí vận hành.",
+        "why": "Một trung tâm dữ liệu tại Thâm Quyến đã hoàn thành nhà máy khí tự nhiên 12 MW, giảm 20 % chi phí điện.",
+        "link": "https://www.technologyreview.com/2026/11/24/1149669/the-download-data-centers-gas-ai-consciousness/",
         "source": "MIT Tech Review",
-        "publishedAt": "Mon, 23 Nov 2026 13:10:00 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 13:10:00 +0000"
       },
       {
-        "title": "AI Solved Math’s Most Famous Problem. Now Humans Are Struggling to Understand It",
-        "titleVi": "Trí tuệ nhân tạo giải bài toán Riemann nhưng giới toán học chưa thể hiểu lời giải",
-        "summary": "Một nhà nghiên cứu tại Anthropic đã dùng AI tạo ra lời giải dài 17 triệu dòng cho giả thuyết Riemann. Giới toán học dự kiến phải mất nhiều tháng mới có thể đọc hiểu toàn bộ đáp án này.",
+        "title": "Data centers are getting their own natural gas power plants",
+        "titleVi": "Nhiều trung tâm dữ liệu AI tự xây nhà máy khí đốt riêng để hoạt động",
+        "summary": "Việc chờ phê duyệt kết nối lưới điện quốc gia có thể kéo dài tới 10 năm. Do đó, một số nhà phát triển trung tâm dữ liệu AI chọn giải pháp tự xây nhà máy điện khí thiên nhiên riêng để kịp thời đáp ứng nhu cầu tăng trưởng.",
         "why": "",
-        "link": "https://www.wired.com/story/ai-solved-maths-most-famous-problem/",
-        "source": "Wired",
-        "publishedAt": "Tue, 24 Nov 2026 10:15:00 +0000"
-      },
-      {
-        "title": "Signal joins United Airlines, banks in limiting AI agents over customer risks",
-        "titleVi": "Signal tham gia hạn chế AI tại United Airlines và JPMorgan",
-        "summary": "Ứng dụng nhắn tin bảo mật Signal đã gia nhập United Airlines và JPMorgan Chase trong việc giới hạn các tác nhân AI do rủi ro khách hàng.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/24/signal-airlines-banks-ai-limit.html",
-        "source": "CNBC",
-        "publishedAt": "Tue, 24 Nov 2026 07:25:41 GMT"
-      },
-      {
-        "title": "China's Z.ai Says Its New AI Model Can Think Like One Four Times Its Size",
-        "titleVi": "",
-        "summary": "Z.ai ra mắt mô hình AI GLM-5.4, dùng kiến trúc lặp để thu hẹp sức mạnh suy luận tới mức tương đương mô hình lớn gấp bốn lần, trong khi sử dụng ít tham số hơn, thách thức phương pháp tốn kém của các ông lớn Mỹ.",
-        "why": "",
-        "link": "https://decrypt.co/383851/chinas-zai-new-ai-model-glm-think-like-four-times-size",
-        "source": "Decrypt",
-        "publishedAt": "Mon, 23 Nov 2026 23:06:02 +0000"
-      },
-      {
-        "title": "OpenAI Will Pay You Up to $8K to Preach the AI Gospel to Small Businesses",
-        "titleVi": "OpenAI trả tới 8.000 USD hằng tháng cho người hỗ trợ doanh nghiệp nhỏ dùng ChatGPT",
-        "summary": "OpenAI khởi chạy chương trình OpenWorks nhằm tài trợ tối đa 8.000 USD hằng tháng cho các chuyên gia hỗ trợ doanh nghiệp nhỏ ứng dụng ChatGPT. Nhóm nhân sự này sẽ trực tiếp giúp những cơ sở kinh doanh địa phương triển khai công nghệ AI vào hoạt động thực tế.",
-        "why": "",
-        "link": "https://decrypt.co/383848/openai-will-pay-8k-preach-ai-gospel-small-businesses",
-        "source": "Decrypt",
-        "publishedAt": "Mon, 23 Nov 2026 21:46:03 +0000"
+        "link": "https://www.technologyreview.com/2026/11/24/1149622/data-centers-natural-gas/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Tue, 24 Nov 2026 11:00:00 +0000"
       }
     ],
     "chung-khoan": [
       {
-        "title": "Supertake raises $20M to let AI agents turn your market predictions into stock portfolios",
-        "titleVi": "Supertake huy động 20 triệu USD để AI chuyển dự đoán thị trường thành danh mục cổ phiếu",
-        "summary": "Supertake nhận được 20 triệu USD để phát triển nền tảng AI giúp người dùng biến dự báo thị trường thành danh mục đầu tư cổ phiếu mà không cần chọn cổ phiếu thủ công.",
+        "title": "Maple raises $5.3M to build AI products that protect your data, even from itself",
+        "titleVi": "Maple huy động 5,3 triệu USD cho sản phẩm AI bảo vệ dữ liệu",
+        "summary": "Maple nhận 5,3 triệu USD để phát triển kiến trúc AI mã hóa, ngăn cản cả công ty truy cập dữ liệu người dùng.",
         "why": "",
-        "link": "https://techcrunch.com/2026/11/23/supertake-raises-20m-to-let-ai-agents-turn-your-market-predictions-into-stock-portfolios/",
+        "link": "https://techcrunch.com/2026/11/24/maple-raises-5-3m-to-build-ai-products-that-protect-your-data-even-from-itself/",
         "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 22:02:05 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 21:19:52 +0000"
       },
       {
-        "title": "Drugmaker Insmed shares rally 14% after Sanofi agrees to buy it in pharma’s biggest deal in three years",
-        "titleVi": "Sanofi mua Insmed, cổ phiếu tăng 14%",
-        "summary": "Công ty dược Insmed chứng kiến cổ phiếu tăng 14% khi Sanofi đồng ý mua lại, tạo ra giao dịch lớn nhất trong 3 năm của ngành dược. Sanofi dự kiến doanh thu giảm khi các thuốc bán chạy mất độc quyền.",
-        "why": "Insmed được Sanofi mua lại với giá trị giao dịch lớn nhất trong 3 năm của ngành dược.",
-        "link": "https://www.cnbc.com/2026/11/24/insmed-sanofi-deal-stock-pharma.html",
+        "title": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
+        "titleVi": "Giá cổ phiếu Anthropic giảm dưới mức IPO, lo ngại giá trị khởi nghiệp AI",
+        "summary": "Giá cổ phiếu Anthropic sụt xuống dưới giá IPO, gây áp lực lên định giá các công ty khởi nghiệp AI.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
+        "source": "TechCrunch",
+        "publishedAt": "Tue, 24 Nov 2026 18:30:42 +0000"
+      },
+      {
+        "title": "Anthropic closes below $83 IPO price, but analysts are still largely positive",
+        "titleVi": "Cổ phiếu Anthropic giảm dưới mức IPO 83 USD",
+        "summary": "Sau khi mở cửa với giá 111,50 USD, cổ phiếu Anthropic đã giảm liên tục và hiện đang giao dịch dưới mức 83 USD trên Nasdaq.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/24/anthropic-stock-ipo-price.html",
         "source": "CNBC",
-        "publishedAt": "Tue, 24 Nov 2026 09:59:10 GMT"
+        "publishedAt": "Tue, 24 Nov 2026 21:04:03 GMT"
       },
       {
-        "title": "The bull and bear surprises that could ambush investors next year, according to Bank of America",
-        "titleVi": "Bank of America đưa ra nhận định về chiến lược đầu tư năm tới",
-        "summary": "Chuyên gia Michael Hartnett từ Bank of America nhận định rủi ro sẽ giảm khi đợt tăng lãi suất toàn cầu dừng lại vào mùa xuân tới. Điều kiện tài chính nới lỏng trong nửa cuối năm sẽ tạo lợi thế cho nhóm cổ phiếu chu kỳ.",
-        "why": "Michael Hartnett dự báo làn sóng tăng lãi suất toàn cầu sẽ dừng lại vào mùa xuân tới.",
-        "link": "https://www.marketwatch.com/story/the-bull-and-bear-surprises-that-could-ambush-investors-next-year-according-to-bank-of-america-1cf7dc26?mod=mw_rss_topstories",
+        "title": "Retail turnarounds are taking hold just in time for the holiday season",
+        "titleVi": "Ngành bán lẻ khởi sắc trở lại đúng vào mùa mua sắm lễ hội",
+        "summary": "Báo cáo lợi nhuận công bố hôm thứ Ba cho thấy các doanh nghiệp bán lẻ đang phục hồi tốt trước mùa lễ hội. Kết quả này nhờ vào sức tiêu dùng ổn định và khả năng vận hành được cải thiện.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/24/retail-turnarounds-holiday-season.html",
+        "source": "CNBC",
+        "publishedAt": "Tue, 24 Nov 2026 19:26:39 GMT"
+      },
+      {
+        "title": "Micron’s stock falls as an analyst warns about a future supply glut",
+        "titleVi": "Micron giảm giá cổ phiếu khi BNP Paribas cảnh báo tình trạng thặng dư chip nhớ",
+        "summary": "Nhà phân tích BNP Paribas cảnh báo nguy cơ thặng dư chip nhớ, có thể làm suy giảm sức mạnh định giá của Micron.",
+        "why": "BNP Paribas cho rằng tình trạng thặng dư chip nhớ đang gia tăng, ảnh hưởng tới Micron.",
+        "link": "https://www.marketwatch.com/story/microns-stock-falls-as-an-analyst-warns-about-a-future-supply-glut-f7fbeefb?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Tue, 24 Nov 2026 09:58:00 GMT"
+        "publishedAt": "Tue, 24 Nov 2026 21:22:00 GMT"
+      },
+      {
+        "title": "The stock market is hardly cheap, even taking recent declines into account",
+        "titleVi": "Thị trường chứng khoán vẫn định giá rất cao dù giảm mạnh gần đây",
+        "summary": "Dù trải qua nhiều tuần sụt giảm mạnh, cổ phiếu trên thị trường vẫn ở mức định giá rất cao. Đợt sụt giảm vừa qua vẫn chưa đủ để đưa mức giá cổ phiếu trở lại vùng giá rẻ.",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/the-stock-market-is-hardly-cheap-even-taking-recent-declines-into-account-fe0a7989?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Tue, 24 Nov 2026 21:22:00 GMT"
+      },
+      {
+        "title": "Nvidia’s stock drops as these major questions loom over Jensen Huang’s return",
+        "titleVi": "Nvidia giảm giá khi Jensen Huang trở lại CEO, vẫn còn thách thức pháp lý",
+        "summary": "Việc Huang trở lại làm CEO không giải quyết được vấn đề quy định hay cuộc điều tra về mối quan hệ với cựu giám đốc Megaspeed.",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/nvidias-stock-drops-as-these-major-questions-loom-over-jensen-huangs-return-9096636f?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Tue, 24 Nov 2026 21:14:00 GMT"
       }
     ],
     "crypto": [
       {
-        "title": "Bitcoin dips back under $60K as gold seals worst 60-day loss since 1980s",
-        "titleVi": "Giá Bitcoin giảm xuống dưới 60.000 USD khi giá vàng sụt giảm",
-        "summary": "Giá Bitcoin vừa lùi về dưới ngưỡng 60.000 USD trong bối cảnh giá vàng trải qua chuỗi 60 ngày sụt giảm tới gần 25%. Đây là đợt giảm giá vàng nghiêm trọng nhất kể từ những năm 1980.",
-        "why": "Giá vàng ghi nhận mức giảm gần 25% trong 60 ngày, chuỗi giảm sâu nhất kể từ thập niên 1980.",
-        "link": "https://cointelegraph.com/markets/bitcoin-dips-60k-gold-worst-60-day-loss-1980s?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Bitcoin sell-off driven by weak demand, forced liquidations: 21Shares",
+        "titleVi": "Bitcoin tiếp tục giảm do nhu cầu yếu và thanh lý cưỡng bức",
+        "summary": "21Shares cảnh báo giá Bitcoin có thể tiếp tục sụt giảm khi nhu cầu nhà đầu tư yếu, dự báo phục hồi không đồng đều trong các lĩnh vực tiền điện tử.",
+        "why": "",
+        "link": "https://cointelegraph.com/news/bitcoin-selloff-weak-demand-forced-liquidations-21shares?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Tue, 24 Nov 2026 09:25:45 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 19:44:23 +0000"
       },
       {
-        "title": "Bitcoin ETFs keep bleeding as BlackRock’s IBIT shares gain nearly 5%",
-        "titleVi": "BlackRock IBIT tăng 4,85% khi Bitcoin ETF rút tiền",
-        "summary": "Chỉ số IBIT của BlackRock tăng 4,85% vào thứ Hai, trong khi khối lượng rút tiền ETF Bitcoin tiếp tục, khiến dòng tiền rút ra tháng 11 lên 4,71 tỷ USD.",
-        "why": "",
-        "link": "https://cointelegraph.com/markets/bitcoin-etfs-bleed-ibit-shares-gain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Coldcard reveals how Bitcoin wallet flaw went undetected for over 5 years",
+        "titleVi": "Coldcard phát hiện lỗ hổng ví Bitcoin tồn tại hơn 5 năm",
+        "summary": "Coinkite giải thích vì sao các kiểm tra an ninh trong nhiều năm không phát hiện lỗ hổng và chưa quyết định bồi thường cho khách hàng bị ảnh hưởng.",
+        "why": "Coldcard phát hiện lỗ hổng ví Bitcoin tồn tại hơn 5 năm.",
+        "link": "https://cointelegraph.com/news/coldcard-how-security-reviews-missed-bitcoin-wallet-flaw-years?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Tue, 24 Nov 2026 07:41:50 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 19:04:26 +0000"
       },
       {
-        "title": "Here’s what happened in crypto today",
-        "titleVi": "Tổng hợp các sự kiện tiền điện tử hôm nay",
-        "summary": "Bản tin cập nhật các xu hướng và sự kiện hằng ngày ảnh hưởng tới Bitcoin, blockchain, DeFi, Web3 và quy định tiền điện tử.",
-        "why": "",
-        "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source": "CoinTelegraph",
-        "publishedAt": "Tue, 24 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Bitcoin falls below $60,000 as rally on Jensen Huang’s Nvidia return fades",
-        "titleVi": "Bitcoin giảm dưới 60.000 USD khi hiệu ứng Nvidia suy giảm",
-        "summary": "Giá Bitcoin giảm dưới 60.000 USD khi sự tăng mạnh của Nvidia trôi dạt, đồng thời chỉ số Nasdaq 100 giảm 1% và Chỉ số Đô la giữ trên 104, mức cao nhất kể từ tháng 3/2025.",
-        "why": "",
-        "link": "https://www.coindesk.com/markets/2026/11/24/bitcoin-falls-below-usd60-000-as-rally-on-jensen-huang-s-nvidia-return-fades",
+        "title": "'AI trade never died': Traders see room for market recovery, but bitcoin's participation is another story",
+        "titleVi": "Cổ phiếu công nghệ phát tín hiệu phục hồi nhưng Bitcoin vẫn ở vùng đáy",
+        "summary": "Làn sóng hào hứng với cổ phiếu công nghệ giảm dần vào thứ Ba, trong khi Bitcoin tiếp tục duy trì quanh mức thấp của thị trường gấu. Giới giao dịch nhận định thị trường tài chính có dư địa phục hồi nhưng khả năng bứt phá của Bitcoin vẫn mờ nhạt.",
+        "why": "Bitcoin vẫn tiệm cận mức đáy của thị trường gấu ngay cả khi nhóm cổ phiếu công nghệ từng bùng nổ vào thứ Hai.",
+        "link": "https://www.coindesk.com/markets/2026/11/24/ai-trade-never-died-traders-see-room-for-market-recovery-despite-bitcoin-s-weakness",
         "source": "CoinDesk",
-        "publishedAt": "Tue, 24 Nov 2026 10:08:38 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 16:00:25 +0000"
       },
       {
-        "title": "U.S. CFTC sets policies on event contract data, using crypto to check financial boxes",
-        "titleVi": "CFTC ban hành quy định dữ liệu hợp đồng sự kiện và dùng crypto kiểm tra",
-        "summary": "CFTC ra quy định báo cáo dữ liệu cho hợp đồng sự kiện và hướng dẫn cách dùng tài sản crypto để đáp ứng yêu cầu quy định tài chính.",
+        "title": "Anchorage Digital to unveil new asset-management subsidiary",
+        "titleVi": "Anchorage Digital ra mắt công ty con quản lý tài sản 61st Parallel",
+        "summary": "Công ty công nghệ bảo quản tiền điện tử Anchorage Digital công bố sẽ ra mắt công ty con riêng biệt tên 61st Parallel Asset Management.",
         "why": "",
-        "link": "https://www.coindesk.com/policy/2026/11/23/u-s-cftc-sets-policies-on-event-contract-data-using-crypto-to-check-financial-boxes",
+        "link": "https://www.coindesk.com/business/2026/11/24/anchorage-digital-to-unveil-new-asset-management-subsidiary",
         "source": "CoinDesk",
-        "publishedAt": "Tue, 24 Nov 2026 00:25:04 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 15:06:32 +0000"
+      },
+      {
+        "title": "Coldcard Bitcoin Exploit, Revisited: How a Hidden Flaw Survived Years of Audits",
+        "titleVi": "Coldcard Bitcoin lỗ hổng ngẫu nhiên vượt qua 15 đánh giá",
+        "summary": "Coinkite phát hiện bộ sinh số ngẫu nhiên phần mềm đã được cài vào Coldcard trong hơn năm năm, thay thế bộ sinh số ngẫu nhiên phần cứng và đã trượt qua ít nhất 15 cuộc đánh giá bảo mật.",
+        "why": "",
+        "link": "https://decrypt.co/383930/coldcard-bitcoin-exploit-how-hidden-flaw-survived-years-audits",
+        "source": "Decrypt",
+        "publishedAt": "Tue, 24 Nov 2026 21:16:02 +0000"
+      },
+      {
+        "title": "Ethereum Foundation Says AI Is a More Urgent Threat Than Quantum Computing",
+        "titleVi": "Ethereum Foundation ưu tiên AI hơn máy tính lượng tử",
+        "summary": "Ethereum Foundation nhân đôi đội ngũ bảo mật và tập trung cải tạo mật mã vì tiến bộ AI đe dọa giả thiết toán học bảo vệ hàng tỷ tiền điện tử.",
+        "why": "",
+        "link": "https://decrypt.co/383927/ethereum-foundation-ai-more-urgent-threat-quantum-computing",
+        "source": "Decrypt",
+        "publishedAt": "Tue, 24 Nov 2026 20:36:02 +0000"
       }
     ],
     "thoi-su": [
       {
-        "title": "Elon Musk and others rejoice as Jensen Huang is reinstated at Nvidia amid scandal",
-        "titleVi": "Elon Musk khen ngợi việc hồi phục Jensen Huang tại Nvidia",
-        "summary": "Elon Musk và các đồng nghiệp khen ngợi quyết định khôi phục Jensen Huang vào vị trí CEO của Nvidia sau vụ bê bối, cho rằng sai lầm đã được sửa chữa.",
-        "why": "Elon Musk công nhận quyết định khôi phục Jensen Huang, đánh dấu sự chuyển đổi lãnh đạo tại Nvidia.",
-        "link": "https://techcrunch.com/2026/11/23/elon-musk-and-others-rejoice-as-jensen-huang-is-reinstated-at-nvidia-amid-scandal/",
+        "title": "Amazon’s Decart acquisition is a bet on using software to narrow the silicon gap with Nvidia",
+        "titleVi": "Amazon chi 7,5 tỷ USD mua Decart nhằm rút ngắn khoảng cách chip với Nvidia",
+        "summary": "Amazon thương lượng mua lại Decart với giá khoảng 7,5 tỷ USD để tối ưu hóa hiệu suất dòng chip Trainium. Thỏa thuận giúp tập đoàn dùng phần mềm nhằm thu hẹp khoảng cách công nghệ với Nvidia.",
+        "why": "Amazon dự kiến chi 7,5 tỷ USD mua lại Decart nhằm cải thiện hiệu suất cho dòng chip Trainium.",
+        "link": "https://techcrunch.com/2026/11/24/amazons-decart-acquisition-is-a-bet-on-using-software-to-narrow-the-gap-with-nvidia-in-the-ai-chip-race/",
         "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 21:47:41 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 15:51:07 +0000"
       },
       {
-        "title": "Megaspeed, the company at the center of the Jensen Huang scandal, appears headed for a US blacklist",
-        "titleVi": "Megaspeed có nguy cơ bị cấm kinh doanh tại Mỹ do vụ bê bối Huang",
-        "summary": "Megaspeed, công ty liên quan tới vụ bê bối Jensen Huang, có thể bị cấm giao dịch với các công ty Mỹ trừ khi có giấy phép đặc biệt từ chính phủ liên bang.",
-        "why": "Megaspeed có nguy cơ bị cấm kinh doanh tại Mỹ, ảnh hưởng đến khả năng hợp tác quốc tế của công ty.",
-        "link": "https://techcrunch.com/2026/11/23/megaspeed-the-company-at-the-center-of-the-jensen-huang-scandal-appears-headed-for-a-u-s-blacklist/",
-        "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 21:25:42 +0000"
-      },
-      {
-        "title": "Nvidia employees greet Jensen Huang like a hero as he returns to company’s HQ",
-        "titleVi": "Nhân viên Nvidia chào mừng trở lại của Jensen Huang tại trụ sở",
-        "summary": "Nhân viên Nvidia tiếp đón Jensen Huang khi ông trở lại trụ sở công ty, và ông hứa sẽ trở thành CEO tốt hơn lần thứ hai.",
-        "why": "Jensen Huang hứa cải thiện phong cách lãnh đạo, tạo động lực cho đội ngũ nhân viên tại Nvidia.",
-        "link": "https://techcrunch.com/2026/11/23/nvidia-employees-greet-jensen-huang-like-a-hero-as-he-returns-to-companys-hq/",
-        "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 20:38:53 +0000"
-      },
-      {
-        "title": "Jensen Huang scheduled to testify next week in Senate following reinstatement as Nvidia CEO",
-        "titleVi": "Jensen Huang sẽ làm chứng tại Thượng nghị viện tuần tới sau khi được tái bổ nhiệm CEO Nvid",
-        "summary": "Sau khi được tái bổ nhiệm làm CEO, Jensen Huang sẽ tham gia phiên làm chứng tại Thượng nghị viện vào tuần tới, sau khi các thành viên hai đảng yêu cầu ông trình bày về vụ việc liên quan đến tình nghi là điệp viên Trung Quốc.",
-        "why": "Huang phải làm chứng về vụ tình nghi điệp viên Trung Quốc, gây áp lực chính trị.",
-        "link": "https://techcrunch.com/2026/11/23/jensen-huang-scheduled-to-testify-next-week-in-senate-following-reinstatement-as-nvidia-ceo/",
-        "source": "TechCrunch",
-        "publishedAt": "Mon, 23 Nov 2026 18:12:22 +0000"
-      },
-      {
-        "title": "Why using rocks for carbon removal could eventually reduce crop growth",
-        "titleVi": "Rải đá băm nhỏ để thu giữ cacbon có thể làm giảm năng suất cây trồng",
-        "summary": "Các tập đoàn như Google và Microsoft đã đầu tư hàng trăm triệu USD vào các doanh nghiệp rải đá bazan và olivin trên trang trại để thu giữ cacbon. Tuy nhiên, một số mô hình cảnh báo phương pháp này có thể làm giảm sự phát triển của cây trồng.",
-        "why": "Google và Microsoft đã chi hàng trăm triệu USD cho dự án rải đá bazan và olivin trên trang trại.",
-        "link": "https://www.technologyreview.com/2026/11/23/1149392/why-using-rocks-for-carbon-removal-could-eventually-reduce-crop-growth/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Mon, 23 Nov 2026 11:00:00 +0000"
-      },
-      {
-        "title": "Wish List 2026: 27 Gifts for the Visionaries, Explorers, and Early Adopters in Your Life",
-        "titleVi": "Wired công bố danh sách 27 món quà công nghệ cho năm 2026",
-        "summary": "Tạp chí Wired tổng hợp danh sách 27 món quà với thiết kế độc đáo dành cho những người yêu thích công nghệ vào năm 2026. Bộ sưu tập gồm nhiều phụ kiện hiện đại phục vụ đa dạng nhu cầu sử dụng.",
-        "why": "Danh sách gợi ý quà tặng năm 2026 của Wired gồm 27 sản phẩm.",
-        "link": "https://www.wired.com/story/wish-list-2026/",
+        "title": "11 Things Jensen Huang Actually Said at His First All-Hands Back at Nvidia",
+        "titleVi": "Jensen Huang chia sẻ nhiều vấn đề cá nhân trong cuộc họp toàn công ty Nvidia",
+        "summary": "Tổng giám đốc Jensen Huang đã chia sẻ về các buổi trị liệu hằng ngày, ác cảm với việc lập kế hoạch kế nhiệm và mối quan hệ với Donald Trump trong cuộc họp nội bộ đầu tiên sau khi quay lại Nvidia.",
+        "why": "Jensen Huang cho biết ông phải tham gia các buổi trị liệu tâm lý hằng ngày.",
+        "link": "https://www.wired.com/story/11-things-jensen-huang-actually-said-at-his-first-all-hands-back-at-nvidia/",
         "source": "Wired",
-        "publishedAt": "Tue, 24 Nov 2026 10:00:00 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 19:33:23 +0000"
       },
       {
-        "title": "Nomad Goods Promo Codes: Get 25% Off in November 2026",
-        "titleVi": "Nomad Goods giảm giá tới 25% cho phụ kiện vào tháng 11 năm 2026",
-        "summary": "Thương hiệu Nomad Goods tung mã khuyến mại giảm tối đa 25% cho phụ kiện trong tháng 11 năm 2026. Chương trình áp dụng cho các dòng sản phẩm bao gồm bao da điện thoại và ví.",
-        "why": "",
-        "link": "https://www.wired.com/story/nomad-discount-code/",
+        "title": "iRestore Elite Laser Hair Growth System Review: Husband-Approved",
+        "titleVi": "Đánh giá hiệu quả thiết bị mọc tóc bằng laser iRestore Elite sau nhiều tháng sử dụng",
+        "summary": "Bài viết chia sẻ trải nghiệm thực tế sau nhiều tháng sử dụng thiết bị kích thích mọc tóc bằng laser iRestore Elite trên da đầu.",
+        "why": "Thiết bị iRestore Elite sử dụng công nghệ chiếu tia laser để cải thiện da đầu.",
+        "link": "https://www.wired.com/review/irestore-elite-laser-hair-growth-system/",
         "source": "Wired",
-        "publishedAt": "Tue, 24 Nov 2026 06:00:00 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 19:00:00 +0000"
       },
       {
-        "title": "Six key questions raised by Jensen Huang's return to Nvidia",
-        "titleVi": "",
-        "summary": "Jensen Huang trở lại Nvidia, khiến hội đồng quản trị đảo ngược quyết định trước đây, Donald Trump tham gia vào cuộc họp và công ty đang xem xét hướng đi tương lai.",
+        "title": "Jensen Huang Apologizes to Nvidia Employees in First All-Hands Since His Return",
+        "titleVi": "Jensen Huang xin lỗi nhân viên Nvidia về phong cách quản lý khắc nghiệt",
+        "summary": "Trong cuộc họp toàn công ty đầu tiên kể từ khi trở lại, Tổng giám đốc Jensen Huang thừa nhận phong cách quản lý quá áp lực của mình từng gây tổn thương nhân sự Nvidia và lên tiếng xin lỗi.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-politics-market.html",
-        "source": "CNBC",
-        "publishedAt": "Tue, 24 Nov 2026 07:12:33 GMT"
+        "link": "https://www.wired.com/story/jensen-huang-apologizes-to-nvidia-employees-in-first-all-hands-since-his-return/",
+        "source": "Wired",
+        "publishedAt": "Tue, 24 Nov 2026 17:44:53 +0000"
       },
       {
-        "title": "Jensen Huang is ‘too big to fire,’ putting Nvidia’s governance in focus: analysts",
-        "titleVi": "Jensen Huang vẫn giữ vị trí lãnh đạo Nvidia, gây tranh cãi quản trị",
-        "summary": "Sự trở lại của Jensen Huang làm nổi bật sự phụ thuộc sâu sắc của Nvidia vào người sáng lập, khiến ban giám đốc và quản trị công ty bị đặt dưới sự xem xét.",
-        "why": "Jensen Huang trở lại làm CEO, làm tăng sự chú ý tới quản trị Nvidia.",
-        "link": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-governance.html",
+        "title": "Jensen Huang tells staff that Nvidia doesn't need a succession plan",
+        "titleVi": "Jensen Huang cho rằng Nvidia không cần lập kế hoạch tìm người kế nhiệm",
+        "summary": "Tổng giám đốc Jensen Huang tuyên bố Nvidia không cần kế hoạch kế nhiệm, trong bối cảnh xuất hiện thông tin ông từ chức liên quan đến một nữ doanh nhân bị nghi làm gián điệp cho Bắc Kinh.",
+        "why": "Jensen Huang tuyên bố công ty Nvidia không cần chuẩn bị kế hoạch tìm người kế nhiệm.",
+        "link": "https://www.cnbc.com/2026/11/24/jensen-huang-nvidia-employee-meeting.html",
         "source": "CNBC",
-        "publishedAt": "Tue, 24 Nov 2026 08:35:16 GMT"
+        "publishedAt": "Tue, 24 Nov 2026 20:42:07 GMT"
       },
       {
-        "title": "Iran says three tankers hit mines in Hormuz despite U.S. escort, as Treasury widens sanctions",
-        "titleVi": "Ba tàu dầu Iran bị nổ khi chạm mìn Hormuz, Mỹ mở rộng trừng phạt",
-        "summary": "Iran cho biết ba tàu dầu đã bị nổ khi chạm mìn tại eo biển Hormuz, trong khi Mỹ gia tăng trừng phạt nhằm cắt đứt nguồn tài chính của Tehran.",
+        "title": "Trump wanted Jensen Huang back. Now, the president is all alone in Washington",
+        "titleVi": "Trump lo lắng vì mối quan hệ của Jensen Huang với tình báo Trung Quốc",
+        "summary": "Nhà đồng đảng của Tổng thống Trump lo ngại rằng mối quan hệ của CEO Nvidia Jensen Huang với một người tình báo Trung Quốc có thể đe dọa an ninh quốc gia Mỹ.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/24/iran-trump-hormuz-crude-.html",
+        "link": "https://www.cnbc.com/2026/11/24/trump-jensen-huang-nvidia.html",
         "source": "CNBC",
-        "publishedAt": "Tue, 24 Nov 2026 05:05:08 GMT"
+        "publishedAt": "Tue, 24 Nov 2026 21:13:39 GMT"
       },
       {
-        "title": "U.S. court orders to proceed with planned ammunition detonation in Iowa",
-        "titleVi": "Tòa án Mỹ cho phép phá hủy munitions tại Iowa",
-        "summary": "Tòa án Mỹ cho phép quân đội tiếp tục phá hủy các vật liệu nổ đã suy giảm tại nhà máy munitions Iowa, amid concerns về ô nhiễm và rủi ro sức khỏe công cộng.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/24/iowa-detonation-bomb-court-.html",
+        "title": "Consumer confidence shoots up after Democrats' midterm victories — though inflation worries persist",
+        "titleVi": "Niềm tin tiêu dùng Mỹ tăng vọt lên 103,3 điểm sau bầu cử giữa kỳ",
+        "summary": "Báo cáo từ The Conference Board cho biết chỉ số niềm tin người tiêu dùng Mỹ nhảy vọt lên 103,3 điểm sau kết quả bầu cử giữa kỳ. Sự cải thiện xuất hiện trên nhiều lĩnh vực dù lo ngại lạm phát vẫn kéo dài.",
+        "why": "Chỉ số niềm tin người tiêu dùng do The Conference Board công bố đã tăng mạnh lên 103,3 điểm vào thứ Ba.",
+        "link": "https://www.cnbc.com/2026/11/24/consumer-confidence-november-election-midterm.html",
         "source": "CNBC",
-        "publishedAt": "Tue, 24 Nov 2026 03:32:26 GMT"
+        "publishedAt": "Tue, 24 Nov 2026 18:34:43 GMT"
       },
       {
-        "title": "Zendaya and Tom Holland buy a home on 1 acre in London for $10 million",
-        "titleVi": "Tom Holland và Zendaya mua nhà 10 triệu USD tại London",
-        "summary": "Hai diễn viên Tom Holland và Zendaya vừa chi 10 triệu USD để mua một bất động sản rộng khoảng 1 mẫu Anh tại London. Cặp đôi có thể chọn nơi này làm nơi cư trú chính trong thời gian tới.",
+        "title": "Gold is doing something strange. Here's one way to play it",
+        "titleVi": "Giá vàng biến động bất thường so với vai trò tài sản trú ẩn an toàn",
+        "summary": "Giá vàng hiện không biến động theo cách thức của một tài sản trú ẩn an toàn truyền thống trên thị trường. Diễn biến khác lạ này buộc nhà giao dịch phải điều chỉnh phương án ứng phó phù hợp.",
+        "why": "Giá vàng không còn hoạt động theo quy luật của một kênh trú ẩn an toàn truyền thống trong đợt biến động này.",
+        "link": "https://www.cnbc.com/2026/11/24/gold-is-doing-something-strange-heres-one-way-to-play-it-.html",
+        "source": "CNBC",
+        "publishedAt": "Tue, 24 Nov 2026 19:25:13 GMT"
+      },
+      {
+        "title": "I’ve been married for 58 years. It’s ‘our’ money, not ‘his’ and ‘hers.’ Why do so many couples keep their finances separate?",
+        "titleVi": "Cặp vợ chồng 58 năm vẫn giữ tài chính riêng, vì lý do gì?",
+        "summary": "Một người kể rằng vợ đã ngừng làm việc ngoài nhà từ năm 1970, khiến hai người vẫn giữ tài chính riêng.",
         "why": "",
-        "link": "https://www.marketwatch.com/story/zendaya-and-tom-holland-buy-a-home-on-1-acre-in-london-for-10-million-a433e7cd?mod=mw_rss_topstories",
+        "link": "https://www.marketwatch.com/story/ive-been-married-for-58-years-its-our-money-not-his-and-hers-why-dont-others-feel-the-same-c5745889?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Tue, 24 Nov 2026 10:01:00 GMT"
+        "publishedAt": "Tue, 24 Nov 2026 21:15:00 GMT"
       },
       {
-        "title": "Here’s your chance to bid on Alex Trebek’s former $6.45 million California ranch and winery",
-        "titleVi": "Trang trại 6,45 triệu USD của Alex Trebek tại California sắp đấu giá",
-        "summary": "Trang trại kiêm xưởng sản xuất rượu vang rộng gần 578 mẫu Anh tại California từng thuộc về MC Alex Trebek chuẩn bị được đưa ra đấu giá. Bất động sản này từng có định giá lên tới 6,45 triệu USD.",
+        "title": "Utah moves to dismiss criminal charges against Kalshi after trading halt",
+        "titleVi": "Utah hủy truy tố hình sự đối với Kalshi sau khi ngừng giao dịch",
+        "summary": "Ủy viên công tố Utah cảnh báo rằng các cáo buộc hình sự có thể được nộp lại nếu Kalshi tái khởi động hoạt động tại bang, trong khi kiện dân sự vẫn chưa được giải quyết.",
         "why": "",
-        "link": "https://www.marketwatch.com/story/heres-your-chance-to-bid-on-alex-trebeks-former-6-45-million-california-ranch-and-winery-0f0cd4f5?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Tue, 24 Nov 2026 09:58:00 GMT"
+        "link": "https://cointelegraph.com/news/utah-moves-to-dismiss-criminal-charges-against-kalshi-after-trading-halt?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source": "CoinTelegraph",
+        "publishedAt": "Tue, 24 Nov 2026 20:48:27 +0000"
       },
       {
-        "title": "The biggest biotech deal in nearly three years carries a hefty $41 billion price tag",
-        "titleVi": "Sanofi chi 41 tỷ USD mua lại công ty sinh học Insmed",
-        "summary": "Hãng dược Sanofi của Pháp đạt thỏa thuận mua lại công ty công nghệ sinh học Insmed của Mỹ với giá 41 tỷ USD. Thương vụ này nhằm bù đắp doanh thu khi bằng sáng chế của một loại thuốc chủ lực sắp hết hạn.",
-        "why": "Thương vụ mua lại Insmed với giá 41 tỷ USD là hợp đồng công nghệ sinh học lớn nhất trong gần 3 năm qua.",
-        "link": "https://www.marketwatch.com/story/the-biggest-biotech-deal-in-nearly-three-years-carries-a-hefty-41-billion-price-tag-dd7fa228?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Tue, 24 Nov 2026 09:14:00 GMT"
-      },
-      {
-        "title": "New York judge declines to block Kalshi from operating in the state for now",
-        "titleVi": "Thẩm phán New York không chặn Kalshi hoạt động tại bang",
-        "summary": "Thẩm phán Melissa Crane không tạm dừng hoạt động của Kalshi tại New York, nhưng yêu cầu hai bên trình bày lập luận đầy đủ trong phiên xét xử nhanh.",
+        "title": "Utah moves to drop criminal pursuit of Kalshi after the firm halted services there",
+        "titleVi": "Utah bỏ truy tố Kalshi nhưng vẫn giữ cáo buộc khi quay lại",
+        "summary": "Bang Utah quyết định không truy tố Kalshi sau khi công ty ngừng dịch vụ tại đây, nhưng vẫn giữ các cáo buộc hình sự và hứa truy tố khi công ty trở lại.",
         "why": "",
-        "link": "https://www.coindesk.com/policy/2026/11/23/new-york-judge-declines-to-block-kalshi-from-operating-in-the-state-for-now",
+        "link": "https://www.coindesk.com/policy/2026/11/24/utah-moves-to-drop-criminal-pursuit-of-kalshi-after-the-firm-halted-services-there",
         "source": "CoinDesk",
-        "publishedAt": "Mon, 23 Nov 2026 18:22:03 +0000"
+        "publishedAt": "Tue, 24 Nov 2026 17:50:08 +0000"
       }
     ]
   }

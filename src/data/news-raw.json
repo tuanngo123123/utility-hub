@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T10:16:46.892Z",
+  "updatedAt": "2026-11-24T21:25:23.683Z",
   "sources": [
     {
       "source": "TechCrunch",
@@ -49,260 +49,260 @@
   ],
   "items": [
     {
-      "title": "Anthropic launches Claude Ship, letting AI agents review, fix, and approve code changes",
-      "link": "https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/",
-      "source": "TechCrunch",
-      "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 22:05:50 +0000",
-      "description": "As AI-generated code piles up, Anthropic's new developer tools aim to eliminate another bottleneck by letting agents handle routine approvals."
-    },
-    {
-      "title": "Supertake raises $20M to let AI agents turn your market predictions into stock portfolios",
-      "link": "https://techcrunch.com/2026/11/23/supertake-raises-20m-to-let-ai-agents-turn-your-market-predictions-into-stock-portfolios/",
+      "title": "Maple raises $5.3M to build AI products that protect your data, even from itself",
+      "link": "https://techcrunch.com/2026/11/24/maple-raises-5-3m-to-build-ai-products-that-protect-your-data-even-from-itself/",
       "source": "TechCrunch",
       "group": "chung-khoan",
-      "publishedAt": "Mon, 23 Nov 2026 22:02:05 +0000",
-      "description": "Think you know where the market is headed? A startup called Supertake lets you put money behind your ideas without having to pick the stocks yourself."
+      "publishedAt": "Tue, 24 Nov 2026 21:19:52 +0000",
+      "description": "The startup's encrypted AI architecture is designed to prevent even the company itself from accessing users' private data."
     },
     {
-      "title": "Elon Musk and others rejoice as Jensen Huang is reinstated at Nvidia amid scandal",
-      "link": "https://techcrunch.com/2026/11/23/elon-musk-and-others-rejoice-as-jensen-huang-is-reinstated-at-nvidia-amid-scandal/",
+      "title": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
+      "link": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
       "source": "TechCrunch",
-      "group": "thoi-su",
-      "publishedAt": "Mon, 23 Nov 2026 21:47:41 +0000",
-      "description": "\"The mistake has been corrected,\" Elon Musk chimed in."
+      "group": "chung-khoan",
+      "publishedAt": "Tue, 24 Nov 2026 18:30:42 +0000",
+      "description": "Anthropic’s post-IPO slump could put pressure on AI startup valuations."
     },
     {
-      "title": "Megaspeed, the company at the center of the Jensen Huang scandal, appears headed for a US blacklist",
-      "link": "https://techcrunch.com/2026/11/23/megaspeed-the-company-at-the-center-of-the-jensen-huang-scandal-appears-headed-for-a-u-s-blacklist/",
-      "source": "TechCrunch",
-      "group": "thoi-su",
-      "publishedAt": "Mon, 23 Nov 2026 21:25:42 +0000",
-      "description": "Megaspeed, which was previously led by Alice Huang, would be barred from doing business with U.S. companies unless those companies attained a special license from the federal government."
-    },
-    {
-      "title": "Nvidia employees greet Jensen Huang like a hero as he returns to company’s HQ",
-      "link": "https://techcrunch.com/2026/11/23/nvidia-employees-greet-jensen-huang-like-a-hero-as-he-returns-to-companys-hq/",
-      "source": "TechCrunch",
-      "group": "thoi-su",
-      "publishedAt": "Mon, 23 Nov 2026 20:38:53 +0000",
-      "description": "\"I'm going to be a better CEO the second time around,\" Huang told employees."
-    },
-    {
-      "title": "Google Search’s AI Mode can now tap into Drive and Wallet for more personalized responses",
-      "link": "https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/",
+      "title": "UK warns AI-driven cyberattacks are exposing years of weak security",
+      "link": "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 19:14:46 +0000",
-      "description": "By bringing Personal Intelligence in AI Mode to Drive, Wallet, and the Gemini app, Google is leveraging the wealth of user data that's already within its ecosystem"
+      "publishedAt": "Tue, 24 Nov 2026 18:02:59 +0000",
+      "description": "The British cyber agency says that \"building strong foundations has never mattered more\" as AI hacking tools rely on exploiting simple security flaws."
     },
     {
-      "title": "Jensen Huang scheduled to testify next week in Senate following reinstatement as Nvidia CEO",
-      "link": "https://techcrunch.com/2026/11/23/jensen-huang-scheduled-to-testify-next-week-in-senate-following-reinstatement-as-nvidia-ceo/",
-      "source": "TechCrunch",
-      "group": "thoi-su",
-      "publishedAt": "Mon, 23 Nov 2026 18:12:22 +0000",
-      "description": "The public hearing follows bipartisan calls for Huang to testify about the affair with the suspected Chinese spy."
-    },
-    {
-      "title": "Amazon snaps up Decart’s AI optimization tech for $7.5B as it prepares to sell Trainium chips",
-      "link": "https://techcrunch.com/2026/11/23/amazon-snaps-up-decarts-ai-optimization-tech-for-7-5b-as-it-prepares-to-sell-trainium-chips/",
+      "title": "Meta brings its Muse AI assistant directly into Instagram DMs",
+      "link": "https://techcrunch.com/2026/11/24/meta-brings-its-muse-ai-assistant-directly-into-instagram-dms/",
       "source": "TechCrunch",
       "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 17:14:23 +0000",
-      "description": "Amazon is acquiring Decart’s AI optimization technology and research team in a reported $7.5 billion deal."
+      "publishedAt": "Tue, 24 Nov 2026 17:00:00 +0000",
+      "description": "The new integration gets rid of the need for users to toggle between Instagram and the Muse app when they want to interact with the AI agent."
     },
     {
-      "title": "A legendary philosopher isn’t buying Anthropic’s consciousness argument",
-      "link": "https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument/",
+      "title": "Tidal to ban and remove millions of AI-generated tracks as AI slop inundates music streaming",
+      "link": "https://techcrunch.com/2026/11/24/tidal-to-ban-and-remove-millions-of-ai-generated-tracks-as-ai-slop-inundates-music-streaming/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Tue, 24 Nov 2026 16:46:00 +0000",
+      "description": "The company said it will still accept songs that were made with AI assistance, but not fully generated."
+    },
+    {
+      "title": "Why a Crusoe investor is betting on solar and batteries to power future AI data centers",
+      "link": "https://techcrunch.com/2026/11/24/why-a-crusoe-investor-is-betting-on-solar-and-batteries-to-power-future-ai-data-centers/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Tue, 24 Nov 2026 16:10:00 +0000",
+      "description": "Next-generation data centers will need tens of gigawatts of power every year. One of Crusoe's investors thinks solar and energy storage are the obvious choice."
+    },
+    {
+      "title": "Pinterest will now let parents limit the AI-generated content their teens see",
+      "link": "https://techcrunch.com/2026/11/24/pinterest-will-now-let-parents-limit-the-ai-generated-content-their-teens-see/",
+      "source": "TechCrunch",
+      "group": "ai",
+      "publishedAt": "Tue, 24 Nov 2026 16:02:37 +0000",
+      "description": "While other social platforms have focused on restricting teens' access to AI chatbots, Pinterest is addressing the AI content filling their feeds."
+    },
+    {
+      "title": "Amazon’s Decart acquisition is a bet on using software to narrow the silicon gap with Nvidia",
+      "link": "https://techcrunch.com/2026/11/24/amazons-decart-acquisition-is-a-bet-on-using-software-to-narrow-the-gap-with-nvidia-in-the-ai-chip-race/",
+      "source": "TechCrunch",
+      "group": "thoi-su",
+      "publishedAt": "Tue, 24 Nov 2026 15:51:07 +0000",
+      "description": "Amazon’s decision to acquire Decart for a reported $7.5 billion is part of its efforts to improve the efficiency of its Trainium chips."
+    },
+    {
+      "title": "Raising the stakes for enterprise networks with AI modernization",
+      "link": "https://www.technologyreview.com/2026/11/24/1148091/raising-the-stakes-for-enterprise-networks-with-ai-modernization/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 17:36:08 +0000",
-      "description": "This story originally appeared in The Algorithm, our weekly newsletter on AI. To get stories like this in your inbox first, sign up here. Before going public last week, Anthropic named the possibility that AI could be conscious or sentient as a risk factor for anyone investing. Given “the way we approach model sentience and moral…"
+      "publishedAt": "Tue, 24 Nov 2026 15:15:16 +0000",
+      "description": "Enterprise networks are under severe strain. As companies rush to deploy artificial intelligence, the technology is quickly becoming the biggest source of demand on the network. Now, agentic AI is adding to the load. Tasks conducted by AI agents generate an estimated 450% more network traffic than the same tasks done by human workers. As…"
     },
     {
-      "title": "The Download: AI’s judgment problem and carbon removal’s crop threat",
-      "link": "https://www.technologyreview.com/2026/11/23/1149548/the-download-ai-judgment-problem-carbon-removal-crop-threat/",
+      "title": "The Download: AI’s gas power boom and a consciousness reality check",
+      "link": "https://www.technologyreview.com/2026/11/24/1149669/the-download-data-centers-gas-ai-consciousness/",
       "source": "MIT Tech Review",
       "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 13:10:00 +0000",
-      "description": "This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. The most misunderstood graph in AI just got a major update A new report from the AI evaluation nonprofit METR finds that some capabilities are improving exponentially—but models aren’t as good…"
+      "publishedAt": "Tue, 24 Nov 2026 13:10:00 +0000",
+      "description": "This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. Data centers are getting their own natural gas power plants One of the biggest obstacles to building a data center is getting approval to connect to the grid, a wait that…"
     },
     {
-      "title": "Why using rocks for carbon removal could eventually reduce crop growth",
-      "link": "https://www.technologyreview.com/2026/11/23/1149392/why-using-rocks-for-carbon-removal-could-eventually-reduce-crop-growth/",
+      "title": "Data centers are getting their own natural gas power plants",
+      "link": "https://www.technologyreview.com/2026/11/24/1149622/data-centers-natural-gas/",
       "source": "MIT Tech Review",
-      "group": "thoi-su",
-      "publishedAt": "Mon, 23 Nov 2026 11:00:00 +0000",
-      "description": "Tech companies are investing a lot of hope and money in rocks. Google, Microsoft, and others have committed hundreds of millions of dollars to get startups to spread crushed basalt, olivine, or other alkaline materials across farms, in an effort to capture carbon from the air and lock it away. A number of influential models…"
-    },
-    {
-      "title": "AI Solved Math’s Most Famous Problem. Now Humans Are Struggling to Understand It",
-      "link": "https://www.wired.com/story/ai-solved-maths-most-famous-problem/",
-      "source": "Wired",
       "group": "ai",
-      "publishedAt": "Tue, 24 Nov 2026 10:15:00 +0000",
-      "description": "It will take mathematicians months to understand the “alien” 17-million-line solution an Anthropic researcher produced for the Riemann hypothesis."
+      "publishedAt": "Tue, 24 Nov 2026 11:00:00 +0000",
+      "description": "One of the biggest roadblocks to starting up a data center is getting approval to connect to the electric grid—a wait that could last as long as a decade. Some developers aren’t willing to wait and are instead opting to build their own off-grid, or behind-the-meter, gas power plants to fuel the AI boom. xAI’s…"
     },
     {
-      "title": "Wish List 2026: 27 Gifts for the Visionaries, Explorers, and Early Adopters in Your Life",
-      "link": "https://www.wired.com/story/wish-list-2026/",
+      "title": "11 Things Jensen Huang Actually Said at His First All-Hands Back at Nvidia",
+      "link": "https://www.wired.com/story/11-things-jensen-huang-actually-said-at-his-first-all-hands-back-at-nvidia/",
       "source": "Wired",
       "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 10:00:00 +0000",
-      "description": "You’ll find something for everyone in this curated collection of gorgeously designed gifts."
+      "publishedAt": "Tue, 24 Nov 2026 19:33:23 +0000",
+      "description": "The newly reinstated CEO discussed his daily therapy sessions, his reputation as a “tech bro,” his disdain for succession planning, and his relationship with President Trump."
     },
     {
-      "title": "Nomad Goods Promo Codes: Get 25% Off in November 2026",
-      "link": "https://www.wired.com/story/nomad-discount-code/",
+      "title": "iRestore Elite Laser Hair Growth System Review: Husband-Approved",
+      "link": "https://www.wired.com/review/irestore-elite-laser-hair-growth-system/",
       "source": "Wired",
       "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 06:00:00 +0000",
-      "description": "Save up to 25% on Nomad Goods accessories such as Nomad phone cases, Nomad wallets, and more in November 2026."
+      "publishedAt": "Tue, 24 Nov 2026 19:00:00 +0000",
+      "description": "Here’s how his scalp fared after several months of using the iRestore Elite Laser Hair Growth System."
     },
     {
-      "title": "Six key questions raised by Jensen Huang's return to Nvidia",
-      "link": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-politics-market.html",
+      "title": "Jensen Huang Apologizes to Nvidia Employees in First All-Hands Since His Return",
+      "link": "https://www.wired.com/story/jensen-huang-apologizes-to-nvidia-employees-in-first-all-hands-since-his-return/",
+      "source": "Wired",
+      "group": "thoi-su",
+      "publishedAt": "Tue, 24 Nov 2026 17:44:53 +0000",
+      "description": "The Nvidia CEO opened up about his personal life, defended his reinstatement, and acknowledged that his intense management style had hurt his staff."
+    },
+    {
+      "title": "Jensen Huang tells staff that Nvidia doesn't need a succession plan",
+      "link": "https://www.cnbc.com/2026/11/24/jensen-huang-nvidia-employee-meeting.html",
       "source": "CNBC",
       "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 07:12:33 GMT",
-      "description": "As Jensen Huang returns to Nvidia, questions remained around the board's reversal, Trump's involvement and the tech giant's future."
+      "publishedAt": "Tue, 24 Nov 2026 20:42:07 GMT",
+      "description": "Nvidia CEO Jensen Huang resigned after multiple reported affairs, including one with a Chinese businesswoman who is alleged to be a spy for Beijing."
     },
     {
-      "title": "Drugmaker Insmed shares rally 14% after Sanofi agrees to buy it in pharma’s biggest deal in three years",
-      "link": "https://www.cnbc.com/2026/11/24/insmed-sanofi-deal-stock-pharma.html",
+      "title": "Trump wanted Jensen Huang back. Now, the president is all alone in Washington",
+      "link": "https://www.cnbc.com/2026/11/24/trump-jensen-huang-nvidia.html",
+      "source": "CNBC",
+      "group": "thoi-su",
+      "publishedAt": "Tue, 24 Nov 2026 21:13:39 GMT",
+      "description": "Republicans worry Nvidia CEO Jensen Huang's affairs with a suspected Chinese spy jeopardized U.S. national security."
+    },
+    {
+      "title": "Anthropic closes below $83 IPO price, but analysts are still largely positive",
+      "link": "https://www.cnbc.com/2026/11/24/anthropic-stock-ipo-price.html",
       "source": "CNBC",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 24 Nov 2026 09:59:10 GMT",
-      "description": "Sanofi faces a revenue drop towards the end of the decade as top-selling drugs lose exclusivity and open up for generic drugmakers to compete."
+      "publishedAt": "Tue, 24 Nov 2026 21:04:03 GMT",
+      "description": "Anthropic has been sinking steadily since the stock opened at $111.50 on the Nasdaq on Nov. 19."
     },
     {
-      "title": "Jensen Huang is ‘too big to fire,’ putting Nvidia’s governance in focus: analysts",
-      "link": "https://www.cnbc.com/2026/11/24/nvidia-jensen-huang-governance.html",
+      "title": "Consumer confidence shoots up after Democrats' midterm victories — though inflation worries persist",
+      "link": "https://www.cnbc.com/2026/11/24/consumer-confidence-november-election-midterm.html",
       "source": "CNBC",
       "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 08:35:16 GMT",
-      "description": "Jensen Huang’s return has underscored Nvidia’s deep reliance on its founder, putting the company's board oversight and corporate governance under scrutiny."
+      "publishedAt": "Tue, 24 Nov 2026 18:34:43 GMT",
+      "description": "The Conference Board survey released Tuesday showed improvement across the board, with the headline confidence index jumping to 103.3."
     },
     {
-      "title": "Signal joins United Airlines, banks in limiting AI agents over customer risks",
-      "link": "https://www.cnbc.com/2026/11/24/signal-airlines-banks-ai-limit.html",
-      "source": "CNBC",
-      "group": "ai",
-      "publishedAt": "Tue, 24 Nov 2026 07:25:41 GMT",
-      "description": "Privacy-focused messaging application Signal has joined United Airlines and JPMorgan Chase in implementing restrictions around artificial intelligence agents."
-    },
-    {
-      "title": "Iran says three tankers hit mines in Hormuz despite U.S. escort, as Treasury widens sanctions",
-      "link": "https://www.cnbc.com/2026/11/24/iran-trump-hormuz-crude-.html",
+      "title": "Gold is doing something strange. Here's one way to play it",
+      "link": "https://www.cnbc.com/2026/11/24/gold-is-doing-something-strange-heres-one-way-to-play-it-.html",
       "source": "CNBC",
       "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 05:05:08 GMT",
-      "description": "Iran said three oil tankers caught fire after hitting naval mines in the Strait of Hormuz, as the U.S. escalates sanctions aimed at cutting off Tehran's financial lifelines."
+      "publishedAt": "Tue, 24 Nov 2026 19:25:13 GMT",
+      "description": "Gold is not acting like the traditional safe haven. How one trader is playing the move."
     },
     {
-      "title": "U.S. court orders to proceed with planned ammunition detonation in Iowa",
-      "link": "https://www.cnbc.com/2026/11/24/iowa-detonation-bomb-court-.html",
+      "title": "Retail turnarounds are taking hold just in time for the holiday season",
+      "link": "https://www.cnbc.com/2026/11/24/retail-turnarounds-holiday-season.html",
       "source": "CNBC",
-      "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 03:32:26 GMT",
-      "description": "A U.S. court cleared the Army to detonate degraded explosives at an Iowa ammunition plant amid public concern over contamination and health risks."
+      "group": "chung-khoan",
+      "publishedAt": "Tue, 24 Nov 2026 19:26:39 GMT",
+      "description": "Retail earnings reports on Tuesday pointed to a mix of factors behind the strong results, including a resilient consumer and stronger execution."
     },
     {
-      "title": "Zendaya and Tom Holland buy a home on 1 acre in London for $10 million",
-      "link": "https://www.marketwatch.com/story/zendaya-and-tom-holland-buy-a-home-on-1-acre-in-london-for-10-million-a433e7cd?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 10:01:00 GMT",
-      "description": "Tom Holland and Zendaya may make London their primary residence after splashing out $10 million on a palatial pad across the pond."
-    },
-    {
-      "title": "Here’s your chance to bid on Alex Trebek’s former $6.45 million California ranch and winery",
-      "link": "https://www.marketwatch.com/story/heres-your-chance-to-bid-on-alex-trebeks-former-6-45-million-california-ranch-and-winery-0f0cd4f5?mod=mw_rss_topstories",
-      "source": "MarketWatch",
-      "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 09:58:00 GMT",
-      "description": "A sprawling California ranch where Alex Trebek helped run a winery is heading to auction, giving buyers a chance to purchase nearly 578 acres of the Central Coast once owned by the longtime “Jeopardy!” host."
-    },
-    {
-      "title": "The bull and bear surprises that could ambush investors next year, according to Bank of America",
-      "link": "https://www.marketwatch.com/story/the-bull-and-bear-surprises-that-could-ambush-investors-next-year-according-to-bank-of-america-1cf7dc26?mod=mw_rss_topstories",
+      "title": "Micron’s stock falls as an analyst warns about a future supply glut",
+      "link": "https://www.marketwatch.com/story/microns-stock-falls-as-an-analyst-warns-about-a-future-supply-glut-f7fbeefb?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "chung-khoan",
-      "publishedAt": "Tue, 24 Nov 2026 09:58:00 GMT",
-      "description": "Michael Hartnett’s tactical masterplan is to stay risk off until global rate hikes start to dry up next spring. Thereafter, modest earnings growth and the chance of looser financial conditions in the second half favor owning cyclicals and adding more risk."
+      "publishedAt": "Tue, 24 Nov 2026 21:22:00 GMT",
+      "description": "A BNP Paribas analyst says the risk of an “oversupply scenario is mounting” for memory chips, and that could threaten Micron’s pricing power."
     },
     {
-      "title": "The biggest biotech deal in nearly three years carries a hefty $41 billion price tag",
-      "link": "https://www.marketwatch.com/story/the-biggest-biotech-deal-in-nearly-three-years-carries-a-hefty-41-billion-price-tag-dd7fa228?mod=mw_rss_topstories",
+      "title": "The stock market is hardly cheap, even taking recent declines into account",
+      "link": "https://www.marketwatch.com/story/the-stock-market-is-hardly-cheap-even-taking-recent-declines-into-account-fe0a7989?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "publishedAt": "Tue, 24 Nov 2026 21:22:00 GMT",
+      "description": "Equities are still extremely overvalued, notwithstanding the stock market’s steep declines over the past several weeks."
+    },
+    {
+      "title": "I’ve been married for 58 years. It’s ‘our’ money, not ‘his’ and ‘hers.’ Why do so many couples keep their finances separate?",
+      "link": "https://www.marketwatch.com/story/ive-been-married-for-58-years-its-our-money-not-his-and-hers-why-dont-others-feel-the-same-c5745889?mod=mw_rss_topstories",
       "source": "MarketWatch",
       "group": "thoi-su",
-      "publishedAt": "Tue, 24 Nov 2026 09:14:00 GMT",
-      "description": "French drugmaker Sanofi on Tuesday agreed to pay $41 billion for U.S. biotech Insmed, a hefty price that will help the pharma giant offset the patent expiration on a key drug."
+      "publishedAt": "Tue, 24 Nov 2026 21:15:00 GMT",
+      "description": "“My wife stopped working outside the home in 1970.”"
     },
     {
-      "title": "Bitcoin dips back under $60K as gold seals worst 60-day loss since 1980s",
-      "link": "https://cointelegraph.com/markets/bitcoin-dips-60k-gold-worst-60-day-loss-1980s?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Nvidia’s stock drops as these major questions loom over Jensen Huang’s return",
+      "link": "https://www.marketwatch.com/story/nvidias-stock-drops-as-these-major-questions-loom-over-jensen-huangs-return-9096636f?mod=mw_rss_topstories",
+      "source": "MarketWatch",
+      "group": "chung-khoan",
+      "publishedAt": "Tue, 24 Nov 2026 21:14:00 GMT",
+      "description": "Huang’s reinstatement as CEO doesn’t fix regulatory issues or the investigation into his relationship with a former Megaspeed executive."
+    },
+    {
+      "title": "Utah moves to dismiss criminal charges against Kalshi after trading halt",
+      "link": "https://cointelegraph.com/news/utah-moves-to-dismiss-criminal-charges-against-kalshi-after-trading-halt?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "source": "CoinTelegraph",
+      "group": "thoi-su",
+      "publishedAt": "Tue, 24 Nov 2026 20:48:27 +0000",
+      "description": "Utah’s attorney general warned that the criminal charges could be refiled if Kalshi resumes operations in the state, while separate civil litigation remains unresolved."
+    },
+    {
+      "title": "Bitcoin sell-off driven by weak demand, forced liquidations: 21Shares",
+      "link": "https://cointelegraph.com/news/bitcoin-selloff-weak-demand-forced-liquidations-21shares?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Tue, 24 Nov 2026 09:25:45 +0000",
-      "description": "Bitcoin continued to threaten the loss of $60,000 support as gold attempted to bounce from a 60-day losing streak during which it fell nearly 25%."
+      "publishedAt": "Tue, 24 Nov 2026 19:44:23 +0000",
+      "description": "The crypto asset manager warned that Bitcoin’s downturn could persist amid weak investor demand, while forecasting an uneven recovery across crypto sectors."
     },
     {
-      "title": "Bitcoin ETFs keep bleeding as BlackRock’s IBIT shares gain nearly 5%",
-      "link": "https://cointelegraph.com/markets/bitcoin-etfs-bleed-ibit-shares-gain?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+      "title": "Coldcard reveals how Bitcoin wallet flaw went undetected for over 5 years",
+      "link": "https://cointelegraph.com/news/coldcard-how-security-reviews-missed-bitcoin-wallet-flaw-years?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
       "source": "CoinTelegraph",
       "group": "crypto",
-      "publishedAt": "Tue, 24 Nov 2026 07:41:50 +0000",
-      "description": "BlackRock’s IBIT shares gained 4.85% on Monday despite continued Bitcoin ETF withdrawals that pushed November’s net outflows to $4.71 billion."
+      "publishedAt": "Tue, 24 Nov 2026 19:04:26 +0000",
+      "description": "Coldcard maker Coinkite explained why years of security checks failed to catch the flaw and said it has yet to decide on compensation for affected customers."
     },
     {
-      "title": "Here’s what happened in crypto today",
-      "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-      "source": "CoinTelegraph",
-      "group": "crypto",
-      "publishedAt": "Tue, 24 Nov 2026 06:00:00 +0000",
-      "description": "Need to know what happened in crypto today? Here is the latest news on daily trends and events impacting Bitcoin price, blockchain, DeFi, Web3 and crypto regulation."
-    },
-    {
-      "title": "Bitcoin falls below $60,000 as rally on Jensen Huang’s Nvidia return fades",
-      "link": "https://www.coindesk.com/markets/2026/11/24/bitcoin-falls-below-usd60-000-as-rally-on-jensen-huang-s-nvidia-return-fades",
-      "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Tue, 24 Nov 2026 10:08:38 +0000",
-      "description": "Nasdaq 100 futures fell about 1% after the index surged on Monday, while the Dollar Index held above 104, its highest level since March 2025."
-    },
-    {
-      "title": "U.S. CFTC sets policies on event contract data, using crypto to check financial boxes",
-      "link": "https://www.coindesk.com/policy/2026/11/23/u-s-cftc-sets-policies-on-event-contract-data-using-crypto-to-check-financial-boxes",
-      "source": "CoinDesk",
-      "group": "crypto",
-      "publishedAt": "Tue, 24 Nov 2026 00:25:04 +0000",
-      "description": "The derivatives regulator issues a rule on data reporting for event contracts and new guidance for how crypto assets can be used to meet regulatory requirements."
-    },
-    {
-      "title": "New York judge declines to block Kalshi from operating in the state for now",
-      "link": "https://www.coindesk.com/policy/2026/11/23/new-york-judge-declines-to-block-kalshi-from-operating-in-the-state-for-now",
+      "title": "Utah moves to drop criminal pursuit of Kalshi after the firm halted services there",
+      "link": "https://www.coindesk.com/policy/2026/11/24/utah-moves-to-drop-criminal-pursuit-of-kalshi-after-the-firm-halted-services-there",
       "source": "CoinDesk",
       "group": "thoi-su",
-      "publishedAt": "Mon, 23 Nov 2026 18:22:03 +0000",
-      "description": "Judge Melissa Crane did not shut down Kalshi's operations in a hearing Monday, but did say she wanted both parties to present their full arguments in an expedited fashion."
+      "publishedAt": "Tue, 24 Nov 2026 17:50:08 +0000",
+      "description": "The state continues to hold the criminal charges in its back pocket with a vow to hit Kalshi and other prediction markets with gambling accusations if they return."
     },
     {
-      "title": "China's Z.ai Says Its New AI Model Can Think Like One Four Times Its Size",
-      "link": "https://decrypt.co/383851/chinas-zai-new-ai-model-glm-think-like-four-times-size",
+      "title": "'AI trade never died': Traders see room for market recovery, but bitcoin's participation is another story",
+      "link": "https://www.coindesk.com/markets/2026/11/24/ai-trade-never-died-traders-see-room-for-market-recovery-despite-bitcoin-s-weakness",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Tue, 24 Nov 2026 16:00:25 +0000",
+      "description": "Monday's tech enthusiasm is quickly fading on Tuesday, while bitcoin remains near bear-market lows."
+    },
+    {
+      "title": "Anchorage Digital to unveil new asset-management subsidiary",
+      "link": "https://www.coindesk.com/business/2026/11/24/anchorage-digital-to-unveil-new-asset-management-subsidiary",
+      "source": "CoinDesk",
+      "group": "crypto",
+      "publishedAt": "Tue, 24 Nov 2026 15:06:32 +0000",
+      "description": "The crypto custody technology firm said it will unveil a separate subsidiary called 61st Parallel Asset Management."
+    },
+    {
+      "title": "Coldcard Bitcoin Exploit, Revisited: How a Hidden Flaw Survived Years of Audits",
+      "link": "https://decrypt.co/383930/coldcard-bitcoin-exploit-how-hidden-flaw-survived-years-audits",
       "source": "Decrypt",
-      "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 23:06:02 +0000",
-      "description": "GLM-5.4 uses a looping architecture to squeeze more reasoning power from fewer parameters, challenging the expensive approach favored by American AI giants."
+      "group": "crypto",
+      "publishedAt": "Tue, 24 Nov 2026 21:16:02 +0000",
+      "description": "Coinkite’s postmortem reveals a software random-number generator shipped in place of the hardware one for over five years, slipping past at least 15 reviews."
     },
     {
-      "title": "OpenAI Will Pay You Up to $8K to Preach the AI Gospel to Small Businesses",
-      "link": "https://decrypt.co/383848/openai-will-pay-8k-preach-ai-gospel-small-businesses",
+      "title": "Ethereum Foundation Says AI Is a More Urgent Threat Than Quantum Computing",
+      "link": "https://decrypt.co/383927/ethereum-foundation-ai-more-urgent-threat-quantum-computing",
       "source": "Decrypt",
-      "group": "ai",
-      "publishedAt": "Mon, 23 Nov 2026 21:46:03 +0000",
-      "description": "OpenAI wants local AI evangelists to bring ChatGPT to Main Street. Its new OpenWorks program pays up to $8,000 monthly, provided you can actually help businesses get things done locally."
+      "group": "crypto",
+      "publishedAt": "Tue, 24 Nov 2026 20:36:02 +0000",
+      "description": "The Ethereum Foundation has doubled its protocol security team and is prioritizing a cryptographic overhaul as advances in AI threaten the mathematical assumptions that keep billions in crypto safe."
     }
   ]
 }
