@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-24T21:25:23.019Z",
+  "updatedAt": "2026-11-25T08:59:28.941Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
@@ -8,50 +8,51 @@
       "name": "Marvisak/VIctory",
       "url": "https://github.com/Marvisak/VIctory",
       "description": "An attempt at running GTA VI on PC",
-      "stars": 10990,
+      "stars": 11826,
       "language": "Rust",
-      "purpose": ""
+      "purpose": "Dự án thử nghiệm chạy game GTA VI trên máy tính PC."
     },
     {
       "name": "xcl-dev/xcl",
       "url": "https://github.com/xcl-dev/xcl",
       "description": "Xbox Series compatibility layer for Windows - runs console game code natively, reimplements the console system libraries and recompiles RDNA2 shaders to DXIL",
-      "stars": 7710,
+      "stars": 8040,
       "language": "Rust",
-      "purpose": ""
+      "purpose": "Lớp tương thích Xbox Series trên Windows giúp chạy trực tiếp game console và biên dịch lại shader."
     },
     {
       "name": "EL4CTEO/fast-anything",
       "url": "https://github.com/EL4CTEO/fast-anything",
       "description": "Don't rewrite it in Rust. Rewrite the 5% that's slow: profile Python, Node or Ruby apps, port the hot functions with your coding agent, prove they behave the same.",
-      "stars": 3568,
+      "stars": 3757,
       "language": "Rust",
-      "purpose": ""
+      "purpose": "Công cụ phân tích ứng dụng Python, Node, Ruby và chuyển các hàm chậm sang Rust để tối ưu."
     },
     {
       "name": "AFK-surf/xnulinux",
       "url": "https://github.com/AFK-surf/xnulinux",
       "description": "XNU as a loadable kernel module inside Linux (macOS personality for arm64 Linux)",
-      "stars": 3274,
-      "language": "Objective-C++",
-      "purpose": ""
+      "stars": 3641,
+      "language": "C",
+      "purpose": "Module nhân cho phép chạy nhân XNU của macOS ngay bên trong Linux trên kiến trúc arm64."
     },
     {
       "name": "4lwayz/portwatch-vi",
       "url": "https://github.com/4lwayz/portwatch-vi",
       "description": "Does GTA VI run on PC yet? A live tracker of community recompilation and emulation efforts, updated daily.",
-      "stars": 2625,
+      "stars": 3168,
       "language": "JavaScript",
-      "purpose": ""
+      "purpose": "Trang theo dõi tiến độ giả lập và đưa game GTA VI lên PC của cộng đồng, cập nhật hằng ngày."
     },
     {
       "name": "iamajmeena/neonclipping",
       "url": "https://github.com/iamajmeena/neonclipping",
       "description": "Paste a link, get captioned 9:16 clips in ~2 min. Free, local, open-source clipping engine (audio-first, YouTube captions, local LLM).",
-      "stars": 2471,
+      "stars": 2543,
       "language": "Python",
-      "purpose": ""
+      "purpose": "Công cụ tạo clip 9:16 kèm phụ đề từ đường dẫn video, chạy trực tiếp trên máy tính."
     }
   ],
-  "purposeSummarized": false
+  "purposeSummarized": true,
+  "purposeModel": "gemini-3.5-flash"
 }
