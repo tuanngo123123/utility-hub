@@ -1,302 +1,302 @@
 {
-  "updatedAt": "2026-11-25T09:05:12.955Z",
+  "updatedAt": "2026-11-25T20:34:17.412Z",
   "summarized": true,
-  "model": "gemini-3.5-flash",
+  "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
-        "title": "Even the best AI agents struggle with everyday life",
-        "titleVi": "Các tác nhân AI hàng đầu vẫn gặp khó khăn trong công việc hằng ngày",
-        "summary": "Một bộ chuẩn mới cho thấy dù các mô hình AI tiên tiến nhất vẫn chưa thể hoàn thành các nhiệm vụ hằng ngày một cách đáng tin cậy và an toàn mà không gây ra rủi ro mới.",
-        "why": "Bộ chuẩn cho thấy giới hạn thực tiễn của AI trong việc hỗ trợ cuộc sống thường ngày.",
-        "link": "https://techcrunch.com/2026/11/24/even-the-best-ai-agents-struggle-with-everyday-life/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 21:33:29 +0000"
-      },
-      {
-        "title": "Walmart teams up with Meta to bring Black Friday deals to AI agent Muse",
-        "titleVi": "Walmart hợp tác với Meta để bán hàng Black Friday qua AI Muse",
-        "summary": "Walmart cho phép khách hàng mua các ưu đãi Black Friday thông qua AI agent Muse của Meta, mở rộng kênh bán hàng trực tuyến bằng công nghệ trợ lý ảo.",
-        "why": "Walmart kết hợp AI Muse để thu hút khách hàng tìm kiếm ưu đãi Black Friday một cách tiện lợi.",
-        "link": "https://techcrunch.com/2026/11/24/walmart-teams-up-with-meta-to-bring-black-friday-deals-to-ai-agent-muse/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 21:32:38 +0000"
-      },
-      {
-        "title": "UK warns AI-driven cyberattacks are exposing years of weak security",
-        "titleVi": "Anh cảnh báo các vụ tấn công mạng bằng AI khai thác lỗ hổng cũ",
-        "summary": "Cơ quan an ninh mạng Anh cho biết các công cụ hack bằng AI đang tập trung khai thác những sơ hở kỹ thuật đơn giản. Đơn vị này kêu gọi tập trung gia cố nền tảng bảo vệ cơ bản.",
-        "why": "Công cụ tấn công bằng AI đang tập trung lợi dụng các sơ hở bảo mật đơn giản tồn tại nhiều năm.",
-        "link": "https://techcrunch.com/2026/11/24/uk-warns-ai-driven-cyberattacks-are-exposing-years-of-weak-security/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 18:02:59 +0000"
-      },
-      {
-        "title": "The Download: AI’s gas power boom and a consciousness reality check",
-        "titleVi": "Bản tin The Download: Các trung tâm dữ liệu AI chuyển sang tự sản xuất điện",
-        "summary": "Bản tin The Download phản ánh xu hướng các trung tâm dữ liệu tự xây nhà máy điện khí thiên nhiên. Giải pháp giúp giải quyết tình trạng tắc nghẽn khi chờ thủ tục đấu nối vào lưới điện.",
-        "why": "Việc chờ đợi thủ tục đấu nối vào lưới điện là rào cản lớn nhất với các trung tâm dữ liệu.",
-        "link": "https://www.technologyreview.com/2026/11/24/1149669/the-download-data-centers-gas-ai-consciousness/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Tue, 24 Nov 2026 13:10:00 +0000"
-      },
-      {
-        "title": "Data centers are getting their own natural gas power plants",
-        "titleVi": "Trung tâm dữ liệu tự xây nhà máy điện khí để ứng phó cơn sốt AI",
-        "summary": "Thời gian chờ phê duyệt kết nối lưới điện có thể kéo dài tới 10 năm. Nhiều nhà phát triển quyết định xây nhà máy điện khí riêng để cung cấp năng lượng tức thì cho các hạ tầng AI.",
+        "title": "OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.technologyreview.com/2026/11/24/1149622/data-centers-natural-gas/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Tue, 24 Nov 2026 11:00:00 +0000"
+        "link": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 20:03:27 +0000"
       },
       {
-        "title": "A legendary philosopher isn’t buying Anthropic’s consciousness argument",
-        "titleVi": "Triết gia huyền thoại không mua cổ phần Anthropic",
-        "summary": "Triết gia nổi tiếng đã quyết định không đầu tư vào Anthropic sau khi công ty công bố rủi ro về khả năng AI có ý thức. Việc này khiến nhà đầu tư phải xem xét kỹ lưỡng hơn về tiềm năng nhận thức của mô hình AI.",
+        "title": "Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Mon, 23 Nov 2026 17:36:08 +0000"
+        "link": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 19:44:24 +0000"
       },
       {
-        "title": "AI debt worries grow as Nvidia rebound masks Big Tech spending squeeze",
-        "titleVi": "Nvidia phục hồi giá trị, lo ngại nợ công tăng cho Big Tech",
-        "summary": "Nvidia đã phục hồi giá trị cổ phiếu nhưng lo ngại về nợ công tăng khiến Big Tech khó khăn trong việc huy động vốn từ thị trường trái phiếu doanh nghiệp.",
+        "title": "Want to buy your kid an AI toy this Christmas? Not in New York",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/25/ai-debt-big-tech-spending-nvidia.html",
+        "link": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 18:11:46 +0000"
+      },
+      {
+        "title": "Character.AI’s plan to auction off users’ private chats challenged by state AGs",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 17:35:58 +0000"
+      },
+      {
+        "title": "AI data centers are becoming harder to build, and neoclouds are feeling it",
+        "titleVi": "Nvidia không hỗ trợ AI data center cho tới khi sẵn sàng, gây khó khăn cho neoclouds",
+        "summary": "Nvidia tuyên bố sẽ không hỗ trợ xây dựng AI data center cho tới khi gần sẵn sàng vận hành, trong khi các neoclouds đang gặp trễ công trình và chi phí nợ tăng. Điều này nhấn mạnh tầm quan trọng của mặt bằng, điện năng và công trình hoàn chỉnh hơn là bản pitch",
+        "why": "",
+        "link": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 15:41:43 +0000"
+      },
+      {
+        "title": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
+        "titleVi": "Amazon và Meta đang bàn về việc mở cổng Muse cho AI agent",
+        "summary": "Amazon và Meta đang thảo luận về một thỏa thuận có thể chấm dứt cản trở Muse trong vòng hai tháng. Muse là một AI agent đang bị chặn.",
+        "why": "Hai công ty lớn đang cân nhắc giải quyết cản trở Muse, có thể mở đường cho AI agent tiếp cận thị trường.",
+        "link": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 14:10:18 +0000"
+      },
+      {
+        "title": "How data centers are driving a US natural-gas boom",
+        "titleVi": "Data center thúc đẩy tăng trưởng khí tự nhiên Mỹ",
+        "summary": "Bài viết của David Rotman cho thấy AI có thể làm tăng nhu cầu khí tự nhiên, dù có thể đáp ứng nhu cầu điện bằng các nguồn năng lượng khác, bao gồm năng lượng tái tạo.",
+        "why": "AI đang tạo ra nhu cầu điện lớn, dẫn đến sự phụ thuộc tăng lên khí tự nhiên trong nước Mỹ.",
+        "link": "https://www.technologyreview.com/2026/11/25/1149836/data-centers-gas-power-plants/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Wed, 25 Nov 2026 17:00:00 +0000"
+      },
+      {
+        "title": "The Download: AI swamping open records, and firefighting for permafrost",
+        "titleVi": "AI đè nặng hệ thống hồ sơ công và đẩy mạnh đầu tư vào dữ liệu công khai",
+        "summary": "AI đang làm tăng áp lực lên hệ thống hồ sơ công của Mỹ và thu hút sự quan tâm của nhà đầu tư, trong những năm gần đây các startup được hỗ trợ bởi vốn mạo hiểm đã huy động hơn 100 triệu USD để thu thập dữ liệu.",
+        "why": "",
+        "link": "https://www.technologyreview.com/2026/11/25/1149808/the-download-ai-open-records-permafrost-fires/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Wed, 25 Nov 2026 13:10:00 +0000"
+      },
+      {
+        "title": "AI is straining America’s open records systems",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.technologyreview.com/2026/11/25/1149702/ai-is-straining-americas-open-records-systems/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Wed, 25 Nov 2026 10:00:00 +0000"
+      },
+      {
+        "title": "How Jump-Roping Toy Soldiers Accidentally Took Over Your FYP",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/story/hot-jump-roping-toy-soldiers-accidentally-made-their-own-psyop/",
+        "source": "Wired",
+        "publishedAt": "Wed, 25 Nov 2026 12:00:00 +0000"
+      },
+      {
+        "title": "Saudi national in OpenAI bugging case is out on bond after DOJ tries to block release",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/25/openai-bugging-aflozan-bond-release-saudi.html",
         "source": "CNBC",
-        "publishedAt": "Wed, 25 Nov 2026 06:29:46 GMT"
+        "publishedAt": "Wed, 25 Nov 2026 19:11:53 GMT"
       },
       {
-        "title": "OpenAI and Anthropic Insiders Fear Their Next AI Models Are Too Dangerous to Release",
-        "titleVi": "Nhân viên OpenAI và Anthropic lo ngại mô hình AI mới quá nguy hiểm để phát hành",
-        "summary": "Nhiều nhân viên tại OpenAI và Anthropic nghi ngờ việc có nên công khai các mô hình trí tuệ nhân tạo mạnh nhất hay không. Nguyên nhân do các nhà nghiên cứu gặp nhiều khó khăn trong việc kiểm soát hệ thống trong quá trình huấn luyện và thử nghiệm.",
+        "title": "SpaceX wins FCC approval to deploy 1 million orbital data center satellites",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://decrypt.co/383933/openai-and-anthropic-insiders-fear-next-ai-models-too-dangerous",
-        "source": "Decrypt",
-        "publishedAt": "Tue, 24 Nov 2026 22:36:02 +0000"
+        "link": "https://www.cnbc.com/2026/11/25/spacex-fcc-satellite-approval.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 25 Nov 2026 19:52:47 GMT"
       },
       {
-        "title": "Anthropic’s Claude Ship Lets AI Write, Review and Approve Its Own Code",
-        "titleVi": "Anthropic ra mắt công cụ giúp AI tự viết, kiểm duyệt và phê duyệt mã nguồn",
-        "summary": "Anthropic vừa giới thiệu các công cụ lập trình mới cho phép AI tự kiểm tra, sửa lỗi và phê duyệt mã phần mềm trước khi phát hành. Điều này giúp tự động hóa quy trình và để các đội ngũ phát triển tự quyết định thời điểm cần con người kiểm tra.",
+        "title": "What Is Artex? The AI Hacking Tool Linked to the US Spy Agency Breach",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://decrypt.co/383929/anthropic-claude-ship-ai-write-review-approve-own-code",
+        "link": "https://decrypt.co/383997/what-is-artex-ai-hacking-tool-us-spy-agency-breach",
         "source": "Decrypt",
-        "publishedAt": "Tue, 24 Nov 2026 21:46:02 +0000"
+        "publishedAt": "Wed, 25 Nov 2026 20:06:03 +0000"
       }
     ],
     "chung-khoan": [
       {
-        "title": "Maple raises $5.3M to build AI products that protect your data, even from itself",
-        "titleVi": "Startup Maple gọi vốn 5,3 triệu USD phát triển AI bảo mật dữ liệu",
-        "summary": "Startup Maple huy động thành công 5,3 triệu USD để phát triển kiến trúc AI mã hóa. Công nghệ này ngăn chặn chính doanh nghiệp truy cập vào thông tin cá nhân của người dùng.",
+        "title": "Nvidia leads tech sell-off as Huang comeback rally fizzles and AI concerns return",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://techcrunch.com/2026/11/24/maple-raises-5-3m-to-build-ai-products-that-protect-your-data-even-from-itself/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 21:19:52 +0000"
-      },
-      {
-        "title": "Anthropic shares fall below IPO price, a worrying sign for AI startups",
-        "titleVi": "Giá cổ phiếu Anthropic giảm xuống dưới mức niêm yết IPO",
-        "summary": "Giá cổ phiếu Anthropic đã giảm xuống dưới mức phát hành lần đầu ra công chúng. Xu hướng sụt giảm này gây áp lực lớn tới mức định giá của các công ty khởi nghiệp AI khác.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/24/anthropic-shares-fall-below-ipo-price-a-worrying-sign-for-ai-startups/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 18:30:42 +0000"
-      },
-      {
-        "title": "Treasury yields fall as investors await key inflation signal",
-        "titleVi": "Lợi suất trái phiếu kho bạc giảm khi nhà đầu tư chờ dữ liệu lạm phát và chi tiêu",
-        "summary": "Lợi suất trái phiếu kho bạc Mỹ giảm trong tuần ngắn do kỳ nghỉ, khi nhà đầu tư đang chờ dữ liệu lạm phát và chi tiêu chính.",
-        "why": "Dữ liệu lạm phát và chi tiêu chính sẽ quyết định xu hướng lạm phát trong tháng tới.",
-        "link": "https://www.cnbc.com/2026/11/25/treasury-yields-bonds-inflation.html",
+        "link": "https://www.cnbc.com/2026/11/25/nvidia-ai-stock-tech-selloff.html",
         "source": "CNBC",
-        "publishedAt": "Wed, 25 Nov 2026 07:44:24 GMT"
+        "publishedAt": "Wed, 25 Nov 2026 19:19:05 GMT"
       },
       {
-        "title": "SoftBank drops 15% as Wall Street AI sell-off ripples across Asian tech names",
-        "titleVi": "Cổ phiếu SoftBank giảm 15% kéo theo nhóm công nghệ châu Á đi xuống",
-        "summary": "Cổ phiếu SoftBank lao dốc 15% trong phiên thứ Tư, kéo theo sự sụt giảm hàng loạt của các mã công nghệ châu Á. Nhóm cổ phiếu bán dẫn Nhật Bản chịu áp lực lớn nhất do lo ngại về sóng đầu tư AI lan rộng.",
-        "why": "Cổ phiếu tập đoàn SoftBank sụt giảm 15% trong phiên giao dịch thứ Tư.",
-        "link": "https://www.cnbc.com/2026/11/25/tech-stocks-softbank-group-advantest-sk-hynix-samsung.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 25 Nov 2026 03:52:03 GMT"
-      },
-      {
-        "title": "Dell’s stock rises as the AI boom helps sales more than double",
-        "titleVi": "Cổ phiếu Dell tăng giá nhờ doanh số máy chủ AI tăng hơn gấp đôi",
-        "summary": "Cổ phiếu Dell tăng mạnh sau khi tập đoàn này ghi nhận doanh số máy chủ trí tuệ nhân tạo tăng hơn gấp đôi. Công ty cho biết danh sách đơn đặt hàng tồn đọng đều được kiểm tra kỹ về khả năng tiếp cận vốn và nguồn điện của khách hàng.",
+        "title": "Fed’s preferred inflation gauge accelerated to 3.8% in October, raising the 2027 stakes for the central bank",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.marketwatch.com/story/dells-stock-rises-as-the-ai-boom-helps-sales-more-than-double-cfb8cf65?mod=mw_rss_topstories",
+        "link": "https://www.cnbc.com/2026/11/25/pce-inflation-report-october-2026.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 25 Nov 2026 14:18:45 GMT"
+      },
+      {
+        "title": "Bullish hopes spring as traders bet against a higher VIX: Options Action Live",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/25/bullish-hopes-spring-as-traders-bet-against-a-higher-vix-options-action-live.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 25 Nov 2026 19:12:45 GMT"
+      },
+      {
+        "title": "The Fed says inflation hasn’t gotten any better ahead of its key December vote to raise rates",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/the-fed-says-inflation-hasnt-gotten-any-better-ahead-of-its-key-december-vote-to-raise-rates-65024d33?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Wed, 25 Nov 2026 01:11:00 GMT"
+        "publishedAt": "Wed, 25 Nov 2026 19:39:00 GMT"
       }
     ],
     "crypto": [
       {
-        "title": "Crypto talent will return ‘when AI implodes,’ Arthur Hayes says",
-        "titleVi": "Arthur Hayes dự báo nhân sự AI sẽ quay lại crypto sau năm 2027",
-        "summary": "Giám đốc đầu tư Arthur Hayes của Maelstrom nhận định làn sóng đầu tư AI sẽ gặp trở ngại vào nửa cuối năm 2027. Theo ông, nhân sự tại các startup công nghệ sau đó có thể quay trở lại với thị trường crypto.",
+        "title": "Why macro investor Raoul Pal says the dollar is the signal to watch for stocks and crypto",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/25/talents-crypto-ai-investment.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 25 Nov 2026 06:09:44 GMT"
+        "link": "https://www.marketwatch.com/story/why-macro-investor-raoul-pal-says-the-dollar-is-the-signal-to-watch-for-stocks-and-crypto-d36f3c49?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Wed, 25 Nov 2026 19:16:00 GMT"
       },
       {
-        "title": "EU seeks up to $55B for AI and quantum computing fund: Report",
-        "titleVi": "EU tìm kiếm lên tới 55 tỷ USD cho quỹ AI và máy tính lượng tử",
-        "summary": "Liên minh châu Âu đang tìm kiếm lên tới 55 tỷ USD để thành lập quỹ hỗ trợ nghiên cứu và phát triển trí tuệ nhân tạo và máy tính lượng tử.",
-        "why": "EU đã quyết định huy động 55 tỷ USD cho quỹ AI và máy tính lượng tử, một khoản đầu tư lớn nhằm thúc đẩy công nghệ tiên tiến.",
-        "link": "https://cointelegraph.com/news/eu-55-billion-ai-quantum-computing-investment-fund?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Ethereum Foundation backs Keccak-256 to counter quantum, AI threats",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://cointelegraph.com/news/ethereum-foundation-keccak-256-counter-quantum-ai-threats?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Wed, 25 Nov 2026 08:40:28 +0000"
+        "publishedAt": "Wed, 25 Nov 2026 18:54:51 +0000"
       },
       {
-        "title": "South Korea’s crypto bill could move stablecoin race beyond token issuance",
-        "titleVi": "Đề xuất luật tiền điện tử Hàn Quốc thúc đẩy stablecoin vượt qua phát hành token, ưu tiên n",
-        "summary": "Bản dự thảo luật tiền điện tử Hàn Quốc ưu tiên phát hành stablecoin do ngân hàng dẫn đầu, đồng thời cho phép các công ty fintech và công nghệ trở thành cổ đông cá nhân lớn nhất trong dự án.",
+        "title": "US inflation rises to 3.8% ahead of December Fed meeting, clouding crypto outlook",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://cointelegraph.com/news/south-korea-crypto-bill-stablecoin-race-beyond-issuance?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/us-inflation-rises-december-fed-meeting-clouding-crypto-outlook?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Wed, 25 Nov 2026 06:54:59 +0000"
+        "publishedAt": "Wed, 25 Nov 2026 17:53:10 +0000"
       },
       {
-        "title": "Here’s what happened in crypto today",
-        "titleVi": "Diễn biến mới nhất về thị trường Bitcoin và quy định tiền mã hóa hằng ngày",
-        "summary": "Bản tổng hợp cập nhật những diễn biến hằng ngày tác động tới giá Bitcoin, công nghệ blockchain, mảng DeFi và Web3. Nội dung cũng phản ánh các thay đổi trong chính sách quản lý tiền mã hóa tại nhiều quốc gia.",
-        "why": "Bản tin cập nhật những sự kiện hằng ngày ảnh hưởng trực tiếp đến biến động giá Bitcoin và chính sách Web3.",
-        "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "title": "Bitcoin falls toward $57K amid US tariff fears, hot PCE data as Nasdaq drops 4%",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://cointelegraph.com/markets/bitcoin-falls-57k-us-tariff-pce-data-nasdaq-drops?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Wed, 25 Nov 2026 05:50:43 +0000"
+        "publishedAt": "Wed, 25 Nov 2026 17:33:22 +0000"
       },
       {
-        "title": "Live updates: Bitcoin slips back under $60,000 as HYPE leads altcoins lower",
-        "titleVi": "Giá Bitcoin giảm xuống dưới 60.000 USD khi các altcoin lao dốc",
-        "summary": "Giá Bitcoin rơi xuống dưới mức 60.000 USD trong bối cảnh HYPE giảm 8% và SOL hạ 5%. Giới phân tích nhận định thị trường cần đà giảm trên sàn chứng khoán Mỹ dịu lại trước khi công bố dữ liệu lạm phát.",
-        "why": "Giá HYPE giảm 8% và SOL sụt 5% kéo Bitcoin rơi xuống dưới mốc 60.000 USD.",
-        "link": "https://www.coindesk.com/business/2026/11/25/live-updates-bitcoin-slips-back-under-usd60-000-as-hype-leads-altcoins-lower",
-        "source": "CoinDesk",
-        "publishedAt": "Wed, 25 Nov 2026 08:35:47 +0000"
-      },
-      {
-        "title": "Solana developers move to stop validators finishing work on blocks that already lost",
-        "titleVi": "Đội ngũ phát triển Solana cập nhật giải pháp tối ưu hóa năng lực xử lý",
-        "summary": "Các nhà phát triển Solana đang triển khai bản sửa lỗi nhằm ngăn máy chủ xác thực xử lý những giao dịch đã bị mạng lưới loại bỏ. Giải pháp này giúp tiết kiệm tài nguyên tính toán mà đợt nâng cấp tốc độ trước đó chưa can thiệp tới.",
+        "title": "French Senate blocks new crypto tax and wallet list critics called a kidnapping risk",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.coindesk.com/tech/2026/11/25/solana-developers-move-to-stop-validators-finishing-work-on-blocks-that-already-lost",
+        "link": "https://www.coindesk.com/business/2026/11/25/french-senate-blocks-new-crypto-tax-and-wallet-list-critics-called-a-kidnapping-risk",
         "source": "CoinDesk",
-        "publishedAt": "Wed, 25 Nov 2026 06:33:10 +0000"
+        "publishedAt": "Wed, 25 Nov 2026 18:24:47 +0000"
       },
       {
-        "title": "Just 10 accounts drove all of the XRP Ledger's trading growth last quarter",
-        "titleVi": "Chỉ 10 tài khoản đóng góp toàn bộ đà tăng trưởng giao dịch trên XRP Ledger",
-        "summary": "Dữ liệu quý gần nhất cho thấy 10 tài khoản hoạt động tích cực nhất đã đóng góp toàn bộ mức tăng trưởng giao dịch trên XRP Ledger. Trái lại, khối lượng giao dịch từ tất cả tài khoản còn lại đều ghi nhận sự sụt giảm.",
+        "title": "'This time actually seems different': Crypto veterans brace for more pain as bitcoin tumbles",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.coindesk.com/markets/2026/11/25/ten-accounts-drove-all-of-the-xrp-ledger-s-trading-growth-last-quarter",
+        "link": "https://www.coindesk.com/markets/2026/11/25/this-time-actually-seems-different-crypto-veterans-brace-for-more-pain-as-bitcoin-tumbles",
         "source": "CoinDesk",
-        "publishedAt": "Wed, 25 Nov 2026 06:15:08 +0000"
+        "publishedAt": "Wed, 25 Nov 2026 17:38:33 +0000"
+      },
+      {
+        "title": "EU bank watchdog seeks European Commission rules for crypto firms offering DeFi lending",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.coindesk.com/policy/2026/11/25/eu-bank-watchdog-seeks-european-commission-rules-for-crypto-firms-offering-defi-lending",
+        "source": "CoinDesk",
+        "publishedAt": "Wed, 25 Nov 2026 16:02:31 +0000"
+      },
+      {
+        "title": "Nvidia to Pay $290 Million to Settle Long-Running Crypto Mining Revenue Lawsuit",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://decrypt.co/383994/nvidia-290-million-settle-crypto-mining-disclosure-lawsuit",
+        "source": "Decrypt",
+        "publishedAt": "Wed, 25 Nov 2026 19:28:54 +0000"
       }
     ],
     "thoi-su": [
       {
-        "title": "Yale’s Sonnenfeld: Nvidia is a ‘detriment’ to US industrial might — not a champion",
-        "titleVi": "Nvidia có thể là ‘lỗ hại’ cho sức mạnh công nghiệp Mỹ",
-        "summary": "Yale’s Jeffrey Sonnenfeld cảnh báo rằng việc hội nghị thị trường khen ngợi CEO Jensen Huang trở lại có thể gây sai lầm lớn, khiến ban giám đốc Nvidia gánh chịu trách nhiệm pháp lý khi các vụ kiện gia tăng và đặt câu hỏi liệu Mỹ đang tôn vinh công ty đã cung",
-        "why": "Sonnenfeld nhấn mạnh rủi ro pháp lý khi Nvidia tiếp tục phát triển chip cho đối thủ.",
-        "link": "https://techcrunch.com/2026/11/24/yales-sonnenfeld-nvidia-is-a-detriment-to-u-s-industrial-might-not-a-champion/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 25 Nov 2026 00:12:02 +0000"
-      },
-      {
-        "title": "Jensen Huang still thinks a succession plan creates unnecessary hierarchy",
-        "titleVi": "Hình thái lãnh đạo của Nvidia vẫn tránh kế hoạch kế nhiệm",
-        "summary": "Jensen Huang cho rằng kế hoạch kế nhiệm tạo ra cấu trúc cấp bậc không cần thiết, một quan điểm bất thường khi công ty mới trải qua hai tuần thử nghiệm hoạt động mà không có người sáng lập.",
-        "why": "Huang tin rằng việc giữ nguyên cấu trúc lãnh đạo giúp Nvidia duy trì linh hoạt.",
-        "link": "https://techcrunch.com/2026/11/24/jensen-huang-still-thinks-a-succession-plan-creates-unnecessary-hierarchy/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 22:27:52 +0000"
-      },
-      {
-        "title": "In all-hands meeting, Jensen Huang thanks White House and says he’s in therapy",
-        "titleVi": "Jensen Huang cảm ơn Nhà Trắng và nói đang trị liệu",
-        "summary": "Trong cuộc họp toàn thể nhân viên, Huang cảm ơn Nhà Trắng và thừa nhận đã nhận được cơ hội thứ hai lãnh đạo, đồng thời xin lỗi nhân viên vì những khó khăn đã gặp.",
-        "why": "Huang công nhận sự hỗ trợ của Nhà Trắng và nhấn mạnh tầm quan trọng của sự lãnh đạo liên tục.",
-        "link": "https://techcrunch.com/2026/11/24/in-all-hands-meeting-jensen-huang-thanks-white-house-and-says-hes-in-therapy/",
-        "source": "TechCrunch",
-        "publishedAt": "Tue, 24 Nov 2026 21:48:27 +0000"
-      },
-      {
-        "title": "NordVPN Coupons: 75% Off + 3 Months Free",
-        "titleVi": "Mã giảm giá NordVPN: Giảm 75% + 3 tháng miễn phí",
-        "summary": "Khách hàng có thể tiết kiệm tới 77% khi đăng ký gói 2 năm NordVPN và nhận thêm 3 tháng miễn phí bằng các mã giảm giá hiện có.",
-        "why": "NordVPN cung cấp mã giảm giá 75% và 3 tháng miễn phí cho gói 2 năm.",
-        "link": "https://www.wired.com/story/nordvpn-coupon/",
-        "source": "Wired",
-        "publishedAt": "Wed, 25 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Wayfair Coupons: Up to 80% Off November 2026",
-        "titleVi": "Mã giảm giá Wayfair: Giảm tới 80% cho nội thất",
-        "summary": "Khách hàng có thể sử dụng mã khuyến mãi Wayfair để nhận 10% giảm giá cho đơn hàng và tối đa 80% giảm giá trên các mặt hàng nội thất.",
-        "why": "",
-        "link": "https://www.wired.com/story/wayfair-promo-code/",
-        "source": "Wired",
-        "publishedAt": "Wed, 25 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Noom Promo Codes: 50% Off Best Deals for November 2026",
-        "titleVi": "Mã giảm giá Noom: Giảm 50% cho đăng ký tháng 11",
-        "summary": "Khách hàng có thể nhận ưu đãi giảm 50% cho đăng ký dịch vụ Noom, bao gồm cả gói thử nghiệm miễn phí và ưu đãi thời gian giới hạn cho GLP-1Rx Plus.",
-        "why": "Noom cung cấp mã giảm giá 50% cho đăng ký tháng 11 và ưu đãi cho GLP-1Rx Plus.",
-        "link": "https://www.wired.com/story/noom-promo-code/",
-        "source": "Wired",
-        "publishedAt": "Wed, 25 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Houthi attack on Saudi Arabian sovereign wealth fund PIF's tower injures 11",
-        "titleVi": "Tòa nhà của quỹ PIF bị tấn công làm 11 người bị thương",
-        "summary": "Lực lượng Houthi vừa thực hiện cuộc tấn công thứ hai trong vòng 6 ngày vào tòa nhà thuộc quỹ PIF của Saudi Arabia. Vụ việc làm 11 người bị thương, trái ngược với đợt tấn công trước đó vốn không gây thương vong.",
-        "why": "Tòa nhà thuộc quỹ PIF của Saudi Arabia hứng chịu 2 cuộc tấn công trong vòng 6 ngày.",
-        "link": "https://www.cnbc.com/2026/11/25/us-iran-war-trump-hormuz-houthi-saudi-pif-tower.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 25 Nov 2026 02:36:43 GMT"
-      },
-      {
-        "title": "‘Ready for any storm’: UAE minister optimistic on economy as IMF lifts forecast",
-        "titleVi": "UAE kỳ vọng tăng trưởng kinh tế đạt 7%-8% vào năm tới",
-        "summary": "Bộ trưởng kinh tế UAE bày tỏ sự lạc quan và kỳ vọng quốc gia này sẽ đạt mức tăng trưởng kinh tế từ 7% đến 8% trong năm tới. Mục tiêu được đưa ra dựa trên mô hình phát triển mới, trong bối cảnh IMF vừa nâng dự báo.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/25/uae-iran-war-economy-oil.html",
-        "source": "CNBC",
-        "publishedAt": "Wed, 25 Nov 2026 04:06:01 GMT"
-      },
-      {
-        "title": "I’m in my 70s and buying a new BMW X1. Should I put my only son on the title?",
+        "title": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
         "titleVi": "",
-        "summary": "Một người đàn ông 70 tuổi quyết định mua chiếc BMW X1 mới và đang cân nhắc đặt con trai duy nhất vào giấy đăng ký để bảo vệ tài sản trong tương lai.",
+        "summary": "",
         "why": "",
-        "link": "https://www.marketwatch.com/story/im-in-my-70s-and-buying-a-new-bmw-x1-should-i-put-my-only-son-on-the-title-25731040?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Wed, 25 Nov 2026 02:00:00 GMT"
+        "link": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 19:54:57 +0000"
       },
       {
-        "title": "My husband secretly sends his ex-wife $1,500 a month after she lost her job. We have $2.4 million saved. Has he lied by omission?",
+        "title": "The questions Jensen Huang and Nvidia will still have to answer about Megaspeed",
+        "titleVi": "Nvidia và Jensen Huang vẫn chưa trả lời câu hỏi về Megaspeed",
+        "summary": "Câu hỏi trung tâm là Nvidia biết gì về nơi các chip Megaspeed được gửi đi và liệu mối quan hệ của Huang với giám đốc Megaspeed có làm nghi ngờ những cam kết của công ty.",
+        "why": "Sự liên quan của Jensen Huang với một giám đốc Megaspeed đặt ra nghi ngờ về tính minh bạch của Nvidia trong việc giao nhận chip.",
+        "link": "https://techcrunch.com/2026/11/25/the-questions-jensen-huang-and-nvidia-will-still-have-to-answer-about-megaspeed/",
+        "source": "TechCrunch",
+        "publishedAt": "Wed, 25 Nov 2026 13:00:00 +0000"
+      },
+      {
+        "title": "The Iowa Lead Detonation Happened. Now the Real Work Begins to Study It",
         "titleVi": "",
-        "summary": "Một chồng đã gửi 1.500 USD hằng tháng cho vợ cũ của mình sau khi cô ấy mất việc tại công ty thanh toán y tế, trong khi gia đình đang có 2.4 triệu USD tiết kiệm.",
+        "summary": "",
         "why": "",
-        "link": "https://www.marketwatch.com/story/my-husband-secretly-sends-his-ex-wife-1-500-a-month-after-she-lost-her-job-we-have-2-4-million-saved-has-he-lied-by-omission-ede1972a?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Wed, 25 Nov 2026 00:05:00 GMT"
+        "link": "https://www.wired.com/story/iowa-lead-detonation-real-monitoring-work-begins/",
+        "source": "Wired",
+        "publishedAt": "Wed, 25 Nov 2026 18:38:12 +0000"
       },
       {
-        "title": "Micron boosted CEO Sanjay Mehrotra’s security budget by 2,000%, new filing shows",
-        "titleVi": "Micron tăng 2.000% ngân sách bảo vệ an toàn cho CEO Sanjay Mehrotra",
-        "summary": "Hãng chip Micron đã nâng mức chi tiêu cho dịch vụ bảo vệ an ninh cá nhân của CEO Sanjay Mehrotra lên 764.748 USD, tăng 2.000% so với trước. Khoản kinh phí này thuộc tổng gói thu nhập 39,7 triệu USD của ông trong năm tài chính vừa qua.",
-        "why": "Ngân sách an ninh cho CEO Sanjay Mehrotra tăng gấp 20 lần, lên mức 764.748 USD.",
-        "link": "https://www.marketwatch.com/story/micron-boosted-ceo-sanjay-mehrotras-security-budget-by-2-000-new-filing-shows-d6202acc?mod=mw_rss_topstories",
+        "title": "The 30 Best Early Black Friday Deals: Our Ultimate Picks (2026)",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/story/best-black-friday-deals-11-25-2026/",
+        "source": "Wired",
+        "publishedAt": "Wed, 25 Nov 2026 15:03:16 +0000"
+      },
+      {
+        "title": "U.S. proposes new tariffs on 14 trading partners, including China and the EU",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/25/us-tariffs-trump-section-301.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 25 Nov 2026 16:02:52 GMT"
+      },
+      {
+        "title": "New-home sales just hit a 2026 high as builders dangle low mortgages and Black Friday deals",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/new-home-sales-just-hit-a-2026-high-as-builders-dangle-low-mortgages-and-black-friday-deals-291a3b62?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Tue, 24 Nov 2026 23:11:00 GMT"
+        "publishedAt": "Wed, 25 Nov 2026 19:20:00 GMT"
+      },
+      {
+        "title": "Grocery stores have ‘staggering deals’ for Thanksgiving — but don’t get used to these lower prices",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/grocery-stores-have-staggering-deals-for-thanksgiving-but-dont-get-used-to-these-lower-prices-just-yet-7adfc7f5?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Wed, 25 Nov 2026 18:52:00 GMT"
       }
     ]
   }
