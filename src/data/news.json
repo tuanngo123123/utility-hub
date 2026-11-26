@@ -1,13 +1,31 @@
 {
-  "updatedAt": "2026-11-26T09:08:35.783Z",
+  "updatedAt": "2026-11-26T20:45:36.847Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
     "ai": [
       {
+        "title": "Nvidia hits pause on chip shipments to Southeast Asia",
+        "titleVi": "Nvidia tạm dừng giao chip tới Đông Nam Á",
+        "summary": "Nvidia yêu cầu các đối tác sản xuất tạm ngưng giao chip máy chủ tới Malaysia, Singapore, Thái Lan và Indonesia khi Mỹ tăng cường kiểm soát xuất khẩu chip AI ra Trung Quốc.",
+        "why": "Nvidia đã dừng giao chip máy chủ tới 4 quốc gia Đông Nam Á để đáp ứng quy định xuất khẩu chip AI của Mỹ.",
+        "link": "https://techcrunch.com/2026/11/26/nvidia-hits-pause-on-chip-shipments-to-southeast-asia/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 26 Nov 2026 20:03:54 +0000"
+      },
+      {
+        "title": "Grand Theft Auto VI proves why efficiency isn’t a virtue",
+        "titleVi": "Grand Theft Auto VI chứng minh hiệu quả không phải ưu tiên",
+        "summary": "Vào cùng ngày Anthropic niêm yết công khai, trò chơi Grand Theft Auto VI trở thành một trong những bản ra mắt giải trí thành công nhất mọi thời đại.",
+        "why": "",
+        "link": "https://techcrunch.com/2026/11/26/as-anthropic-ipos-grand-theft-auto-vi-proves-why-efficiency-isnt-a-virtue/",
+        "source": "TechCrunch",
+        "publishedAt": "Thu, 26 Nov 2026 16:00:00 +0000"
+      },
+      {
         "title": "OpenAI says heavy ChatGPT users may hit limits sooner as it merges Chat and Work",
-        "titleVi": "OpenAI giới thiệu thước đo sử dụng duy nhất cho ChatGPT",
-        "summary": "OpenAI sẽ áp dụng một thước đo sử dụng duy nhất khi kết hợp trải nghiệm Chat và Work của ChatGPT.",
+        "titleVi": "OpenAI giới thiệu thước đo dùng duy nhất cho ChatGPT",
+        "summary": "OpenAI sẽ áp dụng một thước đo duy nhất cho ChatGPT khi kết hợp trải nghiệm Chat và Work, khiến người dùng nặng có thể gặp giới hạn sớm hơn.",
         "why": "",
         "link": "https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/",
         "source": "TechCrunch",
@@ -15,9 +33,9 @@
       },
       {
         "title": "Anthropic’s Dario Amodei calls accusations of surrendering human control to AI ‘absurd’",
-        "titleVi": "Dario Amodei phản bác cáo buộc AI mất kiểm soát",
-        "summary": "CEO Anthropic Dario Amodei bác bỏ cáo buộc rằng anh ta ủng hộ việc giao quyền quyết định cho AI.",
-        "why": "",
+        "titleVi": "CEO Anthropic bác bỏ cáo buộc giao quyền kiểm soát cho AI",
+        "summary": "CEO Dario Amodei của Anthropic cho rằng những cáo buộc ông ủng hộ việc nhượng quyền kiểm soát cho trí tuệ nhân tạo là vô lý. Tuyên bố đưa ra trong bối cảnh các công ty AI hàng đầu đang gia tăng tự động hóa quá trình nghiên cứu mô hình.",
+        "why": "Nhiều công ty công nghệ hàng đầu đang tự động hóa quá trình nghiên cứu và phát triển mô hình AI.",
         "link": "https://techcrunch.com/2026/11/25/anthropics-dario-amodei-calls-accusations-of-surrendering-human-control-to-ai-absurd/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 25 Nov 2026 19:44:24 +0000"
@@ -25,7 +43,7 @@
       {
         "title": "Want to buy your kid an AI toy this Christmas? Not in New York",
         "titleVi": "",
-        "summary": "Bang New York ban hành lệnh cấm các loại đồ chơi tích hợp chatbot AI trong thời hạn 5 năm. Quyết định này dựa trên nghiên cứu từ Common Sense Media về nguy cơ khiến trẻ em tiếp xúc với nội dung không phù hợp và ảnh hưởng tới sự phát triển cảm xúc.",
+        "summary": "New York đã cấm bán đồ chơi trò chuyện AI cho trẻ em trong vòng năm năm, dựa trên nghiên cứu của Common Sense Media cho thấy các trò chơi này có thể tiếp xúc với nội dung không phù hợp và gây rủi ro cho sự phát triển cảm xúc của trẻ.",
         "why": "",
         "link": "https://techcrunch.com/2026/11/25/want-to-buy-your-kid-an-ai-toy-this-christmas-not-in-new-york/",
         "source": "TechCrunch",
@@ -33,270 +51,252 @@
       },
       {
         "title": "Character.AI’s plan to auction off users’ private chats challenged by state AGs",
-        "titleVi": "Character.AI dự định bán đấu giá dữ liệu cá nhân bị phản đối",
-        "summary": "Kế hoạch bán phá sản của Character.ai bao gồm dữ liệu cá nhân nhạy cảm từ hơn 21 triệu tài khoản Mỹ, trong đó có 2,1 triệu tài khoản của trẻ em, theo các tòa án đương khu vực.",
+        "titleVi": "Kế hoạch đấu giá dữ liệu trò chuyện của Character.ai bị phản đối",
+        "summary": "Các tổng chưởng lý bang tại Mỹ phản đối kế hoạch bán đấu giá tài sản phá sản của Character.ai. Vụ mua bán này bao gồm dữ liệu nhạy cảm của hơn 21 triệu tài khoản Mỹ, trong đó có 2,1 triệu tài khoản thuộc về người vị thành niên.",
         "why": "",
         "link": "https://techcrunch.com/2026/11/25/state-ags-fight-character-ais-plan-to-auction-off-users-private-chats/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 25 Nov 2026 17:35:58 +0000"
       },
       {
-        "title": "AI data centers are becoming harder to build, and neoclouds are feeling it",
-        "titleVi": "Nvidia từ chối hỗ trợ trung tâm dữ liệu AI cho tới khi sẵn sàng",
-        "summary": "Nvidia thông báo sẽ không hỗ trợ bất kỳ trung tâm dữ liệu AI nào cho tới khi nó sẵn sàng vận hành, khiến các nhà phát triển phải tập trung vào mặt đất, điện năng và công trình hoàn chỉnh.",
+        "title": "The Download: Better bionic hands and AI’s natural-gas boom",
+        "titleVi": "Bản tin The Download: Bàn tay sinh học mới và khí đốt cho AI",
+        "summary": "Bản tin The Download cập nhật các tin tức công nghệ nổi bật bao gồm bàn tay sinh học thế hệ mới có khả năng cảm nhận lực ấn. Tạp chí cũng đề cập tới sự gia tăng nhu cầu khí đốt tự nhiên phục vụ cho hạ tầng AI.",
         "why": "",
-        "link": "https://techcrunch.com/podcast/ai-data-centers-are-becoming-harder-to-build-and-neoclouds-are-feeling-it/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 25 Nov 2026 15:41:43 +0000"
-      },
-      {
-        "title": "Amazon and Meta reportedly in talks to lift blockade on AI agent Muse",
-        "titleVi": "Amazon và Meta đàm phán gỡ bỏ lệnh phong tỏa tác nhân AI Muse",
-        "summary": "Amazon và Meta đang thảo luận về thỏa thuận giúp chấm dứt lệnh phong tỏa kéo dài hai tháng đối với tác nhân AI Muse. Cuộc đàm phán này có thể giúp khôi phục hoạt động của Muse.",
-        "why": "",
-        "link": "https://techcrunch.com/2026/11/25/amazon-and-meta-reportedly-in-talks-to-lift-blockade-on-ai-agent-muse/",
-        "source": "TechCrunch",
-        "publishedAt": "Wed, 25 Nov 2026 14:10:18 +0000"
+        "link": "https://www.technologyreview.com/2026/11/26/1149934/the-download-better-bionic-hands-ai-natural-gas-boom/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Thu, 26 Nov 2026 13:10:00 +0000"
       },
       {
         "title": "How data centers are driving a US natural-gas boom",
-        "titleVi": "Trung tâm dữ liệu đẩy mạnh nhu cầu khí tự nhiên Mỹ",
-        "summary": "Bài viết của David Rotman cho thấy trung tâm dữ liệu AI đang làm tăng nhu cầu khí tự nhiên, mặc dù các nguồn năng lượng tái tạo có thể đáp ứng nhu cầu điện.",
+        "titleVi": "",
+        "summary": "",
         "why": "",
         "link": "https://www.technologyreview.com/2026/11/25/1149836/data-centers-gas-power-plants/",
         "source": "MIT Tech Review",
         "publishedAt": "Wed, 25 Nov 2026 17:00:00 +0000"
       },
       {
-        "title": "The Download: AI swamping open records, and firefighting for permafrost",
-        "titleVi": "AI làm áp lực lên hệ thống hồ sơ công và gây khó khăn cho bảo vệ băng giá",
-        "summary": "AI đang làm tăng áp lực lên hệ thống hồ sơ công của Mỹ, trong khi các công ty khởi nghiệp nhận đầu tư hơn 100 triệu USD để thu thập dữ liệu.",
-        "why": "",
-        "link": "https://www.technologyreview.com/2026/11/25/1149808/the-download-ai-open-records-permafrost-fires/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Wed, 25 Nov 2026 13:10:00 +0000"
-      },
-      {
-        "title": "AI is straining America’s open records systems",
-        "titleVi": "Chức vụ đa năng của nhân viên thị trấn Panton gây áp lực cho hệ thống hồ sơ công khai Mỹ",
-        "summary": "Kyle Rowe, thư ký thị trấn Panton, Vermont, vừa lập ngân sách, thanh toán nhà cung cấp, giải quyết tranh chấp thuế bất động sản, giám sát quy hoạch và điều hành bầu cử, đồng thời xử lý yêu cầu hồ sơ công khai trong cùng một văn phòng.",
-        "why": "Rowe quản lý 660 cư dân và 5 công việc quan trọng trong một cơ sở công cộng đã được xây dựng từ năm 1858.",
-        "link": "https://www.technologyreview.com/2026/11/25/1149702/ai-is-straining-americas-open-records-systems/",
-        "source": "MIT Tech Review",
-        "publishedAt": "Wed, 25 Nov 2026 10:00:00 +0000"
-      },
-      {
-        "title": "Zcash developers want users to move $300 million out of an older privacy system",
-        "titleVi": "Zcash kêu gọi người dùng chuyển 300 triệu USD khỏi hệ sinh thái cũ",
-        "summary": "Nhóm phát triển Zcash đang thúc giục ngừng các khoản thanh toán vào Sapling để bảo vệ 300 triệu USD của người dùng. Họ lo ngại các phát hiện toán học có sự trợ giúp từ AI có thể làm suy yếu thuật toán bảo mật của hệ thống này.",
-        "why": "",
-        "link": "https://www.coindesk.com/tech/2026/11/26/zcash-developers-want-users-to-move-usd300-million-out-of-an-older-privacy-system",
-        "source": "CoinDesk",
-        "publishedAt": "Thu, 26 Nov 2026 07:09:25 +0000"
-      },
-      {
-        "title": "China's Google Just Released Its Fast New AI Model for Free",
-        "titleVi": "Baidu ra mắt mô hình AI nhanh, miễn phí, cạnh tranh với OpenAI và Google",
-        "summary": "Baidu công bố trọng số mô hình suy luận nhanh, cho phép nhà phát triển sử dụng miễn phí và cạnh tranh với các dịch vụ AI độc quyền của OpenAI, Google và Anthropic.",
-        "why": "Baidu cung cấp mô hình AI nhanh, miễn phí, tạo lựa chọn thay thế cho các dịch vụ AI thương mại.",
-        "link": "https://decrypt.co/384015/china-google-released-fast-new-ai-model-free-baidu-ernie",
-        "source": "Decrypt",
-        "publishedAt": "Wed, 25 Nov 2026 22:38:09 +0000"
+        "title": "Semiconductor chips are the new oil. Here's why",
+        "titleVi": "Xuất khẩu bán dẫn lần đầu vượt dầu khí nhờ cơn sốt AI",
+        "summary": "Nhu cầu linh kiện gia tăng mạnh mẽ từ làn sóng trí tuệ nhân tạo đã giúp kim ngạch xuất khẩu bán dẫn vượt ngành dầu khí vào năm 2026. Sự dịch chuyển này phản ánh vai trò trung tâm của công nghệ trong nền kinh tế toàn cầu.",
+        "why": "Kim ngạch xuất khẩu linh kiện bán dẫn đã chính thức vượt dầu khí trong năm 2026.",
+        "link": "https://www.cnbc.com/2026/11/26/semiconductor-chips-are-the-new-oil-heres-why.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 26 Nov 2026 17:52:15 GMT"
       }
     ],
     "chung-khoan": [
       {
         "title": "S&P considers Nvidia credit downgrade over governance and ‘key man’ risks",
-        "titleVi": "S&P cân nhắc hạ xếp hạng tín dụng Nvidia do rủi ro quản trị",
-        "summary": "Cơ quan xếp hạng tín dụng có thể hạ xếp hạng Nvidia xuống AA-, bậc thứ tư cao nhất.",
-        "why": "S&P đang xem xét hạ xếp hạng tín dụng Nvidia vì rủi ro quản trị và ‘key man’.",
+        "titleVi": "S&P cân nhắc hạ cấp tín dụng Nvidia do rủi ro quản trị",
+        "summary": "Công ty xếp hạng tín dụng có thể hạ cấp Nvidia xuống AA-, bậc thứ tư cao nhất, do lo ngại về quản trị và rủi ro ‘người chủ chốt’.",
+        "why": "",
         "link": "https://techcrunch.com/2026/11/25/sp-considers-nvidia-credit-downgrade-over-governance-and-key-man-risks/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 25 Nov 2026 22:44:32 +0000"
       },
       {
         "title": "SpaceX, Musk pledge to donate a share each to active Trump Accounts",
-        "titleVi": "SpaceX và Elon Musk hứa quyên góp cổ phiếu cho tài khoản Trump hoạt động",
-        "summary": "SpaceX cam kết quyên góp một cổ phiếu loại A cho mỗi tài khoản Trump đang hoạt động, và CEO Elon Musk sẽ bù trùng số cổ phiếu đó.",
+        "titleVi": "SpaceX và Elon Musk hứa tặng cổ phiếu cho tài khoản Trump Account",
+        "summary": "SpaceX công bố kế hoạch quyên góp một cổ phiếu hạng A cho mỗi tài khoản Trump Account đang hoạt động. Giám đốc điều hành Elon Musk cũng cam kết tài trợ thêm một lượng cổ phần tương đương cho chương trình này.",
         "why": "",
         "link": "https://www.cnbc.com/2026/11/25/spacex-musk-trump-account-stock.html",
         "source": "CNBC",
         "publishedAt": "Thu, 26 Nov 2026 06:39:34 GMT"
       },
       {
-        "title": "S&P warns Nvidia credit rating could be cut over 'rising' management and governance risk",
-        "titleVi": "S&P cảnh báo có thể hạ xếp hạng tín nhiệm của Nvidia",
-        "summary": "Tổ chức S&P Global Ratings cho biết xếp hạng tín nhiệm của Nvidia có thể bị hạ một bậc. Nguyên nhân do rủi ro gia tăng trong bộ máy quản lý và quản trị doanh nghiệp tại hãng sản xuất chip này.",
+        "title": "Before the Sell-Off, AI Stocks Showed Dot-Com-Level Bubble Signals: Study",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/26/nvidia-market-governance-risk.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 26 Nov 2026 03:19:44 GMT"
-      },
-      {
-        "title": "Global stocks rally as investors shrug off U.S. tariffs and AI jitters",
-        "titleVi": "Chỉ số toàn cầu tăng khi nhà đầu tư phớt lờ lệnh thuế mới của Mỹ và lo ngại AI",
-        "summary": "Chỉ số cổ phiếu toàn cầu tăng khi nhà đầu tư phớt lờ lệnh thuế mới của Tổng thống Mỹ, áp dụng cho hơn 12 đối tác thương mại lớn, trong khi lo ngại về công nghệ AI vẫn tồn tại.",
-        "why": "",
-        "link": "https://www.cnbc.com/2026/11/26/stock-markets-today-.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 26 Nov 2026 08:42:26 GMT"
-      },
-      {
-        "title": "Wealthy Europeans look beyond stocks amid AI selloff. Here’s where they’re investing",
-        "titleVi": "Giới giàu có Châu Âu chuyển hướng sang tài sản thay thế",
-        "summary": "Khảo sát của Goldman Sachs Alternatives cho thấy các nhà đầu tư sở hữu tài sản lớn ở Châu Âu đang tăng cường rót vốn vào những kênh thay thế cổ phiếu. Xu hướng này diễn ra trong bối cảnh thị trường tài chính biến động.",
-        "why": "Goldman Sachs Alternatives lần đầu khảo sát xu hướng đầu tư của giới giàu có Châu Âu.",
-        "link": "https://www.cnbc.com/2026/11/26/wealthy-europeans-alternative-investments-ai.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 26 Nov 2026 07:23:42 GMT"
-      },
-      {
-        "title": "Is the stock market open for Thanksgiving? The answer might surprise you.",
-        "titleVi": "Thị trường chứng khoán đóng cửa vào Lễ Tạ ơn, nhưng hợp đồng tương lai vẫn giao dịch",
-        "summary": "Các sàn giao dịch lớn đóng cửa vào ngày Lễ Tạ ơn, nhưng hợp đồng tương lai cổ phiếu vẫn được giao dịch một phần trong ngày.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/is-the-stock-market-open-for-thanksgiving-the-answer-might-surprise-you-e68114d4?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Thu, 26 Nov 2026 07:16:00 GMT"
-      },
-      {
-        "title": "Why this stock-market selloff is probably going to get worse before it gets better",
-        "titleVi": "Sự sụt giảm thị trường chứng khoán có thể trở nên nặng hơn trước khi cải thiện",
-        "summary": "Sự tăng giá vào thứ Hai đã che giấu những vấn đề sâu hơn, cần được giải quyết trước khi thị trường có thể đạt đáy bền vững.",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/why-this-stock-market-selloff-is-probably-going-to-get-worse-before-it-gets-better-fce63a89?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Thu, 26 Nov 2026 00:33:00 GMT"
+        "link": "https://decrypt.co/384066/before-the-sell-off-ai-stocks-showed-dot-com-level-bubble-signals-study",
+        "source": "Decrypt",
+        "publishedAt": "Thu, 26 Nov 2026 19:01:02 +0000"
       }
     ],
     "crypto": [
       {
-        "title": "Here’s what happened in crypto today",
-        "titleVi": "Tổng hợp tin tức crypto hôm nay: Bitcoin, DeFi, Web3 và quy định",
-        "summary": "Bản tin cập nhật các xu hướng và sự kiện hằng ngày ảnh hưởng đến giá Bitcoin, blockchain, DeFi, Web3 và quy định tiền điện tử.",
-        "why": "Bản tin cung cấp thông tin chi tiết về các sự kiện mới nhất trong thị trường crypto, giúp người đọc nắm bắt xu hướng.",
-        "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source": "CoinTelegraph",
-        "publishedAt": "Thu, 26 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "UK regulator plans tighter DeFi rules, citing $6.3B Binance hack: Report",
-        "titleVi": "Anh dự kiến siết chặt quản lý DeFi sau vụ hacker Triều Tiên rửa tiền",
-        "summary": "Cơ quan quản lý Anh lên kế hoạch thắt chặt quy định với DeFi sau khi hacker liên quan đến Triều Tiên dùng các giao thức này để rửa tiền đánh cắp từ Binance. Cùng lúc, các công tố viên Mỹ đang tìm cách thu hồi hơn 1,1 tỷ USD tài sản mã hóa.",
-        "why": "Hacker Triều Tiên dùng DeFi rửa tiền từ vụ tấn công Binance trị giá 6,3 tỷ USD, khiến giới chức Anh và Mỹ đồng loạt vào cuộc.",
-        "link": "https://cointelegraph.com/news/uk-fca-defi-regulation-binance-hack?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source": "CoinTelegraph",
-        "publishedAt": "Thu, 26 Nov 2026 05:53:08 +0000"
-      },
-      {
-        "title": "$7 billion of bitcoin options expire Friday, and the biggest bets look starkly different from October",
-        "titleVi": "7 tỷ USD hợp đồng quyền chọn Bitcoin sắp đáo hạn vào thứ Sáu",
-        "summary": "Lượng hợp đồng quyền chọn Bitcoin trị giá 7 tỷ USD sẽ đáo hạn vào thứ Sáu với vị thế nghiêng hẳn về chiều giảm giá. Giới giao dịch liên tục mua công cụ phòng ngừa rủi ro khi mức độ biến động thị trường gia tăng.",
-        "why": "Đợt đáo hạn hợp đồng quyền chọn Bitcoin quy mô 7 tỷ USD ghi nhận tâm lý thị trường đảo chiều sang bi quan so với tháng 10.",
-        "link": "https://www.coindesk.com/markets/2026/11/26/usd7-billion-of-bitcoin-options-expire-friday-and-the-biggest-bets-look-starkly-different-from-october",
-        "source": "CoinDesk",
-        "publishedAt": "Thu, 26 Nov 2026 08:01:33 +0000"
-      },
-      {
-        "title": "Over 1,000 Bitcoin miners were tricked into working for a thief by a fake internet route",
-        "titleVi": "Hơn 1.000 thợ đào Bitcoin bị lừa chuyển công suất sang bể đào giả mạo",
-        "summary": "Kẻ tấn công đã điều hướng tới 1,9 EH/s công suất từ hơn 1.000 thợ đào sang một bể mạo danh vào đầu tháng 11 qua tuyến mạng giả. Lỗ hổng kỹ thuật này hiện vẫn tồn tại ở phần lớn các nhóm khai thác tiền mã hóa lớn.",
+        "title": "Japan weighs tighter oversight of DeFi, self-custodial wallets",
+        "titleVi": "Nhật Bản cân nhắc kiểm soát chặt chẽ hơn DeFi",
+        "summary": "Cơ quan tài chính Nhật Bản đang xem xét các biện pháp hạn chế rủi ro tài chính bất hợp pháp, bao gồm hạn chế truy cập dịch vụ DeFi và ví tự quản.",
         "why": "",
-        "link": "https://www.coindesk.com/markets/2026/11/26/hackers-hijacked-1-000-plus-bitcoin-mines-in-one-second-by-faking-internet-routes",
+        "link": "https://cointelegraph.com/news/japan-tighter-oversight-defi-self-custodial-wallets?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source": "CoinTelegraph",
+        "publishedAt": "Thu, 26 Nov 2026 20:05:18 +0000"
+      },
+      {
+        "title": "Spain moves to grant financial watchdog power to freeze crypto accounts",
+        "titleVi": "Tây Ban Nha cho phép cơ quan giám sát tài chính đóng băng tài khoản crypto",
+        "summary": "Tây Ban Nha ban hành nghị định mới cho phép đơn vị tình báo tài chính đình chỉ tài khoản crypto, đồng thời phạt các công ty vi phạm.",
+        "why": "",
+        "link": "https://cointelegraph.com/news/spain-moves-grant-financial-watchdog-power-freeze-crypto-accounts?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source": "CoinTelegraph",
+        "publishedAt": "Thu, 26 Nov 2026 18:26:31 +0000"
+      },
+      {
+        "title": "Crypto on notice as hawkish Fed risks December ‘meltdown’",
+        "titleVi": "Chuyên gia cảnh báo rủi ro thị trường lao dốc nếu Fed giữ lập trường diều hâu",
+        "summary": "Nhà kinh tế học Robin Brooks cảnh báo thị trường chứng khoán có nguy cơ sụt giảm trong tháng 12 nếu Fed không phát tín hiệu nới lỏng tiền tệ trước giai đoạn tạm dừng truyền thông FOMC.",
+        "why": "",
+        "link": "https://cointelegraph.com/markets/crypto-hawkish-fed-risks-december-meltdown?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "source": "CoinTelegraph",
+        "publishedAt": "Thu, 26 Nov 2026 17:39:53 +0000"
+      },
+      {
+        "title": "A tiny payment can expose the IP address behind a bitcoin wallet, developer finds",
+        "titleVi": "Giao dịch nhỏ có thể lộ địa chỉ IP của ví Bitcoin",
+        "summary": "Một nhà phát triển Bitcoin Core phát hiện rằng việc gửi lại giao dịch bị treo cho phép ai cũng liên kết địa chỉ ví với máy tính của người dùng, với chi phí dưới 35 xu.",
+        "why": "",
+        "link": "https://www.coindesk.com/tech/2026/11/26/a-tiny-payment-can-expose-the-ip-address-behind-a-bitcoin-wallet-developer-finds",
         "source": "CoinDesk",
-        "publishedAt": "Thu, 26 Nov 2026 06:19:09 +0000"
+        "publishedAt": "Thu, 26 Nov 2026 17:30:00 +0000"
+      },
+      {
+        "title": "Bitcoin’s dormant supply rises, a behavior seen during previous bear-market bottoming phases",
+        "titleVi": "Lượng Bitcoin không hoạt động tăng mạnh khi giá ở mức 60.000 USD",
+        "summary": "Lượng Bitcoin nằm yên trên mạng lưới gia tăng trong bối cảnh giá giao dịch quanh mức 60.000 USD, thấp hơn khoảng 50% so với đỉnh. Hiện tượng này thường xuất hiện ở các giai đoạn tạo đáy của thị trường giá xuống trước đây.",
+        "why": "Lượng Bitcoin không di chuyển gia tăng khi giá điều chỉnh giảm khoảng 50% so với đỉnh lịch sử.",
+        "link": "https://www.coindesk.com/markets/2026/11/26/bitcoin-s-dormant-supply-rises-a-behavior-seen-during-previous-bear-market-bottoming-phases",
+        "source": "CoinDesk",
+        "publishedAt": "Thu, 26 Nov 2026 16:50:23 +0000"
+      },
+      {
+        "title": "Spain gives anti-laundering unit power to freeze crypto accounts without a judge",
+        "titleVi": "Tây Ban Nha cho phép cơ quan phòng chống rửa tiền đóng băng tài khoản tiền mã hóa",
+        "summary": "Đơn vị tình báo tài chính Sepblac của Tây Ban Nha được trao quyền phong tỏa tài khoản tiền mã hóa mà không cần lệnh từ tòa án. Trước đó, tổ chức này chỉ được can thiệp khi có yêu cầu từ cơ quan chức năng nước ngoài.",
+        "why": "",
+        "link": "https://www.coindesk.com/business/2026/11/26/spain-gives-anti-laundering-unit-power-to-freeze-crypto-accounts-without-a-judge",
+        "source": "CoinDesk",
+        "publishedAt": "Thu, 26 Nov 2026 14:05:58 +0000"
+      },
+      {
+        "title": "Bitcoin Holds Above $60K as Death Cross Clouds Thanksgiving Recovery",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://decrypt.co/384079/bitcoin-holds-above-60k-as-death-cross-clouds-thanksgiving-recovery",
+        "source": "Decrypt",
+        "publishedAt": "Thu, 26 Nov 2026 18:15:29 +0000"
       }
     ],
     "thoi-su": [
       {
         "title": "Jensen Huang broke Nvidia’s code of conduct, and his employees may not forget it",
-        "titleVi": "Jensen Huang vi phạm quy chế Nvidia, ảnh hưởng tới nhân viên",
-        "summary": "Jensen Huang vi phạm quy chế Nvidia, có thể gây hậu quả cho văn hoá công ty và nhân viên.",
+        "titleVi": "Jensen Huang vi phạm quy tắc hành vi Nvidia, ảnh hưởng tới nhân viên",
+        "summary": "Jensen Huang vi phạm quy tắc hành vi của Nvidia, và hậu quả có thể kéo dài trong văn hoá công ty, ảnh hưởng tới nhân viên.",
         "why": "",
         "link": "https://techcrunch.com/2026/11/25/jensen-huang-broke-nvidias-code-of-conduct-and-his-employees-may-not-forget-it/",
         "source": "TechCrunch",
         "publishedAt": "Wed, 25 Nov 2026 19:54:57 +0000"
       },
       {
-        "title": "Lenovo Coupon Codes: 15% Off in November 2026",
-        "titleVi": "Giảm giá 15% cho sản phẩm Lenovo trong tháng 11/2026",
-        "summary": "Khách hàng có thể sử dụng mã giảm giá Lenovo trong tháng 11/2026 để tiết kiệm 15% khi mua các sản phẩm ThinkPad, Yoga laptop hoặc máy chơi game Legion.",
-        "why": "Mã giảm giá áp dụng cho 3 dòng sản phẩm chính của Lenovo trong tháng 11/2026.",
-        "link": "https://www.wired.com/story/lenovo-coupon-code/",
-        "source": "Wired",
-        "publishedAt": "Thu, 26 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "Chewy Promo Codes: 50% Off November 2026",
-        "titleVi": "Giảm giá 50% cho thực phẩm thú cưng tại Chewy tháng 11/2026",
-        "summary": "Khách hàng có thể dùng mã giảm giá Chewy trong tháng 11/2026 để được giảm 50% cho thực phẩm thú cưng, 30 USD cho đơn hàng trên 49 USD, hoặc 20 USD cho đơn hàng đầu tiên.",
+        "title": "The next generation of bionic hands is here—and they can feel",
+        "titleVi": "Bàn tay sinh học thế hệ mới giúp người dùng cảm nhận lực nén",
+        "summary": "Avi Davidson thử nghiệm thành công bàn tay sinh học mới được nối trực tiếp với dây thần kinh cẳng tay. Thiết bị giúp ông cảm nhận áp lực và lần đầu tiên sau nhiều năm có thể cầm nắm các vật thể nhạy cảm.",
         "why": "",
-        "link": "https://www.wired.com/story/chewy-promo-code/",
-        "source": "Wired",
-        "publishedAt": "Thu, 26 Nov 2026 06:00:00 +0000"
+        "link": "https://www.technologyreview.com/2026/11/26/1149923/the-next-generation-of-bionic-hands-is-here-and-they-can-feel/",
+        "source": "MIT Tech Review",
+        "publishedAt": "Thu, 26 Nov 2026 09:59:00 +0000"
       },
       {
-        "title": "Office Depot Coupons: $20 Off November 2026",
-        "titleVi": "Giảm giá 20 USD cho các mặt hàng tại Office Depot tháng 11/2026",
-        "summary": "Khách hàng có thể sử dụng mã giảm giá Office Depot trong tháng 11/2026 để được giảm 20 USD khi mua nội thất, mực in hoặc dịch vụ in ấn chuyên nghiệp.",
-        "why": "Office Depot cung cấp mã giảm giá 20 USD cho các mặt hàng thiết yếu trong tháng 11/2026.",
-        "link": "https://www.wired.com/story/office-depot-promo-codes/",
-        "source": "Wired",
-        "publishedAt": "Thu, 26 Nov 2026 06:00:00 +0000"
-      },
-      {
-        "title": "U.S. tariff-hike threats pile pressure on partners to sign trade deals",
-        "titleVi": "Mỹ đe dọa tăng thuế để thúc ép các đối tác ký thỏa thuận thương mại",
-        "summary": "Chính quyền Mỹ lên kế hoạch áp đợt thuế mới lên 14 đối tác thương mại. Mặc dù vậy, Washington sẵn sàng giảm mức thuế cho những quốc gia đồng ý ký kết thỏa thuận song phương.",
-        "why": "Mỹ dự kiến tung đợt thuế quan mới nhắm vào 14 đối tác thương mại.",
-        "link": "https://www.cnbc.com/2026/11/26/us-tariffs-hike-trade-agreement.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 26 Nov 2026 08:09:39 GMT"
-      },
-      {
-        "title": "Taking on Starlink: Europe’s largest satellite factory opens in push to rival Musk",
-        "titleVi": "Châu Âu mở nhà máy vệ tinh lớn nhất nhằm cạnh tranh với Starlink",
-        "summary": "Một đại nhà máy rộng 20.000 mét vuông vừa đi vào hoạt động tại Châu Âu. Cơ sở này có khả năng sản xuất tới 500 vệ tinh hằng năm và trở thành trung tâm chế tạo lớn thứ ba thế giới.",
+        "title": "The Best Black Friday Deals Are Now Live: Our Expert Picks for 2026",
+        "titleVi": "",
+        "summary": "",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/26/starlink-satellites-aerospacelab-factory-belgium.html",
-        "source": "CNBC",
-        "publishedAt": "Thu, 26 Nov 2026 07:45:05 GMT"
+        "link": "https://www.wired.com/story/best-black-friday-deals-11-26-2026/",
+        "source": "Wired",
+        "publishedAt": "Thu, 26 Nov 2026 18:49:47 +0000"
       },
       {
-        "title": "We are living in perilous times if Nvidia’s Jensen Huang dictates your 401(k) balance",
-        "titleVi": "Nvidia: Khi quyết định 401(k) phụ thuộc vào Jensen Huang",
-        "summary": "Sự ảnh hưởng của Jensen Huang đối với quyết định đầu tư 401(k) khiến người lao động sống trong tình trạng nguy hiểm.",
-        "why": "Jensen Huang đã xây dựng công ty với tầm nhìn tiên phong, khiến nhiều người dựa vào quyết định của anh ấy trong quỹ hưu trí.",
-        "link": "https://www.marketwatch.com/story/we-are-living-in-perilous-times-if-nvidias-jensen-huang-dictates-your-401-k-balance-e0942d1e?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Thu, 26 Nov 2026 01:15:00 GMT"
+        "title": "10 Best Meal Delivery Services, Tested by an Ex-Restaurant Critic",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/gallery/best-meal-kit-services-1/",
+        "source": "Wired",
+        "publishedAt": "Thu, 26 Nov 2026 13:00:00 +0000"
+      },
+      {
+        "title": "10 Best Office Chairs of 2026—We Tested 70 to Pick Them",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.wired.com/gallery/best-office-chairs/",
+        "source": "Wired",
+        "publishedAt": "Thu, 26 Nov 2026 12:35:00 +0000"
+      },
+      {
+        "title": "Trump demands probe into ‘record setting error’ after third-quarter GDP data gets massive revision higher",
+        "titleVi": "",
+        "summary": "",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/26/trump-gdp-revision-investigation.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 26 Nov 2026 20:18:11 GMT"
+      },
+      {
+        "title": "Even the price of toys is on the rise. How Americans are scaling back holiday plans",
+        "titleVi": "Người Mỹ thu hẹp chi tiêu lễ hội do chi phí tăng cao",
+        "summary": "Người tiêu dùng Mỹ đang cắt giảm ngân sách nghỉ lễ năm 2026 trước áp lực chi phí thực phẩm, đi lại và quà tặng tăng vọt. Tình trạng này xuất phát từ lạm phát kéo dài cùng cú sốc giá năng lượng liên quan tới cuộc chiến tại Iran.",
+        "why": "Chi phí thực phẩm, đi lại và quà tặng tại Mỹ đều gia tăng trong mùa lễ năm 2026.",
+        "link": "https://www.cnbc.com/2026/11/25/holiday-inflation-thanksgiving-travel-food-gifts.html",
+        "source": "CNBC",
+        "publishedAt": "Wed, 25 Nov 2026 16:17:13 GMT"
+      },
+      {
+        "title": "Microdrama apps chase profits as Hollywood moves into short-form, vertical video",
+        "titleVi": "Ứng dụng phim ngắn dạng dọc bùng nổ khi Hollywood gia nhập",
+        "summary": "Phim truyền hình ngắn khung hình dọc đang tăng trưởng mạnh mẽ trong bối cảnh các phương tiện truyền thông truyền thống mất dần sức hút. Ngay cả các hãng phim tại Hollywood cũng đang chuyển hướng sang mảng nội dung này để tìm kiếm lợi nhuận.",
+        "why": "Hollywood và các nền tảng ứng dụng đang chuyển hướng sang sản xuất phim ngắn dạng dọc.",
+        "link": "https://www.cnbc.com/2026/11/26/micro-drama-apps-hollywood-vertical-video.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 26 Nov 2026 18:27:43 GMT"
+      },
+      {
+        "title": "Spain’s Pablo Hernández de Cos set to lead European Central Bank",
+        "titleVi": "Pablo Hernández de Cos sắp tiếp quản vị trí Chủ tịch ECB",
+        "summary": "Chuyên gia Pablo Hernández de Cos đã giành đủ sự ủng hộ để thay thế Christine Lagarde lãnh đạo ECB vào năm tới. Ông sẽ tiếp quản Ngân hàng Trung ương Châu Âu trong bối cảnh khu vực gặp nhiều bất ổn chính trị và tăng trưởng trập trùng.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/26/pablo-hernandez-de-cos-ecb-president.html",
+        "source": "CNBC",
+        "publishedAt": "Thu, 26 Nov 2026 15:28:26 GMT"
       },
       {
         "title": "A 66-year-old nurse is facing down retirement with just $500 saved. Who’s to blame?",
-        "titleVi": "Bác sĩ 66 tuổi chỉ có 500 USD cho hưu trí – ai là người chịu trách nhiệm?",
-        "summary": "Một nữ y tá 66 tuổi đang đối mặt với hưu trí chỉ với 500 USD, cho thấy hưu trí là trạng thái tài chính chứ không phải tuổi.",
-        "why": "Bác sĩ 66 tuổi chỉ có 500 USD cho hưu trí, minh chứng cho sự thiếu chuẩn bị tài chính.",
+        "titleVi": "Bác sĩ 66 tuổi chỉ có 500 USD khi nghỉ hưu",
+        "summary": "Một nữ y tá 66 tuổi đang phải đối mặt với việc nghỉ hưu khi chỉ còn 500 USD tiết kiệm. Câu hỏi đặt ra là ai chịu trách nhiệm cho tình trạng này?",
+        "why": "Bác sĩ chỉ có 500 USD khi nghỉ hưu, điều này làm nổi bật vấn đề lương thấp và thiếu kế hoạch tài chính cá nhân.",
         "link": "https://www.marketwatch.com/story/a-66-year-old-nurse-faces-retirement-with-just-500-saved-whos-to-blame-4249a0fd?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Wed, 25 Nov 2026 23:30:00 GMT"
+        "publishedAt": "Thu, 26 Nov 2026 19:00:00 GMT"
       },
       {
-        "title": "Sky proposes emergency vote on $25M transfer amid liquidity stress",
-        "titleVi": "Sky bỏ phiếu khẩn cấp điều chuyển 25 triệu USD do căng thẳng thanh khoản",
-        "summary": "Đơn vị điều phối của Sky đã kích hoạt quy trình khẩn cấp nhằm tổ chức bỏ phiếu sớm về khoản chuyển 25 triệu USD thay vì chờ đến đợt định kỳ ngày 3/12. Quyết định được đưa ra trong bối cảnh giao thức này đối mặt áp lực thanh khoản.",
+        "title": "I’ve been married for 58 years. It’s ‘our’ money, not ‘his’ and ‘hers.’ Why do so many couples keep their finances separate?",
+        "titleVi": "Cặp vợ chồng 58 năm vẫn giữ tài chính riêng",
+        "summary": "Một người đã kết hôn 58 năm cho rằng tiền của họ là ‘cùng nhau’, nhưng vẫn giữ tài chính riêng. Anh cho rằng vợ đã ngừng làm việc ngoài nhà từ 1970.",
         "why": "",
-        "link": "https://cointelegraph.com/news/sky-emergency-vote-25m-transfer-stusds-liquidity-stress?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
-        "source": "CoinTelegraph",
-        "publishedAt": "Thu, 26 Nov 2026 05:29:26 +0000"
+        "link": "https://www.marketwatch.com/story/ive-been-married-for-58-years-its-our-money-not-his-and-hers-why-dont-others-feel-the-same-c5745889?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Thu, 26 Nov 2026 18:30:00 GMT"
       },
       {
-        "title": "What Happened to Alice Huang, the Woman at the Center of Nvidia’s Scandal?",
-        "titleVi": "Alice Huang: Không có bằng chứng Beijing điều khiển, vẫn bị cấm nhập và kiểm tra quan hệ k",
-        "summary": "Cơ quan tình báo Mỹ không tìm thấy bằng chứng Beijing điều khiển Alice Huang gián điệp CEO Nvidia; cô vẫn đối mặt với cấm nhập và kiểm tra mối quan hệ kinh doanh.",
+        "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
+        "titleVi": "Đánh giá tác động của Jensen Huang tới quỹ 401(k)",
+        "summary": "Một người dùng 401(k) cảm thấy khó chịu vì Jensen Huang trở lại Nvidia, nhưng lại hài lòng với hiệu quả của công ty đối với quỹ của mình.",
         "why": "",
-        "link": "https://decrypt.co/384001/what-happened-alice-huang-nvidia-spy-scandal",
-        "source": "Decrypt",
-        "publishedAt": "Wed, 25 Nov 2026 21:46:02 +0000"
+        "link": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Thu, 26 Nov 2026 16:30:00 GMT"
+      },
+      {
+        "title": "I’m in my 70s and buying a new BMW X1. Should I put my only son on the title?",
+        "titleVi": "",
+        "summary": "Một người đàn ông 70 tuổi quyết định mua chiếc BMW X1 mới và đang suy nghĩ liệu có nên ghi con trai duy nhất của mình vào giấy tờ đăng ký xe.",
+        "why": "",
+        "link": "https://www.marketwatch.com/story/im-in-my-70s-and-buying-a-new-bmw-x1-should-i-put-my-only-son-on-the-title-25731040?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Thu, 26 Nov 2026 16:00:00 GMT"
       }
     ]
   }
