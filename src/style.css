@@ -5240,3 +5240,12 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
 @media (max-width: 600px) {
   .bg-item-amount { min-width: 0; }
 }
+
+/* So sánh 2 văn bản (ssvb): tô khác nhau từng chữ — thêm nền xanh lá,
+   xóa nền đỏ gạch ngang; dùng token --good/--bad nên tự đổi theo nền tối. */
+.ssvb-diff { line-height: 1.8; overflow-wrap: break-word; }
+.ssvb-add { background: var(--good-soft); color: var(--good); border-radius: 4px; padding: 0 2px; }
+.ssvb-del { background: var(--bad-soft); color: var(--bad); border-radius: 4px; padding: 0 2px; text-decoration: line-through; }
+
+/* Định dạng code (ddc): khối kết quả cuộn ngang khi dòng code quá dài. */
+.ddc-out { overflow-x: auto; }

@@ -60,6 +60,36 @@ export function body() {
         <span class="about-license">BSD-2-Clause</span>
       </div>
       <div class="about-lib">
+        <h3>onnxruntime-web 1.31.1</h3>
+        <p>Chạy mô hình AI tách nền ảnh ngay trên trình duyệt (công cụ Tách nền ảnh) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">MIT</span>
+      </div>
+      <div class="about-lib">
+        <h3>Prettier 3.10.1</h3>
+        <p>Định dạng code JavaScript, TypeScript, JSON, CSS, HTML, Markdown và YAML (công cụ Định dạng code) — bộ lõi tải theo trang, plugin từng ngôn ngữ chỉ tải khi bạn chọn ngôn ngữ đó.</p>
+        <span class="about-license">MIT</span>
+      </div>
+      <div class="about-lib">
+        <h3>diff-match-patch</h3>
+        <p>So sánh 2 văn bản từng chữ, từng dòng (công cụ So sánh 2 văn bản) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">Apache-2.0</span>
+      </div>
+      <div class="about-lib">
+        <h3>Mermaid 11.17.2</h3>
+        <p>Vẽ lưu đồ, sơ đồ tuần tự, sơ đồ Gantt và sơ đồ trạng thái (công cụ Vẽ sơ đồ / lưu đồ) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">MIT</span>
+      </div>
+      <div class="about-lib">
+        <h3>JsBarcode 3.11.6</h3>
+        <p>Vẽ mã vạch CODE128, CODE39, EAN-13, UPC-A (công cụ Tạo mã vạch) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">MIT</span>
+      </div>
+      <div class="about-lib">
+        <h3>U²-Net (u2netp)</h3>
+        <p>Mô hình AI tách nền ảnh (công cụ Tách nền ảnh) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">Apache-2.0</span>
+      </div>
+      <div class="about-lib">
         <h3>Phông chữ Inter và Be Vietnam Pro</h3>
         <p>Phông chữ hiển thị toàn web.</p>
         <span class="about-license">SIL Open Font License 1.1</span>

@@ -299,6 +299,11 @@ const TOOL_VENDOR_SCRIPTS = {
   'gop-pdf': ['pdf-lib.min.js'], // pdf-lib — gộp PDF
   'tach-trang-pdf': ['pdf-lib.min.js'], // pdf-lib — tách trang PDF
   // 'anh-sang-pdf' không cần thư viện: canvas + trình ghi PDF viết tay.
+  'tach-nen-anh': ['ort.wasm.min.js'], // onnxruntime-web (chỉ backend wasm) — tách nền ảnh (model + wasm nạp lúc chạy, xem copyFile)
+  'tao-ma-vach': ['jsbarcode.all.min.js'], // JsBarcode — vẽ mã vạch
+  've-so-do': ['mermaid.min.js'], // Mermaid — vẽ sơ đồ từ cú pháp
+  'so-sanh-van-ban': ['diff_match_patch.js'], // diff-match-patch — so sánh văn bản
+  'dinh-dang-code': ['prettier-standalone.js'], // Prettier standalone — định dạng code (plugin từng ngôn ngữ nạp lúc chạy, xem copyFile)
 };
 
 // MẪU 2 (19/11, Claude duyệt bản thí điểm Lương Gross⇄Net 14:32 19/11
@@ -1489,6 +1494,29 @@ async function main() {
   // mammoth (BSD-2-Clause): đọc văn bản file .docx ở công cụ Trộn đề
   // trắc nghiệm — chỉ tải khi người dùng chọn file .docx.
   copyFile('vendor/mammoth.browser.min.js', 'assets/vendor/mammoth.browser.min.js');
+  // Đợt 5 công cụ mới (26/11) — chỉ tải khi mở đúng trang công cụ đó.
+  copyFile('vendor/jsbarcode.all.min.js', 'assets/vendor/jsbarcode.all.min.js');
+  copyFile('vendor/mermaid.min.js', 'assets/vendor/mermaid.min.js');
+  copyFile('vendor/diff_match_patch.js', 'assets/vendor/diff_match_patch.js');
+  // onnxruntime-web (tách nền ảnh): file JS nạp qua thẻ <script>;
+  // file wasm + model KHÔNG nạp qua thẻ <script>, onnxruntime tự tải
+  // lúc chạy khi người dùng bấm "Tách nền" — chỉ copy ra dist.
+  // LƯU Ý (26/11): dùng bản ort.wasm.min.js (chỉ backend wasm), KHÔNG
+  // dùng ort.min.js — bản đầy đủ tự import thêm
+  // ort-wasm-simd-threaded.jsep.mjs + jsep.wasm (~29,5 MB) và lỗi
+  // "no available backend found" khi thiếu file. Bản wasm chỉ cần
+  // ort-wasm-simd-threaded.mjs + ort-wasm-simd-threaded.wasm (14,8 MB).
+  copyFile('vendor/ort.wasm.min.js', 'assets/vendor/ort.wasm.min.js');
+  copyFile('vendor/ort-wasm-simd-threaded.mjs', 'assets/vendor/ort-wasm-simd-threaded.mjs');
+  copyFile('vendor/ort-wasm-simd-threaded.wasm', 'assets/vendor/ort-wasm-simd-threaded.wasm');
+  copyFile('vendor/u2netp.onnx', 'assets/vendor/u2netp.onnx');
+  // Prettier (định dạng code): file standalone nạp qua thẻ <script>;
+  // plugin từng ngôn ngữ KHÔNG nạp qua thẻ <script> — init() chèn thẻ
+  // <script> lúc chạy chỉ khi người dùng chọn ngôn ngữ đó.
+  copyFile('vendor/prettier-standalone.js', 'assets/vendor/prettier-standalone.js');
+  for (const p of ['babel', 'estree', 'typescript', 'postcss', 'html', 'markdown', 'yaml']) {
+    copyFile(`vendor/prettier-plugin-${p}.js`, `assets/vendor/prettier-plugin-${p}.js`);
+  }
   for (const f of DATA_FILES) copyFile(`data/${f}`, `data/${f}`);
 
   // Chỉ mục tìm kiếm (sinh từ meta công cụ + bảng đồng nghĩa).
