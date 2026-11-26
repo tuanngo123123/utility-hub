@@ -4665,6 +4665,10 @@ html:not([data-theme="dark"]) body:has(.m2-page) { background: #F6F7FB; }
   text-underline-offset: 3px;
 }
 
+/* Kết quả MẪU 2 của công cụ ảnh/sơ đồ/mã vạch: ảnh, canvas và SVG co
+   vừa thẻ kết quả 440px, không tràn (5 công cụ mới, 26/11). */
+.m2-result-card canvas, .m2-result-card img, .m2-result-card svg { max-width: 100%; height: auto; }
+
 /* Điện thoại + máy tính bảng hẹp (<960px): xếp 1 cột — công tắc, ô
    Lương Gross, ngay dưới là thẻ kết quả, rồi Vùng + Người phụ thuộc.
    Thẻ nhập dùng display:contents để 2 nửa của nó kẹp lấy thẻ kết quả;

@@ -17,20 +17,32 @@ const EX_JS = `const  ten = "An";function chao(ten){return "Xin chào, "+ten+"!"
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head"><span>🧹</span><div><h2>Định dạng code (Prettier)</h2><p class="muted">Dán code, chọn đúng ngôn ngữ, bấm Định dạng — Prettier xếp lại gọn gàng đúng chuẩn.</p></div></div>
-  <div class="grid-2">
-    <div class="field"><label for="ddc-lang">Ngôn ngữ</label><select id="ddc-lang"><option value="javascript" selected>JavaScript</option><option value="typescript">TypeScript</option><option value="json">JSON</option><option value="css">CSS</option><option value="html">HTML</option><option value="markdown">Markdown</option><option value="yaml">YAML</option></select></div>
-    <div class="field"><label>Thử nhanh</label><div><button type="button" class="btn btn-ghost" id="ddc-ex">Điền ví dụ</button></div></div>
-  </div>
-  <div class="field"><label for="ddc-in">Code cần định dạng</label><textarea id="ddc-in" rows="10" spellcheck="false" placeholder="Dán code vào đây…">${EX_JS}</textarea></div>
-  <button type="button" class="btn btn-primary" id="ddc-go">Định dạng</button>
-  <p class="muted small" id="ddc-status"></p>
-  <div id="ddc-err"></div>
-  <div class="result" id="ddc-wrap" hidden>
-    <pre class="ddc-out" id="ddc-out"></pre>
-    <div class="result-actions">
-      <button type="button" class="btn btn-ghost" id="ddc-copy">Chép kết quả</button>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="grid-2">
+          <div class="field"><label for="ddc-lang">Ngôn ngữ</label><select id="ddc-lang"><option value="javascript" selected>JavaScript</option><option value="typescript">TypeScript</option><option value="json">JSON</option><option value="css">CSS</option><option value="html">HTML</option><option value="markdown">Markdown</option><option value="yaml">YAML</option></select></div>
+          <div class="field"><label>Thử nhanh</label><div><button type="button" class="btn btn-ghost" id="ddc-ex">Điền ví dụ</button></div></div>
+        </div>
+        <div class="field"><label for="ddc-in">Code cần định dạng</label><textarea id="ddc-in" rows="10" spellcheck="false" placeholder="Dán code vào đây…">${EX_JS}</textarea></div>
+        <button type="button" class="btn btn-primary" id="ddc-go">Định dạng</button>
+        <p class="muted small" id="ddc-status"></p>
+        <div id="ddc-err"></div>
+      </div>
+    </div>
+    <div class="m2-result-card">
+      <p class="m2-result-label">Kết quả</p>
+      <p class="muted" id="ddc-empty">Bấm Định dạng để xem code đã xếp đẹp.</p>
+      <div class="result" id="ddc-wrap" hidden>
+        <pre class="ddc-out" id="ddc-out"></pre>
+        <div class="m2-result-actions">
+          <button type="button" class="btn btn-ghost" id="ddc-copy">Chép kết quả</button>
+          <button type="button" class="btn btn-ghost" data-uh-share-copy>Chép liên kết</button>
+          <button type="button" class="btn btn-ghost" data-uh-share-zalo>Chia sẻ Zalo</button>
+          <button type="button" class="btn btn-ghost" data-uh-feedback-open>Góp ý / Báo lỗi</button>
+        </div>
+      </div>
     </div>
   </div>
   <p class="note">Công cụ này dùng Prettier — bộ định dạng code chuẩn, xếp lại thụt lề, dấu cách, dấu chấm phẩy và xuống dòng đúng quy tắc từng ngôn ngữ. Khác với công cụ Dev Tools (chỉ xếp đẹp JSON nhanh), đây là định dạng thật cho cả 7 ngôn ngữ. Bộ định dạng từng ngôn ngữ chỉ tải khi bạn chọn ngôn ngữ đó (lần đầu chờ vài giây). Code chỉ xử lý trên máy của bạn.</p>
@@ -93,6 +105,7 @@ export function init(root) {
     if (!code.trim()) {
       errEl.innerHTML = '<p class="error">Hãy dán code cần định dạng vào ô trên.</p>';
       wrapEl.hidden = true;
+      $('ddc-empty').style.display = '';
       return;
     }
     if (typeof window.prettier === 'undefined' || typeof window.prettier.format !== 'function') {
@@ -111,10 +124,12 @@ export function init(root) {
       lastOut = out;
       outEl.textContent = out;
       wrapEl.hidden = false;
+      $('ddc-empty').style.display = 'none';
       statusEl.textContent = 'Đã định dạng xong (' + (LANGS[lang] || {}).label + ').';
       toast('Đã định dạng xong.');
     } catch (e) {
       wrapEl.hidden = true;
+      $('ddc-empty').style.display = '';
       const msg = (e && e.message ? String(e.message) : 'Code chưa đúng cú pháp.').split('\n').slice(0, 2).join(' ').slice(0, 300);
       errEl.innerHTML = '<p class="error">Không định dạng được: ' + msg.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>';
       statusEl.textContent = '';
@@ -129,11 +144,13 @@ export function init(root) {
     inEl.value = EXAMPLES[langEl.value] || EXAMPLES.javascript;
     errEl.innerHTML = '';
     wrapEl.hidden = true;
+    $('ddc-empty').style.display = '';
     statusEl.textContent = '';
   });
   langEl.addEventListener('change', () => {
     errEl.innerHTML = '';
     wrapEl.hidden = true;
+    $('ddc-empty').style.display = '';
     statusEl.textContent = '';
   });
   $('ddc-copy').addEventListener('click', async () => {

@@ -22,21 +22,32 @@ const FLOWCHART = `flowchart TD
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head"><span>🔀</span><div><h2>Vẽ sơ đồ / lưu đồ (Mermaid)</h2><p class="muted">Gõ cú pháp Mermaid, sơ đồ vẽ ngay bên dưới — tải PNG hoặc SVG về dùng tiếp.</p></div></div>
-  <div class="field"><label>Thử nhanh — bấm để điền mẫu</label><div>
-    <button type="button" class="chip" data-vsd-ex="flowchart">Lưu đồ</button>
-    <button type="button" class="chip" data-vsd-ex="sequence">Sơ đồ tuần tự</button>
-    <button type="button" class="chip" data-vsd-ex="gantt">Sơ đồ Gantt</button>
-    <button type="button" class="chip" data-vsd-ex="state">Sơ đồ trạng thái</button>
-  </div></div>
-  <div class="field"><label for="vsd-code">Cú pháp Mermaid</label><textarea id="vsd-code" rows="12" spellcheck="false">${FLOWCHART}</textarea></div>
-  <div id="vsd-err"></div>
-  <div class="result" id="vsd-out" aria-live="polite"></div>
-  <div id="vsd-dl" hidden>
-    <button type="button" class="btn btn-primary" id="vsd-dl-png">Tải ảnh PNG</button>
-    <button type="button" class="btn btn-ghost" id="vsd-dl-svg">Tải file SVG</button>
-    <button type="button" class="btn btn-ghost" id="vsd-copy">Chép cú pháp</button>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="field"><label>Thử nhanh — bấm để điền mẫu</label><div class="m2-quick">
+          <button type="button" class="m2-quick-btn" data-vsd-ex="flowchart">Lưu đồ</button>
+          <button type="button" class="m2-quick-btn" data-vsd-ex="sequence">Tuần tự</button>
+          <button type="button" class="m2-quick-btn" data-vsd-ex="gantt">Gantt</button>
+          <button type="button" class="m2-quick-btn" data-vsd-ex="state">Trạng thái</button>
+        </div></div>
+        <div class="field"><label for="vsd-code">Cú pháp Mermaid</label><textarea id="vsd-code" rows="12" spellcheck="false">${FLOWCHART}</textarea></div>
+        <div id="vsd-err"></div>
+      </div>
+    </div>
+    <div class="m2-result-card">
+      <p class="m2-result-label">Kết quả</p>
+      <div class="result" id="vsd-out" aria-live="polite"></div>
+      <div class="m2-result-actions" id="vsd-dl" hidden>
+        <button type="button" class="btn btn-primary" id="vsd-dl-png">Tải ảnh PNG</button>
+        <button type="button" class="btn btn-ghost" id="vsd-dl-svg">Tải file SVG</button>
+        <button type="button" class="btn btn-ghost" id="vsd-copy">Chép cú pháp</button>
+        <button type="button" class="btn btn-ghost" data-uh-share-copy>Chép liên kết</button>
+        <button type="button" class="btn btn-ghost" data-uh-share-zalo>Chia sẻ Zalo</button>
+        <button type="button" class="btn btn-ghost" data-uh-feedback-open>Góp ý / Báo lỗi</button>
+      </div>
+    </div>
   </div>
   <p class="note">Thư viện vẽ sơ đồ khoảng 3,5 MB, chỉ tải khi bạn mở công cụ này. Sơ đồ vẽ hoàn toàn trên máy của bạn. Cần xem lại cú pháp? Tài liệu Mermaid có ví dụ cho từng loại sơ đồ — gõ "flowchart", "sequenceDiagram", "gantt" hoặc "stateDiagram-v2" ở dòng đầu.</p>
 </div>`;
@@ -113,12 +124,49 @@ export function init(root) {
     }
   }
 
+  // Theme 'base' theo đúng token của web (MẪU 2): màu chính #1747E6,
+  // nền nút #E8EEFF, chữ #1E293B, đường nối #64748B, phông Be Vietnam
+  // Pro. Thẻ kết quả MẪU 2 giữ nền trắng cả ở chế độ tối (màu cố định
+  // như mọi trang MẪU 2) nên dùng 1 bộ token sáng cho cả 2 chế độ.
+  const MM_VARS = {
+    background: 'transparent',
+    primaryColor: '#E8EEFF',
+    primaryBorderColor: '#1747E6',
+    primaryTextColor: '#1E293B',
+    secondaryColor: '#F1F5F9',
+    tertiaryColor: '#FFFFFF',
+    lineColor: '#64748B',
+    textColor: '#1E293B',
+    titleColor: '#1E293B',
+    fontFamily: "'Be Vietnam Pro', 'Inter', system-ui, sans-serif",
+    edgeLabelBackground: '#FFFFFF',
+    clusterBkg: '#F8FAFC',
+    clusterBorder: '#CBD5E1',
+    actorBkg: '#E8EEFF',
+    actorBorder: '#1747E6',
+    actorTextColor: '#1E293B',
+    actorLineColor: '#64748B',
+    signalColor: '#1E293B',
+    signalTextColor: '#1E293B',
+    labelTextColor: '#1E293B',
+    noteBkgColor: '#FEF3C7',
+    noteTextColor: '#1E293B',
+    sectionBkgColor: '#E8EEFF',
+    sectionBkgColor2: '#F1F5F9',
+    taskBkgColor: '#1747E6',
+    taskTextColor: '#FFFFFF',
+    taskTextOutsideColor: '#1E293B',
+    activeTaskBkgColor: '#F59E0B',
+    doneTaskBkgColor: '#94A3B8',
+    gridColor: '#CBD5E1',
+    todayLineColor: '#F59E0B'
+  };
   if (typeof window.mermaid !== 'undefined') {
     // htmlLabels:false (cấu hình TOÀN CỤC, v11 đã bỏ flowchart.htmlLabels)
     // — vẽ nhãn bằng chữ SVG thay vì khối HTML (foreignObject): nếu không,
     // ảnh SVG không nạp được vào thẻ <img> nên không xuất được PNG
     // (trình duyệt chặn vì lý do an toàn).
-    try { window.mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'strict', htmlLabels: false }); } catch (e) {}
+    try { window.mermaid.initialize({ startOnLoad: false, theme: 'base', themeVariables: MM_VARS, securityLevel: 'strict', htmlLabels: false }); } catch (e) {}
   }
   let t = null;
   codeEl.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 500); });

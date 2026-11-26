@@ -14,23 +14,32 @@ export const meta = {
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head"><span>🏷️</span><div><h2>Tạo mã vạch (barcode)</h2><p class="muted">Gõ nội dung, mã vạch vẽ ngay — tải PNG hoặc SVG về in tem, dán nhãn.</p></div></div>
-  <div class="grid-2">
-    <div class="field"><label for="tmv-text">Nội dung mã vạch</label><input id="tmv-text" type="text" value="8938500000000" maxlength="200" autocomplete="off" placeholder="Ví dụ: 8938500000000"></div>
-    <div class="field"><label for="tmv-format">Chuẩn mã vạch</label><select id="tmv-format"><option value="CODE128" selected>CODE128 — dùng chung</option><option value="CODE39">CODE39 — chữ hoa và số</option><option value="EAN13">EAN-13 — mã sản phẩm 13 số</option><option value="UPC">UPC-A — mã sản phẩm 12 số</option></select></div>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="field"><label for="tmv-text">Nội dung mã vạch</label><input id="tmv-text" type="text" value="8938500000000" maxlength="200" autocomplete="off" placeholder="Ví dụ: 8938500000000"></div>
+        <div class="field"><label for="tmv-format">Chuẩn mã vạch</label><select id="tmv-format"><option value="CODE128" selected>CODE128 — dùng chung</option><option value="CODE39">CODE39 — chữ hoa và số</option><option value="EAN13">EAN-13 — mã sản phẩm 13 số</option><option value="UPC">UPC-A — mã sản phẩm 12 số</option></select></div>
+        <p class="muted small" id="tmv-hint">Chữ và số bất kỳ (tối đa 200 ký tự).</p>
+        <div class="field"><label for="tmv-height">Chiều cao mã vạch</label><select id="tmv-height"><option value="60">Thấp — 60 px</option><option value="100" selected>Vừa — 100 px</option><option value="150">Cao — 150 px</option></select></div>
+      </div>
+    </div>
+    <div class="m2-result-card">
+      <p class="m2-result-label">Kết quả</p>
+      <div id="tmv-out"></div>
+      <div class="result" id="tmv-wrap" hidden>
+        <svg id="tmv-svg" role="img" aria-label="Mã vạch"></svg>
+      </div>
+      <div class="m2-result-actions" id="tmv-dl" hidden>
+        <button type="button" class="btn btn-primary" id="tmv-dl-png">Tải ảnh PNG</button>
+        <button type="button" class="btn btn-ghost" id="tmv-dl-svg">Tải file SVG</button>
+        <button type="button" class="btn btn-ghost" data-uh-share-copy>Chép liên kết</button>
+        <button type="button" class="btn btn-ghost" data-uh-share-zalo>Chia sẻ Zalo</button>
+        <button type="button" class="btn btn-ghost" data-uh-feedback-open>Góp ý / Báo lỗi</button>
+      </div>
+      <canvas id="tmv-canvas" style="display:none"></canvas>
+    </div>
   </div>
-  <p class="muted small" id="tmv-hint">Chữ và số bất kỳ (tối đa 200 ký tự).</p>
-  <div class="field"><label for="tmv-height">Chiều cao mã vạch</label><select id="tmv-height"><option value="60">Thấp — 60 px</option><option value="100" selected>Vừa — 100 px</option><option value="150">Cao — 150 px</option></select></div>
-  <div id="tmv-out"></div>
-  <div class="result" id="tmv-wrap" hidden>
-    <svg id="tmv-svg" role="img" aria-label="Mã vạch"></svg>
-  </div>
-  <div id="tmv-dl" hidden>
-    <button type="button" class="btn btn-primary" id="tmv-dl-png">Tải ảnh PNG</button>
-    <button type="button" class="btn btn-ghost" id="tmv-dl-svg">Tải file SVG</button>
-  </div>
-  <canvas id="tmv-canvas" style="display:none"></canvas>
   <p class="note">CODE128 dùng cho hầu hết mọi việc (mã hàng, mã đơn, mã kho). EAN-13 là chuẩn mã sản phẩm bán lẻ ở Việt Nam (đầu 893); UPC-A là chuẩn bán lẻ ở Mỹ. Mã vạch vẽ hoàn toàn trên máy của bạn, không gửi nội dung đi đâu.</p>
 </div>`;
 }

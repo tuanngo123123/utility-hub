@@ -322,6 +322,14 @@ const M2_SLUGS = new Set([
   'tien-dien-bac-thang', 'lai-vay', 'luong-thang-13', 'tro-cap-thoi-viec-bhtn',
   'quyet-toan-thue-tncn-2026', 'diem-xet-tuyen-dai-hoc', 'tien-thai-san-bhxh', 'thue-ho-kinh-doanh',
   'thue-phi-mua-ban-nha-dat', 'tao-bao-gia-nhanh',
+  // 5 công cụ mới 26/11 — khung MẪU 2 (đồng bộ giao diện): trang nhận
+  // wrapper .m2-page (token --m2-*) + đầu trang M2; hệ quả kèm theo:
+  // script công thức tiền 17KB (chỉ định nghĩa window.M2_CALC, không
+  // chạy gì) và mất hàng Chia sẻ/Góp ý khung — bù bằng nút "Chép liên
+  // kết"/"Chia sẻ Zalo"/"Góp ý / Báo lỗi" trong thẻ kết quả mỗi công cụ
+  // (tool-state.js bắt nút chia sẻ bằng thuộc tính, không giới hạn
+  // trong hàng khung).
+  'tach-nen-anh', 'tao-ma-vach', 've-so-do', 'so-sanh-van-ban', 'dinh-dang-code',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;

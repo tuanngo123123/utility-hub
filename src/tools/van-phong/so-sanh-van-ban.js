@@ -23,22 +23,33 @@ Chiều về nhà nấu cơm ngon.`;
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head"><span>📝</span><div><h2>So sánh 2 văn bản</h2><p class="muted">Dán bản cũ và bản mới — chỗ khác nhau tô màu ngay khi bạn gõ.</p></div></div>
-  <div class="grid-2">
-    <div class="field"><label for="ssvb-old">Văn bản cũ</label><textarea id="ssvb-old" rows="8" placeholder="Dán văn bản cũ vào đây…">${EX_OLD}</textarea></div>
-    <div class="field"><label for="ssvb-new">Văn bản mới</label><textarea id="ssvb-new" rows="8" placeholder="Dán văn bản mới vào đây…">${EX_NEW}</textarea></div>
-  </div>
-  <div class="grid-3" id="ssvb-stats">
-    <div class="stat"><div class="stat-num" id="ssvb-add-lines">0</div><div class="stat-label">Dòng thêm</div></div>
-    <div class="stat"><div class="stat-num" id="ssvb-del-lines">0</div><div class="stat-label">Dòng xóa</div></div>
-    <div class="stat"><div class="stat-num" id="ssvb-same-lines">0</div><div class="stat-label">Dòng giữ nguyên</div></div>
-  </div>
-  <div class="result"><div class="ssvb-diff" id="ssvb-out" aria-live="polite"></div></div>
-  <div class="result-actions">
-    <button type="button" class="btn btn-primary" id="ssvb-copy">Chép kết quả</button>
-    <button type="button" class="btn btn-ghost" id="ssvb-swap">Đổi chỗ 2 văn bản</button>
-    <button type="button" class="btn btn-ghost" id="ssvb-clear">Xóa hết</button>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="grid-2">
+          <div class="field"><label for="ssvb-old">Văn bản cũ</label><textarea id="ssvb-old" rows="8" placeholder="Dán văn bản cũ vào đây…">${EX_OLD}</textarea></div>
+          <div class="field"><label for="ssvb-new">Văn bản mới</label><textarea id="ssvb-new" rows="8" placeholder="Dán văn bản mới vào đây…">${EX_NEW}</textarea></div>
+        </div>
+      </div>
+    </div>
+    <div class="m2-result-card">
+      <p class="m2-result-label">Kết quả</p>
+      <div class="grid-3" id="ssvb-stats">
+        <div class="stat"><div class="stat-num" id="ssvb-add-lines">0</div><div class="stat-label">Dòng thêm</div></div>
+        <div class="stat"><div class="stat-num" id="ssvb-del-lines">0</div><div class="stat-label">Dòng xóa</div></div>
+        <div class="stat"><div class="stat-num" id="ssvb-same-lines">0</div><div class="stat-label">Dòng giữ nguyên</div></div>
+      </div>
+      <div class="result"><div class="ssvb-diff" id="ssvb-out" aria-live="polite"></div></div>
+      <div class="m2-result-actions">
+        <button type="button" class="btn btn-primary" id="ssvb-copy">Chép kết quả</button>
+        <button type="button" class="btn btn-ghost" id="ssvb-swap">Đổi chỗ 2 văn bản</button>
+        <button type="button" class="btn btn-ghost" id="ssvb-clear">Xóa hết</button>
+        <button type="button" class="btn btn-ghost" data-uh-share-copy>Chép liên kết</button>
+        <button type="button" class="btn btn-ghost" data-uh-share-zalo>Chia sẻ Zalo</button>
+        <button type="button" class="btn btn-ghost" data-uh-feedback-open>Góp ý / Báo lỗi</button>
+      </div>
+    </div>
   </div>
   <p class="note">Chỗ thêm tô nền xanh lá, chỗ xóa tô nền đỏ gạch ngang, chỗ giữ nguyên màu xám. Văn bản chỉ so sánh trên máy của bạn, không gửi đi đâu. Văn bản rất dài (trên 100.000 ký tự) có thể so sánh chậm hơn một chút.</p>
 </div>`;

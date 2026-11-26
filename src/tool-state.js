@@ -255,60 +255,67 @@
   // chép URL hiện tại (đã chứa số liệu đang nhập nhờ đồng bộ URL);
   // "Chia sẻ Zalo" dùng Web Share API nếu có (điện thoại: mở bảng chia
   // sẻ của máy, có Zalo nếu đã cài), không thì mở link zalo.me/share.
-  // Hàng này chỉ có trên trang công cụ KHÔNG phải MẪU 2 (build sinh) —
-  // không có hàng thì bỏ qua. Dùng window.UH.copyText/UH.toast khi có
+  // Nút chia sẻ có thể nằm trong hàng chia sẻ khung (trang KHÔNG phải
+  // MẪU 2, build sinh) hoặc trong thẻ kết quả (trang MẪU 2, nút nằm
+  // trong .m2-result-actions) — bắt cả hai bằng thuộc tính, không
+  // giới hạn trong hàng. Dùng window.UH.copyText/UH.toast khi có
   // (app.js nạp trước file này), không thì tự chép + đổi chữ nút.
   function setupShareRow() {
-    var row = document.querySelector('[data-uh-share-row]');
-    if (!row) return;
-    var copyBtn = row.querySelector('[data-uh-share-copy]');
-    var zaloBtn = row.querySelector('[data-uh-share-zalo]');
+    var copyBtns = document.querySelectorAll('[data-uh-share-copy]');
+    var zaloBtns = document.querySelectorAll('[data-uh-share-zalo]');
+    if (copyBtns.length === 0 && zaloBtns.length === 0) return;
     function flash(btn, text) {
       if (!btn) return;
       var old = btn.textContent;
       btn.textContent = text;
       setTimeout(function () { btn.textContent = old; }, 2000);
     }
-    if (copyBtn) copyBtn.addEventListener('click', function () {
-      var url = window.location.href;
-      var uh = (typeof window !== 'undefined') ? window.UH : null;
-      function done(ok) {
-        if (ok) {
-          if (uh && uh.toast) uh.toast('Đã chép liên kết');
-          else flash(copyBtn, 'Đã chép');
-        } else if (uh && uh.toast) {
-          uh.toast('Không chép được — hãy chép tay');
-        } else {
-          flash(copyBtn, 'Không chép được');
+    function wireCopy(btn) {
+      btn.addEventListener('click', function () {
+        var url = window.location.href;
+        var uh = (typeof window !== 'undefined') ? window.UH : null;
+        function done(ok) {
+          if (ok) {
+            if (uh && uh.toast) uh.toast('Đã chép liên kết');
+            else flash(btn, 'Đã chép');
+          } else if (uh && uh.toast) {
+            uh.toast('Không chép được — hãy chép tay');
+          } else {
+            flash(btn, 'Không chép được');
+          }
         }
-      }
-      if (uh && uh.copyText) {
-        uh.copyText(url).then(done);
-      } else if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
-      } else {
-        // Dự phòng khi không có Clipboard API: ô textarea tạm.
-        var ta = document.createElement('textarea');
-        ta.value = url;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        var ok = false;
-        try { ok = document.execCommand('copy'); } catch (e) { /* bỏ qua */ }
-        document.body.removeChild(ta);
-        done(ok);
-      }
-    });
-    if (zaloBtn) zaloBtn.addEventListener('click', function () {
-      var url = window.location.href;
-      var title = document.title || '';
-      if (typeof navigator !== 'undefined' && navigator.share) {
-        navigator.share({ title: title, text: title, url: url }).catch(function () { /* người dùng hủy chia sẻ */ });
-      } else if (typeof window !== 'undefined') {
-        window.open('https://zalo.me/share?url=' + encodeURIComponent(url), '_blank', 'noopener');
-      }
-    });
+        if (uh && uh.copyText) {
+          uh.copyText(url).then(done);
+        } else if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { done(true); }, function () { done(false); });
+        } else {
+          // Dự phòng khi không có Clipboard API: ô textarea tạm.
+          var ta = document.createElement('textarea');
+          ta.value = url;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          var ok = false;
+          try { ok = document.execCommand('copy'); } catch (e) { /* bỏ qua */ }
+          document.body.removeChild(ta);
+          done(ok);
+        }
+      });
+    }
+    function wireZalo(btn) {
+      btn.addEventListener('click', function () {
+        var url = window.location.href;
+        var title = document.title || '';
+        if (typeof navigator !== 'undefined' && navigator.share) {
+          navigator.share({ title: title, text: title, url: url }).catch(function () { /* người dùng hủy chia sẻ */ });
+        } else if (typeof window !== 'undefined') {
+          window.open('https://zalo.me/share?url=' + encodeURIComponent(url), '_blank', 'noopener');
+        }
+      });
+    }
+    for (var i = 0; i < copyBtns.length; i++) wireCopy(copyBtns[i]);
+    for (var j = 0; j < zaloBtns.length; j++) wireZalo(zaloBtns[j]);
   }
 
   // Hộp thoại "Báo sai số liệu" (xem chú thích đầu file, mục 4).

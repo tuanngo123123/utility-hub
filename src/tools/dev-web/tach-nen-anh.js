@@ -17,16 +17,31 @@ export const meta = {
 
 export function body() {
   return `
-<div class="tool-panel">
-  <div class="tool-head"><span>✂️</span><div><h2>Tách nền ảnh: xóa nền, giữ chủ thể</h2><p class="muted">Chọn ảnh, bấm tách nền, tải ảnh PNG nền trong suốt về — mô hình AI chạy ngay trên trình duyệt của bạn.</p></div></div>
-  <p class="note">🔒 Ảnh chỉ được xử lý trên máy của bạn (mô hình AI chạy trong trình duyệt), KHÔNG tải lên máy chủ nào. Lần đầu dùng: trình duyệt tải bộ xử lý AI khoảng 14,9 MB + mô hình khoảng 4,6 MB — chỉ tải 1 lần, những lần sau mở ra dùng ngay. Giới hạn: file tối đa 20 MB; ảnh quá lớn (cạnh dài trên 2000 px) thì kết quả thu về tối đa 2000 px.</p>
-  <div class="field"><label for="tna-file">Chọn ảnh (PNG, JPG, WebP…)</label><input id="tna-file" type="file" accept="image/*"><p class="hint">Hoặc kéo-thả ảnh vào khung công cụ này.</p></div>
-  <div id="tna-info"></div>
-  <div id="tna-preview-wrap" style="display:none"><canvas id="tna-preview"></canvas></div>
-  <div class="btn-row"><button type="button" class="btn btn-primary" id="tna-go" disabled>Tách nền</button><button type="button" class="btn btn-ghost" id="tna-clear">Chọn ảnh khác</button></div>
-  <div id="tna-progress-wrap" style="display:none"><p class="muted small" id="tna-status"></p><div class="progress-bar"><div class="progress-fill" id="tna-fill"></div></div></div>
-  <div id="tna-status-err"></div>
-  <div id="tna-out"></div>
+<div class="tool-panel m2-tool" data-uh-no-reset>
+  <div class="m2-layout">
+    <div class="m2-input-card">
+      <div class="m2-input-top">
+        <div class="field">
+          <label>Chọn ảnh (PNG, JPG, WebP…)</label>
+          <input id="tna-file" type="file" accept="image/*" hidden>
+          <div class="btn-row"><button type="button" class="btn btn-primary" id="tna-pick">Chọn ảnh</button></div>
+          <p class="hint">Chưa chọn ảnh nào. Hoặc kéo-thả ảnh vào khung công cụ này.</p>
+        </div>
+        <div id="tna-info"></div>
+        <div class="btn-row"><button type="button" class="btn btn-primary" id="tna-go" disabled>Tách nền</button><button type="button" class="btn btn-ghost" id="tna-clear">Chọn ảnh khác</button></div>
+        <div id="tna-progress-wrap" style="display:none"><p class="muted small" id="tna-status"></p><div class="progress-bar"><div class="progress-fill" id="tna-fill"></div></div></div>
+        <div id="tna-status-err"></div>
+      </div>
+    </div>
+    <div class="m2-result-card">
+      <p class="m2-result-label">Kết quả</p>
+      <p class="muted" id="tna-empty">Chọn ảnh rồi bấm Tách nền — ảnh đã tách nền sẽ hiện ở đây.</p>
+      <div class="result" id="tna-orig-wrap" style="display:none"><p class="muted small">Ảnh gốc</p><img id="tna-orig-img" alt="Ảnh gốc"></div>
+      <div class="result" id="tna-preview-wrap" style="display:none"><p class="muted small">Ảnh đã tách nền</p><canvas id="tna-preview"></canvas></div>
+      <div id="tna-out"></div>
+    </div>
+  </div>
+  <p class="note">Ảnh chỉ được xử lý trên máy của bạn (mô hình AI chạy trong trình duyệt), KHÔNG tải lên máy chủ nào. Lần đầu dùng: trình duyệt tải bộ xử lý AI khoảng 14,9 MB + mô hình khoảng 4,6 MB — chỉ tải 1 lần, những lần sau mở ra dùng ngay. Giới hạn: file tối đa 20 MB; ảnh quá lớn (cạnh dài trên 2000 px) thì kết quả thu về tối đa 2000 px.</p>
 </div>`;
 }
 
@@ -106,6 +121,9 @@ export function init(root) {
         origW = im.naturalWidth; origH = im.naturalHeight;
         $('tna-info').innerHTML = '<div class="result"><div class="result-row"><span>Ảnh gốc</span><strong>' +
           escHtml(file.name) + ' — ' + origW + ' × ' + origH + ' px, ' + fmtBytes(file.size) + '</strong></div></div>';
+        $('tna-orig-img').src = reader.result;
+        $('tna-orig-wrap').style.display = '';
+        $('tna-empty').style.display = 'none';
         $('tna-preview-wrap').style.display = 'none';
         $('tna-out').innerHTML = '';
         $('tna-go').disabled = false;
@@ -117,6 +135,9 @@ export function init(root) {
     reader.readAsDataURL(file);
   }
 
+  // Nút "Chọn ảnh" mở hộp chọn file (ô input thật đã ẩn để khỏi hiện
+  // nút mặc định của trình duyệt, vốn hiện bằng tiếng Anh).
+  $('tna-pick').addEventListener('click', function () { $('tna-file').click(); });
   $('tna-file').addEventListener('change', function () {
     const f = ($('tna-file').files || [])[0];
     $('tna-file').value = '';
@@ -134,6 +155,8 @@ export function init(root) {
     img = null; resultCanvas = null;
     if (resultURL) { URL.revokeObjectURL(resultURL); resultURL = null; }
     $('tna-info').innerHTML = '';
+    $('tna-orig-wrap').style.display = 'none';
+    $('tna-empty').style.display = '';
     $('tna-preview-wrap').style.display = 'none';
     $('tna-out').innerHTML = '';
     hideProgress();
@@ -259,7 +282,7 @@ export function init(root) {
       const fname = origName + '-tach-nen.png';
       $('tna-out').innerHTML = '<div class="result">' +
         '<div class="result-row"><span>Ảnh đã tách nền</span><strong>' + outW + ' × ' + outH + ' px — nền trong suốt (PNG)</strong></div></div>' +
-        '<div class="btn-row"><button type="button" class="btn btn-primary" id="tna-dl">Tải ảnh PNG (' + fname + ')</button></div>';
+        '<div class="m2-result-actions"><button type="button" class="btn btn-primary" id="tna-dl">Tải ảnh PNG (' + fname + ')</button><button type="button" class="btn btn-ghost" data-uh-share-copy>Chép liên kết</button><button type="button" class="btn btn-ghost" data-uh-share-zalo>Chia sẻ Zalo</button><button type="button" class="btn btn-ghost" data-uh-feedback-open>Góp ý / Báo lỗi</button></div>';
       $('tna-dl').addEventListener('click', function () {
         resultCanvas.toBlob(function (blob) {
           if (!blob) { toast('Không tạo được file PNG.'); return; }
@@ -269,6 +292,27 @@ export function init(root) {
           a.href = resultURL; a.download = fname; a.click();
           toast('Đã tải ảnh PNG nền trong suốt.');
         }, 'image/png');
+      });
+      // Nút "Chép liên kết"/"Chia sẻ Zalo" trong thẻ kết quả: phải bắt
+      // sự kiện tại đây, vì khối này chỉ sinh ra sau khi tách xong —
+      // tool-state.js chạy trước lúc đó nên không bắt được (xem ghi chú
+      // ở setupShareRow). Logic chép/chia sẻ giống hàng chia sẻ khung.
+      const tnaCopy = root.querySelector('[data-uh-share-copy]');
+      if (tnaCopy) tnaCopy.addEventListener('click', function () {
+        const url = window.location.href;
+        const p = (U.copyText) ? U.copyText(url) : null;
+        if (p && p.then) p.then(function (ok) { toast(ok ? 'Đã chép liên kết' : 'Không chép được — hãy chép tay'); });
+        else if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { toast('Đã chép liên kết'); }, function () { toast('Không chép được — hãy chép tay'); });
+      });
+      const tnaZalo = root.querySelector('[data-uh-share-zalo]');
+      if (tnaZalo) tnaZalo.addEventListener('click', function () {
+        const url = window.location.href;
+        const title = document.title || '';
+        if (typeof navigator !== 'undefined' && navigator.share) {
+          navigator.share({ title: title, text: title, url: url }).catch(function () { /* người dùng hủy chia sẻ */ });
+        } else if (typeof window !== 'undefined') {
+          window.open('https://zalo.me/share?url=' + encodeURIComponent(url), '_blank', 'noopener');
+        }
       });
       hideProgress();
       toast('Đã tách nền xong.');
