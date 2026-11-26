@@ -45,6 +45,10 @@ ${groupsHtml}
   <section class="section">
     <h1 class="page-title">Tất cả công cụ</h1>
     <p class="muted">${tools.length} công cụ miễn phí, chia theo nhóm. Gõ để lọc ngay.</p>
+    <section class="fav-section" id="fav-tools" aria-label="Công cụ yêu thích" hidden>
+      <h2 class="cat-group-title">Yêu thích <span class="cat-group-count" id="fav-count"></span></h2>
+      <div class="cat-rows" id="fav-grid"></div>
+    </section>
     <div class="cat-filter-sticky">
       <div class="cat-filter-wrap">
         <svg class="cat-filter-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>

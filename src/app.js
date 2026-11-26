@@ -809,6 +809,7 @@
   // 19/11 khi sửa Bàn giáo viên). visitedMigrated cũng ở đây để lần
   // migration đầu tiên không bị var gán lại false sau đó.
   var VISITED_KEY = 'uh_visited_tools';
+  var FAV_KEY = 'uh_favorite_tools';
   var visitedMigrated = false;
 
   onReady(function () {
@@ -822,6 +823,7 @@
     readVisited();
     recordToolVisit();
     initRecentTools();
+    initFavorites();
     initCardDemos();
     initToolSound();
     initEasterEgg();
@@ -1486,7 +1488,7 @@
     var groupsWrap = $('#tool-groups');
     if (!input || !groupsWrap) return;
     var groups = $all('.cat-group', groupsWrap);
-    var rows = $all('.tool-row', groupsWrap);
+    var rows = $all('.tool-row-wrap', groupsWrap);
     var empty = $('#tool-empty');
     var emptyQ = $('#tool-empty-q');
     var suggestLink = $('#tool-suggest-link');
@@ -1522,8 +1524,12 @@
         (row.getAttribute('data-keywords') || '')
       );
       row._origOrder = i;
-      var m = (row.getAttribute('href') || '').match(/\/cong-cu\/([^/]+)\//);
-      row._slug = m ? m[1] : '';
+      row._slug = row.getAttribute('data-slug') || '';
+      if (!row._slug) {
+        var link = row.querySelector('a[href]');
+        var m = link ? (link.getAttribute('href') || '').match(/\/cong-cu\/([^/]+)\//) : null;
+        row._slug = m ? m[1] : '';
+      }
     });
 
     // Đếm ẩn danh từ khóa không ra kết quả (chỉ đếm từ khóa): mỗi từ khóa
@@ -1568,7 +1574,7 @@
         groups.forEach(function (g) {
           var box = g.querySelector('.cat-rows');
           if (!box) return;
-          var visible = $all('.tool-row', box).filter(function (r) { return r.style.display !== 'none'; });
+          var visible = $all('.tool-row-wrap', box).filter(function (r) { return r.style.display !== 'none'; });
           visible.sort(function (a, b) { return order[a._slug] - order[b._slug]; });
           visible.forEach(function (r) { box.appendChild(r); });
         });
@@ -1579,7 +1585,7 @@
           groups.forEach(function (g) {
             var box = g.querySelector('.cat-rows');
             if (!box) return;
-            $all('.tool-row', box).slice().sort(function (a, b) { return a._origOrder - b._origOrder; })
+            $all('.tool-row-wrap', box).slice().sort(function (a, b) { return a._origOrder - b._origOrder; })
               .forEach(function (r) { box.appendChild(r); });
           });
         }
@@ -1593,7 +1599,7 @@
       }
       // Ẩn nhóm không còn dòng nào.
       groups.forEach(function (g) {
-        var any = $all('.tool-row', g).some(function (r) { return r.style.display !== 'none'; });
+        var any = $all('.tool-row-wrap', g).some(function (r) { return r.style.display !== 'none'; });
         g.style.display = any ? '' : 'none';
       });
       // Không tìm thấy: hiện "Chưa có công cụ …" + link gợi ý (mailto
@@ -1900,6 +1906,90 @@
     }
     if (searchIndexData) render(searchIndexData.tools);
     else loadSearchIndex().then(function (idx) { if (idx) render(idx.tools); });
+  }
+
+  /* Mục "Yêu thích" trang /cong-cu/ (26/11): nút sao trên mỗi dòng lưu
+     slug vào uh_favorite_tools (chỉ tên công cụ, không lưu nội dung
+     nhập); mục Yêu thích hiện đầu trang khi có ít nhất 1 công cụ, ẩn
+     khi đang lọc (ô tìm có chữ hoặc chip nhóm khác "Tất cả"). Nút sao
+     nằm ngoài link thẻ nên bấm sao không mở công cụ; trạng thái sao
+     đồng bộ ở cả lưới chính lẫn mục Yêu thích. */
+  function readFavorites() {
+    try {
+      var arr = JSON.parse(localStorage.getItem(FAV_KEY) || '[]');
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+  }
+  function writeFavorites(arr) {
+    try { localStorage.setItem(FAV_KEY, JSON.stringify(arr.slice(0, 200))); } catch (e) { /* bỏ qua */ }
+  }
+  function isFavorite(slug) { return readFavorites().indexOf(slug) !== -1; }
+
+  function filterIsActive() {
+    var input = document.getElementById('tool-search');
+    if (input && input.value.trim()) return true;
+    var chip = document.querySelector('.cat-chip[aria-pressed="true"]');
+    return !!(chip && chip.getAttribute('data-filter') && chip.getAttribute('data-filter') !== 'all');
+  }
+
+  function syncFavStars(slug) {
+    var on = isFavorite(slug);
+    $all('.fav-star[data-fav-slug="' + slug + '"]').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var name = btn.getAttribute('data-fav-name') || '';
+      btn.setAttribute('aria-label', (on ? 'Bỏ ' : 'Lưu ') + name + (on ? ' khỏi yêu thích' : ' vào yêu thích'));
+    });
+  }
+
+  function renderFavorites() {
+    var section = document.getElementById('fav-tools');
+    var grid = document.getElementById('fav-grid');
+    var count = document.getElementById('fav-count');
+    if (!section || !grid) return;
+    var favs = readFavorites();
+    grid.innerHTML = '';
+    var made = 0;
+    favs.forEach(function (slug) {
+      var orig = document.querySelector('#tool-groups .tool-row-wrap[data-slug="' + slug + '"]');
+      if (!orig) return;
+      var clone = orig.cloneNode(true);
+      clone.style.display = '';
+      var btn = clone.querySelector('.fav-star');
+      if (btn) btn.setAttribute('aria-pressed', 'true');
+      grid.appendChild(clone);
+      made++;
+    });
+    if (count) count.textContent = made ? '· ' + made + ' công cụ' : '';
+    section.hidden = made === 0 || filterIsActive();
+  }
+
+  function initFavorites() {
+    if (typeof document === 'undefined') return;
+    var section = document.getElementById('fav-tools');
+    if (!section) return;
+    readFavorites().forEach(function (slug) { syncFavStars(slug); });
+    renderFavorites();
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.fav-star') : null;
+      if (btn) {
+        var slug = btn.getAttribute('data-fav-slug');
+        if (!slug) return;
+        var favs = readFavorites();
+        var at = favs.indexOf(slug);
+        if (at !== -1) favs.splice(at, 1);
+        else favs.unshift(slug);
+        writeFavorites(favs);
+        syncFavStars(slug);
+        renderFavorites();
+        return;
+      }
+      // Lọc thay đổi thì ẩn/hiện lại mục Yêu thích (chạy sau applyFilter).
+      if (e.target && e.target.closest && (e.target.closest('.cat-chip') || e.target.closest('#filter-clear'))) {
+        setTimeout(renderFavorites, 0);
+      }
+    });
+    var input = document.getElementById('tool-search');
+    if (input) input.addEventListener('input', function () { renderFavorites(); });
   }
 
   /* "Thẻ sống" trên mobile (hướng B đợt 1, ý 9): cảm ứng không có hover

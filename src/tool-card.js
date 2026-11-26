@@ -2,6 +2,7 @@
 // cho trang chủ (nổi bật) và trang catalog (/cong-cu/).
 import { categoryLabel, categoryColor, categoryColorDark } from './categories.js';
 import { toolArt } from './tool-art.js';
+import { iconSvg } from './icons.js';
 
 export function esc(value) {
   return String(value ?? '')
@@ -61,10 +62,17 @@ export function toolCard(tool, index) {
 
 // Dòng công cụ gọn trong trang /cong-cu/ (MẪU 4, 19/11/2026): tên đậm +
 // 1 dòng mô tả, không ảnh, không nhãn "Miễn phí". Các thuộc tính data-*
-// để app.js lọc lúc chạy (như toolCard).
+// để app.js lọc lúc chạy (như toolCard). Nút sao "Yêu thích" (26/11):
+// bọc ngoài là .tool-row-wrap (div) giữ data-* + data-slug để lọc;
+// bên trong là link thẻ + nút sao 44px góc phải trên (app.js đồng bộ
+// trạng thái qua data-fav-slug). Nút sao nằm NGOÀI link để bấm sao
+// không mở công cụ và HTML hợp lệ (button không lồng trong a).
 export function toolRow(tool) {
-  return `<a class="tool-row" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc || '')}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
+  return `<div class="tool-row-wrap" data-slug="${esc(tool.slug)}" data-name="${esc(tool.name)}" data-desc="${esc(tool.desc || '')}" data-keywords="${esc(keywordsText(tool))}" data-category="${esc(tool.categorySlug)}">
+  <a class="tool-row" href="/cong-cu/${esc(tool.slug)}/" aria-label="Mở công cụ ${esc(tool.name)}">
   <span class="tool-row-name">${esc(tool.name)}</span>
   <span class="tool-row-desc">${esc(tool.desc || '')}</span>
-</a>`;
+  </a>
+  <button type="button" class="fav-star" data-fav-slug="${esc(tool.slug)}" data-fav-name="${esc(tool.name)}" aria-pressed="false" aria-label="Lưu ${esc(tool.name)} vào yêu thích">${iconSvg('star', 22, 2)}</button>
+</div>`;
 }

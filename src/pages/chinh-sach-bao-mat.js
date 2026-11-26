@@ -21,6 +21,7 @@ export function body() {
     <ul>
       <li><strong>Lựa chọn giao diện sáng/tối</strong> (khóa <code>uh-theme</code>) để trang nhớ sở thích của bạn.</li>
       <li><strong>Danh sách công cụ bạn đã mở</strong> (khóa <code>uh_visited_tools</code>) để hiện hàng "Dùng gần đây" trên trang chủ và gợi ý công cụ bạn chưa thử — chỉ lưu tên công cụ, không lưu nội dung bạn nhập vào công cụ.</li>
+      <li><strong>Công cụ bạn đánh dấu yêu thích</strong> (khóa <code>uh_favorite_tools</code>) để hiện mục "Yêu thích" đầu trang Công cụ — chỉ lưu tên công cụ.</li>
       <li><strong>Dữ liệu bạn tự nhập vào một số công cụ</strong> (danh sách đồ mang theo, sự kiện đếm ngược, kỷ lục luyện cửu chương, số phiên Pomodoro, danh sách lớp và bảng điểm của giáo viên — xem danh mục đầy đủ ở mục 9) để bạn mở lại vẫn còn. Các công cụ tính toán (lương, tiền điện, BMI…) không lưu nội dung bạn nhập.</li>
       <li><strong>Đoạn chat với Chat AI đang dở</strong> (khóa <code>uh_ai_chat_history</code>, bộ nhớ phiên — sessionStorage) để chuyển trang không mất đoạn chat; dữ liệu này mất khi bạn đóng tab.</li>
     </ul>
@@ -49,6 +50,7 @@ export function body() {
     <ul>
       <li><strong>Lựa chọn giao diện sáng/tối</strong> (khóa <code>uh-theme</code>, giá trị <code>dark</code> hoặc <code>light</code>) để trang nhớ sở thích của bạn.</li>
       <li><strong>Công cụ bạn đã mở</strong> (khóa <code>uh_visited_tools</code>): danh sách tên các công cụ bạn đã mở, theo thứ tự dùng gần nhất, tối đa 200 mục — dùng cho hàng "Dùng gần đây" trên trang chủ và nút xúc xắc gợi ý công cụ chưa thử.</li>
+      <li><strong>Công cụ bạn đánh dấu yêu thích</strong> (khóa <code>uh_favorite_tools</code>): danh sách tên các công cụ bạn đã lưu bằng nút sao, mới lưu lên trước, tối đa 200 mục — dùng cho mục "Yêu thích" đầu trang Công cụ.</li>
       <li><strong>Công cụ mở gần nhất bằng nút xúc xắc</strong> (khóa <code>uh_dice_last</code>): tên một công cụ, để nút xúc xắc không gợi ý trùng công cụ vừa mở.</li>
       <li><strong>Danh sách lớp đã lưu</strong> (khóa <code>uh_gv_lop</code>): các lớp học giáo viên tự tạo trong mục Giáo viên (tên lớp và danh sách học sinh, gồm giới tính, đánh dấu sao, vắng mặt và điểm nếu có).</li>
       <li><strong>Lớp đang dùng trong Bàn giáo viên</strong> (khóa <code>uh_gv_lop_active</code>): tên lớp giáo viên đang chọn trong trang Bàn giáo viên, để lần mở sau vào đúng lớp đó.</li>
