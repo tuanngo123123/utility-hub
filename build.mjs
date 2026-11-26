@@ -304,6 +304,10 @@ const TOOL_VENDOR_SCRIPTS = {
   've-so-do': ['mermaid.min.js'], // Mermaid — vẽ sơ đồ từ cú pháp
   'so-sanh-van-ban': ['diff_match_patch.js'], // diff-match-patch — so sánh văn bản
   'dinh-dang-code': ['prettier-standalone.js'], // Prettier standalone — định dạng code (plugin từng ngôn ngữ nạp lúc chạy, xem copyFile)
+  // Đợt 3 công cụ mới (26/11) — chỉ tải khi mở đúng trang công cụ đó.
+  'xem-sua-excel': ['xlsx.full.min.js'], // SheetJS — đọc/ghi Excel/CSV (file đã có sẵn trong repo từ đợt giáo viên)
+  'nen-anh': ['browser-image-compression.js'], // browser-image-compression — nén ảnh
+  'tao-pdf-tu-chu': ['jspdf.umd.min.js'], // jsPDF — tạo PDF từ chữ (phông Việt nạp lúc chạy, xem copyFile)
 };
 
 // MẪU 2 (19/11, Claude duyệt bản thí điểm Lương Gross⇄Net 14:32 19/11
@@ -330,6 +334,8 @@ const M2_SLUGS = new Set([
   // (tool-state.js bắt nút chia sẻ bằng thuộc tính, không giới hạn
   // trong hàng khung).
   'tach-nen-anh', 'tao-ma-vach', 've-so-do', 'so-sanh-van-ban', 'dinh-dang-code',
+  // 3 công cụ mới 26/11 — khung MẪU 2, cùng ghi chú như 5 công cụ trên.
+  'xem-sua-excel', 'nen-anh', 'tao-pdf-tu-chu',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;
@@ -1525,6 +1531,14 @@ async function main() {
   for (const p of ['babel', 'estree', 'typescript', 'postcss', 'html', 'markdown', 'yaml']) {
     copyFile(`vendor/prettier-plugin-${p}.js`, `assets/vendor/prettier-plugin-${p}.js`);
   }
+  // Đợt 3 công cụ mới (26/11) — chỉ tải khi mở đúng trang công cụ đó.
+  copyFile('vendor/browser-image-compression.js', 'assets/vendor/browser-image-compression.js');
+  copyFile('vendor/jspdf.umd.min.js', 'assets/vendor/jspdf.umd.min.js');
+  // Phông chữ Việt cho jsPDF (tạo PDF từ chữ): jsPDF tự nạp lúc chạy
+  // qua addFont — KHÔNG nạp qua thẻ <script>, chỉ cần copy ra dist.
+  // Phông Be Vietnam Pro (SIL OFL 1.1) — cùng phông web đang dùng.
+  copyFile('vendor/BeVietnamPro-Regular.ttf', 'assets/vendor/BeVietnamPro-Regular.ttf');
+  copyFile('vendor/BeVietnamPro-Bold.ttf', 'assets/vendor/BeVietnamPro-Bold.ttf');
   for (const f of DATA_FILES) copyFile(`data/${f}`, `data/${f}`);
 
   // Chỉ mục tìm kiếm (sinh từ meta công cụ + bảng đồng nghĩa).

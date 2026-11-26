@@ -50,9 +50,19 @@ export function body() {
       </div>
       <div class="about-lib">
         <h3>SheetJS Community Edition</h3>
-        <p>Đọc file Excel (.xlsx) khi nhập danh sách lớp ở Bàn giáo viên — chỉ tải về khi bạn chọn file .xlsx.</p>
+        <p>Đọc/ghi file Excel (.xlsx) và CSV — công cụ Xem và sửa file Excel, nhập danh sách lớp ở Bàn giáo viên, xuất Excel ở Sổ điểm và Bảng điểm. Chỉ tải về khi bạn mở công cụ dùng tới nó.</p>
         <p>© SheetJS LLC.</p>
         <span class="about-license">Apache-2.0</span>
+      </div>
+      <div class="about-lib">
+        <h3>browser-image-compression 2.0.2</h3>
+        <p>Nén ảnh JPG, PNG, WebP ngay trên trình duyệt (công cụ Nén ảnh) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">MIT</span>
+      </div>
+      <div class="about-lib">
+        <h3>jsPDF 4.2.1</h3>
+        <p>Tạo file PDF khổ A4 từ văn bản tiếng Việt (công cụ Tạo file PDF từ chữ) — chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">MIT</span>
       </div>
       <div class="about-lib">
         <h3>mammoth</h3>
