@@ -308,6 +308,8 @@ const TOOL_VENDOR_SCRIPTS = {
   'xem-sua-excel': ['xlsx.full.min.js'], // SheetJS — đọc/ghi Excel/CSV (file đã có sẵn trong repo từ đợt giáo viên)
   'nen-anh': ['browser-image-compression.js'], // browser-image-compression — nén ảnh
   'tao-pdf-tu-chu': ['jspdf.umd.min.js'], // jsPDF — tạo PDF từ chữ (phông Việt nạp lúc chạy, xem copyFile)
+  // Đọc chữ trong ảnh (26/11) — chỉ tải khi mở đúng trang công cụ đó.
+  'doc-chu-trong-anh': ['tesseract/tesseract.min.js'], // Tesseract.js — OCR tiếng Việt (worker/core/dữ liệu nạp lúc chạy, xem copyFile)
 };
 
 // MẪU 2 (19/11, Claude duyệt bản thí điểm Lương Gross⇄Net 14:32 19/11
@@ -336,6 +338,8 @@ const M2_SLUGS = new Set([
   'tach-nen-anh', 'tao-ma-vach', 've-so-do', 'so-sanh-van-ban', 'dinh-dang-code',
   // 3 công cụ mới 26/11 — khung MẪU 2, cùng ghi chú như 5 công cụ trên.
   'xem-sua-excel', 'nen-anh', 'tao-pdf-tu-chu',
+  // Đọc chữ trong ảnh (26/11) — khung MẪU 2, cùng ghi chú như trên.
+  'doc-chu-trong-anh',
 ]);
 const M2_FORMULAS_EXPORT_RE = /^export \{[^}]*\};?\s*$/m;
 let m2FormulasSrc = null;
@@ -1539,6 +1543,18 @@ async function main() {
   // Phông Be Vietnam Pro (SIL OFL 1.1) — cùng phông web đang dùng.
   copyFile('vendor/BeVietnamPro-Regular.ttf', 'assets/vendor/BeVietnamPro-Regular.ttf');
   copyFile('vendor/BeVietnamPro-Bold.ttf', 'assets/vendor/BeVietnamPro-Bold.ttf');
+  // Tesseract.js (đọc chữ trong ảnh): file chính nạp qua thẻ <script>;
+  // worker + lõi + dữ liệu tiếng Việt KHÔNG nạp qua thẻ <script> —
+  // Tesseract.js tự tải lúc chạy khi người dùng bấm "Đọc chữ", chỉ
+  // cần copy ra dist. Lõi có 3 bản LSTM (thường / SIMD / SIMD nới
+  // lỏng) — bộ nhận diện tự chọn bản hợp với trình duyệt; bản không
+  // dùng tới không tải về máy người dùng.
+  copyFile('vendor/tesseract/tesseract.min.js', 'assets/vendor/tesseract/tesseract.min.js');
+  copyFile('vendor/tesseract/worker.min.js', 'assets/vendor/tesseract/worker.min.js');
+  copyFile('vendor/tesseract/core/tesseract-core-lstm.wasm.js', 'assets/vendor/tesseract/core/tesseract-core-lstm.wasm.js');
+  copyFile('vendor/tesseract/core/tesseract-core-simd-lstm.wasm.js', 'assets/vendor/tesseract/core/tesseract-core-simd-lstm.wasm.js');
+  copyFile('vendor/tesseract/core/tesseract-core-relaxedsimd-lstm.wasm.js', 'assets/vendor/tesseract/core/tesseract-core-relaxedsimd-lstm.wasm.js');
+  copyFile('vendor/tesseract/tessdata/vie.traineddata.gz', 'assets/vendor/tesseract/tessdata/vie.traineddata.gz');
   for (const f of DATA_FILES) copyFile(`data/${f}`, `data/${f}`);
 
   // Chỉ mục tìm kiếm (sinh từ meta công cụ + bảng đồng nghĩa).

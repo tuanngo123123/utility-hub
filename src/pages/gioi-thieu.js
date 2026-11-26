@@ -100,6 +100,11 @@ export function body() {
         <span class="about-license">Apache-2.0</span>
       </div>
       <div class="about-lib">
+        <h3>Tesseract.js 7.0.0</h3>
+        <p>Đọc chữ tiếng Việt trong ảnh thành văn bản (công cụ Đọc chữ trong ảnh) — kèm lõi tesseract.js-core 7.0.0 và dữ liệu tiếng Việt 'vie' (tessdata_fast). Chỉ tải về khi bạn mở công cụ này.</p>
+        <span class="about-license">Apache-2.0</span>
+      </div>
+      <div class="about-lib">
         <h3>Phông chữ Inter và Be Vietnam Pro</h3>
         <p>Phông chữ hiển thị toàn web.</p>
         <span class="about-license">SIL Open Font License 1.1</span>
