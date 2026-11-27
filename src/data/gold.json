@@ -1,56 +1,56 @@
 {
-  "updatedAt": "2026-11-26T20:19:44.972Z",
+  "updatedAt": "2026-11-27T02:59:13.913Z",
   "source": "vang.today",
   "sourceUrl": "https://vang.today/api/prices?action=current",
-  "sourceTime": "2026-11-26T19:30:04.000Z",
+  "sourceTime": "2026-11-27T02:30:03.000Z",
   "world": {
-    "priceUsdPerOz": 3566.2,
-    "changeUsd": -9.800000000000182
+    "priceUsdPerOz": 3611.8,
+    "changeUsd": 35.80000000000018
   },
   "items": [
     {
       "code": "BTSJC",
       "name": "Bảo Tín SJC",
       "buy": 128500000,
-      "sell": 134500000,
+      "sell": 134800000,
       "changeBuy": 0,
-      "changeSell": 0,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
       "code": "VNGSJC",
       "name": "VN Gold SJC",
-      "buy": 129500000,
-      "sell": 134500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129800000,
+      "sell": 134800000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
       "code": "DOHNL",
       "name": "DOJI Hà Nội",
-      "buy": 129500000,
-      "sell": 134500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129800000,
+      "sell": 134800000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
       "code": "DOHCML",
       "name": "DOJI TP.HCM",
-      "buy": 129500000,
-      "sell": 134500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129800000,
+      "sell": 134800000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
       "code": "PQHNVM",
       "name": "PNJ Hà Nội",
       "buy": 128800000,
-      "sell": 134500000,
+      "sell": 134800000,
       "changeBuy": 0,
-      "changeSell": 0,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
@@ -65,28 +65,28 @@
     {
       "code": "SJ9999",
       "name": "Nhẫn SJC 9999",
-      "buy": 128300000,
-      "sell": 134300000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 128600000,
+      "sell": 134600000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
       "code": "VIETTINMSJC",
       "name": "ViettinBank SJC",
-      "buy": 129500000,
-      "sell": 134500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129800000,
+      "sell": 134800000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
       "code": "SJL1L10",
       "name": "SJC 9999 (vàng miếng)",
-      "buy": 129500000,
-      "sell": 134500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129800000,
+      "sell": 134800000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
