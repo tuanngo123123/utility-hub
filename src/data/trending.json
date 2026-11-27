@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-26T20:21:01.594Z",
+  "updatedAt": "2026-11-27T08:56:45.961Z",
   "source": "api.github.com",
   "sourceUrl": "https://api.github.com/search/repositories",
   "windowDays": 7,
@@ -8,51 +8,51 @@
       "name": "Marvisak/VIctory",
       "url": "https://github.com/Marvisak/VIctory",
       "description": "An attempt at running GTA VI on PC",
-      "stars": 13232,
+      "stars": 13547,
       "language": "Rust",
-      "purpose": "Cố gắng chạy GTA VI trên PC bằng Rust"
-    },
-    {
-      "name": "xcl-dev/xcl",
-      "url": "https://github.com/xcl-dev/xcl",
-      "description": "Xbox Series compatibility layer for Windows - runs console game code natively, reimplements the console system libraries and recompiles RDNA2 shaders to DXIL",
-      "stars": 8574,
-      "language": "Rust",
-      "purpose": "Lớp tương thích Xbox Series cho Windows, chạy mã game console và biên dịch shader RDNA2 sang DXIL"
+      "purpose": "Dự án thử nghiệm chạy tựa game GTA VI trên máy tính PC."
     },
     {
       "name": "4lwayz/portwatch-vi",
       "url": "https://github.com/4lwayz/portwatch-vi",
       "description": "Does GTA VI run on PC yet? A live tracker of community recompilation and emulation efforts, updated daily.",
-      "stars": 5500,
+      "stars": 6143,
       "language": "JavaScript",
-      "purpose": "Theo dõi trực tiếp tiến trình tái biên dịch và giả lập GTA VI trên PC, cập nhật hàng ngày"
-    },
-    {
-      "name": "AFK-surf/xnulinux",
-      "url": "https://github.com/AFK-surf/xnulinux",
-      "description": "XNU as a loadable kernel module inside Linux (macOS personality for arm64 Linux)",
-      "stars": 4214,
-      "language": "C",
-      "purpose": "XNU làm mô-đun kernel tải được trong Linux, mang tính năng macOS cho arm64 Linux"
+      "purpose": "Trang theo dõi tiến độ giả lập và biên dịch GTA VI trên PC của cộng đồng."
     },
     {
       "name": "EL4CTEO/fast-anything",
       "url": "https://github.com/EL4CTEO/fast-anything",
       "description": "Don't rewrite it in Rust. Rewrite the 5% that's slow: profile Python, Node or Ruby apps, port the hot functions with your coding agent, prove they behave the same.",
-      "stars": 4204,
+      "stars": 4338,
       "language": "Rust",
-      "purpose": "Tối ưu phần mềm Python, Node hoặc Ruby bằng cách viết lại 5% chậm nhất bằng Rust"
+      "purpose": "Công cụ phân tích ứng dụng Python, Node, Ruby và chuyển đổi các hàm chậm sang Rust."
+    },
+    {
+      "name": "Belobug/VIctory-Belobug-AMD",
+      "url": "https://github.com/Belobug/VIctory-Belobug-AMD",
+      "description": "",
+      "stars": 3614,
+      "language": "Rust",
+      "purpose": ""
     },
     {
       "name": "fxceless/victory-fork",
       "url": "https://github.com/fxceless/victory-fork",
       "description": "Work-in-progress fork of VIctory: getting an Xbox Series title to render and run on a Windows PC. No game files.",
-      "stars": 3261,
+      "stars": 3309,
       "language": "Rust",
-      "purpose": "Nhánh đang phát triển của VIctory, cố gắng chạy trò chơi Xbox Series trên Windows PC (không có tệp trò chơi)"
+      "purpose": "Bản fork của VIctory giúp render và chạy các game Xbox Series trên PC Windows."
+    },
+    {
+      "name": "ubiquitarianism/leonida",
+      "url": "https://github.com/ubiquitarianism/leonida",
+      "description": "A continuation of Leonida, the Xbox > PC port interface for GTA VI",
+      "stars": 2568,
+      "language": "Python",
+      "purpose": "Giao diện hỗ trợ chuyển đổi game GTA VI từ Xbox sang máy tính PC."
     }
   ],
   "purposeSummarized": true,
-  "purposeModel": "pollinations-openai"
+  "purposeModel": "gemini-3.5-flash"
 }
