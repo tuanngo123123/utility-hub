@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-27T20:11:20.542Z",
+  "updatedAt": "2026-11-28T08:21:39.020Z",
   "summarized": true,
   "model": "pollinations-openai",
   "groups": {
@@ -59,13 +59,13 @@
         "publishedAt": "Wed, 25 Nov 2026 17:35:58 +0000"
       },
       {
-        "title": "AI shopping agents are having a moment, but Amazon and a growing number of sites threaten to stunt their growth",
-        "titleVi": "Amazon và các nhà bán lẻ cản trở đà phát triển của trợ lý mua sắm AI",
-        "summary": "Các trợ lý mua sắm AI của OpenAI, Meta, Google và Instinct hứa hẹn hỗ trợ người dùng tìm mua sản phẩm, nhưng đang gặp trở ngại từ Amazon và nhiều nhà bán lẻ khác.",
+        "title": "OpenAI Turns the Tables on Apple With Its Own Trade-Secret Theft Claims",
+        "titleVi": "OpenAI cáo buộc Apple chiếm đoạt bí mật thương mại",
+        "summary": "OpenAI đưa ra cáo buộc ngược lại trong tranh chấp Apple khởi xướng hồi tháng 7, nói hãng iPhone lấy bí mật thương mại và gây sức ép với các nhà cung cấp phần cứng chung để gạt OpenAI khỏi cuộc đua thiết bị AI.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/27/ai-shopping-agents-retailer-blocks.html",
-        "source": "CNBC",
-        "publishedAt": "Fri, 27 Nov 2026 16:43:14 GMT"
+        "link": "https://decrypt.co/384222/openai-countersuit-apple-trade-secret-theft-claims",
+        "source": "Decrypt",
+        "publishedAt": "Fri, 27 Nov 2026 21:46:03 +0000"
       }
     ],
     "chung-khoan": [
@@ -79,83 +79,83 @@
         "publishedAt": "Wed, 25 Nov 2026 22:44:32 +0000"
       },
       {
+        "title": "Motley Fool Promo Code: $200 Off on Stock Advisor November 2026",
+        "titleVi": "The Motley Fool giảm 200 USD phí Stock Advisor tháng 11/2026",
+        "summary": "Chương trình khuyến mãi tháng 11/2026 giới thiệu mức giảm 200 USD cho Stock Advisor của The Motley Fool cùng các mã ưu đãi thành viên và gói Epic Bundle.",
+        "why": "",
+        "link": "https://www.wired.com/story/the-motley-fool-promo-code/",
+        "source": "Wired",
+        "publishedAt": "Sat, 28 Nov 2026 06:00:00 +0000"
+      },
+      {
         "title": "The S&P 500 is in a correction. Bear markets and recessions don't always follow",
-        "titleVi": "S&P 500 bước vào đợt điều chỉnh, chưa chắc dẫn tới suy thoái",
-        "summary": "Đợt bán tháo từ tháng 11 đã đẩy S&P 500 vào vùng điều chỉnh. Lịch sử cho thấy diễn biến này không phải lúc nào cũng kéo theo thị trường giá xuống hoặc suy thoái.",
+        "titleVi": "Chỉ số S&P 500 bước vào đợt điều chỉnh giảm trong tháng 11",
+        "summary": "Đợt bán tháo trong tháng 11 đã khiến chỉ số S&P 500 rơi vào vùng điều chỉnh. Dữ liệu lịch sử cho thấy các đợt giảm này không phải lúc nào cũng dẫn tới thị trường gấu hay suy thoái kinh tế.",
         "why": "",
         "link": "https://www.cnbc.com/2026/11/27/the-sp-500-is-in-a-correction-bear-markets-and-recessions-dont-always-follow.html",
         "source": "CNBC",
         "publishedAt": "Fri, 27 Nov 2026 13:21:56 GMT"
       },
       {
-        "title": "SpaceX shares jump over 4% amid tech rally and after Musk says he will expand on Trump Account share donations",
-        "titleVi": "Cổ phiếu SpaceX tăng hơn 4% sau tuyên bố của Elon Musk",
-        "summary": "Cổ phiếu SpaceX tăng hơn 4% trong phiên giao dịch hôm thứ Sáu, giữa đợt tăng của cổ phiếu công nghệ. Elon Musk nói trên X rằng ông sẽ hằng năm tặng cổ phần cho trẻ em Mỹ.",
+        "title": "Africa’s richest man is taking his mega-refinery public in a blockbuster IPO",
+        "titleVi": "Dangote Refinery chuẩn bị IPO với định giá khoảng 47 tỷ USD",
+        "summary": "Công ty Dangote Refinery có kế hoạch phát hành cổ phiếu lần đầu ra công chúng với mức định giá khoảng 47 tỷ USD. Sự kiện này được kỳ vọng trở thành đợt niêm yết cổ phiếu lớn nhất tại châu Phi.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/27/spacex-shares-musk-donations.html",
+        "link": "https://www.cnbc.com/2026/11/28/dangote-refinery-oil-ipo-nigeria-africa-energy.html",
         "source": "CNBC",
-        "publishedAt": "Fri, 27 Nov 2026 18:24:06 GMT"
+        "publishedAt": "Sat, 28 Nov 2026 06:00:01 GMT"
       },
       {
         "title": "Liesman: Why Greenspan could bet on productivity — and Warsh needs to hike",
-        "titleVi": "Vì sao Alan Greenspan giữ lãi suất thấp, còn Kevin Warsh cần tăng?",
-        "summary": "Alan Greenspan từng giữ nguyên lãi suất vì tin vào tiềm năng năng suất từ bùng nổ internet. Bài viết đặt câu hỏi vì sao Kevin Warsh không thể làm tương tự.",
-        "why": "",
+        "titleVi": "Góc nhìn chính sách tiền tệ khác biệt giữa Alan Greenspan và Kevin Warsh",
+        "summary": "Alan Greenspan từng giữ nguyên lãi suất nhờ kỳ vọng vào sự bùng nổ năng suất từ internet. Trong khi đó, nhà kinh tế Kevin Warsh được dự báo phải tăng lãi suất do điều kiện kinh tế hiện tại có những khác biệt lớn.",
+        "why": "Alan Greenspan từng quyết định giữ nguyên lãi suất dựa trên làn sóng tăng năng suất từ internet.",
         "link": "https://www.cnbc.com/2026/11/25/kevin-warsh-greenspan-fed-rates-ai-inflation.html",
         "source": "CNBC",
         "publishedAt": "Wed, 25 Nov 2026 21:56:43 GMT"
       },
       {
         "title": "These stocks soared the most during a wild week highlighted by Huang’s return to Nvidia",
-        "titleVi": "",
-        "summary": "",
-        "why": "",
+        "titleVi": "Cổ phiếu Nvidia tăng mạnh trong tuần, nhưng vẫn giảm gần 28% trong tháng 11",
+        "summary": "Nvidia nằm trong nhóm cổ phiếu tăng mạnh nhất tuần, giữa lúc Jensen Huang trở lại công ty. Dù vậy, cổ phiếu này vẫn giảm gần 28% trong tháng 11 và 21% trong năm 2026.",
+        "why": "Cổ phiếu Nvidia vẫn giảm 21% trong năm 2026.",
         "link": "https://www.marketwatch.com/story/these-stocks-soared-the-most-during-a-wild-week-highlighted-by-huangs-return-to-nvidia-578b3f9a?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Fri, 27 Nov 2026 18:53:00 GMT"
-      },
-      {
-        "title": "The warnings behind this week’s stock-market rally",
-        "titleVi": "",
-        "summary": "",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/the-warnings-behind-this-weeks-stock-market-rally-86e5319c?mod=mw_rss_topstories",
-        "source": "MarketWatch",
-        "publishedAt": "Fri, 27 Nov 2026 18:40:00 GMT"
+        "publishedAt": "Fri, 27 Nov 2026 20:16:00 GMT"
       }
     ],
     "crypto": [
       {
-        "title": "Bitcoin whales pile into BTC despite shrinking profit cushion",
-        "titleVi": "",
-        "summary": "",
+        "title": "Binance receives in-principle approval, plans Asia hub in Bhutan",
+        "titleVi": "Binance được chấp thuận sơ bộ, lên kế hoạch lập trung tâm châu Á tại Bhutan",
+        "summary": "Binance nhận chấp thuận sơ bộ và dự định lập trung tâm châu Á tại Bhutan. Thỏa thuận tiếp nối nỗ lực mở rộng tại nước này sau khi công ty ra mắt hệ thống thanh toán du lịch bằng tiền mã hóa cấp quốc gia năm 2025.",
         "why": "",
-        "link": "https://cointelegraph.com/markets/bitcoin-whales-pile-btc-despite-shrinking-profit-cushion?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/binance-receives-in-principle-approval-plans-asia-hub-in-bhutan?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Fri, 27 Nov 2026 19:23:00 +0000"
+        "publishedAt": "Sat, 28 Nov 2026 07:43:00 +0000"
       },
       {
-        "title": "China sets March 2027 rollout for blockchain identity regulations",
-        "titleVi": "",
-        "summary": "",
+        "title": "Here’s what happened in crypto today",
+        "titleVi": "Điểm tin tiền mã hóa trong ngày",
+        "summary": "Bản tin tổng hợp các diễn biến và xu hướng trong ngày liên quan đến giá Bitcoin, blockchain, DeFi, Web3 và quy định về tiền mã hóa.",
         "why": "",
-        "link": "https://cointelegraph.com/news/china-march-2027-rollout-blockchain-identity-regulations?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/what-happened-in-crypto-today?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Fri, 27 Nov 2026 17:37:23 +0000"
+        "publishedAt": "Fri, 27 Nov 2026 22:12:51 +0000"
       },
       {
-        "title": "Bitcoin price drops below $59K as Anthropic joins tech stock rebound",
-        "titleVi": "",
-        "summary": "",
+        "title": "Franklin Templeton makes room for HYPE in crypto index ETF",
+        "titleVi": "Franklin Templeton bổ sung HYPE vào quỹ ETF chỉ số tiền mã hóa",
+        "summary": "Franklin Templeton đưa HYPE vào quỹ ETF chỉ số tiền mã hóa khi các sản phẩm đầu tư giao ngay tại Mỹ theo dõi token Hyperliquid đạt 266,5 triệu USD tài sản quản lý.",
         "why": "",
-        "link": "https://cointelegraph.com/markets/bitcoin-price-below-59k-anthropic-tech-stock-rebound?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
+        "link": "https://cointelegraph.com/news/franklin-templeton-hype-crypto-index-etf?utm_source=rss_feed&utm_medium=rss&utm_campaign=rss_partner_inbound",
         "source": "CoinTelegraph",
-        "publishedAt": "Fri, 27 Nov 2026 16:48:51 +0000"
+        "publishedAt": "Fri, 27 Nov 2026 21:15:29 +0000"
       },
       {
         "title": "Bitcoin on course to end seven-week losing streak while trailing stock rebound",
-        "titleVi": "",
-        "summary": "",
+        "titleVi": "Bitcoin hướng tới chấm dứt chuỗi giảm bảy tuần, kém đà phục hồi của cổ phiếu",
+        "summary": "Bitcoin tăng 1,8% từ nửa đêm UTC, lên khoảng 61.600 USD, và có thể kết thúc chuỗi bảy tuần giảm liên tiếp; mức tăng vẫn thấp hơn đà phục hồi của cổ phiếu.",
         "why": "",
         "link": "https://www.coindesk.com/markets/2026/11/27/bitcoin-on-course-to-end-seven-week-losing-streak-while-trailing-stock-rebound",
         "source": "CoinDesk",
@@ -163,30 +163,21 @@
       },
       {
         "title": "Live updates: Bitcoin's Thanksgiving gains prove fleeting",
-        "titleVi": "",
-        "summary": "",
-        "why": "",
+        "titleVi": "Giá Bitcoin giảm về sát 60.000 USD dù chứng khoán tăng điểm",
+        "summary": "Dù thị trường chứng khoán tăng điểm trên diện rộng, giá Bitcoin vẫn giảm về sát mốc 60.000 USD. Sự sụt giảm này đã xóa sạch toàn bộ đà tăng của đồng tiền mã hóa trong ngày Lễ Tạ ơn.",
+        "why": "Bitcoin nhanh chóng quay đầu giảm về sát 60.000 USD ngay sau đợt tăng giá dịp Lễ Tạ ơn.",
         "link": "https://www.coindesk.com/tech/2026/11/27/live-news-bitcoin-rebounds-above-usd61-000-as-ai-stocks-lead-premarket-gains",
         "source": "CoinDesk",
         "publishedAt": "Fri, 27 Nov 2026 11:34:37 +0000"
       },
       {
-        "title": "4 Scary Bitcoin Charts That Suggest This Bear Market Is Different",
-        "titleVi": "",
-        "summary": "",
+        "title": "Could AI Break Bitcoin? Not Yet, Research Firm K33 Says",
+        "titleVi": "K33: AI chưa phá được bảo mật của Bitcoin",
+        "summary": "Bản thảo dùng AI hỗ trợ chứng minh Giả thuyết Riemann làm dấy lên lo ngại về nền tảng toán học bảo vệ Bitcoin. Công ty nghiên cứu K33 cho biết chưa có bằng chứng mật mã nào bị phá vỡ.",
         "why": "",
-        "link": "https://decrypt.co/384177/bitcoin-4-scary-charts-crypto-winter-bear-market",
+        "link": "https://decrypt.co/384218/could-ai-break-bitcoin-not-yet-research-firm-k33-says",
         "source": "Decrypt",
-        "publishedAt": "Fri, 27 Nov 2026 19:46:02 +0000"
-      },
-      {
-        "title": "$7 Billion in Bitcoin Options Just Expired: Here’s What It Means",
-        "titleVi": "",
-        "summary": "",
-        "why": "",
-        "link": "https://decrypt.co/384154/7-billion-bitcoin-options-just-expired-what-it-means",
-        "source": "Decrypt",
-        "publishedAt": "Fri, 27 Nov 2026 18:16:03 +0000"
+        "publishedAt": "Fri, 27 Nov 2026 20:46:02 +0000"
       }
     ],
     "thoi-su": [
@@ -219,39 +210,39 @@
       },
       {
         "title": "How cutting-edge prosthetics can help probe the human mind",
-        "titleVi": "Công nghệ chân tay giả tiên tiến hỗ trợ nghiên cứu bộ não con người",
-        "summary": "Các thiết bị chân tay giả thế hệ mới không chỉ hỗ trợ vận động mà còn giúp giới khoa học giải mã cơ chế hoạt động của bộ nào. Trải nghiệm từ những bệnh nhân như Alexander Davidson đang đóng góp trực tiếp vào quá trình phát triển công nghệ này.",
-        "why": "Alexander Davidson vừa là bệnh nhân mang chân tay giả vừa là nhà trị liệu tâm lý tham gia nghiên cứu.",
+        "titleVi": "Chân tay giả giúp nhà nghiên cứu tìm hiểu hoạt động của não bộ",
+        "summary": "Sau tai nạn khiến anh bị liệt và mất bàn tay trái khi còn thiếu niên, Alexander (Avi) Davidson dùng trải nghiệm cá nhân trong công việc trị liệu sang chấn và nghiên cứu chân tay giả.",
+        "why": "",
         "link": "https://www.technologyreview.com/2026/11/27/1149946/cutting-edge-prosthetics-allow-researchers-to-probe-the-human-mind/",
         "source": "MIT Tech Review",
         "publishedAt": "Fri, 27 Nov 2026 10:00:00 +0000"
       },
       {
-        "title": "Best Black Friday AirPods Deals I’ve Found (2026)",
-        "titleVi": "AirPods Pro 3 giảm giá xuống mức thấp kỷ lục dịp Black Friday",
-        "summary": "Dòng tai nghe AirPods Pro 3 của Apple vừa ghi nhận mức giá thấp nhất từ trước đến nay trong đợt khuyến mãi Black Friday. Sự kiện mang tới cơ hội sở hữu thiết bị với chi phí tiết kiệm hơn.",
-        "why": "Tai nghe AirPods Pro 3 giảm xuống mức giá bán thấp nhất từ trước đến nay.",
-        "link": "https://www.wired.com/story/best-black-friday-airpods-deals-11-27-2026/",
-        "source": "Wired",
-        "publishedAt": "Fri, 27 Nov 2026 19:51:43 +0000"
-      },
-      {
-        "title": "Black Friday Deals on Household Essentials and Affordable Toys to Donate",
-        "titleVi": "Nhiều mặt hàng thiết yếu và đồ chơi giảm giá đợt Black Friday",
-        "summary": "Các chương trình ưu đãi dịp Black Friday mở rộng sang cả nhu yếu phẩm như tã lót, khăn giấy cùng nhiều loại đồ chơi. Người tiêu dùng có thể mua sắm đồ dùng hằng ngày hoặc chuẩn bị quà tặng quyên góp cho cộng đồng.",
-        "why": "Các mặt hàng thiết yếu hằng ngày như tã lót và khăn giấy được giảm giá.",
-        "link": "https://www.wired.com/story/black-friday-deals-essentials-11-27-2026/",
-        "source": "Wired",
-        "publishedAt": "Fri, 27 Nov 2026 19:26:33 +0000"
-      },
-      {
-        "title": "Black Friday Mattress Deals: Get Up to 55% Off (2026)",
-        "titleVi": "Đệm và phụ kiện phòng ngủ giảm giá tới 55% dịp Black Friday",
-        "summary": "Nhiều thương hiệu đệm cùng phụ kiện phòng ngủ áp dụng mức ưu đãi lớn dịp Black Friday. Mức giảm giá dành cho các dòng sản phẩm này ghi nhận con số cao nhất lên tới 55%.",
+        "title": "Walmart Promo Codes: 20% Off for November 2026",
+        "titleVi": "Walmart giảm giá đến 65% trong chương trình khuyến mãi tháng 11/2026",
+        "summary": "Mã khuyến mãi Walmart được giới thiệu với ưu đãi giảm 10 USD và một số mặt hàng giảm giá đến 65% trong chương trình tháng 11/2026.",
         "why": "",
-        "link": "https://www.wired.com/story/black-friday-mattress-deals-11-27-2026/",
+        "link": "https://www.wired.com/story/top-walmart-promo-codes/",
         "source": "Wired",
-        "publishedAt": "Fri, 27 Nov 2026 19:07:28 +0000"
+        "publishedAt": "Sat, 28 Nov 2026 06:00:00 +0000"
+      },
+      {
+        "title": "Govee Discount Codes and Deals: 30% Off",
+        "titleVi": "Govee giảm giá đến 30% và tặng phiếu mua hàng cho khách mới",
+        "summary": "Các mã giảm giá và ưu đãi của Govee được giới thiệu với mức giảm đến 30%; khách mua lần đầu được tặng phiếu mua hàng trị giá 5 USD khi đăng ký.",
+        "why": "",
+        "link": "https://www.wired.com/story/govee-discount-code/",
+        "source": "Wired",
+        "publishedAt": "Sat, 28 Nov 2026 06:00:00 +0000"
+      },
+      {
+        "title": "Inflation has shoppers hunting for value. That bodes well for Black Friday",
+        "titleVi": "Người mua săn hàng giá trị, nhà bán lẻ kỳ vọng Black Friday sôi động",
+        "summary": "Trong bối cảnh người tiêu dùng đối mặt với khó khăn kinh tế, nhà bán lẻ kỳ vọng chi tiêu dịp lễ sẽ tăng mạnh trong Black Friday và những ngày sau đó.",
+        "why": "",
+        "link": "https://www.cnbc.com/2026/11/27/black-friday-2026-inflation-value-deals.html",
+        "source": "CNBC",
+        "publishedAt": "Fri, 27 Nov 2026 22:00:57 GMT"
       },
       {
         "title": "Trump demands probe into 'record setting error' after third-quarter GDP data gets massive revision higher",
@@ -263,36 +254,45 @@
         "publishedAt": "Fri, 27 Nov 2026 15:52:00 GMT"
       },
       {
-        "title": "Budget airline Norse Atlantic files for bankruptcy in Europe after failing to secure funding",
-        "titleVi": "Hãng bay giá rẻ Norse Atlantic nộp đơn phá sản tại châu Âu",
-        "summary": "Norse Atlantic nộp đơn phá sản tại châu Âu hôm thứ Sáu, sau khi không huy động được vốn. Hãng cho biết chi phí nhiên liệu tăng cao gây áp lực lên hoạt động.",
+        "title": "Saudi Arabia shifts Vision 2030 spending amid economic and security pressure",
+        "titleVi": "Ả Rập Xê Út thay đổi chính sách chi tiêu cho kế hoạch Vision 2030",
+        "summary": "Ả Rập Xê Út chuyển sang chiến lược tối ưu hóa chi phí thay vì hoàn thành dự án bằng mọi giá trong kế hoạch Vision 2030. Bộ trưởng Kinh tế Faisal Alibrahim xác nhận quyết định này xuất phát từ các áp lực kinh tế và an ninh.",
         "why": "",
-        "link": "https://www.cnbc.com/2026/11/27/norse-atlantic-bankruptcy-fuel-costs.html",
+        "link": "https://www.cnbc.com/2026/11/28/saudi-arabia-vision-2030-spending.html",
         "source": "CNBC",
-        "publishedAt": "Fri, 27 Nov 2026 18:20:32 GMT"
+        "publishedAt": "Sat, 28 Nov 2026 06:00:01 GMT"
       },
       {
-        "title": "Coming next year: Medicare Advantage plans without drug coverage for almost 640,000 people and fewer choices for the rest",
+        "title": "I’m in my 70s and buying a new BMW X1. Should I put my only son on the title?",
         "titleVi": "",
-        "summary": "",
-        "why": "",
-        "link": "https://www.marketwatch.com/story/coming-next-year-medicare-advantage-plans-without-drug-coverage-for-almost-640-000-people-and-fewer-choices-for-the-rest-25242d69?mod=mw_rss_topstories",
+        "summary": "Một độc giả 70 tuổi thắc mắc về việc đứng tên chung chiếc BMW X1 mới mua cùng con trai để thuận tiện thừa kế. Chuyên gia tài chính cảnh báo rủi ro pháp lý và trách nhiệm bồi thường nếu người con gặp sự cố giao thông hoặc nợ nần.",
+        "why": "Việc đứng tên chung ô tô khiến chủ tài sản phải chịu trách nhiệm liên đới nếu người cùng đứng tên gây tai nạn hoặc bị truy thu nợ.",
+        "link": "https://www.marketwatch.com/story/im-in-my-70s-and-buying-a-new-bmw-x1-should-i-put-my-only-son-on-the-title-25731040?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Fri, 27 Nov 2026 19:55:00 GMT"
+        "publishedAt": "Sat, 28 Nov 2026 00:00:00 GMT"
+      },
+      {
+        "title": "I hate that Jensen Huang is back at Nvidia, but I love what it’s done for my 401(k). Am I a hypocrite?",
+        "titleVi": "Jensen Huang trở lại Nvidia, khiến nhà đầu tư băn khoăn về lợi ích trong quỹ hưu trí",
+        "summary": "Một nhà đầu tư nói không thích việc Jensen Huang trở lại Nvidia nhưng hài lòng vì diễn biến này có lợi cho quỹ 401(k) của mình, đồng thời tự hỏi liệu mình có đạo đức giả hay không.",
+        "why": "Người viết cho biết diễn biến quanh Nvidia có lợi cho quỹ 401(k) của mình.",
+        "link": "https://www.marketwatch.com/story/i-hate-that-jensen-huang-is-back-at-nvidia-but-i-love-what-its-done-for-my-401-k-am-i-a-hypocrite-f63c0303?mod=mw_rss_topstories",
+        "source": "MarketWatch",
+        "publishedAt": "Fri, 27 Nov 2026 23:30:00 GMT"
       },
       {
         "title": "Clearing out my parents’ house was a legal nightmare. How can I downsize without putting my kids through the same ordeal?",
-        "titleVi": "",
-        "summary": "",
-        "why": "",
+        "titleVi": "Cách dọn dẹp đồ đạc để tránh gây rắc rối pháp lý cho con cái",
+        "summary": "Tác giả bài viết chia sẻ trải nghiệm vất vả khi dọn dẹp nhà cửa và giải quyết giấy tờ di sản cha mẹ để lại. Bài viết đưa ra các quy tắc giúp tối giản đồ đạc nhằm tránh tạo gánh nặng pháp lý cho thế hệ sau.",
+        "why": "Quá trình phân loại tài sản và giải quyết di sản của cha mẹ có thể trở thành rắc rối pháp lý kéo dài nếu thiếu sự chuẩn bị từ trước.",
         "link": "https://www.marketwatch.com/story/clearing-out-my-parents-house-was-a-legal-nightmare-how-can-i-downsize-without-putting-my-children-through-the-same-ordeal-6537d804?mod=mw_rss_topstories",
         "source": "MarketWatch",
-        "publishedAt": "Fri, 27 Nov 2026 17:31:00 GMT"
+        "publishedAt": "Fri, 27 Nov 2026 23:15:00 GMT"
       },
       {
         "title": "Kalshi turns to small businesses as legal battles threaten forecasts on sports",
-        "titleVi": "",
-        "summary": "",
+        "titleVi": "Kalshi tìm khách hàng doanh nghiệp nhỏ giữa tranh chấp pháp lý về cá cược thể thao",
+        "summary": "Kalshi giới thiệu các dịch vụ bảo vệ doanh nghiệp trước rủi ro thuế quan, thời tiết và những biến động khác, trong lúc các tòa án xem xét quyền cung cấp dự đoán thể thao của nền tảng.",
         "why": "",
         "link": "https://www.coindesk.com/business/2026/11/27/kalshi-turns-to-small-businesses-as-legal-battles-threaten-forecasts-on-sports",
         "source": "CoinDesk",
