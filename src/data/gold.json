@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-11-27T20:24:48.960Z",
+  "updatedAt": "2026-11-28T02:50:17.404Z",
   "source": "vang.today",
   "sourceUrl": "https://vang.today/api/prices?action=current",
-  "sourceTime": "2026-11-27T20:00:04.000Z",
+  "sourceTime": "2026-11-28T01:30:04.000Z",
   "world": {
     "priceUsdPerOz": 3650,
     "changeUsd": 29
@@ -74,19 +74,19 @@
     {
       "code": "PQHNVM",
       "name": "PNJ Hà Nội",
-      "buy": 129500000,
+      "buy": 129800000,
       "sell": 136000000,
-      "changeBuy": 0,
+      "changeBuy": 300000,
       "changeSell": 0,
       "unit": "đồng/lượng"
     },
     {
       "code": "PQHN24NTT",
       "name": "PNJ 24K",
-      "buy": 129500000,
-      "sell": 133500000,
-      "changeBuy": 0,
-      "changeSell": 0,
+      "buy": 129800000,
+      "sell": 133800000,
+      "changeBuy": 300000,
+      "changeSell": 300000,
       "unit": "đồng/lượng"
     },
     {
